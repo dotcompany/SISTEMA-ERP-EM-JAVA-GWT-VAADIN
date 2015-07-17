@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.GrupoProdutoUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.GrupoEntity;
 import dc.model.business.geral.produto.GrupoBusiness;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.GrupoFormView;
 
@@ -86,6 +86,10 @@ public class GrupoFormController extends CRUDFormController<GrupoEntity> {
 	protected void initSubView() {
 		try {
 			this.subView = new GrupoFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(GrupoEntity.class);
+            fieldGroup.bind(this.subView.getTfNome(),"nome");
+            fieldGroup.bind(this.subView.getTfDescricao(),"descricao");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -94,12 +98,11 @@ public class GrupoFormController extends CRUDFormController<GrupoEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			GrupoProdutoUtils.validateRequiredFields(this.subView);
+            // Commit tenta transferir os dados do View para o Model, levando em conta os critérios de validação
+            fieldGroup.commit();
 
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
+		} catch (FieldGroup.CommitException ce) {
 			return false;
 		}
 	}
@@ -107,9 +110,6 @@ public class GrupoFormController extends CRUDFormController<GrupoEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
-
 			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -124,9 +124,9 @@ public class GrupoFormController extends CRUDFormController<GrupoEntity> {
 	protected void carregar(Serializable id) {
 		try {
 			this.entity = this.business.find(id);
+			
+			fieldGroup.setItemDataSource(this.entity);
 
-			this.subView.getTfNome().setValue(this.entity.getNome());
-			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -138,17 +138,8 @@ public class GrupoFormController extends CRUDFormController<GrupoEntity> {
 	protected void criarNovoBean() {
 		try {
 			this.entity = new GrupoEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new GrupoEntity();
+			
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

@@ -21,6 +21,14 @@ public class CboDAO extends AbstractCrudDAO<CboEntity> {
 	public List<CboEntity> listaTodos() {
 		return getSession().createQuery("from CBO").list();
 	}
+	
+	@Transactional
+	public List<CboEntity> query(String q) {
+		q = "%" + q.toLowerCase() + "%";
+		return getSession()
+				.createQuery("from CboEntity where lower(nome) like :q")
+				.setParameter("q", q).list();
+	}
 
 	@Transactional
 	public CboEntity find(String codigo) throws Exception {

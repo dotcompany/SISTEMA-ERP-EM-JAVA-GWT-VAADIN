@@ -57,12 +57,12 @@ public class GrupoTributarioFormView extends CustomComponent {
 		descricao.setMaxLength(100);
 		fields.addComponent(descricao, 0, 0);
 
-		cmbOrigemMercadoria = new ComboBox("Origem Mercadoria");
+		cmbOrigemMercadoria = ComponentUtil.buildComboBox("Origem Mercadoria");
 		cmbOrigemMercadoria.setRequired(true);
 		carregarOrigemMercadoria();
 		fields.addComponent(cmbOrigemMercadoria,1,0);
 
-		observacao = new TextArea("Observações");
+		observacao = ComponentUtil.buildTextArea("Observações");
 		
 		observacao.setWidth("120%");
 		observacao.setHeight("400");
@@ -156,8 +156,8 @@ public class GrupoTributarioFormView extends CustomComponent {
 		this.cmbOrigemMercadoria.removeAllItems();
 		this.cmbOrigemMercadoria.addItem(ORIGEM_MERCADORIA.NACIONAL);
 		this.cmbOrigemMercadoria.addItem(ORIGEM_MERCADORIA.ESTRANGEIRA);
-
 	}
+	
 
 	public ComboBox getCmbOrigemMercadoria() {
 		return cmbOrigemMercadoria;
@@ -171,7 +171,7 @@ public class GrupoTributarioFormView extends CustomComponent {
 	public void preencherForm(GrupoTributarioEntity bean){
 		carregarOrigemMercadoria();
 		getDescricao().setValue(bean.getDescricao());
-		getCmbOrigemMercadoria().setValue(ORIGEM_MERCADORIA.getOrigemMercadoria(bean.getOrigemMercadoria()));
+		getCmbOrigemMercadoria().setValue((bean.getOrigemMercadoria()));
 		getObservacao().setValue(bean.getObservacao());
 	}
 

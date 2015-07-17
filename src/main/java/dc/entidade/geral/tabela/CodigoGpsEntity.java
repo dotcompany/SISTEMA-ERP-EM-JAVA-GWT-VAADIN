@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
@@ -48,8 +49,10 @@ public class CodigoGpsEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	private Integer codigo;
 	
 	@Field
-	@Caption("Descricao")
+	@Caption("Descrição")
 	@Column(name="DESCRICAO")
+	@Basic(fetch = javax.persistence.FetchType.LAZY) 
+	@NotNull(message = "Descrição é obrigatório")
 	private String descricao;
 
 	public Integer getId() {

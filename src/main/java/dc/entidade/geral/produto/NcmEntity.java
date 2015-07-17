@@ -1,6 +1,7 @@
 package dc.entidade.geral.produto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -14,10 +15,13 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -55,6 +59,7 @@ public class NcmEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "CODIGO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código é obrigatório")
 	private String codigo;
 
 	@Lob
@@ -65,6 +70,7 @@ public class NcmEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é obrigatório")
 	private String descricao;
 
 	@Lob
@@ -75,6 +81,7 @@ public class NcmEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "OBSERVACAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Observação é obrigatório")
 	private String observacao;
 
 	/**
@@ -84,8 +91,9 @@ public class NcmEntity extends AbstractMultiEmpresaModel<Integer> implements
 	/**
 	 * REFERENCIA - LIST
 	 */
+	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(mappedBy = "ncm", fetch = FetchType.LAZY)
-	private List<ProdutoEntity> produtoList;
+	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
 	/**
 	 * CONSTRUTOR

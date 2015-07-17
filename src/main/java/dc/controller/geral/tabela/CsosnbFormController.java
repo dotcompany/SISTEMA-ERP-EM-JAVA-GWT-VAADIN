@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CsosnbEntity;
 import dc.servicos.dao.geral.tabela.CsosnbDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CsosnbFormView;
 
@@ -44,73 +47,102 @@ public class CsosnbFormController extends CRUDFormController<CsosnbEntity> {
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setCodigo(subView.getTxtCodigo().getValue());
-		currentBean.setObservacao(subView.getTxtObservacao().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-
 		try {
 			csosnbDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = csosnbDAO.find(id);
-		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtObservacao().setValue(currentBean.getObservacao());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
-	}
+		try {
+			this.currentBean = this.csosnbDAO.find(id);
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
+			// Atribui a entidade carregada como origem de dados dos campos do formulario
+            // no FieldGroup
+            fieldGroup.setItemDataSource(this.currentBean);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new CsosnbFormView();
+		try {
+            this.subView = new CsosnbFormView(this);
+
+            this.fieldGroup = new DCFieldGroup<>(CsosnbEntity.class);
+            fieldGroup.bind(this.subView.getTxtCodigo(),"codigo");
+            fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+            fieldGroup.bind(this.subView.getTxtObservacao(),"observacao");
+
+        } catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CsosnbEntity();
+
+		try {
+
+			this.currentBean = new CsosnbEntity();
+
+            // Atribui a entidade nova como origem de dados dos campos do formulario
+            // no FieldGroup
+            fieldGroup.setItemDataSource(this.currentBean);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		csosnbDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.csosnbDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+
 	}
 
-	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtDescricao().getValue() == null
-				|| subView.getTxtDescricao().getValue().isEmpty()) {
-			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
-			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em Branco!");
+		
+		try {
+            // Commit tenta transferir os dados do View para o Model, levando em conta os critérios de validação
+            fieldGroup.commit();
 
+			return true;
+		} catch (FieldGroup.CommitException ce) {
 			return false;
 		}
 
-		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 
@@ -121,12 +153,11 @@ public class CsosnbFormController extends CRUDFormController<CsosnbEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "csosnbForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	public CsosnbEntity getModelBean() {
-		// TODO Auto-generated method stub
 		return currentBean;
 	}
 

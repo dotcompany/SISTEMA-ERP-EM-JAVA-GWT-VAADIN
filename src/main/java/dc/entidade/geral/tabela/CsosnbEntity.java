@@ -11,8 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -49,26 +52,29 @@ public class CsosnbEntity extends AbstractMultiEmpresaModel<Integer> implements 
 
 	@Field
 	@Caption("Codigo")
-	@Column(name = "Codigo", length = 50)
+	@Column(name = "CODIGO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código é obrigatório")
 	private String codigo;
 
 	@Field
-	@Caption("Descricao")
-	@Column(name = "DESCRICAO", length = 50)
+	@Caption("Descrição")
+	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é obrigatório")
 	private String descricao;
 
 	@Lob
 	@Field
-	@Caption("Observacao")
-	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Caption("Observação")
 	@Column(name = "OBSERVACAO")
 	@Type(type = "text")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Observação é obrigatório")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	private String observacao;
 
 	public CsosnbEntity() {
@@ -112,8 +118,30 @@ public class CsosnbEntity extends AbstractMultiEmpresaModel<Integer> implements 
 	}
 
 	@Override
-	public String toString() {
-		return descricao;
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof CsosnbEntity)) {
+	           return false;
+	    }
+
+	    CsosnbEntity that = (CsosnbEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
 	}
 
 }

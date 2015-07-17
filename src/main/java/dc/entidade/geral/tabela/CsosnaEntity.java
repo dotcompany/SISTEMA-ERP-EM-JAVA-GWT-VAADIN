@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -50,26 +52,29 @@ public class CsosnaEntity extends AbstractMultiEmpresaModel<Integer> implements 
 
 	@Field
 	@Caption("Codigo")
-	@Column(name = "Codigo", length = 50)
+	@Column(name = "CODIGO")
 	@ComboValue
+	@NotNull(message = "Código é obrigatório")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigo;
 
 	@Field
-	@Caption("Descricao")
-	@Column(name = "DESCRICAO", length = 50)
+	@Caption("Descrição")
+	@Column(name = "DESCRICAO")
 	@ComboValue
+	@NotNull(message = "Descrição é obrigatório")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao;
 
 	@Lob
 	@Field
-	@Caption("Observacao")
-	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@Caption("Observação")
 	@Column(name = "OBSERVACAO")
 	@Type(type = "text")
 	@ComboValue
+	@NotNull(message = "Observação é obrigatório")
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	private String observacao;
 
 	public CsosnaEntity() {
@@ -113,8 +118,30 @@ public class CsosnaEntity extends AbstractMultiEmpresaModel<Integer> implements 
 	}
 
 	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof CsosnaEntity)) {
+	           return false;
+	    }
+
+	    CsosnaEntity that = (CsosnaEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
 	}
 
 }

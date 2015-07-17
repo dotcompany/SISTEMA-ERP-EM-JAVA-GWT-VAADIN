@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CodigoGpsEntity;
 import dc.servicos.dao.geral.tabela.CodigoGpsDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -56,10 +57,9 @@ public class CodigoGpsListController extends CRUDListController<CodigoGpsEntity>
 		return pController;
 	}
 
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaCodigoGps";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

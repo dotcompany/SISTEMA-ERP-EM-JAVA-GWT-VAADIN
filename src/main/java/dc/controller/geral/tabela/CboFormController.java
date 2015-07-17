@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CboEntity;
-import dc.servicos.dao.geral.tabela.CboDAO;
+import dc.model.business.geral.tabela.CboBusiness;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CBOFormView;
 
@@ -25,13 +28,23 @@ public class CboFormController extends CRUDFormController<CboEntity> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	CBOFormView subView;
+	private CBOFormView subView;
 
-	@Autowired
-	CboDAO cboDAO;
+	//private CboDAO cboDAO;
 
 	private CboEntity currentBean;
+	
+	@Autowired
+	private CboBusiness<CboEntity> business;
 
+	
+	public CboFormController() {
+	}
+	
+	public CboBusiness<CboEntity> getBusiness() {
+		return business;
+	}
+	
 	@Override
 	protected String getNome() {
 		return "CBO";
@@ -44,79 +57,105 @@ public class CboFormController extends CRUDFormController<CboEntity> {
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setCodigo(subView.getTxtCodigo().getValue());
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setObservacao(subView.getTxtObservacao().getValue());
-
 		try {
-			cboDAO.saveOrUpdate(currentBean);
+			this.business.saveOrUpdate(this.currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = cboDAO.find(id);
-		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtObservacao().setValue(currentBean.getObservacao());
+		try {
+			this.currentBean = this.business.find(id);
+
+			// Atribui a entidade carregada como origem de dados dos campos do formulario
+            // no FieldGroup
+            fieldGroup.setItemDataSource(this.currentBean);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
 
 	@Override
 	protected void initSubView() {
-		subView = new CBOFormView();
+		
+		try {
+			this.subView = new CBOFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(CboEntity.class);
+			fieldGroup.bind(this.subView.getTxtCodigo(),"codigo");
+            fieldGroup.bind(this.subView.getTxtNome(),"nome");
+            fieldGroup.bind(this.subView.getTxtObservacao(),"observacao");
+
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CboEntity();
+		
+		try {
+			currentBean = new CboEntity();
+			
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		cboDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
-	}
+		try {
+			this.business.deleteAll(ids);
 
-	/* Implementar validacao de campos antes de salvar. */
-	@Override
-	protected boolean validaSalvar() {
-		if (subView.getTxtNome().getValue() == null
-				|| subView.getTxtNome().getValue().isEmpty()) {
-			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
-			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em Branco!");
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-			return false;
+			mensagemErro(e.getMessage());
 		}
 
-		return true;
+	}
+
+	@Override
+	protected boolean validaSalvar() {
+		
+		try {
+			
+            fieldGroup.commit();
+            return true;
+
+		}catch (FieldGroup.CommitException ce) {
+			return false;
+		}
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+
 
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		return "cboForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -127,7 +166,6 @@ public class CboFormController extends CRUDFormController<CboEntity> {
 
 	@Override
 	public CboEntity getModelBean() {
-		// TODO Auto-generated method stub
 		return currentBean;
 	}
 

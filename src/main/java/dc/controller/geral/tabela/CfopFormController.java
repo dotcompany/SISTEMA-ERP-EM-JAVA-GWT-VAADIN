@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CfopEntity;
 import dc.servicos.dao.geral.tabela.CfopDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CfopFormView;
 
@@ -44,64 +47,80 @@ public class CfopFormController extends CRUDFormController<CfopEntity> {
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		currentBean.setAplicacao(subView.getTxtAplicacao().getValue());
-
 		try {
 			cfopDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected void carregar(Serializable id) {
+		
+		try {
+			currentBean = cfopDAO.find(id);
+            fieldGroup.setItemDataSource(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	protected void carregar(Serializable id) {
-		currentBean = cfopDAO.find(id);
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
-		subView.getTxtAplicacao().setValue(currentBean.getAplicacao());
-	}
-
-	@Override
-	protected void quandoNovo() {
-
-	}
-
-	@Override
 	protected void initSubView() {
-		subView = new CfopFormView();
+		
+		try {
+			subView = new CfopFormView();
+			
+            this.fieldGroup = new DCFieldGroup<>(CfopEntity.class);
+            fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+            fieldGroup.bind(this.subView.getTxtAplicacao(),"aplicacao");
+
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CfopEntity();
+		
+		try {
+			currentBean = new CfopEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		cfopDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		
+		try {
+			cfopDAO.deleteAllByIds(ids);
+			mensagemRemovidoOK();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
-	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtDescricao().getValue() == null
-				|| subView.getTxtDescricao().getValue().isEmpty()) {
-			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
-			// erro para o campo que esta sendo validado
+		
+		try {
+            fieldGroup.commit();
 
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em Branco!");
-
+			return true;
+		} catch (FieldGroup.CommitException ce) {
 			return false;
 		}
 
-		return true;
+		
 	}
 
 	@Override
@@ -111,7 +130,7 @@ public class CfopFormController extends CRUDFormController<CfopEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "cfopForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

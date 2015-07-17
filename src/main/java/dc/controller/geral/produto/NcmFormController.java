@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.NcmUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.geral.produto.NcmEntity;
 import dc.model.business.geral.produto.NcmBusiness;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.NcmFormView;
 
@@ -69,7 +69,6 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
 	}
 
@@ -87,6 +86,13 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 	protected void initSubView() {
 		try {
 			this.subView = new NcmFormView(this);
+			
+			 this.fieldGroup = new DCFieldGroup<>(NcmEntity.class);
+			 
+			 // Mapeia os campos
+			 fieldGroup.bind(this.subView.getTfCodigo(),"codigo");
+			 fieldGroup.bind(this.subView.getTfDescricao(),"descricao");
+			 fieldGroup.bind(this.subView.getTfObservacao(),"observacao");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,11 +101,10 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			NcmUtils.validateRequiredFields(this.subView);
+			fieldGroup.commit();
 
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 
 			return false;
 		}
@@ -108,11 +113,6 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setCodigo(this.subView.getTfCodigo().getValue());
-			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
-			this.entity
-					.setObservacao(this.subView.getTfObservacao().getValue());
-
 			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -128,10 +128,7 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 		try {
 			this.entity = this.business.find(id);
 
-			this.subView.getTfCodigo().setValue(this.entity.getCodigo());
-			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
-			this.subView.getTfObservacao()
-					.setValue(this.entity.getObservacao());
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -143,17 +140,7 @@ public class NcmFormController extends CRUDFormController<NcmEntity> {
 	protected void criarNovoBean() {
 		try {
 			this.entity = new NcmEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new NcmEntity();
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

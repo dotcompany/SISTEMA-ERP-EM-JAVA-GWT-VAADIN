@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -50,25 +52,29 @@ public class CboEntity extends AbstractMultiEmpresaModel<Integer> implements Ser
 
 	@Field
 	@Caption("Codigo")
-	@Column(name = "Codigo", length = 50)
+	@Column(name = "CODIGO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código é obrigatório")
 	private String codigo;
-
+	
 	@Field
 	@Caption("Nome")
-	@Column(name = "NOME", length = 50)
+	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é obrigatório")
 	private String nome;
 
 	@Lob
 	@Field
-	@Caption("Observacao")
+	@Caption("Observação")
 	@Column(name = "OBSERVACAO")
 	@Type(type = "text")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Observação é obrigatório")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	private String observacao;
 
 	public CboEntity() {
@@ -94,7 +100,7 @@ public class CboEntity extends AbstractMultiEmpresaModel<Integer> implements Ser
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-
+	
 	public String getNome() {
 		return nome;
 	}
@@ -112,8 +118,30 @@ public class CboEntity extends AbstractMultiEmpresaModel<Integer> implements Ser
 	}
 
 	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof CboEntity)) {
+	           return false;
+	    }
+
+	    CboEntity that = (CboEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
 	}
 
 }

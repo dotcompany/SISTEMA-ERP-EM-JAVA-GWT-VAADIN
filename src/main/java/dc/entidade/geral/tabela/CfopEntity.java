@@ -10,8 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -56,18 +59,22 @@ public class CfopEntity extends AbstractMultiEmpresaModel<Integer> implements Se
 	@Type(type = "text")
 	@Caption("Descrição")
 	@Field
-	@Column(name = "DESCRICAO", length = 65535)
+	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é obrigatório")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	private String descricao;
 
 	@Lob
 	@Type(type = "text")
 	@Field
 	@Caption("Aplicação")
-	@Column(name = "APLICACAO", length = 65535)
+	@Column(name = "APLICACAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Aplicação é obrigatório")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	private String aplicacao;
 
 	public CfopEntity() {
@@ -105,6 +112,33 @@ public class CfopEntity extends AbstractMultiEmpresaModel<Integer> implements Se
 	@Override
 	public String toString() {
 		return descricao;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof CfopEntity)) {
+	           return false;
+	    }
+
+	    CfopEntity that = (CfopEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
 	}
 
 }

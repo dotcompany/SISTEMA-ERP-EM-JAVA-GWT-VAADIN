@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CsosnaEntity;
 import dc.servicos.dao.geral.tabela.CsosnaDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -60,7 +61,7 @@ public class CsosnaListController extends CRUDListController<CsosnaEntity> {
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaCsosna";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

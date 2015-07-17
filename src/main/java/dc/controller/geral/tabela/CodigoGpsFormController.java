@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CodigoGpsEntity;
 import dc.servicos.dao.geral.tabela.CodigoGpsDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CodigoGpsFormView;
 
@@ -44,8 +47,6 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGpsEntity>
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-
 		try {
 			codigoGpsDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -56,16 +57,13 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGpsEntity>
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = codigoGpsDAO.find(id);
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
+		
+		try {
+			currentBean = codigoGpsDAO.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -80,34 +78,58 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGpsEntity>
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CodigoGpsEntity();
+		
+		try {
+			
+			currentBean = new CodigoGpsEntity();
+			
+            this.fieldGroup = new DCFieldGroup<>(CodigoGpsEntity.class);
+            fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+
+        } catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		codigoGpsDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.codigoGpsDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+
 	}
 
-	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtDescricao().getValue() == null
-				|| subView.getTxtDescricao().getValue().isEmpty()) {
-			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
-			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em Branco!");
+		
+		try {
+            // Commit tenta transferir os dados do View para o Model, levando em conta os critérios de validação
+            fieldGroup.commit();
 
+			return true;
+		} catch (FieldGroup.CommitException ce) {
 			return false;
 		}
 
-		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
 
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
@@ -117,7 +139,7 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGpsEntity>
 
 	@Override
 	public String getViewIdentifier() {
-		return "codigoGpsForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package dc.entidade.geral.produto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -14,10 +15,13 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -51,28 +55,33 @@ public class GrupoEntity extends AbstractMultiEmpresaModel<Integer> implements S
 
 	@Field
 	@Caption("Nome")
-	@Column(name = "NOME", length = 20)
+	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é obrigatório") 
 	private String nome;
 
 	@Lob
 	@Type(type = "text")
 	@Field
 	@Caption("Descrição")
-	@Column(name = "DESCRICAO", length = 65535)
+	@Column(name = "DESCRICAO")
 	@ComboValue
+	@NotNull(message = "Descrição é obrigatório") 
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	private String descricao;
 
 	/**
 	 * REFERENCIA - LIST
 	 */
-	@OneToMany(mappedBy = "grupo", fetch = FetchType.LAZY)
-	private List<ProdutoEntity> produtoList;
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="grupo",orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
-	@OneToMany(mappedBy = "grupo", fetch = FetchType.LAZY)
-	private List<SubGrupoEntity> subGrupoList;
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="grupo",orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<SubGrupoEntity> subGrupoList =  new ArrayList<SubGrupoEntity>();
 	
 	/**
 	 * TRANSIENT

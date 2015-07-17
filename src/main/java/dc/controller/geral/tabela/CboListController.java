@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CboEntity;
 import dc.servicos.dao.geral.tabela.CboDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -26,14 +27,18 @@ public class CboListController extends CRUDListController<CboEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CboDAO dao;
-
-	@Autowired
-	CboFormController pController;
+	private CboFormController pController;
+	
+	//@Autowired
+	//private CboDAO cboDAO;
+	
+	public CboListController() {
+		
+	}
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "codigo", "nome", "observacao" };
+		return new String[] { "codigo","nome", "observacao" };
 	}
 
 	@Override
@@ -48,7 +53,15 @@ public class CboListController extends CRUDListController<CboEntity> {
 
 	@Override
 	protected List<CboEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		try {
+			List<CboEntity> auxLista = (List<CboEntity>) this.pController.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 	@Override
@@ -56,10 +69,9 @@ public class CboListController extends CRUDListController<CboEntity> {
 		return pController;
 	}
 
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaCBO";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -69,7 +81,15 @@ public class CboListController extends CRUDListController<CboEntity> {
 
 	@Override
 	protected List<CboEntity> pesquisaDefault() {
-		return (List<CboEntity>) dao.getAll(getEntityClass());
+		try {
+			List<CboEntity> auxLista = (List<CboEntity>) this.pController.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }
