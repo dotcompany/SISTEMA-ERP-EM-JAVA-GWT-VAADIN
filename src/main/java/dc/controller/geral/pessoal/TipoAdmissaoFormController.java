@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.TipoAdmissaoEntity;
 import dc.servicos.dao.geral.pessoal.TipoAdmissaoDAO;
-import dc.servicos.util.Validator;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.TipoAdmissaoFormView;
 
@@ -35,55 +36,73 @@ public class TipoAdmissaoFormController extends
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
+		try {
+            fieldGroup.commit();
+			
+			return true;
+		} catch (FieldGroup.CommitException ce) {
 
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em Branco!");
-			valido = false;
+			return false;
 		}
-
-		return valido;
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoAdmissaoEntity();
+		try {
+			this.currentBean = new TipoAdmissaoEntity();
+			
+			fieldGroup.setItemDataSource(this.currentBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new TipoAdmissaoFormView();
+		
+		try {
+			subView = new TipoAdmissaoFormView();
+			
+			this.fieldGroup = new DCFieldGroup<>(TipoAdmissaoEntity.class);
+
+	        fieldGroup.bind(this.subView.getTxtNome(), "nome");
+	        fieldGroup.bind(this.subView.getTxtCodigo(), "codigo");
+	        fieldGroup.bind(this.subView.getTxtDescricao(), "descricao");
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = tipoAdmissaoDAO.find(id);
+		try {
+			this.currentBean = this.tipoAdmissaoDAO.find(id);
+			
+			fieldGroup.setItemDataSource(this.currentBean);
 
-		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setCodigo(subView.getTxtCodigo().getValue());
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-
 		try {
 			tipoAdmissaoDAO.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			
+			mensagemErro(ex.getMessage());
 		}
 	}
 
-	@Override
-	protected void quandoNovo() {
-
-	}
 
 	@Override
 	protected String getNome() {
@@ -92,14 +111,26 @@ public class TipoAdmissaoFormController extends
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		tipoAdmissaoDAO.deleteAllByIds(ids);
+		try {
+			this.tipoAdmissaoDAO.deleteAllByIds(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override

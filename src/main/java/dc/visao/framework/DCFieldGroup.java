@@ -1,20 +1,23 @@
 package dc.visao.framework;
 
-import com.vaadin.data.fieldgroup.BeanFieldGroup;
-import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
 import javax.servlet.ServletContext;
 import javax.validation.Validator;
 import javax.validation.constraints.NotNull;
 import javax.validation.metadata.BeanDescriptor;
 import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Predicate;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import com.vaadin.data.fieldgroup.BeanFieldGroup;
+import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.AbstractField;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.Field;
+import com.vaadin.ui.HasComponents;
+import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.TextField;
 
 /**
  * Created by cjalmeida on 14/07/15.

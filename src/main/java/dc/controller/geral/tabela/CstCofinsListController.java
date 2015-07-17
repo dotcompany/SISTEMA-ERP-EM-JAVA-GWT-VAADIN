@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CstCofinsEntity;
 import dc.servicos.dao.geral.tabela.CstCofinsDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -59,7 +60,7 @@ public class CstCofinsListController extends CRUDListController<CstCofinsEntity>
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaCstCofins";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

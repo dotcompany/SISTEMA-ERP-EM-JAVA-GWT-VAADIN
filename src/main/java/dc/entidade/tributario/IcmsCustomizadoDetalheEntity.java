@@ -1,7 +1,9 @@
 package dc.entidade.tributario;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -20,6 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.tabela.CfopEntity;
@@ -28,14 +35,21 @@ import dc.entidade.geral.tabela.CstIcmsbEntity;
 
 @Entity
 @Table(name = "tribut_icms_custom_det")
-@SuppressWarnings("serial")
 @Indexed
+@XmlRootElement
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class IcmsCustomizadoDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
+public class IcmsCustomizadoDetalheEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trd")
-	@SequenceGenerator(name = "trd", sequenceName = "tribut_icms_custom_det_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tribut_icms_custom_det_id_seq")
+	@SequenceGenerator(name = "tribut_icms_custom_det_id_seq", sequenceName = "tribut_icms_custom_det_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@NotNull
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
@@ -69,23 +83,30 @@ public class IcmsCustomizadoDetalheEntity extends AbstractMultiEmpresaModel<Inte
 	@Transient
 	private CstIcmsbEntity cst;
 
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name="modalidade_bc")
-	String modalidadeBc;
+	private String modalidadeBc;
 
-	Integer aliquota;
+	private Integer aliquota;
 
 	@Column(name="valor_pauta")
-	BigDecimal valorPauta;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorPauta;
 
 	@Column(name="valor_preco_maximo")
-	BigDecimal valorPrecoMaximo;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private BigDecimal valorPrecoMaximo;
 
-	@ManyToOne
+	@ManyToOne()
+	@Caption("ICMS Customizado Cabeçalho")
 	@JoinColumn(name="id_tribut_icms_custom_cab")
 	private IcmsCustomizadoCabecalhoEntity icmsCustomizado;
 
 	@Transient
-	UfEntity uf;
+	private UfEntity uf;
 
 	public Integer getId() {
 		return id;
@@ -193,5 +214,32 @@ public class IcmsCustomizadoDetalheEntity extends AbstractMultiEmpresaModel<Inte
 	public void setCst(CstIcmsbEntity cst) {
 		this.cst = cst;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof IcmsCustomizadoDetalheEntity)) {
+            return false;
+        }
+
+        IcmsCustomizadoDetalheEntity that = (IcmsCustomizadoDetalheEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

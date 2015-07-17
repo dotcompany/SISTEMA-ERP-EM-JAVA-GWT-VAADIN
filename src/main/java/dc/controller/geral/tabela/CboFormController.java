@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
@@ -56,6 +57,7 @@ public class CboFormController extends CRUDFormController<CboEntity> {
 	}
 
 	@Override
+	@Transactional(readOnly=false)
 	protected void actionSalvar() {
 		try {
 			this.business.saveOrUpdate(this.currentBean);

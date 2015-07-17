@@ -74,6 +74,7 @@ public class CfopFormController extends CRUDFormController<CfopEntity> {
 			subView = new CfopFormView();
 			
             this.fieldGroup = new DCFieldGroup<>(CfopEntity.class);
+            fieldGroup.bind(this.subView.getTxtCfop(),"cfop");
             fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
             fieldGroup.bind(this.subView.getTxtAplicacao(),"aplicacao");
 

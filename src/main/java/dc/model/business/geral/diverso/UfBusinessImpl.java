@@ -159,12 +159,6 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 			System.out.println(":: [" + getClass().getSimpleName()
 					+ "] saveOrUpdate");
 
-			UfEntity uf = (UfEntity) o;
-
-			PaisEntity ent = this.paisDAO.find(uf.getPais().getId());
-
-			uf.setPais(ent);
-
 			this.dao.saveOrUpdate(o);
 		} catch (Exception e) {
 			e.printStackTrace();

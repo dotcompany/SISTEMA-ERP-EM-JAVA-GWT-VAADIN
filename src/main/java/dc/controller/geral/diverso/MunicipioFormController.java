@@ -7,18 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.NumberUtils;
-import dc.control.util.ObjectUtils;
-import dc.control.util.classes.MunicipioUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.geral.diverso.MunicipioEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.model.business.geral.diverso.MunicipioBusiness;
 import dc.servicos.dao.geral.UfDAO;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.MunicipioFormView;
 
@@ -97,31 +95,43 @@ public class MunicipioFormController extends
 		try {
 			this.subView = new MunicipioFormView(this);
 
-			DefaultManyToOneComboModel<UfEntity> model = new DefaultManyToOneComboModel<UfEntity>(
-					UfListController.class, this.ufDAO,
-					super.getMainController()) {
+			this.fieldGroup = new DCFieldGroup<>(MunicipioEntity.class);
 
-				@Override
-				public String getCaptionProperty() {
-					return "nome";
-				}
+	        fieldGroup.bind(this.subView.getTfNome(), "nome");
+	        fieldGroup.bind(this.subView.getCmbUf(), "uf");
+	        fieldGroup.bind(this.subView.getTfCodigoIbge(), "codigoIbge");
+	        fieldGroup.bind(this.subView.getTfCodigoReceitaFederal(), "codigoReceitaFederal");
+	        fieldGroup.bind(this.subView.getTfCodigoEstadual(), "codigoEstadual");
+	        carregarUf();
 
-			};
-
-			this.subView.getMocUf().setModel(model);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void carregarUf() {
+		try {
+			List<UfEntity> auxLista = this.ufDAO.listaTodos();
+
+			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
+					UfEntity.class, auxLista);
+
+			this.subView.getCmbUf().setContainerDataSource(bic);
+			this.subView.getCmbUf().setItemCaptionPropertyId("nome");
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
 		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			MunicipioUtils.validateRequiredFields(this.subView);
-
+fieldGroup.commit();
+			
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 
 			return false;
 		}
@@ -130,40 +140,6 @@ public class MunicipioFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setNome(this.subView.getTfNome().getValue());
-
-			String codigoEstadual = this.subView.getTfCodigoEstadual()
-					.getValue();
-
-			if (NumberUtils.isNumber(codigoEstadual)) {
-				this.entity.setCodigoEstadual(NumberUtils.toInt(this.subView
-						.getTfCodigoEstadual().getValue()));
-			}
-
-			String codigoIbge = this.subView.getTfCodigoIbge().getValue();
-
-			if (NumberUtils.isNumber(codigoIbge)) {
-				this.entity.setCodigoIbge(NumberUtils.toInt(this.subView
-						.getTfCodigoIbge().getValue()));
-			}
-
-			String codigoReceitaFederal = this.subView
-					.getTfCodigoReceitaFederal().getValue();
-
-			if (NumberUtils.isNumber(codigoReceitaFederal)) {
-				this.entity.setCodigoReceitaFederal(NumberUtils
-						.toInt(this.subView.getTfCodigoReceitaFederal()
-								.getValue()));
-			}
-
-			UfEntity uf = this.subView.getMocUf().getValue();
-
-			if (ObjectUtils.isNotBlank(uf)) {
-				this.entity.setUf(uf);
-			} else {
-				this.entity.setUf(null);
-			}
-
 			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -179,15 +155,7 @@ public class MunicipioFormController extends
 		try {
 			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.entity.getNome());
-			this.subView.getTfCodigoEstadual().setValue(
-					this.entity.getCodigoEstadual().toString());
-			this.subView.getTfCodigoIbge().setValue(
-					this.entity.getCodigoIbge().toString());
-			this.subView.getTfCodigoReceitaFederal().setValue(
-					this.entity.getCodigoReceitaFederal().toString());
-
-			this.subView.getMocUf().setValue(this.entity.getUf());
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -197,17 +165,8 @@ public class MunicipioFormController extends
 	protected void criarNovoBean() {
 		try {
 			this.entity = new MunicipioEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new MunicipioEntity();
+			
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -230,7 +189,12 @@ public class MunicipioFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		// TODO Auto-generated method stub
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 

@@ -12,9 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.diverso.MunicipioEntity;
-import dc.entidade.geral.diverso.UfEntity;
 import dc.model.dao.geral.diverso.MunicipioDAO;
-import dc.model.dao.geral.diverso.UfDAO;
 
 /**
  * 
@@ -37,9 +35,6 @@ public class MunicipioBusinessImpl implements Serializable,
 
 	@Autowired
 	private MunicipioDAO<MunicipioEntity> dao;
-
-	@Autowired
-	private UfDAO<UfEntity> ufDAO;
 
 	/**
 	 * **********************************************
@@ -157,10 +152,6 @@ public class MunicipioBusinessImpl implements Serializable,
 					+ "] saveOrUpdate");
 
 			MunicipioEntity ent = (MunicipioEntity) o;
-
-			UfEntity uf = this.ufDAO.find(ent.getUf().getId());
-
-			ent.setUf(uf);
 
 			this.dao.saveOrUpdate(ent);
 		} catch (Exception e) {

@@ -6,6 +6,8 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.visao.framework.util.ComponentUtil;
+
 public class BancoFormView extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
@@ -73,30 +75,17 @@ public class BancoFormView extends CustomComponent {
 		fields.setColumns(4);
 		
 		// txtCódigo
-		txtCodigo = new TextField();
-		txtCodigo.setCaption("Código");
+		txtCodigo = ComponentUtil.buildTextField("Código");
 		txtCodigo.setImmediate(false);
-		txtCodigo.setWidth("540px");
-		txtCodigo.setHeight("-1px");
-		txtCodigo.setSizeFull();
 		fields.addComponent(txtCodigo, 0, 0);
 
 		// txtNome
-		txtNome = new TextField();
-		txtNome.setCaption("Nome");
-		txtNome.setImmediate(false);
-		txtNome.setWidth("540px");
-		txtNome.setHeight("-1px");
-		txtNome.setSizeFull();
+		txtNome = ComponentUtil.buildTextField("Nome");
 		fields.addComponent(txtNome, 0, 1);
 
 		// txtURL
-		txtURL = new TextField();
-		txtURL.setCaption("URL");
+		txtURL = ComponentUtil.buildTextField("URL");
 		txtURL.setImmediate(false);
-		txtURL.setWidth("540px");
-		txtURL.setHeight("-1px");
-		txtURL.setSizeFull();
 		fields.addComponent(txtURL, 0, 2);
 
 		return fields;

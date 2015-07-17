@@ -7,16 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.CepUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.geral.diverso.CepEntity;
-import dc.entidade.geral.diverso.UfEntity;
 import dc.model.business.geral.diverso.CepBusiness;
 import dc.servicos.dao.geral.UfDAO;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.CepFormView;
 
@@ -94,11 +92,19 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 		try {
 			this.subView = new CepFormView(this);
 
-			DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
-					UfListController.class, this.ufDAO,
-					super.getMainController());
+			this.fieldGroup = new DCFieldGroup<>(CepEntity.class);
 
-			this.subView.getMocUf().setModel(modelUf);
+	        fieldGroup.bind(this.subView.getTfCep(), "cep");
+	        fieldGroup.bind(this.subView.getMocUf(), "uf");
+	        fieldGroup.bind(this.subView.getTfLogradouro(), "logradouro");
+	        fieldGroup.bind(this.subView.getTfComplemento(), "complemento");
+	        fieldGroup.bind(this.subView.getTfBairro(), "bairro");
+	        fieldGroup.bind(this.subView.getTfMunicipio(), "municipio");
+	        fieldGroup.bind(this.subView.getTfCodigoIbgeMunicipio(), "codigoIbgeMunicipio");
+
+	        // Configura os ManyToOneComboFields
+	        this.subView.getMocUf().configuraCombo("sigla", UfListController.class, this.ufDAO, this.getMainController());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -107,11 +113,11 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			CepUtils.validateRequiredFields(this.subView);
 
+			fieldGroup.commit();
+			
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 
 			return false;
 		}
@@ -120,39 +126,13 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			String cep = this.subView.getTfCep().getValue();
-			String logradouro = subView.getTfLogradouro().getValue();
-			String complemento = subView.getTfComplemento().getValue();
-			String bairro = subView.getTfBairro().getValue();
-			String municipio = subView.getTfMunicipio().getValue();
-
-			this.entity.setCep(cep);
-			this.entity.setLogradouro(logradouro);
-			this.entity.setComplemento(complemento);
-			this.entity.setBairro(bairro);
-			this.entity.setMunicipio(municipio);
-			
-			UfEntity uf = new UfEntity();
-			if(subView.getMocUf().getValue()!=null){
-				uf = subView.getMocUf().getValue();
-				this.entity.setUf(uf);
-			}
-
-			/*UfEntity uf = this.subView.getMocUf().getValue();
-
-			if (ObjectUtils.isNotBlank(uf)) {
-				this.entity.setUf(uf.getSigla());
-			} else {
-				this.entity.setUf(null);
-			}*/
-
 			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			CepUtils.clearFormFields(this.subView);
+			
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -160,26 +140,9 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 	protected void carregar(Serializable id) {
 		try {
 			this.entity = this.business.find(id);
-
-			this.subView.getTfCep().setValue(this.entity.getCep());
-			this.subView.getTfLogradouro()
-					.setValue(this.entity.getLogradouro());
-			this.subView.getTfComplemento().setValue(
-					this.entity.getComplemento());
-			this.subView.getTfBairro().setValue(this.entity.getBairro());
-			this.subView.getTfMunicipio().setValue(this.entity.getMunicipio());
 			
-			if(this.entity.getUf()!=null){
-				this.subView.getMocUf().setValue(this.entity.getUf());
-			}
+			fieldGroup.setItemDataSource(this.entity);
 
-			//String sigla = this.entity.getUf();
-
-			//if (StringUtils.isNotBlank(sigla)) {
-				//UfEntity uf = this.ufDAO.find(sigla);
-
-				//this.subView.getMocUf().setValue(uf);
-			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -189,25 +152,12 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 	protected void criarNovoBean() {
 		try {
 			this.entity = new CepEntity();
+			
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
-		//} finally {
-			//CepUtils.clearFormFields(this.subView);
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new CepEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		//} finally {
-			//CepUtils.clearFormFields(this.subView);
 		}
 	}
 
@@ -226,6 +176,13 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 

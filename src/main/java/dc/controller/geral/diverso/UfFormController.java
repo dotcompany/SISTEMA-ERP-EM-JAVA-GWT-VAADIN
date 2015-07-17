@@ -8,18 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.NumberUtils;
-import dc.control.util.ObjectUtils;
-import dc.control.util.classes.UfUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.model.business.geral.diverso.PaisBusiness;
 import dc.model.business.geral.diverso.UfBusiness;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.servicos.dao.geral.diverso.PaisDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.UfFormView;
 
@@ -56,8 +54,8 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	 * DAO
 	 */
 
-	// @Autowired
-	// private PaisDAO paisDAO;
+	@Autowired
+	private PaisDAO paisDAO;
 
 	/**
 	 * CONSTRUTOR
@@ -102,30 +100,25 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 		try {
 			this.subView = new UfFormView(this);
 
-			DefaultManyToOneComboModel<PaisEntity> model = new DefaultManyToOneComboModel<PaisEntity>(
-					PaisListController.class, super.getMainController(), null,
-					this.paisBusiness) {
+			this.fieldGroup = new DCFieldGroup<>(UfEntity.class);
 
-				@Override
-				public String getCaptionProperty() {
-					return "nomePtbr";
-				}
-
-			};
-
-			this.subView.getMocPais().setModel(model);
+	        fieldGroup.bind(this.subView.getTfNome(), "nome");
+	        fieldGroup.bind(this.subView.getMocPais(), "pais");
+	        fieldGroup.bind(this.subView.getTfSigla(), "sigla");
+	        fieldGroup.bind(this.subView.getTfCodigoIbge(), "codigoIbge");
+	        this.subView.getMocPais().configuraCombo("nomePtbr", PaisListController.class, this.paisDAO, this.getMainController());
+	        
 		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
+			e.printStackTrace();
 		}
 	}
 
 	protected boolean validaSalvar() {
 		try {
-			UfUtils.validateRequiredFields(this.subView);
-
+            fieldGroup.commit();
+			
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 
 			return false;
 		}
@@ -134,26 +127,11 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setSigla(this.subView.getTfSigla().getValue());
-
-			String codigoIbge = this.subView.getTfCodigoIbge().getValue();
-
-			if (NumberUtils.isNumber(codigoIbge)) {
-				this.entity.setCodigoIbge(NumberUtils.toInt(codigoIbge));
-			} else {
-				this.entity.setCodigoIbge(null);
-			}
-
-			PaisEntity pais = this.subView.getMocPais().getValue();
-
-			this.entity.setPais(pais);
-
 			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
+			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
 		}
@@ -163,24 +141,11 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	protected void carregar(Serializable id) {
 		try {
 			this.entity = this.business.find(id);
+			
+			fieldGroup.setItemDataSource(this.entity);
 
-			this.subView.getTfNome().setValue(this.entity.getNome());
-			this.subView.getTfSigla().setValue(this.entity.getSigla());
-
-			Integer codigoIbge = this.entity.getCodigoIbge();
-
-			if (NumberUtils.isNotBlank(codigoIbge)) {
-				this.subView.getTfCodigoIbge().setValue(
-						String.valueOf(codigoIbge));
-			}
-
-			PaisEntity pais = this.entity.getPais();
-
-			if (ObjectUtils.isNotBlank(pais)) {
-				this.subView.getMocPais().setValue(pais);
-			}
 		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
+			e.printStackTrace();
 		}
 	}
 
@@ -188,19 +153,10 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	protected void criarNovoBean() {
 		try {
 			this.entity = new UfEntity();
+			
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new UfEntity();
-		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
+			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
 		}
@@ -213,7 +169,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
+			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
 		}
@@ -224,7 +180,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 		try {
 
 		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
+			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
 		}

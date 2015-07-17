@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.BancoEntity;
 import dc.servicos.dao.financeiro.BancoDAO;
-import dc.servicos.util.Validator;
 import dc.visao.financeiro.BancoFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
 /** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
@@ -26,6 +28,11 @@ import dc.visao.framework.geral.CRUDFormController;
 @Controller
 @Scope("prototype")
 public class BancoFormController extends CRUDFormController<BancoEntity> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private BancoFormView subView;
 
@@ -46,9 +53,6 @@ public class BancoFormController extends CRUDFormController<BancoEntity> {
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setCodigo(subView.getTxtCodigo().getValue());
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setUrl(subView.getTxtURL().getValue());
 		try {
 			bancoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -59,24 +63,26 @@ public class BancoFormController extends CRUDFormController<BancoEntity> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = bancoDAO.find(id);
-		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtURL().setValue(currentBean.getUrl());
-	}
+		
+        try {
+			
+        	currentBean = bancoDAO.find(id);
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
-
+			fieldGroup.setItemDataSource(this.currentBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void initSubView() {
 		subView = new BancoFormView();
+		
+		this.fieldGroup = new DCFieldGroup<>(BancoEntity.class);
+
+        fieldGroup.bind(this.subView.getTxtNome(), "nome");
+        fieldGroup.bind(this.subView.getTxtCodigo(), "codigo");
+        fieldGroup.bind(this.subView.getTxtURL(), "url");
 	}
 
 	/*
@@ -85,52 +91,57 @@ public class BancoFormController extends CRUDFormController<BancoEntity> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new BancoEntity();
+		try {
+			this.currentBean = new BancoEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		bancoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		
+		try {
+			this.bancoDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = validaCampos();
+		try {
+            fieldGroup.commit();
+			
+			return true;
+		} catch (FieldGroup.CommitException ce) {
 
-		return valido;
-	}
-
-	private boolean validaCampos() {
-
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtCodigo().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtCodigo(), "Não pode ficar em branco");
-			valido = false;
+			return false;
 		}
-
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxtURL().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtURL(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		return "bancoForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

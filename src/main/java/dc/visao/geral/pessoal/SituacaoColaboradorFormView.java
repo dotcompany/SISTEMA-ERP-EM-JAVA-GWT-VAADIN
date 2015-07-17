@@ -115,7 +115,6 @@ public class SituacaoColaboradorFormView extends CustomComponent {
 		// tfNome
 		tfNome = ComponentUtil.buildTextField("Nome");
 		tfNome.setImmediate(false);
-		tfNome.setRequired(true);
 		fields.addComponent(tfNome, 1, 0);
 
 		// tfDescricao

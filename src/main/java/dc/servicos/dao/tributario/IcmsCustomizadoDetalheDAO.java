@@ -1,7 +1,5 @@
 package dc.servicos.dao.tributario;
 
-
-
 import java.util.List;
 
 import org.hibernate.Criteria;

@@ -7,8 +7,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.geral.diverso.OperadoraPlanoSaudeFormController;
-import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.util.ComponentUtil;
 
 public class OperadoraPlanoSaudeFormView extends CustomComponent {
 
@@ -96,23 +95,13 @@ public class OperadoraPlanoSaudeFormView extends CustomComponent {
 		fields.setColumns(4);
 
 		// tfRegistroAns
-		tfRegistroAns = new TextField();
-		tfRegistroAns.setCaption("Registro ANS");
+		tfRegistroAns = ComponentUtil.buildTextField("Registro ANS");
 		tfRegistroAns.setImmediate(false);
-		tfRegistroAns.setWidth("-1px");
-		tfRegistroAns.setHeight("-1px");
-		tfRegistroAns.setRequired(true);
-		tfRegistroAns.setSizeFull();
 		fields.addComponent(tfRegistroAns, 0, 0);
 
 		// tfNome
-		tfNome = new TextField();
-		tfNome.setCaption("Nome");
+		tfNome = ComponentUtil.buildTextField("Nome");
 		tfNome.setImmediate(false);
-		tfNome.setWidth("393px");
-		tfNome.setHeight("-1px");
-		tfNome.setRequired(true);
-		tfNome.setSizeFull();
 		fields.addComponent(tfNome, 0, 1);
 
 		return fields;

@@ -7,18 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.ObjectUtils;
-import dc.control.util.classes.OperadoraPlanoSaudeUtils;
-import dc.control.validator.DotErpException;
-import dc.controller.contabilidade.ContabilContaListController;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.geral.diverso.OperadoraPlanoSaudeEntity;
 import dc.model.business.geral.diverso.OperadoraPlanoSaudeBusiness;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.OperadoraPlanoSaudeFormView;
 
@@ -93,6 +88,10 @@ public class OperadoraPlanoSaudeFormController extends
 	protected void initSubView() {
 		try {
 			this.subView = new OperadoraPlanoSaudeFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(OperadoraPlanoSaudeEntity.class);
+            fieldGroup.bind(this.subView.getTfRegistroAns(),"registroAns");
+            fieldGroup.bind(this.subView.getTfNome(),"nome");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,11 +101,10 @@ public class OperadoraPlanoSaudeFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			OperadoraPlanoSaudeUtils.validateRequiredFields(this.subView);
-
+               fieldGroup.commit();
+			
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 
 			return false;
 		}
@@ -115,10 +113,6 @@ public class OperadoraPlanoSaudeFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setRegistroAns(this.subView.getTfRegistroAns()
-					.getValue());
-
 			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -134,10 +128,8 @@ public class OperadoraPlanoSaudeFormController extends
 		try {
 			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.entity.getNome());
-			this.subView.getTfRegistroAns().setValue(
-					this.entity.getRegistroAns());
 
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -147,17 +139,7 @@ public class OperadoraPlanoSaudeFormController extends
 	protected void criarNovoBean() {
 		try {
 			this.entity = new OperadoraPlanoSaudeEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new OperadoraPlanoSaudeEntity();
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -181,6 +163,12 @@ public class OperadoraPlanoSaudeFormController extends
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
-	}
+		try {
 
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
 }
