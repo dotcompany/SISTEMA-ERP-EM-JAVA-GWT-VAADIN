@@ -47,11 +47,16 @@
 		<beans:property name="defaultFailureUrl" value="/login/?error=true" />
 	</beans:bean>
 
+    <beans:bean id="successHandler"
+                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+        <beans:constructor-arg value="/"/>
+    </beans:bean>
+
 	<beans:bean id="customFilterLoginCaptcha"
 		class="dc.framework.security.CustomFilterLoginCaptcha">
 		<beans:property name="authenticationManager" ref="authenticationManager" />
-		<beans:property name="authenticationFailureHandler"
-			ref="failureHandler" />
+		<beans:property name="authenticationFailureHandler" ref="failureHandler" />
+        <beans:property name="authenticationSuccessHandler" ref="successHandler" />
 		<beans:property name="filterProcessesUrl" value="/processLogin" />
 		<beans:property name="postOnly" value="true" />
 	</beans:bean>
