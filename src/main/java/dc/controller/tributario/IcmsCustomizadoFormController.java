@@ -11,8 +11,17 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.entidade.geral.diverso.UfEntity;
+import dc.entidade.geral.tabela.CfopEntity;
+import dc.entidade.geral.tabela.CsosnbEntity;
+import dc.entidade.geral.tabela.CstIcmsbEntity;
 import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
+import dc.entidade.tributario.IcmsCustomizadoDetalheEntity;
 import dc.model.business.tributario.IcmsCustomizadoBusiness;
+import dc.servicos.dao.geral.UfDAO;
+import dc.servicos.dao.geral.tabela.CfopDAO;
+import dc.servicos.dao.geral.tabela.CsosnbDAO;
+import dc.servicos.dao.geral.tabela.CstIcmsbDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tributario.ICMSCustomizadoFormView;
@@ -28,6 +37,23 @@ public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustom
 	
 	@Autowired
     private IcmsCustomizadoBusiness<IcmsCustomizadoCabecalhoEntity> business;
+	
+	
+	/**
+	 * DAO'S
+	 */
+	
+	@Autowired
+	private UfDAO ufDAO;
+	@Autowired
+	private CfopDAO cfopDAO;
+
+	@Autowired
+	private CsosnbDAO csosnbDAO;
+
+	@Autowired
+	private CstIcmsbDAO cstbDAO;
+
 
 	public IcmsCustomizadoFormController() {
 	}
@@ -85,8 +111,21 @@ public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustom
 	protected void carregar(Serializable id) {
 		try {
             this.entity = this.business.find(id);
-
             fieldGroup.setItemDataSource(this.entity);
+            
+            List<IcmsCustomizadoDetalheEntity> detalhes = entity.getDetalhes();
+
+    		for (IcmsCustomizadoDetalheEntity d : detalhes) {
+    			Integer idCsosn = new Integer(d.getCsosnB().trim());
+    			d.setCsosn(csosnbDAO.find(idCsosn));
+
+    			Integer idCst = new Integer(d.getCstB().trim());
+    			d.setCst(cstbDAO.find(idCst));
+
+    		}
+
+    		subView.preencheSubForm(detalhes);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,5 +197,34 @@ public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustom
 	public IcmsCustomizadoBusiness<IcmsCustomizadoCabecalhoEntity> getBusiness() {
         return business;
     }
+	
+	public IcmsCustomizadoDetalheEntity novoDetalhe() {
+		IcmsCustomizadoDetalheEntity detalhe = new IcmsCustomizadoDetalheEntity();
+		entity.adicionarDetalhe(detalhe);
+		return detalhe;
+	}
+
+	public List<UfEntity> listarUfs() {
+		return ufDAO.listaTodos();
+	}
+
+	public List<CfopEntity> carregarCfop() {
+		return cfopDAO.listaTodos();
+	}
+
+	public List<CsosnbEntity> carregarCsosnb() {
+		return csosnbDAO.listaTodos();
+	}
+
+	public List<CstIcmsbEntity> carregarCstb() {
+		return  cstbDAO.listaTodos();
+	}
+		
+	public void removerDetalhe(List<IcmsCustomizadoDetalheEntity> values) {
+		for (IcmsCustomizadoDetalheEntity value : values) {
+			entity.removeDetalhe(value);
+		}
+	}
+
 
 }
