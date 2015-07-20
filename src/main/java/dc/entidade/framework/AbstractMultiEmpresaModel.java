@@ -34,7 +34,7 @@ public abstract class AbstractMultiEmpresaModel<ID extends Serializable>
 	private EmpresaEntity empresa;
 
 	@Version
-	@Column(name = "versao")
+	@Column(name = "versao", nullable = false)
 	protected Integer versao;
 
 	public EmpresaEntity getEmpresa() {
