@@ -13,16 +13,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
@@ -54,6 +55,7 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Column(name = "BANDEIRA", length = 30)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Bandeira é Obrigatório!")
 	private String bandeira;
 
 	@Field
@@ -61,6 +63,7 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Column(name = "NOME", length = 50)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome;
 
 	@Field
@@ -116,10 +119,10 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer> im
 	 * REFERENCIA - FK
 	 */
 
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	@Caption("Conta da caixa")
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "ID_CONTA_CAIXA", nullable = false)
+	@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;
 
 	/**
@@ -237,13 +240,32 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer> im
 				.trim() : classificacaoContabilConta.toUpperCase().trim());
 	}
 
-	/**
-	 * TO STRING
-	 */
-
 	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof OperadoraCartaoEntity)) {
+            return false;
+        }
+
+        OperadoraCartaoEntity that = (OperadoraCartaoEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
+
 
 }

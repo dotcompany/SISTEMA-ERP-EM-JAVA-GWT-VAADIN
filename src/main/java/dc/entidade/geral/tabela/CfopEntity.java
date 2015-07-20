@@ -54,6 +54,14 @@ public class CfopEntity extends AbstractMultiEmpresaModel<Integer> implements Se
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
+	
+	@Field
+	@Caption("Cfop")
+	@Column(name = "CFOP")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Cfop é obrigatório")
+	private Integer cfop;
 
 	@Lob
 	@Type(type = "text")
@@ -91,6 +99,14 @@ public class CfopEntity extends AbstractMultiEmpresaModel<Integer> implements Se
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public Integer getCfop() {
+		return cfop;
+	}
+
+	public void setCfop(Integer cfop) {
+		this.cfop = cfop;
 	}
 
 	public String getDescricao() {

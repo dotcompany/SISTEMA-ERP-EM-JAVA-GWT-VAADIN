@@ -7,21 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.control.util.ObjectUtils;
-import dc.control.util.classes.OperadoraCartaoUtils;
-import dc.control.validator.DotErpException;
-import dc.controller.contabilidade.ContabilContaListController;
 import dc.controller.financeiro.ContaCaixaListController;
-import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.geral.diverso.OperadoraCartaoEntity;
 import dc.model.business.geral.diverso.OperadoraCartaoBusiness;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.OperadoraCartaoFormView;
 
@@ -99,18 +95,21 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 		try {
 			this.subView = new OperadoraCartaoFormView(this);
 
-			DefaultManyToOneComboModel<ContaCaixa> model = new DefaultManyToOneComboModel<ContaCaixa>(
-					ContaCaixaListController.class, this.contaCaixaDAO,
-					super.getMainController()) {
+			this.fieldGroup = new DCFieldGroup<>(OperadoraCartaoEntity.class);
+            fieldGroup.bind(this.subView.getMocContaCaixa(),"contaCaixa");
+            fieldGroup.bind(this.subView.getTfBandeira(),"bandeira");
+            fieldGroup.bind(this.subView.getTfNome(),"nome");
+           // fieldGroup.bind(this.subView.getTfTaxaAdm(),"taxaAdm");
+           // fieldGroup.bind(this.subView.getTfTaxaAdmDebito(),"taxaAdmDebito");
+           // fieldGroup.bind(this.subView.getTfValorAluguelPosPin(),"valorAluguelPosPin");
+            fieldGroup.bind(this.subView.getTfVencimentoAluguel(),"vencimentoAluguel");
+            fieldGroup.bind(this.subView.getTfTelefone1(),"fone1");
+            fieldGroup.bind(this.subView.getTfTelefone2(),"fone2");
 
-				@Override
-				public String getCaptionProperty() {
-					return "nome";
-				}
-
-			};
-
-			this.subView.getMocContaCaixa().setModel(model);
+            
+         // Configura os ManyToOneComboFields
+            this.subView.getMocContaCaixa().configuraCombo(
+                    "nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,11 +119,11 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			OperadoraCartaoUtils.validateRequiredFields(this.subView);
 
+			fieldGroup.commit();
+			
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 
 			return false;
 		}
@@ -134,18 +133,12 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	protected void actionSalvar() {
 		try {
 			ContaCaixa contaCaixa = this.subView.getMocContaCaixa().getValue();
-
 			if (ObjectUtils.isNotBlank(contaCaixa)) {
 				this.entity.setContaCaixa((ContaCaixa) this.subView
 						.getMocContaCaixa().getValue());
 			} else {
 				this.entity.setContaCaixa(null);
 			}
-
-			this.entity.setBandeira(this.subView.getTfBandeira().getValue());
-			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setFone1(this.subView.getTfTelefone1().getValue());
-			this.entity.setFone2(this.subView.getTfTelefone2().getValue());
 
 			this.business.saveOrUpdate(this.entity);
 
@@ -161,22 +154,9 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	protected void carregar(Serializable id) {
 		try {
 			this.entity = this.business.find(id);
+			
+			fieldGroup.setItemDataSource(this.entity);
 
-			this.subView.getMocContaCaixa().setValue(
-					this.entity.getContaCaixa());
-
-			this.subView.getTfBandeira().setValue(this.entity.getBandeira());
-			this.subView.getTfNome().setConvertedValue(this.entity.getNome());
-			this.subView.getTfVencimentoAluguel().setConvertedValue(
-					this.entity.getVencimentoAluguel());
-			this.subView.getTfTaxaAdm().setConvertedValue(
-					this.entity.getTaxaAdm());
-			this.subView.getTfTaxaAdmDebito().setConvertedValue(
-					this.entity.getTaxaAdmDebito());
-			this.subView.getTfValorAluguelPosPin().setConvertedValue(
-					this.entity.getValorAluguelPosPin());
-			this.subView.getTfTelefone1().setValue(this.entity.getFone1());
-			this.subView.getTfTelefone2().setValue(this.entity.getFone2());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -186,16 +166,13 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	protected void criarNovoBean() {
 		try {
 			this.entity = new OperadoraCartaoEntity();
+			
+            fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
 		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-
 	}
 
 	@Override
@@ -213,7 +190,13 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		try {
 
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 }

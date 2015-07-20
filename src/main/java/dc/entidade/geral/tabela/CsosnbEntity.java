@@ -73,7 +73,6 @@ public class CsosnbEntity extends AbstractMultiEmpresaModel<Integer> implements 
 	@Type(type = "text")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Observação é obrigatório")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	private String observacao;
 

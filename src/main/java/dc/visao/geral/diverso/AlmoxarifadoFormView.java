@@ -7,6 +7,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.geral.diverso.AlmoxarifadoFormController;
+import dc.visao.framework.util.ComponentUtil;
 
 public class AlmoxarifadoFormView extends CustomComponent {
 
@@ -79,15 +80,12 @@ public class AlmoxarifadoFormView extends CustomComponent {
 		fields.setMargin(false);
 		fields.setSpacing(true);
 		fields.setRows(2);
+		fields.setColumns(2);
 
 		// tfNome
-		tfNome = new TextField();
-		tfNome.setCaption("Nome");
+		tfNome = ComponentUtil.buildTextField("Nome");
 		tfNome.setImmediate(false);
-		tfNome.setWidth("560px");
-		tfNome.setHeight("-1px");
-		tfNome.setSizeFull();
-		fields.addComponent(tfNome, 0, 0);
+		fields.addComponent(tfNome, 0, 0, 1, 0);
 
 		return fields;
 	}

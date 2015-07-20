@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CstCofinsEntity;
 import dc.servicos.dao.geral.tabela.CstCofinsDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CstCofinsFormView;
 
@@ -44,73 +47,103 @@ public class CstCofinsFormController extends CRUDFormController<CstCofinsEntity>
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setCodigo(subView.getTxtCodigo().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		currentBean.setObservacao(subView.getTxtObservacao().getValue());
-
 		try {
 			cstCofinsDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = cstCofinsDAO.find(id);
-		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
-		subView.getTxtObservacao().setValue(currentBean.getObservacao());
-	}
+		
+		try {
+			currentBean = cstCofinsDAO.find(id);
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
+			// Atribui a entidade carregada como origem de dados dos campos do formulario
+            // no FieldGroup
+            fieldGroup.setItemDataSource(this.currentBean);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new CstCofinsFormView();
+		try {
+            this.subView = new CstCofinsFormView(this);
+
+            this.fieldGroup = new DCFieldGroup<>(CstCofinsEntity.class);
+            fieldGroup.bind(this.subView.getTxtCodigo(),"codigo");
+            fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+            fieldGroup.bind(this.subView.getTxtObservacao(),"observacao");
+
+        } catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CstCofinsEntity();
+		try {
+
+			this.currentBean = new CstCofinsEntity();
+
+            // Atribui a entidade nova como origem de dados dos campos do formulario
+            // no FieldGroup
+            fieldGroup.setItemDataSource(this.currentBean);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		cstCofinsDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.cstCofinsDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+
 	}
 
-	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		if (subView.getTxtDescricao().getValue() == null
-				|| subView.getTxtDescricao().getValue().isEmpty()) {
-			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
-			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em Branco!");
+		
+		try {
+            // Commit tenta transferir os dados do View para o Model, levando em conta os critérios de validação
+            fieldGroup.commit();
 
+			return true;
+		} catch (FieldGroup.CommitException ce) {
 			return false;
 		}
 
-		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 
@@ -121,12 +154,11 @@ public class CstCofinsFormController extends CRUDFormController<CstCofinsEntity>
 
 	@Override
 	public String getViewIdentifier() {
-		return "cstCofinsForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	public CstCofinsEntity getModelBean() {
-		// TODO Auto-generated method stub
 		return currentBean;
 	}
 

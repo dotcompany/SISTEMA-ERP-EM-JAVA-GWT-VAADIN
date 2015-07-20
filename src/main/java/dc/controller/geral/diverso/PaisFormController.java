@@ -7,14 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.NumberUtils;
-import dc.control.util.classes.PaisUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.model.business.geral.diverso.PaisBusiness;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.PaisFormView;
 
@@ -88,6 +87,14 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	protected void initSubView() {
 		try {
 			this.subView = new PaisFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(PaisEntity.class);
+
+	        fieldGroup.bind(this.subView.getTfNome(), "nomePtbr");
+	        fieldGroup.bind(this.subView.getTfNomeIngles(), "nomeIngles");
+	        fieldGroup.bind(this.subView.getTfCodigo(), "codigo");
+	        fieldGroup.bind(this.subView.getTfSigla2(), "sigla2");
+	        fieldGroup.bind(this.subView.getTfSigla3(), "sigla3");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -96,11 +103,10 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			PaisUtils.validateRequiredFields(this.subView);
-
+             fieldGroup.commit();
+			
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 
 			return false;
 		}
@@ -109,20 +115,6 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setNomePtbr(this.subView.getTfNome().getValue());
-			this.entity
-					.setNomeIngles(this.subView.getTfNomeIngles().getValue());
-			this.entity.setSigla2(this.subView.getTfSigla2().getValue());
-			this.entity.setSigla3(this.subView.getTfSigla3().getValue());
-
-			String codigo = this.subView.getTfCodigo().getValue();
-
-			if (NumberUtils.isNumber(codigo)) {
-				this.entity.setCodigo(NumberUtils.toInt(codigo));
-			} else {
-				this.entity.setCodigo(null);
-			}
-
 			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -130,23 +122,16 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
-		} finally {
-			criarNovoBean();
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
+			
 			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.entity.getNomePtbr());
-			this.subView.getTfNomeIngles()
-					.setValue(this.entity.getNomeIngles());
-			this.subView.getTfSigla2().setValue(this.entity.getSigla2());
-			this.subView.getTfSigla3().setValue(this.entity.getSigla3());
-			this.subView.getTfCodigo().setValue(
-					this.entity.getCodigo().toString());
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -156,17 +141,7 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 	protected void criarNovoBean() {
 		try {
 			this.entity = new PaisEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new PaisEntity();
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -189,6 +164,12 @@ public class PaisFormController extends CRUDFormController<PaisEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 

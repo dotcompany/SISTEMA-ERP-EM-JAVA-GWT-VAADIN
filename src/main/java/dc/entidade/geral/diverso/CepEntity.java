@@ -3,17 +3,22 @@ package dc.entidade.geral.diverso;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -51,6 +56,7 @@ public class CepEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "CEP", length = 8)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Cep é Obrigatório!")
 	private String cep;
 
 	@Field
@@ -58,6 +64,7 @@ public class CepEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "LOGRADOURO", length = 60)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Logradouro é Obrigatório!")
 	private String logradouro;
 
 	@Field
@@ -65,6 +72,7 @@ public class CepEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "COMPLEMENTO", length = 60)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Complemento é Obrigatório!")
 	private String complemento;
 
 	@Field
@@ -72,6 +80,7 @@ public class CepEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "BAIRRO", length = 60)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Bairro é Obrigatório!")
 	private String bairro;
 
 	@Field
@@ -79,6 +88,7 @@ public class CepEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "MUNICIPIO", length = 60)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Município é Obrigatório!")
 	private String municipio;
 
 	//@Field
@@ -88,6 +98,9 @@ public class CepEntity extends AbstractMultiEmpresaModel<Integer> implements
 	//@Analyzer(definition = "dc_combo_analyzer")
 	//private String uf;
 	
+	@Caption("UF")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "uf", nullable = false)
 	@Transient
 	private UfEntity uf;
 
@@ -191,13 +204,31 @@ public class CepEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.codigoIbgeMunicipio = codigoIbgeMunicipio;
 	}
 
-	/**
-	 * TO STRING
-	 */
-
 	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof CepEntity)) {
+            return false;
+        }
+
+        CepEntity that = (CepEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

@@ -108,12 +108,11 @@ public class TipoColaboradorFormView extends CustomComponent {
 
 		// txtNome
 		txtNome = ComponentUtil.buildTextField("Nome");
-		txtNome.setRequired(true);
-		fields.addComponent(txtNome, 0, 0);
+		fields.addComponent(txtNome, 0, 0, 1,0);
 
 		// txtDescricao
 		txtDescricao = ComponentUtil.buildTextArea("Descrição");
-		fields.addComponent(txtDescricao, 0, 1);
+		fields.addComponent(txtDescricao, 0, 1, 1,1);
 
 		return fields;
 	}

@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.AlmoxarifadoUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
 import dc.model.business.geral.diverso.AlmoxarifadoBusiness;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.AlmoxarifadoFormView;
 
@@ -92,34 +92,35 @@ public class AlmoxarifadoFormController extends
 	protected void initSubView() {
 		try {
 			this.subView = new AlmoxarifadoFormView(this);
+			
+            this.fieldGroup = new DCFieldGroup<>(AlmoxarifadoEntity.class);
+            fieldGroup.bind(this.subView.getTfNome(),"nome");
+
 		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			AlmoxarifadoUtils.validateRequiredFields(this.subView);
+			fieldGroup.commit();
 
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
+		} catch (FieldGroup.CommitException ce) {
 			return false;
+
 		}
 	}
 
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setNome(this.subView.getTfNome().getValue());
-
 			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
+			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
 		}
@@ -130,9 +131,9 @@ public class AlmoxarifadoFormController extends
 		try {
 			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.entity.getNome());
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
+			e.printStackTrace();
 		}
 	}
 
@@ -140,21 +141,12 @@ public class AlmoxarifadoFormController extends
 	protected void criarNovoBean() {
 		try {
 			this.entity = new AlmoxarifadoEntity();
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
+			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
-		}
-	}
 
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new AlmoxarifadoEntity();
-		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
-
-			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -165,9 +157,10 @@ public class AlmoxarifadoFormController extends
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
+			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
+
 		}
 	}
 
@@ -176,9 +169,10 @@ public class AlmoxarifadoFormController extends
 		try {
 
 		} catch (Exception e) {
-			logger.error(":: [ERROR]", e);
+			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
+
 		}
 	}
 

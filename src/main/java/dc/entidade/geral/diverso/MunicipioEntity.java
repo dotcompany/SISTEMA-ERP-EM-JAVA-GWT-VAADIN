@@ -3,6 +3,7 @@ package dc.entidade.geral.diverso;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,9 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -52,6 +56,7 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome = "";
 
 	@Field
@@ -59,6 +64,7 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "CODIGO_IBGE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código IBGE é Obrigatório!")
 	private Integer codigoIbge = new Integer(0);
 
 	@Field
@@ -66,6 +72,7 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "CODIGO_RECEITA_FEDERAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código Receita Federal é Obrigatório!")
 	private Integer codigoReceitaFederal = new Integer(0);
 
 	@Field
@@ -73,6 +80,7 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "CODIGO_ESTADUAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código Estadual é Obrigatório!")
 	private Integer codigoEstadual = new Integer(0);
 	
 	@Field
@@ -87,10 +95,10 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - FK
 	 */
 
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	@Caption("UF")
-	@ManyToOne
-	@JoinColumn(name = "ID_UF", nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_uf", nullable = false)
+	@Transient
 	private UfEntity uf;
 
 	/**
@@ -177,13 +185,31 @@ public class MunicipioEntity extends AbstractMultiEmpresaModel<Integer>
 				.trim());
 	}
 
-	/**
-	 * TO STRING
-	 */
-
 	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof MunicipioEntity)) {
+            return false;
+        }
+
+        MunicipioEntity that = (MunicipioEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

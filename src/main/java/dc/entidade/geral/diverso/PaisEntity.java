@@ -15,9 +15,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -57,6 +59,7 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "codigo")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código é Obrigatório!")
 	private Integer codigo = new Integer(0);
 
 	@Field
@@ -64,6 +67,7 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "nome_en", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome Inglês é Obrigatório!")
 	private String nomeIngles = "";
 
 	@Field
@@ -71,6 +75,7 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "nome_ptbr", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome Ptbr é Obrigatório!")
 	private String nomePtbr = "";
 
 	@Field
@@ -78,6 +83,7 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "sigla2", length = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Sigla 2 é Obrigatório!")
 	private String sigla2 = "";
 
 	@Field
@@ -85,6 +91,7 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "sigla3", length = 3)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Sigla 3 é Obrigatório!")
 	private String sigla3 = "";
 
 	/**
@@ -183,13 +190,31 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.ufList = ufList;
 	}
 
-	/**
-	 * TO STRING
-	 */
-
 	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof PaisEntity)) {
+            return false;
+        }
+
+        PaisEntity that = (PaisEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

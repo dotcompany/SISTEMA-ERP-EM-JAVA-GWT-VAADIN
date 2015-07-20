@@ -29,7 +29,7 @@
 	}
 
 .v-vaadin-version:after {
-	content: "7.5.0";
+	content: "7.5.1";
 }
 
 .v-generated-body {
@@ -3088,6 +3088,15 @@ body .dotcompany.v-app .v-app-loading {
 	filter: alpha(opacity=50);
 }
 
+.v-ie8 .dotcompany .v-menubar-menuitem-disabled, .v-ie8 .dotcompany .v-menubar span.v-menubar-menuitem-disabled:hover, .v-ie8 .dotcompany .v-menubar span.v-menubar-menuitem-disabled:focus, .v-ie8 .dotcompany .v-menubar span.v-menubar-menuitem-disabled:active {
+	filter: none;
+	color: #999;
+}
+
+.v-ie8 .dotcompany .v-menubar-menuitem-disabled img, .v-ie8 .dotcompany .v-menubar span.v-menubar-menuitem-disabled:hover img, .v-ie8 .dotcompany .v-menubar span.v-menubar-menuitem-disabled:focus img, .v-ie8 .dotcompany .v-menubar span.v-menubar-menuitem-disabled:active img {
+	filter: alpha(opacity=50);
+}
+
 .dotcompany .v-menubar-more-menuitem {
 	font-family: arial, helvetica, sans-serif;
 }
@@ -3137,7 +3146,7 @@ body .dotcompany.v-app .v-app-loading {
 	filter: alpha(opacity=90);
 }
 
-.dotcompany .v-Notification-caption, .dotcompany .v-Notification-description {
+.dotcompany .v-Notification-caption, .dotcompany .v-Notification-description, .dotcompany .v-Notification-details {
 	display: inline;
 	margin: 0 0.5em 0 0;
 }
