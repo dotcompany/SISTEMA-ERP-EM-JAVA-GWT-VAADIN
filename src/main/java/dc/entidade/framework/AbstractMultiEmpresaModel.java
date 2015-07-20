@@ -33,6 +33,7 @@ public abstract class AbstractMultiEmpresaModel<ID extends Serializable>
 	@IndexedEmbedded
 	private EmpresaEntity empresa;
 
+	
 	@Version
 	@Column(name = "versao", nullable = false)
 	protected Integer versao;
