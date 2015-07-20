@@ -1,6 +1,5 @@
 package dc.controller.tributario;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,21 +8,25 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
-import dc.servicos.dao.suprimentos.compra.ContagemEstoqueDAO;
+import dc.servicos.dao.tributario.IcmsCustomizadoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("serial")
 public class IcmsCustomizadoListController extends
 		CRUDListController<IcmsCustomizadoCabecalhoEntity> {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ContagemEstoqueDAO dao;
+	private IcmsCustomizadoDAO dao;
 
 	@Autowired
 	private IcmsCustomizadoFormController formController;
+	
+	public IcmsCustomizadoListController() {
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -37,7 +40,16 @@ public class IcmsCustomizadoListController extends
 
 	@Override
 	protected List<IcmsCustomizadoCabecalhoEntity> pesquisa(String valor) {
-		return new ArrayList<IcmsCustomizadoCabecalhoEntity>();
+		try {
+			List<IcmsCustomizadoCabecalhoEntity> auxLista = (List<IcmsCustomizadoCabecalhoEntity>) this.formController.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	
 	}
 
 	@Override
@@ -57,13 +69,16 @@ public class IcmsCustomizadoListController extends
 
 	@Override
 	protected List<IcmsCustomizadoCabecalhoEntity> pesquisaDefault() {
-		/*
-		 * List<ContagemEstoque> lista = new ArrayList<>(); try{ lista =
-		 * dao.getAll(ContagemEstoque.class); }catch(Exception e){
-		 * e.printStackTrace(); }
-		 */
-		//
-		return new ArrayList<IcmsCustomizadoCabecalhoEntity>();
+		try {
+			@SuppressWarnings("unchecked")
+			List<IcmsCustomizadoCabecalhoEntity> auxLista = (List<IcmsCustomizadoCabecalhoEntity>) this.formController.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 	@Override

@@ -69,13 +69,18 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGpsEntity>
 
 	@Override
 	protected void initSubView() {
-		subView = new CodigoGpsFormView();
+		
+		try {
+			subView = new CodigoGpsFormView();
+			
+			this.fieldGroup = new DCFieldGroup<>(CodigoGpsEntity.class);
+			fieldGroup.bind(this.subView.getTxtCodigo(),"codigo");
+            fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
 	protected void criarNovoBean() {
 		
@@ -83,11 +88,12 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGpsEntity>
 			
 			currentBean = new CodigoGpsEntity();
 			
-            this.fieldGroup = new DCFieldGroup<>(CodigoGpsEntity.class);
-            fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
-
+			fieldGroup.setItemDataSource(this.currentBean);
+			
         } catch (Exception e) {
 			e.printStackTrace();
+			
+			mensagemErro(e.getMessage());
 		}
 
 	}

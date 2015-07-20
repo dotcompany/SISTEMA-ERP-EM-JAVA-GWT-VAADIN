@@ -46,6 +46,7 @@ public class CodigoGpsEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	@Field
 	@Caption("Codigo")
 	@Column(name="CODIGO")
+	@NotNull(message = "Código é obrigatório")
 	private Integer codigo;
 	
 	@Field

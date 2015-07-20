@@ -63,6 +63,7 @@ public class IcmsCustomizadoCabecalhoEntity extends	AbstractMultiEmpresaModel<In
 	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao = "";
 
 	@Enumerated(EnumType.STRING)
@@ -71,6 +72,7 @@ public class IcmsCustomizadoCabecalhoEntity extends	AbstractMultiEmpresaModel<In
 	@Column(name = "origem_mercadoria")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Origem Mercadoria é Obrigatório!")
 	private OrigemMercadoriaEn origemMercadoria;
 
 	/**
