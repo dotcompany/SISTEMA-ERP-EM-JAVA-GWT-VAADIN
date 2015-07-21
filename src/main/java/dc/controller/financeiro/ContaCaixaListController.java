@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -39,7 +40,7 @@ public class ContaCaixaListController extends CRUDListController<ContaCaixa> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaContaCaixa";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

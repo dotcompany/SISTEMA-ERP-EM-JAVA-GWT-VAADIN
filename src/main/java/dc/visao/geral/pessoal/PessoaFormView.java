@@ -1727,7 +1727,7 @@ public class PessoaFormView extends CustomComponent {
 		// mocEstadoCivil
 		mocEstadoCivil = new ManyToOneComboField<>(EstadoCivilEntity.class);
 		mocEstadoCivil.setCaption("Estado civil");
-		glGeralPessoaFisica.addComponent(mocEstadoCivil, 2, 0 , 3,0);
+		glGeralPessoaFisica.addComponent(mocEstadoCivil, 2, 0);
 
 		// cbRaca
 		cbRaca = ComponentUtil.buildComboBox("Raça");

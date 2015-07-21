@@ -13,9 +13,12 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -51,6 +54,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "CODIGO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código é Obrigatório!")
 	private String codigo = "";
 
 	@Field
@@ -58,6 +62,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "DIGITO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Dígito é Obrigatório!")
 	private String digito = "";
 
 	@Field
@@ -65,6 +70,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome = "";
 
 	@Lob
@@ -74,6 +80,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao = "";
 	
 	@Field
@@ -89,6 +96,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "TIPO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Tipo Conta é Obrigatório!")
 	private ContaCaixaTipoEnum tipoConta;
 
 	/**
@@ -97,6 +105,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "ID_AGENCIA_BANCO", nullable = true)
+	@NotNull(message = "Agência Banco é Obrigatório!")
 	private AgenciaBancoEntity agenciaBanco;
 
 	/**
@@ -198,5 +207,32 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ContaCaixa)) {
+            return false;
+        }
+
+        ContaCaixa that = (ContaCaixa) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }
