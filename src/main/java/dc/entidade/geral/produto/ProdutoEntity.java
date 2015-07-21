@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -344,10 +345,13 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	/**
 	 * REFERENCIA - FK
 	 */
+	
+	//@ManyToOne(fetch = FetchType.EAGER)
+	//@JoinColumn(name = "id_cliente", referencedColumnName = "id")
 
 	@Caption("Subgrupo")
 	@ManyToOne()
-	@JoinColumn(name = "id_sub_grupo", nullable = false)
+	@JoinColumn(name = "id_sub_grupo", referencedColumnName = "id", nullable = false)
 	@NotNull(message = "SubGrupo é obrigatório")
 	private SubGrupoEntity subGrupo;
 
@@ -358,8 +362,8 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private GrupoEntity grupo;
 
 	@Caption("Unidade do produto")
-	@ManyToOne()
-	@JoinColumn(name = "id_unidade_produto", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_unidade_produto",referencedColumnName = "id", nullable = false)
     @NotNull(message = "Unidade do produto é obrigatório")
 	private UnidadeProdutoEntity unidadeProduto;
 
@@ -390,7 +394,6 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption("ICMS customizado")
 	@ManyToOne()
 	@JoinColumn(name = "id_tribut_icms_custom_cab")
-	@NotNull(message = "ICMS Customizado é Obrigatório!")
 	private IcmsCustomizadoCabecalhoEntity icmsCustomizado;
 
 	/**
@@ -792,7 +795,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * TO STRING
 	 */
 
-//	@Override
+//@Override
 //	public String toString() {
 //		return ToStringBuilder.reflectionToString(this);
 //	}

@@ -2,6 +2,7 @@ package dc.entidade.geral.pessoal;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,8 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -481,8 +484,9 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	 * @module PATRIMONIO
 	 */
 
+	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
-	private List<BemEntity> bemList;
+	private List<BemEntity> bemList = new ArrayList<BemEntity>();
 
 	/**
 	 * ********************************************************

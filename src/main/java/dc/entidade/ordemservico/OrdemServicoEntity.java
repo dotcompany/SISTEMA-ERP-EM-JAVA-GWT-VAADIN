@@ -58,11 +58,11 @@ public class OrdemServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
 	private ClienteEntity cliente;
 
-	@Caption(value = "Valor ServiÃ§o")
+	@Caption(value = "Valor Serviço")
 	@Column(name = "valor_servico")
 	private BigDecimal valorServico;
 
-	@Caption(value = "Valor PeÃ§a")
+	@Caption(value = "Valor Peça")
 	@Column(name = "valor_peca")
 	private BigDecimal valorPeca;
 
@@ -82,23 +82,23 @@ public class OrdemServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "valor_total_os")
 	private BigDecimal valorTotalOs;	
 
-	@Caption(value = "Valor ServiÃ§o")
+	@Caption(value = "Valor Serviço")
 	@Column(name = "valor_total_servico")
 	private BigDecimal valorTotalServico;	
 
-	@Caption(value = "Valor Lucro ServiÃ§o")
+	@Caption(value = "Valor Lucro Serviço")
 	@Column(name = "valor_lucro_servico")
 	private BigDecimal valorLucroServico;	
 
-	@Caption(value = "Valor ComissÃ£o TÃ©cnico")
+	@Caption(value = "Valor Comissão Técnico")
 	@Column(name = "valor_comissao_tecnico")
 	private BigDecimal valorComissaoTecnico;	
 
-	@Caption(value = "Valor ComissÃ£o Vendedor")
+	@Caption(value = "Valor Comissão Vendedor")
 	@Column(name = "valor_comissao_vendedor")
 	private BigDecimal valorComissaoVendedor;	
 
-	@Caption(value = "Valor ComissÃ£o Atendente")
+	@Caption(value = "Valor Comissão Atendente")
 	@Column(name = "valor_comissao_atendente")
 	private BigDecimal valorComissaoAtendente;	
 
@@ -106,7 +106,7 @@ public class OrdemServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "valor_lucro_parcial")
 	private BigDecimal valorLucroParcial;
 
-	@Caption(value = "Valor Lucro PeÃ§a")
+	@Caption(value = "Valor Lucro Peça")
 	@Column(name = "valor_lucro_peca")
 	private BigDecimal valorLucroPeca;
 

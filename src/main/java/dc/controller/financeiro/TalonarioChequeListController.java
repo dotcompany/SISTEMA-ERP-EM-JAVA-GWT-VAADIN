@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.TalonarioCheque;
 import dc.servicos.dao.financeiro.TalonarioChequeDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -13,8 +14,10 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("unchecked")
 public class TalonarioChequeListController extends CRUDListController<TalonarioCheque> {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Autowired
 	TalonarioChequeDAO dao;
 
@@ -23,7 +26,7 @@ public class TalonarioChequeListController extends CRUDListController<TalonarioC
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "talao", "statusTalao", "numero" };
+		return new String[] { "contaCaixa","talao", "statusTalao", "numero" };
 	}
 
 	@Override
@@ -49,7 +52,7 @@ public class TalonarioChequeListController extends CRUDListController<TalonarioC
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaTalonarioCheque";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

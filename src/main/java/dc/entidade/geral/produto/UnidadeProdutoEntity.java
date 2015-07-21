@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -87,7 +86,7 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="unidadeProduto",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "unidadeProduto", fetch = FetchType.LAZY)
 	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
 	/**

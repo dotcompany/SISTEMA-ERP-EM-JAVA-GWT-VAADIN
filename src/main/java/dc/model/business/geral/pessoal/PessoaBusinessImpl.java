@@ -200,7 +200,7 @@ public class PessoaBusinessImpl implements Serializable,
 
 			PessoaEntity ent = (PessoaEntity) o;
 
-			if (ent.getTipoPessoa().equals(TipoPessoaEn.F)) {
+			if (ent.getTipo().equals(TipoPessoaEn.F)) {
 				if (ObjectUtils.isNotBlank(ent.getPessoaJuridica())) {
 					this.pessoaJuridicaDAO.delete(ent.getPessoaJuridica());
 				}
@@ -214,7 +214,7 @@ public class PessoaBusinessImpl implements Serializable,
 									.getId());
 					ent.getPessoaFisica().setEstadoCivil(estadoCivil);
 				}
-			} else if (ent.getTipoPessoa().equals(TipoPessoaEn.J)) {
+			} else if (ent.getTipo().equals(TipoPessoaEn.J)) {
 				if (ObjectUtils.isNotBlank(ent.getPessoaFisica())) {
 					this.pessoaFisicaDAO.delete(ent.getPessoaFisica());
 				}

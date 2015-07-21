@@ -38,7 +38,7 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "tipoPessoa", "email", "site" };
+		return new String[] { "nome", "tipo", "email", "site" };
 	}
 
 	@Override

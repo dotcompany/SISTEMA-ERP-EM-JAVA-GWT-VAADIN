@@ -169,7 +169,6 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
         fieldGroup.bind(this.subView.getMocAlmoxarifado(), "almoxarifado");
         fieldGroup.bind(this.subView.getMocGrupo(), "grupo");
         fieldGroup.bind(this.subView.getMocGrupoTributario(), "grupoTributario");
-        fieldGroup.bind(this.subView.getMocIcmsCustomizado(), "icmsCustomizado");
         
         /**************** Informação Geral *********************/        
         fieldGroup.bind(this.subView.getTfNome(), "nome");

@@ -77,11 +77,11 @@ public class GrupoEntity extends AbstractMultiEmpresaModel<Integer> implements S
 	 * REFERENCIA - LIST
 	 */
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="grupo",orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="grupo",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="grupo",orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="grupo",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<SubGrupoEntity> subGrupoList =  new ArrayList<SubGrupoEntity>();
 	
 	/**

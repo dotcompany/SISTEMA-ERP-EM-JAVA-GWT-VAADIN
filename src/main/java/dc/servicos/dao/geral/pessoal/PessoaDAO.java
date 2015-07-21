@@ -134,14 +134,14 @@ public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
 	@Transactional
 	public void saveOrUpdatePessoa(PessoaEntity entity) throws Exception {
 		try {
-			if (entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
+			if (entity.getTipo().equals(TipoPessoaEn.F)) {
 				if (entity.getPessoaJuridica() != null
 						&& entity.getPessoaJuridica().getId() != null) {
 					this.pessoaJuridicaDAO.delete(entity.getPessoaJuridica());
 				}
 
 				entity.setPessoaJuridica(null);
-			} else if (entity.getTipoPessoa().equals(TipoPessoaEn.J)) {
+			} else if (entity.getTipo().equals(TipoPessoaEn.J)) {
 				if (entity.getPessoaFisica() != null
 						&& entity.getPessoaFisica().getId() != null) {
 					this.pessoaFisicaDAO.delete(entity.getPessoaFisica());
@@ -173,7 +173,7 @@ public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
 
 	@Override
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "nome", "tipoPessoa", "email", "site" };
+		return new String[] { "nome", "tipo", "email", "site" };
 	}
 
 }

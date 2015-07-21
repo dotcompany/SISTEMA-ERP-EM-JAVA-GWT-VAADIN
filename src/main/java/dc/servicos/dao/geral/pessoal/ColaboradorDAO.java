@@ -40,7 +40,7 @@ public class ColaboradorDAO extends AbstractCrudDAO<ColaboradorEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "pessoa.nome", "codigoTurmaPonto",
+		return new String[] { "tipoColaborador","pessoa","cargo","setor", "codigoTurmaPonto",
 				"dataCadastro", "dataAdmissao", "vencimentoFerias",
 				"dataTransferencia" };
 	}

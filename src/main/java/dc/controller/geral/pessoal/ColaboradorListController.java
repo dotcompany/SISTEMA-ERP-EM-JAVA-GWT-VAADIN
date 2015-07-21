@@ -30,8 +30,9 @@ public class ColaboradorListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "codigoTurmaPonto", "dataCadastro",
-				"dataAdmissao", "vencimentoFerias", "dataTransferencia" };
+		return new String[] { "tipoColaborador","pessoa","cargo","setor", "codigoTurmaPonto",
+				"dataCadastro", "dataAdmissao", "vencimentoFerias",
+				"dataTransferencia" };
 	}
 
 	@Override
