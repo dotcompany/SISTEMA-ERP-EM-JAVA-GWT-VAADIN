@@ -11,9 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -80,6 +83,7 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "LOGRADOURO", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Logradouro é Obrigatório!")
 	private String logradouro;
 
 	@Field
@@ -101,6 +105,7 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "BAIRRO", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Bairro é Obrigatório!")
 	private String bairro;
 
 	@Field
@@ -138,11 +143,13 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "EMAIL", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Email é Obrigatório!")
 	private String email;
 
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME", length = 150)
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome;
 
 	@Field
@@ -150,6 +157,7 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "CPF", length = 50)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Cpf é Obrigatório!")
 	private String cpf;
 
 	@Field
@@ -157,6 +165,7 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "CNPJ", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Cnpj é Obrigatório!")
 	private String cnpj;
 
 	@Field
@@ -347,6 +356,33 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	       if (this == obj) {
+	           return true;
+	       }
+		
+	       if (!(obj instanceof ContadorEntity)) {
+	           return false;
+	       }
+		
+	       ContadorEntity that = (ContadorEntity) obj;
+	       EqualsBuilder eb = new EqualsBuilder();
+	       eb.append(getId(), that.getId());
+	       return eb.isEquals();
+	}
+		
+	@Override
+	public int hashCode() {
+	      if (getId() == null) {
+	          return super.hashCode();
+	      } else {
+	          return new HashCodeBuilder()
+	                   .append(id)
+	                   .toHashCode();
+	      }
 	}
 
 }

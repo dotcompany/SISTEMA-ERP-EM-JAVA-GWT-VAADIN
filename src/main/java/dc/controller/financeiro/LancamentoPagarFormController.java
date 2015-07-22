@@ -309,6 +309,12 @@ public class LancamentoPagarFormController extends
 				super.getMainController());
 
 		this.subView.getCbContaCaixa().setModel(model1);
+		
+		DefaultManyToOneComboModel<StatusParcela> modelo = new DefaultManyToOneComboModel<StatusParcela>(
+				StatusParcelaListController.class, this.statusParcelaDAO,
+				super.getMainController());
+
+		this.subView.getCbStatusParcela().setModel(modelo);
 
 		DefaultManyToOneComboModel<DocumentoOrigem> model3 = new DefaultManyToOneComboModel<DocumentoOrigem>(
 				DocumentoOrigemListController.class, this.documentoOrigemDAO,

@@ -16,9 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -66,6 +69,7 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao = "";
 
 	@Field
@@ -73,6 +77,7 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "descricao_na_nf")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição da NF é Obrigatório!")
 	private String descricaoNaNf = "";
 
 	@Field
@@ -172,6 +177,33 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	       if (this == obj) {
+	           return true;
+	       }
+		
+	       if (!(obj instanceof OperacaoFiscalEntity)) {
+	           return false;
+	       }
+		
+	       OperacaoFiscalEntity that = (OperacaoFiscalEntity) obj;
+	       EqualsBuilder eb = new EqualsBuilder();
+	       eb.append(getId(), that.getId());
+	       return eb.isEquals();
+	}
+		
+	@Override
+	public int hashCode() {
+	      if (getId() == null) {
+	          return super.hashCode();
+	      } else {
+	          return new HashCodeBuilder()
+	                   .append(id)
+	                   .toHashCode();
+	      }
 	}
 
 }

@@ -52,6 +52,13 @@ public class GrupoTributarioEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
+	
+	@Field
+	@Caption("Nome")
+	@Column(name = "nome")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String nome;
 
 	@Field
 	@Caption("Descrição")

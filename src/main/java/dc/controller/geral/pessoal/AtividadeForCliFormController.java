@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
-import dc.servicos.util.Validator;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.AtividadeForCliFormView;
 
@@ -35,31 +36,23 @@ public class AtividadeForCliFormController extends
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTfNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTfNome(),
-					"Não pode ficar em branco");
-			valido = false;
+		try {
+			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+		    return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
-
-		if (!Validator.validateString(subView.getTfDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTfDescricao(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.currentBean = new AtividadeForCliEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
+			currentBean = new AtividadeForCliEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch (Exception e) {
+		    e.printStackTrace();
+		    mensagemErro(e.getMessage());
 		}
 	}
 
@@ -67,6 +60,13 @@ public class AtividadeForCliFormController extends
 	protected void initSubView() {
 		try {
 			this.subView = new AtividadeForCliFormView(this);
+			
+            this.fieldGroup = new DCFieldGroup<>(AtividadeForCliEntity.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getTfNome(),"nome");
+			fieldGroup.bind(this.subView.getTfDescricao(),"descricao");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,10 +76,8 @@ public class AtividadeForCliFormController extends
 	protected void carregar(Serializable id) {
 		try {
 			this.currentBean = this.atividadeForCliDAO.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
 
-			this.subView.getTfNome().setValue(this.currentBean.getNome());
-			this.subView.getTfDescricao().setValue(
-					this.currentBean.getDescricao());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -88,10 +86,6 @@ public class AtividadeForCliFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.currentBean.setNome(this.subView.getTfNome().getValue());
-			this.currentBean.setDescricao(this.subView.getTfDescricao()
-					.getValue());
-
 			this.atividadeForCliDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -100,11 +94,6 @@ public class AtividadeForCliFormController extends
 
 			mensagemErro(e.getMessage());
 		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-
 	}
 
 	@Override
@@ -127,6 +116,13 @@ public class AtividadeForCliFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 

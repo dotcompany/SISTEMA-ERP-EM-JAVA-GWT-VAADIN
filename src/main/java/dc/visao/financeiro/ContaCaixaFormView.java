@@ -8,8 +8,8 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.control.enums.ContaCaixaTipoEnum;
 import dc.entidade.financeiro.AgenciaBancoEntity;
-import dc.entidade.financeiro.type.TipoType;
 import dc.visao.framework.component.manytoonecombo.ManyToOneComboField;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -85,7 +85,7 @@ public class ContaCaixaFormView extends CustomComponent {
 		glGeral = bglGeral();
 		mainLayout.addComponent(glGeral);
 		
-		for (TipoType en : TipoType.values()) {
+		for (ContaCaixaTipoEnum en : ContaCaixaTipoEnum.values()) {
 			cmbTipo.addItem(en);
 		}
 

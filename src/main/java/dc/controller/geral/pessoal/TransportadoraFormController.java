@@ -7,18 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.controller.contabilidade.ContabilContaListController;
-import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.TransportadoraEntity;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.servicos.dao.geral.pessoal.TransportadoraDAO;
-import dc.servicos.util.Validator;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.TransportadoraFormView;
 
@@ -91,19 +87,17 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 	protected void initSubView() {
 		try {
 			this.subView = new TransportadoraFormView(this);
+			
+            this.fieldGroup = new DCFieldGroup<>(TransportadoraEntity.class);
+			
+			// Mapeia os campos
+			
+			fieldGroup.bind(this.subView.getMocPessoa(),"pessoa");
+			fieldGroup.bind(this.subView.getTaObservacao(),"observacao");
+			
+			this.subView.getMocPessoa().configuraCombo(
+					"nome", PessoaListController.class, this.pessoaDAO, this.getMainController());
 
-			DefaultManyToOneComboModel<PessoaEntity> model1 = new DefaultManyToOneComboModel<PessoaEntity>(
-					PessoaListController.class, this.pessoaDAO,
-					super.getMainController()) {
-
-				@Override
-				public String getCaptionProperty() {
-					return "nome";
-				}
-
-			};
-
-			this.subView.getMocPessoa().setModel(model1);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -112,32 +106,18 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		// if (!Validator.validateObject(subView.getCmbPessoa().getValue())) {
-		// adicionarErroDeValidacao(subView.getCmbPessoa(),
-		// "Não pode ficar em branco");
-		// valido = false;
-		// }
-
-		if (!Validator.validateString(subView.getTaObservacao().getValue())) {
-			adicionarErroDeValidacao(subView.getTaObservacao(),
-					"Não pode ficar em Branco!");
-
-			valido = false;
+		try {
+			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+		    return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
-
-		return valido;
 	}
 
 	@Override
 	protected void actionSalvar() {
 		try {
-			// entity.setPessoa((PessoaEntity)
-			// subView.getCmbPessoa().getValue());
-			this.entity
-					.setObservacao(this.subView.getTaObservacao().getValue());
-
 			this.dao.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -152,9 +132,9 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 	protected void carregar(Serializable id) {
 		try {
 			this.entity = this.dao.find(id);
+			
+			fieldGroup.setItemDataSource(this.entity);
 
-			this.subView.getTaObservacao()
-					.setValue(this.entity.getObservacao());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -164,17 +144,7 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 	protected void criarNovoBean() {
 		try {
 			this.entity = new TransportadoraEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new TransportadoraEntity();
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

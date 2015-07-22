@@ -19,8 +19,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -56,6 +59,7 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@SequenceGenerator(name = "cliente_id_seq", sequenceName = "cliente_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
+	@NotNull
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
@@ -64,6 +68,7 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "DESDE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Desde é Obrigatório!")
 	private Date desde;
 
 	@Field
@@ -149,16 +154,19 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption("Pessoa")
 	@OneToOne
 	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
+	@NotNull(message = "Pessoa é Obrigatório!")
 	private PessoaEntity pessoa;
 
 	@Caption("Situação fornecedor / cliente")
 	@ManyToOne
 	@JoinColumn(name = "id_situacao_for_cli", nullable = true)
+	@NotNull(message = "Situação é Obrigatório!")
 	private SituacaoForCliEntity situacaoForCli;
 
 	@Caption("Atividade fornecedor / cliente")
 	@ManyToOne
 	@JoinColumn(name = "id_atividade_for_cli", nullable = true)
+	@NotNull(message = "Atividade é Obrigatório!")
 	private AtividadeForCliEntity atividadeForCli;
 
 	@Caption("Operação fiscal")
@@ -166,11 +174,6 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@JoinColumn(name = "id_operacao_fiscal", nullable = true)
 	private OperacaoFiscalEntity operacaoFiscal;
 	
-	/*@Caption("Pessoa Eventos")
-	@OneToOne()
-	@JoinColumn(name = "id_pessoa_eventos", insertable = true, updatable = true)
-	private PessoaEventosEntity pessoaEventos;*/
-
 	/**
 	 * REFERENCIA - LIST
 	 */
@@ -367,5 +370,32 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public String toString() {
 		return pessoa.getNome();
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ClienteEntity)) {
+            return false;
+        }
+
+        ClienteEntity that = (ClienteEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

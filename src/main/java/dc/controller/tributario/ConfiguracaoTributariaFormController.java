@@ -134,10 +134,21 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 
 	@Override
 	protected void initSubView() {
+		
 		subView = new ConfiguracaoTributariaFormView(this);
-		DefaultManyToOneComboModel<GrupoTributarioEntity> comboModel = new DefaultManyToOneComboModel<GrupoTributarioEntity>(GrupoTributarioListController.class,
-				grupoTributarioDAO, mainController);
-		subView.getCmbGrupoTributario().setModel(comboModel);
+		
+		DefaultManyToOneComboModel<GrupoTributarioEntity> model = new DefaultManyToOneComboModel<GrupoTributarioEntity>(GrupoTributarioListController.class, this.grupoTributarioDAO,
+									super.getMainController()) {
+				
+								@Override
+								public String getCaptionProperty() {
+									return "descricao";
+								}
+				
+							};
+				
+		this.subView.getCmbGrupoTributario().setModel(model);
+	
 
 		DefaultManyToOneComboModel<OperacaoFiscalEntity> comboOperacao = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(OperacaoFiscalListController.class,
 				operacaoFiscalDAO, mainController);

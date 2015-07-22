@@ -58,7 +58,7 @@ public class GrupoTributarioFormView extends CustomComponent {
 		cmbOrigemMercadoria = ComponentUtil.buildComboBox("Origem Mercadoria");
 		cmbOrigemMercadoria.setRequired(true);
 		carregarOrigemMercadoria();
-		fields.addComponent(cmbOrigemMercadoria,1,0);
+		fields.addComponent(cmbOrigemMercadoria,1,0, 2,0);
 
 		observacao = ComponentUtil.buildTextArea("Observações");
 		

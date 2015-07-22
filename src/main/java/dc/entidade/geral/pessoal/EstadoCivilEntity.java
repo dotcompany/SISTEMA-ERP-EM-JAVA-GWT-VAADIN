@@ -15,6 +15,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -59,6 +60,7 @@ public class EstadoCivilEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome;
 
 	@Lob
@@ -68,6 +70,7 @@ public class EstadoCivilEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao;
 
 	/**
