@@ -20,6 +20,7 @@ import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.apache.lucene.util.Version;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -494,7 +495,14 @@ public abstract class AbstractCrudDAO<T> {
 		if (startValue instanceof Boolean || endValue instanceof Boolean) {
 
 			FullTextSession fullTextSession = getFullTextSession();
+			QueryBuilder qb = getFullTextSession().getSearchFactory().buildQueryBuilder().forEntity(getEntityClass()).get();
 
+			org.apache.lucene.search.Query query2 = qb.keyword().onField(property.toString()).matching(startValue).createQuery();
+			//		fuzzy().withEditDistanceUpTo(1).onFields(searchFields).matching(endValue).createQuery();
+
+
+			
+			
 			SearchFactory searchFactory = fullTextSession.getSearchFactory();
 			org.apache.lucene.search.Query luceneQuery = null;
 			QueryParser parser = new QueryParser(Version.LUCENE_31, property.toString(), searchFactory.getAnalyzer(Documento.class));
@@ -721,6 +729,13 @@ public abstract class AbstractCrudDAO<T> {
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+	
+	@Transactional
+	public void initialize(Object object){
+		if(!Hibernate.isInitialized(object)){
+			Hibernate.initialize(object);
+		}
 	}
 
 }
