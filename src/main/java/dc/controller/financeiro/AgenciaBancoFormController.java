@@ -7,21 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.ObjectUtils;
-import dc.control.util.classes.AgenciaBancoUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.financeiro.AgenciaBancoEntity;
-import dc.entidade.financeiro.BancoEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.servicos.dao.financeiro.AgenciaBancoDAO;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.servicos.dao.geral.UfDAO;
 import dc.visao.financeiro.AgenciaBancoFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
@@ -77,19 +74,21 @@ public class AgenciaBancoFormController extends
 	protected void initSubView() {
 		try {
 			this.subView = new AgenciaBancoFormView(this);
-
-			DefaultManyToOneComboModel<BancoEntity> model = new DefaultManyToOneComboModel<BancoEntity>(
-					BancoListController.class, this.bancoDAO,
-					super.getMainController()) {
-
-				@Override
-				public String getCaptionProperty() {
-					return "nome";
-				}
-
-			};
-
-			this.subView.getMocBanco().setModel(model);
+			
+            this.fieldGroup = new DCFieldGroup<>(AgenciaBancoEntity.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getTfCodigo(),"codigo");
+			fieldGroup.bind(this.subView.getTfNome(),"nome");
+			fieldGroup.bind(this.subView.getTfLogradouro(),"logradouro");
+			fieldGroup.bind(this.subView.getTfCep(),"cep");
+			fieldGroup.bind(this.subView.getTfTelefone(),"telefone");
+			fieldGroup.bind(this.subView.getTfContato(),"contato");
+			fieldGroup.bind(this.subView.getTfGerente(),"gerente");
+			fieldGroup.bind(this.subView.getMocBanco(),"banco");
+			
+			this.subView.getMocBanco().configuraCombo(
+					"nome", BancoListController.class, this.bancoDAO, this.getMainController());
 
 			carregarUf();
 		} catch (Exception e) {
@@ -100,11 +99,10 @@ public class AgenciaBancoFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			AgenciaBancoUtils.validateRequiredFields(this.subView);
 
+			 fieldGroup.commit();
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 
 			return false;
 		}
@@ -113,32 +111,7 @@ public class AgenciaBancoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.currentBean.setNome(this.subView.getTfNome().getValue());
-			this.currentBean.setLogradouro(this.subView.getTfLogradouro()
-					.getValue());
-			this.currentBean.setNumero(this.subView.getTfNumero().getValue());
-			this.currentBean.setBairro(this.subView.getTfBairro().getValue());
-			this.currentBean.setCep(this.subView.getTfCep().getValue());
-			this.currentBean.setMunicipio(this.subView.getTfMunicipio()
-					.getValue());
-			this.currentBean.setTelefone(this.subView.getTfTelefone()
-					.getValue());
-			this.currentBean.setContato(this.subView.getTfContato().getValue());
-			this.currentBean.setGerente(this.subView.getTfGerente().getValue());
-			this.currentBean.setObservacao(this.subView.getTaObservacao()
-					.getValue());
-
-			BancoEntity banco = (BancoEntity) this.subView.getMocBanco()
-					.getValue();
-
-			this.currentBean.setBanco(banco);
-
-			UfEntity uf = (UfEntity) this.subView.getCbUf().getValue();
-
-			this.currentBean.setSiglaUf(uf.getSigla());
-			this.currentBean.setUf(uf);
-
-			this.agenciaBancoDAO.saveOrUpdateAgenciaBanco(this.currentBean);
+			this.agenciaBancoDAO.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -152,33 +125,9 @@ public class AgenciaBancoFormController extends
 	protected void carregar(Serializable id) {
 		try {
 			this.currentBean = this.agenciaBancoDAO.find(id);
+			
+			 fieldGroup.setItemDataSource(this.currentBean);
 
-			this.subView.getTfNome().setValue(this.currentBean.getNome());
-			this.subView.getTfLogradouro().setValue(
-					this.currentBean.getLogradouro());
-			this.subView.getTfNumero().setValue(this.currentBean.getNumero());
-			this.subView.getTfBairro().setValue(this.currentBean.getBairro());
-			this.subView.getTfCep().setValue(this.currentBean.getCep());
-			this.subView.getTfMunicipio().setValue(
-					this.currentBean.getMunicipio());
-			this.subView.getTfTelefone().setValue(
-					this.currentBean.getTelefone());
-			this.subView.getTfContato().setValue(this.currentBean.getContato());
-			this.subView.getTfGerente().setValue(this.currentBean.getGerente());
-			this.subView.getTaObservacao().setValue(
-					this.currentBean.getObservacao());
-
-			BancoEntity banco = this.currentBean.getBanco();
-
-			if (ObjectUtils.isNotBlank(banco)) {
-				this.subView.getMocBanco().setValue(banco);
-			}
-
-			UfEntity uf = this.currentBean.getUf();
-
-			if (ObjectUtils.isNotBlank(uf)) {
-				this.subView.getCbUf().setValue(uf);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -188,17 +137,8 @@ public class AgenciaBancoFormController extends
 	protected void criarNovoBean() {
 		try {
 			this.currentBean = new AgenciaBancoEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.currentBean = new AgenciaBancoEntity();
+			
+			 fieldGroup.setItemDataSource(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -221,6 +161,13 @@ public class AgenciaBancoFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 

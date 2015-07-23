@@ -7,19 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.NumberUtils;
-import dc.control.util.ObjectUtils;
-import dc.control.util.StringUtils;
 import dc.controller.geral.tabela.CboListController;
 import dc.entidade.geral.pessoal.CargoEntity;
-import dc.entidade.geral.tabela.CboEntity;
 import dc.model.business.geral.pessoal.CargoBusiness;
 import dc.servicos.dao.geral.tabela.CboDAO;
-import dc.servicos.util.Validator;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.CargoFormView;
 
@@ -96,18 +92,19 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 	protected void initSubView() {
 		try {
 			this.subView = new CargoFormView();
+			
+            this.fieldGroup = new DCFieldGroup<>(CargoEntity.class);
+			
+			// Mapeia os campos
+			
+			fieldGroup.bind(this.subView.getTfNome(),"nome");
+			fieldGroup.bind(this.subView.getTfSalario(),"salario");
+			
+			this.subView.getMocCbo1994().configuraCombo(
+					"nome", CboListController.class, this.cboDAO, this.getMainController());
+			this.subView.getMocCbo2002().configuraCombo(
+					"nome", CboListController.class, this.cboDAO, this.getMainController());
 
-			DefaultManyToOneComboModel<CboEntity> modelCbo = new DefaultManyToOneComboModel<CboEntity>(
-					CboListController.class, this.cboDAO,
-					super.getMainController());
-
-			this.subView.getMocCbo1994().setModel(modelCbo);
-
-			DefaultManyToOneComboModel<CboEntity> modelCbo2 = new DefaultManyToOneComboModel<CboEntity>(
-					CboListController.class, this.cboDAO,
-					super.getMainController());
-
-			this.subView.getMocCbo2002().setModel(modelCbo2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -115,48 +112,18 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		String nome = this.subView.getTfNome().getValue();
-
-		if (!Validator.validateString(nome)) {
-			adicionarErroDeValidacao(this.subView.getTfNome(),
-					"Não pode ficar em Branco!");
-
-			valido = false;
+		try {
+			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+		    return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
-
-		return valido;
 	}
 
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
-
-			String salario = this.subView.getTfSalario().getValue();
-
-			if (NumberUtils.isNumber(salario)) {
-				this.entity.setSalario(NumberUtils.createDouble(salario));
-			}
-
-			CboEntity cbo1994 = this.subView.getMocCbo1994().getValue();
-
-			if (ObjectUtils.isNotBlank(cbo1994)) {
-				this.entity.setCbo1994(cbo1994.getCodigo());
-			} else {
-				this.entity.setCbo1994(null);
-			}
-
-			CboEntity cbo2002 = this.subView.getMocCbo2002().getValue();
-
-			if (ObjectUtils.isNotBlank(cbo2002)) {
-				this.entity.setCbo2002(cbo2002.getCodigo());
-			} else {
-				this.entity.setCbo2002(null);
-			}
-
 			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -171,28 +138,8 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 	protected void carregar(Serializable id) {
 		try {
 			this.entity = this.business.find(id);
+			fieldGroup.setItemDataSource(this.entity);
 
-			this.subView.getTfNome().setValue(this.entity.getNome());
-			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
-
-			this.subView.getTfSalario().setValue(
-					String.valueOf(this.entity.getSalario()));
-
-			String sCbo1994 = this.entity.getCbo1994();
-
-			if (StringUtils.isNotBlank(sCbo1994)) {
-				CboEntity cbo1994 = this.cboDAO.find(sCbo1994);
-
-				this.subView.getMocCbo1994().setValue(cbo1994);
-			}
-
-			String sCbo2002 = this.entity.getCbo2002();
-
-			if (StringUtils.isNotBlank(sCbo2002)) {
-				CboEntity cbo2002 = this.cboDAO.find(sCbo2002);
-
-				this.subView.getMocCbo2002().setValue(cbo2002);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -202,16 +149,12 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 	protected void criarNovoBean() {
 		try {
 			this.entity = new CargoEntity();
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
 		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-
 	}
 
 	@Override

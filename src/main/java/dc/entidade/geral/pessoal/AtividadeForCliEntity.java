@@ -16,9 +16,12 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -51,6 +54,7 @@ public class AtividadeForCliEntity extends AbstractMultiEmpresaModel<Integer>
 	@SequenceGenerator(name = "atividade_for_cli_id_seq", sequenceName = "atividade_for_cli_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
+	@NotNull
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
@@ -59,6 +63,7 @@ public class AtividadeForCliEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome = "";
 
 	@Lob
@@ -68,6 +73,7 @@ public class AtividadeForCliEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
 	@ComboValue
+	@NotNull(message = "Descrição é Obrigatório!")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String descricao = "";
 
@@ -145,5 +151,32 @@ public class AtividadeForCliEntity extends AbstractMultiEmpresaModel<Integer>
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof AtividadeForCliEntity)) {
+            return false;
+        }
+
+        AtividadeForCliEntity that = (AtividadeForCliEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

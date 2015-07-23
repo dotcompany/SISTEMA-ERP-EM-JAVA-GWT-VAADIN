@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.Cheque;
 import dc.servicos.dao.financeiro.ChequeDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -24,6 +25,8 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class ChequeListController extends CRUDListController<Cheque> {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	ChequeDAO dao;
@@ -58,7 +61,7 @@ public class ChequeListController extends CRUDListController<Cheque> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaCheque";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

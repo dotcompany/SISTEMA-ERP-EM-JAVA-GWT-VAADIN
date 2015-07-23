@@ -2,6 +2,7 @@ package dc.model.dao.tributario;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.sun.istack.logging.Logger;
@@ -73,6 +74,25 @@ public class IcmsCustomizadoDAOImpl extends
 
 	public String[] getDefaultSearchFields() {
 		return new String[] { "nome" };
+	}
+
+	@Override
+	public List<IcmsCustomizadoCabecalhoEntity> list() throws Exception {
+		try {
+			String sql = "SELECT new - FROM IcmsCustomizadoCabecalhoEntity WHERE (1 = 1)";
+			sql = sql.replace("IcmsCustomizadoCabecalhoEntity", this.getEntityClass().getName());
+			sql = sql.replace("-", this.getEntityClass().getSimpleName()+ "(id, descricao)");
+
+			Query query = super.getSession().createQuery(sql);
+
+			List<IcmsCustomizadoCabecalhoEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 }

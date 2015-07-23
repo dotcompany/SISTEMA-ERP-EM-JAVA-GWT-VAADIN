@@ -701,7 +701,7 @@ public List<LctoReceberNtFinanceiraEntity> getNaturezasFinan() {
 				empresa.getCnpj());
 
 		String cpfCnpjSacado;
-		if (cliente.getPessoa().getTipoPessoa().equals(TipoPessoaEn.F)) {
+		if (cliente.getPessoa().getTipo().equals(TipoPessoaEn.F)) {
 			cpfCnpjSacado = pessoaDAO.getPessoaFisica(
 					cliente.getPessoa().getId()).getCpf();
 		} else {

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
@@ -32,8 +33,6 @@ import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
-import dc.control.util.classes.PessoaUtils;
-import dc.control.validator.DotErpException;
 import dc.controller.geral.diverso.SetorListController;
 import dc.controller.geral.outro.SindicatoListController;
 import dc.controller.tributario.OperacaoFiscalListController;
@@ -74,11 +73,12 @@ import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.diverso.SetorDAO;
 import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
 import dc.servicos.dao.geral.pessoal.CargoDAO;
+import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
 import dc.servicos.dao.geral.pessoal.SituacaoColaboradorDAO;
 import dc.servicos.dao.geral.pessoal.SituacaoForCliDAO;
 import dc.servicos.dao.geral.pessoal.TipoColaboradorDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.PessoaFormView;
 import dc.visao.spring.SecuritySessionProvider;
@@ -122,6 +122,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	@Autowired
 	private EstadoCivilBusiness<EstadoCivilEntity> estadoCivilBusiness;
+	
+	@Autowired
+	private EstadoCivilDAO estadoCivilDAO;
 
 	@Autowired
 	private SituacaoForCliDAO situacaoForCliDAO;
@@ -207,80 +210,88 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	protected void initSubView() {
 		try {
 			this.subView = new PessoaFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(PessoaEntity.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getTfNome(),"nome");
+			//fieldGroup.bind(this.subView.getCbTipoPessoa(),"tipo");
+			fieldGroup.bind(this.subView.getTfEmail(),"email");
+			fieldGroup.bind(this.subView.getTfSite(),"site");
+			
+			this.subView.getMocEstadoCivil().configuraCombo(
+					"nome", EstadoCivilListController.class, this.estadoCivilDAO, this.getMainController());
+			
+			System.out.println(":: load cliente");
+			this.subView.getMocClienteSituacao().configuraCombo(
+					"nome", SituacaoColaboradorListController.class, this.situacaoForCliDAO, this.getMainController());
+			this.subView.getMocClienteAtividade().configuraCombo(
+					"nome", AtividadeForCliListController.class, this.atividadeForCliDAO, this.getMainController());
+			this.subView.getMocClienteOperacaoFiscal().configuraCombo(
+					"descricao", OperacaoFiscalListController.class, this.operacaoFiscalDAO, this.getMainController());
+			
+			System.out.println(":: load colaborador");
+			this.subView.getMocColaboradorTipoColaborador().configuraCombo(
+					"nome", TipoColaboradorListController.class, this.tipoColaboradorDAO, this.getMainController());
+			this.subView.getMocColaboradorSituacaoColaborador().configuraCombo(
+					"nome", SituacaoColaboradorListController.class, this.situacaoColaboradorDAO, this.getMainController());
+			this.subView.getMocColaboradorSindicato().configuraCombo(
+					"nome", SindicatoListController.class, this.sindicatoDAO, this.getMainController());
+			this.subView.getMocColaboradorNivelFormacao().configuraCombo(
+					"nome", NivelFormacaoListController.class, this.nivelFormacaoDAO, this.getMainController());
+			this.subView.getMocColaboradorCargo().configuraCombo(
+					"nome", CargoListController.class, this.cargoDAO, this.getMainController());
+			this.subView.getMocColaboradorSetor().configuraCombo(
+					"nome", SetorListController.class, this.setorDAO, this.getMainController());
 
-			DefaultManyToOneComboModel<EstadoCivilEntity> modelEstadoCivil = new DefaultManyToOneComboModel<EstadoCivilEntity>(
+			/*DefaultManyToOneComboModel<EstadoCivilEntity> modelEstadoCivil = new DefaultManyToOneComboModel<EstadoCivilEntity>(
 					EstadoCivilListController.class, super.getMainController(),
 					null, this.estadoCivilBusiness);
-
-			this.subView.getMocEstadoCivil().setModel(modelEstadoCivil);
-
-			//
-
-			System.out.println(":: load cliente");
-
+			this.subView.getMocEstadoCivil().setModel(modelEstadoCivil);//
 			DefaultManyToOneComboModel<SituacaoForCliEntity> modelClienteSituacaoForCli = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
 					SituacaoColaboradorListController.class,
 					this.situacaoForCliDAO, super.getMainController());
-
 			this.subView.getMocClienteSituacao().setModel(
 					modelClienteSituacaoForCli);
-
 			DefaultManyToOneComboModel<AtividadeForCliEntity> modelClienteAtividadeForCli = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
 					AtividadeForCliListController.class,
 					this.atividadeForCliDAO, super.getMainController());
-
 			this.subView.getMocClienteAtividade().setModel(
 					modelClienteAtividadeForCli);
-
 			DefaultManyToOneComboModel<OperacaoFiscalEntity> modelClienteOperacaoFiscal = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(
 					OperacaoFiscalListController.class, this.operacaoFiscalDAO,
 					super.getMainController());
-
 			this.subView.getMocClienteOperacaoFiscal().setModel(
 					modelClienteOperacaoFiscal);
-
-			System.out.println(":: load colaborador");
-
 			DefaultManyToOneComboModel<TipoColaboradorEntity> modelColaboradorTipoColaborador = new DefaultManyToOneComboModel<TipoColaboradorEntity>(
 					TipoColaboradorListController.class,
 					this.tipoColaboradorDAO, super.getMainController());
-
 			this.subView.getMocColaboradorTipoColaborador().setModel(
 					modelColaboradorTipoColaborador);
-
 			DefaultManyToOneComboModel<SituacaoColaboradorEntity> modelColaboradorSituacaoColaborador = new DefaultManyToOneComboModel<SituacaoColaboradorEntity>(
 					SituacaoColaboradorListController.class,
 					this.situacaoColaboradorDAO, super.getMainController());
-
 			this.subView.getMocColaboradorSituacaoColaborador().setModel(
 					modelColaboradorSituacaoColaborador);
-
 			DefaultManyToOneComboModel<SindicatoEntity> modelColaboradorSindicato = new DefaultManyToOneComboModel<SindicatoEntity>(
 					SindicatoListController.class, this.sindicatoDAO,
 					super.getMainController());
-
 			this.subView.getMocColaboradorSindicato().setModel(
 					modelColaboradorSindicato);
-
 			DefaultManyToOneComboModel<NivelFormacaoEntity> modelColaboradorNivelFormacao = new DefaultManyToOneComboModel<NivelFormacaoEntity>(
 					NivelFormacaoListController.class, this.nivelFormacaoDAO,
 					super.getMainController());
-
 			this.subView.getMocColaboradorNivelFormacao().setModel(
 					modelColaboradorNivelFormacao);
-
 			DefaultManyToOneComboModel<CargoEntity> modelColaboradorCargo = new DefaultManyToOneComboModel<CargoEntity>(
 					CargoListController.class, this.cargoDAO,
 					super.getMainController());
-
 			this.subView.getMocColaboradorCargo().setModel(
 					modelColaboradorCargo);
-
 			DefaultManyToOneComboModel<SetorEntity> modelSetor = new DefaultManyToOneComboModel<SetorEntity>(
 					SetorListController.class, this.setorDAO,
 					super.getMainController());
-
-			this.subView.getMocColaboradorSetor().setModel(modelSetor);
+			this.subView.getMocColaboradorSetor().setModel(modelSetor);*/
 
 			/*
 			 * DefaultManyToOneComboModel<ContabilContaEntity>
@@ -310,20 +321,21 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			 */
 
 			System.out.println(":: load fornecedor");
+			this.subView.getMocFornecedorSituacaoForCli().configuraCombo(
+					"nome", SituacaoColaboradorListController.class, this.situacaoForCliDAO, this.getMainController());
+			this.subView.getMocFornecedorAtividadeForCli().configuraCombo(
+					"nome", AtividadeForCliListController.class, this.atividadeForCliDAO, this.getMainController());
 
-			DefaultManyToOneComboModel<SituacaoForCliEntity> modelFornecedorSituacaoForCli = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
+			/*DefaultManyToOneComboModel<SituacaoForCliEntity> modelFornecedorSituacaoForCli = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
 					SituacaoColaboradorListController.class,
 					this.situacaoForCliDAO, super.getMainController());
-
 			this.subView.getMocFornecedorSituacaoForCli().setModel(
 					modelFornecedorSituacaoForCli);
-
 			DefaultManyToOneComboModel<AtividadeForCliEntity> modelFornecedorAtividadeForCli = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
 					AtividadeForCliListController.class,
 					this.atividadeForCliDAO, super.getMainController());
-
 			this.subView.getMocFornecedorAtividadeForCli().setModel(
-					modelFornecedorAtividadeForCli);
+					modelFornecedorAtividadeForCli);*/
 
 			System.out.println(":: load transportadora");
 
@@ -372,12 +384,13 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	protected boolean validaSalvar() {
 		try {
-			PessoaUtils.validateRequiredFields(this.subView);
+			//PessoaUtils.validateRequiredFields(this.subView);
 			// PessoaUtils.validateFieldValue(this.subView);
+			
+			fieldGroup.commit();
 
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 
 			return false;
 		}
@@ -389,18 +402,14 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			TipoPessoaEn tipoPessoaEn = (TipoPessoaEn) this.subView
 					.getCbTipoPessoa().getValue();
 
-			this.entity.setTipoPessoa(tipoPessoaEn);
-
-			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setEmail(this.subView.getTfEmail().getValue());
-			this.entity.setSite(this.subView.getTfSite().getValue());
+			this.entity.setTipo(tipoPessoaEn);
 
 			this.entity.setEmpresa(SecuritySessionProvider.getUsuario()
 					.getEmpresa());
 
-			if (this.entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
+			if (this.entity.getTipo().equals(TipoPessoaEn.F)) {
 				savePessoaFisica();
-			} else if (this.entity.getTipoPessoa().equals(TipoPessoaEn.J)) {
+			} else if (this.entity.getTipo().equals(TipoPessoaEn.J)) {
 				savePessoaJuridica();
 			}
 
@@ -923,6 +932,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	protected void carregar(Serializable id) {
 		try {
 			this.entity = this.business.find(id);
+			
+			fieldGroup.setItemDataSource(this.entity);
 
 			// PessoaContato
 			//List<PessoaContatoEntity> auxLista1 = this.pessoaContatoBusiness.list(this.entity);
@@ -939,14 +950,14 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			this.subView.getTfNome().setValue(this.entity.getNome());
 
 			this.subView.getCbTipoPessoa()
-					.setValue(this.entity.getTipoPessoa());
+					.setValue(this.entity.getTipo());
 
 			this.subView.getTfEmail().setValue(this.entity.getEmail());
 			this.subView.getTfSite().setValue(this.entity.getSite());
 
-			if (this.entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
+			if (this.entity.getTipo().equals(TipoPessoaEn.F)) {
 				this.entity.setPessoaFisica(loadPessoaFisica());
-			} else if (this.entity.getTipoPessoa().equals(TipoPessoaEn.J)) {
+			} else if (this.entity.getTipo().equals(TipoPessoaEn.J)) {
 				this.entity.setPessoaJuridica(loadPessoaJuridica());
 			}
 
@@ -1399,22 +1410,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	protected void criarNovoBean() {
 		try {
 			this.entity = new PessoaEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		} finally {
-			visibleTabSheet();
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new PessoaEntity();
-			
-			subView.preencheSubFormContato(entity.getItensContato());
-			subView.preencheSubFormEndereco(entity.getItens());
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 

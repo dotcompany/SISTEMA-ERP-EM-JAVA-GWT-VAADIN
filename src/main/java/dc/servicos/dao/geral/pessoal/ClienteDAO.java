@@ -27,7 +27,7 @@ public class ClienteDAO extends AbstractCrudDAO<ClienteEntity> {
 
 	@Override
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "pessoa.nome", "desde", "contaTomador",
+		return new String[] { "pessoa","situacaoForCli", "desde", "contaTomador",
 				"observacao", "gerarFinanceiro", "indicadorPreco", "tipoFrete",
 				"formaDesconto", "porcentoDesconto", "limiteCredito" };
 	}

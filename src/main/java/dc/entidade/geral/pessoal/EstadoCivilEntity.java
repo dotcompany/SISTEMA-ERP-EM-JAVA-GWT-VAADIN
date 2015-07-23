@@ -1,6 +1,7 @@
 package dc.entidade.geral.pessoal;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -14,10 +15,14 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -55,6 +60,7 @@ public class EstadoCivilEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome;
 
 	@Lob
@@ -64,6 +70,7 @@ public class EstadoCivilEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao;
 
 	/**
@@ -74,8 +81,9 @@ public class EstadoCivilEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - LIST
 	 */
 
+	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(mappedBy = "estadoCivil", fetch = FetchType.LAZY)
-	private List<PessoaFisicaEntity> pessoaFisicaList;
+	private List<PessoaFisicaEntity> pessoaFisicaList =  new ArrayList<PessoaFisicaEntity>();
 
 	/**
 	 * TRANSIENT
@@ -131,13 +139,31 @@ public class EstadoCivilEntity extends AbstractMultiEmpresaModel<Integer>
 		this.pessoaFisicaList = pessoaFisicaList;
 	}
 
-	/**
-	 * TO STRING
-	 */
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+@Override
+public boolean equals(Object obj) {
+       if (this == obj) {
+           return true;
+       }
+	
+       if (!(obj instanceof EstadoCivilEntity)) {
+           return false;
+       }
+	
+       EstadoCivilEntity that = (EstadoCivilEntity) obj;
+       EqualsBuilder eb = new EqualsBuilder();
+       eb.append(getId(), that.getId());
+       return eb.isEquals();
+}
+	
+@Override
+public int hashCode() {
+      if (getId() == null) {
+          return super.hashCode();
+      } else {
+          return new HashCodeBuilder()
+                   .append(id)
+                   .toHashCode();
+      }
+}
 
 }

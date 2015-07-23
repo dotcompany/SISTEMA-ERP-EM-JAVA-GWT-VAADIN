@@ -18,8 +18,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
@@ -54,6 +57,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@SequenceGenerator(name = "agencia_banco_id_seq", sequenceName = "agencia_banco_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
+	@NotNull
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
@@ -62,6 +66,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "CODIGO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código é Obrigatório!")
 	private Integer codigo = new Integer(0);
 
 	@Field
@@ -69,6 +74,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "NOME", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome = "";
 
 	@Field
@@ -76,6 +82,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "LOGRADOURO", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Logradouro é Obrigatório!")
 	private String logradouro = "";
 
 	@Field
@@ -90,6 +97,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "CEP", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Cep é Obrigatório!")
 	private String cep = "";
 
 	@Field
@@ -118,6 +126,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "TELEFONE", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Telefone é Obrigatório!")
 	private String telefone = "";
 
 	@Field
@@ -125,6 +134,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "GERENTE", length = 30)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Gerente é Obrigatório!")
 	private String gerente = "";
 
 	@Field
@@ -132,6 +142,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "CONTATO", length = 30)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Contato é Obrigatório!")
 	private String contato = "";
 
 	@Lob
@@ -158,6 +169,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption("Banco")
 	@ManyToOne(cascade = { CascadeType.PERSIST })
 	@JoinColumn(name = "id_banco")
+	@NotNull(message = "Banco é Obrigatório!")
 	private BancoEntity banco;
 
 	@Caption("UF")
@@ -350,6 +362,33 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof AgenciaBancoEntity)) {
+	           return false;
+	    }
+
+	    AgenciaBancoEntity that = (AgenciaBancoEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
 	}
 
 }

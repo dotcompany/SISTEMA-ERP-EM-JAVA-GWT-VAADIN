@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.EstadoCivilUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
 import dc.model.business.geral.pessoal.EstadoCivilBusiness;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.EstadoCivilFormView;
 
@@ -88,6 +88,14 @@ public class EstadoCivilFormController extends
 	protected void initSubView() {
 		try {
 			this.subView = new EstadoCivilFormView(this);
+			
+            this.fieldGroup = new DCFieldGroup<>(EstadoCivilEntity.class);
+			
+			// Mapeia os campos
+			
+			fieldGroup.bind(this.subView.getTfNome(),"nome");
+			fieldGroup.bind(this.subView.getTfDescricao(),"descricao");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -96,22 +104,17 @@ public class EstadoCivilFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			EstadoCivilUtils.validateRequiredFields(this.subView);
-
-			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
-			return false;
+			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+		    return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
 	}
 
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
-
 			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -126,9 +129,8 @@ public class EstadoCivilFormController extends
 	protected void carregar(Serializable id) {
 		try {
 			this.entity = this.business.find(id);
+			fieldGroup.setItemDataSource(this.entity);
 
-			this.subView.getTfNome().setValue(this.entity.getNome());
-			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -138,17 +140,7 @@ public class EstadoCivilFormController extends
 	protected void criarNovoBean() {
 		try {
 			this.entity = new EstadoCivilEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new EstadoCivilEntity();
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -171,6 +163,13 @@ public class EstadoCivilFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 

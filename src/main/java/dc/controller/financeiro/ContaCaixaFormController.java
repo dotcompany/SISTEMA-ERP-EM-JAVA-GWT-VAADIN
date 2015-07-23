@@ -1,26 +1,22 @@
 package dc.controller.financeiro;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
-import dc.control.enums.ContaCaixaTipoEnum;
-import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.financeiro.AgenciaBancoEntity;
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.servicos.dao.financeiro.AgenciaBancoDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
-import dc.servicos.util.Validator;
 import dc.visao.financeiro.ContaCaixaFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.spring.SecuritySessionProvider;
 
 /** DotCompany
  * 
@@ -46,77 +42,60 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtCodigo().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtCodigo(), "Não pode ficar em branco");
-			valido = false;
+		try {
+			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+		    return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
-
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxtDigito().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDigito(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void criarNovoBean() {
 		
 		try {
-			this.currentBean = new ContaCaixa();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
+			currentBean = new ContaCaixa();
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch (Exception e) {
+		    e.printStackTrace();
+		    mensagemErro(e.getMessage());
 		}
+		
 	}
 
 	@Override
 	protected void initSubView() {
 		
-		subView = new ContaCaixaFormView();
+		try {
+			subView = new ContaCaixaFormView();
 
-		this.subView.InitCbs(getContaCaixaTipo());
-
-		DefaultManyToOneComboModel<AgenciaBancoEntity> model = new DefaultManyToOneComboModel<AgenciaBancoEntity>(AgenciaBancoListController.class,
-				this.agenciaDAO, super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
-		};
-
-		subView.getCmbAgenciaBanco().setModel(model);
+			this.fieldGroup = new DCFieldGroup<>(ContaCaixa.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getTxtCodigo(),"codigo");
+			fieldGroup.bind(this.subView.getTxtDigito(),"digito");
+			fieldGroup.bind(this.subView.getTxtNome(),"nome");
+			fieldGroup.bind(this.subView.getCmbTipo(),"tipoConta");
+			fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+			fieldGroup.bind(this.subView.getCmbAgenciaBanco(),"agenciaBanco");
+			
+			this.subView.getCmbAgenciaBanco().configuraCombo(
+					"nome", AgenciaBancoListController.class, this.agenciaDAO, this.getMainController());
+			
+		}catch (Exception e) {
+	       e.printStackTrace();
+	    }
+		
 
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = contaCaixaDAO.find(id);
-
-			this.subView.getTxtNome().setValue(this.currentBean.getNome());
-			this.subView.getTxtDescricao().setValue(this.currentBean.getDescricao());
-			this.subView.getTxtCodigo().setValue(this.currentBean.getCodigo());
-			this.subView.getTxtDigito().setValue(this.currentBean.getDigito());
-
-			this.subView.getCmbAgenciaBanco().setValue(this.currentBean.getAgenciaBanco());
-			
-			this.subView.getCmbTipo().setValue(this.currentBean.getTipoConta());
-
-		} catch (Exception e) {
+			currentBean = contaCaixaDAO.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -124,18 +103,12 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.currentBean.setNome(this.subView.getTxtNome().getValue());
-			this.currentBean.setDescricao(this.subView.getTxtDescricao().getValue());
-			this.currentBean.setCodigo(this.subView.getTxtCodigo().getValue());
-			this.currentBean.setDigito(this.subView.getTxtDigito().getValue());
-
-			this.currentBean.setAgenciaBanco((AgenciaBancoEntity) this.subView.getCmbAgenciaBanco().getValue());
 
 			/** Empresa vinda da conta do usuário logado */
 
-			EmpresaEntity empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
+			//EmpresaEntity empresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa();
 
-			this.currentBean.setEmpresa(empresa);
+			//this.currentBean.setEmpresa(empresa);
 
 			/** ************************************** */
 
@@ -144,29 +117,7 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		} finally {
-			quandoNovo();
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		
-		/*try {
-			this.currentBean = new ContaCaixa();
-
-			this.subView.getTxtNome().setValue(currentBean.getNome());
-			this.subView.getTxtDescricao().setValue(currentBean.getDescricao());
-			this.subView.getTxtCodigo().setValue(currentBean.getCodigo());
-			this.subView.getTxtDigito().setValue(currentBean.getDigito());
-
-			this.subView.getCmbContabilConta().setValue(currentBean.getContabilConta());
-			this.subView.getCmbAgenciaBanco().setValue(currentBean.getAgenciaBanco());
-
-			this.subView.getCmbTipo().setValue(ContaCaixaTipoEnum.valueOf(this.currentBean.getTipo()).toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
+		} 
 	}
 
 	@Override
@@ -176,19 +127,32 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		contaCaixaDAO.deleteAllByIds(ids);
+		try {
+			this.contaCaixaDAO.deleteAll(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		return "contaCaixaForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -199,23 +163,6 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 	@Override
 	protected Component getSubView() {
 		return subView;
-	}
-
-	/** COMBO */
-	public List<String> getContaCaixaTipo() {
-		try {
-			List<String> siLista = new ArrayList<String>();
-
-			for (ContaCaixaTipoEnum en : ContaCaixaTipoEnum.values()) {
-				siLista.add(en.ordinal(), en.toString());
-			}
-
-			return siLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
-		}
 	}
 
 	@Override

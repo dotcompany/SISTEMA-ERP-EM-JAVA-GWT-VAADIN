@@ -34,7 +34,7 @@ public class ClienteListController extends CRUDListController<ClienteEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "desde", "contaTomador", "observacao",
+		return new String[] { "pessoa","situacaoForCli","desde", "contaTomador", "observacao",
 				"gerarFinanceiro", "indicadorPreco", "tipoFrete",
 				"formaDesconto", "porcentoDesconto", "limiteCredito" };
 	}

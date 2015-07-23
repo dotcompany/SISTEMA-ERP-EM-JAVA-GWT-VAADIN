@@ -5,23 +5,27 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.financeiro.type.StatusChequeType;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -48,10 +52,12 @@ public class TalonarioCheque extends AbstractMultiEmpresaModel<Integer> implemen
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "talonario_cheque_id_seq")
+	@SequenceGenerator(name = "talonario_cheque_id_seq", sequenceName = "talonario_cheque_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	@ComboCode
+	@NotNull
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
@@ -60,28 +66,29 @@ public class TalonarioCheque extends AbstractMultiEmpresaModel<Integer> implemen
 	@Column(name = "TALAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Talão é obrigatório") 
 	private String talao;
 
 	@Field
 	@Caption("Numero")
 	@Column(name = "NUMERO")
+	@NotNull(message = "Numero é obrigatório") 
 	private Integer numero;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption("Status Talao")
 	@Column(name = "STATUS_TALAO")
-	private String statusTalao;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Status Talão é Obrigatório!")
+	private StatusChequeType statusTalao;
 
-	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "talonarioCheque")
-	// private List<ChequeVO> chequeVOList;
-	/*@JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Empresa empresa;*/
-
-	@ManyToOne
-	@Caption(value = "Conta Caixa")
+	@Caption("Conta Caixa")
 	//@ManyToOne(cascade = { CascadeType.PERSIST })
+	@ManyToOne
 	@JoinColumn(name = "ID_CONTA_CAIXA", nullable = true)
+	@NotNull(message = "Conta Caixa é obrigatório") 
 	private ContaCaixa contaCaixa;
 
 	public TalonarioCheque() {
@@ -116,48 +123,13 @@ public class TalonarioCheque extends AbstractMultiEmpresaModel<Integer> implemen
 		this.numero = numero;
 	}
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof TalonarioCheque == false)
-			return false;
-
-		if (this == object)
-			return true;
-
-		final TalonarioCheque other = (TalonarioCheque) object;
-
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
-
-	public String getStatusTalao() {
+	public StatusChequeType getStatusTalao() {
 		return statusTalao;
 	}
 
-	public void setStatusTalao(String statusTalao) {
+	public void setStatusTalao(StatusChequeType statusTalao) {
 		this.statusTalao = statusTalao;
 	}
-
-	/*public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	/**
-	 * @param empresa
-	 *            the empresa to set
-	 */
-	/*public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}*/
 
 	/**
 	 * @return the contaCaixa
@@ -172,6 +144,37 @@ public class TalonarioCheque extends AbstractMultiEmpresaModel<Integer> implemen
 	 */
 	public void setContaCaixa(ContaCaixa contaCaixa) {
 		this.contaCaixa = contaCaixa;
+	}
+	
+	/**
+	 * TO STRING
+	 **/
+
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof TalonarioCheque)) {
+	           return false;
+	    }
+
+	    TalonarioCheque that = (TalonarioCheque) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
 	}
 
 }

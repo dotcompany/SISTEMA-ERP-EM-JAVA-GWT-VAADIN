@@ -98,13 +98,11 @@ public class EstadoCivilFormView extends CustomComponent {
 
 		// tfNome
 		tfNome = ComponentUtil.buildTextField("Nome");
-		tfNome.setRequired(true);
-		fields.addComponent(tfNome, 0, 0);
+		fields.addComponent(tfNome, 0, 0, 1,0);
 
 		// tfDescricao
 		tfDescricao = ComponentUtil.buildTextArea("Descrição");
-		tfDescricao.setRequired(true);
-		fields.addComponent(tfDescricao, 0, 1);
+		fields.addComponent(tfDescricao, 0, 1, 1,1);
 
 		return fields;
 	}

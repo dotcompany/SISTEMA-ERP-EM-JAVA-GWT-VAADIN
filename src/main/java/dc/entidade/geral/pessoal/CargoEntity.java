@@ -11,9 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -52,6 +55,7 @@ public class CargoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "NOME", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório")
 	private String nome;
 
 	@Lob
@@ -69,6 +73,7 @@ public class CargoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "SALARIO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Salário é Obrigatório")
 	private Double salario;
 
 	@Field
@@ -171,5 +176,32 @@ public class CargoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof CargoEntity)) {
+            return false;
+        }
+
+        CargoEntity that = (CargoEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

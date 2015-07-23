@@ -101,6 +101,27 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		} catch (Exception e) {
 
 		}
+		
+		// lblEdit
+		btnEdit = new Button();
+		btnEdit.setIcon(FontAwesome.EDIT);
+		btnEdit.setHtmlContentAllowed(true);
+		btnEdit.setId("lblEdit");
+		btnEdit.setWidth("22px");
+		btnEdit.setIconAlternateText("Editar");
+		btnEdit.setDescription("Editar");
+		// ButtonHintExtension.addHint("Editar",btnEdit);
+		mainLayout.addComponent(btnEdit);
+		mainLayout.setComponentAlignment(btnEdit, Alignment.BOTTOM_LEFT);
+
+		try {
+			UI.getCurrent()
+					.getPage()
+					.getStyles()
+					.add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; float:left;}");
+				
+		} catch (Exception e) {
+		}
 
 		Button btnAdvancedSearch = new Button();
 		btnAdvancedSearch.setIcon(FontAwesome.SEARCH);
@@ -382,24 +403,9 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		//cmbResult.setSizeFull();
 		mainLayout.addComponent(cmbResult);
 		cmbResult.setStyleName("manyToOneCombo");
-
-		// lblEdit
-		btnEdit = new Button();
-		btnEdit.setIcon(FontAwesome.EDIT);
-		btnEdit.setHtmlContentAllowed(true);
-		btnEdit.setId("lblEdit");
-		btnEdit.setWidth("22px");
-		btnEdit.setIconAlternateText("Editar");
-		btnEdit.setDescription("Editar");
-		// ButtonHintExtension.addHint("Editar",btnEdit);
-		mainLayout.addComponent(btnEdit);
-		mainLayout.setComponentAlignment(btnEdit, Alignment.BOTTOM_LEFT);
-
+		
 		try {
-			UI.getCurrent()
-					.getPage()
-					.getStyles()
-					.add("#lblEdit i { font-size: 12pt; } #lblEdit { padding: 5px 1px 3px 4px; float:left;}");
+
 			UI.getCurrent().getPage().getStyles().add(".manyToOneCombo{width:200px; float:left;} ");
 		} catch (Exception e) {
 

@@ -30,7 +30,7 @@ public class AgenciaBancoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "logradouro" };
+		return new String[] { "banco","codigo","nome", "logradouro","cep","telefone","contato" };
 	}
 
 	@Override

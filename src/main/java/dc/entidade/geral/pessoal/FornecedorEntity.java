@@ -1,5 +1,6 @@
 package dc.entidade.geral.pessoal;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,15 +19,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -48,7 +51,7 @@ import dc.entidade.patrimonio.BemEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
+public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	/**
 	 * 
@@ -61,6 +64,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@SequenceGenerator(name = "fornecedor_id_seq", sequenceName = "fornecedor_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
+	@NotNull
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
@@ -70,6 +74,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "DESDE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Desde é Obrigatório!")
 	private Date desde;
 
 	@Temporal(TemporalType.DATE)
@@ -85,6 +90,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "CHEQUE_NOMINAL_A")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Cheque Nominal é Obrigatório!")
 	private String chequeNominalA = "";
 
 	@Field
@@ -106,6 +112,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "PRAZO_MEDIO_ENTREGA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Prazo Médio de Entrega é Obrigatório!")
 	private BigDecimal prazoMedioEntrega = new BigDecimal(0);
 
 	@Field
@@ -113,6 +120,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "NUM_DIAS_PRIMEIRO_VENCIMENTO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Numero de Dias - Primeiro Vencimento é Obrigatório!")
 	private Integer numDiasPrimeiroVencimento = new Integer(0);
 
 	@Field
@@ -120,6 +128,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "NUM_DIAS_INTERVALO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Número de Dias - Intervalo é Obrigatório!")
 	private Integer numDiasIntervalo = new Integer(0);
 
 	@Field
@@ -127,6 +136,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "QUANTIDADE_PARCELAS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Quantidade de Parcelas é Obrigatório!")
 	private Integer quantidadeParcelas = new Integer(0);
 
 	@Enumerated(EnumType.STRING)
@@ -135,6 +145,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "OPTANTE_SIMPLES_NACIONAL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Optante Simples Nacional é Obrigatório!")
 	private SimNaoEn optanteSimplesNacional;
 
 	@Enumerated(EnumType.STRING)
@@ -143,6 +154,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "LOCALIZACAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Localização é Obrigatório!")
 	private LocalizacaoEn localizacao;
 
 	@Enumerated(EnumType.STRING)
@@ -151,6 +163,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "SOFRE_RETENCAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Sofre Retenção é Obrigatório!")
 	private SimNaoEn sofreRetencao;
 
 	@Enumerated(EnumType.STRING)
@@ -159,6 +172,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "GERA_FATURAMENTO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Gera Faturamento é Obrigatório!")
 	private SimNaoEn geraFaturamento;
 
 	@Field
@@ -180,23 +194,19 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	// private PessoaEntity pessoa;
 
 	@Caption("Pessoa")
-	@OneToOne
-	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
+	@ManyToOne()
+	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true, nullable = true)
+	@NotNull(message = "Pessoa é Obrigatório!")
 	private PessoaEntity pessoa;
 	
-	/*@Caption("Pessoa Eventos")
-	@OneToOne
-	@JoinColumn(name = "id_pessoa_pessoa", insertable = true, updatable = true)
-	private PessoaEventosEntity pessoaEventos;*/
-
 	@Caption("Situação fornecedor / cliente")
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "ID_SITUACAO_FOR_CLI")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_situacao_for_cli", referencedColumnName = "id")
 	private SituacaoForCliEntity situacaoForCli;
 
 	@Caption("Atividade fornecedor / cliente")
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "ID_ATIVIDADE_FOR_CLI")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_atividade_for_cli", referencedColumnName = "id")
 	private AtividadeForCliEntity atividadeForCli;
 
 	/**
@@ -438,5 +448,32 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> {
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof FornecedorEntity)) {
+            return false;
+        }
+
+        FornecedorEntity that = (FornecedorEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

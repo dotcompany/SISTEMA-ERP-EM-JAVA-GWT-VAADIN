@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.FormaPagamentoEn;
@@ -15,24 +16,12 @@ import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
-import dc.control.util.classes.ColaboradorUtils;
-import dc.control.validator.DotErpException;
 import dc.controller.contabilidade.planoconta.PlanoContaListController;
 import dc.controller.financeiro.ContaCaixaListController;
 import dc.controller.geral.diverso.SetorListController;
 import dc.controller.geral.diverso.UfListController;
 import dc.controller.geral.outro.SindicatoListController;
-import dc.entidade.contabilidade.PlanoConta;
-import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.geral.diverso.SetorEntity;
-import dc.entidade.geral.diverso.UfEntity;
-import dc.entidade.geral.outro.SindicatoEntity;
-import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
-import dc.entidade.geral.pessoal.NivelFormacaoEntity;
-import dc.entidade.geral.pessoal.PessoaEntity;
-import dc.entidade.geral.pessoal.SituacaoColaboradorEntity;
-import dc.entidade.geral.pessoal.TipoColaboradorEntity;
 import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
@@ -44,7 +33,7 @@ import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.servicos.dao.geral.pessoal.SituacaoColaboradorDAO;
 import dc.servicos.dao.geral.pessoal.TipoColaboradorDAO;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.ColaboradorFormView;
 
@@ -102,13 +91,11 @@ public class ColaboradorFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			ColaboradorUtils.validateRequiredFields(this.subView);
-
-			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
-			return false;
+			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+		    return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
 	}
 
@@ -116,6 +103,7 @@ public class ColaboradorFormController extends
 	protected void criarNovoBean() {
 		try {
 			this.currentBean = new ColaboradorEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -127,85 +115,34 @@ public class ColaboradorFormController extends
 	protected void initSubView() {
 		try {
 			this.subView = new ColaboradorFormView(this);
+			
+            this.fieldGroup = new DCFieldGroup<>(ColaboradorEntity.class);
+			
+			// Mapeia os campos
+			
+			//fieldGroup.bind(this.subView.getTfNome(),"nome");
+			
+			this.subView.getMocPessoa().configuraCombo(
+					"nome", PessoaListController.class, this.pessoaDAO, this.getMainController());
+			this.subView.getMocNivelFormacao().configuraCombo(
+					"nome", NivelFormacaoListController.class, this.nivelFormacaoDAO, this.getMainController());
+			this.subView.getMocTipoColaborador().configuraCombo(
+					"nome", TipoColaboradorListController.class, this.tipoColaboradorDAO, this.getMainController());
+			this.subView.getMocCargo().configuraCombo(
+					"descricao", CargoListController.class, this.cargoDAO, this.getMainController());
+			this.subView.getMocSituacaoColaborador().configuraCombo(
+					"nome", SituacaoColaboradorListController.class, this.situacaoColaboradorDAO, this.getMainController());
+			this.subView.getMocSindicato().configuraCombo(
+					"nome", SindicatoListController.class, this.sindicatoDAO, this.getMainController());
+			this.subView.getMocSetor().configuraCombo(
+					"nome", SetorListController.class, this.setorDAO, this.getMainController());
+			this.subView.getMocPlanoConta().configuraCombo(
+					"nome", PlanoContaListController.class, this.planoContaDAO, this.getMainController());
+			this.subView.getMocContaCaixa().configuraCombo(
+					"nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
+			this.subView.getMocUf().configuraCombo(
+					"nome", UfListController.class, this.ufDAO, this.getMainController());
 
-			/* Configura combo Pessoa */
-			// DefaultManyToOneComboModel<Pessoa> model= new
-			// DefaultManyToOneComboModel(PessoaFisicaListController.class,pessoaDAO,mainController,daoPapel);
-			// subView.getCmbPessoa().setModel(model);
-
-			DefaultManyToOneComboModel<PessoaEntity> modelPessoa = new DefaultManyToOneComboModel<PessoaEntity>(
-					PessoaListController.class, this.pessoaDAO,
-					super.getMainController());
-			this.subView.getMocPessoa().setModel(modelPessoa);
-
-			DefaultManyToOneComboModel<NivelFormacaoEntity> modelNivelFormacao = new DefaultManyToOneComboModel<NivelFormacaoEntity>(
-					NivelFormacaoListController.class, this.nivelFormacaoDAO,
-					super.getMainController()) {
-
-				@Override
-				public String getCaptionProperty() {
-					return "nome";
-				}
-
-			};
-
-			this.subView.getMocNivelFormacao().setModel(modelNivelFormacao);
-
-			DefaultManyToOneComboModel<TipoColaboradorEntity> modelTipoColaborador = new DefaultManyToOneComboModel<TipoColaboradorEntity>(
-					TipoColaboradorListController.class,
-					this.tipoColaboradorDAO, super.getMainController());
-
-			this.subView.getMocTipoColaborador().setModel(modelTipoColaborador);
-
-			DefaultManyToOneComboModel<CargoEntity> modelCargo = new DefaultManyToOneComboModel<CargoEntity>(
-					CargoListController.class, this.cargoDAO,
-					super.getMainController()) {
-
-				@Override
-				public String getCaptionProperty() {
-					return "descricao";
-				}
-
-			};
-
-			this.subView.getMocCargo().setModel(modelCargo);
-
-			DefaultManyToOneComboModel<SituacaoColaboradorEntity> modelSituacaoColaborador = new DefaultManyToOneComboModel<SituacaoColaboradorEntity>(
-					SituacaoColaboradorListController.class,
-					this.situacaoColaboradorDAO, super.getMainController());
-
-			this.subView.getMocSituacaoColaborador().setModel(
-					modelSituacaoColaborador);
-
-			DefaultManyToOneComboModel<SindicatoEntity> modelSindicato = new DefaultManyToOneComboModel<SindicatoEntity>(
-					SindicatoListController.class, this.sindicatoDAO,
-					super.getMainController());
-
-			this.subView.getMocSindicato().setModel(modelSindicato);
-
-			DefaultManyToOneComboModel<SetorEntity> modelSetor = new DefaultManyToOneComboModel<SetorEntity>(
-					SetorListController.class, this.setorDAO,
-					super.getMainController());
-
-			this.subView.getMocSetor().setModel(modelSetor);
-
-			DefaultManyToOneComboModel<PlanoConta> modelPlanoConta = new DefaultManyToOneComboModel<PlanoConta>(
-					PlanoContaListController.class, this.planoContaDAO,
-					super.getMainController());
-
-			this.subView.getMocPlanoConta().setModel(modelPlanoConta);
-
-			DefaultManyToOneComboModel<ContaCaixa> modelContaCaixa = new DefaultManyToOneComboModel<ContaCaixa>(
-					ContaCaixaListController.class, this.contaCaixaDAO,
-					super.getMainController());
-
-			this.subView.getMocContaCaixa().setModel(modelContaCaixa);
-
-			DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
-					UfListController.class, this.ufDAO,
-					super.getMainController());
-
-			this.subView.getMocUf().setModel(modelUf);
 
 			comboDescontoPlanoSaude();
 			comboFormaPagamento();
@@ -223,6 +160,8 @@ public class ColaboradorFormController extends
 	protected void carregar(Serializable id) {
 		try {
 			this.currentBean = this.colaboradorDAO.find(id);
+			
+			fieldGroup.setItemDataSource(this.currentBean);
 
 			this.subView.getPdfDataExpedida().setValue(
 					this.currentBean.getCtpsDataExpedicao());
@@ -381,65 +320,6 @@ public class ColaboradorFormController extends
 			this.subView.getTfObservacao().setValue(
 					this.currentBean.getObservacao());
 
-			PessoaEntity pessoa = this.currentBean.getPessoa();
-
-			if (ObjectUtils.isNotBlank(pessoa)) {
-				this.subView.getMocPessoa().setValue(pessoa);
-			}
-
-			TipoColaboradorEntity tipoColaborador = this.currentBean
-					.getTipoColaborador();
-
-			if (ObjectUtils.isNotBlank(tipoColaborador)) {
-				this.subView.getMocTipoColaborador().setValue(tipoColaborador);
-			}
-
-			SituacaoColaboradorEntity situacaoColaborador = this.currentBean
-					.getSituacaoColaborador();
-
-			if (ObjectUtils.isNotBlank(situacaoColaborador)) {
-				this.subView.getMocSituacaoColaborador().setValue(
-						situacaoColaborador);
-			}
-
-			SindicatoEntity sindicato = this.currentBean.getSindicato();
-
-			if (ObjectUtils.isNotBlank(sindicato)) {
-				this.subView.getMocSindicato().setValue(sindicato);
-			}
-
-			NivelFormacaoEntity nivelFormacao = this.currentBean
-					.getNivelFormacao();
-
-			if (ObjectUtils.isNotBlank(nivelFormacao)) {
-				this.subView.getMocNivelFormacao().setValue(nivelFormacao);
-			}
-
-			CargoEntity cargo = this.currentBean.getCargo();
-
-			if (ObjectUtils.isNotBlank(cargo)) {
-				this.subView.getMocCargo().setValue(cargo);
-			}
-
-			SetorEntity setor = this.currentBean.getSetor();
-
-			if (ObjectUtils.isNotBlank(setor)) {
-				this.subView.getMocSetor().setValue(setor);
-			}
-
-			PlanoConta planoConta = this.currentBean.getPlanoConta();
-
-			if (ObjectUtils.isNotBlank(planoConta)) {
-				this.subView.getMocPlanoConta().setValue(planoConta);
-			}
-
-			ContaCaixa contaCaixa = this.currentBean.getContaCaixa();
-
-			if (ObjectUtils.isNotBlank(contaCaixa)) {
-				this.subView.getMocContaCaixa().setValue(contaCaixa);
-			}
-
-			// this.subView.getMocUf();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -599,22 +479,6 @@ public class ColaboradorFormController extends
 								: false);
 			}
 
-			// SimNaoEn
-			// pgtoComissao=(SimNaoEn)this.subView.getCbPgtoComissao().getValue();ff
-
-			// if (this.subView.getCbPgtoComissao().getValue() != null) {
-			// this.currentBean.setPgtoComissaoSera(Integer
-			// .valueOf(this.subView.getCbPgtoComissao().getValue()
-			// .toString()));
-			// }
-
-			// this.subView.getCbLctoComissao();fff
-
-			// if (this.subView.getCbLctoComissao().getValue() != null) {
-			// this.currentBean.setLctoComissao(Integer.valueOf(this.subView
-			// .getCbLctoComissao().getValue().toString()));
-			// }
-
 			this.currentBean.setTipoComissaoServico((String) this.subView
 					.getOgTipoComissaoServico().getValue());
 			this.currentBean.setTipoComissaoProduto((String) this.subView
@@ -622,82 +486,6 @@ public class ColaboradorFormController extends
 
 			this.currentBean.setObservacao(this.subView.getTfObservacao()
 					.getValue());
-
-			PessoaEntity pessoa = this.subView.getMocPessoa().getValue();
-
-			if (ObjectUtils.isNotBlank(pessoa)) {
-				this.currentBean.setPessoa(pessoa);
-			} else {
-				this.currentBean.setPessoa(null);
-			}
-
-			TipoColaboradorEntity tipoColaborador = this.subView
-					.getMocTipoColaborador().getValue();
-
-			if (ObjectUtils.isNotBlank(tipoColaborador)) {
-				this.currentBean.setTipoColaborador(tipoColaborador);
-			} else {
-				this.currentBean.setTipoColaborador(null);
-			}
-
-			SituacaoColaboradorEntity situacaoColaborador = this.subView
-					.getMocSituacaoColaborador().getValue();
-
-			if (ObjectUtils.isNotBlank(situacaoColaborador)) {
-				this.currentBean.setSituacaoColaborador(situacaoColaborador);
-			} else {
-				this.currentBean.setSituacaoColaborador(null);
-			}
-
-			SindicatoEntity sindicato = this.subView.getMocSindicato()
-					.getValue();
-
-			if (ObjectUtils.isNotBlank(sindicato)) {
-				this.currentBean.setSindicato(sindicato);
-			} else {
-				this.currentBean.setSindicato(null);
-			}
-
-			NivelFormacaoEntity nivelFormacao = this.subView
-					.getMocNivelFormacao().getValue();
-
-			if (ObjectUtils.isNotBlank(nivelFormacao)) {
-				this.currentBean.setNivelFormacao(nivelFormacao);
-			} else {
-				this.currentBean.setNivelFormacao(null);
-			}
-
-			CargoEntity cargo = this.subView.getMocCargo().getValue();
-
-			if (ObjectUtils.isNotBlank(cargo)) {
-				this.currentBean.setCargo(cargo);
-			} else {
-				this.currentBean.setCargo(null);
-			}
-
-			SetorEntity setor = this.subView.getMocSetor().getValue();
-
-			if (ObjectUtils.isNotBlank(setor)) {
-				this.currentBean.setSetor(setor);
-			} else {
-				this.currentBean.setSetor(null);
-			}
-
-			PlanoConta planoConta = this.subView.getMocPlanoConta().getValue();
-
-			if (ObjectUtils.isNotBlank(planoConta)) {
-				this.currentBean.setPlanoConta(planoConta);
-			} else {
-				this.currentBean.setPlanoConta(null);
-			}
-
-			ContaCaixa contaCaixa = this.subView.getMocContaCaixa().getValue();
-
-			if (ObjectUtils.isNotBlank(contaCaixa)) {
-				this.currentBean.setContaCaixa(contaCaixa);
-			} else {
-				this.currentBean.setContaCaixa(null);
-			}
 
 			this.colaboradorDAO.saveOrUpdate(this.currentBean);
 
@@ -707,11 +495,6 @@ public class ColaboradorFormController extends
 
 			mensagemErro(e.getMessage());
 		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-
 	}
 
 	@Override
@@ -734,6 +517,13 @@ public class ColaboradorFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 

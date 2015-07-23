@@ -7,18 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.controller.geral.tabela.CfopListController;
-import dc.entidade.geral.tabela.CfopEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
-import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.geral.tabela.CfopDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
-import dc.servicos.util.Validator;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tributario.OperacaoFiscalFormView;
 
@@ -45,81 +42,66 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		return valido;
+		try {
+			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+		    return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
+		}
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new OperacaoFiscalEntity();
+		try {
+			this.currentBean = new OperacaoFiscalEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new OperacaoFiscalFormView(this);
 		
-		DefaultManyToOneComboModel<CfopEntity> model = new DefaultManyToOneComboModel<CfopEntity>(
-				CfopListController.class, this.cfopDAO,
-				super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-
-		};
+		try {
+			this.subView = new OperacaoFiscalFormView(this);
+			
+            this.fieldGroup = new DCFieldGroup<>(OperacaoFiscalEntity.class);
+			
+			// Mapeia os campos
+			
+			fieldGroup.bind(this.subView.getDescricao(),"descricao");
+			fieldGroup.bind(this.subView.getDescricaoNaNf(),"descricaoNaNf");
+			
+			//this.subView.getCfop().configuraCombo(
+			//		"descricao", CfopListController.class, this.cfopDAO, this.getMainController());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		this.subView.getCfop().setModel(model);
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		// TODO Auto-generated method stub
-		currentBean = dao.find((Integer) id);
-		subView.getCfop().setValue(cfopDAO.find(currentBean.getCfop()));
-		subView.getDescricao().setValue(currentBean.getDescricao());
-		subView.getDescricaoNaNf().setValue(currentBean.getDescricaoNaNf());
-		subView.getObservacao().setValue(currentBean.getObservacao());
-	}
-
-	@Override
-	protected void actionSalvar() {
 		try {
-			CfopEntity cfop = (CfopEntity) subView.getCfop().getValue();
+			this.currentBean = this.dao.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
 
-			if (cfop == null) {
-				throw new ErroValidacaoException("Informe o Campo CFOP!");
-			}
-
-			String descricao = subView.getDescricao().getValue();
-			if (!(Validator.validateString(descricao)))
-				throw new ErroValidacaoException("Informe o Campo Descrição");
-
-			String descricaoNF = subView.getDescricaoNaNf().getValue();
-			if (!(Validator.validateString(descricaoNF)))
-				throw new ErroValidacaoException(
-						"Informe o Campo Descrição na NF");
-
-			currentBean.setDescricao(descricao);
-			currentBean.setDescricaoNaNf(descricaoNF);
-			currentBean.setObservacao(subView.getObservacao().getValue());
-			currentBean.setCfop(cfop.getId());
-			currentBean.setEmpresa(empresaAtual());
-			dao.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(currentBean);
-		} catch (ErroValidacaoException e) {
-			mensagemErro(e.montaMensagemErro());
 		} catch (Exception e) {
-			mensagemErro("Erro!!");
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	protected void quandoNovo() {
+	protected void actionSalvar() {
 		try {
-			// subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
+			dao.saveOrUpdate(currentBean);
+			notifiyFrameworkSaveOK(currentBean);
 		} catch (Exception e) {
+			mensagemErro("Erro!!");
 			e.printStackTrace();
 		}
 	}
@@ -131,32 +113,31 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 
 	@Override
 	protected String getNome() {
-		return "Operacao Fiscal";
+		return "Operação Fiscal";
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		dao.deleteAllByIds(ids);
+		try {
+			this.dao.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+		};
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
-		System.out.println("");
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public boolean isFullSized() {
 		return true;
-	}
-
-	public BeanItemContainer<CfopEntity> carregarCfop() {
-		
-		BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(CfopEntity.class);
-		
-		for (CfopEntity obj : cfopDAO.listaTodos()) {
-			container.addBean(obj);
-		}
-		return container;
 	}
 
 	@Override

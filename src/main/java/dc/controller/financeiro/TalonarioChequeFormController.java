@@ -1,23 +1,21 @@
 package dc.controller.financeiro;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
-import dc.entidade.financeiro.ContaCaixa;
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.TalonarioCheque;
-import dc.entidade.financeiro.type.StatusChequeType;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.TalonarioChequeDAO;
-import dc.servicos.util.Validator;
 import dc.visao.financeiro.TalonarioChequeFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
@@ -41,75 +39,74 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtTalao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtTalao(), "Não pode ficar em branco");
-			valido = false;
+		try {
+			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+		    return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
-
-		if (!Validator.validateString(subView.getTxtNumero().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNumero(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getCmbContaCaixa().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbContaCaixa(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TalonarioCheque();
+		
+		try {
+			currentBean = new TalonarioCheque();
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch (Exception e) {
+		    e.printStackTrace();
+		    mensagemErro(e.getMessage());
+		}
+		
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new TalonarioChequeFormView();
+		
+		try {
+			subView = new TalonarioChequeFormView();
 
-		this.subView.InitCbs(getTalonarioChequeTipo());
-
-		DefaultManyToOneComboModel<ContaCaixa> model = new DefaultManyToOneComboModel<ContaCaixa>(ContaCaixaListController.class, this.contaCaixaDAO,
-				super.getMainController()) {
-
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-
-			}
-		};
-
-		this.subView.getCmbContaCaixa().setModel(model);
+			this.fieldGroup = new DCFieldGroup<>(TalonarioCheque.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getTxtTalao(),"talao");
+			fieldGroup.bind(this.subView.getTxtNumero(),"numero");
+			fieldGroup.bind(this.subView.getCmbStatus(),"statusTalao");
+			fieldGroup.bind(this.subView.getCmbContaCaixa(),"contaCaixa");
+			
+			this.subView.getCmbContaCaixa().configuraCombo(
+					"nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
+			
+		}catch (Exception e) {
+	       e.printStackTrace();
+	    }
 
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = talonarioChequeDAO.find(id);
-
-		subView.getTxtTalao().setValue(currentBean.getTalao());
+		
+		try {
+			currentBean = talonarioChequeDAO.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 
 	}
 
 	@Override
 	protected void actionSalvar() {
 
-		currentBean.setTalao(subView.getTxtTalao().getValue());
-
 		try {
 			talonarioChequeDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
-
-	}
-
-	@Override
-	protected void quandoNovo() {
 
 	}
 
@@ -125,35 +122,32 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		talonarioChequeDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.talonarioChequeDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		return "talonarioChequeFormController";
-	}
-
-	/** COMBO */
-	public List<String> getTalonarioChequeTipo() {
-		try {
-			List<String> siLista = new ArrayList<String>();
-
-			for (StatusChequeType en : StatusChequeType.values()) {
-				siLista.add(en.ordinal(), en.toString());
-			}
-
-			return siLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
-		}
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

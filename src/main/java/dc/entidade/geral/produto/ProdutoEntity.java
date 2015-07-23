@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -83,7 +84,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "NOME", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-    @NotNull(message = "Nome obrigatório")
+    @NotNull(message = "Nome é obrigatório")
     @Length(min = 4, message = "O tamanho deve ser no mínimo 4 caracteres")
 	private String nome = "";
 
@@ -108,6 +109,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "VALOR_COMPRA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	//@NotNull(message = "Valor de Compra é obrigatório")
 	private BigDecimal valorCompra;
 
 	@Field
@@ -115,6 +117,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "VALOR_VENDA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	//@NotNull(message = "Valor de Venda é obrigatório")
 	private BigDecimal valorVenda;
 
 	@Field
@@ -122,6 +125,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "PRECO_VENDA_MINIMO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	//@NotNull(message = "Preco de Venda Mínimo é obrigatório")
 	private BigDecimal precoVendaMinimo;
 
 	@Field
@@ -129,6 +133,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "PRECO_SUGERIDO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	//@NotNull(message = "Preço Sugerido é obrigatório")
 	private BigDecimal precoSugerido;
 
 	@Field
@@ -136,6 +141,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "CUSTO_MEDIO_LIQUIDO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	//@NotNull(message = "Custo Médio Líquido é obrigatório")
 	private BigDecimal custoMedioLiquido;
 
 	@Field
@@ -143,6 +149,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "PRECO_LUCRO_ZERO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	//@NotNull(message = "Preço Lucro Zero é obrigatório")
 	private BigDecimal precoLucroZero;
 
 	@Field
@@ -150,6 +157,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "PRECO_LUCRO_MINIMO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	//@NotNull(message = "Preço Lucro Mínimo é obrigatório")
 	private BigDecimal precoLucroMinimo;
 
 	@Field
@@ -157,6 +165,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "PRECO_LUCRO_MAXIMO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	//@NotNull(message = "Preço Lucro Máximo é obrigatório")
 	private BigDecimal precoLucroMaximo;
 
 	@Field
@@ -209,6 +218,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "codigo_lst")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código Lst é obrigatório")
 	private String codigoLst = "";
 
 	@Field
@@ -223,6 +233,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "CODIGO_BALANCA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código Balança obrigatório")
 	private Integer codigoBalanca = new Integer(0);
 
 	@Field
@@ -272,6 +283,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "EX_TIPI")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "ExTipi é obrigatório")
 	private String exTipi = "";
 
 	@Enumerated(EnumType.STRING)
@@ -280,6 +292,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "tipo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Tipo de Venda é obrigatório")
 	private VendaTipoVendaEn tipoVenda;
 
 	@Enumerated(EnumType.STRING)
@@ -288,6 +301,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "INATIVO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Inativo é obrigatório")
 	private SimNaoEn inativo;
 
 	@Enumerated(EnumType.STRING)
@@ -296,6 +310,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "CLASSE_ABC")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Classe é obrigatório")
 	private ClasseEn classe;
 
 	@Enumerated(EnumType.STRING)
@@ -306,6 +321,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "iat")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "IAT é obrigatório")
 	private IatEn iat;
 
 	@Enumerated(EnumType.STRING)
@@ -314,7 +330,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "ippt")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-    @NotNull(message = "IPPT obrigatório")
+    @NotNull(message = "IPPT é obrigatório")
 	private IpptEn ippt;
 
 	@Enumerated(EnumType.STRING)
@@ -323,46 +339,56 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "tipo_item_sped")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Tipo Item SPED é obrigatório")
 	private TipoSpedEn tipoSped;
 
 	/**
 	 * REFERENCIA - FK
 	 */
+	
+	//@ManyToOne(fetch = FetchType.EAGER)
+	//@JoinColumn(name = "id_cliente", referencedColumnName = "id")
 
 	@Caption("Subgrupo")
 	@ManyToOne()
-	@JoinColumn(name = "id_sub_grupo", nullable = false)
+	@JoinColumn(name = "id_sub_grupo", referencedColumnName = "id", nullable = false)
+	@NotNull(message = "SubGrupo é obrigatório")
 	private SubGrupoEntity subGrupo;
 
 	@Caption("Grupo")
 	@ManyToOne()
 	@JoinColumn(name = "id_produto_grupo", nullable = false)
+	@NotNull(message = "Grupo é obrigatório")
 	private GrupoEntity grupo;
 
 	@Caption("Unidade do produto")
-	@ManyToOne()
-	@JoinColumn(name = "id_unidade_produto", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_unidade_produto",referencedColumnName = "id", nullable = false)
     @NotNull(message = "Unidade do produto é obrigatório")
 	private UnidadeProdutoEntity unidadeProduto;
 
 	@Caption("Marca do produto")
 	@ManyToOne()
 	@JoinColumn(name = "id_marca_produto", nullable = false)
+	@NotNull(message = "Marca do produto é obrigatório")
 	private MarcaEntity marca;
 
 	@Caption("Almoxarifado")
 	@ManyToOne()
 	@JoinColumn(name = "id_almoxarifado", nullable = false)
+	@NotNull(message = "Almoxarifado é obrigatório")
 	private AlmoxarifadoEntity almoxarifado;
 
 	@Caption("NCM")
 	@ManyToOne()
 	@JoinColumn(name = "id_ncm", nullable = false)
+	@NotNull(message = "Ncm é obrigatório")
 	private NcmEntity ncm;
 
 	@Caption("Grupo tributário")
 	@ManyToOne()
 	@JoinColumn(name = "id_grupo_tributario", nullable = true)
+	@NotNull(message = "Grupo Tributário é obrigatório")
 	private GrupoTributarioEntity grupoTributario;
 
 	@Caption("ICMS customizado")
@@ -769,7 +795,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * TO STRING
 	 */
 
-//	@Override
+//@Override
 //	public String toString() {
 //		return ToStringBuilder.reflectionToString(this);
 //	}

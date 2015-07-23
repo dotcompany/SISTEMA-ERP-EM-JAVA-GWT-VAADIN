@@ -75,7 +75,7 @@ public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "nome", "logradouro" };
+		return new String[] { "banco","codigo","nome", "logradouro","cep","telefone","contato" };
 	}
 
 	// @Transactional

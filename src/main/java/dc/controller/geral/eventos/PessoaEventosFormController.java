@@ -262,7 +262,7 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 			TipoPessoaEn tipoPessoaEn = (TipoPessoaEn) this.subView
 					.getCbTipoPessoa().getValue();
 
-			this.entity.setTipoPessoa(tipoPessoaEn);
+			this.entity.setTipo(tipoPessoaEn);
 
 			this.entity.setNome(this.subView.getTfNome().getValue());
 			this.entity.setEmail(this.subView.getTfEmail().getValue());
@@ -271,9 +271,9 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 			this.entity.setEmpresa(SecuritySessionProvider.getUsuario()
 					.getEmpresa());
 
-			if (this.entity.getTipoPessoa().equals(TipoPessoaEn.F)) {
+			if (this.entity.getTipo().equals(TipoPessoaEn.F)) {
 				savePessoaFisica();
-			} else if (this.entity.getTipoPessoa().equals(TipoPessoaEn.J)) {
+			} else if (this.entity.getTipo().equals(TipoPessoaEn.J)) {
 				savePessoaJuridica();
 			}
 

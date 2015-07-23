@@ -195,4 +195,19 @@ public class IcmsCustomizadoBusinessImpl implements Serializable,
 		return dao.comboTextSearch(value, menu, getAll);
 	}
 
+	@Override
+	public List<IcmsCustomizadoCabecalhoEntity> list() throws Exception {
+		try {
+			System.out.println(":: [" + getClass().getSimpleName() + "] list");
+
+			List<IcmsCustomizadoCabecalhoEntity> auxLista = this.dao.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
 }

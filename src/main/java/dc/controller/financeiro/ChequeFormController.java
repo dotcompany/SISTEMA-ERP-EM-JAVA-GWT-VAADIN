@@ -1,23 +1,21 @@
 package dc.controller.financeiro;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.Cheque;
-import dc.entidade.financeiro.TalonarioCheque;
-import dc.entidade.financeiro.type.StatusChequeType;
 import dc.servicos.dao.financeiro.ChequeDAO;
 import dc.servicos.dao.financeiro.TalonarioChequeDAO;
-import dc.servicos.util.Validator;
 import dc.visao.financeiro.ChequeFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
 /** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
@@ -59,65 +57,59 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtNumero().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNumero(), "Não pode ficar em branco");
-			valido = false;
+		try {
+			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+		    return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
-
-		if (!Validator.validateObject(subView.getCmbTalonarioCheque().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbTalonarioCheque(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setDataStatus(subView.getDtStatus().getValue());
-
 		try {
 			chequeDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = chequeDAO.find(id);
-		subView.getDtStatus().setValue(currentBean.getDataStatus());
-
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
+		try {
+			currentBean = chequeDAO.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new ChequeFormView();
+		
+		try {
+			subView = new ChequeFormView();
 
-		this.subView.InitCbs(getChequeStatusCheque());
+			this.fieldGroup = new DCFieldGroup<>(Cheque.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getDtStatus(),"dataStatus");
+			fieldGroup.bind(this.subView.getTxtNumero(),"numero");
+			fieldGroup.bind(this.subView.getCmbStatus(),"statusCheque");
+			fieldGroup.bind(this.subView.getCmbTalonarioCheque(),"idTalonarioCheque");
+			
+			this.subView.getCmbTalonarioCheque().configuraCombo(
+					"talao", TalonarioChequeListController.class, this.talonarioChequeDAO, this.getMainController());
+			
+		}catch (Exception e) {
+	       e.printStackTrace();
+	    }
 
-		DefaultManyToOneComboModel<TalonarioCheque> model = new DefaultManyToOneComboModel<TalonarioCheque>(TalonarioChequeListController.class,
-				this.talonarioChequeDAO, super.getMainController()) {
-
-			@Override
-			public String getCaptionProperty() {
-				return "talao";
-			}
-		};
-
-		this.subView.getCmbTalonarioCheque().setModel(model);
+		
 	}
 
 	/*
@@ -126,40 +118,43 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Cheque();
+		try {
+			currentBean = new Cheque();
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch (Exception e) {
+		    e.printStackTrace();
+		    mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		chequeDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.chequeDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		return "chequeForm";
-	}
-
-	/** COMBO */
-	public List<String> getChequeStatusCheque() {
-		try {
-			List<String> siLista = new ArrayList<String>();
-
-			for (StatusChequeType en : StatusChequeType.values()) {
-				siLista.add(en.ordinal(), en.toString());
-			}
-
-			return siLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
-		}
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
