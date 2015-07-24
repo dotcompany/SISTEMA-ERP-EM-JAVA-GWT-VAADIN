@@ -414,12 +414,12 @@ public class LancamentoPagarFormView extends CustomComponent {
 		parcelasLayout.setMargin(false);
 		parcelasLayout.setSpacing(true);
 
-		String[] atributos = new String[] { "contaCaixa", "numeroParcela",
+		String[] atributos = new String[] { "contaCaixa","statusParcela", "numeroParcela",
 				"dataEmissao", "dataVencimento", "descontoAte",
 				"sofreRetencao", "valor", "taxaJuro", "valorJuro", "taxaMulta",
 				"valorMulta", "taxaDesconto", "valorDesconto" };
 
-		String[] headers = new String[] { "Conta Caixa", "Número Parcela",
+		String[] headers = new String[] { "Conta Caixa","Status Parcela", "Número Parcela",
 				"Data Emissão", "Data Vencimento", "Desconto Até",
 				"Sofre Retenção", "Valor", "Taxa Juro", "Valor Juro",
 				"Taxa Multa", "Valor Multa", "Taxa Desconto", "Valor Desconto" };
@@ -501,6 +501,50 @@ public class LancamentoPagarFormView extends CustomComponent {
 
 							contaCaixaText.setReadOnly(true);
 							return contaCaixaText;
+							
+						}else if ("statusParcela".equals(propertyId)) {
+							TextField statusParcela = ComponentUtil
+									.buildTextField(null);
+
+							statusParcela
+									.setConverter(new Converter<String, StatusParcela>() {
+
+										/**
+								 * 
+								 */
+										private static final long serialVersionUID = 1L;
+
+										@Override
+										public StatusParcela convertToModel(
+												String value,
+												Class<? extends StatusParcela> targetType,
+												Locale locale)
+												throws com.vaadin.data.util.converter.Converter.ConversionException {
+											return null;
+										}
+
+										@Override
+										public String convertToPresentation(
+												StatusParcela value,
+												Class<? extends String> targetType,
+												Locale locale)
+												throws com.vaadin.data.util.converter.Converter.ConversionException {
+											return value.getSituacao();
+										}
+
+										@Override
+										public Class<StatusParcela> getModelType() {
+											return StatusParcela.class;
+										}
+
+										@Override
+										public Class<String> getPresentationType() {
+											return String.class;
+										}
+									});
+
+							statusParcela.setReadOnly(true);
+							return statusParcela;
 
 						} else if ("taxaJuro".equals(propertyId)) {
 							Field field = ComponentUtil

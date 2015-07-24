@@ -19,7 +19,7 @@ public class ContratoDAO extends AbstractCrudDAO<ContratoEntity> {
 	@Override
 	protected String[] getDefaultSearchFields() {
 
-		return new String[] { "numero", "nome", "descricao", "observacao" };
+		return new String[] {"pessoa", "numero", "nome", "descricao", "observacao" };
 	}
 
 	@Override

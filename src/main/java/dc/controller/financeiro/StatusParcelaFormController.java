@@ -60,15 +60,6 @@ public class StatusParcelaFormController extends CRUDFormController<StatusParcel
 		subView.preencheForm(currentBean);
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padr�o
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
-
 	@Override
 	protected void initSubView() {
 		subView = new StatusParcelaFormView();

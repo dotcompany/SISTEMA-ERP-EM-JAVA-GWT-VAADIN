@@ -19,6 +19,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
+import dc.control.enums.TipoBaixaEn;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.ParcelaPagamento;
 import dc.entidade.financeiro.ParcelaPagar;
@@ -30,7 +31,7 @@ import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.visao.financeiro.ParcelaPagamentoFormView;
-import dc.visao.financeiro.ParcelaPagamentoFormView.TipoBaixa;
+import dc.visao.financeiro.ParcelaRecebimentoFormView.TipoBaixa;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -117,18 +118,18 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 			@Override
 			public void blur(BlurEvent event) {
 
-				TipoBaixa tipoBaixa = (TipoBaixa) subView.getCbTipoBaixa().getValue();
+				TipoBaixaEn tipoBaixa = (TipoBaixaEn) subView.getCbTipoBaixa().getValue();
 
 				switch (tipoBaixa) {
 				
-				   case PARCIAL: {
+				   case P: {
 					      subView.getTxValorPago().setEnabled(true);
 					      break;
 				   }
 				   
-				   case TOTAL: {
+				   case T: {
 					      subView.getTxValorPago().setEnabled(false);
-					      calculaTotalPago();
+					      new CalculaTotalPagoBlurListener();
 
 					      break;
 					      
@@ -177,11 +178,23 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	}
 
 	private void preencheCombos() {
-		subView.preencheComboTipoBaixa();
 		DefaultManyToOneComboModel<ContaCaixa> model1 = new DefaultManyToOneComboModel<ContaCaixa>(ContaCaixaListController.class,
 				this.contaCaixaDAO, super.getMainController());
 
 		this.subView.getCbContaCaixa().setModel(model1);
+		
+		DefaultManyToOneComboModel<StatusParcela> modelo = new DefaultManyToOneComboModel<StatusParcela>(
+				StatusParcelaListController.class, this.statusParcelaDAO,
+				super.getMainController()) {
+			
+			@Override
+			public String getCaptionProperty() {
+				return "situacao";
+			}
+
+		};
+
+		this.subView.getCbStatusParcela().setModel(modelo);
 
 		DefaultManyToOneComboModel<TipoPagamento> model2 = new DefaultManyToOneComboModel<TipoPagamento>(TipoPagamentoListController.class,
 				this.tipoPagamentoDAO, super.getMainController()) {
@@ -203,11 +216,6 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-	}
-
-	@Override
-	protected void quandoNovo() {
 
 	}
 
@@ -268,21 +276,23 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		pagamento.setValorJuro(valorJuro);
 
 		if (pagamento.getTaxaMulta() != null) {
-			pagamento.setValorMulta(pagamento.getParcelaPagar().getValor().multiply(pagamento.getTaxaMulta()).divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+			pagamento.setValorMulta((pagamento.getParcelaPagar().getValor()).multiply(pagamento.getTaxaMulta()).divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
 			valorMulta = pagamento.getValorMulta();
 		} else {
 			pagamento.setValorMulta(valorMulta);
 		}
 
 		if (pagamento.getTaxaDesconto() != null) {
-			pagamento.setValorDesconto(pagamento.getParcelaPagar().getValor().multiply(pagamento.getTaxaDesconto())
+			pagamento.setValorDesconto((pagamento.getParcelaPagar().getValor()).multiply(pagamento.getTaxaDesconto())
 					.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
 			valorDesconto = pagamento.getValorDesconto();
 		} else {
 			pagamento.setValorDesconto(valorDesconto);
 		}
 
-		pagamento.setValorPago(pagamento.getValorPago().add(valorJuro).add(valorMulta).subtract(valorDesconto));
+		pagamento.setValorPago((pagamento.getValorPago().add(valorJuro)).add(pagamento.getValorPago().add(valorMulta)).subtract(valorDesconto));
+		//pagamento.setValorPago(pagamento.getValorPago().add(valorJuro).add(valorMulta).subtract(valorDesconto));
+
 
 		subView.preencheForm(currentBean);
 	}
