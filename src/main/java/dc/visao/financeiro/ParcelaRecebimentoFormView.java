@@ -20,6 +20,7 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import dc.control.enums.TipoBaixaEn;
 import dc.controller.financeiro.ParcelaRecebimentoFormController;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.ParcelaRecebimento;
@@ -125,6 +126,10 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 		mainLayout.addComponent(pagamentosSubForm);
 
 		mainLayout.setExpandRatio(pagamentosSubForm, 1.0f);
+		
+		for (TipoBaixaEn value : TipoBaixaEn.values()) {
+			cbTipoBaixa.addItem(value);
+		}
 
 		return mainLayout;
 	}
@@ -459,50 +464,6 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 
 	public void setBtnExcluiRecebimento(Button btnExcluiRecebimento) {
 		this.btnExcluiRecebimento = btnExcluiRecebimento;
-	}
-
-	public enum TipoBaixa {
-		TOTAL("Total", "T"), PARCIAL("Parcial", "P");
-
-		private TipoBaixa(String label, String codigo) {
-			this.label = label;
-			this.codigo = codigo;
-		}
-
-		private String label;
-		private String codigo;
-
-		public static TipoBaixa getSimNao(String codigo) {
-			for (TipoBaixa e : TipoBaixa.values()) {
-				if (e.getCodigo().equalsIgnoreCase(codigo)) {
-					return e;
-				}
-			}
-
-			return null;
-		}
-
-		public String getCodigo() {
-			return codigo;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		@Override
-		public String toString() {
-			return label;
-		}
-	}
-
-	public void preencheComboTipoBaixa() {
-		cbTipoBaixa.removeAllItems();
-
-		for (TipoBaixa value : TipoBaixa.values()) {
-			cbTipoBaixa.addItem(value);
-		}
-
 	}
 
 	public ManyToOneCombo<TipoRecebimento> getCbTipoRecebimento() {

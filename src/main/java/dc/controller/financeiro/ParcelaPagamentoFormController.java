@@ -31,7 +31,6 @@ import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.visao.financeiro.ParcelaPagamentoFormView;
-import dc.visao.financeiro.ParcelaRecebimentoFormView.TipoBaixa;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -338,7 +337,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	@Transactional
 	private void salvaPagamento() throws Exception {
 		ParcelaPagamento parcelaPagamento = currentBean;
-		String tipoBaixa = ((TipoBaixa) subView.getCbTipoBaixa().getValue()).getCodigo();
+		String tipoBaixa = ((TipoBaixaEn) subView.getCbTipoBaixa().getValue()).getKey();
 		if (parcelaPagamento.getChequeEmitido() != null) {
 			// session.save(parcelaPagamento.getFinChequeEmitido());
 			// ChequeVO cheque =
