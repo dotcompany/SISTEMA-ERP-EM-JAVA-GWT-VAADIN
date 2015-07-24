@@ -27,9 +27,9 @@ public class ContratoDAO extends AbstractCrudDAO<ContratoEntity> {
 	public ContratoEntity find(Serializable id) {
 		ContratoEntity contrato = super.find(id);
 		// workaround para lazy initialization exception
-		contrato.getContratosHistoricosFaturamentos();
-		contrato.getContratosHistoricosReajustes();
-		contrato.getContratosPrevisoesFaturamentos();
+		initialize(contrato.getContratosHistoricosFaturamentos());
+		initialize(contrato.getContratosHistoricosReajustes());
+		initialize(contrato.getContratosPrevisoesFaturamentos());
 
 		return contrato;
 	}

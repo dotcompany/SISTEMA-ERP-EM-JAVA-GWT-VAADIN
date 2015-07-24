@@ -31,6 +31,7 @@ import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 import dc.visao.suprimento.contrato.ContratoSolicitacaoServicoFormView;
+import dc.visao.suprimento.contrato.ContratoSolicitacaoServicoFormView.ResponsavelEnum;
 
 @Controller
 @Scope("prototype")
@@ -64,17 +65,21 @@ public class ContratoSolicitacaoServicoFormController extends
 	protected boolean validaSalvar() {
 		boolean valido = true;
 
-		if (!Validator.validateObject(subView.getCbCliente().getValue())) {
-			adicionarErroDeValidacao(subView.getCbCliente(),
-					"Não pode ficar em branco");
-			valido = false;
+		if(subView.getGrpTipo().getValue().equals(ResponsavelEnum.FORNECEDOR)) {
+			if (!Validator.validateObject(subView.getCbFornecedor().getValue())) {
+				adicionarErroDeValidacao(subView.getCbFornecedor(),
+						"Não pode ficar em branco");
+				valido = false;
+			}	
 		}
-
-		if (!Validator.validateObject(subView.getCbFornecedor().getValue())) {
-			adicionarErroDeValidacao(subView.getCbFornecedor(),
-					"Não pode ficar em branco");
-			valido = false;
+		else{
+			if (!Validator.validateObject(subView.getCbCliente().getValue())) {
+				adicionarErroDeValidacao(subView.getCbCliente(),
+						"Não pode ficar em branco");
+				valido = false;
+			}
 		}
+		
 
 		if (!Validator.validateObject(subView.getCbSetor().getValue())) {
 			adicionarErroDeValidacao(subView.getCbSetor(),

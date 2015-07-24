@@ -256,15 +256,15 @@ public class ContratoSolicitacaoServicoFormView extends CustomComponent {
 		gridLayout_1.setSpacing(true);
 
 		grpTipo = new OptionGroup("Selecione o Responsável");
-		grpTipo.addItem("Fornecedor");
-		grpTipo.addItem("Cliente");
+		grpTipo.addItem(ResponsavelEnum.FORNECEDOR);
+		grpTipo.addItem(ResponsavelEnum.CLIENTE);
 
 		grpTipo.addListener(new Property.ValueChangeListener() {
 			public void valueChange(ValueChangeEvent event) {
-				if (grpTipo.getValue().equals("Fornecedor")) {
+				if (grpTipo.getValue().equals(ResponsavelEnum.FORNECEDOR)) {
 					cbCliente.setVisible(false);
 					cbFornecedor.setVisible(true);
-				} else if (grpTipo.getValue().equals("Cliente")) {
+				} else if (grpTipo.getValue().equals(ResponsavelEnum.CLIENTE)) {
 					cbFornecedor.setVisible(false);
 					cbCliente.setVisible(true);
 				}
@@ -372,5 +372,23 @@ public class ContratoSolicitacaoServicoFormView extends CustomComponent {
 	public void setGrpTipo(OptionGroup grpTipo) {
 		this.grpTipo = grpTipo;
 	}
-
+	
+	public enum ResponsavelEnum{
+		FORNECEDOR("Forncedor"),
+		CLIENTE("Cliente");
+		private String label;
+		
+		private ResponsavelEnum(String label) {
+			this.label = label;
+		}
+		
+		public String getLabel() {
+			return label;
+		}
+		
+		@Override
+		public String toString() {
+			return this.label;
+		}
+	}
 }
