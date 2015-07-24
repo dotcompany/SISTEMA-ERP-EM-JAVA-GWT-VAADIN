@@ -505,7 +505,7 @@ public abstract class AbstractCrudDAO<T> {
 			
 			SearchFactory searchFactory = fullTextSession.getSearchFactory();
 			org.apache.lucene.search.Query luceneQuery = null;
-			QueryParser parser = new QueryParser(Version.LUCENE_31, property.toString(), searchFactory.getAnalyzer(Documento.class));
+			QueryParser parser = new QueryParser(Version.LUCENE_43, property.toString(), searchFactory.getAnalyzer(Documento.class));
 			try {
 				luceneQuery = parser.parse("+" + property.toString() + ":" + startValue.toString());
 			} catch (ParseException e) {
@@ -569,7 +569,7 @@ public abstract class AbstractCrudDAO<T> {
 			}
 
 			Analyzer an2 = fullTextSession.getSearchFactory().getAnalyzer("id_empresa_analyzer");
-			QueryParser parser = new QueryParser(Version.LUCENE_31, empresaField, an2);
+			QueryParser parser = new QueryParser(Version.LUCENE_43, empresaField, an2);
 			luceneQueryForEmpresa = parser.parse(String.valueOf(idEmpresa));
 
 			if (dc.control.validator.ObjectValidator.validateString(value)) {
