@@ -29,7 +29,7 @@
 	}
 
 .v-vaadin-version:after {
-	content: "7.5.1";
+	content: "7.5.2";
 }
 
 .v-generated-body {
@@ -2603,6 +2603,7 @@ body .dotcompany.v-app .v-app-loading {
 	outline: none;
 	padding: 0 4px;
 	text-align: right;
+	line-height: 1;
 }
 
 .dotcompany .v-grid-sidebar.v-contextmenu .v-grid-sidebar-button::-moz-focus-inner {
@@ -2625,7 +2626,7 @@ body .dotcompany.v-app .v-app-loading {
 }
 
 .dotcompany .v-grid-sidebar.v-contextmenu.open .v-grid-sidebar-button:after {
-	content: "\00d7";
+	content: "\f0c9";
 	font-size: 16px;
 	line-height: 1;
 }
@@ -2635,11 +2636,12 @@ body .dotcompany.v-app .v-app-loading {
 }
 
 .v-ie8 .dotcompany .v-grid-sidebar.v-contextmenu.open .v-grid-sidebar-button:after {
+	vertical-align: middle;
+	text-align: center;
 	display: inline;
 }
 
 .dotcompany .v-grid-sidebar.v-contextmenu .v-grid-sidebar-content {
-	border-top: 1px solid #ddd;
 	padding: 4px 0;
 }
 
@@ -2680,6 +2682,14 @@ body .dotcompany.v-app .v-app-loading {
 }
 
 .dotcompany .v-grid-row > td:first-child, .dotcompany .v-grid-editor-cells > div:first-child {
+	border-left: none;
+}
+
+.dotcompany .v-grid-editor-cells.frozen > div {
+	-webkit-box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
+	box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
+	border-right: 1px solid #ddd;
 	border-left: none;
 }
 
@@ -2804,6 +2814,10 @@ body .dotcompany.v-app .v-app-loading {
 .dotcompany .v-grid-editor-cells {
 	position: relative;
 	white-space: nowrap;
+}
+
+.dotcompany .v-grid-editor-cells.frozen {
+	z-index: 2;
 }
 
 .dotcompany .v-grid-editor-cells  > div {
