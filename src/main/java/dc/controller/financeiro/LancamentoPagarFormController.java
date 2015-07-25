@@ -312,7 +312,14 @@ public class LancamentoPagarFormController extends
 		
 		DefaultManyToOneComboModel<StatusParcela> modelo = new DefaultManyToOneComboModel<StatusParcela>(
 				StatusParcelaListController.class, this.statusParcelaDAO,
-				super.getMainController());
+				super.getMainController()) {
+			
+			@Override
+			public String getCaptionProperty() {
+				return "situacao";
+			}
+
+		};
 
 		this.subView.getCbStatusParcela().setModel(modelo);
 
@@ -505,6 +512,14 @@ public class LancamentoPagarFormController extends
 				throw new Exception(
 						"É necessário informar a conta caixa para previsão das parcelas.");
 			}
+			
+			final StatusParcela statusParcela = (StatusParcela) subView
+					.getCbStatusParcela().getValue();
+			if (statusParcela == null || statusParcela.getId() == null) {
+				throw new Exception(
+						"É necessário informar o Status da Parcela para previsão das parcelas.");
+			}
+			
 			final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
 			List<ParcelaPagar> dados = subView.getParcelasSubForm().getDados();
 			if (dados != null) {
@@ -526,13 +541,13 @@ public class LancamentoPagarFormController extends
 									public void onClose(ConfirmDialog dialog) {
 										if (dialog.isConfirmed()) {
 											excluiParcelas(parcelasPagar);
-											geraParcelas(contaCaixa,
+											geraParcelas(contaCaixa, statusParcela,
 													parcelasPagar);
 										}
 									}
 								});
 			} else {
-				geraParcelas(contaCaixa, parcelasPagar);
+				geraParcelas(contaCaixa, statusParcela, parcelasPagar);
 			}
 
 		} else {
@@ -541,7 +556,7 @@ public class LancamentoPagarFormController extends
 
 	}
 
-	private void geraParcelas(ContaCaixa contaCaixa,
+	private void geraParcelas(ContaCaixa contaCaixa, StatusParcela statusParcela,
 			final List<ParcelaPagar> parcelasPagar) {
 		subView.getParcelasSubForm().removeAllItems();
 
@@ -562,6 +577,7 @@ public class LancamentoPagarFormController extends
 		for (int i = 0; i < lancamentoPagar.getQuantidadeParcela(); i++) {
 			parcelaPagar = new ParcelaPagar();
 			parcelaPagar.setContaCaixa(contaCaixa);
+			parcelaPagar.setStatusParcela(statusParcela);
 			parcelaPagar.setNumeroParcela(i + 1);
 			parcelaPagar.setDataEmissao(dataEmissao);
 			if (i > 0) {

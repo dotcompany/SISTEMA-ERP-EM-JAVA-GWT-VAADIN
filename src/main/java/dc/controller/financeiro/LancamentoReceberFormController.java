@@ -236,15 +236,6 @@ public class LancamentoReceberFormController extends
 		subView.preencheForm(currentBean);
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
-
 	@Override
 	protected void initSubView() {
 		subView = new LancamentoReceberFormView(this);
@@ -300,6 +291,9 @@ public class LancamentoReceberFormController extends
 				});
 
 		subView.getTxValorComissao().setEnabled(false);
+		subView.getTxValorJuro().setEnabled(false);
+		subView.getTxValorMulta().setEnabled(false);
+		subView.getTxValorDesconto().setEnabled(false);
 		subView.getTxTaxaComissao().addBlurListener(new BlurListener() {
 
 			/**
@@ -310,6 +304,48 @@ public class LancamentoReceberFormController extends
 			@Override
 			public void blur(BlurEvent event) {
 				calculaValorComissao();
+
+			}
+		});
+		
+		subView.getTxTaxaJuro().addBlurListener(new BlurListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void blur(BlurEvent event) {
+				calculaValorJuro();
+
+			}
+		});
+		
+		subView.getTxTaxaMulta().addBlurListener(new BlurListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void blur(BlurEvent event) {
+				calculaValorMulta();
+
+			}
+		});
+		
+		subView.getTxTaxaDesconto().addBlurListener(new BlurListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void blur(BlurEvent event) {
+				calculaValorDesconto();
 
 			}
 		});
@@ -632,6 +668,19 @@ public class LancamentoReceberFormController extends
 
 	}
 	
+	/*public CentroResultado novoCentroResultado() {
+		CentroResultado centroResultado = currentBean
+				.addCentroResultado();
+		return centroResultado;
+	}
+
+	public void removerCentroResultado(List<CentroResultado> values) {
+		for (CentroResultado value : values) {
+			currentBean.removeCentroResultado(value);
+		}
+
+	}*/
+	
 public List<LctoReceberNtFinanceiraEntity> getNaturezasFinan() {
 		
 		try {
@@ -651,11 +700,69 @@ public List<LctoReceberNtFinanceiraEntity> getNaturezasFinan() {
 		BigDecimal valorAReceber = (BigDecimal) subView.getTxValorReceber()	.getConvertedValue();
 
 		BigDecimal taxaComissao = (BigDecimal) subView.getTxTaxaComissao().getConvertedValue();
+		BigDecimal taxaJuro = (BigDecimal) subView.getTxTaxaJuro().getConvertedValue();
+		BigDecimal taxaMulta = (BigDecimal) subView.getTxTaxaMulta().getConvertedValue();
+		BigDecimal taxaDesconto = (BigDecimal) subView.getTxTaxaDesconto().getConvertedValue();
 
 		if (valorAReceber != null && taxaComissao != null) {
-			subView.getTxValorComissao().setConvertedValue(
-					valorAReceber.multiply(taxaComissao).divide(
+			subView.getTxValorComissao().setConvertedValue(valorAReceber.multiply(taxaComissao).divide(
 							BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+			
+		}
+		
+		if (valorAReceber != null && taxaJuro != null) {
+			subView.getTxTaxaJuro().setConvertedValue(valorAReceber.multiply(taxaJuro).divide(
+					BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+			
+		}
+		
+		if (valorAReceber != null && taxaMulta != null) {
+			subView.getTxTaxaMulta().setConvertedValue(valorAReceber.multiply(taxaMulta).divide(
+					BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+			
+		}
+		
+		if (valorAReceber != null && taxaDesconto != null) {
+			subView.getTxTaxaDesconto().setConvertedValue(valorAReceber.multiply(taxaDesconto).divide(
+					BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+			
+		}
+	}
+	
+	private void calculaValorJuro() {
+		BigDecimal valorAReceber = (BigDecimal) subView.getTxValorReceber()	.getConvertedValue();
+
+		BigDecimal taxaJuro = (BigDecimal) subView.getTxTaxaJuro().getConvertedValue();
+
+		if (valorAReceber != null && taxaJuro != null) {
+			subView.getTxTaxaJuro().setConvertedValue(valorAReceber.multiply(taxaJuro).divide(
+					BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+			
+		}
+		
+	}
+	
+	private void calculaValorMulta() {
+		BigDecimal valorAReceber = (BigDecimal) subView.getTxValorReceber()	.getConvertedValue();
+
+		BigDecimal taxaMulta = (BigDecimal) subView.getTxTaxaMulta().getConvertedValue();
+
+		if (valorAReceber != null && taxaMulta != null) {
+			subView.getTxTaxaMulta().setConvertedValue(valorAReceber.multiply(taxaMulta).divide(
+					BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+			
+		}
+		
+	}
+	
+	private void calculaValorDesconto() {
+		BigDecimal valorAReceber = (BigDecimal) subView.getTxValorReceber()	.getConvertedValue();
+
+		BigDecimal taxaDesconto = (BigDecimal) subView.getTxTaxaDesconto().getConvertedValue();
+
+		if (valorAReceber != null && taxaDesconto != null) {
+			subView.getTxTaxaDesconto().setConvertedValue(valorAReceber.multiply(taxaDesconto).divide(
+					BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
 			
 		}
 	}

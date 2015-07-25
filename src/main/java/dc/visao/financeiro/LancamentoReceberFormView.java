@@ -35,6 +35,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.control.enums.TipoVencimentoEn;
 import dc.controller.financeiro.LancamentoReceberFormController;
+import dc.entidade.financeiro.CentroResultado;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.DocumentoOrigem;
 import dc.entidade.financeiro.LancamentoReceber;
@@ -68,7 +69,7 @@ public class LancamentoReceberFormView extends CustomComponent {
 	private PopupDateField dtPrimeiroVencimento;
 
 	private TextField txNumeroDocumento;
-	private TextField txValorTotal;
+	private TextField txValorTotal, txTaxaJuro, txValorJuro, txTaxaMulta, txValorMulta, txTaxaDesconto, txValorDesconto;
 	private TextField txValorReceber;
 	private TextField txTaxaComissao;
 	private TextField txValorComissao;
@@ -81,6 +82,7 @@ public class LancamentoReceberFormView extends CustomComponent {
 
 	private SubFormComponent<ParcelaReceber, Integer> parcelasSubForm;
 	private SubFormComponent<LctoReceberNtFinanceiraEntity, Integer> naturezaFinanceiraSubForm;
+	//private SubFormComponent<CentroResultado, Integer> centroResultadoSubForm;
 	private final LancamentoReceberFormController controller;
 	private Button btnGerarParcelas;
 	private Button btnGerarBoleto;
@@ -135,8 +137,8 @@ public class LancamentoReceberFormView extends CustomComponent {
 		fields.setHeight("-1px");
 		fields.setMargin(false);
 		fields.setSpacing(true);
-		fields.setRows(7);
-		fields.setColumns(7);
+		fields.setRows(8);
+		fields.setColumns(8);
 
 		cbCliente = new ManyToOneCombo<>();
 		fields.addComponent(cbCliente, 0, 0, 1, 0);
@@ -163,6 +165,12 @@ public class LancamentoReceberFormView extends CustomComponent {
 
 		txValorComissao = ComponentUtil.buildCurrencyField("Valor Comissão");
 		fields.addComponent(txValorComissao, 4, 2);
+		
+		txTaxaJuro = ComponentUtil.buildPercentageField("Taxa Juro");
+		fields.addComponent(txTaxaJuro, 5, 2);
+		
+		txValorJuro = ComponentUtil.buildCurrencyField("Valor Juro");
+		fields.addComponent(txValorJuro, 6, 2);
 
 		dtPrimeiroVencimento = ComponentUtil
 				.buildPopupDateField("Primeiro Vencimento");
@@ -180,6 +188,18 @@ public class LancamentoReceberFormView extends CustomComponent {
 				.buildNumericField("Intervalos Parcelas");
 		fields.addComponent(txIntervaloParcela, 3, 3);
 		txIntervaloParcela.setConverter(new IntegerConverter());
+		
+		txTaxaMulta = ComponentUtil.buildPercentageField("Taxa Multa");
+		fields.addComponent(txTaxaMulta, 4, 3);
+		
+		txValorMulta = ComponentUtil.buildCurrencyField("Valor Multa");
+		fields.addComponent(txValorMulta, 5, 3);
+		
+		txTaxaDesconto = ComponentUtil.buildPercentageField("Taxa Desconto");
+		fields.addComponent(txTaxaDesconto, 6, 3);
+		
+		txValorDesconto = ComponentUtil.buildCurrencyField("Valor Desconto");
+		fields.addComponent(txValorDesconto, 7, 3);
 
 		cbContaCaixa = new ManyToOneCombo<>();
 		cbContaCaixa.setCaption("Conta Caixa");
@@ -204,8 +224,8 @@ public class LancamentoReceberFormView extends CustomComponent {
 		tabSheet.setSizeFull();
 
 		tabSheet.addTab(buildSubFormParcelas(), "Parcelas", null);
-		tabSheet.addTab(buildSubFormNaturezaFinanceira(),
-				"Naturezas Financeiras Vinculadas", null);
+		tabSheet.addTab(buildSubFormNaturezaFinanceira(),"Naturezas Financeiras Vinculadas", null);
+		//tabSheet.addTab(buildSubFormCentroResultado(), "Centros de Resultado", null);
 
 		return tabSheet;
 	}
@@ -297,6 +317,82 @@ public class LancamentoReceberFormView extends CustomComponent {
 
 		return this.naturezaFinanceiraSubForm;
 	}
+	
+	/*private Component buildSubFormCentroResultado() {
+		String[] atributos = new String[] { "classificacao",
+				"descricao", "tipo","percentualRateio","plano" };
+		String[] headers = new String[] { "Classificação",
+				"Descrição", "Tipo", "Percentual Rateio","Plano" };
+
+		this.centroResultadoSubForm = new SubFormComponent<CentroResultado, Integer>(
+				CentroResultado.class, atributos, headers) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected TableFieldFactory getFieldFactory() {
+				return new TableFieldFactory() {
+
+					/**
+					 * 
+					 */
+					/*private static final long serialVersionUID = 1L;
+
+					@Override
+					public Field<?> createField(Container container,
+							Object itemId, Object propertyId,
+							Component uiContext) {
+
+						if ("classificacao".equals(propertyId)) {
+							TextField field = new TextField();
+							field.setSizeFull();
+							return field;
+						} else if ("descricao".equals(propertyId)) {
+							TextField field = new TextField();
+							field.setSizeFull();
+							return field;
+						} else if ("tipo".equals(propertyId)) {
+							TextField field = new TextField();
+							field.setSizeFull();
+							return field;
+							
+						}else if ("percentualRateio".equals(propertyId)) {
+							
+							return ComponentUtil.buildCurrencyField(null);
+						}else if ("plano".equals(propertyId)) {
+							TextField field = new TextField();
+							field.setSizeFull();
+							return field;
+						}
+
+						else {
+							return ComponentUtil.buildTextField(null);
+						}
+					}
+
+				};
+			}
+
+			@Override
+			public boolean validateItems(List<CentroResultado> items) {
+
+				return true;
+			}
+
+			protected CentroResultado getNovo() {
+				CentroResultado centroResultado = controller
+						.novoLctoReceberNtFinanceira();
+				return centroResultado;
+			}
+
+			@Override
+			protected void getRemoverSelecionados(List<CentroResultado> values) {
+				controller.removerCentroResultado(values);
+			}
+		};
+
+		return this.centroResultadoSubForm;
+	}*/
 
 	private Component buildSubFormParcelas() {
 
@@ -404,7 +500,6 @@ public class LancamentoReceberFormView extends CustomComponent {
 						 */
 					private static final long serialVersionUID = 1L;
 
-					@SuppressWarnings("rawtypes")
 					@Override
 					public Field<?> createField(Container container,
 							Object itemId, Object propertyId,
@@ -417,80 +512,42 @@ public class LancamentoReceberFormView extends CustomComponent {
 							return dateField;
 						} else if ("valor".equals(propertyId)) {
 							return ComponentUtil.buildCurrencyField(null);
-						}
-
-						else if ("contaCaixa".equals(propertyId)) {
-							TextField contaCaixaText = ComponentUtil
-									.buildTextField(null);
-
-							contaCaixaText
-									.setConverter(new Converter<String, ContaCaixa>() {
-
-										/**
-								 * 
-								 */
-										private static final long serialVersionUID = 1L;
-
-										@Override
-										public ContaCaixa convertToModel(
-												String value,
-												Class<? extends ContaCaixa> targetType,
-												Locale locale)
-												throws com.vaadin.data.util.converter.Converter.ConversionException {
-											return null;
-										}
-
-										@Override
-										public String convertToPresentation(
-												ContaCaixa value,
-												Class<? extends String> targetType,
-												Locale locale)
-												throws com.vaadin.data.util.converter.Converter.ConversionException {
-											return value.getNome();
-										}
-
-										@Override
-										public Class<ContaCaixa> getModelType() {
-											return ContaCaixa.class;
-										}
-
-										@Override
-										public Class<String> getPresentationType() {
-											return String.class;
-										}
-									});
-
-							contaCaixaText.setReadOnly(true);
-							return contaCaixaText;
 
 						} else if ("taxaJuro".equals(propertyId)) {
-							Field field = ComponentUtil
+							TextField field = ComponentUtil
 									.buildPercentageField(null);
+							field.setReadOnly(true);
 							return field;
 						} else if ("taxaMulta".equals(propertyId)) {
-							Field field = ComponentUtil
+							TextField field = ComponentUtil
 									.buildPercentageField(null);
+							field.setReadOnly(true);
 							return field;
 						} else if ("taxaDesconto".equals(propertyId)) {
-							Field field = ComponentUtil
+							TextField field = ComponentUtil
 									.buildPercentageField(null);
+							field.setReadOnly(true);
 							return field;
 						} else if ("valorJuro".equals(propertyId)) {
-							Field field = ComponentUtil
+							TextField field = ComponentUtil
 									.buildCurrencyField(null);
+							field.setReadOnly(true);
 
 							return field;
 						} else if ("valorMulta".equals(propertyId)) {
-							Field field = ComponentUtil
+							TextField field = ComponentUtil
 									.buildCurrencyField(null);
+							field.setReadOnly(true);
 							return field;
 						} else if ("valorDesconto".equals(propertyId)) {
-							Field field = ComponentUtil
+							TextField field = ComponentUtil
 									.buildCurrencyField(null);
+							field.setReadOnly(true);
 							return field;
 						} else if ("valorPago".equals(propertyId)) {
-							Field field = ComponentUtil
+							TextField field = ComponentUtil
 									.buildCurrencyField(null);
+							field.setReadOnly(true);
 							return field;
 						} else {
 							return ComponentUtil.buildTextField(null);
@@ -711,4 +768,52 @@ public class LancamentoReceberFormView extends CustomComponent {
 		this.btnGerarBoleto = btnGerarBoleto;
 	}
 
+	public TextField getTxTaxaJuro() {
+		return txTaxaJuro;
+	}
+
+	public void setTxTaxaJuro(TextField txTaxaJuro) {
+		this.txTaxaJuro = txTaxaJuro;
+	}
+
+	public TextField getTxValorJuro() {
+		return txValorJuro;
+	}
+
+	public void setTxValorJuro(TextField txValorJuro) {
+		this.txValorJuro = txValorJuro;
+	}
+
+	public TextField getTxTaxaMulta() {
+		return txTaxaMulta;
+	}
+
+	public void setTxTaxaMulta(TextField txTaxaMulta) {
+		this.txTaxaMulta = txTaxaMulta;
+	}
+
+	public TextField getTxValorMulta() {
+		return txValorMulta;
+	}
+
+	public void setTxValorMulta(TextField txValorMulta) {
+		this.txValorMulta = txValorMulta;
+	}
+
+	public TextField getTxTaxaDesconto() {
+		return txTaxaDesconto;
+	}
+
+	public void setTxTaxaDesconto(TextField txTaxaDesconto) {
+		this.txTaxaDesconto = txTaxaDesconto;
+	}
+
+	public TextField getTxValorDesconto() {
+		return txValorDesconto;
+	}
+
+	public void setTxValorDesconto(TextField txValorDesconto) {
+		this.txValorDesconto = txValorDesconto;
+	}
+	
 }

@@ -104,6 +104,7 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Documento Origem")
 	private DocumentoOrigem documentoOrigem;
 
+	@Caption(value = "Cliente")
 	@JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private ClienteEntity cliente;
@@ -115,6 +116,10 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<LctoReceberNtFinanceiraEntity> LctoReceberNtFinanceira = new ArrayList<>();
+	
+	//@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	//@Fetch(FetchMode.SUBSELECT)
+	//private List<CentroResultado> CentroResultado = new ArrayList<>();
 
 	public LancamentoReceber() {
 	}
@@ -256,6 +261,19 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 
 		return lctoReceberNtFinanceira;
 	}
+	
+	/*public void removeCentroResultado(CentroResultado value) {
+		this.CentroResultado.remove(value);
+		value.setPlanoCentroResultado(null);
+	}
+
+	public CentroResultado addCentroResultado() {
+		CentroResultado centroResultado = new CentroResultado();
+		//centroResultado.setPlanoCentroResultado(this);
+		this.CentroResultado.add(centroResultado);
+
+		return centroResultado;
+	}*/
 
 	public List<ParcelaReceber> getParcelasReceber() {
 		return parcelasReceber;
