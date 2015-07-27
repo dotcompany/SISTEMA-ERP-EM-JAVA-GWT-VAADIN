@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Button.ClickEvent;
@@ -20,23 +21,21 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.TipoBaixaEn;
-import dc.entidade.financeiro.ContaCaixa;
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ParcelaPagamento;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
-import dc.entidade.financeiro.TipoPagamento;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.ParcelaPagamentoDAO;
-import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.visao.financeiro.ParcelaPagamentoFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPagar> {
+public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPagamento> {
 
 	/**
 	 * 
@@ -45,8 +44,6 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 	private ParcelaPagamentoFormView subView;
 
-	@Autowired
-	private ParcelaPagarDAO parcelaPagarDAO;
 	@Autowired
 	private ParcelaPagamentoDAO parcelaPagamentoDAO;
 	@Autowired
@@ -57,163 +54,161 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	private ContaCaixaDAO contaCaixaDAO;
 
 	private ParcelaPagamento currentBean;
-
 	private ParcelaPagar parcelaPagar;
 
-	@Override
-	protected boolean validaSalvar() {
-		boolean valido = true;
 
-		subView.getCbTipoPagamento();
-		subView.getCbContaCaixa();
-		subView.getDtDataPagamento();
+@Override
+protected boolean validaSalvar() {
+	try {
+       // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+        fieldGroup.commit();
+        return true;
+    } catch (FieldGroup.CommitException ce) {
+        return false;
+    }
+}
 
-		return valido;
-	}
+@Override
+protected void criarNovoBean() {
+		
+	try {
+        this.currentBean = new ParcelaPagamento();
 
-	@Override
-	protected void criarNovoBean() {
-		currentBean = new ParcelaPagamento();
-		preencheCombos();
-	}
+        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+        fieldGroup.setItemDataSource(this.currentBean);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        mensagemErro(e.getMessage());
+    }
+}
 
 	@Override
 	protected void initSubView() {
-		subView = new ParcelaPagamentoFormView(this);
+		
+		try {
+			subView = new ParcelaPagamentoFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(ParcelaPagamento.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getDtDataPagamento(),"dataPagamento");
+			fieldGroup.bind(this.subView.getTxTaxaJuro(),"taxaJuro");
+			fieldGroup.bind(this.subView.getCbContaCaixa(),"contaCaixa");
+			fieldGroup.bind(this.subView.getCbTipoPagamento(),"tipoPagamento");
+			
+			// Configura os ManyToOneComboFields
+			this.subView.getCbContaCaixa().configuraCombo(
+			         "nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
+			
+			this.subView.getCbStatusParcela().configuraCombo(
+			         "situacao", StatusParcelaListController.class, this.statusParcelaDAO, this.getMainController());
+			
+			this.subView.getCbTipoPagamento().configuraCombo(
+			         "descricao", TipoPagamentoListController.class, this.tipoPagamentoDAO, this.getMainController());
+			
+			
+			subView.getBtnEfetuaPagamento().addClickListener(new ClickListener() {
 
-		subView.getBtnEfetuaPagamento().addClickListener(new ClickListener() {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
 
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				efetuaPagamento();
-			}
-		});
-
-		subView.getBtnExcluiPagamento().addClickListener(new ClickListener() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				excluiPagamento();
-			}
-		});
-
-		subView.getCbTipoBaixa().addBlurListener(new BlurListener() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void blur(BlurEvent event) {
-
-				TipoBaixaEn tipoBaixa = (TipoBaixaEn) subView.getCbTipoBaixa().getValue();
-
-				switch (tipoBaixa) {
-				
-				   case P: {
-					      subView.getTxValorPago().setEnabled(true);
-					      break;
-				   }
-				   
-				   case T: {
-					      subView.getTxValorPago().setEnabled(false);
-					      new CalculaTotalPagoBlurListener();
-
-					      break;
-					      
-				   }				
-
-				   default: {
-					      break;
-				   }
-				
+				@Override
+				public void buttonClick(ClickEvent event) {
+					efetuaPagamento();
 				}
-				
+			});
 
-			}
-		});
+			subView.getBtnExcluiPagamento().addClickListener(new ClickListener() {
 
-		subView.getTxTaxaJuro().addBlurListener(new CalculaTotalPagoBlurListener());
-		subView.getTxTaxaMulta().addBlurListener(new CalculaTotalPagoBlurListener());
-		subView.getTxTaxaDesconto().addBlurListener(new CalculaTotalPagoBlurListener());
-		subView.getDtDataPagamento().addBlurListener(new CalculaTotalPagoBlurListener());
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
 
-		subView.getTxValorJuro().setEnabled(false);
-		subView.getTxValorMulta().setEnabled(false);
-		subView.getTxValorDesconto().setEnabled(false);
-		subView.getTxValorPago().setEnabled(false);
-		subView.getDtDataVencimento().setEnabled(false);
-		subView.getTxValorPagar().setEnabled(false);
+				@Override
+				public void buttonClick(ClickEvent event) {
+					excluiPagamento();
+				}
+			});
 
-		preencheCombos();
+			subView.getCbTipoBaixa().addBlurListener(new BlurListener() {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void blur(BlurEvent event) {
+
+					TipoBaixaEn tipoBaixa = (TipoBaixaEn) subView.getCbTipoBaixa().getValue();
+
+					switch (tipoBaixa) {
+					
+					   case P: {
+						      subView.getTxValorPago().setEnabled(true);
+						      break;
+					   }
+					   
+					   case T: {
+						      subView.getTxValorPago().setEnabled(false);
+						      new CalculaTotalPagoBlurListener();
+
+						      break;
+						      
+					   }				
+
+					   default: {
+						      break;
+					   }
+					
+					}
+					
+
+				}
+			});
+
+			subView.getTxTaxaJuro().addBlurListener(new CalculaTotalPagoBlurListener());
+			subView.getTxTaxaMulta().addBlurListener(new CalculaTotalPagoBlurListener());
+			subView.getTxTaxaDesconto().addBlurListener(new CalculaTotalPagoBlurListener());
+			subView.getDtDataPagamento().addBlurListener(new CalculaTotalPagoBlurListener());
+
+			subView.getTxValorJuro().setEnabled(false);
+			subView.getTxValorMulta().setEnabled(false);
+			subView.getTxValorDesconto().setEnabled(false);
+			subView.getTxValorPago().setEnabled(false);
+			subView.getDtDataVencimento().setEnabled(false);
+			subView.getTxValorPagar().setEnabled(false);
+		}catch (Exception e) {
+		    e.printStackTrace();
+		}
+		
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-
-		parcelaPagar = parcelaPagarDAO.find(id);
-
-		currentBean = new ParcelaPagamento();
-
-		currentBean.setParcelaPagar(parcelaPagar);
-		currentBean.setContaCaixa(parcelaPagar.getContaCaixa());
-		currentBean.setValorPago(parcelaPagar.getValor());
-
-		preencheCombos();
-		subView.preencheForm(currentBean);
-		subView.fillParcelaPagamentosSubForm(parcelaPagamentoDAO.buscaPorParcelaPagar(parcelaPagar));
-		calculaTotalPago();
-	}
-
-	private void preencheCombos() {
-		DefaultManyToOneComboModel<ContaCaixa> model1 = new DefaultManyToOneComboModel<ContaCaixa>(ContaCaixaListController.class,
-				this.contaCaixaDAO, super.getMainController());
-
-		this.subView.getCbContaCaixa().setModel(model1);
 		
-		DefaultManyToOneComboModel<StatusParcela> modelo = new DefaultManyToOneComboModel<StatusParcela>(
-				StatusParcelaListController.class, this.statusParcelaDAO,
-				super.getMainController()) {
-			
-			@Override
-			public String getCaptionProperty() {
-				return "situacao";
-			}
+		try {
+			currentBean = parcelaPagamentoDAO.find(id);
+			subView.fillParcelaPagamentosSubForm(parcelaPagamentoDAO.buscaPorParcelaPagar(currentBean));
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch (Exception e) {
+			        e.printStackTrace();
+		}
 
-		};
-
-		this.subView.getCbStatusParcela().setModel(modelo);
-
-		DefaultManyToOneComboModel<TipoPagamento> model2 = new DefaultManyToOneComboModel<TipoPagamento>(TipoPagamentoListController.class,
-				this.tipoPagamentoDAO, super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-		};
-
-		this.subView.getCbTipoPagamento().setModel(model2);
 	}
 
 	@Override
 	protected void actionSalvar() {
-		subView.preencheBean(currentBean);
 		try {
 			parcelaPagamentoDAO.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(this.currentBean.getParcelaPagar());
+			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 
 	}
@@ -230,18 +225,34 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		parcelaPagamentoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		
+		try {
+			//this.business.deleteAll(ids);
+			this.parcelaPagamentoDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		return "parcelaPagamentoFormController";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -249,7 +260,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		return true;
 	}
 
-	public void calculaTotalPago() {
+	/*public void calculaTotalPago() {
 		subView.preencheBean(currentBean);
 		
 		ParcelaPagamento pagamento = currentBean;
@@ -294,7 +305,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 
 		subView.preencheForm(currentBean);
-	}
+	}*/
 
 	private BigDecimal calculaJuros(ParcelaPagamento pagamento, long diasAtraso) {
 		// valorJuro = valor * ((taxaJuro / 30) / 100) * diasAtraso
@@ -307,7 +318,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	public void efetuaPagamento() {
 
 		if (validaSalvar()) {
-			calculaTotalPago();
+			new CalculaTotalPagoBlurListener();
 			ParcelaPagamento pagamento = currentBean;
 			pagamento.setChequeEmitido(null);
 			if (pagamento.getTipoPagamento().getTipo().equals("02")) {
@@ -361,7 +372,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 		ParcelaPagar parcelaPagar = parcelaPagamento.getParcelaPagar();
 		parcelaPagar.setStatusParcela(statusParcela);
-		parcelaPagarDAO.saveOrUpdate(parcelaPagar);
+		parcelaPagamentoDAO.saveOrUpdate(parcelaPagar);
 
 		List<ParcelaPagamento> dados = subView.getPagamentosSubForm().getDados();
 		dados.add(parcelaPagamento);
@@ -383,7 +394,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 				ParcelaPagar parcelaPagar = parcelaPagamento.getParcelaPagar();
 				parcelaPagar.setStatusParcela(statusParcela);
 
-				parcelaPagarDAO.saveOrUpdate(parcelaPagar);
+				parcelaPagamentoDAO.saveOrUpdate(parcelaPagar);
 				parcelaPagamentoDAO.delete(parcelaPagamento);
 				deletedItens.add(parcelaPagamento);
 			}
@@ -400,12 +411,59 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 		@Override
 		public void blur(BlurEvent event) {
-			calculaTotalPago();
+			subView.preencheBean(currentBean);
+			
+			ParcelaPagamento pagamento = currentBean;
+			ParcelaPagar parcelasPagar = parcelaPagar;
+			BigDecimal valorJuro = BigDecimal.ZERO;
+			BigDecimal valorMulta = BigDecimal.ZERO;
+			BigDecimal valorDesconto = BigDecimal.ZERO;
+			
+			if (pagamento.getTaxaJuro() != null && pagamento.getDataPagamento() != null) {
+				
+				Calendar dataPagamento = Calendar.getInstance();
+				dataPagamento.setTime(pagamento.getDataPagamento());
+				
+				Calendar dataVencimento = Calendar.getInstance();
+				//dataVencimento.setTime(parcelasPagar.getDataVencimento());
+						
+				if (dataVencimento.before(dataPagamento)) {
+					long diasAtraso = (dataPagamento.getTimeInMillis() - dataVencimento.getTimeInMillis()) / 86400000l;
+
+					pagamento.setValorJuro(calculaJuros(pagamento, diasAtraso));
+					valorJuro = pagamento.getValorJuro();
+				}
+			}
+			pagamento.setValorJuro(valorJuro);
+
+			if (pagamento.getTaxaMulta() != null) {
+				//pagamento.setValorMulta((pagamento.getParcelaPagar().getValor()).multiply(pagamento.getTaxaMulta()).divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+				pagamento.setValorMulta((pagamento.getValorMulta()).multiply(pagamento.getTaxaMulta()).divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+				valorMulta = pagamento.getValorMulta();
+			} else {
+				pagamento.setValorMulta(valorMulta);
+			}
+
+			if (pagamento.getTaxaDesconto() != null) {
+				//pagamento.setValorDesconto((pagamento.getParcelaPagar().getValor()).multiply(pagamento.getTaxaDesconto())
+				//		.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+				pagamento.setValorDesconto((pagamento.getValorDesconto()).multiply(pagamento.getTaxaDesconto())
+								.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+				valorDesconto = pagamento.getValorDesconto();
+			} else {
+				pagamento.setValorDesconto(valorDesconto);
+			}
+
+			//pagamento.setValorPago((pagamento.getValorPago().add(valorJuro)).add(valorMulta).subtract(valorDesconto));
+			//pagamento.setValorPago(pagamento.getValorPago().add(valorJuro).add(valorMulta).subtract(valorDesconto));
+
+
+			subView.preencheForm(currentBean);
 		}
 	}
 
 	@Override
-	public ParcelaPagar getModelBean() {
-		return parcelaPagar;
+	public ParcelaPagamento getModelBean() {
+		return currentBean;
 	}
 }

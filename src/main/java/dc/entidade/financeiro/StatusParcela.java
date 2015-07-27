@@ -1,5 +1,7 @@
 package dc.entidade.financeiro;
 
+import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,9 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -18,6 +24,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 
 /**
  * 
@@ -35,19 +42,23 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class StatusParcela extends AbstractMultiEmpresaModel<Integer> {
+public class StatusParcela extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "status_parcela_id_seq")
+	@SequenceGenerator(name = "status_parcela_id_seq", sequenceName = "status_parcela_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Column(name = "DESCRICAO")
 	@Caption(value = "Descrição")
 	@Field
+	@NotNull(message = "Descrição é obrigatório") 
 	private String descricao;
 
 	@Lob
@@ -55,11 +66,13 @@ public class StatusParcela extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "PROCEDIMENTO")
 	@Caption(value = "Procedimento")
 	@Field
+	@NotNull(message = "Procedimento é obrigatório") 
 	private String procedimento;
 
 	@Caption(value = "Situação")
 	@Column(name = "SITUACAO")
 	@Field
+	@NotNull(message = "Situação é obrigatório") 
 	private String situacao;
 	
 	public StatusParcela() {
@@ -94,25 +107,31 @@ public class StatusParcela extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (id != null ? id.hashCode() : 0);
-		return hash;
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
 
-	@Override
-	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are
-		// not set
-		if (!(object instanceof StatusParcela)) {
-			return false;
-		}
-		StatusParcela other = (StatusParcela) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-			return false;
-		}
-		return true;
-	}
+        if (!(obj instanceof StatusParcela)) {
+            return false;
+        }
+
+        StatusParcela that = (StatusParcela) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 	@Override
 	public String toString() {

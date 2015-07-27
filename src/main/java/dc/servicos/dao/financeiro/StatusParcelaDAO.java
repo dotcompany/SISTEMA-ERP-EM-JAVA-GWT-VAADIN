@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.financeiro.ParcelaPagamento;
 import dc.entidade.financeiro.StatusParcela;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -30,11 +31,17 @@ public class StatusParcelaDAO extends AbstractCrudDAO<StatusParcela>{
 	protected String[] getDefaultSearchFields() {
 		return new String[]{"situacao", "descricao"};
 	}
+	
+	@Transactional
+	public List<ProdutoEntity> procura(String query) {
+		return getSession().createQuery("from StatusParcela where descricao like :q")
+				.setParameter("q", "%" + query + "%").list();
+	}
 
 	@Transactional
-	public StatusParcela findBySituacao(String situacao) {
+	public StatusParcela findBySituacao(String descricao) {
 		Criteria criteria = getSession().createCriteria(StatusParcela.class);
-        criteria.add(Restrictions.eq("situacao", situacao));
+        criteria.add(Restrictions.eq("descricao", descricao));
         StatusParcela statusParcela = (StatusParcela) criteria.uniqueResult();
         
         return statusParcela;

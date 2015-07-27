@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.StatusParcela;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -55,7 +56,7 @@ public class StatusParcelaListController extends CRUDListController<StatusParcel
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaStatusParcelas";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

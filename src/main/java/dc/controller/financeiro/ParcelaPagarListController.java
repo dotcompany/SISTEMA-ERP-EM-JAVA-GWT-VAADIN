@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.financeiro.ParcelaPagar;
-import dc.servicos.dao.financeiro.ParcelaPagarDAO;
+import dc.control.util.ClassUtils;
+import dc.entidade.financeiro.ParcelaPagamento;
+import dc.servicos.dao.financeiro.ParcelaPagamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class ParcelaPagarListController extends CRUDListController<ParcelaPagar> {
+public class ParcelaPagarListController extends CRUDListController<ParcelaPagamento> {
 
 	/**
 	 * 
@@ -21,41 +22,41 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ParcelaPagarDAO dao;
+	private ParcelaPagamentoDAO dao;
 
 	@Autowired
 	private ParcelaPagamentoFormController parcelaPagamentoFormController;
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "contaCaixa", "numeroParcela", "dataEmissao", "dataVencimento", "descontoAte", "sofreRetencao", "valor",
-				"valorFaltante", "taxaJuro", "valorJuro", "taxaMulta", "valorMulta", "taxaDesconto", "valorDesconto" };
+		return new String[] { "contaCaixa", "tipoPagamento", "dataPagamento", "taxaJuro", "taxaMulta", "taxaDesconto", "valorJuro",
+				"valorMulta", "valorDesconto","valorPago" , "historico"};
 	}
 
 	@Override
-	public Class<? super ParcelaPagar> getEntityClass() {
-		return ParcelaPagar.class;
+	public Class<? super ParcelaPagamento> getEntityClass() {
+		return ParcelaPagamento.class;
 	}
 
 	@Override
 	protected String getTitulo() {
-		return "Parcela à pagar";
+		return "Pagamento Parcela";
 	}
 
 	@Override
-	protected List<ParcelaPagar> pesquisa(String valor) {
+	protected List<ParcelaPagamento> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<ParcelaPagar> getFormController() {
+	protected CRUDFormController<ParcelaPagamento> getFormController() {
 		return parcelaPagamentoFormController;
 	}
 
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaParcelasPagar";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -65,8 +66,8 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected List<ParcelaPagar> pesquisaDefault() {
-		return (List<ParcelaPagar>) dao.getAll(getEntityClass());
+	protected List<ParcelaPagamento> pesquisaDefault() {
+		return (List<ParcelaPagamento>) dao.getAll(getEntityClass());
 	}
 
 }

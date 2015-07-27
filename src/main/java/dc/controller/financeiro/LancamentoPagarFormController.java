@@ -15,6 +15,7 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Button.ClickEvent;
@@ -22,17 +23,14 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.TipoVencimentoEn;
-import dc.control.util.classes.financeiro.LancamentoPagarUtils;
-import dc.control.validator.DotErpException;
+import dc.control.util.ClassUtils;
 import dc.controller.geral.pessoal.FornecedorListController;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.financeiro.DocumentoOrigem;
 import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.entidade.financeiro.LctoPagarNtFinanceira;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
-import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
@@ -42,8 +40,8 @@ import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.util.Validator;
 import dc.visao.financeiro.LancamentoPagarFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
@@ -86,6 +84,7 @@ public class LancamentoPagarFormController extends
 	private ParcelaPagarDAO parcelaPagarDAO;
 
 	private LancamentoPagarEntity currentBean;
+	private ParcelaPagar parcelaPagar;
 
 	@Autowired
 	private ContabilContaDAO contabilcontaDAO;
@@ -175,9 +174,21 @@ public class LancamentoPagarFormController extends
 		StatusParcela statusParcela;
 		try {
 
-			statusParcela = this.statusParcelaDAO.findBySituacao("01");
+			statusParcela = this.statusParcelaDAO.findBySituacao("1");
 			// statusParcela =
 			// this.businessStatus.findByLancamento(this.currentBean);
+			
+			
+			 //busca os dados do status de parcela padrao.
+	        //String sql = "select STATUS_PARCELA from dc.entidade.financeiro.StatusParcela as STATUS_PARCELA where STATUS_PARCELA.id = 1";
+	       // StatusParcela status = (StatusParcela) session.createQuery(sql).uniqueResult();
+	        //salva as parcelas a pagar
+           /* List<ParcelaPagar> parcelas = getParcelaPagar(parcelaPagar, currentBean.getQuantidadeParcela(), currentBean, currentBean);
+            for (int i = 0; i < parcelas.size(); i++) {
+                parcelas.get(i).setStatusParcela(status);
+                session.save(parcelas.get(i));
+            }*/
+
 
 			if (statusParcela == null) {
 				mensagemErro("O status de parcela em aberto não está cadastrado.\nEntre em contato com a Software House.");
@@ -207,144 +218,119 @@ public class LancamentoPagarFormController extends
 			subView.preencheForm(currentBean);
 			
 			List<LctoPagarNtFinanceira> itens = naturezaFinanceiraDAO.findByNatureza(currentBean);
-
 			subView.preencheSubForm(itens);
+			
+			fieldGroup.setItemDataSource(this.currentBean);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
-
 	@Override
 	protected void initSubView() {
-		subView = new LancamentoPagarFormView(this);
+		
+		try {
+			subView = new LancamentoPagarFormView(this);
+			
+			
+			this.fieldGroup = new DCFieldGroup<>(LancamentoPagarEntity.class);
+			
+			// Mapeia os campos
+			//fieldGroup.bind(this.subView.getTxValorTotal(),"valorTotal");
+			fieldGroup.bind(this.subView.getTxQuantidadeParcela(),"quantidadeParcela");
+			fieldGroup.bind(this.subView.getCbPagamentoCompartilhado(),"pagamentoCompartilhado");
+			fieldGroup.bind(this.subView.getDtPrimeiroVencimento(),"primeiroVencimento");
+			
+			fieldGroup.bind(this.subView.getCbDocumentoOrigem(),"documentoOrigem");
+			fieldGroup.bind(this.subView.getCbFornecedor(),"fornecedor");
+			
+			
+			this.subView.getCbContaCaixa().configuraCombo(
+					"nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
+			this.subView.getCbDocumentoOrigem().configuraCombo(
+					"descricao", DocumentoOrigemListController.class, this.documentoOrigemDAO, this.getMainController());
+			this.subView.getCbFornecedor().configuraCombo(
+					"pessoa.nome", FornecedorListController.class, this.fornecedorDAO, this.getMainController());
+			
+			subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
 
-		subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
 
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				try {
-					gerarParcelas();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					mensagemErro(e.getMessage());
-				}
-
-			}
-		});
-
-		subView.getTxValorTotal().addBlurListener(new BlurListener() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void blur(BlurEvent event) {
-				subView.getTxValorPagar().setConvertedValue(
-						subView.getTxValorTotal().getConvertedValue());
-
-			}
-		});
-
-		subView.getDtLancamento().setValue(new Date());
-		subView.getTxIntervaloParcela().setEnabled(false);
-
-		subView.getCbTipoVencimento().addValueChangeListener(
-				new ValueChangeListener() {
-
-					/**
-			 * 
-			 */
-					private static final long serialVersionUID = 1L;
-
-					@Override
-					public void valueChange(ValueChangeEvent event) {
-						TipoVencimentoEn tipoVencimento = (TipoVencimentoEn) subView
-								.getCbTipoVencimento().getValue();
-
-						if (TipoVencimentoEn.M.equals(tipoVencimento)) {
-							subView.getTxIntervaloParcela().setEnabled(false);
-							subView.getTxIntervaloParcela().setValue(null);
-							currentBean.setIntervaloEntreParcelas(30);
-						} else {
-							subView.getTxIntervaloParcela().setEnabled(true);
-							currentBean.setIntervaloEntreParcelas(null);
-						}
-
+				@Override
+				public void buttonClick(ClickEvent event) {
+					try {
+						gerarParcelas();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						mensagemErro(e.getMessage());
 					}
-				});
 
-		preencheCombos();
+				}
+			});
+
+			subView.getTxValorTotal().addBlurListener(new BlurListener() {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void blur(BlurEvent event) {
+					subView.getTxValorPagar().setConvertedValue(
+							subView.getTxValorTotal().getConvertedValue());
+
+				}
+			});
+
+			subView.getDtLancamento().setValue(new Date());
+			subView.getTxIntervaloParcela().setEnabled(false);
+
+			subView.getCbTipoVencimento().addValueChangeListener(
+					new ValueChangeListener() {
+
+						/**
+				 * 
+				 */
+						private static final long serialVersionUID = 1L;
+
+						@Override
+						public void valueChange(ValueChangeEvent event) {
+							TipoVencimentoEn tipoVencimento = (TipoVencimentoEn) subView
+									.getCbTipoVencimento().getValue();
+
+							if (TipoVencimentoEn.M.equals(tipoVencimento)) {
+								subView.getTxIntervaloParcela().setEnabled(false);
+								subView.getTxIntervaloParcela().setValue(null);
+								currentBean.setIntervaloEntreParcelas(30);
+							} else {
+								subView.getTxIntervaloParcela().setEnabled(true);
+								currentBean.setIntervaloEntreParcelas(null);
+							}
+
+						}
+					});
+		}catch (Exception e) {
+		    e.printStackTrace();
+		}
+		
 	}
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new LancamentoPagarEntity();
-	}
-
-	private void preencheCombos() {
-
-		DefaultManyToOneComboModel<ContaCaixa> model1 = new DefaultManyToOneComboModel<ContaCaixa>(
-				ContaCaixaListController.class, this.contaCaixaDAO,
-				super.getMainController());
-
-		this.subView.getCbContaCaixa().setModel(model1);
 		
-		DefaultManyToOneComboModel<StatusParcela> modelo = new DefaultManyToOneComboModel<StatusParcela>(
-				StatusParcelaListController.class, this.statusParcelaDAO,
-				super.getMainController()) {
-			
-			@Override
-			public String getCaptionProperty() {
-				return "situacao";
-			}
-
-		};
-
-		this.subView.getCbStatusParcela().setModel(modelo);
-
-		DefaultManyToOneComboModel<DocumentoOrigem> model3 = new DefaultManyToOneComboModel<DocumentoOrigem>(
-				DocumentoOrigemListController.class, this.documentoOrigemDAO,
-				super.getMainController()) {
-
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-
-		};
-
-		this.subView.getCbDocumentoOrigem().setModel(model3);
 		
-		DefaultManyToOneComboModel<FornecedorEntity> model2 = new DefaultManyToOneComboModel<FornecedorEntity>(FornecedorListController.class,
-				this.fornecedorDAO, super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "pessoa.nome";
-			}
-		};
-		this.subView.getCbFornecedor().setModel(model2);
-		
+		try {
+			currentBean = new LancamentoPagarEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch (Exception e) {
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
+	    }
 	}
 
 	@Override
@@ -365,78 +351,13 @@ public class LancamentoPagarFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			LancamentoPagarUtils.validateRequiredFields(this.subView);
+			//LancamentoPagarUtils.validateRequiredFields(this.subView);
 
+			 fieldGroup.commit();
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 			return false;
 		}
-	}
-
-	private boolean validaCampos() {
-		boolean valido = true;
-
-		if (!Validator
-				.validateObject(subView.getCbDocumentoOrigem().getValue())) {
-			adicionarErroDeValidacao(subView.getCbDocumentoOrigem(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getCbFornecedor().getValue())) {
-			adicionarErroDeValidacao(subView.getCbFornecedor(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getCbPagamentoCompartilhado()
-				.getValue())) {
-			adicionarErroDeValidacao(subView.getCbPagamentoCompartilhado(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getDtLancamento().getValue())) {
-			adicionarErroDeValidacao(subView.getDtLancamento(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getDtPrimeiroVencimento()
-				.getValue())) {
-			adicionarErroDeValidacao(subView.getDtPrimeiroVencimento(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateNumber(subView.getTxQuantidadeParcela()
-				.getValue())) {
-			adicionarErroDeValidacao(subView.getTxQuantidadeParcela(),
-					"Não pode ficar em branco");
-			valido = false;
-		} else if (verificaSeFoiParcelado()
-				&& !Validator.validateNumber(subView.getTxIntervaloParcela()
-						.getValue())) {
-			adicionarErroDeValidacao(subView.getTxIntervaloParcela(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateNumber(subView.getTxValorPagar()
-				.getConvertedValue().toString())) {
-			adicionarErroDeValidacao(subView.getTxValorPagar(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateNumber(subView.getTxValorPagar()
-				.getConvertedValue().toString())) {
-			adicionarErroDeValidacao(subView.getTxValorTotal(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-		return valido;
 	}
 
 	private boolean verificaSeFoiParcelado() {
@@ -494,7 +415,7 @@ public class LancamentoPagarFormController extends
 	@Override
 	public String getViewIdentifier() {
 
-		return "lancamentoPagarForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -505,19 +426,12 @@ public class LancamentoPagarFormController extends
 
 	public void gerarParcelas() throws Exception {
 
-		if (validaCampos()) {
+		if (validaSalvar()) {
 			final ContaCaixa contaCaixa = (ContaCaixa) subView
 					.getCbContaCaixa().getValue();
 			if (contaCaixa == null || contaCaixa.getId() == null) {
 				throw new Exception(
 						"É necessário informar a conta caixa para previsão das parcelas.");
-			}
-			
-			final StatusParcela statusParcela = (StatusParcela) subView
-					.getCbStatusParcela().getValue();
-			if (statusParcela == null || statusParcela.getId() == null) {
-				throw new Exception(
-						"É necessário informar o Status da Parcela para previsão das parcelas.");
 			}
 			
 			final List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
@@ -541,13 +455,13 @@ public class LancamentoPagarFormController extends
 									public void onClose(ConfirmDialog dialog) {
 										if (dialog.isConfirmed()) {
 											excluiParcelas(parcelasPagar);
-											geraParcelas(contaCaixa, statusParcela,
+											geraParcelas(contaCaixa, 
 													parcelasPagar);
 										}
 									}
 								});
 			} else {
-				geraParcelas(contaCaixa, statusParcela, parcelasPagar);
+				geraParcelas(contaCaixa, parcelasPagar);
 			}
 
 		} else {
@@ -555,9 +469,91 @@ public class LancamentoPagarFormController extends
 		}
 
 	}
+	
+	/*private void gerarParcelaPagar(ContaCaixa contaCaixa, final List<ParcelaPagar> parcelasPagar) {
 
-	private void geraParcelas(ContaCaixa contaCaixa, StatusParcela statusParcela,
-			final List<ParcelaPagar> parcelasPagar) {
+        //gera as parcelas
+		subView.getParcelasSubForm().removeAllItems();
+
+		subView.preencheBean(currentBean);
+
+		setIntervaloParcelaByTipoVencimento();
+        ParcelaPagar p;
+        LancamentoPagarEntity lancamentoPagar = currentBean;
+       // BigDecimal numeroParcelas;
+        BigDecimal valorParcela = lancamentoPagar.getValorAPagar().divide(BigDecimal.valueOf(lancamentoPagar.getQuantidadeParcela()),
+				RoundingMode.HALF_DOWN);
+        BigDecimal somaParcelas = BigDecimal.ZERO;
+        BigDecimal residuo = BigDecimal.ZERO;
+        List<ParcelaPagar> parcelas = new ArrayList<ParcelaPagar>();
+       
+
+        Date dataAtual = new Date();
+        Calendar primeiroVencimento = Calendar.getInstance();
+		primeiroVencimento.setTime(lancamentoPagar.getPrimeiroVencimento());
+        Calendar dataVencimentoParcela = Calendar.getInstance();
+
+        for (int i = 0; i < lancamentoPagar.getQuantidadeParcela(); i++) {
+            p = new ParcelaPagar();
+            p.setDataEmissao(dataAtual);
+            p.setContaCaixa(contaCaixa);
+            p.setLancamentoPagar(lancamentoPagar);
+            p.setNumeroParcela(i + 1);
+            
+            if (i > 0) {
+            	primeiroVencimento.add(Calendar.DAY_OF_MONTH,lancamentoPagar.getIntervaloEntreParcelas());
+            	
+            }
+            p.setDataVencimento(primeiroVencimento.getTime());
+			somaParcelas = somaParcelas.add(valorParcela);
+           // p.setSofreRetencao(((ParcelaPagar) parcelaPagar).getSofreRetencao());
+           // p.setStatusParcela(((ParcelaPagar) parcelaPagar).getStatusParcela());
+            //p.setTaxaDesconto(((ParcelaPagar) parcelaPagar).getTaxaDesconto());
+           // p.setTaxaJuro(((ParcelaPagar) parcelaPagar).getTaxaJuro());
+           // p.setTaxaMulta(((ParcelaPagar) parcelaPagar).getTaxaMulta());
+            p.setValor(valorParcela);
+           // p.setValorDesconto(((ParcelaPagar) parcelaPagar).getValorDesconto());
+          //  p.setValorJuro(((ParcelaPagar) parcelaPagar).getValorJuro());
+           // p.setValorMulta(((ParcelaPagar) parcelaPagar).getValorMulta());
+            
+            if (i == (lancamentoPagar.getQuantidadeParcela() - 1)) {
+				residuo = lancamentoPagar.getValorAPagar().subtract(
+						somaParcelas);
+				valorParcela = valorParcela.add(residuo);
+				parcelaPagar.setValor(valorParcela);
+			}
+
+            dataVencimentoParcela.setTime(calculaDataVencimento(primeiroVencimento, i + 1));
+            p.setDataVencimento(calculaDataVencimento(primeiroVencimento, i + 1));
+           // p.setDescontoAte(calculaDiaDesconto(dataVencimentoParcela, descontoAteDia));
+
+            parcelas.add(p);
+			novoParcelaPagar(p);
+        }
+        subView.getParcelasSubForm().fillWith(parcelasPagar);
+    }*/
+	
+	 private Date calculaDataVencimento(Calendar dataPrimeiroVencimento, int numeroParcela) {
+	        Calendar dataProximoVencimento = Calendar.getInstance();
+	        dataProximoVencimento.setTime(dataPrimeiroVencimento.getTime());
+	        dataProximoVencimento.set(Calendar.DAY_OF_MONTH, dataPrimeiroVencimento.get(Calendar.DAY_OF_MONTH));
+	        dataProximoVencimento.add(Calendar.MONTH, numeroParcela);
+
+	        return dataProximoVencimento.getTime();
+	    }
+
+	    private Date calculaDiaDesconto(Calendar dataVencimento, Integer diaDesconto) {
+	        if (diaDesconto != null) {
+	            dataVencimento.set(Calendar.DAY_OF_MONTH, diaDesconto);
+	            return dataVencimento.getTime();
+	        } else {
+	            return null;
+	        }
+	    }
+
+
+
+private void geraParcelas(ContaCaixa contaCaixa, final List<ParcelaPagar> parcelasPagar) {
 		subView.getParcelasSubForm().removeAllItems();
 
 		subView.preencheBean(currentBean);
@@ -577,7 +573,7 @@ public class LancamentoPagarFormController extends
 		for (int i = 0; i < lancamentoPagar.getQuantidadeParcela(); i++) {
 			parcelaPagar = new ParcelaPagar();
 			parcelaPagar.setContaCaixa(contaCaixa);
-			parcelaPagar.setStatusParcela(statusParcela);
+			//parcelaPagar.setStatusParcela(statusParcela);
 			parcelaPagar.setNumeroParcela(i + 1);
 			parcelaPagar.setDataEmissao(dataEmissao);
 			if (i > 0) {
@@ -602,7 +598,7 @@ public class LancamentoPagarFormController extends
 		}
 
 		subView.getParcelasSubForm().fillWith(parcelasPagar);
-	}
+}
 
 	private void excluiParcelas(List<ParcelaPagar> parcelasPagar) {
 		List<ParcelaPagar> persistentObjects = subView.getParcelasSubForm()
