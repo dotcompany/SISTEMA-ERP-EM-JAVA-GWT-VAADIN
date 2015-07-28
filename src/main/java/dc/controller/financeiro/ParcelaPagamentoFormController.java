@@ -22,11 +22,15 @@ import com.vaadin.ui.Component;
 
 import dc.control.enums.TipoBaixaEn;
 import dc.control.util.ClassUtils;
+import dc.entidade.financeiro.Cheque;
+import dc.entidade.financeiro.ChequeEmitido;
 import dc.entidade.financeiro.ParcelaPagamento;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
+import dc.servicos.dao.financeiro.ChequeEmitidoDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.ParcelaPagamentoDAO;
+import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.visao.financeiro.ParcelaPagamentoFormView;
@@ -35,7 +39,7 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPagamento> {
+public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPagar>  {
 
 	/**
 	 * 
@@ -43,6 +47,9 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	private static final long serialVersionUID = 1L;
 
 	private ParcelaPagamentoFormView subView;
+	
+	@Autowired
+    private ParcelaPagarDAO parcelaPagarDAO;
 
 	@Autowired
 	private ParcelaPagamentoDAO parcelaPagamentoDAO;
@@ -52,9 +59,11 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	private TipoPagamentoDAO tipoPagamentoDAO;
 	@Autowired
 	private ContaCaixaDAO contaCaixaDAO;
+	@Autowired
+	private ChequeEmitidoDAO chequeEmitidoDAO;
 
-	private ParcelaPagamento currentBean;
-	private ParcelaPagar parcelaPagar;
+	private ParcelaPagar currentBean;
+	private ParcelaPagamento parcela;
 
 
 @Override
@@ -72,7 +81,7 @@ protected boolean validaSalvar() {
 protected void criarNovoBean() {
 		
 	try {
-        this.currentBean = new ParcelaPagamento();
+        this.currentBean = new ParcelaPagar();
 
         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
         fieldGroup.setItemDataSource(this.currentBean);
@@ -89,13 +98,13 @@ protected void criarNovoBean() {
 		try {
 			subView = new ParcelaPagamentoFormView(this);
 			
-			this.fieldGroup = new DCFieldGroup<>(ParcelaPagamento.class);
+			this.fieldGroup = new DCFieldGroup<>(ParcelaPagar.class);
 			
 			// Mapeia os campos
-			fieldGroup.bind(this.subView.getDtDataPagamento(),"dataPagamento");
-			fieldGroup.bind(this.subView.getTxTaxaJuro(),"taxaJuro");
+			fieldGroup.bind(this.subView.getDtDataPagamento(),"dataEmissao");
+			//fieldGroup.bind(this.subView.getTxTaxaJuro(),"taxaJuro");
 			fieldGroup.bind(this.subView.getCbContaCaixa(),"contaCaixa");
-			fieldGroup.bind(this.subView.getCbTipoPagamento(),"tipoPagamento");
+			//fieldGroup.bind(this.subView.getCbTipoPagamento(),"tipoPagamento");
 			
 			// Configura os ManyToOneComboFields
 			this.subView.getCbContaCaixa().configuraCombo(
@@ -114,7 +123,12 @@ protected void criarNovoBean() {
 
 				@Override
 				public void buttonClick(ClickEvent event) {
-					efetuaPagamento();
+					try {
+						efetuaPagamento();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			});
 
@@ -167,18 +181,93 @@ protected void criarNovoBean() {
 
 				}
 			});
+			
+			subView.getTxTaxaJuro().addBlurListener(new BlurListener() {
+				
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
 
-			subView.getTxTaxaJuro().addBlurListener(new CalculaTotalPagoBlurListener());
-			subView.getTxTaxaMulta().addBlurListener(new CalculaTotalPagoBlurListener());
-			subView.getTxTaxaDesconto().addBlurListener(new CalculaTotalPagoBlurListener());
-			subView.getDtDataPagamento().addBlurListener(new CalculaTotalPagoBlurListener());
+				@Override
+				public void blur(BlurEvent event) {
+					subView.preencheBean(currentBean);
+					BigDecimal valorMulta = BigDecimal.ZERO;
+					if (currentBean.getTaxaMulta() != null) {
+						currentBean.setValorMulta(parcela.getParcelaPagar().getValor().multiply(currentBean.getTaxaMulta()).divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+						valorMulta = currentBean.getValorMulta();
+					} else {
+						currentBean.setValorMulta(valorMulta);
+					}
+				
+				}
+			});
+			
+            subView.getTxTaxaDesconto().addBlurListener(new BlurListener() {
+				
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
 
-			subView.getTxValorJuro().setEnabled(false);
-			subView.getTxValorMulta().setEnabled(false);
-			subView.getTxValorDesconto().setEnabled(false);
-			subView.getTxValorPago().setEnabled(false);
+				@Override
+				public void blur(BlurEvent event) {
+					subView.preencheBean(currentBean);
+					BigDecimal valorDesconto = BigDecimal.ZERO;
+					if (currentBean.getTaxaDesconto() != null) {
+						currentBean.setValorDesconto((parcela.getParcelaPagar().getValor()).multiply(currentBean.getTaxaDesconto())
+								.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+						valorDesconto = currentBean.getValorDesconto();
+					} else {
+						currentBean.setValorDesconto(valorDesconto);
+					}
+				
+				}
+			});
+            
+            subView.getTxTaxaJuro().addBlurListener(new BlurListener() {
+            	
+            	/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+				
+				@Override
+				public void blur(BlurEvent event) {
+					subView.preencheBean(currentBean);
+					BigDecimal valorJuro = BigDecimal.ZERO;
+					
+					if (currentBean.getTaxaJuro() != null && currentBean.getDataEmissao() != null) {
+						
+						Calendar dataPagamento = Calendar.getInstance();
+						dataPagamento.setTime(currentBean.getDataEmissao());
+						
+						Calendar dataVencimento = Calendar.getInstance();
+						dataVencimento.setTime(parcela.getParcelaPagar().getDataVencimento());
+						
+						if (dataVencimento.before(dataPagamento)) {
+							long diasAtraso = (dataPagamento.getTimeInMillis() - dataVencimento.getTimeInMillis()) / 86400000l;
+
+							currentBean.setValorJuro(calculaJuros(parcela, diasAtraso));
+							valorJuro = currentBean.getValorJuro();
+						}
+					}
+					currentBean.setValorJuro(valorJuro);
+					
+				}
+			});
+
+			//subView.getTxTaxaJuro().addBlurListener(new CalculaTotalPagoBlurListener());
+			//subView.getTxTaxaMulta().addBlurListener(new CalculaTotalPagoBlurListener());
+			//subView.getTxTaxaDesconto().addBlurListener(new CalculaTotalPagoBlurListener());
+			//subView.getDtDataPagamento().addBlurListener(new CalculaTotalPagoBlurListener());
+
+			//subView.getTxValorJuro().setEnabled(false);
+			//subView.getTxValorMulta().setEnabled(false);
+			//subView.getTxValorDesconto().setEnabled(false);
+			//subView.getTxValorPago().setEnabled(false);
 			//subView.getDtDataVencimento().setEnabled(false);
-			subView.getTxValorPagar().setEnabled(false);
+			//subView.getTxValorPagar().setEnabled(false);
 		}catch (Exception e) {
 		    e.printStackTrace();
 		}
@@ -189,7 +278,8 @@ protected void criarNovoBean() {
 	protected void carregar(Serializable id) {
 		
 		try {
-			currentBean = parcelaPagamentoDAO.find(id);
+			currentBean = parcelaPagarDAO.find(id);
+			parcela = parcelaPagamentoDAO.find(id);
 			subView.fillParcelaPagamentosSubForm(parcelaPagamentoDAO.buscaPorParcelaPagar(currentBean));
 			fieldGroup.setItemDataSource(this.currentBean);
 		}catch (Exception e) {
@@ -312,13 +402,45 @@ protected void criarNovoBean() {
 		return juros.setScale(2, RoundingMode.HALF_DOWN);
 	}
 
-	public void efetuaPagamento() {
+	public void efetuaPagamento() throws Exception {
 
 		if (validaSalvar()) {
 			new CalculaTotalPagoBlurListener();
-			ParcelaPagamento pagamento = currentBean;
+			ParcelaPagamento pagamento = parcela;
+			ChequeEmitido chequeEmitido = pagamento.getChequeEmitido();
+			Cheque cheque = pagamento.getChequeEmitido().getCheque();
+
 			pagamento.setChequeEmitido(null);
 			if (pagamento.getTipoPagamento().getTipo().equals("02")) {
+				
+				if (pagamento.getChequeEmitido() != null) {
+                    //-------
+                    if (pagamento.getChequeEmitido().getCheque() != null) {
+                        if (pagamento.getChequeEmitido().getCheque().getNumero() != null) {
+                            if (pagamento.getChequeEmitido().getValor() != null) {
+                                if (pagamento.getChequeEmitido().getValor().compareTo(pagamento.getValorPago()) != 0) {
+                                    throw new Exception("Valor cheque diferente do valor total!");
+                                }
+                                chequeEmitido.setCheque(cheque);
+                                chequeEmitidoDAO.save(chequeEmitido);
+
+                                pagamento.setChequeEmitido(chequeEmitido);
+                            } else {
+                                //valor do cheque nao informado
+                                throw new Exception("Informe o valor do cheque!");
+                            }
+                            
+                        } else {
+                            //numero do cheque nao informado
+                            throw new Exception("Número do cheque inválido!");
+                        }
+                    }
+                }
+            } else {
+                //tipo pagamento nÃ£o Ã© cheque
+            	pagamento.setChequeEmitido(null);
+            }
+
 				// FinSelecionaChequeGrid chequeGrid = new
 				// FinSelecionaChequeGrid(MDIFrame.getInstance(), true, true);
 				// chequeGrid.setVisible(true);
@@ -338,13 +460,13 @@ protected void criarNovoBean() {
 				mensagemErro(e.getMessage());
 				e.printStackTrace();
 			}
-		}
+		
 
 	}
 
 	@Transactional
 	private void salvaPagamento() throws Exception {
-		ParcelaPagamento parcelaPagamento = currentBean;
+		ParcelaPagamento parcelaPagamento = parcela;
 		String tipoBaixa = ((TipoBaixaEn) subView.getCbTipoBaixa().getValue()).getKey();
 		if (parcelaPagamento.getChequeEmitido() != null) {
 			// session.save(parcelaPagamento.getFinChequeEmitido());
@@ -358,9 +480,9 @@ protected void criarNovoBean() {
 
 		StatusParcela statusParcela = null;
 		if ("T".equalsIgnoreCase(tipoBaixa)) {
-			statusParcela = statusParcelaDAO.findBySituacao("02");
+			statusParcela = statusParcelaDAO.findBySituacao("Quitado");
 		} else {
-			statusParcela = statusParcelaDAO.findBySituacao("03");
+			statusParcela = statusParcelaDAO.findBySituacao("Quitado Parcial");
 		}
 
 		if (statusParcela == null) {
@@ -383,7 +505,7 @@ protected void criarNovoBean() {
 		Collection<ParcelaPagamento> deletedItens = new ArrayList<ParcelaPagamento>();
 
 		for (ParcelaPagamento parcelaPagamento : selectedItens) {
-			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("01");
+			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("Em Aberto");
 
 			if (statusParcela == null) {
 				mensagemErro("Status de parcela não cadastrado. Entre em contato com a Software House");
@@ -410,58 +532,23 @@ protected void criarNovoBean() {
 		public void blur(BlurEvent event) {
 			subView.preencheBean(currentBean);
 			
-			ParcelaPagamento pagamento = currentBean;
-			ParcelaPagar parcelasPagar = parcelaPagar;
-			BigDecimal valorJuro = BigDecimal.ZERO;
+			//ParcelaPagamento parcelasPagamento = parcela;
+			//ParcelaPagar pagamento = currentBean;
+			//ParcelaPagar parcelasPagar = parcelaPagar;
+		    BigDecimal valorJuro = BigDecimal.ZERO;
 			BigDecimal valorMulta = BigDecimal.ZERO;
 			BigDecimal valorDesconto = BigDecimal.ZERO;
 			
-			if (pagamento.getTaxaJuro() != null && pagamento.getDataPagamento() != null) {
-				
-				Calendar dataPagamento = Calendar.getInstance();
-				dataPagamento.setTime(pagamento.getDataPagamento());
-				
-				Calendar dataVencimento = Calendar.getInstance();
-				dataVencimento.setTime(pagamento.getParcelaPagar().getDataVencimento());
-				//dataVencimento.setTime(parcelasPagar.getDataVencimento());
-						
-				if (dataVencimento.before(dataPagamento)) {
-					long diasAtraso = (dataPagamento.getTimeInMillis() - dataVencimento.getTimeInMillis()) / 86400000l;
-
-					pagamento.setValorJuro(calculaJuros(pagamento, diasAtraso));
-					valorJuro = pagamento.getValorJuro();
-				}
-			}
-			pagamento.setValorJuro(valorJuro);
-
-			if (pagamento.getTaxaMulta() != null) {
-				//pagamento.setValorMulta((pagamento.getParcelaPagar().getValor()).multiply(pagamento.getTaxaMulta()).divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
-				pagamento.setValorMulta((pagamento.getValorMulta()).multiply(pagamento.getTaxaMulta()).divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
-				valorMulta = pagamento.getValorMulta();
-			} else {
-				pagamento.setValorMulta(valorMulta);
-			}
-
-			if (pagamento.getTaxaDesconto() != null) {
-				//pagamento.setValorDesconto((pagamento.getParcelaPagar().getValor()).multiply(pagamento.getTaxaDesconto())
-				//		.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
-				pagamento.setValorDesconto((pagamento.getValorDesconto()).multiply(pagamento.getTaxaDesconto())
-								.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
-				valorDesconto = pagamento.getValorDesconto();
-			} else {
-				pagamento.setValorDesconto(valorDesconto);
-			}
-
 			//pagamento.setValorPago((pagamento.getValorPago().add(valorJuro)).add(valorMulta).subtract(valorDesconto));
-			//pagamento.setValorPago(pagamento.getValorPago().add(valorJuro).add(valorMulta).subtract(valorDesconto));
-
+			parcela.setValorPago(parcela.getValorPago().add(valorJuro).add(valorMulta).subtract(valorDesconto));
+			//parcela.setValorPago(valorJuro.add(pagamento.getValorJuro()).add(valorMulta.add(pagamento.getValorMulta())).subtract(pagamento.getValorDesconto()));
 
 			subView.preencheForm(currentBean);
 		}
 	}
 
 	@Override
-	public ParcelaPagamento getModelBean() {
+	public ParcelaPagar getModelBean() {
 		return currentBean;
 	}
 }

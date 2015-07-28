@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.financeiro.ParcelaPagamento;
+import dc.entidade.financeiro.ParcelaPagar;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
@@ -26,10 +27,10 @@ public class ParcelaPagamentoDAO extends AbstractCrudDAO<ParcelaPagamento> {
 	}
 	
 	@Transactional
-	public List<ParcelaPagamento> buscaPorParcelaPagar(ParcelaPagamento parcelaPagamento){
+	public List<ParcelaPagamento> buscaPorParcelaPagar(ParcelaPagar currentBean){
 		 Session session = getSession();
          Criteria criteria = session.createCriteria(ParcelaPagamento.class);
-         criteria.add(Restrictions.eq("parcelaPagamento", parcelaPagamento));
+         criteria.add(Restrictions.eq("parcelaPagamento", currentBean));
 
          List<ParcelaPagamento> parcelaPagamentos = criteria.list();
          

@@ -24,6 +24,7 @@ import dc.control.enums.TipoBaixaEn;
 import dc.controller.financeiro.ParcelaPagamentoFormController;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.ParcelaPagamento;
+import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.TipoPagamento;
 import dc.visao.financeiro.converters.TipoPagamentoConverter;
 import dc.visao.framework.component.SubFormComponent;
@@ -301,36 +302,36 @@ public class ParcelaPagamentoFormView extends CustomComponent {
 		return this.pagamentosSubForm;
 	}
 
-	public void preencheBean(ParcelaPagamento currentBean) {
-		currentBean.setDataPagamento(dtDataPagamento.getValue());
+	public void preencheBean(ParcelaPagar currentBean) {
+//		currentBean.setDataPagamento(dtDataPagamento.getValue());
 		currentBean.setContaCaixa((ContaCaixa) cbContaCaixa.getValue());
-		currentBean.setTipoPagamento((TipoPagamento) cbTipoPagamento.getValue());
+//		currentBean.setTipoPagamento((TipoPagamento) cbTipoPagamento.getValue());
 		currentBean.setTaxaJuro((BigDecimal) txTaxaJuro.getConvertedValue());
 		currentBean.setValorJuro((BigDecimal) txValorJuro.getConvertedValue());
 		currentBean.setTaxaMulta((BigDecimal) txTaxaMulta.getConvertedValue());
 		currentBean.setValorMulta((BigDecimal) txValorMulta.getConvertedValue());
 		currentBean.setTaxaDesconto((BigDecimal) txTaxaDesconto.getConvertedValue());
 		currentBean.setValorDesconto((BigDecimal) txValorDesconto.getConvertedValue());
-		currentBean.setValorPago((BigDecimal) txValorPago.getConvertedValue());
-		currentBean.setHistorico(txaHistorico.getValue());
+//		currentBean.setValorPago((BigDecimal) txValorPago.getConvertedValue());
+//		currentBean.setHistorico(txaHistorico.getValue());
 	}
 
-	public void preencheForm(ParcelaPagamento currentBean) {
-		//dtDataVencimento.setValue(currentBean.getParcelaPagar().getDataVencimento());
-		dtDataPagamento.setValue(currentBean.getDataPagamento());
-		//txValorPagar.setConvertedValue(currentBean.getParcelaPagar().getValor());
+	public void preencheForm(ParcelaPagar currentBean) {
+		dtDataVencimento.setValue(currentBean.getDataVencimento());
+		//dtDataPagamento.setValue(currentBean.getDataPagamento());
+		txValorPagar.setConvertedValue(currentBean.getValor());
 		cbContaCaixa.setValue(currentBean.getContaCaixa());
-		if(currentBean.getTipoPagamento() != null){		
+		/*if(currentBean.getTipoPagamento() != null){		
 			cbTipoPagamento.setValue(currentBean.getTipoPagamento());
-		}
+		}*/
 		txTaxaJuro.setConvertedValue(currentBean.getTaxaJuro());
 		txValorJuro.setConvertedValue(currentBean.getValorJuro());
 		txTaxaMulta.setConvertedValue(currentBean.getTaxaMulta());
 		txValorMulta.setConvertedValue(currentBean.getValorMulta());
 		txTaxaDesconto.setConvertedValue(currentBean.getTaxaDesconto());
 		txValorDesconto.setConvertedValue(currentBean.getValorDesconto());
-		txValorPago.setConvertedValue(currentBean.getValorPago());
-		txaHistorico.setValue(currentBean.getHistorico());
+		//txValorPago.setConvertedValue(currentBean.getValorPago());
+		//txaHistorico.setValue(currentBean.getHistorico());
 
 	}
 	

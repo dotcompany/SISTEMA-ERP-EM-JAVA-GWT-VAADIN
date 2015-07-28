@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.financeiro.ParcelaPagamento;
-import dc.servicos.dao.financeiro.ParcelaPagamentoDAO;
+import dc.entidade.financeiro.ParcelaPagar;
+import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class ParcelaPagarListController extends CRUDListController<ParcelaPagamento> {
+public class ParcelaPagarListController extends CRUDListController<ParcelaPagar> {
 
 	/**
 	 * 
@@ -22,20 +22,20 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagame
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ParcelaPagamentoDAO dao;
+	private ParcelaPagarDAO dao;
 
 	@Autowired
 	private ParcelaPagamentoFormController parcelaPagamentoFormController;
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "contaCaixa", "tipoPagamento", "dataPagamento", "taxaJuro", "taxaMulta", "taxaDesconto", "valorJuro",
-				"valorMulta", "valorDesconto","valorPago" , "historico"};
+		return new String[] { "contaCaixa", "dataVencimento", "taxaJuro", "taxaMulta", "taxaDesconto", "valorJuro",
+				"valorMulta", "valorDesconto","valor"};
 	}
 
 	@Override
-	public Class<? super ParcelaPagamento> getEntityClass() {
-		return ParcelaPagamento.class;
+	public Class<? super ParcelaPagar> getEntityClass() {
+		return ParcelaPagar.class;
 	}
 
 	@Override
@@ -44,12 +44,12 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagame
 	}
 
 	@Override
-	protected List<ParcelaPagamento> pesquisa(String valor) {
+	protected List<ParcelaPagar> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<ParcelaPagamento> getFormController() {
+	protected CRUDFormController<ParcelaPagar> getFormController() {
 		return parcelaPagamentoFormController;
 	}
 
@@ -66,8 +66,8 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagame
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected List<ParcelaPagamento> pesquisaDefault() {
-		return (List<ParcelaPagamento>) dao.getAll(getEntityClass());
+	protected List<ParcelaPagar> pesquisaDefault() {
+		return (List<ParcelaPagar>) dao.getAll(getEntityClass());
 	}
 
 }
