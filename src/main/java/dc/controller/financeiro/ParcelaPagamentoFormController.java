@@ -101,9 +101,6 @@ protected void criarNovoBean() {
 			this.subView.getCbContaCaixa().configuraCombo(
 			         "nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
 			
-			this.subView.getCbStatusParcela().configuraCombo(
-			         "situacao", StatusParcelaListController.class, this.statusParcelaDAO, this.getMainController());
-			
 			this.subView.getCbTipoPagamento().configuraCombo(
 			         "descricao", TipoPagamentoListController.class, this.tipoPagamentoDAO, this.getMainController());
 			
@@ -180,7 +177,7 @@ protected void criarNovoBean() {
 			subView.getTxValorMulta().setEnabled(false);
 			subView.getTxValorDesconto().setEnabled(false);
 			subView.getTxValorPago().setEnabled(false);
-			subView.getDtDataVencimento().setEnabled(false);
+			//subView.getDtDataVencimento().setEnabled(false);
 			subView.getTxValorPagar().setEnabled(false);
 		}catch (Exception e) {
 		    e.printStackTrace();
@@ -425,6 +422,7 @@ protected void criarNovoBean() {
 				dataPagamento.setTime(pagamento.getDataPagamento());
 				
 				Calendar dataVencimento = Calendar.getInstance();
+				dataVencimento.setTime(pagamento.getParcelaPagar().getDataVencimento());
 				//dataVencimento.setTime(parcelasPagar.getDataVencimento());
 						
 				if (dataVencimento.before(dataPagamento)) {

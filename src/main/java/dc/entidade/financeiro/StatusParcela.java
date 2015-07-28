@@ -25,6 +25,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -60,13 +61,16 @@ public class StatusParcela extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@NotNull(message = "Descrição é obrigatório") 
 	private String descricao;
-
+	
 	@Lob
 	@Type(type = "text")
 	@Column(name = "PROCEDIMENTO")
 	@Caption(value = "Procedimento")
 	@Field
 	@NotNull(message = "Procedimento é obrigatório") 
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@Basic(fetch = javax.persistence.FetchType.LAZY) 
 	private String procedimento;
 
 	@Caption(value = "Situação")
@@ -135,7 +139,7 @@ public class StatusParcela extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Override
 	public String toString() {
-		return "StatusParcela[id=" + id + "]";
+		return descricao;
 	}
 
 	public String getSituacao() {

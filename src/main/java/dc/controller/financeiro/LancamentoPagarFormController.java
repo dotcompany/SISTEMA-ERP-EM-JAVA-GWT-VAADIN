@@ -31,10 +31,10 @@ import dc.entidade.financeiro.LctoPagarNtFinanceira;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
+import dc.model.business.financeiro.LancamentoPagarBusiness;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
-import dc.servicos.dao.financeiro.LancamentoPagarDAO;
 import dc.servicos.dao.financeiro.LctoPagarNtFinanceiraDAO;
 import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
@@ -60,8 +60,8 @@ public class LancamentoPagarFormController extends
 	/**
 	 * BUSINESS
 	 */
-	//@Autowired
-	//private LancamentoPagarBusiness<LancamentoPagarEntity> business;
+	@Autowired
+	private LancamentoPagarBusiness<LancamentoPagarEntity> business;
 
 	// @Autowired
 	// private StatusParcelaBusiness<StatusParcela> businessStatus;
@@ -77,8 +77,8 @@ public class LancamentoPagarFormController extends
 
 	LancamentoPagarFormView subView;
 
-	@Autowired
-	private LancamentoPagarDAO lancamentoPagarDAO;
+	//@Autowired
+	//private LancamentoPagarDAO lancamentoPagarDAO;
 
 	@Autowired
 	private ParcelaPagarDAO parcelaPagarDAO;
@@ -107,9 +107,9 @@ public class LancamentoPagarFormController extends
 	@Autowired
 	private StatusParcelaDAO statusParcelaDAO;
 
-	//public LancamentoPagarBusiness<LancamentoPagarEntity> getBusiness() {
-//	 return business;
-	//}
+	public LancamentoPagarBusiness<LancamentoPagarEntity> getBusiness() {
+	 return business;
+}
 
 	@Override
 	protected String getNome() {
@@ -158,8 +158,8 @@ public class LancamentoPagarFormController extends
 					mensagemErro("Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
 				}
 
-				//this.business.saveOrUpdate(this.currentBean);
-				this.lancamentoPagarDAO.saveOrUpdate(this.currentBean);
+				this.business.saveOrUpdate(this.currentBean);
+				//this.lancamentoPagarDAO.saveOrUpdate(this.currentBean);
 
 				notifiyFrameworkSaveOK(this.currentBean);
 
@@ -174,7 +174,7 @@ public class LancamentoPagarFormController extends
 		StatusParcela statusParcela;
 		try {
 
-			statusParcela = this.statusParcelaDAO.findBySituacao("1");
+			statusParcela = this.statusParcelaDAO.findBySituacao("Outro");
 			// statusParcela =
 			// this.businessStatus.findByLancamento(this.currentBean);
 			
@@ -213,8 +213,8 @@ public class LancamentoPagarFormController extends
 	protected void carregar(Serializable id) {
 
 		try {
-			currentBean = this.lancamentoPagarDAO.find(id);
-			//currentBean = this.business.find((Integer) id);
+			//currentBean = this.lancamentoPagarDAO.find(id);
+			currentBean = this.business.find((Integer) id);
 			subView.preencheForm(currentBean);
 			
 			List<LctoPagarNtFinanceira> itens = naturezaFinanceiraDAO.findByNatureza(currentBean);
@@ -336,8 +336,8 @@ public class LancamentoPagarFormController extends
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			//this.business.deleteAll(ids);
-			this.lancamentoPagarDAO.deleteAll(ids);
+			this.business.deleteAll(ids);
+			//this.lancamentoPagarDAO.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {

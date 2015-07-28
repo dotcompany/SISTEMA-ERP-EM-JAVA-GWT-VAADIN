@@ -794,6 +794,11 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	/**
 	 * TO STRING
 	 */
+	
+	@Override
+	public String toString() {
+		return nome;
+	}
 
 //@Override
 //	public String toString() {

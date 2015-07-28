@@ -149,6 +149,11 @@ public class UnidadeProdutoEntity extends AbstractMultiEmpresaModel<Integer>
 	/**
 	 * TO STRING
 	 */
+	
+	@Override
+	public String toString() {
+		return descricao;
+	}
 
 //	@Override
 //	public String toString() {

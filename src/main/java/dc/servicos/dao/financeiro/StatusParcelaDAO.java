@@ -7,9 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.financeiro.ParcelaPagamento;
 import dc.entidade.financeiro.StatusParcela;
-import dc.entidade.geral.produto.ProdutoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -24,18 +22,26 @@ public class StatusParcelaDAO extends AbstractCrudDAO<StatusParcela>{
 	}
 
 	@Transactional
-	public List<ParcelaPagamento> listaTodos() {
+	public List<StatusParcela> listaTodos() {
 		return getSession().createQuery("from StatusParcela").list();
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[]{"situacao", "descricao"};
+		return new String[]{"situacao", "descricao","procedimento"};
 	}
 	
 	@Transactional
-	public List<ProdutoEntity> procura(String query) {
+	public List<StatusParcela> procura(String query) {
 		return getSession().createQuery("from StatusParcela where descricao like :q")
 				.setParameter("q", "%" + query + "%").list();
+	}
+	
+	@Transactional
+	public List<StatusParcela> query(String q) {
+		q = "%" + q.toLowerCase() + "%";
+		return getSession()
+				.createQuery("from StatusParcela where lower(descricao) like :q")
+				.setParameter("q", q).list();
 	}
 
 	@Transactional

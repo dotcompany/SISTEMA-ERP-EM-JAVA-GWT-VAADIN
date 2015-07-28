@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.StatusParcela;
-import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,10 +21,10 @@ public class StatusParcelaListController extends CRUDListController<StatusParcel
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private StatusParcelaDAO dao;
-
-	@Autowired
 	private StatusParcelaFormController statusParcelaFormController;
+	
+	public StatusParcelaListController() {
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -39,12 +38,22 @@ public class StatusParcelaListController extends CRUDListController<StatusParcel
 
 	@Override
 	protected String getTitulo() {
-		return "Status Parcela";
+		return super.getTitulo(this);
 	}
 
 	@Override
 	protected List<StatusParcela> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		
+		try {
+			List<StatusParcela> auxLista = (List<StatusParcela>) this.statusParcelaFormController
+					.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 	@Override
@@ -52,23 +61,35 @@ public class StatusParcelaListController extends CRUDListController<StatusParcel
 		return statusParcelaFormController;
 	}
 
-	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	protected List<StatusParcela> pesquisaDefault() {
-		return (List<StatusParcela>) dao.getAll(getEntityClass());
+		try {
+			List<StatusParcela> auxLista = (List<StatusParcela>) this.statusParcelaFormController
+					.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
 	}
 
 }

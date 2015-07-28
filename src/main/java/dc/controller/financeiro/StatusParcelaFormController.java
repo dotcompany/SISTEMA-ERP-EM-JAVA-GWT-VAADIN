@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.StatusParcela;
-import dc.servicos.dao.financeiro.StatusParcelaDAO;
+import dc.model.business.financeiro.StatusParcelaBusiness;
 import dc.visao.financeiro.StatusParcelaFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -29,9 +29,17 @@ public class StatusParcelaFormController extends CRUDFormController<StatusParcel
 	private StatusParcelaFormView subView;
 
 	@Autowired
-	private StatusParcelaDAO statusParcelaDAO;
+	private StatusParcelaBusiness<StatusParcela> business;
 
 	private StatusParcela currentBean;
+	
+	public StatusParcelaFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public StatusParcelaBusiness<StatusParcela> getBusiness() {
+		return business;
+	}
 
 	@Override
 	protected String getNome() {
@@ -46,7 +54,8 @@ public class StatusParcelaFormController extends CRUDFormController<StatusParcel
 	@Override
 	protected void actionSalvar() {
 		try {
-			statusParcelaDAO.saveOrUpdate(currentBean);
+			//statusParcelaDAO.saveOrUpdate(currentBean);
+			this.business.saveOrUpdate(this.currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,7 +66,8 @@ public class StatusParcelaFormController extends CRUDFormController<StatusParcel
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-		      this.currentBean = this.statusParcelaDAO.find(id);
+		      //this.currentBean = this.statusParcelaDAO.find(id);
+		      this.currentBean = this.business.find(id);
 			
 		      // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
 		      fieldGroup.setItemDataSource(this.currentBean);
@@ -67,6 +77,12 @@ public class StatusParcelaFormController extends CRUDFormController<StatusParcel
 		}
 		
 	}
+	
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
 
 	@Override
 	protected void initSubView() {
@@ -107,8 +123,8 @@ public class StatusParcelaFormController extends CRUDFormController<StatusParcel
 	protected void remover(List<Serializable> ids) {
 		
 		try {
-			//this.business.deleteAll(ids);
-			this.statusParcelaDAO.deleteAll(ids);
+			this.business.deleteAll(ids);
+			//this.statusParcelaDAO.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
