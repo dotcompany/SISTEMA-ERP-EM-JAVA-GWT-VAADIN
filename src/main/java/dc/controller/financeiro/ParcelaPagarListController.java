@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -28,8 +29,8 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "contaCaixa", "numeroParcela", "dataEmissao", "dataVencimento", "descontoAte", "sofreRetencao", "valor",
-				"valorFaltante", "taxaJuro", "valorJuro", "taxaMulta", "valorMulta", "taxaDesconto", "valorDesconto" };
+		return new String[] { "contaCaixa", "dataVencimento", "taxaJuro", "taxaMulta", "taxaDesconto", "valorJuro",
+				"valorMulta", "valorDesconto","valor"};
 	}
 
 	@Override
@@ -39,7 +40,7 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 
 	@Override
 	protected String getTitulo() {
-		return "Parcela à pagar";
+		return "Pagamento Parcela";
 	}
 
 	@Override
@@ -55,7 +56,7 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaParcelasPagar";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

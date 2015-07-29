@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.servicos.dao.financeiro.LancamentoPagarDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -28,8 +29,8 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "pagamentoCompartilhado", "valorTotal", "valorAPagar", "dataLancamento", "imagemDocumento", "documentoOrigem",
-				"fornecedor" };
+		
+		return new String[] { "fornecedor","documentoOrigem","pagamentoCompartilhado","valorTotal","valorAPagar","dataLancamento" };
 	}
 
 	@Override
@@ -54,7 +55,7 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 
 	@Override
 	public String getViewIdentifier() {
-		return "listaLancamentoPagar";
+		return ClassUtils.getUrl(this);
 	}
 	
 	@Override

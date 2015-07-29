@@ -21,11 +21,11 @@ public class LancamentoPagarDAO extends AbstractCrudDAO<LancamentoPagarEntity> {
 
 	@Transactional
 	public List<LancamentoPagarEntity> listaTodos() {
-		return getSession().createQuery("from LancamentoPagarEntity").list();
+		return getSession().createQuery("from LancamentoPagar").list();
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "pagamentoCompartilhado" };
+		return new String[] { "fornecedor","documentoOrigem","pagamentoCompartilhado","valorTotal","valorAPagar","dataLancamento" };
 	}
 	
 	@Transactional
@@ -36,7 +36,7 @@ public class LancamentoPagarDAO extends AbstractCrudDAO<LancamentoPagarEntity> {
 		try{
 			if(fornecedor!=null){
 				lista =  getSession()
-						.createQuery("from LancamentoPagarEntity i where i.fornecedor = :fornecedor")
+						.createQuery("from LancamentoPagar i where i.fornecedor = :fornecedor")
 						.setParameter("fornecedor", fornecedor).list();
 			}
 		}catch(Exception e){

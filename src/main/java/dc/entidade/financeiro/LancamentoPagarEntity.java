@@ -10,6 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -35,7 +38,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.SimNaoEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.FornecedorEntity;
 
 /** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
@@ -61,14 +66,19 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Column(name = "ID")
 	private Integer id;
 
-	@Column(name = "PAGAMENTO_COMPARTILHADO")
-	@Caption("Pagamento Compartilhado")
+	@NotNull(message = "Pagamento Compartilhado é Obrigatório")
+	@Enumerated(EnumType.STRING)
 	@Field
-	private String pagamentoCompartilhado;
+	@Caption("Pagamento Compartilhado")
+	@Column(name = "PAGAMENTO_COMPARTILHADO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn pagamentoCompartilhado;
 
 	@Field
 	@Caption("Valor Total")
 	@Column(name = "VALOR_TOTAL", precision = 14, scale = 0)
+	//@NotNull(message = "Valor Total é Obrigatório")
 	private BigDecimal valorTotal;
 
 	@Field
@@ -92,16 +102,19 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@JoinColumn(name = "ID_DOCUMENTO_ORIGEM", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption(value = "Documento Origem")
+	@NotNull(message = "Documento Origem é Obrigatório")
 	private DocumentoOrigem documentoOrigem;
 
 	@JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption(value = "Fornecedor")
+	@NotNull(message = "Fornecedor é Obrigatório")
 	private FornecedorEntity fornecedor;
 
 	@Field
 	@Caption(value = "Quantidade Parcela")
 	@Column(name = "QUANTIDADE_PARCELA")
+	@NotNull(message = "Quantidade de Parcelas é Obrigatório")
 	private Integer quantidadeParcela;
 
 	@Field
@@ -113,6 +126,7 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Caption(value = "Primeiro Vencimento")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "PRIMEIRO_VENCIMENTO")
+	@NotNull(message = "Primeiro Vencimento é Obrigatório")
 	private Date primeiroVencimento;
 
 	@Field
@@ -148,11 +162,11 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 		this.id = id;
 	}
 
-	public String getPagamentoCompartilhado() {
+	public SimNaoEn getPagamentoCompartilhado() {
 		return pagamentoCompartilhado;
 	}
 
-	public void setPagamentoCompartilhado(String pagamentoCompartilhado) {
+	public void setPagamentoCompartilhado(SimNaoEn pagamentoCompartilhado) {
 		this.pagamentoCompartilhado = pagamentoCompartilhado;
 	}
 
@@ -186,21 +200,6 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 
 	public void setImagemDocumento(String imagemDocumento) {
 		this.imagemDocumento = imagemDocumento;
-	}
-
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof LancamentoPagarEntity == false)
-			return false;
-		if (this == object)
-			return true;
-		final LancamentoPagarEntity other = (LancamentoPagarEntity) object;
-		return EqualsBuilder.reflectionEquals(this, other);
 	}
 
 	@Override
@@ -308,5 +307,32 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	public void setLctoPagarNtFinanceiras(List<LctoPagarNtFinanceira> lctoPagarNtFinanceiras) {
 		LctoPagarNtFinanceiras = lctoPagarNtFinanceiras;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof LancamentoPagarEntity)) {
+            return false;
+        }
+
+        LancamentoPagarEntity that = (LancamentoPagarEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

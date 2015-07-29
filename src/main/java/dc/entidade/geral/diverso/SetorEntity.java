@@ -171,5 +171,10 @@ public class SetorEntity extends AbstractMultiEmpresaModel<Integer> implements
                     .toHashCode();
         }
     }
+    
+    @Override
+    public String toString() {
+    	return nome;
+    }
 
 }

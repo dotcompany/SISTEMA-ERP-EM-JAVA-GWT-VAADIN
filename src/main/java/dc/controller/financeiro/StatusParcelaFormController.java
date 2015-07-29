@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
-import dc.control.validator.ObjectValidator;
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.StatusParcela;
-import dc.servicos.dao.financeiro.StatusParcelaDAO;
+import dc.model.business.financeiro.StatusParcelaBusiness;
 import dc.visao.financeiro.StatusParcelaFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
@@ -28,9 +29,17 @@ public class StatusParcelaFormController extends CRUDFormController<StatusParcel
 	private StatusParcelaFormView subView;
 
 	@Autowired
-	private StatusParcelaDAO statusParcelaDAO;
+	private StatusParcelaBusiness<StatusParcela> business;
 
 	private StatusParcela currentBean;
+	
+	public StatusParcelaFormController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public StatusParcelaBusiness<StatusParcela> getBusiness() {
+		return business;
+	}
 
 	@Override
 	protected String getNome() {
@@ -44,25 +53,52 @@ public class StatusParcelaFormController extends CRUDFormController<StatusParcel
 
 	@Override
 	protected void actionSalvar() {
-		subView.preencheBean(currentBean);
 		try {
-			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
-			statusParcelaDAO.saveOrUpdate(currentBean);
+			//statusParcelaDAO.saveOrUpdate(currentBean);
+			this.business.saveOrUpdate(this.currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = statusParcelaDAO.find(id);
-		subView.preencheForm(currentBean);
+		try {
+		      //this.currentBean = this.statusParcelaDAO.find(id);
+		      this.currentBean = this.business.find(id);
+			
+		      // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+		      fieldGroup.setItemDataSource(this.currentBean);
+			
+		} catch (Exception e) {
+		      e.printStackTrace();
+		}
+		
 	}
+	
+	@Override
+	public boolean isFullSized() {
+		return true;
+	}
+
 
 	@Override
 	protected void initSubView() {
-		subView = new StatusParcelaFormView();
+        try {
+			
+			this.subView = new StatusParcelaFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<StatusParcela>(StatusParcela.class);
+			
+			fieldGroup.bind(this.subView.getTxtSituacao(),"situacao");
+			fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+			fieldGroup.bind(this.subView.getTxtProcedimento(),"procedimento");
+			
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -72,49 +108,59 @@ public class StatusParcelaFormController extends CRUDFormController<StatusParcel
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new StatusParcela();
+		try {
+			
+			this.currentBean = new StatusParcela();
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		}catch(Exception e ) {
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		statusParcelaDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		
+		try {
+			this.business.deleteAll(ids);
+			//this.statusParcelaDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = true;
-
-		if (!ObjectValidator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
-			valido = false;
+		try {
+			 // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+			return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
-
-		if (!ObjectValidator.validateString(subView.getTxtProcedimento().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtProcedimento(), "Não pode ficar em branco");
-			valido = false;
-		}
-		String situacao = subView.getTxtSituacao().getValue();
-		if (!ObjectValidator.validateString(subView.getTxtSituacao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtSituacao(), "Não pode ficar em branco");
-			valido = false;
-		} else if (situacao.equals("01") || situacao.equals("02") || situacao.equals("03") || situacao.equals("04")) {
-			valido = false;
-			adicionarErroDeValidacao(subView.getTxtSituacao(), "O código informado para a situação não pode ser cadastrado.");
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "statusParcelaForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

@@ -12,9 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -25,7 +27,10 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -48,62 +53,84 @@ public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parcela_pagamento_id_seq")
+	@SequenceGenerator(name = "parcela_pagamento_id_seq", sequenceName = "parcela_pagamento_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA_PAGAMENTO")
 	@Field
+	@Caption("Data de Pagamento")
+	@Column(name = "DATA_PAGAMENTO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Data Pagamento é Obrigatório!")
 	private Date dataPagamento;
 
 	@Column(name = "TAXA_JURO")
 	@Field
+	@Caption("Taxa Juro")
+	@NotNull(message = "Taxa Juro é Obrigatório!")
 	private BigDecimal taxaJuro;
 
 	@Column(name = "TAXA_MULTA")
 	@Field
+	@Caption("Taxa Multa")
 	private BigDecimal taxaMulta;
 
 	@Column(name = "TAXA_DESCONTO")
 	@Field
+	@Caption("Taxa de Desconto")
 	private BigDecimal taxaDesconto;
 
 	@Column(name = "VALOR_JURO")
 	@Field
+	@Caption("Valor Juro")
 	private BigDecimal valorJuro;
 
 	@Column(name = "VALOR_MULTA")
 	@Field
+	@Caption("Valor de Multa")
 	private BigDecimal valorMulta;
 
 	@Column(name = "VALOR_DESCONTO")
 	@Field
+	@Caption("Valor de Desconto")
 	private BigDecimal valorDesconto;
 
 	@Column(name = "VALOR_PAGO")
 	@Field
+	@Caption("Valor Pago")
 	private BigDecimal valorPago;
 
 	@Column(name = "HISTORICO")
 	@Field
+	@Caption("Histórico")
 	private String historico;
 
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "ID_FIN_PARCELA_PAGAR", referencedColumnName = "ID")
-	@ManyToOne(fetch = FetchType.EAGER)
+	//@ManyToOne(fetch = FetchType.EAGER)
 	private ParcelaPagar parcelaPagar;
 
+	@Caption("Cheque Emitido")
 	@JoinColumn(name = "ID_FIN_CHEQUE_EMITIDO", referencedColumnName = "ID")
 	@ManyToOne
 	private ChequeEmitido chequeEmitido;
 
+	@Caption("Tipo Pagamento")
 	@JoinColumn(name = "ID_FIN_TIPO_PAGAMENTO", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@NotNull(message = "Tipo Pagamento é Obrigatório!")
 	private TipoPagamento tipoPagamento;
 
+	@Caption("Conta Caixa")
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
+	@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;
 
 	public ParcelaPagamento() {
@@ -194,19 +221,31 @@ public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
 
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof ParcelaPagamento == false)
-			return false;
-		if (this == object)
-			return true;
-		final ParcelaPagamento other = (ParcelaPagamento) object;
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
+        if (!(obj instanceof ParcelaPagamento)) {
+            return false;
+        }
+
+        ParcelaPagamento that = (ParcelaPagamento) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 	@Override
 	public String toString() {

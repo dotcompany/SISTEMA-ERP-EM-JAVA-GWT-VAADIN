@@ -16,10 +16,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -34,6 +36,8 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 /** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
  *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
@@ -53,15 +57,21 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parcela_pagar_id_seq")
+	@SequenceGenerator(name = "parcela_pagar_id_seq", sequenceName = "parcela_pagar_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Column(name = "DATA_EMISSAO")
 	@Temporal(TemporalType.DATE)
 	@Caption(value = "Data Emissão")
 	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Data Pagamento é Obrigatório!")
 	private Date dataEmissao;
 
 	@Caption(value = "Data Vencimento")
@@ -89,6 +99,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Taxa Juro")
 	@Column(name = "TAXA_JURO", precision = 14, scale = 0)
 	@Field
+	//@NotNull(message = "Taxa Juro é Obrigatório!")
 	private BigDecimal taxaJuro;
 
 	@Caption(value = "Taxa Multa")
@@ -144,6 +155,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Conta Caixa")
 	@JoinColumn(name = "id_conta_caixa", referencedColumnName = "id")
 	@ManyToOne(fetch = FetchType.EAGER)
+	@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;
 
 	@OneToMany(mappedBy = "parcelaPagar", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)

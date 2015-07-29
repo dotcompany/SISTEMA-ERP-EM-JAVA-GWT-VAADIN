@@ -134,6 +134,11 @@ public class MarcaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	/**
 	 * TO STRING
 	 */
+	
+	@Override
+	public String toString() {
+		return nome;
+	}
 
 @Override
 public boolean equals(Object obj) {

@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
-import dc.control.validator.ObjectValidator;
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.TipoPagamento;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.visao.financeiro.TipoPagamentoFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
@@ -44,82 +45,104 @@ public class TipoPagamentoFormController extends CRUDFormController<TipoPagament
 
 	@Override
 	protected void actionSalvar() {
-		subView.preencheBean(currentBean);
 		try {
-			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 			tipoPagamentoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = tipoPagamentoDAO.find(id);
-		subView.preencheForm(currentBean);
+		
+		try {
+			currentBean = tipoPagamentoDAO.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padr�o
-	 */
-	@Override
-	protected void quandoNovo() {
+@Override
+protected void initSubView() {
+	
+		
+	try {
+		
+		subView = new TipoPagamentoFormView(this);
+		
+		this.fieldGroup = new DCFieldGroup<>(TipoPagamento.class);
+
+        // Mapeia os campos
+        fieldGroup.bind(this.subView.getTxtTipo(),"tipo");
+        fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 
 	}
 
-	@Override
-	protected void initSubView() {
-		subView = new TipoPagamentoFormView();
+@Override
+protected void criarNovoBean() {
+		
+	try {
+        this.currentBean = new TipoPagamento();
 
-	}
+        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+        fieldGroup.setItemDataSource(this.currentBean);
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
-	@Override
-	protected void criarNovoBean() {
-		currentBean = new TipoPagamento();
-	}
+    } catch (Exception e) {
+        e.printStackTrace();
+        mensagemErro(e.getMessage());
+    }
+}
 
-	@Override
-	protected void remover(List<Serializable> ids) {
-		tipoPagamentoDAO.deleteAllByIds(ids);
+@Override
+protected void remover(List<Serializable> ids) {
+	
+	try {
+		//this.business.deleteAll(ids);
+		this.tipoPagamentoDAO.deleteAll(ids);
+
 		mensagemRemovidoOK();
+	} catch (Exception e) {
+		e.printStackTrace();
+
+		mensagemErro(e.getMessage());
 	}
+}
 
-	@Override
-	protected boolean validaSalvar() {
+@Override
+protected boolean validaSalvar() {
 
-		boolean valido = true;
-
-		if (!ObjectValidator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		String tipo = subView.getTxtTipo().getValue();
-		if (!ObjectValidator.validateString(subView.getTxtTipo().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtTipo(), "Não pode ficar em branco");
-			valido = false;
-		} else if (tipo.equals("01") || tipo.equals("02") || tipo.equals("03")) {
-			valido = false;
-			adicionarErroDeValidacao(subView.getTxtTipo(), "O código informado para o tipo não pode ser cadastrado.");
-		}
-
-		return valido;
+	try {
+		 // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+		fieldGroup.commit();
+		return true;
+	} catch (FieldGroup.CommitException ce) {
+	    return false;
 	}
+}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return "tipoPagamentoForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

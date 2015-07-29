@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -42,9 +44,10 @@ public class TipoPagamento extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_pagamento_id_seq")
+	@SequenceGenerator(name = "tipo_pagamento_id_seq", sequenceName = "tipo_pagamento_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
@@ -54,11 +57,13 @@ public class TipoPagamento extends AbstractMultiEmpresaModel<Integer> {
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "DESCRICAO")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao;
 
 	@Field
 	@Column(name = "TIPO")
 	@Caption("Tipo")
+	@NotNull(message = "Tipo é Obrigatório!")
 	private String tipo;
 
 	public TipoPagamento() {
@@ -85,19 +90,31 @@ public class TipoPagamento extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
 
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof TipoPagamento == false)
-			return false;
-		if (this == object)
-			return true;
-		final TipoPagamento other = (TipoPagamento) object;
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
+        if (!(obj instanceof TipoPagamento)) {
+            return false;
+        }
+
+        TipoPagamento that = (TipoPagamento) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 	@Override
 	public String toString() {
