@@ -215,7 +215,9 @@ protected void criarNovoBean() {
 					subView.preencheBean(currentBean);
 					BigDecimal valorDesconto = BigDecimal.ZERO;
 					if (currentBean.getTaxaDesconto() != null) {
-						currentBean.setValorDesconto((parcela.getParcelaPagar().getValor()).multiply(currentBean.getTaxaDesconto())
+						//currentBean.setValorDesconto(parcela.getParcelaPagar().getValor().multiply(currentBean.getTaxaDesconto())
+						//		.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+						currentBean.setValorDesconto(currentBean.getValorDesconto().multiply(currentBean.getTaxaDesconto())
 								.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
 						valorDesconto = currentBean.getValorDesconto();
 					} else {
@@ -407,7 +409,7 @@ protected void criarNovoBean() {
 		if (validaSalvar()) {
 			new CalculaTotalPagoBlurListener();
 			ParcelaPagamento pagamento = parcela;
-			ChequeEmitido chequeEmitido = pagamento.getChequeEmitido();
+			//ChequeEmitido chequeEmitido = pagamento.getChequeEmitido();
 			Cheque cheque = pagamento.getChequeEmitido().getCheque();
 
 			pagamento.setChequeEmitido(null);
@@ -421,10 +423,10 @@ protected void criarNovoBean() {
                                 if (pagamento.getChequeEmitido().getValor().compareTo(pagamento.getValorPago()) != 0) {
                                     throw new Exception("Valor cheque diferente do valor total!");
                                 }
-                                chequeEmitido.setCheque(cheque);
-                                chequeEmitidoDAO.save(chequeEmitido);
+                                //chequeEmitido.setCheque(cheque);
+                                //chequeEmitidoDAO.save(chequeEmitido);
 
-                                pagamento.setChequeEmitido(chequeEmitido);
+                                pagamento.setChequeEmitido(null);
                             } else {
                                 //valor do cheque nao informado
                                 throw new Exception("Informe o valor do cheque!");
