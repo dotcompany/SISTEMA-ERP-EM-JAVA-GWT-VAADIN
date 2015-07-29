@@ -49,7 +49,7 @@ public class PlanoCentroResultadoDAO extends AbstractCrudDAO<PlanoCentroResultad
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"nome", "mascara"};
+		return new String[] {"nome", "mascara","niveis","dataInclusao"};
 	}
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.Adiantamento;
 import dc.servicos.dao.financeiro.AdiantamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -35,7 +36,7 @@ public class AdiantamentoListController extends CRUDListController<Adiantamento>
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "dataAdiantamento", "valor", "observacoes" };
+		return new String[] { "idLancamentoPagar","dataAdiantamento", "valor", "observacoes" };
 	}
 
 	@Override
@@ -72,7 +73,7 @@ public class AdiantamentoListController extends CRUDListController<Adiantamento>
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaAdiantamento";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

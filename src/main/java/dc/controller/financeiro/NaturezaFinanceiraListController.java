@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -28,7 +29,7 @@ public class NaturezaFinanceiraListController extends CRUDListController<Naturez
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "descricao", "classificacao", "tipo", "aplicacao", "aparecePagar", "apareceReceber" };
+		return new String[] {"planoNaturezaFinanceira","contabilconta", "descricao", "classificacao", "tipo", "aplicacao", "aparecePagar", "apareceReceber" };
 	}
 
 	@Override
@@ -55,7 +56,7 @@ public class NaturezaFinanceiraListController extends CRUDListController<Naturez
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaNaturezaFinanceiras";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

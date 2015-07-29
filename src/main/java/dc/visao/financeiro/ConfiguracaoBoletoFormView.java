@@ -11,7 +11,7 @@ import com.vaadin.ui.TextField;
 
 import dc.entidade.financeiro.ConfiguracaoBoleto;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.component.manytoonecombo.ManyToOneComboField;
 import dc.visao.framework.util.ComponentUtil;
 
 public class ConfiguracaoBoletoFormView extends CustomComponent {
@@ -25,7 +25,7 @@ public class ConfiguracaoBoletoFormView extends CustomComponent {
 	private GridLayout mainLayout;
 	private GridLayout gridLayout;
 
-	private ManyToOneCombo<ContaCaixa> cbContaCaixa;
+	private ManyToOneComboField<ContaCaixa> cbContaCaixa;
 	private TextField txMensagem;
 	private TextField txLocalPagamento;
 	private TextField txInstrucao01;
@@ -59,7 +59,7 @@ public class ConfiguracaoBoletoFormView extends CustomComponent {
 		setWidth("100.0%");
 		setHeight("-1px");
 
-		cbContaCaixa = new ManyToOneCombo<>();
+		cbContaCaixa = new ManyToOneComboField<>(ContaCaixa.class);
 		cbContaCaixa.setCaption("Conta Caixa");
 		mainLayout.addComponent(cbContaCaixa, 0, 0);
 
@@ -155,11 +155,11 @@ public class ConfiguracaoBoletoFormView extends CustomComponent {
 		txTaxaMulta.setConvertedValue(currentBean.getTaxaMulta());
 	}
 
-	public ManyToOneCombo<ContaCaixa> getCbContaCaixa() {
+	public ManyToOneComboField<ContaCaixa> getCbContaCaixa() {
 		return cbContaCaixa;
 	}
 
-	public void setCbContaCaixa(ManyToOneCombo<ContaCaixa> cbContaCaixa) {
+	public void setCbContaCaixa(ManyToOneComboField<ContaCaixa> cbContaCaixa) {
 		this.cbContaCaixa = cbContaCaixa;
 	}
 

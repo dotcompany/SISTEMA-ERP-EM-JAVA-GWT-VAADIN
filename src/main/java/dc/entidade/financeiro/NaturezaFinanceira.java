@@ -8,7 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -21,6 +23,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 
 /**
  * 
@@ -43,27 +46,34 @@ public class NaturezaFinanceira extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "natureza_financeira_id_seq")
+	@SequenceGenerator(name = "natureza_financeira_id_seq", sequenceName = "natureza_financeira_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Caption("Classificação")
 	@Column(name = "CLASSIFICACAO")
+	@NotNull(message = "Classificação é Obrigatório!")
 	private String classificacao;
 
 	@Field
-	@Caption("Descricao")
+	@Caption("Descrição")
 	@Column(name = "DESCRICAO")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao;
 
 	@Column(name = "TIPO")
 	@Caption(value = "Tipo")
+	@NotNull(message = "Tipo é Obrigatório!")
 	private String tipo;
 
 	@Caption(value = "Aplicação")
 	@Column(name = "APLICACAO", length = 255)
+	@NotNull(message = "Aplicação é Obrigatório!")
 	private String aplicacao;
 
 	@Caption(value = "Aparece à Pagar")
@@ -77,11 +87,13 @@ public class NaturezaFinanceira extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Plano Natureza Financeira")
 	@JoinColumn(name = "ID_PLANO_NATUREZA_FINANCEIRA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
+	@NotNull(message = "Plano Natureza Financeira é Obrigatório!")
 	private PlanoNaturezaFinanceira planoNaturezaFinanceira;
 
-	@Caption(value = "Conta Contábil")
+	@Caption(value = "Contábil Conta")
 	@JoinColumn(name = "id_contabil_conta", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
+	@NotNull(message = "Contábil Conta é Obrigatório!")
 	private ContabilContaEntity contabilconta;
 
 	public NaturezaFinanceira() {
@@ -148,19 +160,31 @@ public class NaturezaFinanceira extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
 
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof NaturezaFinanceira == false)
-			return false;
-		if (this == object)
-			return true;
-		final NaturezaFinanceira other = (NaturezaFinanceira) object;
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
+        if (!(obj instanceof NaturezaFinanceira)) {
+            return false;
+        }
+
+        NaturezaFinanceira that = (NaturezaFinanceira) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 	@Override
 	public String toString() {

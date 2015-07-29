@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.DocumentoOrigem;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -55,7 +56,7 @@ public class DocumentoOrigemListController extends CRUDListController<DocumentoO
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaDocumentoOrigems";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

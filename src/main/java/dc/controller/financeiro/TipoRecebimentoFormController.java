@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
-import dc.control.validator.ObjectValidator;
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.TipoRecebimento;
 import dc.servicos.dao.financeiro.TipoRecebimentoDAO;
 import dc.visao.financeiro.TipoRecebimentoFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -44,34 +46,42 @@ public class TipoRecebimentoFormController extends CRUDFormController<TipoRecebi
 
 	@Override
 	protected void actionSalvar() {
-		subView.preencheBean(currentBean);
 		try {
 			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 			tipoRecebimentoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = tipoRecebimentoDAO.find(id);
-		subView.preencheForm(currentBean);
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padr�o
-	 */
-	@Override
-	protected void quandoNovo() {
-
+		try {
+			currentBean = tipoRecebimentoDAO.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new TipoRecebimentoFormView();
+		try {
+			
+			subView = new TipoRecebimentoFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(TipoRecebimento.class);
+
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTxtTipo(),"tipo");
+	        fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 
 	}
 
@@ -81,45 +91,57 @@ public class TipoRecebimentoFormController extends CRUDFormController<TipoRecebi
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoRecebimento();
+		try {
+	        this.currentBean = new TipoRecebimento();
+
+	        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        mensagemErro(e.getMessage());
+	    }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		tipoRecebimentoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			//this.business.deleteAll(ids);
+			this.tipoRecebimentoDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = true;
-
-		if (!ObjectValidator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
-			valido = false;
+		try {
+			 // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+			return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
-
-		String tipo = subView.getTxtTipo().getValue();
-		if (!ObjectValidator.validateString(subView.getTxtTipo().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtTipo(), "Não pode ficar em branco");
-			valido = false;
-		} else if (tipo.equals("01") || tipo.equals("02") || tipo.equals("03")) {
-			valido = false;
-			adicionarErroDeValidacao(subView.getTxtTipo(), "O código informado para o tipo não pode ser cadastrado.");
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return "tipoRecebimentoForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

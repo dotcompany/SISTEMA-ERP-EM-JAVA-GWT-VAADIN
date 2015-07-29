@@ -19,8 +19,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
@@ -50,6 +53,7 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@Column(name = "QUANTIDADE_PARCELA")
 	@Caption(value = "Quantidade Parcela")
+	@NotNull(message = "Quantidade Parcelas é Obrigatório!")
 	private Integer quantidadeParcela;
 
 	@Field
@@ -77,6 +81,7 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "PRIMEIRO_VENCIMENTO")
 	@Caption(value = "Primeiro Vencimento")
+	@NotNull(message = "Primeiro Vencimento é Obrigatório!")
 	private Date primeiroVencimento;
 
 	@Field
@@ -102,11 +107,13 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_DOCUMENTO_ORIGEM", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption(value = "Documento Origem")
+	@NotNull(message = "Documento Origem é Obrigatório!")
 	private DocumentoOrigem documentoOrigem;
 
 	@Caption(value = "Cliente")
 	@JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
+	@NotNull(message = "Cliente é Obrigatório!")
 	private ClienteEntity cliente;
 
 	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -293,5 +300,32 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 		this.parcelasReceber.add(parcela);
 
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof LancamentoReceber)) {
+            return false;
+        }
+
+        LancamentoReceber that = (LancamentoReceber) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

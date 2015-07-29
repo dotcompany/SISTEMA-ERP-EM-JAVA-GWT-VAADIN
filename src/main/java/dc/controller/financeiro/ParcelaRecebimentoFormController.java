@@ -425,7 +425,8 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 				//pagamento.setValorRecebido(pagamento.getValorRecebido().add(valorJuro).add(valorMulta).subtract(valorDesconto));
 				
 				////// ERRO AKI abaixo ///////////
-				pagamento.setValorRecebido(pagamento.getValorRecebido().add(pagamento.getValorJuro()).add(pagamento.getValorMulta()).subtract(pagamento.getValorDesconto()));
+				pagamento.setValorRecebido(pagamento.getValorRecebido().add(valorJuro).add(valorMulta).subtract(valorDesconto));
+				//pagamento.setValorRecebido(pagamento.getValorRecebido().add(pagamento.getValorJuro()).add(pagamento.getValorMulta()).subtract(pagamento.getValorDesconto()));
 
 				subView.preencheForm(currentBean);
 			}

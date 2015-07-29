@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.financeiro.CentroResultado;
-import dc.entidade.framework.FmModulo;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
@@ -38,6 +37,6 @@ public class CentroResultadoDAO extends AbstractCrudDAO<CentroResultado>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"descricao", "sofre_rateio","percentual_rateio"};
+		return new String[] {"planoCentroResultado","descricao", "sofreRateio","classificacao"};
 	}	
 }

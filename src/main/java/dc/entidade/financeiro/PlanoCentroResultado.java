@@ -9,9 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -47,9 +49,10 @@ public class PlanoCentroResultado extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plano_centro_resultado_id_seq")
+	@SequenceGenerator(name = "plano_centro_resultado_id_seq", sequenceName = "plano_centro_resultado_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
@@ -59,18 +62,26 @@ public class PlanoCentroResultado extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome;
 
 	@Field
 	@Caption("Mascara")
 	@Column(name = "MASCARA")
+	@NotNull(message = "Máscara é Obrigatório!")
 	private String mascara;
 
+	@Field
+	@Caption("Níveis")
 	@Column(name = "NIVEIS")
+	@NotNull(message = "Níveis é Obrigatório!")
 	private BigDecimal niveis;
 
+	@Field
+	@Caption("Data Inclusão")
 	@Column(name = "DATA_INCLUSAO")
 	@Temporal(TemporalType.DATE)
+	@NotNull(message = "Data Inclusão é Obrigatório!")
 	private Date dataInclusao;
 
 	public PlanoCentroResultado() {
@@ -106,22 +117,31 @@ public class PlanoCentroResultado extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
 
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof PlanoCentroResultado == false)
-			return false;
+        if (!(obj instanceof PlanoCentroResultado)) {
+            return false;
+        }
 
-		if (this == object)
-			return true;
+        PlanoCentroResultado that = (PlanoCentroResultado) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
 
-		final PlanoCentroResultado other = (PlanoCentroResultado) object;
-
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 	@Override
 	public String toString() {

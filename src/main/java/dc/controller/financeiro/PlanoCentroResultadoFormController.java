@@ -1,23 +1,21 @@
 package dc.controller.financeiro;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
-import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.administrativo.seguranca.UsuarioEntity;
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.PlanoCentroResultado;
 import dc.servicos.dao.financeiro.PlanoCentroResultadoDAO;
-import dc.servicos.util.Validator;
 import dc.visao.financeiro.PlanoCentroResultadoFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
@@ -35,9 +33,6 @@ public class PlanoCentroResultadoFormController extends CRUDFormController<Plano
 
 	private PlanoCentroResultado currentBean;
 
-	@Autowired
-	private PlanoCentroResultadoDAO planoresultadoDAO;
-
 	@Override
 	protected String getNome() {
 		return "Plano Centro Resultado";
@@ -50,44 +45,45 @@ public class PlanoCentroResultadoFormController extends CRUDFormController<Plano
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setMascara(subView.getTxtMascara().getValue().toString());
-		currentBean.setNiveis((BigDecimal) subView.getTxtNiveis().getConvertedValue());
-		currentBean.setDataInclusao(subView.getDtDataInclusao().getValue());
-		UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
-		EmpresaEntity empresa = usuario.getConta().getEmpresa();
-		currentBean.setEmpresa(empresa);
 		try {
 			planocentroresultadoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = planocentroresultadoDAO.find(id);
-
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtMascara().setValue(currentBean.getMascara());
-		subView.getTxtNiveis().setValue(currentBean.getNiveis().toString());
-		subView.getDtDataInclusao().setValue(currentBean.getDataInclusao());
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-
-	@Override
-	protected void quandoNovo() {
+		try {
+			currentBean = planocentroresultadoDAO.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new PlanoCentroResultadoFormView();
+        try {
+			
+			subView = new PlanoCentroResultadoFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(PlanoCentroResultado.class);
+
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTxtNome(),"nome");
+	        fieldGroup.bind(this.subView.getTxtMascara(),"mascara");
+	        fieldGroup.bind(this.subView.getTxtNiveis(),"niveis");
+	        fieldGroup.bind(this.subView.getDtDataInclusao(),"dataInclusao");
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
 
 	}
 
@@ -97,48 +93,62 @@ public class PlanoCentroResultadoFormController extends CRUDFormController<Plano
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new PlanoCentroResultado();
+		try {
+	        this.currentBean = new PlanoCentroResultado();
+
+	        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        mensagemErro(e.getMessage());
+	    }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		planocentroresultadoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
-	}
+		try {
+			//this.business.deleteAll(ids);
+			this.planocentroresultadoDAO.deleteAll(ids);
 
-	/* Implementar validacao de campos antes de salvar. */
-	@Override
-	protected boolean validaSalvar() {
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
-			valido = false;
+			mensagemErro(e.getMessage());
 		}
-
-		if (!Validator.validateObject(subView.getDtDataInclusao().getValue())) {
-			adicionarErroDeValidacao(subView.getDtDataInclusao(), "Não pode ficar em branco");
-			valido = false;
-		}
-		if (!Validator.validateString(subView.getTxtNiveis().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNiveis(), "Não pode ficar em branco");
-			valido = false;
-		}
-		if (!Validator.validateString(subView.getTxtMascara().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtMascara(), "Não pode ficar em branco");
-			valido = false;
-		}
-		return valido;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected boolean validaSalvar() {
+		try {
+			 // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+			return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
+		}
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		return "planocentroresultadoForm";
+		return ClassUtils.getUrl(this);
+	}
+	
+	@Override
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override

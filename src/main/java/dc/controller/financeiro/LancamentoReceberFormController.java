@@ -31,6 +31,7 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.server.FileDownloader;
@@ -47,7 +48,6 @@ import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.financeiro.BancoEntity;
 import dc.entidade.financeiro.ConfiguracaoBoleto;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.financeiro.DocumentoOrigem;
 import dc.entidade.financeiro.LancamentoReceber;
 import dc.entidade.financeiro.LctoReceberNtFinanceiraEntity;
 import dc.entidade.financeiro.NaturezaFinanceira;
@@ -69,9 +69,8 @@ import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.dao.geral.PessoaEnderecoDAO;
 import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
-import dc.servicos.util.Validator;
 import dc.visao.financeiro.LancamentoReceberFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
 import dc.visao.spring.SecuritySessionProvider;
@@ -171,9 +170,17 @@ public class LancamentoReceberFormController extends
 		return subView;
 	}
 
-	@Override
-	protected void actionSalvar() {
+@Override
+protected void actionSalvar() {
+		
+	try {
+		
 		subView.preencheBean(currentBean);
+		
+		currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
+				.getConta().getEmpresa());
+		lancamentoReceberDAO.saveOrUpdate(currentBean);
+		notifiyFrameworkSaveOK(this.currentBean);
 
 		boolean valido = true;
 
@@ -203,7 +210,7 @@ public class LancamentoReceberFormController extends
 
 			setIntervaloParcelaByTipoVencimento();
 
-			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("01");
+			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("Em Aberto");
 			if (statusParcela == null) {
 				mensagemErro("O status de parcela em aberto não está cadastrado.\nEntre em contato com a Software House.");
 			} else {
@@ -212,16 +219,15 @@ public class LancamentoReceberFormController extends
 					p.setStatusParcela(statusParcela);
 				}
 
-				try {
-					currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
-							.getConta().getEmpresa());
-					lancamentoReceberDAO.saveOrUpdate(currentBean);
-					notifiyFrameworkSaveOK(this.currentBean);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 			}
 		}
+			
+			
+	}catch (Exception e) {
+	        e.printStackTrace();
+	        mensagemErro(e.getMessage());
+	}
+		
 	}
 
 	private void setIntervaloParcelaByTipoVencimento() {
@@ -232,87 +238,113 @@ public class LancamentoReceberFormController extends
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = lancamentoReceberDAO.find(id);
-		subView.preencheForm(currentBean);
+		try {
+			this.currentBean = this.lancamentoReceberDAO.find(id);
+			
+			// Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		} catch (Exception e) {
+		       e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new LancamentoReceberFormView(this);
-
-		subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				try {
-					gerarParcelas();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					mensagemErro(e.getMessage());
-				}
-
-			}
-		});
-
-		StreamResource myResource = createBoletoResource();
-		if (myResource != null) {
-			FileDownloader fileDownloader = new FileDownloader(myResource);
-			fileDownloader.extend(subView.getBtnGerarBoleto());
-		}
-
-		subView.getDtLancamento().setValue(new Date());
-		subView.getTxIntervaloParcela().setEnabled(false);
-
-		subView.getCbTipoVencimento().addValueChangeListener(
-				new ValueChangeListener() {
-
-					private static final long serialVersionUID = 1L;
-
-					@Override
-					public void valueChange(ValueChangeEvent event) {
-						TipoVencimentoEn tipoVencimento = (TipoVencimentoEn) subView
-								.getCbTipoVencimento().getValue();
-
-						if (TipoVencimentoEn.M.equals(tipoVencimento)) {
-							subView.getTxIntervaloParcela().setEnabled(false);
-							subView.getTxIntervaloParcela().setValue(null);
-							currentBean.setIntervaloEntreParcelas(30);
-						} else {
-							subView.getTxIntervaloParcela().setEnabled(true);
-							currentBean.setIntervaloEntreParcelas(null);
-						}
-
-					}
-				});
-
-		subView.getTxValorComissao().setEnabled(false);
-		subView.getTxValorJuro().setEnabled(false);
-		subView.getTxValorMulta().setEnabled(false);
-		subView.getTxValorDesconto().setEnabled(false);
-		subView.getTxTaxaComissao().addBlurListener(new BlurListener() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void blur(BlurEvent event) {
-				calculaValorComissao();
-
-			}
-		});
 		
-		subView.getTxTaxaJuro().addBlurListener(new BlurListener() {
+		try {
+			
+			subView = new LancamentoReceberFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(LancamentoReceber.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getTxQuantidadeParcela(),"quantidadeParcela");
+			fieldGroup.bind(this.subView.getDtPrimeiroVencimento(),"primeiroVencimento");
+			fieldGroup.bind(this.subView.getCbDocumentoOrigem(),"documentoOrigem");
+			fieldGroup.bind(this.subView.getCbCliente(),"cliente");
+			
+			this.subView.getCbContaCaixa().configuraCombo(
+					"nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
+			this.subView.getCbDocumentoOrigem().configuraCombo(
+					"descricao", DocumentoOrigemListController.class, this.documentoOrigemDAO, this.getMainController());
+			this.subView.getCbCliente().configuraCombo(
+					"pessoa.nome", ClienteListController.class, this.clienteDAO, this.getMainController());
 
-			/**
-			 * 
-			 */
+			subView.getBtnGerarParcelas().addClickListener(new ClickListener() {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void buttonClick(ClickEvent event) {
+					try {
+						gerarParcelas();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						mensagemErro(e.getMessage());
+					}
+
+				}
+			});
+
+			StreamResource myResource = createBoletoResource();
+			if (myResource != null) {
+				FileDownloader fileDownloader = new FileDownloader(myResource);
+				fileDownloader.extend(subView.getBtnGerarBoleto());
+			}
+
+			subView.getDtLancamento().setValue(new Date());
+			subView.getTxIntervaloParcela().setEnabled(false);
+
+			subView.getCbTipoVencimento().addValueChangeListener(
+					new ValueChangeListener() {
+
+						private static final long serialVersionUID = 1L;
+
+						@Override
+						public void valueChange(ValueChangeEvent event) {
+							TipoVencimentoEn tipoVencimento = (TipoVencimentoEn) subView
+									.getCbTipoVencimento().getValue();
+
+							if (TipoVencimentoEn.M.equals(tipoVencimento)) {
+								subView.getTxIntervaloParcela().setEnabled(false);
+								subView.getTxIntervaloParcela().setValue(null);
+								currentBean.setIntervaloEntreParcelas(30);
+							} else {
+								subView.getTxIntervaloParcela().setEnabled(true);
+								currentBean.setIntervaloEntreParcelas(null);
+							}
+
+						}
+					});
+
+			subView.getTxValorComissao().setEnabled(false);
+			subView.getTxTaxaComissao().addBlurListener(new BlurListener() {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void blur(BlurEvent event) {
+					calculaValorComissao();
+
+				}
+			});
+			
+		}catch (Exception e) {
+		   e.printStackTrace();
+		}
+		
+	}
+		
+		/*subView.getTxTaxaJuro().addBlurListener(new BlurListener() {
+
+			
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -324,9 +356,7 @@ public class LancamentoReceberFormController extends
 		
 		subView.getTxTaxaMulta().addBlurListener(new BlurListener() {
 
-			/**
-			 * 
-			 */
+			
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -338,9 +368,7 @@ public class LancamentoReceberFormController extends
 		
 		subView.getTxTaxaDesconto().addBlurListener(new BlurListener() {
 
-			/**
-			 * 
-			 */
+			
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -348,10 +376,7 @@ public class LancamentoReceberFormController extends
 				calculaValorDesconto();
 
 			}
-		});
-
-		preencheCombos();
-	}
+		});*/
 
 	private StreamResource createBoletoResource() {
 
@@ -362,95 +387,45 @@ public class LancamentoReceberFormController extends
 	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
 	 * formulario.
 	 */
-	@Override
-	protected void criarNovoBean() {
-		currentBean = new LancamentoReceber();
-	}
+@Override
+protected void criarNovoBean() {
+	try {
+        this.currentBean = new LancamentoReceber();
 
-	private void preencheCombos() {
+        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+        fieldGroup.setItemDataSource(this.currentBean);
 
-		DefaultManyToOneComboModel<ContaCaixa> model1 = new DefaultManyToOneComboModel<ContaCaixa>(
-				ContaCaixaListController.class, this.contaCaixaDAO,
-				super.getMainController());
-
-		this.subView.getCbContaCaixa().setModel(model1);
-
-		DefaultManyToOneComboModel<DocumentoOrigem> model3 = new DefaultManyToOneComboModel<DocumentoOrigem>(
-				DocumentoOrigemListController.class, this.documentoOrigemDAO,
-				super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-		};
-		this.subView.getCbDocumentoOrigem().setModel(model3);
-
-		DefaultManyToOneComboModel<ClienteEntity> model2 = new DefaultManyToOneComboModel<ClienteEntity>(
-				ClienteListController.class, this.clienteDAO,
-				super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "pessoa.nome";
-			}
-		};
-		this.subView.getCbCliente().setModel(model2);
-
-	}
+    } catch (Exception e) {
+        e.printStackTrace();
+        mensagemErro(e.getMessage());
+    }
+}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		lancamentoReceberDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			//this.business.deleteAll(ids);
+			this.lancamentoReceberDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
-	/* Implementar validacao de campos antes de salvar. */
-	@Override
-	protected boolean validaSalvar() {
+@Override
+protected boolean validaSalvar() {
 
-		boolean valido = validaCampos();
-
-		return valido;
-	}
-
-	private boolean validaCampos() {
-
-		boolean valido = true;
-
-		if (!Validator
-				.validateObject(subView.getCbDocumentoOrigem().getValue())) {
-			adicionarErroDeValidacao(subView.getCbDocumentoOrigem(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getDtLancamento().getValue())) {
-			adicionarErroDeValidacao(subView.getDtLancamento(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getDtPrimeiroVencimento()
-				.getValue())) {
-			adicionarErroDeValidacao(subView.getDtPrimeiroVencimento(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateNumber(subView.getTxQuantidadeParcela()
-				.getValue())) {
-			adicionarErroDeValidacao(subView.getTxQuantidadeParcela(),
-					"Não pode ficar em branco");
-			valido = false;
-		} else if (verificaSeFoiParcelado()
-				&& !Validator.validateNumber(subView.getTxIntervaloParcela()
-						.getValue())) {
-			adicionarErroDeValidacao(subView.getTxIntervaloParcela(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
-	}
+	try {
+        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+        fieldGroup.commit();
+        return true;
+    } catch (FieldGroup.CommitException ce) {
+        return false;
+    }
+}
 
 	private boolean verificaSeFoiParcelado() {
 		// TODO
@@ -522,7 +497,7 @@ public class LancamentoReceberFormController extends
 
 	public void gerarParcelas() throws Exception {
 
-		if (validaCampos()) {
+		if (validaSalvar()) {
 			final ContaCaixa contaCaixa = (ContaCaixa) subView
 					.getCbContaCaixa().getValue();
 			if (contaCaixa == null || contaCaixa.getId() == null) {
@@ -700,9 +675,6 @@ public List<LctoReceberNtFinanceiraEntity> getNaturezasFinan() {
 		BigDecimal valorAReceber = (BigDecimal) subView.getTxValorReceber()	.getConvertedValue();
 
 		BigDecimal taxaComissao = (BigDecimal) subView.getTxTaxaComissao().getConvertedValue();
-		BigDecimal taxaJuro = (BigDecimal) subView.getTxTaxaJuro().getConvertedValue();
-		BigDecimal taxaMulta = (BigDecimal) subView.getTxTaxaMulta().getConvertedValue();
-		BigDecimal taxaDesconto = (BigDecimal) subView.getTxTaxaDesconto().getConvertedValue();
 
 		if (valorAReceber != null && taxaComissao != null) {
 			subView.getTxValorComissao().setConvertedValue(valorAReceber.multiply(taxaComissao).divide(
@@ -710,26 +682,9 @@ public List<LctoReceberNtFinanceiraEntity> getNaturezasFinan() {
 			
 		}
 		
-		if (valorAReceber != null && taxaJuro != null) {
-			subView.getTxTaxaJuro().setConvertedValue(valorAReceber.multiply(taxaJuro).divide(
-					BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
-			
-		}
-		
-		if (valorAReceber != null && taxaMulta != null) {
-			subView.getTxTaxaMulta().setConvertedValue(valorAReceber.multiply(taxaMulta).divide(
-					BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
-			
-		}
-		
-		if (valorAReceber != null && taxaDesconto != null) {
-			subView.getTxTaxaDesconto().setConvertedValue(valorAReceber.multiply(taxaDesconto).divide(
-					BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
-			
-		}
 	}
 	
-	private void calculaValorJuro() {
+	/*private void calculaValorJuro() {
 		BigDecimal valorAReceber = (BigDecimal) subView.getTxValorReceber()	.getConvertedValue();
 
 		BigDecimal taxaJuro = (BigDecimal) subView.getTxTaxaJuro().getConvertedValue();
@@ -765,7 +720,7 @@ public List<LctoReceberNtFinanceiraEntity> getNaturezasFinan() {
 					BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
 			
 		}
-	}
+	}*/
 
 	public byte[] gerarBoleto(List<ParcelaReceber> listaParcelasReceber)
 			throws Exception {
