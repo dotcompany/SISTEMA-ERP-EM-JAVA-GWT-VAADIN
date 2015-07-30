@@ -384,14 +384,27 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	public StreamResource createResource() {
 
 		return new StreamResource(new StreamSource() {
+			private MaskFormatter formatoCnpj;
+			private MaskFormatter formatoCpf ;
 			@Override
 			public InputStream getStream() {
-				Documento documento = (Documento) subView.getCbmDocumento().getValue();
-				PessoaEnderecoEntity enderecoEmpresa = new PessoaEnderecoEntity();// TODO
-
-				SolicitacaoServicoEntity solicitacaoServico = subView.getCmbSolicitacaoServico().getValue();
-				PessoaEntity dadosContratante = subView.getCbmPessoa().getValue();
 				
+				try {
+					formatoCnpj = new MaskFormatter("##.###.###/####-##");
+					formatoCpf = new MaskFormatter("###.###.###-##");
+					formatoCnpj.setValueContainsLiteralCharacters(false);
+					formatoCpf.setValueContainsLiteralCharacters(false);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+				
+				Documento documento = (Documento) subView.getCbmDocumento().getValue();
+				PessoaEnderecoEntity enderecoEmpresaContratada = new PessoaEnderecoEntity();
+				PessoaEntity dadosContratante = subView.getCbmPessoa().getValue();
+				PessoaEnderecoEntity enderecoEmpresaContratante = new PessoaEnderecoEntity();
+				SolicitacaoServicoEntity solicitacaoServico = subView.getCmbSolicitacaoServico().getValue();
+								
 				if (documento != null) {
 					EmpresaEntity empresa = documento.getEmpresa();
 					empresa = empresaDAO.find(empresa.getId());
@@ -400,7 +413,14 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 							.getPessoaEnderecoList(empresa);
 
 					if (pessoaEnderecoList != null && !pessoaEnderecoList.isEmpty()) {
-						enderecoEmpresa = pessoaEnderecoList.get(0);
+						enderecoEmpresaContratada = pessoaEnderecoList.get(0);
+					}
+					
+					 pessoaEnderecoList = pessoaEnderecoDAO
+							.getPessoaEnderecoList(dadosContratante);
+
+					if (pessoaEnderecoList != null && !pessoaEnderecoList.isEmpty()) {
+						enderecoEmpresaContratante = pessoaEnderecoList.get(0);
 					}
 
 					ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -414,7 +434,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 									// contratada
 									"#CONTRATADA#", "#CNPJ_CONTRATADA#", "#ENDERECO_CONTRATADA#", "#CIDADE_CONTRATADA#", "#UF_CONTRATADA#", "#BAIRRO_CONTRATADA#", "#CEP_CONTRATADA#",
 									// contratante
-									"#CONTRATANTE#", "#CNPJ_CONTRATANTE#", "#ENDERECO_CONTRATANTE#", "#CIDADE_CONTRATANTE#", "#UF_CONTRATANTE#", "#BAIRRO_CONTRATANTE#", "#CEP_CONTRATANTE#",
+									"#CONTRATANTE#", "#CNPJ_CONTRATANTE#", "CPF_CONTRATANTE", "#ENDERECO_CONTRATANTE#", "#CIDADE_CONTRATANTE#", "#UF_CONTRATANTE#", "#BAIRRO_CONTRATANTE#", "#CEP_CONTRATANTE#",
 									// outros
 									"#VALOR_MENSAL#", "#DATA_EXTENSO#" };
 	
@@ -423,40 +443,31 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 							MaskFormatter formatoCpf = new MaskFormatter("###.###.###-##");
 							formatoCpf.setValueContainsLiteralCharacters(false);
 							SimpleDateFormat formatoDataExtenso = new SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy");
-							DecimalFormat formatoDecimal = new DecimalFormat("#,###,##0.00");
 	
 							// busca os dados para substituicoes dos termos
 							String substituicoes[] = new String[] {
 									// contratada
 									empresa.getRazaoSocial()/*"#CONTRATADA#"*/, 
 									formatoCnpj.valueToString(empresa.getCnpj())/*"#CNPJ_CONTRATADA#"*/,
-									enderecoEmpresa.getLogradouro() + " " + enderecoEmpresa.getNumero() + " " + (enderecoEmpresa.getComplemento() == null ? "" : enderecoEmpresa.getComplemento())/*"#ENDERECO_CONTRATADA#"*/,
+									enderecoEmpresaContratada.getLogradouro() + " " + enderecoEmpresaContratada.getNumero() + " " + (enderecoEmpresaContratada.getComplemento() == null ? "" : enderecoEmpresaContratada.getComplemento())/*"#ENDERECO_CONTRATADA#"*/,
 	
-								    enderecoEmpresa.getCidade()/*"#CIDADE_CONTRATADA#"*/,
-								    enderecoEmpresa.getUf() != null ? enderecoEmpresa.getUf().getNome() : ""/*"#UF_CONTRATADA#"*/,
-									enderecoEmpresa.getBairro()/*"#BAIRRO_CONTRATADA#"*/,
-									enderecoEmpresa.getCep()/*"#CEP_CONTRATADA#"*/,
+								    enderecoEmpresaContratada.getCidade()/*"#CIDADE_CONTRATADA#"*/,
+								    enderecoEmpresaContratada.getUf() != null ? enderecoEmpresaContratada.getUf().getNome() : ""/*"#UF_CONTRATADA#"*/,
+									enderecoEmpresaContratada.getBairro()/*"#BAIRRO_CONTRATADA#"*/,
+									enderecoEmpresaContratada.getCep()/*"#CEP_CONTRATADA#"*/,
 										// contratante
 									dadosContratante.getNome()/*"#CONTRATANTE#"*/,
-									""/*"#CNPJ_CONTRATANTE#"*/, // dadosContratante.getCpfCnpj().length()
-									// == 11
-									// ?
-									// formatoCpf.valueToString(dadosContratante.getCpfCnpj())
-									// :
-									// formatoCnpj.valueToString(dadosContratante.getCpfCnpj()),
-									""/*"#ENDERECO_CONTRATANTE#"*/, // dadosContratante.getLogradouro() + " " +
-									// dadosContratante.getNumero() + " " +
-									// (dadosContratante.getComplemento() == null ?
-									// "" :
-									// dadosContratante.getComplemento()),
-									"" /*"#CIDADE_CONTRATANTE#"*/, // dadosContratante.getCidade(),
-									"" /*"#UF_CONTRATANTE#"*/, // dadosContratante.getUf(),
-									"" /*"#BAIRRO_CONTRATANTE#"*/, // dadosContratante.getBairro(),
-									"" /*"#CEP_CONTRATANTE#"*/, // dadosContratante.getCep(),
+									getCNPJ(dadosContratante)/*"#CNPJ_CONTRATANTE#"*/,
+									getCPF(dadosContratante),// "#CPF_CONTRATANTE#"
+									enderecoEmpresaContratante.getLogradouro() + " " + enderecoEmpresaContratante.getNumero() + " " + (enderecoEmpresaContratante.getComplemento() == null ? "" : enderecoEmpresaContratante.getComplemento())/*"#ENDERECO_CONTRATANTE#"*/, 
+									enderecoEmpresaContratante.getCidade() /*"#CIDADE_CONTRATANTE#"*/, 
+									enderecoEmpresaContratante.getUf() != null ? enderecoEmpresaContratante.getUf().getNome() : "" /*"#UF_CONTRATANTE#"*/, // dadosContratante.getUf(),
+								    enderecoEmpresaContratante.getBairro() /*"#BAIRRO_CONTRATANTE#"*/, 
+								    enderecoEmpresaContratante.getCep() /*"#CEP_CONTRATANTE#"*/, 
 									// outros
 									subView.getTxtValor().getValue()/*"#VALOR_MENSAL#"*/, 
 									formatoDataExtenso.format(subView.getDtVigencia().getValue())/*"#DATA_EXTENSO#"*/
-									};
+							};
 	
 							XWPFDocument doc = new XWPFDocument(new FileInputStream(origem));
 	
@@ -499,6 +510,23 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 					}
 				}
 				return null;
+			}
+
+			private String getCPF(PessoaEntity dadosContratante) {
+				
+				try {
+					return formatoCpf.valueToString(dadosContratante.getPessoaFisica().getCpf());
+				} catch (Exception e) {
+				}
+				return "";
+			}
+
+			private String getCNPJ(PessoaEntity dadosContratante) {
+				try {
+					return formatoCpf.valueToString(dadosContratante.getPessoaJuridica().getCnpj());
+				} catch (Exception e) {
+				}
+				return "";
 			}
 		}, "contrato.docx");
 	}

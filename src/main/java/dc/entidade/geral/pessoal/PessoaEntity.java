@@ -361,14 +361,12 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	// this.clienteList = clienteList;
 	// }
 
-	/**
-	 * TO STRING
-	 *
+	
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}*/
+		return nome;
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
