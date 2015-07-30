@@ -39,7 +39,7 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 
 	@Override
 	protected String getTitulo() {
-		return "Parcela Ã  pagar";
+		return "Parcela à pagar";
 	}
 
 	@Override

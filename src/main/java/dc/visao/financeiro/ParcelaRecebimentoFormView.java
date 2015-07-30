@@ -163,7 +163,7 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 		dtDataRecebimento = ComponentUtil.buildPopupDateField("Data Recebimento");
 		fields.addComponent(dtDataRecebimento, 1, 2);
 
-		txValorReceber = ComponentUtil.buildCurrencyField("Valor Ã  Receber");
+		txValorReceber = ComponentUtil.buildCurrencyField("Valor à Receber");
 		fields.addComponent(txValorReceber, 2, 2);
 
 		txTaxaJuro = ComponentUtil.buildPercentageField("Taxa Juro");
@@ -188,7 +188,7 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 		txValorRecebido = ComponentUtil.buildCurrencyField("Valor Recebido");
 		fields.addComponent(txValorRecebido, 4, 3);
 
-		txaHistorico = ComponentUtil.buildTextArea("HistÃ³rico");
+		txaHistorico = ComponentUtil.buildTextArea("Histórico");
 		fields.addComponent(txaHistorico, 0, 4, 4, 5);
 
 		return fields;
@@ -218,7 +218,7 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 				"valorDesconto", "valorRecebido", "historico" };
 
 		String[] headers = new String[] { "Tipo Recebimento", "Data Recebimento", "Taxa Juro", "Valor Juro", "Taxa Multa", "Valor Multa",
-				"Taxa Desconto", "Valor Desconto", "Valor Recebido", "HistÃ³rico" };
+				"Taxa Desconto", "Valor Desconto", "Valor Recebido", "Histórico" };
 
 		this.pagamentosSubForm = new SubFormComponent<ParcelaRecebimento, Integer>(ParcelaRecebimento.class, atributos, headers) {
 

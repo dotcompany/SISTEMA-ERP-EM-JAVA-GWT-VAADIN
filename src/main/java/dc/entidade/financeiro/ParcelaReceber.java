@@ -125,8 +125,8 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne(optional = false)
 	private LancamentoReceber lancamentoReceber;
 
-	@JoinColumn(name = "ID_STATUS_PARCELA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@JoinColumn(name = "ID_STATUS_PARCELA", referencedColumnName = "ID", nullable = false)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	private StatusParcela finStatusParcela;
 
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")

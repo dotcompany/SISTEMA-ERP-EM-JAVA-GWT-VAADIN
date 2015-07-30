@@ -162,7 +162,7 @@ public class ParcelaPagamentoFormView extends CustomComponent {
 		dtDataPagamento = ComponentUtil.buildPopupDateField("Data Pagamento");
 		fields.addComponent(dtDataPagamento, 1, 2);
 
-		txValorPagar = ComponentUtil.buildCurrencyField("Valor Ã  Pagar");
+		txValorPagar = ComponentUtil.buildCurrencyField("Valor à Pagar");
 		fields.addComponent(txValorPagar, 2, 2);
 
 		txTaxaJuro = ComponentUtil.buildPercentageField("Taxa Juro");
@@ -187,7 +187,7 @@ public class ParcelaPagamentoFormView extends CustomComponent {
 		txValorPago = ComponentUtil.buildCurrencyField("Valor Pago");
 		fields.addComponent(txValorPago, 4, 3);
 
-		txaHistorico = ComponentUtil.buildTextArea("HistÃ³rico");
+		txaHistorico = ComponentUtil.buildTextArea("Histórico");
 		fields.addComponent(txaHistorico, 0, 4, 4, 5);
 
 		return fields;
@@ -217,7 +217,7 @@ public class ParcelaPagamentoFormView extends CustomComponent {
 				"valorDesconto", "valorPago", "historico" };
 
 		String[] headers = new String[] { "Tipo Pagamento", "Data Pagamento", "Taxa Juro", "Valor Juro", "Taxa Multa", "Valor Multa",
-				"Taxa Desconto", "Valor Desconto", "Valor Pago", "HistÃ³rico" };
+				"Taxa Desconto", "Valor Desconto", "Valor Pago", "Histórico" };
 
 		this.pagamentosSubForm = new SubFormComponent<ParcelaPagamento, Integer>(ParcelaPagamento.class, atributos, headers) {
 
