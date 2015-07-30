@@ -281,12 +281,14 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 	}
 
 	public void efetuaRecebimento() {
-
-		if (validaSalvar()) {
-			calculaTotalRecebido();
-			ParcelaRecebimento pagamento = currentBean;
-			pagamento.setChequeRecebido(null);
-			if (pagamento.getTipoRecebimento().getTipo().equals("02")) {
+		
+		try {
+			
+			if (validaSalvar()) {
+			     calculaTotalRecebido();
+			     ParcelaRecebimento pagamento = currentBean;
+			     pagamento.setChequeRecebido(null);
+			     if (pagamento.getTipoRecebimento().getTipo().equals("02")) {
 				// FinSelecionaChequeGrid chequeGrid = new
 				// FinSelecionaChequeGrid(MDIFrame.getInstance(), true, true);
 				// chequeGrid.setVisible(true);
@@ -298,14 +300,14 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 				// "InformaÃ§Ã£o do Sistema", JOptionPane.ERROR_MESSAGE);
 				// return;
 				// }
+			     }
+			     
 			}
-
-			try {
+			
 				salvaRecebimento();
-			} catch (Exception e) {
-				mensagemErro(e.getMessage());
-				e.printStackTrace();
-			}
+		} catch (Exception e) {
+			mensagemErro(e.getMessage());
+			e.printStackTrace();
 		}
 
 	}

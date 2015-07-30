@@ -23,7 +23,6 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -62,9 +61,7 @@ public class StatusParcela extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "PROCEDIMENTO")
 	@Caption(value = "Procedimento")
 	@Field
-	@NotNull(message = "Procedimento é obrigatório") 
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Procedimento é obrigatório do ${this.nome}.") 
 	@Basic(fetch = javax.persistence.FetchType.LAZY) 
 	private String procedimento;
 
