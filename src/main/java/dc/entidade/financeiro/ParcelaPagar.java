@@ -130,7 +130,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Status Parcela")
 	@JoinColumn(name = "id_status_parcela", referencedColumnName = "id")
 	//@ManyToOne(optional = false)
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	private StatusParcela statusParcela;
 
 	@Caption(value = "Lançamento à Pagar")

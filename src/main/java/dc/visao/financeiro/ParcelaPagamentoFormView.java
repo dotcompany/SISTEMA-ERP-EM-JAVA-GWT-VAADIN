@@ -463,7 +463,7 @@ public class ParcelaPagamentoFormView extends CustomComponent {
 		this.btnExcluiPagamento = btnExcluiPagamento;
 	}
 
-	public enum TipoBaixa {
+	/*public enum TipoBaixa {
 		TOTAL("Total", "T"), PARCIAL("Parcial", "P");
 
 		private TipoBaixa(String label, String codigo) {
@@ -496,7 +496,7 @@ public class ParcelaPagamentoFormView extends CustomComponent {
 		public String toString() {
 			return label;
 		}
-	}
+	}*/
 
 	public void preencheComboTipoBaixa() {
 		cbTipoBaixa.removeAllItems();

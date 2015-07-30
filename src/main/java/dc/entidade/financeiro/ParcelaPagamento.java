@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +17,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -122,9 +122,10 @@ public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 	private ChequeEmitido chequeEmitido;
 
 	@Caption("Tipo Pagamento")
-	@JoinColumn(name = "ID_FIN_TIPO_PAGAMENTO", referencedColumnName = "ID")
-	@ManyToOne(fetch = FetchType.EAGER)
-	@NotNull(message = "Tipo Pagamento é Obrigatório!")
+	@JoinColumn(name = "ID_FIN_TIPO_PAGAMENTO", referencedColumnName = "ID", nullable = false)
+	//@ManyToOne(optional = false)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	//@NotNull(message = "Tipo Pagamento é Obrigatório!")
 	private TipoPagamento tipoPagamento;
 
 	@Caption("Conta Caixa")

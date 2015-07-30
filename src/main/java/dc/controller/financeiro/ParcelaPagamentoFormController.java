@@ -341,13 +341,13 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 		StatusParcela statusParcela = null;
 		if ("T".equalsIgnoreCase(tipoBaixa)) {
-			statusParcela = statusParcelaDAO.findBySituacao("02");
+			statusParcela = statusParcelaDAO.findBySituacao("Quitado");
 		} else {
-			statusParcela = statusParcelaDAO.findBySituacao("03");
+			statusParcela = statusParcelaDAO.findBySituacao("Quitado Parcial");
 		}
 
 		if (statusParcela == null) {
-			throw new Exception("Status de parcela nÃ£o cadastrado. Entre em contato com a Software House");
+			throw new Exception("Status de parcela não cadastrado. Entre em contato com a Software House");
 		}
 
 		ParcelaPagar parcelaPagar = parcelaPagamento.getParcelaPagar();
@@ -366,10 +366,10 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		Collection<ParcelaPagamento> deletedItens = new ArrayList<ParcelaPagamento>();
 
 		for (ParcelaPagamento parcelaPagamento : selectedItens) {
-			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("01");
+			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("Em Aberto");
 
 			if (statusParcela == null) {
-				mensagemErro("Status de parcela nÃ£o cadastrado. Entre em contato com a Software House");
+				mensagemErro("Status de parcela não cadastrado. Entre em contato com a Software House");
 			} else {
 				ParcelaPagar parcelaPagar = parcelaPagamento.getParcelaPagar();
 				parcelaPagar.setStatusParcela(statusParcela);
