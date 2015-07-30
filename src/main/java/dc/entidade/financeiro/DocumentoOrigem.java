@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -41,9 +43,10 @@ public class DocumentoOrigem extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "documento_origem_id_seq")
+	@SequenceGenerator(name = "documento_origem_id_seq", sequenceName = "documento_origem_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
@@ -51,11 +54,13 @@ public class DocumentoOrigem extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Código")
 	@Column(name = "CODIGO")
 	@Field
+	@NotNull(message = "Código é Obrigatório!")
 	private String codigo;
 
 	@Caption(value = "Sigla Documento")
 	@Column(name = "SIGLA_DOCUMENTO")
 	@Field
+	@NotNull(message = "Sigla Documento é Obrigatório!")
 	private String siglaDocumento;
 
 	@Caption(value = "Descrição")
@@ -63,6 +68,7 @@ public class DocumentoOrigem extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao;
 
 	public DocumentoOrigem() {
@@ -90,22 +96,31 @@ public class DocumentoOrigem extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
 
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof DocumentoOrigem == false)
-			return false;
+        if (!(obj instanceof DocumentoOrigem)) {
+            return false;
+        }
 
-		if (this == object)
-			return true;
+        DocumentoOrigem that = (DocumentoOrigem) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
 
-		final DocumentoOrigem other = (DocumentoOrigem) object;
-
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 	@Override
 	public String toString() {

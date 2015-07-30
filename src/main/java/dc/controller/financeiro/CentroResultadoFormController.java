@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.CentroResultado;
-import dc.entidade.financeiro.PlanoCentroResultado;
 import dc.servicos.dao.financeiro.CentroResultadoDAO;
 import dc.servicos.dao.financeiro.PlanoCentroResultadoDAO;
-import dc.servicos.util.Validator;
 import dc.visao.financeiro.CentroResultadoFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
 /** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
@@ -47,20 +47,24 @@ public class CentroResultadoFormController extends CRUDFormController<CentroResu
 
 	@Override
 	protected void actionSalvar() {
-		subView.preencheBean(currentBean);
 		try {
 			centroresultadoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = centroresultadoDAO.find(id);
-
-		subView.preencheForm(currentBean);
+		try {
+			currentBean = centroresultadoDAO.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -69,7 +73,16 @@ public class CentroResultadoFormController extends CRUDFormController<CentroResu
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CentroResultado();
+		try {
+	        this.currentBean = new CentroResultado();
+
+	        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        mensagemErro(e.getMessage());
+	    }
 	}
 
 	@Override
@@ -84,68 +97,71 @@ public class CentroResultadoFormController extends CRUDFormController<CentroResu
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return "centroresultadoForm";
+		return ClassUtils.getUrl(this);
+	}
+	
+	@Override
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new CentroResultadoFormView();
-		// subView.InitCbPlanoCentroResultado(planoresultadoDAO.listaTodos());
+		
+       try {
+			
+			subView = new CentroResultadoFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(CentroResultado.class);
 
-		DefaultManyToOneComboModel<PlanoCentroResultado> model = new DefaultManyToOneComboModel<PlanoCentroResultado>(
-				PlanoCentroResultadoListController.class, this.planoresultadoDAO, super.getMainController());
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTxtClassficacao(),"classificacao");
+	        fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+	        fieldGroup.bind(this.subView.getCmbPlanoCentroResultado(),"planoCentroResultado");
+	        
+	        this.subView.getCmbPlanoCentroResultado().configuraCombo(
+	        		"nome", PlanoCentroResultadoListController.class, this.planoresultadoDAO, this.getMainController());
 
-		this.subView.getCmbPlanoCentroResultado().setModel(model);
-	}
-
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
-	@Override
-	protected void quandoNovo() {
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		centroresultadoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			//this.business.deleteAll(ids);
+			this.centroresultadoDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
-			valido = false;
+		try {
+			 // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+			return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
-
-		if (!Validator.validateString(subView.getTxtClassficacao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtClassficacao(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		/*
-		 * if
-		 * (!Validator.validateObject(subView.getCbPlanoCentroResultado().getValue
-		 * ())) { adicionarErroDeValidacao(subView.getCbPlanoCentroResultado(),
-		 * "Não pode ficar em branco"); valido = false; }
-		 */
-
-		if (!Validator.validateObject(subView.getCmbPlanoCentroResultado().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbPlanoCentroResultado(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override

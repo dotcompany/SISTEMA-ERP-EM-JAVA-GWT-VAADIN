@@ -12,9 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -22,6 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 
 @Entity
 @Table(name = "CONFIGURACAO_BOLETO")
@@ -32,14 +37,18 @@ public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> imple
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "configuracao_boleto_id_seq")
+	@SequenceGenerator(name = "configuracao_boleto_id_seq", sequenceName = "configuracao_boleto_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
 	@Column(name = "INSTRUCAO01")
 	@Caption(value = "Instrução01")
+	@NotNull(message = "Instrução 01 é Obrigatório!")
 	private String instrucao01;
 
 	@Field
@@ -70,6 +79,7 @@ public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> imple
 	@Field
 	@Column(name = "MENSAGEM")
 	@Caption(value = "Mensagem")
+	@NotNull(message = "Mensagem é Obrigatório!")
 	private String mensagem;
 
 	@Field
@@ -115,6 +125,7 @@ public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> imple
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@Caption(value = "Conta Caixa")
+	@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;
 
 	public ConfiguracaoBoleto() {
@@ -258,6 +269,34 @@ public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> imple
 
 	@Override
 	public String toString() {
-		return "com.t2tierp.financeiro.java.FinConfiguracaoBoleto[id=" + id + " |instrucao01=" + instrucao01 + "]";
+		return instrucao01;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ConfiguracaoBoleto)) {
+            return false;
+        }
+
+        ConfiguracaoBoleto that = (ConfiguracaoBoleto) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
+
 }

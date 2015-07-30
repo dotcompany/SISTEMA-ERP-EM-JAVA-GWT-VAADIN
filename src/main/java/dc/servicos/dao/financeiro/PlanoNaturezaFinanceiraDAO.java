@@ -48,6 +48,6 @@ public class PlanoNaturezaFinanceiraDAO extends AbstractCrudDAO<PlanoNaturezaFin
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"nome", "mascara"};
+		return new String[] {"nome", "mascara","niveis","dataInclusao"};
 	}
 }

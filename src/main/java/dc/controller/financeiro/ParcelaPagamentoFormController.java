@@ -215,11 +215,13 @@ protected void criarNovoBean() {
 					subView.preencheBean(currentBean);
 					BigDecimal valorDesconto = BigDecimal.ZERO;
 					if (currentBean.getTaxaDesconto() != null) {
-						currentBean.setValorDesconto((parcela.getParcelaPagar().getValor()).multiply(currentBean.getTaxaDesconto())
-								.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
-						valorDesconto = currentBean.getValorDesconto();
+						//currentBean.setValorDesconto(parcela.getParcelaPagar().getValor().multiply(currentBean.getTaxaDesconto())
+						//		.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
+						parcela.setValorDesconto(currentBean.getValor().multiply(parcela.getTaxaDesconto())
+								.divide(BigDecimal.valueOf(100).setScale(2, RoundingMode.HALF_DOWN)));
+						valorDesconto = parcela.getValorDesconto();
 					} else {
-						currentBean.setValorDesconto(valorDesconto);
+						parcela.setValorDesconto(valorDesconto);
 					}
 				
 				}
@@ -407,8 +409,8 @@ protected void criarNovoBean() {
 		if (validaSalvar()) {
 			new CalculaTotalPagoBlurListener();
 			ParcelaPagamento pagamento = parcela;
-			ChequeEmitido chequeEmitido = pagamento.getChequeEmitido();
-			Cheque cheque = pagamento.getChequeEmitido().getCheque();
+			//ChequeEmitido chequeEmitido = pagamento.getChequeEmitido();
+			//Cheque cheque = pagamento.getChequeEmitido().getCheque();
 
 			pagamento.setChequeEmitido(null);
 			if (pagamento.getTipoPagamento().getTipo().equals("02")) {
@@ -421,10 +423,10 @@ protected void criarNovoBean() {
                                 if (pagamento.getChequeEmitido().getValor().compareTo(pagamento.getValorPago()) != 0) {
                                     throw new Exception("Valor cheque diferente do valor total!");
                                 }
-                                chequeEmitido.setCheque(cheque);
-                                chequeEmitidoDAO.save(chequeEmitido);
+                                //chequeEmitido.setCheque(cheque);
+                                //chequeEmitidoDAO.save(chequeEmitido);
 
-                                pagamento.setChequeEmitido(chequeEmitido);
+                                pagamento.setChequeEmitido(null);
                             } else {
                                 //valor do cheque nao informado
                                 throw new Exception("Informe o valor do cheque!");
@@ -469,12 +471,37 @@ protected void criarNovoBean() {
 		ParcelaPagamento parcelaPagamento = parcela;
 		String tipoBaixa = ((TipoBaixaEn) subView.getCbTipoBaixa().getValue()).getKey();
 		if (parcelaPagamento.getChequeEmitido() != null) {
+			
+			//-------
+            if (parcelaPagamento.getChequeEmitido().getCheque() != null) {
+                if (parcelaPagamento.getChequeEmitido().getCheque().getNumero() != null) {
+                    if (parcelaPagamento.getChequeEmitido().getValor() != null) {
+                        if (parcelaPagamento.getChequeEmitido().getValor().compareTo(parcelaPagamento.getValorPago()) != 0) {
+                            throw new Exception("Valor cheque diferente do valor total!");
+                        }
+                        //chequeEmitido.setCheque(cheque);
+                        //session.save(chequeEmitido);
+
+                        parcelaPagamento.setChequeEmitido(null);
+                    } else {
+                        //valor do cheque nao informado
+                        throw new Exception("Informe o valor do cheque!");
+                    }
+                } else {
+                    //numero do cheque nao informado
+                    throw new Exception("Numero do cheque inválido!");
+                }
+            }
+    } else {
+        //tipo pagamento nÃ£o Ã© cheque
+    	parcelaPagamento.setChequeEmitido(null);
+    }
+			
 			// session.save(parcelaPagamento.getFinChequeEmitido());
 			// ChequeVO cheque =
 			// parcelaPagamento.getFinChequeEmitido().getCheque();
 			// cheque.setStatusCheque("U");
 			// session.update(cheque);
-		}
 
 		parcelaPagamentoDAO.save(parcelaPagamento);
 

@@ -8,10 +8,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.hibernate.search.annotations.Analyzer;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 
 @Entity
 @Table(name = "CENTRO_RESULTADO")
@@ -19,17 +26,22 @@ public class CentroResultado extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "centro_resultado_id_seq")
+	@SequenceGenerator(name = "centro_resultado_id_seq", sequenceName = "centro_resultado_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID", nullable = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Column(name = "CLASSIFICACAO")
 	@Caption(value = "Classificação")
+	@NotNull(message = "Classificação é Obrigatório!")
 	private String classificacao;
 	
 	@Column(name = "DESCRICAO")
 	@Caption(value = "Descrição")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao;
 	
 	@Column(name = "SOFRE_RATEIO")
@@ -39,6 +51,7 @@ public class CentroResultado extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_PLANO_CENTRO_RESULTADO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption(value = "Plano Centro Resultado")
+	@NotNull(message = "Plano Centro Resultado é Obrigatório!")
 	private PlanoCentroResultado planoCentroResultado;
 
 	public CentroResultado() {
@@ -81,25 +94,31 @@ public class CentroResultado extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (id != null ? id.hashCode() : 0);
-		return hash;
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
 
-	@Override
-	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are
-		// not set
-		if (!(object instanceof CentroResultado)) {
-			return false;
-		}
-		CentroResultado other = (CentroResultado) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-			return false;
-		}
-		return true;
-	}
+        if (!(obj instanceof CentroResultado)) {
+            return false;
+        }
+
+        CentroResultado that = (CentroResultado) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 	/**
 	 * @return the planoCentroResultado

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.PlanoCentroResultado;
 import dc.servicos.dao.financeiro.PlanoCentroResultadoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -28,7 +29,7 @@ public class PlanoCentroResultadoListController extends CRUDListController<Plano
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "mascara" };
+		return new String[] {"nome", "mascara","niveis","dataInclusao" };
 	}
 
 	@Override
@@ -55,7 +56,7 @@ public class PlanoCentroResultadoListController extends CRUDListController<Plano
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
-		return "listaPlanoCentroResultados";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

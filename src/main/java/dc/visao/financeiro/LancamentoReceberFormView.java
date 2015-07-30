@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.vaadin.addons.maskedtextfield.NumericField;
@@ -14,7 +13,6 @@ import org.vaadin.addons.maskedtextfield.NumericField;
 import com.vaadin.data.Container;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.data.util.converter.Converter;
 import com.vaadin.server.FileDownloader;
 import com.vaadin.server.StreamResource;
 import com.vaadin.server.StreamResource.StreamSource;
@@ -35,7 +33,6 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.control.enums.TipoVencimentoEn;
 import dc.controller.financeiro.LancamentoReceberFormController;
-import dc.entidade.financeiro.CentroResultado;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.DocumentoOrigem;
 import dc.entidade.financeiro.LancamentoReceber;
@@ -45,7 +42,7 @@ import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.SubFormComponent;
-import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.component.manytoonecombo.ManyToOneComboField;
 import dc.visao.framework.util.ComponentUtil;
 
 public class LancamentoReceberFormView extends CustomComponent {
@@ -61,15 +58,15 @@ public class LancamentoReceberFormView extends CustomComponent {
 
 	private VerticalLayout mainLayout;
 
-	private ManyToOneCombo<DocumentoOrigem> cbDocumentoOrigem;
-	private ManyToOneCombo<ContaCaixa> cbContaCaixa;
-	private ManyToOneCombo<ClienteEntity> cbCliente;
+	private ManyToOneComboField<DocumentoOrigem> cbDocumentoOrigem;
+	private ManyToOneComboField<ContaCaixa> cbContaCaixa;
+	private ManyToOneComboField<ClienteEntity> cbCliente;
 
 	private PopupDateField dtLancamento;
 	private PopupDateField dtPrimeiroVencimento;
 
 	private TextField txNumeroDocumento;
-	private TextField txValorTotal, txTaxaJuro, txValorJuro, txTaxaMulta, txValorMulta, txTaxaDesconto, txValorDesconto;
+	private TextField txValorTotal;
 	private TextField txValorReceber;
 	private TextField txTaxaComissao;
 	private TextField txValorComissao;
@@ -140,11 +137,11 @@ public class LancamentoReceberFormView extends CustomComponent {
 		fields.setRows(8);
 		fields.setColumns(8);
 
-		cbCliente = new ManyToOneCombo<>();
+		cbCliente = new ManyToOneComboField<>(ClienteEntity.class);
 		fields.addComponent(cbCliente, 0, 0, 1, 0);
 		cbCliente.setCaption("Cliente");
 
-		cbDocumentoOrigem = new ManyToOneCombo<>();
+		cbDocumentoOrigem = new ManyToOneComboField<>(DocumentoOrigem.class);
 		cbDocumentoOrigem.setCaption("Documento Origem");
 		fields.addComponent(cbDocumentoOrigem, 0, 1, 1, 1);
 
@@ -166,11 +163,11 @@ public class LancamentoReceberFormView extends CustomComponent {
 		txValorComissao = ComponentUtil.buildCurrencyField("Valor Comissão");
 		fields.addComponent(txValorComissao, 4, 2);
 		
-		txTaxaJuro = ComponentUtil.buildPercentageField("Taxa Juro");
+		/*txTaxaJuro = ComponentUtil.buildPercentageField("Taxa Juro");
 		fields.addComponent(txTaxaJuro, 5, 2);
 		
 		txValorJuro = ComponentUtil.buildCurrencyField("Valor Juro");
-		fields.addComponent(txValorJuro, 6, 2);
+		fields.addComponent(txValorJuro, 6, 2);*/
 
 		dtPrimeiroVencimento = ComponentUtil
 				.buildPopupDateField("Primeiro Vencimento");
@@ -189,7 +186,7 @@ public class LancamentoReceberFormView extends CustomComponent {
 		fields.addComponent(txIntervaloParcela, 3, 3);
 		txIntervaloParcela.setConverter(new IntegerConverter());
 		
-		txTaxaMulta = ComponentUtil.buildPercentageField("Taxa Multa");
+		/*txTaxaMulta = ComponentUtil.buildPercentageField("Taxa Multa");
 		fields.addComponent(txTaxaMulta, 4, 3);
 		
 		txValorMulta = ComponentUtil.buildCurrencyField("Valor Multa");
@@ -199,9 +196,9 @@ public class LancamentoReceberFormView extends CustomComponent {
 		fields.addComponent(txTaxaDesconto, 6, 3);
 		
 		txValorDesconto = ComponentUtil.buildCurrencyField("Valor Desconto");
-		fields.addComponent(txValorDesconto, 7, 3);
+		fields.addComponent(txValorDesconto, 7, 3);*/
 
-		cbContaCaixa = new ManyToOneCombo<>();
+		cbContaCaixa = new ManyToOneComboField<>(ContaCaixa.class);
 		cbContaCaixa.setCaption("Conta Caixa");
 		fields.addComponent(cbContaCaixa, 0, 4, 1, 4);
 
@@ -621,12 +618,12 @@ public class LancamentoReceberFormView extends CustomComponent {
 		txValorTotal.setConvertedValue(currentBean.getValorTotal());
 	}
 
-	public ManyToOneCombo<DocumentoOrigem> getCbDocumentoOrigem() {
+	public ManyToOneComboField<DocumentoOrigem> getCbDocumentoOrigem() {
 		return cbDocumentoOrigem;
 	}
 
 	public void setCbDocumentoOrigem(
-			ManyToOneCombo<DocumentoOrigem> cbDocumentoOrigem) {
+			ManyToOneComboField<DocumentoOrigem> cbDocumentoOrigem) {
 		this.cbDocumentoOrigem = cbDocumentoOrigem;
 	}
 
@@ -704,19 +701,19 @@ public class LancamentoReceberFormView extends CustomComponent {
 		this.btnGerarParcelas = btnGerarParcelas;
 	}
 
-	public ManyToOneCombo<ContaCaixa> getCbContaCaixa() {
+	public ManyToOneComboField<ContaCaixa> getCbContaCaixa() {
 		return cbContaCaixa;
 	}
 
-	public void setCbContaCaixa(ManyToOneCombo<ContaCaixa> cbContaCaixa) {
+	public void setCbContaCaixa(ManyToOneComboField<ContaCaixa> cbContaCaixa) {
 		this.cbContaCaixa = cbContaCaixa;
 	}
 
-	public ManyToOneCombo<ClienteEntity> getCbCliente() {
+	public ManyToOneComboField<ClienteEntity> getCbCliente() {
 		return cbCliente;
 	}
 
-	public void setCbCliente(ManyToOneCombo<ClienteEntity> cbCliente) {
+	public void setCbCliente(ManyToOneComboField<ClienteEntity> cbCliente) {
 		this.cbCliente = cbCliente;
 	}
 
@@ -768,52 +765,4 @@ public class LancamentoReceberFormView extends CustomComponent {
 		this.btnGerarBoleto = btnGerarBoleto;
 	}
 
-	public TextField getTxTaxaJuro() {
-		return txTaxaJuro;
-	}
-
-	public void setTxTaxaJuro(TextField txTaxaJuro) {
-		this.txTaxaJuro = txTaxaJuro;
-	}
-
-	public TextField getTxValorJuro() {
-		return txValorJuro;
-	}
-
-	public void setTxValorJuro(TextField txValorJuro) {
-		this.txValorJuro = txValorJuro;
-	}
-
-	public TextField getTxTaxaMulta() {
-		return txTaxaMulta;
-	}
-
-	public void setTxTaxaMulta(TextField txTaxaMulta) {
-		this.txTaxaMulta = txTaxaMulta;
-	}
-
-	public TextField getTxValorMulta() {
-		return txValorMulta;
-	}
-
-	public void setTxValorMulta(TextField txValorMulta) {
-		this.txValorMulta = txValorMulta;
-	}
-
-	public TextField getTxTaxaDesconto() {
-		return txTaxaDesconto;
-	}
-
-	public void setTxTaxaDesconto(TextField txTaxaDesconto) {
-		this.txTaxaDesconto = txTaxaDesconto;
-	}
-
-	public TextField getTxValorDesconto() {
-		return txValorDesconto;
-	}
-
-	public void setTxValorDesconto(TextField txValorDesconto) {
-		this.txValorDesconto = txValorDesconto;
-	}
-	
 }

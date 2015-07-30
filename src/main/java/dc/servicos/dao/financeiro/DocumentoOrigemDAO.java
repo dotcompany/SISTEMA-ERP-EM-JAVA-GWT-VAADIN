@@ -36,7 +36,7 @@ public class DocumentoOrigemDAO extends AbstractCrudDAO<DocumentoOrigem>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"descricao"};
+		return new String[] {"codigo","siglaDocumento","descricao"};
 	}
 	
 }

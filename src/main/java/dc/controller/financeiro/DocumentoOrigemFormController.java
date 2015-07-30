@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.DocumentoOrigem;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
-import dc.servicos.util.Validator;
 import dc.visao.financeiro.DocumentoOrigemFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -44,34 +46,44 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 
 	@Override
 	protected void actionSalvar() {
-		subView.preencheBean(currentBean);
 		try {
 			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 			documentoorigemDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = documentoorigemDAO.find(id);
-		subView.preencheForm(currentBean);
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
-
+		try {
+			currentBean = documentoorigemDAO.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new DocumentoOrigemFormView();
+        try {
+			
+			subView = new DocumentoOrigemFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(DocumentoOrigem.class);
+
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTxtCodigo(),"codigo");
+	        fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+	        fieldGroup.bind(this.subView.getTxtSiglaDocumento(),"siglaDocumento");
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 
 	}
 
@@ -81,46 +93,62 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new DocumentoOrigem();
+		try {
+	        this.currentBean = new DocumentoOrigem();
+
+	        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        mensagemErro(e.getMessage());
+	    }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		documentoorigemDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
-	}
+		try {
+			//this.business.deleteAll(ids);
+			this.documentoorigemDAO.deleteAll(ids);
 
-	@Override
-	protected boolean validaSalvar() {
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
-			valido = false;
+			mensagemErro(e.getMessage());
 		}
-
-		if (!Validator.validateString(subView.getTxtCodigo().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtCodigo(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxtSiglaDocumento().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtSiglaDocumento(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected boolean validaSalvar() {
+		try {
+			 // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+			return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
+		}
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return "documentoorigemForm";
+		return ClassUtils.getUrl(this);
+	}
+	
+	@Override
+	public boolean isFullSized() {
+		return true;
 	}
 
 	@Override

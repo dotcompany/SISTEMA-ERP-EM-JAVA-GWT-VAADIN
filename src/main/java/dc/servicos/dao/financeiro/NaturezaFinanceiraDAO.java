@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.entidade.financeiro.NaturezaFinanceira;
-import dc.entidade.ordemservico.OrcamentoOsEntity;
-import dc.entidade.ordemservico.OrcamentoOsItemEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 

@@ -27,16 +27,16 @@ public class ParcelaPagamentoDAO extends AbstractCrudDAO<ParcelaPagamento> {
 	}
 	
 	@Transactional
-	public List<ParcelaPagamento> buscaPorParcelaPagar(ParcelaPagar currentBean){
+	public List<ParcelaPagamento> buscaPorParcelaPagar(ParcelaPagar parcelaPagar){
 		 Session session = getSession();
          Criteria criteria = session.createCriteria(ParcelaPagamento.class);
-         criteria.add(Restrictions.eq("parcelaPagamento", currentBean));
+         criteria.add(Restrictions.eq("parcelaPagar", parcelaPagar));
 
          List<ParcelaPagamento> parcelaPagamentos = criteria.list();
          
          return parcelaPagamentos;
 	}
-
+	
 	@Override
 	protected String[] getDefaultSearchFields() {
 

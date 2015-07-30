@@ -7,17 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.ConfiguracaoBoleto;
-import dc.entidade.financeiro.ContaCaixa;
 import dc.servicos.dao.financeiro.ConfiguracaoBoletoDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
-import dc.servicos.util.Validator;
 import dc.visao.financeiro.ConfiguracaoBoletoFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
@@ -50,127 +48,106 @@ public class ConfiguracaoBoletoFormController extends CRUDFormController<Configu
 
 	@Override
 	protected void actionSalvar() {
-		subView.preencheBean(currentBean);
 		try {
-			currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+			subView.preencheBean(currentBean);
 			configuracaoBoletoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			 mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = configuracaoBoletoDAO.find(id);
-		subView.preencheForm(currentBean);
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padr�o
-	 */
-	@Override
-	protected void quandoNovo() {
-
+		
+		try {
+			currentBean = configuracaoBoletoDAO.find(id);
+			
+			// Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		} catch (Exception e) {
+		      e.printStackTrace();
+		}
+		
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new ConfiguracaoBoletoFormView();
-
-		DefaultManyToOneComboModel<ContaCaixa> contaCaixaModel = new DefaultManyToOneComboModel<ContaCaixa>(ContaCaixaListController.class,
-				this.contaCaixaDAO, super.getMainController());
-
-		this.subView.getCbContaCaixa().setModel(contaCaixaModel);
-
+		
+		try {
+			subView = new ConfiguracaoBoletoFormView();
+			
+			this.fieldGroup = new DCFieldGroup<>(ConfiguracaoBoleto.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getTxMensagem(),"mensagem");
+			fieldGroup.bind(this.subView.getTxInstrucao01(),"instrucao01");
+			fieldGroup.bind(this.subView.getCbContaCaixa(),"contaCaixa");
+			
+			this.subView.getCbContaCaixa().configuraCombo(
+					"nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	/*
 	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
 	 * formulario.
 	 */
-	@Override
-	protected void criarNovoBean() {
-		currentBean = new ConfiguracaoBoleto();
-	}
+@Override
+protected void criarNovoBean() {
+		
+	try {
+        this.currentBean = new ConfiguracaoBoleto();
 
-	@Override
-	protected void remover(List<Serializable> ids) {
-		configuracaoBoletoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
-	}
+        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+        fieldGroup.setItemDataSource(this.currentBean);
 
-	@Override
-	protected boolean validaSalvar() {
+    } catch (Exception e) {
+        e.printStackTrace();
+        mensagemErro(e.getMessage());
+    }
+}
 
-		boolean valido = true;
+@Override
+protected void remover(List<Serializable> ids) {
+		
+	 try {
+            this.configuracaoBoletoDAO.deleteAll(ids);
 
-		if (!Validator.validateObject(subView.getCbContaCaixa().getValue())) {
-			adicionarErroDeValidacao(subView.getCbContaCaixa(), "Não pode ficar em branco");
-			valido = false;
-		}
+            mensagemRemovidoOK();
+        } catch (Exception e) {
+            e.printStackTrace();
 
-		if (!Validator.validateObject(subView.getCbAceite().getValue())) {
-			adicionarErroDeValidacao(subView.getCbAceite(), "Não pode ficar em branco");
-			valido = false;
-		}
+            mensagemErro(e.getMessage());
+        }
+}
 
-		if (!Validator.validateObject(subView.getCbEspecie().getValue())) {
-			adicionarErroDeValidacao(subView.getCbEspecie(), "Não pode ficar em branco");
-			valido = false;
-		}
+@Override
+protected boolean validaSalvar() {
 
-		if (!Validator.validateObject(subView.getCbLayoutRemessa().getValue())) {
-			adicionarErroDeValidacao(subView.getCbLayoutRemessa(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxCarteira().getValue())) {
-			adicionarErroDeValidacao(subView.getTxCarteira(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxCodigoCedente().getValue())) {
-			adicionarErroDeValidacao(subView.getTxCodigoCedente(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxCodigoConvenio().getValue())) {
-			adicionarErroDeValidacao(subView.getTxCodigoConvenio(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxInstrucao01().getValue())) {
-			adicionarErroDeValidacao(subView.getTxInstrucao01(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxInstrucao02().getValue())) {
-			adicionarErroDeValidacao(subView.getTxInstrucao02(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxLocalPagamento().getValue())) {
-			adicionarErroDeValidacao(subView.getTxLocalPagamento(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxMensagem().getValue())) {
-			adicionarErroDeValidacao(subView.getTxMensagem(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateNumber(subView.getTxTaxaMulta().getValue())) {
-			adicionarErroDeValidacao(subView.getTxTaxaMulta(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
-	}
+	try {
+       // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+        fieldGroup.commit();
+        return true;
+    } catch (FieldGroup.CommitException ce) {
+        return false;
+    }
+}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		try {
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            mensagemErro(e.getMessage());
+        }
 	}
 
 	@Override

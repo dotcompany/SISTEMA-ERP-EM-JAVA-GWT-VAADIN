@@ -19,7 +19,7 @@ public class ContabilContaDAO extends AbstractCrudDAO<ContabilContaEntity> {
 
 	@Override
 	protected String[] getDefaultSearchFields() {
-		return null;
+		return new String []{"classificacao"};
 	}
 	@Transactional
 	public List<ContabilContaEntity> listaTodos() {

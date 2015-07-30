@@ -1,22 +1,21 @@
 package dc.controller.financeiro;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.Adiantamento;
-import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.servicos.dao.financeiro.AdiantamentoDAO;
 import dc.servicos.dao.financeiro.LancamentoPagarDAO;
-import dc.servicos.util.Validator;
 import dc.visao.financeiro.AdiantamentoFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
 /** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
@@ -59,46 +58,47 @@ public class AdiantamentoFormController extends CRUDFormController<Adiantamento>
 	@Override
 	protected void actionSalvar() {
 
-		subView.preencheAdiantamento(currentBean);
-
 		try {
 			adiantamentoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-
-		currentBean = adiantamentoDAO.find(id);
-		subView.preencheAdiantamentoForm(currentBean);
-
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
+		try {
+			currentBean = adiantamentoDAO.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	protected void initSubView() {
-		this.subView = new AdiantamentoFormView();
+		
+		try {
+			
+			subView = new AdiantamentoFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(Adiantamento.class);
 
-		DefaultManyToOneComboModel<LancamentoPagarEntity> modelBanco = new DefaultManyToOneComboModel<LancamentoPagarEntity>(LancamentoPagarListController.class,
-				this.lancamentoPagarDAO, super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "valorTotal";
-			}
-		};
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getDtAdiantamento(),"dataAdiantamento");
+	        fieldGroup.bind(this.subView.getTxtObservacoes(),"observacoes");
+	        fieldGroup.bind(this.subView.getCmbLancamentoPagar(),"idLancamentoPagar");
+	        
+	        this.subView.getCmbLancamentoPagar().configuraCombo(
+	        		"fornecedor.pessoa.nome", LancamentoPagarListController.class, this.lancamentoPagarDAO, this.getMainController());
 
-		this.subView.getCmbLancamentoPagar().setModel(modelBanco);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 
 	}
 
@@ -108,59 +108,57 @@ public class AdiantamentoFormController extends CRUDFormController<Adiantamento>
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Adiantamento();
+		try {
+	        this.currentBean = new Adiantamento();
+
+	        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        mensagemErro(e.getMessage());
+	    }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		adiantamentoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			//this.business.deleteAll(ids);
+			this.adiantamentoDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = validaCampos();
-
-		return valido;
-	}
-
-	private boolean validaCampos() {
-
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtObservacoes().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtObservacoes(), "Não pode ficar em branco");
-			valido = false;
+		try {
+			 // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+			return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
-
-		LancamentoPagarEntity lancamentoPagar = (LancamentoPagarEntity) subView.getCmbLancamentoPagar().getValue();
-		if (!Validator.validateObject(lancamentoPagar)) {
-			adicionarErroDeValidacao(subView.getCmbLancamentoPagar(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		Date dataAdiantamento = (Date) subView.getDtAdiantamento().getValue();
-		if (!Validator.validateObject(dataAdiantamento)) {
-			adicionarErroDeValidacao(subView.getDtAdiantamento(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateNumber(subView.getTxtValor().getConvertedValue().toString())) {
-			adicionarErroDeValidacao(subView.getTxtValor(), "Número inválido");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	public String getViewIdentifier() {
-		return "adiantamentoBancoForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override

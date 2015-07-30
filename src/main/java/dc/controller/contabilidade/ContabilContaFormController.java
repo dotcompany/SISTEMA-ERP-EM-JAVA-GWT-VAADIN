@@ -206,12 +206,6 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 			valido = false;
 		}
 		
-		if (!Validator.validateObject(subView.getCbContabilContaPai().getValue())) {
-			adicionarErroDeValidacao(subView.getCbContabilContaPai(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
 		return valido;
 	}
 

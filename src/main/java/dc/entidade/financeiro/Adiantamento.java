@@ -13,9 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -29,6 +31,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 
 /**
  * 
@@ -52,15 +55,19 @@ public class Adiantamento extends AbstractMultiEmpresaModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "adiantamento_id_seq")
+	@SequenceGenerator(name = "adiantamento_id_seq", sequenceName = "adiantamento_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
-	@Caption("Data_Adiantamento")
+	@Caption("Data Adiantamento")
 	@Column(name = "DATA_ADIANTAMENTO")
 	@Temporal(TemporalType.DATE)
+	@NotNull(message = "Data Adiantamento é Obrigatório!")
 	private Date dataAdiantamento;
 
 	@Field
@@ -74,10 +81,13 @@ public class Adiantamento extends AbstractMultiEmpresaModel<Integer> implements
 	@Type(type = "text")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "OBSERVACOES")
+	@NotNull(message = "Observações é Obrigatório!")
 	private String observacoes;
 
+	@Caption("Lançamento Pagar")
 	@JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
+	@NotNull(message = "Lançamento Pagar é Obrigatório!")
 	private LancamentoPagarEntity idLancamentoPagar;
 
 	/**
@@ -133,19 +143,31 @@ public class Adiantamento extends AbstractMultiEmpresaModel<Integer> implements
 	}
 
 	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
 
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof Adiantamento == false)
-			return false;
-		if (this == object)
-			return true;
-		final Adiantamento other = (Adiantamento) object;
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
+        if (!(obj instanceof Adiantamento)) {
+            return false;
+        }
+
+        Adiantamento that = (Adiantamento) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 	@Override
 	public String toString() {
