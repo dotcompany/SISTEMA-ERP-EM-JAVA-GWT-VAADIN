@@ -67,13 +67,13 @@ public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "DATA_PAGAMENTO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Data Pagamento é Obrigatório!")
+	//@NotNull(message = "Data Pagamento é Obrigatório!")
 	private Date dataPagamento;
 
 	@Column(name = "TAXA_JURO")
 	@Field
 	@Caption("Taxa Juro")
-	@NotNull(message = "Taxa Juro é Obrigatório!")
+	//@NotNull(message = "Taxa Juro é Obrigatório!")
 	private BigDecimal taxaJuro;
 
 	@Column(name = "TAXA_MULTA")
@@ -130,7 +130,7 @@ public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Conta Caixa")
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	@NotNull(message = "Conta Caixa é Obrigatório!")
+	//@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;
 
 	public ParcelaPagamento() {

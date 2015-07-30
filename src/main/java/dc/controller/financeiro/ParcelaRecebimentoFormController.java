@@ -387,11 +387,13 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 				BigDecimal valorJuro = BigDecimal.ZERO;
 				BigDecimal valorMulta = BigDecimal.ZERO;
 				BigDecimal valorDesconto = BigDecimal.ZERO;
-				if (pagamento.getTaxaJuro() != null && pagamento.getDataRecebimento() != null) {
+				if (subView.getTxTaxaJuro().equals(pagamento.getTaxaJuro() != null) && subView.getDtDataRecebimento().equals(pagamento.getDataRecebimento() != null)) {
+					
 					Calendar dataRecebimento = Calendar.getInstance();
 					dataRecebimento.setTime(pagamento.getDataRecebimento());
 					Calendar dataVencimento = Calendar.getInstance();
 					dataVencimento.setTime(pagamento.getParcelaReceber().getDataVencimento());
+					
 					if (dataVencimento.before(dataRecebimento)) {
 						long diasAtraso = (dataRecebimento.getTimeInMillis() - dataVencimento.getTimeInMillis()) / 86400000l;
 
@@ -401,20 +403,20 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 				}
 				pagamento.setValorJuro(valorJuro);
 
-				if (pagamento.getTaxaMulta() != null) {
+				if (subView.getTxTaxaMulta().equals(pagamento.getTaxaMulta() != null)) {
 					
 					//subView.getTxValorMulta().setConvertedValue(pagamento.getParcelaReceber().getValor().multiply(pagamento.getTaxaMulta()).divide(
 					//		BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
 					//valorMulta = pagamento.getValorMulta();
 					
-					pagamento.setValorMulta(((pagamento.getParcelaReceber().getValor()).multiply(pagamento.getTaxaMulta()))
+					pagamento.setValorMulta(pagamento.getParcelaReceber().getValor().multiply(pagamento.getTaxaMulta())
 							.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
 					valorMulta = pagamento.getValorMulta();
 				} else {
 					pagamento.setValorMulta(valorMulta);
 				}
 
-				if (pagamento.getTaxaDesconto() != null) {
+				if (subView.getTxTaxaDesconto().equals(pagamento.getTaxaDesconto() != null)) {
 					pagamento.setValorDesconto(pagamento.getParcelaReceber().getValor().multiply(pagamento.getTaxaDesconto())
 							.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
 					valorDesconto = pagamento.getValorDesconto();
@@ -425,7 +427,7 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 				//pagamento.setValorRecebido(pagamento.getValorRecebido().add(valorJuro).add(valorMulta).subtract(valorDesconto));
 				
 				////// ERRO AKI abaixo ///////////
-				pagamento.setValorRecebido(pagamento.getValorRecebido().add(valorJuro).add(valorMulta).subtract(valorDesconto));
+				//pagamento.setValorRecebido(pagamento.getValorRecebido().add(valorJuro).add(valorMulta).subtract(valorDesconto));
 				//pagamento.setValorRecebido(pagamento.getValorRecebido().add(pagamento.getValorJuro()).add(pagamento.getValorMulta()).subtract(pagamento.getValorDesconto()));
 
 				subView.preencheForm(currentBean);

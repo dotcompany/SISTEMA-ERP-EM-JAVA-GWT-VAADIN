@@ -71,7 +71,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Data Pagamento é Obrigatório!")
+	//@NotNull(message = "Data Pagamento é Obrigatório!")
 	private Date dataEmissao;
 
 	@Caption(value = "Data Vencimento")
@@ -155,7 +155,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Conta Caixa")
 	@JoinColumn(name = "id_conta_caixa", referencedColumnName = "id")
 	@ManyToOne(fetch = FetchType.EAGER)
-	@NotNull(message = "Conta Caixa é Obrigatório!")
+	//@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;
 
 	@OneToMany(mappedBy = "parcelaPagar", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)

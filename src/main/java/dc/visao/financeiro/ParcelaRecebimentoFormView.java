@@ -316,20 +316,20 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 	}
 
 	public void preencheForm(ParcelaRecebimento currentBean) {
-		dtDataVencimento.setValue(currentBean.getParcelaReceber().getDataVencimento());
+		//dtDataVencimento.setValue(currentBean.getParcelaReceber().getDataVencimento());
 		dtDataRecebimento.setValue(currentBean.getDataRecebimento());
-		txValorReceber.setConvertedValue(currentBean.getParcelaReceber().getValor());
+		//txValorReceber.setConvertedValue(currentBean.getParcelaReceber().getValor());
 		cbContaCaixa.setValue(currentBean.getContaCaixa());
 		if (currentBean.getTipoRecebimento() != null) {
 			cbTipoRecebimento.setValue(currentBean.getTipoRecebimento());
 		}
 		txTaxaJuro.setConvertedValue(currentBean.getTaxaJuro());
-		txValorJuro.setConvertedValue(currentBean.getValorJuro());
+		//txValorJuro.setConvertedValue(currentBean.getValorJuro());
 		txTaxaMulta.setConvertedValue(currentBean.getTaxaMulta());
-		txValorMulta.setConvertedValue(currentBean.getValorMulta());
+		//txValorMulta.setConvertedValue(currentBean.getValorMulta());
 		txTaxaDesconto.setConvertedValue(currentBean.getTaxaDesconto());
-		txValorDesconto.setConvertedValue(currentBean.getValorDesconto());
-		txValorRecebido.setConvertedValue(currentBean.getValorRecebido());
+		//txValorDesconto.setConvertedValue(currentBean.getValorDesconto());
+		//txValorRecebido.setConvertedValue(currentBean.getValorRecebido());
 		txaHistorico.setValue(currentBean.getHistorico());
 
 	}
