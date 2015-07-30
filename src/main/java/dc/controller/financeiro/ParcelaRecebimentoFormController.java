@@ -125,7 +125,7 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 					break;
 				case T:
 					subView.getTxValorRecebido().setEnabled(false);
-					new CalculaTotalRecebidoBlurListener();
+					calculaTotalRecebido();
 					break;
 
 				default:
@@ -162,10 +162,11 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 		preencheCombos();
 		subView.preencheForm(currentBean);
 		subView.fillParcelaRecebimentosSubForm(parcelaRecebimentoDAO.buscaPorParcelaReceber(parcelaReceber));
-		new CalculaTotalRecebidoBlurListener();
+		calculaTotalRecebido();
 	}
 
 	private void preencheCombos() {
+		subView.preencheComboTipoBaixa();
 		DefaultManyToOneComboModel<ContaCaixa> model1 = new DefaultManyToOneComboModel<ContaCaixa>(ContaCaixaListController.class,
 				this.contaCaixaDAO, super.getMainController());
 
@@ -230,7 +231,7 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 		return true;
 	}
 
-	/*public void calculaTotalRecebido() {
+	public void calculaTotalRecebido() {
 		subView.preencheBean(currentBean);
 		ParcelaRecebimento pagamento = currentBean;
 		BigDecimal valorJuro = BigDecimal.ZERO;
@@ -251,12 +252,7 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 		pagamento.setValorJuro(valorJuro);
 
 		if (pagamento.getTaxaMulta() != null) {
-			
-			//subView.getTxValorMulta().setConvertedValue(pagamento.getParcelaReceber().getValor().multiply(pagamento.getTaxaMulta()).divide(
-			//		BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
-			//valorMulta = pagamento.getValorMulta();
-			
-			pagamento.setValorMulta(((pagamento.getParcelaReceber().getValor()).multiply(pagamento.getTaxaMulta()))
+			pagamento.setValorMulta(pagamento.getParcelaReceber().getValor().multiply(pagamento.getTaxaMulta())
 					.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
 			valorMulta = pagamento.getValorMulta();
 		} else {
@@ -271,11 +267,10 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 			pagamento.setValorDesconto(valorDesconto);
 		}
 
-		//pagamento.setValorRecebido(pagamento.getValorRecebido().add(valorJuro).add(valorMulta).subtract(valorDesconto));
-		pagamento.setValorRecebido(pagamento.getValorRecebido().add(pagamento.getValorJuro()).add(pagamento.getValorMulta()).subtract(pagamento.getValorDesconto()));
+		pagamento.setValorRecebido(pagamento.getValorRecebido().add(valorJuro).add(valorMulta).subtract(valorDesconto));
 
 		subView.preencheForm(currentBean);
-	}*/
+	}
 
 	private BigDecimal calculaJuros(ParcelaRecebimento pagamento, long diasAtraso) {
 		// valorJuro = valor * ((taxaJuro / 30) / 100) * diasAtraso
@@ -288,7 +283,7 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 	public void efetuaRecebimento() {
 
 		if (validaSalvar()) {
-			new CalculaTotalRecebidoBlurListener();
+			calculaTotalRecebido();
 			ParcelaRecebimento pagamento = currentBean;
 			pagamento.setChequeRecebido(null);
 			if (pagamento.getTipoRecebimento().getTipo().equals("02")) {
@@ -299,8 +294,8 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 				// pagamento.setFinChequeEmitido(chequeGrid.getChequeEmitido());
 				// } else {
 				// JOptionPane.showMessageDialog(finParcelaRecebimentoDetalhe,
-				// "É necessário informar um cheque para este tipo de pagamento.",
-				// "Informação do Sistema", JOptionPane.ERROR_MESSAGE);
+				// "Ã‰ necessÃ¡rio informar um cheque para este tipo de pagamento.",
+				// "InformaÃ§Ã£o do Sistema", JOptionPane.ERROR_MESSAGE);
 				// return;
 				// }
 			}
@@ -332,13 +327,13 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 
 		StatusParcela statusParcela = null;
 		if ("T".equalsIgnoreCase(tipoBaixa)) {
-			statusParcela = statusParcelaDAO.findBySituacao("02");
+			statusParcela = statusParcelaDAO.findBySituacao("Quitado");
 		} else {
-			statusParcela = statusParcelaDAO.findBySituacao("03");
+			statusParcela = statusParcelaDAO.findBySituacao("Quitado Parcial");
 		}
 
 		if (statusParcela == null) {
-			throw new Exception("Status de parcela não cadastrado. Entre em contato com a Software House");
+			throw new Exception("Status de parcela nÃ£o cadastrado. Entre em contato com a Software House");
 		}
 
 		ParcelaReceber parcelaReceber = parcelaRecebimento.getParcelaReceber();
@@ -357,10 +352,10 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 		Collection<ParcelaRecebimento> deletedItens = new ArrayList<ParcelaRecebimento>();
 
 		for (ParcelaRecebimento parcelaRecebimento : selectedItens) {
-			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("01");
+			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("Em Aberto");
 
 			if (statusParcela == null) {
-				mensagemErro("Status de parcela não cadastrado. Entre em contato com a Software House");
+				mensagemErro("Status de parcela nÃ£o cadastrado. Entre em contato com a Software House");
 			} else {
 				ParcelaReceber parcelaReceber = parcelaRecebimento.getParcelaReceber();
 				parcelaReceber.setStatusParcela(statusParcela);
@@ -372,7 +367,7 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 		}
 
 		if (!deletedItens.isEmpty()) {
-			mensagemAtencao("Recebimento excluído com sucesso!");
+			mensagemAtencao("Recebimento excluÃ­do com sucesso!");
 			subView.getRecebimentosSubForm().removeItens(deletedItens);
 		}
 	}
@@ -382,54 +377,8 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 
 		@Override
 		public void blur(BlurEvent event) {
-				subView.preencheBean(currentBean);
-				ParcelaRecebimento pagamento = currentBean;
-				BigDecimal valorJuro = BigDecimal.ZERO;
-				BigDecimal valorMulta = BigDecimal.ZERO;
-				BigDecimal valorDesconto = BigDecimal.ZERO;
-				if (pagamento.getTaxaJuro() != null && pagamento.getDataRecebimento() != null) {
-					Calendar dataRecebimento = Calendar.getInstance();
-					dataRecebimento.setTime(pagamento.getDataRecebimento());
-					Calendar dataVencimento = Calendar.getInstance();
-					dataVencimento.setTime(pagamento.getParcelaReceber().getDataVencimento());
-					if (dataVencimento.before(dataRecebimento)) {
-						long diasAtraso = (dataRecebimento.getTimeInMillis() - dataVencimento.getTimeInMillis()) / 86400000l;
-
-						pagamento.setValorJuro(calculaJuros(pagamento, diasAtraso));
-						valorJuro = pagamento.getValorJuro();
-					}
-				}
-				pagamento.setValorJuro(valorJuro);
-
-				if (pagamento.getTaxaMulta() != null) {
-					
-					//subView.getTxValorMulta().setConvertedValue(pagamento.getParcelaReceber().getValor().multiply(pagamento.getTaxaMulta()).divide(
-					//		BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
-					//valorMulta = pagamento.getValorMulta();
-					
-					pagamento.setValorMulta(((pagamento.getParcelaReceber().getValor()).multiply(pagamento.getTaxaMulta()))
-							.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
-					valorMulta = pagamento.getValorMulta();
-				} else {
-					pagamento.setValorMulta(valorMulta);
-				}
-
-				if (pagamento.getTaxaDesconto() != null) {
-					pagamento.setValorDesconto(pagamento.getParcelaReceber().getValor().multiply(pagamento.getTaxaDesconto())
-							.divide(BigDecimal.valueOf(100), RoundingMode.HALF_DOWN));
-					valorDesconto = pagamento.getValorDesconto();
-				} else {
-					pagamento.setValorDesconto(valorDesconto);
-				}
-
-				//pagamento.setValorRecebido(pagamento.getValorRecebido().add(valorJuro).add(valorMulta).subtract(valorDesconto));
-				
-				////// ERRO AKI abaixo ///////////
-				pagamento.setValorRecebido(pagamento.getValorRecebido().add(valorJuro).add(valorMulta).subtract(valorDesconto));
-				//pagamento.setValorRecebido(pagamento.getValorRecebido().add(pagamento.getValorJuro()).add(pagamento.getValorMulta()).subtract(pagamento.getValorDesconto()));
-
-				subView.preencheForm(currentBean);
-			}
+			calculaTotalRecebido();
+		}
 	}
 
 	@Override

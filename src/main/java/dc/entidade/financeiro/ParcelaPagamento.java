@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +17,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -67,13 +67,13 @@ public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "DATA_PAGAMENTO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Data Pagamento é Obrigatório!")
+	//@NotNull(message = "Data Pagamento é Obrigatório!")
 	private Date dataPagamento;
 
 	@Column(name = "TAXA_JURO")
 	@Field
 	@Caption("Taxa Juro")
-	@NotNull(message = "Taxa Juro é Obrigatório!")
+	//@NotNull(message = "Taxa Juro é Obrigatório!")
 	private BigDecimal taxaJuro;
 
 	@Column(name = "TAXA_MULTA")
@@ -122,15 +122,16 @@ public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 	private ChequeEmitido chequeEmitido;
 
 	@Caption("Tipo Pagamento")
-	@JoinColumn(name = "ID_FIN_TIPO_PAGAMENTO", referencedColumnName = "ID")
-	@ManyToOne(fetch = FetchType.EAGER)
-	@NotNull(message = "Tipo Pagamento é Obrigatório!")
+	@JoinColumn(name = "ID_FIN_TIPO_PAGAMENTO", referencedColumnName = "ID", nullable = false)
+	//@ManyToOne(optional = false)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	//@NotNull(message = "Tipo Pagamento é Obrigatório!")
 	private TipoPagamento tipoPagamento;
 
 	@Caption("Conta Caixa")
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	@NotNull(message = "Conta Caixa é Obrigatório!")
+	//@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;
 
 	public ParcelaPagamento() {

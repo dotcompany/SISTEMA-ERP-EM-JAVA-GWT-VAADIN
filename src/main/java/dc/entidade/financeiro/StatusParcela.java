@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,7 +23,6 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
-import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 
 /**
@@ -48,12 +46,9 @@ public class StatusParcela extends AbstractMultiEmpresaModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "status_parcela_id_seq")
-	@SequenceGenerator(name = "status_parcela_id_seq", sequenceName = "status_parcela_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
-	@ComboCode
-	@Analyzer(definition = "dc_combo_analyzer")
+	@Column(name = "ID")
 	private Integer id;
 
 	@Column(name = "DESCRICAO")

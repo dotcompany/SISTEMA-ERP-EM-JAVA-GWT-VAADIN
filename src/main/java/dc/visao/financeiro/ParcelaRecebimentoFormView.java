@@ -126,10 +126,6 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 		mainLayout.addComponent(pagamentosSubForm);
 
 		mainLayout.setExpandRatio(pagamentosSubForm, 1.0f);
-		
-		for (TipoBaixaEn value : TipoBaixaEn.values()) {
-			cbTipoBaixa.addItem(value);
-		}
 
 		return mainLayout;
 	}
@@ -152,11 +148,13 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 
 		cbTipoRecebimento = new ManyToOneCombo<TipoRecebimento>();
 		cbTipoRecebimento.setCaption("Tipo Recebimento");
-		fields.addComponent(cbTipoRecebimento, 1, 1,2,1);
+		fields.addComponent(cbTipoRecebimento, 1, 1);
 
 		cbContaCaixa = new ManyToOneCombo<ContaCaixa>();
 		cbContaCaixa.setCaption("Conta Caixa");
-		fields.addComponent(cbContaCaixa, 3, 1);
+		cbContaCaixa.setHeight("-1px");
+		cbContaCaixa.setWidth("200px");
+		fields.addComponent(cbContaCaixa, 2, 1);
 		//
 
 		dtDataVencimento = ComponentUtil.buildPopupDateField("Data Vencimento");
@@ -165,7 +163,7 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 		dtDataRecebimento = ComponentUtil.buildPopupDateField("Data Recebimento");
 		fields.addComponent(dtDataRecebimento, 1, 2);
 
-		txValorReceber = ComponentUtil.buildCurrencyField("Valor à Receber");
+		txValorReceber = ComponentUtil.buildCurrencyField("Valor Ã  Receber");
 		fields.addComponent(txValorReceber, 2, 2);
 
 		txTaxaJuro = ComponentUtil.buildPercentageField("Taxa Juro");
@@ -190,7 +188,7 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 		txValorRecebido = ComponentUtil.buildCurrencyField("Valor Recebido");
 		fields.addComponent(txValorRecebido, 4, 3);
 
-		txaHistorico = ComponentUtil.buildTextArea("Histórico");
+		txaHistorico = ComponentUtil.buildTextArea("HistÃ³rico");
 		fields.addComponent(txaHistorico, 0, 4, 4, 5);
 
 		return fields;
@@ -220,7 +218,7 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 				"valorDesconto", "valorRecebido", "historico" };
 
 		String[] headers = new String[] { "Tipo Recebimento", "Data Recebimento", "Taxa Juro", "Valor Juro", "Taxa Multa", "Valor Multa",
-				"Taxa Desconto", "Valor Desconto", "Valor Recebido", "Histórico" };
+				"Taxa Desconto", "Valor Desconto", "Valor Recebido", "HistÃ³rico" };
 
 		this.pagamentosSubForm = new SubFormComponent<ParcelaRecebimento, Integer>(ParcelaRecebimento.class, atributos, headers) {
 
@@ -464,6 +462,50 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 
 	public void setBtnExcluiRecebimento(Button btnExcluiRecebimento) {
 		this.btnExcluiRecebimento = btnExcluiRecebimento;
+	}
+
+	public enum TipoBaixa {
+		TOTAL("Total", "T"), PARCIAL("Parcial", "P");
+
+		private TipoBaixa(String label, String codigo) {
+			this.label = label;
+			this.codigo = codigo;
+		}
+
+		private String label;
+		private String codigo;
+
+		public static TipoBaixa getSimNao(String codigo) {
+			for (TipoBaixa e : TipoBaixa.values()) {
+				if (e.getCodigo().equalsIgnoreCase(codigo)) {
+					return e;
+				}
+			}
+
+			return null;
+		}
+
+		public String getCodigo() {
+			return codigo;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		@Override
+		public String toString() {
+			return label;
+		}
+	}
+
+	public void preencheComboTipoBaixa() {
+		cbTipoBaixa.removeAllItems();
+
+		for (TipoBaixaEn value : TipoBaixaEn.values()) {
+			cbTipoBaixa.addItem(value);
+		}
+
 	}
 
 	public ManyToOneCombo<TipoRecebimento> getCbTipoRecebimento() {
