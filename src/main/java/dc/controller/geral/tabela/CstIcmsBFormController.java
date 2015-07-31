@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.CstIcmsbEntity;
 import dc.servicos.dao.geral.tabela.CstIcmsbDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CstIcmsBFormView;
 
@@ -44,10 +46,6 @@ public class CstIcmsBFormController extends CRUDFormController<CstIcmsbEntity> {
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setCodigo(subView.getTxtCodigo().getValue());
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-		currentBean.setObservacao(subView.getTxtObservacao().getValue());
-
 		try {
 			cstIcmsBDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -56,63 +54,88 @@ public class CstIcmsBFormController extends CRUDFormController<CstIcmsbEntity> {
 		}
 	}
 
-	@Override
-	protected void carregar(Serializable id) {
-		currentBean = cstIcmsBDAO.find(id);
-		subView.getTxtCodigo().setValue(currentBean.getCodigo());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
-		subView.getTxtObservacao().setValue(currentBean.getObservacao());
-	}
+@Override
+protected void carregar(Serializable id) {
+	 try {
+        this.currentBean = this.cstIcmsBDAO.find(id);
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
+        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+        fieldGroup.setItemDataSource(this.currentBean);
 
-	}
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
-	@Override
-	protected void initSubView() {
-		subView = new CstIcmsBFormView();
-	}
+@Override
+protected void initSubView() {
+	 try {
+       this.subView = new CstIcmsBFormView(this);
+
+        // Cria o DCFieldGroup
+        this.fieldGroup = new DCFieldGroup<>(CstIcmsbEntity.class);
+
+        // Mapeia os campos
+        fieldGroup.bind(this.subView.getTxtCodigo(),"codigo");
+        fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
 	/*
 	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
 	 * formulario.
 	 */
-	@Override
-	protected void criarNovoBean() {
-		currentBean = new CstIcmsbEntity();
-	}
+@Override
+protected void criarNovoBean() {
+	try {
+        this.currentBean = new CstIcmsbEntity();
 
-	@Override
-	protected void remover(List<Serializable> ids) {
-		cstIcmsBDAO.deleteAllByIds(ids);
+        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+        fieldGroup.setItemDataSource(this.currentBean);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        mensagemErro(e.getMessage());
+    }
+}
+
+@Override
+protected void remover(List<Serializable> ids) {
+	try {
+		//this.business.deleteAll(ids);
+		this.cstIcmsBDAO.deleteAll(ids);
+
 		mensagemRemovidoOK();
+	} catch (Exception e) {
+		e.printStackTrace();
+
+		mensagemErro(e.getMessage());
 	}
+}
 
-	/* Implementar validacao de campos antes de salvar. */
-	@Override
-	protected boolean validaSalvar() {
-		if (subView.getTxtDescricao().getValue() == null
-				|| subView.getTxtDescricao().getValue().isEmpty()) {
-			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
-			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em Branco!");
+@Override
+protected void removerEmCascata(List<Serializable> ids) {
 
-			return false;
-		}
+	try {
+	} catch (Exception e) {
+		e.printStackTrace();
 
+		mensagemErro(e.getMessage());
+	}
+}
+
+@Override
+protected boolean validaSalvar() {
+	try {
+		 // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+		fieldGroup.commit();
 		return true;
+	} catch (FieldGroup.CommitException ce) {
+	    return false;
 	}
-
-	@Override
-	protected void removerEmCascata(List<Serializable> ids) {
-
-	}
+}
 
 	@Override
 	public boolean isFullSized() {

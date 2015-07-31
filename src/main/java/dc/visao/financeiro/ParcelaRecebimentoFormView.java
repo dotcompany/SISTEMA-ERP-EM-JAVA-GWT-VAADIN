@@ -152,8 +152,7 @@ public class ParcelaRecebimentoFormView extends CustomComponent {
 
 		cbContaCaixa = new ManyToOneCombo<ContaCaixa>();
 		cbContaCaixa.setCaption("Conta Caixa");
-		cbContaCaixa.setHeight("-1px");
-		cbContaCaixa.setWidth("200px");
+		cbContaCaixa.setSizeFull();
 		fields.addComponent(cbContaCaixa, 2, 1);
 		//
 

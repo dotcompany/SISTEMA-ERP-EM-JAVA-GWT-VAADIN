@@ -300,7 +300,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		if (validaSalvar()) {
 			calculaTotalPago();
 			ParcelaPagamento pagamento = currentBean;
-			pagamento.setChequeEmitido(null);
+			System.out.println(pagamento.getChequeEmitido());
 			if (pagamento.getTipoPagamento().getTipo().equals("02")) {
 				// FinSelecionaChequeGrid chequeGrid = new
 				// FinSelecionaChequeGrid(MDIFrame.getInstance(), true, true);
@@ -381,7 +381,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 		}
 
 		if (!deletedItens.isEmpty()) {
-			mensagemAtencao("Pagamento excluÃ­do com sucesso!");
+			mensagemAtencao("Pagamento excluído com sucesso!");
 			subView.getPagamentosSubForm().removeItens(deletedItens);
 		}
 	}

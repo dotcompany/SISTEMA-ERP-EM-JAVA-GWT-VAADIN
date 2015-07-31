@@ -13,9 +13,11 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -61,6 +63,7 @@ public class IndiceEconomicoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Sigla")
+	@NotNull(message = "Sigla é Obrigatório!")
 	private String sigla;
 
 	@Field
@@ -68,6 +71,7 @@ public class IndiceEconomicoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Nome")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome;
 
 	@Lob
@@ -76,6 +80,7 @@ public class IndiceEconomicoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Descrição")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao;
 
 	/**
@@ -85,7 +90,6 @@ public class IndiceEconomicoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_pais", nullable = false)
 	@Caption("País")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private PaisEntity pais;
 
 	/**
@@ -148,6 +152,33 @@ public class IndiceEconomicoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setPais(PaisEntity pais) {
 		this.pais = pais;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof IndiceEconomicoEntity)) {
+	           return false;
+	    }
+
+	    IndiceEconomicoEntity that = (IndiceEconomicoEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
+	}
 
 	/**
 	 * TO STRING
@@ -155,7 +186,7 @@ public class IndiceEconomicoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return nome;
 	}
 
 }

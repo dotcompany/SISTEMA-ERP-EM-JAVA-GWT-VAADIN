@@ -87,7 +87,10 @@
                 <!-- Em produção, usar hbm2ddl = "validate", NUNCA update ou create-drop -->
                 <prop key="hibernate.hbm2ddl.auto">none</prop>
                 <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <!-- <prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</prop> -->
+                <!-- Utilizar True somente em consultas que são executadas repetidas vezes com os mesmos parâmetros -->
                 <prop key="hibernate.cache.use_query_cache">false</prop>
+                <prop key="hibernate.jdbc.batch_size">50</prop>
                 <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
                 <prop key="hibernate.search.default.directory_provider">filesystem</prop>
                 <prop key="hibernate.search.default.indexBase">c:/lucene_indexes</prop>

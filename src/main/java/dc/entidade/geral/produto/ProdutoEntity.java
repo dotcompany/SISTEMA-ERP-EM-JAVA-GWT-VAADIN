@@ -22,6 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -47,6 +49,7 @@ import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
@@ -369,7 +372,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Caption("Marca do produto")
 	@ManyToOne()
-	@JoinColumn(name = "id_marca_produto", nullable = false)
+	@JoinColumn(name = "id_marca_produto",referencedColumnName = "id", nullable = false)
 	@NotNull(message = "Marca do produto é obrigatório")
 	private MarcaEntity marca;
 

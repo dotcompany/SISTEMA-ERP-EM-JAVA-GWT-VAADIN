@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.controller.geral.diverso.UfListController;
-import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.tabela.FeriadoEntity;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.tabela.FeriadoDAO;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.FeriadosFormView;
 
@@ -51,9 +51,6 @@ public class FeriadosFormController extends CRUDFormController<FeriadoEntity> {
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setAno(subView.getTxtAno().getValue());
-		currentBean.setNome(subView.getTxtNome().getValue());
-
 		try {
 			feriadosDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -62,69 +59,93 @@ public class FeriadosFormController extends CRUDFormController<FeriadoEntity> {
 		}
 	}
 
-	@Override
-	protected void carregar(Serializable id) {
-		currentBean = feriadosDAO.find(id);
-		subView.getTxtAno().setValue(currentBean.getAno());
-		subView.getTxtNome().setValue(currentBean.getNome());
-	}
+@Override
+protected void carregar(Serializable id) {
+	 try {
+        this.currentBean = this.feriadosDAO.find(id);
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
+        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+        fieldGroup.setItemDataSource(this.currentBean);
 
-	}
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
-	@Override
-	protected void initSubView() {
-		subView = new FeriadosFormView();
+@Override
+protected void initSubView() {
+	 try {
+       this.subView = new FeriadosFormView(this);
 
-		DefaultManyToOneComboModel<UfEntity> model = new DefaultManyToOneComboModel<UfEntity>(
-				UfListController.class, this.ufDAO, super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "nome";
-			}
-		};
-		this.subView.getCmbUf().setModel(model);
-	}
+        // Cria o DCFieldGroup
+        this.fieldGroup = new DCFieldGroup<>(FeriadoEntity.class);
+
+        // Mapeia os campos
+        fieldGroup.bind(this.subView.getTxtAno(),"ano");
+        fieldGroup.bind(this.subView.getTxtNome(),"nome");
+        fieldGroup.bind(this.subView.getDtData(),"data");
+        
+        this.subView.getCmbUf().configuraCombo(
+        		"nome", UfListController.class, this.ufDAO, this.getMainController());
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
 	/*
 	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
 	 * formulario.
 	 */
-	@Override
-	protected void criarNovoBean() {
-		currentBean = new FeriadoEntity();
-	}
+@Override
+protected void criarNovoBean() {
+	try {
+        this.currentBean = new FeriadoEntity();
 
-	@Override
-	protected void remover(List<Serializable> ids) {
-		feriadosDAO.deleteAllByIds(ids);
+        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+        fieldGroup.setItemDataSource(this.currentBean);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        mensagemErro(e.getMessage());
+    }
+}
+
+@Override
+protected void remover(List<Serializable> ids) {
+	try {
+		//this.business.deleteAll(ids);
+		this.feriadosDAO.deleteAll(ids);
+
 		mensagemRemovidoOK();
+	} catch (Exception e) {
+		e.printStackTrace();
+
+		mensagemErro(e.getMessage());
 	}
+}
 
-	/* Implementar validacao de campos antes de salvar. */
-	@Override
-	protected boolean validaSalvar() {
-		if (subView.getTxtNome().getValue() == null
-				|| subView.getTxtNome().getValue().isEmpty()) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em Branco!");
+@Override
+protected void removerEmCascata(List<Serializable> ids) {
 
-			return false;
-		}
+	try {
+	} catch (Exception e) {
+		e.printStackTrace();
 
+		mensagemErro(e.getMessage());
+	}
+}
+
+@Override
+protected boolean validaSalvar() {
+	try {
+		 // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+		fieldGroup.commit();
 		return true;
+	} catch (FieldGroup.CommitException ce) {
+	    return false;
 	}
-
-	@Override
-	protected void removerEmCascata(List<Serializable> ids) {
-
-	}
+}
 
 	@Override
 	public String getViewIdentifier() {

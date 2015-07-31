@@ -29,7 +29,7 @@ public class SubGrupoDAO extends AbstractCrudDAO<SubGrupoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "nome", "descricao" };
+		return new String[] {"grupo", "nome", "descricao" };
 	}
 
 	@Transactional

@@ -7,12 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.controller.geral.diverso.UfListController;
 import dc.entidade.financeiro.IndiceEconomicoEntity;
+import dc.entidade.geral.tabela.FeriadoEntity;
 import dc.servicos.dao.financeiro.IndiceEconomicoDAO;
 import dc.visao.financeiro.IndiceEconomicoFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
+import dc.visao.geral.tabela.FeriadosFormView;
 
 /** @author Wesley Jr /* Nessa classe ela pega a classe principal que é o CRUD,
  *         que tem todos os controllers da Tela, onde quando extendemos herdamos
@@ -50,10 +55,6 @@ public class IndiceEconomicoFormController extends CRUDFormController<IndiceEcon
 
 	@Override
 	protected void actionSalvar() {
-		String nome = subView.getTxtNome().getValue();
-		String sigla = subView.getTxtSigla().getValue();
-		currentBean.setNome(nome);
-		currentBean.setSigla(sigla);
 		try {
 			indiceDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -64,55 +65,84 @@ public class IndiceEconomicoFormController extends CRUDFormController<IndiceEcon
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = indiceDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtSigla().setValue(currentBean.getSigla());
-	}
+		 try {
+		        this.currentBean = this.indiceDAO.find(id);
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
+		        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+		        fieldGroup.setItemDataSource(this.currentBean);
 
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new IndiceEconomicoFormView();
+		try {
+		       this.subView = new IndiceEconomicoFormView(this);
+
+		        // Cria o DCFieldGroup
+		        this.fieldGroup = new DCFieldGroup<>(IndiceEconomicoEntity.class);
+
+		        // Mapeia os campos
+		        fieldGroup.bind(this.subView.getTxtSigla(),"sigla");
+		        fieldGroup.bind(this.subView.getTxtNome(),"nome");
+		        fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+		        
+		        
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
 	}
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new IndiceEconomicoEntity();
+		try {
+	        this.currentBean = new IndiceEconomicoEntity();
+
+	        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        mensagemErro(e.getMessage());
+	    }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		indiceDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
-	}
+		try {
+			//this.business.deleteAll(ids);
+			this.indiceDAO.deleteAll(ids);
 
-	/* Implementar validacao de campos antes de salvar. */
-	@Override
-	protected boolean validaSalvar() {
-		if (subView.getTxtNome().getValue() == null || subView.getTxtNome().getValue().isEmpty()) {
-			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
-			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em Branco!");
-			return false;
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
 		}
-		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected boolean validaSalvar() {
+		try {
+			 // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+			return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
+		}
 	}
 
 	@Override

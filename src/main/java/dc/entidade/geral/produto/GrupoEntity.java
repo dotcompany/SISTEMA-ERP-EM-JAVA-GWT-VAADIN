@@ -143,7 +143,7 @@ public class GrupoEntity extends AbstractMultiEmpresaModel<Integer> implements S
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return nome;
 	}
 
 }
