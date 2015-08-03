@@ -1,6 +1,5 @@
 package dc.servicos.dao.geral;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -18,27 +17,26 @@ public class FornecedorDAO extends AbstractCrudDAO<FornecedorEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "pessoa.nome" };
+		return new String[] { "pessoa" };
 	}
 	
 	@Transactional
-	public List<FornecedorEntity> listarTodos() {
-		try {
-			String sql = "FROM Fornecedor ent WHERE (1 = 1)";
+	public List<FornecedorEntity> listaTodos() {
+		List<FornecedorEntity> lista = getSession().createQuery("from Fornecedor")
+				.list();
 
-			List auxLista = super.getSession().createQuery(sql).list();
-
-			return auxLista;
-		} catch (Exception e) {
-			return new ArrayList<FornecedorEntity>();
-		}
+		return lista;
 	}
 	
 	@Transactional
 	public List<FornecedorEntity> procuraNomeContendo(String query) {
-		return getSession()
-				.createQuery("from FornecedorEntity where observacao like :q")
-				.setParameter("q", "%" + query + "%").list();
+		return getSession().createQuery("from Fornecedor where observacao like :q").setParameter("q", "%" + query + "%").list();
 	}
-
+	
+	@Transactional
+	public List<FornecedorEntity> query(String q) {
+		q = "%" + q.toLowerCase() +"%";
+		return getSession().createQuery("from Fornecedor where lower(observacao) like :q").setParameter("q", q).list();
+	}
+	
 }
