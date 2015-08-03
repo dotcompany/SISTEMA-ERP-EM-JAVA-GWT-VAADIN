@@ -33,6 +33,9 @@ import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
+import dc.controller.contabilidade.ContabilContaListController;
+import dc.controller.contabilidade.PlanoContaListController;
+import dc.controller.financeiro.ContaCaixaListController;
 import dc.controller.geral.diverso.SetorListController;
 import dc.controller.geral.outro.SindicatoListController;
 import dc.controller.tributario.OperacaoFiscalListController;
@@ -63,6 +66,7 @@ import dc.model.business.geral.pessoal.EstadoCivilBusiness;
 import dc.model.business.geral.pessoal.PessoaBusiness;
 import dc.model.business.geral.pessoal.PessoaContatoBusiness;
 import dc.model.business.geral.pessoal.PessoaEnderecoBusiness;
+import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
@@ -163,6 +167,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	private ContaCaixaDAO contaCaixaDAO;
 	
 	@Autowired
+	private ContabilContaDAO contabilContaDAO;
+	
+	@Autowired
 	private PessoaEnderecoDAO pessoaEnderecoDAO;
 	
 	@Autowired
@@ -224,7 +231,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			
 			System.out.println(":: load cliente");
 			this.subView.getMocClienteSituacao().configuraCombo(
-					"nome", SituacaoColaboradorListController.class, this.situacaoForCliDAO, this.getMainController());
+					"nome", SituacaoForCliListController.class, this.situacaoForCliDAO, this.getMainController());
 			this.subView.getMocClienteAtividade().configuraCombo(
 					"nome", AtividadeForCliListController.class, this.atividadeForCliDAO, this.getMainController());
 			this.subView.getMocClienteOperacaoFiscal().configuraCombo(
@@ -241,8 +248,14 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 					"nome", NivelFormacaoListController.class, this.nivelFormacaoDAO, this.getMainController());
 			this.subView.getMocColaboradorCargo().configuraCombo(
 					"nome", CargoListController.class, this.cargoDAO, this.getMainController());
+			this.subView.getMocColaboradorContaContabil().configuraCombo(
+					"classificacao", ContabilContaListController.class, this.contabilContaDAO, this.getMainController());
 			this.subView.getMocColaboradorSetor().configuraCombo(
 					"nome", SetorListController.class, this.setorDAO, this.getMainController());
+			this.subView.getMocColaboradorContaCaixa().configuraCombo(
+					"nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
+			this.subView.getMocColaboradorPlanoConta().configuraCombo(
+					"nome", PlanoContaListController.class, this.planoContaDAO, this.getMainController());
 
 			/*DefaultManyToOneComboModel<EstadoCivilEntity> modelEstadoCivil = new DefaultManyToOneComboModel<EstadoCivilEntity>(
 					EstadoCivilListController.class, super.getMainController(),
@@ -322,9 +335,11 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 			System.out.println(":: load fornecedor");
 			this.subView.getMocFornecedorSituacaoForCli().configuraCombo(
-					"nome", SituacaoColaboradorListController.class, this.situacaoForCliDAO, this.getMainController());
+					"nome", SituacaoForCliListController.class, this.situacaoForCliDAO, this.getMainController());
 			this.subView.getMocFornecedorAtividadeForCli().configuraCombo(
 					"nome", AtividadeForCliListController.class, this.atividadeForCliDAO, this.getMainController());
+			this.subView.getMocFornecedorContabilConta().configuraCombo(
+					"classificacao", ContabilContaListController.class, this.contabilContaDAO, this.getMainController());
 
 			/*DefaultManyToOneComboModel<SituacaoForCliEntity> modelFornecedorSituacaoForCli = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
 					SituacaoColaboradorListController.class,
@@ -338,6 +353,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 					modelFornecedorAtividadeForCli);*/
 
 			System.out.println(":: load transportadora");
+			this.subView.getMocTransportadoraContabilConta().configuraCombo(
+					"classificacao", ContabilContaListController.class, this.contabilContaDAO, this.getMainController());
 
 			//
 

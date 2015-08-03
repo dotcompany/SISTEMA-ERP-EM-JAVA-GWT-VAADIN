@@ -24,7 +24,7 @@ public class UnidadeProdutoDAO extends AbstractCrudDAO<UnidadeProdutoEntity> {
 	@Transactional
 	public List<UnidadeProdutoEntity> procuraNomeContendo(String query) {
 		return getSession()
-				.createQuery("from UnidadeProduto where sigla like :q")
+				.createQuery("from UnidadeProduto where descricao like :q")
 				.setParameter("q", "%" + query + "%").list();
 	}
 
@@ -36,7 +36,7 @@ public class UnidadeProdutoDAO extends AbstractCrudDAO<UnidadeProdutoEntity> {
 	public List<UnidadeProdutoEntity> query(String q) {
 		q = "%" + q.toLowerCase() + "%";
 		return getSession()
-				.createQuery("from UnidadeProduto where lower(sigla) like :q")
+				.createQuery("from UnidadeProduto where lower(descricao) like :q")
 				.setParameter("q", q).list();
 	}
 

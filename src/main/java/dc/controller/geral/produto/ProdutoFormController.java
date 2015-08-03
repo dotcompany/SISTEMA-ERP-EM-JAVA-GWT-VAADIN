@@ -13,7 +13,6 @@ import com.vaadin.ui.Component;
 
 import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
-import dc.control.util.NumberUtils;
 import dc.controller.geral.diverso.AlmoxarifadoListController;
 import dc.controller.tributario.GrupoTributarioListController;
 import dc.controller.tributario.IcmsCustomizadoListController;
@@ -48,6 +47,9 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
     /**
      * DAO
      */
+    
+    @Autowired
+    private ProdutoDAO dao;
 
     @Autowired
     private SubGrupoDAO subGrupoDAO;
@@ -119,39 +121,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 
             configuraBinding();
 
-           // preencheCombos();
-
-            /*DefaultManyToOneComboModel<AlmoxarifadoEntity> modelAlmoxarifado = new DefaultManyToOneComboModel<AlmoxarifadoEntity>(
-                    AlmoxarifadoListController.class, this.almoxarifadoDAO,
-                    super.getMainController()) {
-                @Override
-                public String getCaptionProperty() {
-                    return "nome";
-                }
-            };
-            this.subView.getMocAlmoxarifado().setModel(modelAlmoxarifado);
-
-            DefaultManyToOneComboModel<MarcaEntity> modelMarca = new DefaultManyToOneComboModel<MarcaEntity>(
-                    MarcaListController.class, this.marcaDAO,
-                    super.getMainController()) {
-                @Override
-                public String getCaptionProperty() {
-                    return "nome";
-                }
-            };
-            this.subView.getMocMarca().setModel(modelMarca);
-
-            DefaultManyToOneComboModel<IcmsCustomizadoCabecalhoEntity> modelIcmsCustomizado = new DefaultManyToOneComboModel<IcmsCustomizadoCabecalhoEntity>(
-                    IcmsCustomizadoListController.class, this.icmsCustomizadoDAO,
-                    super.getMainController()) {
-                @Override
-                public String getCaptionProperty() {
-                    return "nome";
-                }
-            };
-            this.subView.getMocIcmsCustomizado().setModel(modelIcmsCustomizado);
-
-            this.subView.getCbTemIcmsCustomizado().setValue(SimNaoEn.N);*/
+            this.subView.getCbTemIcmsCustomizado().setValue(SimNaoEn.N);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -273,9 +243,9 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
     protected void actionSalvar() {
 
         try {
-            this.business.saveOrUpdate(this.entity);
+            this.dao.saveOrUpdate(this.entity);
             
-            this.entity.setValorVenda(NumberUtils.createBigDecimal(this.subView.getCfValorVenda().getConvertedValue()));
+            /*this.entity.setValorVenda(NumberUtils.createBigDecimal(this.subView.getCfValorVenda().getConvertedValue()));
             this.entity.setValorCompra(NumberUtils.createBigDecimal(this.subView.getCfValorCompra().getConvertedValue()));
             this.entity.setPrecoVendaMinimo(NumberUtils.createBigDecimal(this.subView.getCfValorVendaMinimo().getConvertedValue()));
             this.entity.setPrecoSugerido(NumberUtils.createBigDecimal(this.subView.getCfValorSugerido().getConvertedValue()));
@@ -283,7 +253,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
             this.entity.setPrecoLucroZero(NumberUtils.createBigDecimal(this.subView.getCfPrecoLucroZero().getConvertedValue()));
             this.entity.setPrecoLucroMaximo(NumberUtils.createBigDecimal(this.subView.getCfPrecoLucroMaximo().getConvertedValue()));
             this.entity.setPrecoLucroMinimo(NumberUtils.createBigDecimal(this.subView.getCfPrecoLucroMinimo().getConvertedValue()));
-            this.entity.setMarkup(NumberUtils.createBigDecimal(this.subView.getCfMarkup().getConvertedValue()));
+            this.entity.setMarkup(NumberUtils.createBigDecimal(this.subView.getCfMarkup().getConvertedValue()));*/
 
             notifiyFrameworkSaveOK(this.entity);
         } catch (Exception e) {

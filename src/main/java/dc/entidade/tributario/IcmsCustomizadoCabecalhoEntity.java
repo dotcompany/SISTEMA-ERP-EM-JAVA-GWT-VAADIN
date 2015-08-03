@@ -179,5 +179,10 @@ public class IcmsCustomizadoCabecalhoEntity extends	AbstractMultiEmpresaModel<In
                     .toHashCode();
         }
     }
+    
+    @Override
+    public String toString() {
+    	return descricao;
+    }
 
 }

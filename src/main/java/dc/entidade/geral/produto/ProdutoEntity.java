@@ -49,7 +49,7 @@ import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 

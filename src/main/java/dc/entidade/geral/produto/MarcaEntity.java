@@ -147,11 +147,11 @@ public boolean equals(Object obj) {
           return true;
     }
 
-    if (!(obj instanceof ProdutoEntity)) {
+    if (!(obj instanceof MarcaEntity)) {
            return false;
     }
 
-    ProdutoEntity that = (ProdutoEntity) obj;
+    MarcaEntity that = (MarcaEntity) obj;
     EqualsBuilder eb = new EqualsBuilder();
     eb.append(getId(), that.getId());
     return eb.isEquals();

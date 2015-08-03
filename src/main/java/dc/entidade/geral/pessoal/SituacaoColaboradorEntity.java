@@ -164,5 +164,10 @@ public class SituacaoColaboradorEntity extends
                     .toHashCode();
         }
     }
+    
+    @Override
+    public String toString() {
+    	return nome;
+    }
 
 }
