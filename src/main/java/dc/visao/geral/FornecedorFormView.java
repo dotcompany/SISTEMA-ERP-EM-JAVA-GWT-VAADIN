@@ -141,12 +141,14 @@ public class FornecedorFormView extends CustomComponent {
 		cbSofreRentencao .setImmediate(false);
 		gridLayout_1.addComponent(cbSofreRentencao , 1,3);
 
-		tfPrazoMedioEntrega  = ComponentUtil.buildTextField("Prazo Médio Entrega");
+		tfPrazoMedioEntrega  = ComponentUtil.buildNumericField("Prazo Médio Entrega");
 		tfPrazoMedioEntrega .setImmediate(false);
+		tfPrazoMedioEntrega.setConverter(new IntegerConverter());
 		gridLayout_1.addComponent(tfPrazoMedioEntrega , 2,3);
 
-		tfNumDiasPrimeiroVenc  = ComponentUtil.buildTextField("Núm. Dias 1º Vencimento");
+		tfNumDiasPrimeiroVenc  = ComponentUtil.buildNumericField("Núm. Dias 1º Vencimento");
 		tfNumDiasPrimeiroVenc .setImmediate(false);
+		tfNumDiasPrimeiroVenc.setConverter(new IntegerConverter());
 		gridLayout_1.addComponent(tfNumDiasPrimeiroVenc , 3,3);
 		
 		tfNumDiasIntervalo = ComponentUtil
@@ -160,10 +162,10 @@ public class FornecedorFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfQuantidadesParcelas, 1, 4);
 
 		tfChequeNominalA = ComponentUtil.buildTextField("Cheque Nominal à");
-		gridLayout_1.addComponent(tfChequeNominalA, 2, 4, 3, 4);
+		gridLayout_1.addComponent(tfChequeNominalA, 2, 4, 4, 4);
 
 		taObservacao = ComponentUtil.buildTextArea("Observação");
-		gridLayout_1.addComponent(taObservacao, 0, 5, 3, 5);
+		gridLayout_1.addComponent(taObservacao, 0, 5, 4, 5);
 
 
 		return gridLayout_1;

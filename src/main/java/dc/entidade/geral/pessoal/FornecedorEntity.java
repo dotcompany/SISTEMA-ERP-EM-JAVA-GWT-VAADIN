@@ -1,7 +1,6 @@
 package dc.entidade.geral.pessoal;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -32,6 +32,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -63,115 +64,113 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@SequenceGenerator(name = "fornecedor_id_seq", sequenceName = "fornecedor_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
-	@NotNull
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
 	@Field
 	@Caption(value = "Desde")
-	@Column(name = "DESDE")
+	@Column(name = "desde")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Desde é Obrigatório!")
+	@NotNull(message = "Desde é Obrigatório!")
 	private Date desde;
 
 	@Temporal(TemporalType.DATE)
 	@Field
 	@Caption(value = "Data de cadastro")
-	@Column(name = "DATA_CADASTRO")
+	@Column(name = "data_cadastro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
 	@Field
 	@Caption(value = "Cheque nominal à")
-	@Column(name = "CHEQUE_NOMINAL_A")
+	@Column(name = "cheque_nominal_a")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Cheque Nominal é Obrigatório!")
+	@NotNull(message = "Cheque Nominal é Obrigatório!")
 	private String chequeNominalA = "";
 
+	@Lob
+	@Type(type = "text")
 	@Field
-	@Caption(value = "Observação")
-	@Column(name = "OBSERVACAO")
+	@Caption("Observação")
+	@Column(name = "observacao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	private String observacao = "";
 
 	@Field
 	@Caption(value = "Conta do remetente")
-	@Column(name = "CONTA_REMETENTE")
+	@Column(name = "conta_remetente")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String contaRemetente = "";
 
 	@Field
 	@Caption(value = "Prazo médio de entrega")
-	@Column(name = "PRAZO_MEDIO_ENTREGA")
+	@Column(name = "prazo_medio_entrega")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Prazo Médio de Entrega é Obrigatório!")
-	private BigDecimal prazoMedioEntrega = new BigDecimal(0);
+	private Integer prazoMedioEntrega;
 
 	@Field
 	@Caption(value = "Número de dias - Primeiro vencimento")
-	@Column(name = "NUM_DIAS_PRIMEIRO_VENCIMENTO")
+	@Column(name = "num_dias_primeiro_vencimento")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Numero de Dias - Primeiro Vencimento é Obrigatório!")
-	private Integer numDiasPrimeiroVencimento = new Integer(0);
+	private Integer numDiasPrimeiroVencimento;
 
 	@Field
 	@Caption(value = "Número de dias - Intervalo")
-	@Column(name = "NUM_DIAS_INTERVALO")
+	@Column(name = "num_dias_intervalo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Número de Dias - Intervalo é Obrigatório!")
-	private Integer numDiasIntervalo = new Integer(0);
+	private Integer numDiasIntervalo;
 
 	@Field
 	@Caption(value = "Quantidade de parcelas")
-	@Column(name = "QUANTIDADE_PARCELAS")
+	@Column(name = "quantidade_parcelas")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Quantidade de Parcelas é Obrigatório!")
-	private Integer quantidadeParcelas = new Integer(0);
+	private Integer quantidadeParcelas;
 
 	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption(value = "Optante do simples nacional")
-	@Column(name = "OPTANTE_SIMPLES_NACIONAL")
+	@Column(name = "optante_simples_nacional")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Optante Simples Nacional é Obrigatório!")
+	@NotNull(message = "Optante Simples Nacional é Obrigatório!")
 	private SimNaoEn optanteSimplesNacional;
 
 	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption(value = "Localização")
-	@Column(name = "LOCALIZACAO")
+	@Column(name = "localizacao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Localização é Obrigatório!")
+	@NotNull(message = "Localização é Obrigatório!")
 	private LocalizacaoEn localizacao;
 
 	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption(value = "Sofre retenção")
-	@Column(name = "SOFRE_RETENCAO")
+	@Column(name = "sofre_retencao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Sofre Retenção é Obrigatório!")
+	@NotNull(message = "Sofre Retenção é Obrigatório!")
 	private SimNaoEn sofreRetencao;
 
 	@Enumerated(EnumType.STRING)
 	@Field
 	@Caption(value = "Gera faturamento")
-	@Column(name = "GERA_FATURAMENTO")
+	@Column(name = "gera_faturamento")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Gera Faturamento é Obrigatório!")
+	@NotNull(message = "Gera Faturamento é Obrigatório!")
 	private SimNaoEn geraFaturamento;
 
 	@Field
@@ -192,20 +191,33 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	// @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
 	// private PessoaEntity pessoa;
 
+	//@Caption("Pessoa")
+	//@ManyToOne(fetch = FetchType.EAGER)
+	//@JoinColumn(name = "id_pessoa", insertable = true, updatable = true, nullable = true)
+	//@JoinColumn(name = "id_pessoa", referencedColumnName = "id")
+	//@NotNull(message = "Pessoa é Obrigatório!")
+	//private PessoaEntity pessoa;
+	
 	@Caption("Pessoa")
 	@ManyToOne()
-	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true, nullable = true)
-	//@NotNull(message = "Pessoa é Obrigatório!")
+	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
+	@NotNull(message = "Pessoa é Obrigatório!")
 	private PessoaEntity pessoa;
 	
+	//@Caption("Situação fornecedor / cliente")
+	//@ManyToOne(fetch = FetchType.EAGER)
+	//@JoinColumn(name = "id_situacao_for_cli", referencedColumnName = "id")
 	@Caption("Situação fornecedor / cliente")
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_situacao_for_cli", referencedColumnName = "id")
+	@ManyToOne
+	@JoinColumn(name = "id_situacao_for_cli", nullable = true)
 	private SituacaoForCliEntity situacaoForCli;
 
+	//@Caption("Atividade fornecedor / cliente")
+	//@ManyToOne(fetch = FetchType.EAGER)
+	//@JoinColumn(name = "id_atividade_for_cli", referencedColumnName = "id")
 	@Caption("Atividade fornecedor / cliente")
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_atividade_for_cli", referencedColumnName = "id")
+	@ManyToOne
+	@JoinColumn(name = "id_atividade_for_cli", nullable = true)
 	private AtividadeForCliEntity atividadeForCli;
 
 	/**
@@ -314,12 +326,12 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 				: contaRemetente.toUpperCase().trim());
 	}
 
-	public BigDecimal getPrazoMedioEntrega() {
+	public Integer getPrazoMedioEntrega() {
 		return prazoMedioEntrega;
 	}
 
-	public void setPrazoMedioEntrega(BigDecimal prazoMedioEntrega) {
-		this.prazoMedioEntrega = (prazoMedioEntrega == null ? new BigDecimal(0)
+	public void setPrazoMedioEntrega(Integer prazoMedioEntrega) {
+		this.prazoMedioEntrega = (prazoMedioEntrega == null ? new Integer(0)
 				: prazoMedioEntrega);
 	}
 

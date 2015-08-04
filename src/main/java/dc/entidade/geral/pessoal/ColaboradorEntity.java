@@ -23,8 +23,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -81,6 +84,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@Column(name = "MATRICULA", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Matrícula é Obrigatório!")
 	private String matricula = "";
 
 	@Lob
@@ -98,6 +102,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@Column(name = "DATA_CADASTRO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Data Cadastro é Obrigatório!")
 	private Date dataCadastro;
 
 	@Temporal(TemporalType.DATE)
@@ -122,6 +127,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@Column(name = "DATA_TRANSFERENCIA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Data de Transferência é Obrigatório!")
 	private Date dataTransferencia;
 
 	@Temporal(TemporalType.DATE)
@@ -421,53 +427,60 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	 */
 
 	@Caption("Setor")
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "id_setor", nullable = false)
+	@NotNull(message = "Setor é Obrigatório!")
 	private SetorEntity setor;
 
 	@Caption("Cargo")
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "id_cargo")
+	@NotNull(message = "Cargo é Obrigatório!")
 	private CargoEntity cargo;
 
 	@Caption("Tipo do colaborador")
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "id_tipo_colaborador", nullable = false)
+	@NotNull(message = "Tipo Colaborador é Obrigatório!")
 	private TipoColaboradorEntity tipoColaborador;
 
 	@Caption("Situação do colaborador")
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "id_situacao_colaborador", nullable = false)
+	@NotNull(message = "Situação do Colaborador é Obrigatório!")
 	private SituacaoColaboradorEntity situacaoColaborador;
 
 	@Caption("Nível de formação")
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "id_nivel_formacao", nullable = false)
+	@NotNull(message = "Nível de Formação é Obrigatório!")
 	private NivelFormacaoEntity nivelFormacao;
 
 	@Caption("Sindicato")
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "id_sindicato")
 	private SindicatoEntity sindicato;
 
 	@Caption("Plano de conta")
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "id_plano_conta")
 	private PlanoConta planoConta;
 
 	@Caption("Conta da caixa")
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "id_conta_caixa")
+	@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;
 
 	@Caption("Tipo de admissão")
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "id_tipo_admissao")
 	private TipoAdmissaoEntity tipoAdmissao;
 
 	@Caption("Pessoa")
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "id_pessoa", nullable = false)
+	@NotNull(message = "Pessoa é Obrigatório!")
 	private PessoaEntity pessoa;
 
 	/**
@@ -1132,5 +1145,32 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	public String toString() {
 		return this.pessoa.getNome();
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ColaboradorEntity)) {
+            return false;
+        }
+
+        ColaboradorEntity that = (ColaboradorEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

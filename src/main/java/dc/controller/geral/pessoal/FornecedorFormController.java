@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.enums.LocalizacaoEn;
 import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.FornecedorEntity;
@@ -101,15 +102,11 @@ public class FornecedorFormController extends
             this.fieldGroup = new DCFieldGroup<>(FornecedorEntity.class);
 			
 			// Mapeia os campos
-			//fieldGroup.bind(this.subView.getPdfDesde(),"desde");
-			/*fieldGroup.bind(this.subView.getCbGerarFaturamento(),"geraFaturamento");
+			fieldGroup.bind(this.subView.getPdfDesde(),"desde");
+			fieldGroup.bind(this.subView.getCbGerarFaturamento(),"geraFaturamento");
 			fieldGroup.bind(this.subView.getCbOptanteSimples(),"optanteSimplesNacional");
 			fieldGroup.bind(this.subView.getCbLocalizacao(),"localizacao");
 			fieldGroup.bind(this.subView.getCbSofreRentencao(),"sofreRetencao");
-			fieldGroup.bind(this.subView.getTfPrazoMedioEntrega(),"prazoMedioEntrega");
-			fieldGroup.bind(this.subView.getTfNumDiasPrimeiroVenc(),"numDiasPrimeiroVencimento");
-			fieldGroup.bind(this.subView.getTfNumDiasIntervalo(),"numDiasIntervalo");
-			fieldGroup.bind(this.subView.getTfQuantidadesParcelas(),"quantidadeParcelas");
 			fieldGroup.bind(this.subView.getTfChequeNominalA(),"chequeNominalA");
 			
 			fieldGroup.bind(this.subView.getMocPessoa(),"pessoa");
@@ -119,7 +116,7 @@ public class FornecedorFormController extends
 			this.subView.getMocSituacaoForCli().configuraCombo(
 					"nome", SituacaoForCliListController.class, this.situacaoForCliDAO, this.getMainController());
 			this.subView.getMocAtividadeForCli().configuraCombo(
-					"nome", AtividadeForCliListController.class, this.atividadeForCliDAO, this.getMainController());*/
+					"nome", AtividadeForCliListController.class, this.atividadeForCliDAO, this.getMainController());
             
             comboGerarFaturamento();
             comboLocalizacao();
@@ -227,7 +224,7 @@ public class FornecedorFormController extends
 		}
 	}
 	public void comboLocalizacao() {
-		for (SimNaoEn en : SimNaoEn.values()) {
+		for (LocalizacaoEn en : LocalizacaoEn.values()) {
 			this.subView.getCbLocalizacao().addItem(en);
 		}
 	}

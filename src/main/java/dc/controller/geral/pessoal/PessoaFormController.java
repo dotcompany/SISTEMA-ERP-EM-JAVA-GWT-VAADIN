@@ -894,9 +894,9 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 		if (NumberUtils.isNumber(prazoMediaEntrega)) {
 			ent.setPrazoMedioEntrega(NumberUtils
-					.createBigDecimal(prazoMediaEntrega));
+					.toInt(prazoMediaEntrega));
 		} else {
-			ent.setPrazoMedioEntrega(new BigDecimal(0));
+			ent.setPrazoMedioEntrega(0);
 		}
 
 		String numDiasPrimeiroVencimento = this.subView
