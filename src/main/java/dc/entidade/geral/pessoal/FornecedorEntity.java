@@ -89,7 +89,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@Column(name = "cheque_nominal_a")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Cheque Nominal é Obrigatório!")
+	@NotNull(message = "Cheque Nominal a é Obrigatório!")
 	private String chequeNominalA = "";
 
 	@Lob
@@ -240,8 +240,16 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	/**
 	 * TRANSIENT
 	 */
-
+	
 	@Transient
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	public String getNome() {
+		return pessoa.getNome().toUpperCase().trim();
+	}
+
+	/*@Transient
 	public String getCaption() {
 		Object id = this.id;
 
@@ -256,7 +264,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 		}
 
 		return "[" + id + "] " + nome;
-	}
+	}*/
 
 	/**
 	 * CONSTRUTOR
