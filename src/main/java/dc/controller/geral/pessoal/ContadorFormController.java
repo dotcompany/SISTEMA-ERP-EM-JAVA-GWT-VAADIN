@@ -8,10 +8,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.controller.geral.diverso.UfListController;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.pessoal.ContadorDAO;
@@ -78,8 +80,10 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 			fieldGroup.bind(this.subView.getTxtBairro(),"bairro");
 			fieldGroup.bind(this.subView.getTxtEmail(),"email");
 			
-			this.subView.getMocUf().configuraCombo(
-					"nome", UfListController.class, this.ufDAO, this.getMainController());
+			//this.subView.getMocUf().configuraCombo(
+			//		"nome", UfListController.class, this.ufDAO, this.getMainController());
+			
+			carregarUf();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -159,6 +163,26 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 	public ContadorEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
+	}
+	
+	/**
+	 * 
+	 */
+
+	public void carregarUf() {
+		try {
+			List<UfEntity> auxLista = this.ufDAO.listaTodos();
+
+			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
+					UfEntity.class, auxLista);
+
+			this.subView.getMocUf().setContainerDataSource(bic);
+			this.subView.getMocUf().setItemCaptionPropertyId("nome");
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 }

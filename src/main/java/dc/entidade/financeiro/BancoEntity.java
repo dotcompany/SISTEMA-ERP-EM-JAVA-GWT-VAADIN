@@ -177,5 +177,10 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
                     .toHashCode();
         }
     }
+    
+    @Override
+    public String toString() {
+    	return nome;
+    }
 
 }

@@ -7,17 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.eventos.CerimonialEventosUtil;
-import dc.control.validator.DotErpException;
-import dc.controller.geral.diverso.UfListController;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.eventos.CerimonialEventosEntity;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.eventos.CerimonialEventosDAO;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.eventos.CerimonialEventosFormView;
 
@@ -98,12 +97,23 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 		try {
 			this.subView = new CerimonialEventosFormView(this);
 			
-			DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
-					UfListController.class, this.ufDAO, super.getMainController());
-
-			this.subView.getMocUf().setModel(modelUf);
+            this.fieldGroup = new DCFieldGroup<>(CerimonialEventosEntity.class);
 			
-			//carregarUf();
+			// Mapeia os campos
+			
+			fieldGroup.bind(this.subView.getTxtNome(),"nome");
+			fieldGroup.bind(this.subView.getTxtCnpj(),"cnpj");
+			fieldGroup.bind(this.subView.getTfEndereco(),"endereco");
+			fieldGroup.bind(this.subView.getTfBairro(),"bairro");
+			fieldGroup.bind(this.subView.getTxtComplemento(),"complemento");
+			fieldGroup.bind(this.subView.getTfCep(),"cep");
+			fieldGroup.bind(this.subView.getTfTelefone(),"telefone");
+			fieldGroup.bind(this.subView.getTfEmail(),"email");
+			
+			//this.subView.getMocUf().configuraCombo(
+			//		"nome", UfListController.class, this.ufDAO, this.getMainController());
+			
+			carregarUf();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -112,48 +122,17 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 
 	protected boolean validaSalvar() {
 		try {
-			CerimonialEventosUtil.validateRequiredFields(this.subView);
-
-			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
-			return false;
+			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+		    return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
 	}
 
 	@Override
 	protected void actionSalvar() {
 		try {
-			
-			UfEntity uf = new UfEntity();
-			if(subView.getMocUf().getValue()!=null){
-				uf = subView.getMocUf().getValue();
-				this.entity.setUf(uf);
-			}
-			
-			this.entity.setNome(this.subView.getTxtNome().getValue());
-			this.entity.setEndereco(this.subView.getTfEndereco().getValue());
-			this.entity.setCnpj(this.subView.getTxtCnpj().getValue());
-			this.entity.setComplemento(this.subView.getTxtComplemento().getValue());
-			this.entity.setBairro(this.subView.getTfBairro().getValue());
-			this.entity.setCidade(this.subView.getTfCidade().getValue());
-			this.entity.setCep(this.subView.getTfCep().getValue());
-			this.entity.setTelefone(this.subView.getTfTelefone().getValue());
-			this.entity.setContato(this.subView.getTxtContato().getValue());
-			this.entity.setCelular(this.subView.getTfCelular().getValue());
-			this.entity.setEmail(this.subView.getTfEmail().getValue());
-			
-			if (!subView.getTxtNumero().getValue().equals("")) {
-				this.entity.setNumero(Integer.parseInt(subView.getTxtNumero().getValue()));
-			}
-			
-			/*UfEntity uf = (UfEntity) this.subView.getCmbUf().getValue();
-      		this.entity.setSiglaUf(uf.getSigla());
-			this.entity.setUf(uf);*/
-
-
-
 			//this.business.saveOrUpdate(this.entity);
 			this.cerimonialEventosDAO.saveOrUpdate(this.entity);
 
@@ -171,34 +150,7 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 			//this.entity = this.business.find(id);
 			
 			this.entity = this.cerimonialEventosDAO.find(id);
-			
-			if(entity.getUf()!=null){
-				subView.getMocUf().setValue(entity.getUf());
-			}
-			
-			this.subView.getTxtNome().setValue(this.entity.getNome());
-			this.subView.getTfEndereco().setValue(this.entity.getEndereco());
-			this.subView.getTfBairro().setValue(this.entity.getBairro());
-			this.subView.getTfCep().setValue(this.entity.getCep());
-			this.subView.getTxtCnpj().setValue(this.entity.getCnpj());
-			this.subView.getTxtComplemento().setValue(this.entity.getComplemento());
-			this.subView.getTfCidade().setValue(this.entity.getCidade());
-			this.subView.getTfTelefone().setValue(this.entity.getTelefone());
-			this.subView.getTxtContato().setValue(this.entity.getContato());
-			this.subView.getTfCelular().setValue(this.entity.getCelular());
-			this.subView.getTfEmail().setValue(this.entity.getEmail());
-			
-			if(entity.getNumero()!=null){
-				subView.getTxtNumero().setValue(entity.getNumero().toString());
-			}
-			
-			/*UfEntity uf = this.entity.getUf();
-			if (ObjectUtils.isNotBlank(uf)) {
-				this.subView.getCmbUf().setValue(uf);
-			}*/
-
-
-
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -208,17 +160,7 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 	protected void criarNovoBean() {
 		try {
 			this.entity = new CerimonialEventosEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new CerimonialEventosEntity();
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -253,21 +195,20 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 		}
 	}
 
-	/*public void carregarUf() {
-		try {
-			List<UfEntity> auxLista = this.ufDAO.listaTodos();
+public void carregarUf() {
+	try {
+		List<UfEntity> auxLista = this.ufDAO.listaTodos();
+		BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
+				UfEntity.class, auxLista);
 
-			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
-					UfEntity.class, auxLista);
+		this.subView.getMocUf().setContainerDataSource(bic);
+		this.subView.getMocUf().setItemCaptionPropertyId("nome");
+	} catch (Exception e) {
+		e.printStackTrace();
 
-			this.subView.getCmbUf().setContainerDataSource(bic);
-			this.subView.getCmbUf().setItemCaptionPropertyId("nome");
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw e;
-		}
-	}*/
+		throw e;
+	}
+}
 
 
 	/**

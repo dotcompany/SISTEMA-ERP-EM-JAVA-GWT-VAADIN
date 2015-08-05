@@ -53,7 +53,7 @@ public class ContaDAO extends AbstractCrudDAO<ContaEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "Classificação", "Tipo", "Descrição" };
+		return new String[] { "classificação", "tipo", "descrição" };
 	}
 
 }

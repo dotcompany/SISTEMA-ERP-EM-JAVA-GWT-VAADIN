@@ -16,6 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -85,6 +86,7 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	@Column(name = "LOGRADOURO", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Logradouro é Obrigatório!")
 	private String logradouro = "";
 
 	@Field
@@ -99,6 +101,7 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	@Column(name = "BAIRRO", length = 60)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Bairro é Obrigatório!")
 	private String bairro = "";
 
 	@Field
@@ -106,6 +109,7 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	@Column(name = "FONE1", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Telefone 1 é Obrigatório!")
 	private String fone1 = "";
 
 	@Field
@@ -120,6 +124,7 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	@Column(name = "EMAIL", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Email é Obrigatório!")
 	private String email = "";
 
 	@Enumerated(EnumType.STRING)
@@ -143,6 +148,7 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	@Column(name = "Nome", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome = "";
 
 	@Field
@@ -157,6 +163,7 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	@Column(name = "CNPJ", length = 30)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "CNPJ é Obrigatório!")
 	private String cnpj = "";
 
 	@Field

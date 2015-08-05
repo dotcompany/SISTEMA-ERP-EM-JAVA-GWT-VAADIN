@@ -1,21 +1,13 @@
 package dc.control.util.eventos;
 
 
-import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
-import dc.entidade.geral.diverso.UfEntity;
 import dc.visao.geral.eventos.CerimonialEventosFormView;
 
 public class CerimonialEventosUtil {
 
 	public static void validateRequiredFields(CerimonialEventosFormView subView) throws DotErpException {
-		
-		UfEntity uf = subView.getMocUf().getValue();
-		if (ObjectUtils.isBlank(uf)) {
-			throw new DotErpException(subView.getMocUf(),
-					"::DotERP - Não pode ficar em branco");
-		}
 		
 		String nome = subView.getTxtNome().getValue();
 

@@ -14,9 +14,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -62,91 +65,104 @@ public class LancamentoOrcadoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Ano")
-	private Character ano;
+	@NotNull(message = "Ano é Obrigatório!")
+	private String ano;
 
 	@Field
 	@Column(name = "janeiro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Janeiro")
-	private BigDecimal janeiro = new BigDecimal(0.0);
+	@NotNull(message = "Janeiro é Obrigatório!")
+	private BigDecimal janeiro;
 
 	@Field
 	@Column(name = "fevereiro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Fevereiro")
-	private BigDecimal fevereiro = new BigDecimal(0.0);
+	@NotNull(message = "Fevereiro é Obrigatório!")
+	private BigDecimal fevereiro;
 
 	@Field
 	@Column(name = "marco")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Março")
-	private BigDecimal marco = new BigDecimal(0.0);
+	@NotNull(message = "Março é Obrigatório!")
+	private BigDecimal marco;
 
 	@Field
 	@Column(name = "abril")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Abril")
-	private BigDecimal abril = new BigDecimal(0.0);
+	@NotNull(message = "Abril é Obrigatório!")
+	private BigDecimal abril;
 
 	@Field
 	@Column(name = "Maio")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Maio")
-	private BigDecimal maio = new BigDecimal(0.0);
+	@NotNull(message = "Maio é Obrigatório!")
+	private BigDecimal maio;
 
 	@Field
 	@Column(name = "junho")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Junho")
-	private BigDecimal junho = new BigDecimal(0.0);
+	@NotNull(message = "Junho é Obrigatório!")
+	private BigDecimal junho;
 
 	@Field
 	@Column(name = "julho")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Julho")
-	private BigDecimal julho = new BigDecimal(0.0);
+	@NotNull(message = "Julho é Obrigatório!")
+	private BigDecimal julho;
 
 	@Field
 	@Column(name = "agosto")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Agosto")
-	private BigDecimal agosto = new BigDecimal(0.0);
+	@NotNull(message = "Agosto é Obrigatório!")
+	private BigDecimal agosto;
 
 	@Field
 	@Column(name = "setembro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Setembro")
-	private BigDecimal setembro = new BigDecimal(0.0);
+	@NotNull(message = "Setembro é Obrigatório!")
+	private BigDecimal setembro;
 
 	@Field
 	@Column(name = "outubro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Outubro")
-	private BigDecimal outubro = new BigDecimal(0.0);
+	@NotNull(message = "Outubro é Obrigatório!")
+	private BigDecimal outubro;
 
 	@Field
 	@Column(name = "novembro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Novembro")
-	private BigDecimal novembro = new BigDecimal(0.0);
+	@NotNull(message = "Novembro é Obrigatório!")
+	private BigDecimal novembro;
 
 	@Field
 	@Column(name = "dezembro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Dezembro")
-	private BigDecimal dezembro = new BigDecimal(0.0);
+	@NotNull(message = "Dezembro é Obrigatório!")
+	private BigDecimal dezembro;
 
 	/**
 	 * REFERENCIA - FK
@@ -159,7 +175,6 @@ public class LancamentoOrcadoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_contabil_conta", nullable = false)
 	@Caption("Conta")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ContaEntity conta;
 
 	/**
@@ -174,7 +189,7 @@ public class LancamentoOrcadoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	public Character getNome() {
+	public String getNome() {
 		return getAno();
 	}
 
@@ -203,11 +218,11 @@ public class LancamentoOrcadoEntity extends AbstractMultiEmpresaModel<Integer>
 		this.id = id;
 	}
 
-	public Character getAno() {
+	public String getAno() {
 		return ano;
 	}
 
-	public void setAno(Character ano) {
+	public void setAno(String ano) {
 		this.ano = (ano);
 	}
 
@@ -322,6 +337,33 @@ public class LancamentoOrcadoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof LancamentoOrcadoEntity)) {
+	           return false;
+	    }
+
+	    LancamentoOrcadoEntity that = (LancamentoOrcadoEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
 	}
 
 }

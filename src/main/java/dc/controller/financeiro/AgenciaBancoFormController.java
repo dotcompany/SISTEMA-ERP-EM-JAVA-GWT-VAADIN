@@ -85,7 +85,6 @@ public class AgenciaBancoFormController extends
 			fieldGroup.bind(this.subView.getTfTelefone(),"telefone");
 			fieldGroup.bind(this.subView.getTfContato(),"contato");
 			fieldGroup.bind(this.subView.getTfGerente(),"gerente");
-			fieldGroup.bind(this.subView.getMocBanco(),"banco");
 			
 			this.subView.getMocBanco().configuraCombo(
 					"nome", BancoListController.class, this.bancoDAO, this.getMainController());

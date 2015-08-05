@@ -16,9 +16,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
@@ -72,6 +74,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "LOGRADOURO", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Logradouro é Obrigatório!")
 	private String logradouro = "";
 
 	@Field
@@ -84,6 +87,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "BAIRRO", length = 60)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Bairro é Obrigatório!")
 	private String bairro = "";
 
 	@Field
@@ -112,6 +116,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "TELEFONE", length = 14)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Telefone é Obrigatório!")
 	private String telefone = "";
 
 	@Temporal(TemporalType.DATE)
@@ -143,6 +148,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "NOME", length = 150)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome = "";
 
 	@Field
@@ -150,6 +156,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "CNPJ", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "CNPJ é Obrigatório!")
 	private String cnpj = "";
 
 	@Field
@@ -164,6 +171,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "EMAIL", length = 150)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Email é Obrigatório!")
 	private String email = "";
 	
 	@Field
@@ -187,6 +195,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Caption("Pessoa")
 	@ManyToOne
 	@JoinColumn(name = "id_pessoa")
+	@NotNull(message = "Pessoa é Obrigatório!")
 	private PessoaEntity pessoa;
 
 	/**
@@ -395,7 +404,34 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return nome;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ConvenioEntity)) {
+            return false;
+        }
+
+        ConvenioEntity that = (ConvenioEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

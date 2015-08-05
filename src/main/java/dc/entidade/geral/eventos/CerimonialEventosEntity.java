@@ -11,8 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -46,6 +49,7 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome = "";
 	
 	@Field
@@ -53,13 +57,15 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "CNPJ")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "CNPJ é Obrigatório!")
 	private String cnpj = "";
 	
 	@Field
-	@Caption("Endereco")
+	@Caption("Endereço")
 	@Column(name = "ENDERECO", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Endereço é Obrigatório!")
 	private String endereco = "";
 
 	@Field
@@ -74,6 +80,7 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "COMPLEMENTO", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Complemento é Obrigatório!")
 	private String complemento = "";
 
 	@Field
@@ -81,6 +88,7 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "BAIRRO", length = 50)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Bairro é Obrigatório!")
 	private String bairro = "";
 
 	@Field
@@ -95,6 +103,7 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "CEP", length = 8)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Cep é Obrigatório!")
 	private String cep = "";
 
 	@Field
@@ -102,6 +111,7 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "TELEFONE", length = 14)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Telefone é Obrigatório!")
 	private String telefone;
 
 	@Field
@@ -126,10 +136,11 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	private String siglaUf = "";
 	
 	@Field
-	@Caption()
+	@Caption("Email")
 	@Column(name = "EMAIL", length = 250)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Email é Obrigatório!")
 	private String email;
 	
 	/*@OneToMany(mappedBy = "cerimonialEventos", fetch = FetchType.LAZY)
@@ -275,5 +286,37 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 			List<ContratoEventosEntity> contratoEventosList) {
 		this.contratoEventosList = contratoEventosList;
 	}*/
+	
+	@Override
+	public String toString() {
+		return nome;
+	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof CerimonialEventosEntity)) {
+            return false;
+        }
+
+        CerimonialEventosEntity that = (CerimonialEventosEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 	
 }
