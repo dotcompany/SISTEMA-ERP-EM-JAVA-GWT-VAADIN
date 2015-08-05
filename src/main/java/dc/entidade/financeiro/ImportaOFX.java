@@ -5,12 +5,12 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Transaction;
+import javax.transaction.Transaction;
 
 public class ImportaOFX {
 	
 	 public List<ExtratoContaBancoEntity> importaArquivoOFX(File arquivo) {
-	       /* try {
+	       /*try {
 	            AggregateUnmarshaller a = new AggregateUnmarshaller(ResponseEnvelope.class);
 	            ResponseEnvelope re = (ResponseEnvelope) a.unmarshal(new FileInputStream(arquivo));
 
