@@ -2,9 +2,12 @@ package dc.entidade.financeiro;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,6 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -36,7 +42,7 @@ import dc.entidade.framework.ComboValue;
 * @author Wesley Junior
 */
 @Entity
-@Table(name = "extrato_conta_banco")
+@Table(name = "fin_extrato_conta_banco")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
@@ -48,8 +54,8 @@ public class ExtratoContaBancoEntity extends AbstractMultiEmpresaModel<Integer> 
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "extrato_conta_banco_id_seq")
-	@SequenceGenerator(name = "extrato_conta_banco_id_seq", sequenceName = "extrato_conta_banco_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fin_extrato_conta_banco_id_seq")
+	@SequenceGenerator(name = "fin_extrato_conta_banco_id_seq", sequenceName = "fin_extrato_conta_banco_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -125,6 +131,11 @@ public class ExtratoContaBancoEntity extends AbstractMultiEmpresaModel<Integer> 
     @JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private ContaCaixa contaCaixa;
+    
+    
+    /*@OneToMany(mappedBy = "extratoConta", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Fetch(FetchMode.JOIN)
+	private List<ExtratoContaBancoEntity> itens = new ArrayList<>();*/
 
    public ExtratoContaBancoEntity() {
    }
@@ -267,6 +278,26 @@ public class ExtratoContaBancoEntity extends AbstractMultiEmpresaModel<Integer> 
                    .toHashCode();
        }
    }
+   
+   /*public List<ExtratoContaBancoEntity> getExtrato() {
+	return itens;
+}
+
+public void setExtrato(List<ExtratoContaBancoEntity> itens) {
+	this.itens = itens;
+}
+
+public ExtratoContaBancoEntity addExtratoContaBancoItem(ExtratoContaBancoEntity extratoItem) {
+		getExtrato().add(extratoItem);
+		extratoItem.setContaCaixa(null);
+		return extratoItem;
+	}
+
+	public ExtratoContaBancoEntity removeExtratoContaBancoItem(ExtratoContaBancoEntity extratoItem) {
+		getExtrato().remove(extratoItem);
+		extratoItem.setContaCaixa(null);
+		return extratoItem;
+	}*/
 
 }
 
