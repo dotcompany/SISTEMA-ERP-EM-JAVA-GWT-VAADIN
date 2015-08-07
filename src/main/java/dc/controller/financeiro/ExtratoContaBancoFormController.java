@@ -112,7 +112,9 @@ public class ExtratoContaBancoFormController extends CRUDFormController<ExtratoC
 
 				public void valueChange(ValueChangeEvent event) {
 					UploadField upload = (UploadField) event.getProperty();
-					importaOFX((File) upload.getValue());
+					//importaOFX((File) upload.getValue());
+					importaOFX();
+					atualizaSaldos();
 				}
 			});
 
@@ -227,7 +229,7 @@ private void atualizaSaldos() {
     subView.getSaldo().setConvertedValue(saldo);
 }
 
-public void importaOFX(File value) {
+public void importaOFX() {
     FileFilter filter = new FileFilter() {
 
         @Override
@@ -275,12 +277,14 @@ public void importaOFX(File value) {
             	                   adicionarErroDeValidacao(subView.getExtratoContaBancoSubForm(),"Erro ao salvar os dados! ");
                                    mensagemErro("Erro ao salvar os dados! ");
                          } else {
-            	                  subView.getExtratoContaBancoSubForm();
+            	                  subView.getExtratoContaBancoSubForm().getDados();
                          }
                              
 						}
 						
 			});
+        	
+        	subView.getExtratoContaBancoSubForm().fillWith(listaExtrato);
         } catch (Exception e) {
             e.printStackTrace();
         }
