@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.financeiro.LancamentoReceber;
-import dc.entidade.financeiro.ParcelaPagamento;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
@@ -19,7 +18,7 @@ public class LancamentoReceberDAO extends AbstractCrudDAO<LancamentoReceber> {
 	}
 
 	@Transactional
-	public List<ParcelaPagamento> listaTodos() {
+	public List<LancamentoReceber> listaTodos() {
 		return getSession().createQuery("from LancamentoReceber").list();
 	}
 

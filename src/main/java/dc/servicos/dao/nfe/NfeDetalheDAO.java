@@ -13,6 +13,7 @@ import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.nfe.NfeDetEspecificoArmamentoEntity;
 import dc.entidade.nfe.NfeDetEspecificoMedicamentoEntity;
 import dc.entidade.nfe.NfeDetalheEntity;
+import dc.entidade.suprimentos.estoque.LoteProdutoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -128,6 +129,23 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "Número do item", "Código do produto", "GTIN" };
+	}
+	
+	@Transactional
+	public List<NfeDetalheEntity> findByNfeDetalhe(LoteProdutoEntity loteProduto){
+
+		List<NfeDetalheEntity> lista = new ArrayList<>();
+
+		try{
+			if(loteProduto!=null){
+				lista =  getSession()
+						.createQuery("from NfeDetalheEntity i where i.loteProduto = :loteProduto")
+						.setParameter("loteProduto", loteProduto).list();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return lista;
 	}
 
 }

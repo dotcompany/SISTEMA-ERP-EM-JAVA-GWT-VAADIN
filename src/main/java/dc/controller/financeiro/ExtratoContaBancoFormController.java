@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -20,15 +21,12 @@ import com.sun.mail.iap.Response;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.ExtratoContaBancoEntity;
 import dc.entidade.financeiro.ImportaOFX;
-import dc.model.business.financeiro.ExtratoContaBancoBusiness;
 import dc.servicos.dao.financeiro.ExtratoContaBancoDAO;
 import dc.visao.financeiro.ExtratoContaBancoFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -112,9 +110,74 @@ public class ExtratoContaBancoFormController extends CRUDFormController<ExtratoC
 
 				public void valueChange(ValueChangeEvent event) {
 					UploadField upload = (UploadField) event.getProperty();
-					//importaOFX((File) upload.getValue());
-					importaOFX();
+					importaOFX((File) upload.getValue());
+					//importaOFX();
 					atualizaSaldos();
+				}
+				
+				public void importaOFX(File value) {
+				    FileFilter filter = new FileFilter() {
+
+				        @Override
+				        public boolean accept(File f) {
+				            String arquivo = f.getName().toLowerCase();
+				            return f.isDirectory() || arquivo.endsWith(".ofx");
+				        }
+
+				        @Override
+				        public String getDescription() {
+				            return "*.ofx";
+				        }
+				    };
+
+				    JFileChooser fileChooser = new JFileChooser();
+				    fileChooser.setFileFilter(filter);
+				    fileChooser.showOpenDialog(fileChooser);
+				    File file = fileChooser.getSelectedFile();
+
+				    if (file != null) {
+				        ImportaOFX importa = new ImportaOFX();
+				        List<ExtratoContaBancoEntity> listaExtrato = importa.importaArquivoOFX(file);
+				        subView.getSubForms().setSelectedTab(1);
+				        //seta os dados do extrato
+				        for (int i = 0; i < listaExtrato.size(); i++) {
+				            listaExtrato.get(i).setAno(ano);
+				            listaExtrato.get(i).setMes(mes);
+				            listaExtrato.get(i).setContaCaixa(contaCaixa);
+
+				            //subView.getExtratoContaBancoSubForm().equals(listaExtrato.get(i));
+				            subView.getExtratoContaBancoSubForm().fillWith(listaExtrato);
+				            subView.getExtratoContaBancoSubForm().getDados().add(listaExtrato.get(i));
+				            subView.getExtratoContaBancoSubForm().markAsDirtyRecursive();
+				            
+				        }
+				        try {
+				        	ConfirmDialog
+							.show(MainUI.getCurrent(),
+									"Erro!", new ConfirmDialog.Listener() {
+
+										/**
+								 * 
+								 */
+										private static final long serialVersionUID = 1L;
+
+										public void onClose(ConfirmDialog dialog) {
+				                             if (dialog.isConfirmed()) {
+				            	                   adicionarErroDeValidacao(subView.getExtratoContaBancoSubForm(),"Erro ao salvar os dados! ");
+				                                   mensagemErro("Erro ao salvar os dados! ");
+				                         } else {
+				            	                  subView.getExtratoContaBancoSubForm().getDados();
+				                         }
+				                             
+										}
+										
+							});
+				        	
+				        	subView.getExtratoContaBancoSubForm().fillWith(listaExtrato);
+				        } catch (Exception e) {
+				            e.printStackTrace();
+				        }
+				    }
 				}
 			});
 
@@ -210,11 +273,13 @@ public void removerExtratoContaBancoItem(List<ExtratoContaBancoEntity> extratoIt
 	mensagemRemovidoOK();
 }*/
 
+@Transactional
 private void atualizaSaldos() {
-    List<ExtratoContaBancoEntity> listaExtrato = (List<ExtratoContaBancoEntity>) subView.getExtratoContaBancoSubForm().getData();
+    List<ExtratoContaBancoEntity> listaExtrato = subView.getExtratoContaBancoSubForm().getDados();
     BigDecimal creditos = BigDecimal.ZERO;
     BigDecimal debitos = BigDecimal.ZERO;
     BigDecimal saldo = BigDecimal.ZERO;
+    
     for (int i = 0; i < listaExtrato.size(); i++) {
         if (listaExtrato.get(i).getValor().compareTo(BigDecimal.ZERO) == -1) {
             debitos = debitos.add(listaExtrato.get(i).getValor());
@@ -224,72 +289,16 @@ private void atualizaSaldos() {
     }
     saldo = creditos.add(debitos);
 
+   
     subView.getCredito().setConvertedValue(creditos);
+    subView.setCredito(subView.getCredito());
     subView.getDebito().setConvertedValue(debitos);
+    subView.setDebito(subView.getDebito());
     subView.getSaldo().setConvertedValue(saldo);
+    subView.setSaldo(subView.getSaldo());
 }
 
-public void importaOFX() {
-    FileFilter filter = new FileFilter() {
 
-        @Override
-        public boolean accept(File f) {
-            String arquivo = f.getName().toLowerCase();
-            return f.isDirectory() || arquivo.endsWith(".ofx");
-        }
-
-        @Override
-        public String getDescription() {
-            return "*.ofx";
-        }
-    };
-
-    JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setFileFilter(filter);
-    fileChooser.showOpenDialog(fileChooser);
-    File file = fileChooser.getSelectedFile();
-
-    if (file != null) {
-        ImportaOFX importa = new ImportaOFX();
-        List<ExtratoContaBancoEntity> listaExtrato = importa.importaArquivoOFX(file);
-        //seta os dados do extrato
-        for (int i = 0; i < listaExtrato.size(); i++) {
-            listaExtrato.get(i).setAno(ano);
-            listaExtrato.get(i).setMes(mes);
-            listaExtrato.get(i).setContaCaixa(contaCaixa);
-
-            //subView.getExtratoContaBancoSubForm().equals(listaExtrato.get(i));
-            subView.getExtratoContaBancoSubForm().fillWith(listaExtrato);
-            subView.getExtratoContaBancoSubForm().markAsDirtyRecursive();
-        }
-        try {
-        	ConfirmDialog
-			.show(MainUI.getCurrent(),
-					"Erro!", new ConfirmDialog.Listener() {
-
-						/**
-				 * 
-				 */
-						private static final long serialVersionUID = 1L;
-
-						public void onClose(ConfirmDialog dialog) {
-                             if (dialog.isConfirmed()) {
-            	                   adicionarErroDeValidacao(subView.getExtratoContaBancoSubForm(),"Erro ao salvar os dados! ");
-                                   mensagemErro("Erro ao salvar os dados! ");
-                         } else {
-            	                  subView.getExtratoContaBancoSubForm().getDados();
-                         }
-                             
-						}
-						
-			});
-        	
-        	subView.getExtratoContaBancoSubForm().fillWith(listaExtrato);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-}
 
 public void efetuaConciliacao(String tipoConciliacao) throws Exception {
     //define os parametros da grid
