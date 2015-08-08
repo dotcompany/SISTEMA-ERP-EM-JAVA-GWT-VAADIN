@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.suprimentos.contrato.ContratoEntity;
+import dc.entidade.suprimentos.contrato.PrevFaturamentoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("suprimentosContratoContratoDAO")
@@ -34,4 +35,8 @@ public class ContratoDAO extends AbstractCrudDAO<ContratoEntity> {
 		return contrato;
 	}
 
+	@Transactional
+	public void delete(PrevFaturamentoEntity contratoPrevFaturamento) {
+		getSession().delete(contratoPrevFaturamento);
+	}
 }
