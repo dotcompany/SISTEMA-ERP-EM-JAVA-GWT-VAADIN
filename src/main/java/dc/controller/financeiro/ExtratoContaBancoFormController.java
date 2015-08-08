@@ -110,12 +110,12 @@ public class ExtratoContaBancoFormController extends CRUDFormController<ExtratoC
 
 				public void valueChange(ValueChangeEvent event) {
 					UploadField upload = (UploadField) event.getProperty();
-					importaOFX((File) upload.getValue());
-					//importaOFX();
+					//importaOFX((File) upload.getValue());
+					importaOFX();
 					atualizaSaldos();
 				}
 				
-				public void importaOFX(File value) {
+				public void importaOFX() {
 				    FileFilter filter = new FileFilter() {
 
 				        @Override
