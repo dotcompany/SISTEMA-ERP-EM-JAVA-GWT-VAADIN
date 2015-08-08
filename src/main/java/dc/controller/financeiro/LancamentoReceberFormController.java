@@ -195,6 +195,9 @@ protected void actionSalvar() {
 			valido = false;
 			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
 		}
+		
+		setIntervaloParcelaByTipoVencimento();
+		salvarParcelasReceber();
 
 		if (((BigDecimal) subView.getTxValorReceber().getConvertedValue())
 				.compareTo(getTotalNaturezaFinanceira(naturezasanceiras)) != 0) {
@@ -206,21 +209,6 @@ protected void actionSalvar() {
 			mensagemErro("Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
 		}
 
-		if (valido) {
-
-			setIntervaloParcelaByTipoVencimento();
-
-			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("Em Aberto");
-			if (statusParcela == null) {
-				mensagemErro("O status de parcela em aberto não está cadastrado.\nEntre em contato com a Software House.");
-			} else {
-
-				for (ParcelaReceber p : currentBean.getParcelasReceber()) {
-					p.setStatusParcela(statusParcela);
-				}
-
-			}
-		}
 			
 			
 	}catch (Exception e) {
@@ -229,6 +217,24 @@ protected void actionSalvar() {
 	}
 		
 	}
+
+public void salvarParcelasReceber() {
+	StatusParcela statusParcela;
+	try {
+
+		statusParcela = this.statusParcelaDAO.findBySituacao("Em Aberto");
+		if (statusParcela == null) {
+			mensagemErro("O status de parcela em aberto não está cadastrado.\nEntre em contato com a Software House.");
+		} else {
+			for (ParcelaReceber p : currentBean.getParcelasReceber()) {
+				p.setStatusParcela(statusParcela);
+			}
+
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+}
 
 	private void setIntervaloParcelaByTipoVencimento() {
 		if (TipoVencimentoEn.M.equals(subView.getCbTipoVencimento().getValue())) {

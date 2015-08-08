@@ -36,7 +36,7 @@ repositories {
 vaadin {
     //7.5.0
     //7.3.10
-    version '7.5.2'
+    version '7.5.3'
     widgetset 'dc.framework.DCWidgetSet'
     widgetsetGenerator 'dc.framework.OptimizedConnectorBundleLoaderFactory'
     plugin {
@@ -81,8 +81,15 @@ dependencies {
 
     //compile ('org.slf4j:log4j-over-slf4j:1.7.10')
     compile ('org.slf4j:log4j-over-slf4j:1.7.12')
-    compile('com.vaadin:vaadin-server:7.5.2')
-    compile('com.vaadin:vaadin-client:7.5.2')
+    compile('com.vaadin:vaadin-server:7.5.3')
+    compile('com.vaadin:vaadin-client:7.5.3')
+    
+    //Biblioteca para ImportOfx
+    compile ('net.sf.ofx4j:ofx4j:1.6')
+    //Dependências para a utilização do ofx4j no ImportOfx
+    compile ('be.cyberelf.nanoxml:nanoxml:2.2.3')
+    compile ('commons-logging:commons-logging:1.2')
+    
 
     compile('org.vaadin.addon:confirmdialog:2.1.3') {
         //compile('org.vaadin.addon:confirmdialog:2.1.2'){
@@ -126,7 +133,7 @@ dependencies {
     compile 'org.vaadin.addons:imagescaler:2.0.0'
     compile 'org.vaadin.addons:popupbutton:2.6.0' 
     compile 'org.vaadin.addons:filteringtable:0.9.13.v7'
-    compile 'com.vaadin:vaadin-push:7.5.2'
+    compile 'com.vaadin:vaadin-push:7.5.3'
     compile ('it.zero11.vaadin:asyncfiltercombobox:0.2.0'){
         exclude group:'com.vaadin'
     }
@@ -151,7 +158,7 @@ dependencies {
 
     compile 'com.itextpdf:itextpdf:5.5.5'
     compile 'javax.mail:mail:1.4.7'
-
+    
     compile 'mysql:mysql-connector-java:5.1.21'
     compile ('org.postgresql:postgresql:9.4-1201-jdbc41') {
         exclude module: 'slf4j-simple'

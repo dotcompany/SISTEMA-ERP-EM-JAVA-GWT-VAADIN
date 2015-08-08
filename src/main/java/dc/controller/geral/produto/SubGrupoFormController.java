@@ -11,12 +11,10 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.produto.GrupoEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.model.business.geral.produto.SubGrupoBusiness;
 import dc.servicos.dao.geral.produto.GrupoDAO;
 import dc.visao.framework.DCFieldGroup;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.SubGrupoFormView;
 
@@ -65,7 +63,7 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 
 	@Override
 	protected String getNome() {
-		return "Subgrupo";
+		return "SubGrupo";
 	}
 
 	@Override
@@ -93,17 +91,15 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 		try {
 			this.subView = new SubGrupoFormView(this);
 
-			DefaultManyToOneComboModel<GrupoEntity> model = new DefaultManyToOneComboModel<GrupoEntity>(
-					GrupoListController.class, this.grupoDAO,
-					super.getMainController());
-
-			this.subView.getMocGrupoProduto().setModel(model);
-			
 			this.fieldGroup = new DCFieldGroup<>(SubGrupoEntity.class);
 			
 			// Mapeia os campos
 			fieldGroup.bind(this.subView.getTfNome(),"nome");
 			fieldGroup.bind(this.subView.getTfDescricao(),"descricao");
+			fieldGroup.bind(this.subView.getMocGrupoProduto(), "grupo");
+			
+			this.subView.getMocGrupoProduto().configuraCombo(
+					"nome", GrupoListController.class, this.grupoDAO, this.getMainController());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

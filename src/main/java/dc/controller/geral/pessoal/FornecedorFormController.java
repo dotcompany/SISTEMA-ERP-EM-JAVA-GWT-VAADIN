@@ -10,9 +10,10 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.enums.LocalizacaoEn;
+import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.FornecedorEntity;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
 import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
@@ -52,9 +53,6 @@ public class FornecedorFormController extends
 
 	@Autowired
 	private AtividadeForCliDAO atividadeForCliDAO;
-
-	@Autowired
-	private ContabilContaDAO contabilContaDAO;
 
 	@Autowired
 	private SituacaoForCliDAO situacaoForCliDAO;
@@ -109,10 +107,6 @@ public class FornecedorFormController extends
 			fieldGroup.bind(this.subView.getCbOptanteSimples(),"optanteSimplesNacional");
 			fieldGroup.bind(this.subView.getCbLocalizacao(),"localizacao");
 			fieldGroup.bind(this.subView.getCbSofreRentencao(),"sofreRetencao");
-			fieldGroup.bind(this.subView.getTfPrazoMedioEntrega(),"prazoMedioEntrega");
-			fieldGroup.bind(this.subView.getTfNumDiasPrimeiroVenc(),"numDiasPrimeiroVencimento");
-			fieldGroup.bind(this.subView.getTfNumDiasIntervalo(),"numDiasIntervalo");
-			fieldGroup.bind(this.subView.getTfQuantidadesParcelas(),"quantidadeParcelas");
 			fieldGroup.bind(this.subView.getTfChequeNominalA(),"chequeNominalA");
 			
 			fieldGroup.bind(this.subView.getMocPessoa(),"pessoa");
@@ -123,6 +117,11 @@ public class FornecedorFormController extends
 					"nome", SituacaoForCliListController.class, this.situacaoForCliDAO, this.getMainController());
 			this.subView.getMocAtividadeForCli().configuraCombo(
 					"nome", AtividadeForCliListController.class, this.atividadeForCliDAO, this.getMainController());
+            
+            comboGerarFaturamento();
+            comboLocalizacao();
+            comboSofreRentencao();
+            comboOptanteSimples();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -143,8 +142,6 @@ public class FornecedorFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.subView.preencheBean(this.entity);
-
 			this.dao.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -162,7 +159,6 @@ public class FornecedorFormController extends
 			
 			fieldGroup.setItemDataSource(this.entity);
 
-			this.subView.preencheForm(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -206,6 +202,31 @@ public class FornecedorFormController extends
 			mensagemErro(e.getMessage());
 		}
 
+	}
+	
+	/**
+	 * COMBOS
+	 */
+
+	public void comboGerarFaturamento() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCbGerarFaturamento().addItem(en);
+		}
+	}
+	public void comboSofreRentencao() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCbSofreRentencao().addItem(en);
+		}
+	}
+	public void comboOptanteSimples() {
+		for (SimNaoEn en : SimNaoEn.values()) {
+			this.subView.getCbOptanteSimples().addItem(en);
+		}
+	}
+	public void comboLocalizacao() {
+		for (LocalizacaoEn en : LocalizacaoEn.values()) {
+			this.subView.getCbLocalizacao().addItem(en);
+		}
 	}
 
 }

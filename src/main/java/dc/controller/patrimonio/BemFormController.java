@@ -839,7 +839,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 	public List<FornecedorEntity> fornecedorListarTodos() {
 		List<FornecedorEntity> auxLista = new ArrayList<FornecedorEntity>();
 
-		auxLista = this.fDAO.listarTodos();
+		auxLista = this.fDAO.listaTodos();
 
 		return auxLista;
 	}

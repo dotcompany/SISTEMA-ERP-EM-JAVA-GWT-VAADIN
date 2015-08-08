@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
@@ -27,11 +28,10 @@ import dc.control.enums.TipoSanguineoEn;
 import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
-import dc.control.util.classes.PessoaUtils;
-import dc.control.validator.DotErpException;
+import dc.control.util.StringUtils;
 import dc.controller.geral.pessoal.AtividadeForCliListController;
 import dc.controller.geral.pessoal.EstadoCivilListController;
-import dc.controller.geral.pessoal.SituacaoColaboradorListController;
+import dc.controller.geral.pessoal.SituacaoForCliListController;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
@@ -49,17 +49,23 @@ import dc.model.business.geral.pessoal.EstadoCivilBusiness;
 import dc.model.business.geral.pessoal.PessoaBusiness;
 import dc.model.business.geral.pessoal.PessoaContatoBusiness;
 import dc.model.business.geral.pessoal.PessoaEnderecoBusiness;
+import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
+import dc.servicos.dao.geral.PessoaContatoDAO;
+import dc.servicos.dao.geral.PessoaEnderecoDAO;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.diverso.SetorDAO;
 import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
 import dc.servicos.dao.geral.pessoal.CargoDAO;
+import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
+import dc.servicos.dao.geral.pessoal.SituacaoColaboradorDAO;
 import dc.servicos.dao.geral.pessoal.SituacaoForCliDAO;
+import dc.servicos.dao.geral.pessoal.TipoColaboradorDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.eventos.PessoaEventosFormView;
 import dc.visao.spring.SecuritySessionProvider;
@@ -67,17 +73,20 @@ import dc.visao.spring.SecuritySessionProvider;
 @Controller
 @Scope("prototype")
 public class PessoaEventosFormController extends CRUDFormController<PessoaEntity> {
-	
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private PessoaEventosFormView subView;
-	
+
 	/**
 	 * ENTITY
 	 */
 
 	private PessoaEntity entity;
-	
+
 	/**
 	 * BUSINESS
 	 */
@@ -93,10 +102,17 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 
 	@Autowired
 	private UfBusiness<UfEntity> ufBusiness;
-	
+
+	/**
+	 * DAO
+	 */
+
 	@Autowired
 	private EstadoCivilBusiness<EstadoCivilEntity> estadoCivilBusiness;
 	
+	@Autowired
+	private EstadoCivilDAO estadoCivilDAO;
+
 	@Autowired
 	private SituacaoForCliDAO situacaoForCliDAO;
 
@@ -105,7 +121,13 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 
 	@Autowired
 	private OperacaoFiscalDAO operacaoFiscalDAO;
-	
+
+	@Autowired
+	private TipoColaboradorDAO tipoColaboradorDAO;
+
+	@Autowired
+	private SituacaoColaboradorDAO situacaoColaboradorDAO;
+
 	@Autowired
 	private SindicatoDAO sindicatoDAO;
 
@@ -126,8 +148,19 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 
 	@Autowired
 	private ContaCaixaDAO contaCaixaDAO;
+	
+	@Autowired
+	private ContabilContaDAO contabilContaDAO;
+	
+	@Autowired
+	private PessoaEnderecoDAO pessoaEnderecoDAO;
+	
+	@Autowired
+	private PessoaContatoDAO pessoaContatoDAO;
 
-
+	/**
+	 * CONSTRUTOR
+	 */
 
 	public PessoaEventosFormController() {
 		// TODO Auto-generated constructor stub
@@ -139,7 +172,7 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 
 	@Override
 	protected String getNome() {
-		return "Pessoa Eventos";
+		return "Pessoa";
 	}
 
 	@Override
@@ -147,82 +180,48 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 		return subView;
 	}
 
-	
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
 	}
-	
+
 	@Override
 	public boolean isFullSized() {
 		return true;
 	}
 
 	@Override
-	protected boolean validaSalvar() {
-		
-		try {
-			PessoaUtils.validateRequiredFields(this.subView);
-			//PessoaUtils.validateFieldValue(this.subView);
-
-			return true;
-			
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
-			return false;
-		}
-
-	}
-
-	@Override
-	protected void criarNovoBean() {
-		
-		try {
-			this.entity = new PessoaEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		} finally {
-			visibleTabSheet();
-		}
-
-		
+	public PessoaEntity getModelBean() {
+		return entity;
 	}
 
 	@Override
 	protected void initSubView() {
-		
 		try {
-			
 			this.subView = new PessoaEventosFormView(this);
 			
-			DefaultManyToOneComboModel<EstadoCivilEntity> modelEstadoCivil = new DefaultManyToOneComboModel<EstadoCivilEntity>(
-					EstadoCivilListController.class, super.getMainController(),null, this.estadoCivilBusiness);
-
-			this.subView.getMocEstadoCivil().setModel(modelEstadoCivil);
-
+			this.fieldGroup = new DCFieldGroup<>(PessoaEntity.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getTfNome(),"nome");
+			//fieldGroup.bind(this.subView.getCbTipoPessoa(),"tipo");
+			fieldGroup.bind(this.subView.getTfEmail(),"email");
+			fieldGroup.bind(this.subView.getTfSite(),"site");
+			
+			this.subView.getMocEstadoCivil().configuraCombo(
+					"nome", EstadoCivilListController.class, this.estadoCivilDAO, this.getMainController());
+			
+			System.out.println(":: load cliente");
+			this.subView.getMocClienteSituacao().configuraCombo(
+					"nome", SituacaoForCliListController.class, this.situacaoForCliDAO, this.getMainController());
+			this.subView.getMocClienteAtividade().configuraCombo(
+					"nome", AtividadeForCliListController.class, this.atividadeForCliDAO, this.getMainController());
+			this.subView.getMocClienteOperacaoFiscal().configuraCombo(
+					"descricao", OperacaoFiscalListController.class, this.operacaoFiscalDAO, this.getMainController());
+			
 			//
 
-			System.out.println(":: load cliente");
-
-			DefaultManyToOneComboModel<SituacaoForCliEntity> modelClienteSituacaoForCli = new DefaultManyToOneComboModel<SituacaoForCliEntity>(
-					SituacaoColaboradorListController.class,this.situacaoForCliDAO, super.getMainController());
-
-			this.subView.getMocClienteSituacao().setModel(modelClienteSituacaoForCli);
-
-			DefaultManyToOneComboModel<AtividadeForCliEntity> modelClienteAtividadeForCli = new DefaultManyToOneComboModel<AtividadeForCliEntity>(
-					AtividadeForCliListController.class,this.atividadeForCliDAO, super.getMainController());
-
-			this.subView.getMocClienteAtividade().setModel(modelClienteAtividadeForCli);
-
-			DefaultManyToOneComboModel<OperacaoFiscalEntity> modelClienteOperacaoFiscal = new DefaultManyToOneComboModel<OperacaoFiscalEntity>(
-					OperacaoFiscalListController.class, this.operacaoFiscalDAO,super.getMainController());
-
-			this.subView.getMocClienteOperacaoFiscal().setModel(modelClienteOperacaoFiscal);
-		
 			carregarTipoPessoa();
 			carregarTipoRegime();
 			carregarCnh();
@@ -239,34 +238,32 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 
 			// Valores iniciais
 
-						this.subView.getCbTipoPessoa().setValue(TipoPessoaEn.F);
-						this.subView.getOgSexo().setValue(SexoEn.F);
+			this.subView.getCbTipoPessoa().setValue(TipoPessoaEn.F);
+			this.subView.getOgSexo().setValue(SexoEn.F);
 
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-			
-			
-	@Override
-	protected void carregar(Serializable id) {
-		// TODO Auto-generated method stub
-		
+	protected boolean validaSalvar() {
+		try {
+			fieldGroup.commit();
+
+			return true;
+		} catch (FieldGroup.CommitException ce) {
+
+			return false;
+		}
 	}
 
 	@Override
 	protected void actionSalvar() {
-		
 		try {
 			TipoPessoaEn tipoPessoaEn = (TipoPessoaEn) this.subView
 					.getCbTipoPessoa().getValue();
 
 			this.entity.setTipo(tipoPessoaEn);
-
-			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setEmail(this.subView.getTfEmail().getValue());
-			this.entity.setSite(this.subView.getTfSite().getValue());
 
 			this.entity.setEmpresa(SecuritySessionProvider.getUsuario()
 					.getEmpresa());
@@ -277,20 +274,12 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 				savePessoaJuridica();
 			}
 
+			this.entity.setTipoCliente(this.subView.getCkCliente().getValue()
+					.equals(Boolean.TRUE) ? "1" : "0");
 
-			// PessoaContato
-
-			List<PessoaContatoEntity> auxLista1 = this.subView
-					.getSfPessoaContato().getDados();
-
-			this.entity.setPessoaContatoList(auxLista1);
-
-			// PessoaEndereco
-
-			List<PessoaEnderecoEntity> auxLista2 = this.subView
-					.getSfPessoaEndereco().getDados();
-
-			this.entity.setPessoaEnderecoList(auxLista2);
+			if (this.entity.getTipoCliente().equals("1")) {
+				saveCliente();
+			}
 
 			this.business.saveOrUpdate(this.entity);
 
@@ -301,7 +290,7 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 			mensagemErro(e.getMessage());
 		}
 	}
-	
+
 	private void savePessoaFisica() throws Exception {
 		PessoaFisicaEntity ent = (this.entity.getPessoaFisica() == null ? new PessoaFisicaEntity()
 				: this.entity.getPessoaFisica());
@@ -402,11 +391,10 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 		this.entity.setPessoaJuridica(ent);
 	}
 
-
 	private void saveCliente() throws Exception {
 		ClienteEntity ent = (this.entity.getCliente() == null ? new ClienteEntity()
 				: this.entity.getCliente());
-		//ent.setPessoaEventos(this.entity);
+		ent.setPessoa(this.entity);
 
 		ent.setObservacao(this.subView.getTaClienteObservacao().getValue());
 
@@ -416,7 +404,6 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 		if (NumberUtils.isNumber(limiteCredito)) {
 			ent.setLimiteCredito(NumberUtils.createBigDecimal(limiteCredito));
 		} else {
-			
 			ent.setLimiteCredito(new BigDecimal(0));
 		}
 
@@ -430,19 +417,23 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 			ent.setPorcentoDesconto(new BigDecimal(0));
 		}
 
-		FormaDescontoEn formaDesconto = (FormaDescontoEn) this.subView.getCbClienteFormaDesconto().getValue();
+		FormaDescontoEn formaDesconto = (FormaDescontoEn) this.subView
+				.getCbClienteFormaDesconto().getValue();
 
 		ent.setFormaDesconto(formaDesconto);
 
-		TipoFreteEn tipoFrete = (TipoFreteEn) this.subView.getCbClienteTipoFrete().getValue();
+		TipoFreteEn tipoFrete = (TipoFreteEn) this.subView
+				.getCbClienteTipoFrete().getValue();
 
 		ent.setTipoFrete(tipoFrete);
 
-		IndicadorPrecoEn indicadorPreco = (IndicadorPrecoEn) this.subView.getCbClienteIndicadorPreco().getValue();
+		IndicadorPrecoEn indicadorPreco = (IndicadorPrecoEn) this.subView
+				.getCbClienteIndicadorPreco().getValue();
 
 		ent.setIndicadorPreco(indicadorPreco);
 
-		SimNaoEn gerarFinanceiro = (SimNaoEn) this.subView.getCbClienteGerarFinanceiro().getValue();
+		SimNaoEn gerarFinanceiro = (SimNaoEn) this.subView
+				.getCbClienteGerarFinanceiro().getValue();
 
 		ent.setGerarFinanceiro(gerarFinanceiro);
 
@@ -450,12 +441,77 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 		ent.setDesde(this.subView.getPdfClienteDesde().getValue());
 		ent.setSituacaoForCli(this.subView.getMocClienteSituacao().getValue());
 		ent.setAtividadeForCli(this.subView.getMocClienteAtividade().getValue());
-		ent.setOperacaoFiscal(this.subView.getMocClienteOperacaoFiscal().getValue());
+		ent.setOperacaoFiscal(this.subView.getMocClienteOperacaoFiscal()
+				.getValue());
 
 		this.entity.setCliente(ent);
-
 	}
-	
+
+	@Override
+	protected void carregar(Serializable id) {
+		try {
+			this.entity = this.business.find(id);
+			
+			fieldGroup.setItemDataSource(this.entity);
+
+			// PessoaContato
+			//List<PessoaContatoEntity> auxLista1 = this.pessoaContatoBusiness.list(this.entity);
+			//this.entity.setPessoaContatoList(auxLista1);
+			List<PessoaContatoEntity> item = pessoaContatoDAO.findByPessoaContato(entity);
+			subView.preencheSubFormContato(item);
+
+			// PessoaEndereco
+			//List<PessoaEnderecoEntity> auxLista2 = this.pessoaEnderecoBusiness.list(this.entity);
+			//this.entity.setPessoaEnderecoList(auxLista2);			
+			List<PessoaEnderecoEntity> itens = pessoaEnderecoDAO.findByPessoaEndereco(entity);
+			subView.preencheSubFormEndereco(itens);
+
+			this.subView.getTfNome().setValue(this.entity.getNome());
+
+			this.subView.getCbTipoPessoa()
+					.setValue(this.entity.getTipo());
+
+			this.subView.getTfEmail().setValue(this.entity.getEmail());
+			this.subView.getTfSite().setValue(this.entity.getSite());
+
+			if (this.entity.getTipo().equals(TipoPessoaEn.F)) {
+				this.entity.setPessoaFisica(loadPessoaFisica());
+			} else if (this.entity.getTipo().equals(TipoPessoaEn.J)) {
+				this.entity.setPessoaJuridica(loadPessoaJuridica());
+			}
+
+			this.subView.getCkCliente().setValue(
+					this.entity.getTipoCliente().equals("0") ? Boolean.FALSE
+							: Boolean.TRUE);
+
+			if (this.entity.getTipoCliente().equals("1")) {
+				loadCliente();
+			}
+
+			// PessoaContato
+
+			this.subView.getSfPessoaContato().fillWith(
+					this.entity.getPessoaContatoList());
+
+			// PessoaEndereco
+
+			for (PessoaEnderecoEntity ent : this.entity.getPessoaEnderecoList()) {
+				if (StringUtils.isNotBlank(ent.getSiglaUf())) {
+					UfEntity uf = this.ufBusiness.find(ent.getIdUf());
+
+					ent.setUf(uf);
+				}
+			}
+
+			this.subView.getSfPessoaEndereco().fillWith(
+					this.entity.getPessoaEnderecoList());
+
+			visibleTabSheet();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private PessoaFisicaEntity loadPessoaFisica() {
 		PessoaFisicaEntity pf = this.entity.getPessoaFisica();
 
@@ -586,12 +642,11 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 		}
 	}
 
-	
 	@Override
-	protected void quandoNovo() {
-		
+	protected void criarNovoBean() {
 		try {
 			this.entity = new PessoaEntity();
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -599,13 +654,10 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 		} finally {
 			visibleTabSheet();
 		}
-
-		
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		
 		try {
 			this.business.deleteAll(ids);
 
@@ -615,13 +667,10 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 
 			mensagemErro(e.getMessage());
 		}
-
-		
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
-		
 		try {
 
 		} catch (Exception e) {
@@ -629,15 +678,13 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 
 			mensagemErro(e.getMessage());
 		}
-
-		
 	}
 
 	/**
-	 * ********************** PESSOA (ABAS) *****************************
+	 * 
 	 */
 
-	public PessoaContatoEntity adicionarPessoaContato() {
+	/*public PessoaContatoEntity adicionarPessoaContato() {
 		try {
 			PessoaContatoEntity ent = new PessoaContatoEntity();
 			ent.setPessoa(this.entity);
@@ -665,9 +712,9 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 
 			mensagemErro(e.getMessage());
 		}
-	}
+	}*/
 
-	public PessoaEnderecoEntity adicionarPessoaEndereco() {
+	/*public PessoaEnderecoEntity adicionarPessoaEndereco() {
 		try {
 			PessoaEnderecoEntity ent = new PessoaEnderecoEntity();
 			ent.setPessoa(this.entity);
@@ -680,9 +727,35 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 
 			throw e;
 		}
+	}*/
+	
+	public PessoaContatoEntity adicionarPessoaContato() {
+		PessoaContatoEntity item = new PessoaContatoEntity();
+		entity.addPessoaContato(item);
+		return item;
+	}
+	
+	public void removerPessoaContato(List<PessoaContatoEntity> pessoaContato) {
+		for (PessoaContatoEntity pessoaCon : pessoaContato) {
+			entity.removePessoaContato(pessoaCon);
+		}
+		mensagemRemovidoOK();
+	}
+	
+	public PessoaEnderecoEntity adicionarPessoaEndereco() {
+		PessoaEnderecoEntity item = new PessoaEnderecoEntity();
+		entity.addPessoaEndereco(item);
+		return item;
+	}
+	
+	public void removerPessoaEndereco(List<PessoaEnderecoEntity> pessoaEndereco) {
+		for (PessoaEnderecoEntity pessoaEn : pessoaEndereco) {
+			entity.removePessoaEndereco(pessoaEn);
+		}
+		mensagemRemovidoOK();
 	}
 
-	public void removerPessoaEndereco(List<PessoaEnderecoEntity> values) {
+	/*public void removerPessoaEndereco(List<PessoaEnderecoEntity> values) {
 		try {
 			for (PessoaEnderecoEntity ent : values) {
 				this.pessoaEnderecoBusiness.delete(ent);
@@ -695,78 +768,8 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 
 			mensagemErro(e.getMessage());
 		}
-	}
-	
-	/**
-	 * 
-	 */
+	}*/
 
-	public void visibleTabSheet() {
-		this.subView
-				.getTsGeral()
-				.getTab(4)
-				.setVisible(
-						this.entity.getTipoCliente().equals("0") ? Boolean.FALSE
-								: Boolean.TRUE);
-
-	}
-
-	/**
-	 * 
-	 */
-
-	public BeanItemContainer<UfEntity> getUfBic() {
-		try {
-			List<UfEntity> auxLista = this.ufBusiness.findAll();
-
-			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
-					UfEntity.class, auxLista);
-
-			return bic;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
-		}
-	}
-
-	/**
-	 * 
-	 */
-
-	public void vceVisibleTabSheet(ValueChangeEvent event, Integer indexTab) {
-		Object obj = event.getProperty().getValue();
-
-		if (obj instanceof TipoPessoaEn) {
-			TipoPessoaEn en = (TipoPessoaEn) obj;
-
-			this.subView
-					.getTsGeral()
-					.getTab(0)
-					.setVisible(
-							en.equals(TipoPessoaEn.F) ? Boolean.TRUE
-									: Boolean.FALSE);
-			this.subView
-					.getTsGeral()
-					.getTab(1)
-					.setVisible(
-							en.equals(TipoPessoaEn.J) ? Boolean.TRUE
-									: Boolean.FALSE);
-
-			this.subView.getTsGeral().setSelectedTab(
-					en.equals(TipoPessoaEn.F) ? 0 : 1);
-		} else if (obj instanceof Boolean) {
-			Boolean b = (Boolean) obj;
-
-			this.subView.getTsGeral().getTab(indexTab).setVisible(b);
-
-			// this.subView.getCkColaborador().setEnabled(false);
-			// this.subView.getTsGeral().getTab(5).setEnabled(false);
-		} else {
-			System.out.println(":: [instanceof] no type for " + obj.toString());
-		}
-	}
-	
 	/**
 	 * COMBOS
 	 */
@@ -845,10 +848,80 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 		}
 	}
 
-	@Override
-	public PessoaEntity getModelBean() {
-		// TODO Auto-generated method stub
-		return entity;
+	//
+
+	/**
+	 * 
+	 */
+
+	public void visibleTabSheet() {
+		this.subView
+				.getTsGeral()
+				.getTab(4)
+				.setVisible(
+						this.entity.getTipoCliente().equals("0") ? Boolean.FALSE
+								: Boolean.TRUE);
+
+	}
+
+	/**
+	 * 
+	 */
+
+	public BeanItemContainer<UfEntity> getUfBic() {
+		try {
+			List<UfEntity> auxLista = this.ufBusiness.findAll();
+
+			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
+					UfEntity.class, auxLista);
+
+			return bic;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	/**
+	 * 
+	 */
+
+	public void vceVisibleTabSheet(ValueChangeEvent event, Integer indexTab) {
+		Object obj = event.getProperty().getValue();
+
+		if (obj instanceof TipoPessoaEn) {
+			TipoPessoaEn en = (TipoPessoaEn) obj;
+
+			this.subView
+					.getTsGeral()
+					.getTab(0)
+					.setVisible(
+							en.equals(TipoPessoaEn.F) ? Boolean.TRUE
+									: Boolean.FALSE);
+			this.subView
+					.getTsGeral()
+					.getTab(1)
+					.setVisible(
+							en.equals(TipoPessoaEn.J) ? Boolean.TRUE
+									: Boolean.FALSE);
+
+			this.subView.getTsGeral().setSelectedTab(
+					en.equals(TipoPessoaEn.F) ? 0 : 1);
+		} else if (obj instanceof Boolean) {
+			Boolean b = (Boolean) obj;
+
+			this.subView.getTsGeral().getTab(indexTab).setVisible(b);
+
+			// this.subView.getCkColaborador().setEnabled(false);
+			// this.subView.getTsGeral().getTab(5).setEnabled(false);
+		} else {
+			System.out.println(":: [instanceof] no type for " + obj.toString());
+		}
+	}
+	
+	public List<PessoaEnderecoEntity> getPessoaEndereco() {
+		return pessoaEnderecoDAO.listaTodos();
 	}
 
 }

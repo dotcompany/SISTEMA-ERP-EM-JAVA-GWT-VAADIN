@@ -177,7 +177,7 @@ public class ClienteFormView extends CustomComponent {
 		gridLayout_1.addComponent(tfLimiteCredito, 3,3);
 
 		tfObservacao = ComponentUtil.buildTextArea("Observação");
-		gridLayout_1.addComponent(tfObservacao, 0, 4, 3,4);
+		gridLayout_1.addComponent(tfObservacao, 0, 4, 3, 4);
 
 		return gridLayout_1;
 	}

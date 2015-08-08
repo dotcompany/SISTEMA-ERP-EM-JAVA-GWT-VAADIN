@@ -11,19 +11,21 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.validator.constraints.Length;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
-import dc.entidade.framework.ComboValue;
 
 /**
  * 
@@ -51,27 +53,27 @@ public class CstIpiEntity extends AbstractMultiEmpresaModel<Integer> implements 
 	@Field
 	@Caption("Codigo")
 	@Column(name = "Codigo")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String codigo;
+	@NotNull(message = "Código é obrigatório")
+	@Length(max = 2, message = "O tamanho deve ser no máximo 2 caracteres")
+	private String codigo = "";
 
 	@Field
 	@Caption("Descricao")
-	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "DESCRICAO", length = 250)
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String descricao;
+	@NotNull(message = "Descrição é obrigatório")
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	private String descricao = "";
 
 	@Lob
 	@Field
 	@Caption("Observacao")
-	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "OBSERVACAO")
 	@Type(type = "text")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private String observacao;
+	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	private String observacao = "";
 
 	public CstIpiEntity() {
 
@@ -112,10 +114,37 @@ public class CstIpiEntity extends AbstractMultiEmpresaModel<Integer> implements 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof CstIpiEntity)) {
+	           return false;
+	    }
+
+	    CstIpiEntity that = (CstIpiEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
+	}
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return descricao;
 	}
 
 }

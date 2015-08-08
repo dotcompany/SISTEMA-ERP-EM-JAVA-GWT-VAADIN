@@ -9,6 +9,7 @@ import dc.entidade.geral.produto.MarcaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("produtoMarcaDAO")
+@SuppressWarnings("unchecked")
 public class MarcaDAO extends AbstractCrudDAO<MarcaEntity> {
 
 	@Override
@@ -18,12 +19,12 @@ public class MarcaDAO extends AbstractCrudDAO<MarcaEntity> {
 
 	@Transactional
 	public List<MarcaEntity> listaTodos() {
-		return getSession().createQuery("from MarcaProduto").list();
+		return getSession().createQuery("from ProdutoMarca").list();
 	}
 
 	@Transactional
 	public List<MarcaEntity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from MarcaProduto where nome like :q")
+		return getSession().createQuery("from ProdutoMarca where nome like :q")
 				.setParameter("q", "%" + query + "%").list();
 	}
 
@@ -35,7 +36,7 @@ public class MarcaDAO extends AbstractCrudDAO<MarcaEntity> {
 	public List<MarcaEntity> query(String q) {
 		q = "%" + q.toLowerCase() + "%";
 		return getSession()
-				.createQuery("from MarcaProduto where lower(nome) like :q")
+				.createQuery("from ProdutoMarca where lower(nome) like :q")
 				.setParameter("q", q).list();
 	}
 

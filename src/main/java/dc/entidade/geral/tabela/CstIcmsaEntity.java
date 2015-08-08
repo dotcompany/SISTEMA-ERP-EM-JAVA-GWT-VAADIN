@@ -11,14 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.validator.constraints.Length;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -53,24 +56,28 @@ public class CstIcmsaEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "Codigo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código é obrigatório")
+	@Length(max = 1, message = "O tamanho deve ser no máximo 1 caractere")
 	private String codigo;
 
 	@Field
-	@Caption("Descricao")
+	@Caption("Descrição")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "DESCRICAO", length = 250)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é obrigatório")
 	private String descricao;
 
 	@Lob
 	@Field
-	@Caption("Observacao")
+	@Caption("Observação")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "OBSERVACAO")
 	@Type(type = "text")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Observação é obrigatório")
 	private String observacao;
 
 	public CstIcmsaEntity() {
@@ -112,10 +119,37 @@ public class CstIcmsaEntity extends AbstractMultiEmpresaModel<Integer> implement
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof CstIcmsaEntity)) {
+	           return false;
+	    }
+
+	    CstIcmsaEntity that = (CstIcmsaEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
+	}
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return descricao;
 	}
 
 }

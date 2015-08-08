@@ -38,7 +38,7 @@ public class SubGrupoListController extends CRUDListController<SubGrupoEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "descricao" };
+		return new String[] {"grupo", "nome", "descricao" };
 	}
 
 	@Override

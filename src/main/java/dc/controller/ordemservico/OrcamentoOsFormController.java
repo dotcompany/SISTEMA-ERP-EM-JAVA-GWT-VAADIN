@@ -150,11 +150,6 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOsEnt
 	}
 
 	@Override
-	protected void quandoNovo() {
-//		subView.preencheSubForm(currentBean.getItens());
-	}
-
-	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 		remover(ids);
 	}

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -78,8 +79,8 @@ public class MarcaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
+	@OneToMany(mappedBy = "marca", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy = "marca", fetch = FetchType.LAZY)
 	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
 	/**
@@ -146,11 +147,11 @@ public boolean equals(Object obj) {
           return true;
     }
 
-    if (!(obj instanceof ProdutoEntity)) {
+    if (!(obj instanceof MarcaEntity)) {
            return false;
     }
 
-    ProdutoEntity that = (ProdutoEntity) obj;
+    MarcaEntity that = (MarcaEntity) obj;
     EqualsBuilder eb = new EqualsBuilder();
     eb.append(getId(), that.getId());
     return eb.isEquals();

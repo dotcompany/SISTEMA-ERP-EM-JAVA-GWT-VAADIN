@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.EfdTabela437Entity;
 import dc.servicos.dao.geral.tabela.EfdTabela437DAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.EfdTabela437FormView;
 
@@ -45,8 +47,6 @@ public class EfdTabela437FormController extends
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
-
 		try {
 			efdTabela437DAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -57,58 +57,83 @@ public class EfdTabela437FormController extends
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = efdTabela437DAO.find(id);
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
-	}
+		 try {
+		        this.currentBean = this.efdTabela437DAO.find(id);
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
+		        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+		        fieldGroup.setItemDataSource(this.currentBean);
 
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new EfdTabela437FormView();
+		try {
+		       this.subView = new EfdTabela437FormView(this);
+
+		        // Cria o DCFieldGroup
+		        this.fieldGroup = new DCFieldGroup<>(EfdTabela437Entity.class);
+
+		        // Mapeia os campos
+		        fieldGroup.bind(this.subView.getTxtCodigo(),"codigo");
+		        fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+		        
+		        
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
 	}
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new EfdTabela437Entity();
+		try {
+	        this.currentBean = new EfdTabela437Entity();
+
+	        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        mensagemErro(e.getMessage());
+	    }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		efdTabela437DAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
-	}
+		try {
+			//this.business.deleteAll(ids);
+			this.efdTabela437DAO.deleteAll(ids);
 
-	/* Implementar validacao de campos antes de salvar. */
-	@Override
-	protected boolean validaSalvar() {
-		if (subView.getTxtDescricao().getValue() == null
-				|| subView.getTxtDescricao().getValue().isEmpty()) {
-			// Utilizar adicionarErroDeValidacao() para adicionar mensagem de
-			// erro para o campo que esta sendo validado
-			adicionarErroDeValidacao(subView.getTxtDescricao(),
-					"Não pode ficar em Branco!");
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-			return false;
+			mensagemErro(e.getMessage());
 		}
-
-		return true;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
+	}
+
+	@Override
+	protected boolean validaSalvar() {
+		try {
+			 // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+			return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
+		}
 	}
 
 	@Override

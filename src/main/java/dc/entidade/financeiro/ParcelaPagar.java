@@ -28,6 +28,8 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
@@ -52,6 +54,7 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
@@ -130,7 +133,8 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Status Parcela")
 	@JoinColumn(name = "id_status_parcela", referencedColumnName = "id")
 	//@ManyToOne(optional = false)
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	//@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@Transient
 	private StatusParcela statusParcela;
 
 	@Caption(value = "Lançamento à Pagar")
@@ -160,6 +164,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	@OneToMany(mappedBy = "parcelaPagar", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<ParcelaPagamento> parcelapagamentos = new ArrayList<>();
 
 	@Transient

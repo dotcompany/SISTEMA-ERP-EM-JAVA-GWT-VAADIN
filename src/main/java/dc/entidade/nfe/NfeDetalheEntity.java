@@ -32,12 +32,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.produto.ProdutoEntity;
-
-/**
- * 
- * @author Gutemberg A. Da Silva
- * 
- */
+import dc.entidade.suprimentos.estoque.LoteProdutoEntity;
 
 @Entity
 @Table(name = "nfe_detalhe")
@@ -290,6 +285,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@OneToOne
 	@JoinColumn(name = "id_produto")
 	private ProdutoEntity produto;
+	
+	private LoteProdutoEntity loteProduto;
 
 	/**
 	 * REFERENCIA - LIST
@@ -745,6 +742,14 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setNdeArmamento(NfeDetEspecificoArmamentoEntity ndeArmamento) {
 		this.ndeArmamento = ndeArmamento;
 	}
+	
+	public LoteProdutoEntity getLoteProduto() {
+		return loteProduto;
+	}
+
+	public void setLoteProduto(LoteProdutoEntity loteProduto) {
+		this.loteProduto = loteProduto;
+	}
 
 	/**
 	 * TO STRING
@@ -754,5 +759,6 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	
 
 }

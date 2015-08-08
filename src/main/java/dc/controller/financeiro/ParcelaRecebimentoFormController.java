@@ -369,7 +369,7 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 		}
 
 		if (!deletedItens.isEmpty()) {
-			mensagemAtencao("Recebimento excluÃ­do com sucesso!");
+			mensagemAtencao("Recebimento excluído com sucesso!");
 			subView.getRecebimentosSubForm().removeItens(deletedItens);
 		}
 	}

@@ -291,7 +291,8 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 	}
 
 	public void removeParcelaReceber(ParcelaReceber value) {
-		// TODO Auto-generated method stub
+		value.setLancamentoReceber(null);
+		parcelasReceber.remove(value);
 
 	}
 

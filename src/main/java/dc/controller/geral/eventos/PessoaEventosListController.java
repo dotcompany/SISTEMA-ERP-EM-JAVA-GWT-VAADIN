@@ -42,7 +42,7 @@ public class PessoaEventosListController extends CRUDListController<PessoaEntity
 	@Override
 	public String[] getColunas() {
 		// TODO Auto-generated method stub
-		return new String[] {"nome", "tipoPessoa", "email", "site"};
+		return new String[] { "nome", "tipo", "email", "site" };
 	}
 
 	@Override

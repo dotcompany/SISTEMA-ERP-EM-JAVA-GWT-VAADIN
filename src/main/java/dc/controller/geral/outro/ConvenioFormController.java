@@ -7,23 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.ObjectUtils;
-import dc.control.util.StringUtils;
-import dc.control.util.classes.ConvenioUtils;
-import dc.control.validator.DotErpException;
-import dc.controller.geral.diverso.UfListController;
 import dc.controller.geral.pessoal.PessoaListController;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.outro.ConvenioEntity;
-import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.model.business.geral.diverso.UfBusiness;
 import dc.model.business.geral.outro.ConvenioBusiness;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.outro.ConvenioFormView;
 
@@ -106,61 +102,46 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 	protected void initSubView() {
 		try {
 			this.subView = new ConvenioFormView(this);
+			
+	            this.fieldGroup = new DCFieldGroup<>(ConvenioEntity.class);
+				
+				// Mapeia os campos
+				
+				fieldGroup.bind(this.subView.getTfNome(),"nome");
+				fieldGroup.bind(this.subView.getTfCnpj(),"cnpj");
+				fieldGroup.bind(this.subView.getTfLogradouro(),"logradouro");
+				fieldGroup.bind(this.subView.getTfBairro(),"bairro");
+				fieldGroup.bind(this.subView.getTfTelefone(),"telefone");
+				
+				fieldGroup.bind(this.subView.getMocPessoa(),"pessoa");
+				
+				//this.subView.getMocUf().configuraCombo(
+				//		"nome", UfListController.class, this.ufDAO, this.getMainController());
+				
+				this.subView.getMocPessoa().configuraCombo(
+						"nome", PessoaListController.class, this.pessoaDAO, this.getMainController());
+				
+				carregarUf();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-			DefaultManyToOneComboModel<UfEntity> modelUf = new DefaultManyToOneComboModel<UfEntity>(
-					UfListController.class, this.ufDAO,
-					super.getMainController());
-
-			this.subView.getMocUf().setModel(modelUf);
-
-			DefaultManyToOneComboModel<PessoaEntity> modelPessoa = new DefaultManyToOneComboModel<PessoaEntity>(
-					PessoaListController.class, this.pessoaDAO,
-					super.getMainController());
-
-			this.subView.getMocPessoa().setModel(modelPessoa);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			ConvenioUtils.validateRequiredFields(this.subView);
-
-			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
-			return false;
+			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+		    return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
 		}
 	}
 
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity
-					.setLogradouro(this.subView.getTfLogradouro().getValue());
-			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setCnpj(this.subView.getTfCnpj().getValue());
-			this.entity.setDataVencimento(this.subView.getPdfDataVencimento()
-					.getValue());
-			this.entity.setNumero(this.subView.getTfNumero().getValue());
-			this.entity.setBairro(this.subView.getTfBairro().getValue());
-			this.entity.setContato(this.subView.getTfContato().getValue());
-			this.entity.setTelefone(this.subView.getTfTelefone().getValue());
-			this.entity.setDescricao(this.subView.getTfDescricao().getValue());
-			this.entity.setCep(this.subView.getTfCep().getValue());
-			this.entity.setEmail(this.subView.getTfEmail().getValue());
-
-			PessoaEntity pessoa = this.subView.getMocPessoa().getValue();
-
-			this.entity.setPessoa(pessoa);
-
-			UfEntity uf = this.subView.getMocUf().getValue();
-
-			this.entity.setSiglaUf(uf.getSigla());
-
 			this.business.saveOrUpdate(entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -176,31 +157,7 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 		try {
 			this.entity = this.business.find(id);
 
-			this.subView.getTfNome().setValue(this.entity.getNome());
-			this.subView.getTfCnpj().setValue(this.entity.getCnpj());
-			this.subView.getTfLogradouro()
-					.setValue(this.entity.getLogradouro());
-			this.subView.getTfNumero().setValue(this.entity.getNumero());
-			this.subView.getTfBairro().setValue(this.entity.getBairro());
-			this.subView.getTfContato().setValue(this.entity.getContato());
-			this.subView.getTfTelefone().setValue(this.entity.getTelefone());
-			this.subView.getTfDescricao().setValue(this.entity.getDescricao());
-			this.subView.getTfCep().setValue(this.entity.getCep());
-			this.subView.getTfEmail().setValue(this.entity.getEmail());
-
-			PessoaEntity pessoa = this.entity.getPessoa();
-
-			if (ObjectUtils.isNotBlank(pessoa)) {
-				this.subView.getMocPessoa().setValue(pessoa);
-			}
-
-			String siglaUf = this.entity.getSiglaUf();
-
-			if (StringUtils.isNotBlank(siglaUf)) {
-				UfEntity uf = this.ufBusiness.getObject(siglaUf);
-
-				this.subView.getMocUf().setValue(uf);
-			}
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -210,17 +167,8 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 	protected void criarNovoBean() {
 		try {
 			this.entity = new ConvenioEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new ConvenioEntity();
+			
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -255,5 +203,21 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 	/**
 	 * COMBOS
 	 */
+	
+	public void carregarUf() {
+		try {
+			List<UfEntity> auxLista = this.ufDAO.listaTodos();
+
+			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
+					UfEntity.class, auxLista);
+
+			this.subView.getMocUf().setContainerDataSource(bic);
+			this.subView.getMocUf().setItemCaptionPropertyId("nome");
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
 
 }

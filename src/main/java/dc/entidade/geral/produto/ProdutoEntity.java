@@ -47,6 +47,7 @@ import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
@@ -369,7 +370,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Caption("Marca do produto")
 	@ManyToOne()
-	@JoinColumn(name = "id_marca_produto", nullable = false)
+	@JoinColumn(name = "id_marca_produto",referencedColumnName = "id", nullable = false)
 	@NotNull(message = "Marca do produto é obrigatório")
 	private MarcaEntity marca;
 

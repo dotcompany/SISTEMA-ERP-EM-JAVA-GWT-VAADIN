@@ -11,9 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -52,6 +55,7 @@ public class FeriadoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "Ano")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Ano é Obrigatório")
 	private String ano;
 
 	@Field
@@ -59,6 +63,7 @@ public class FeriadoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "NOME", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório")
 	private String nome;
 
 	@Column(name = "ABRANGENCIA")
@@ -84,6 +89,7 @@ public class FeriadoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "DATA_FERIADO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Data Feriado é Obrigatório")
 	private Date data;
 
 	public FeriadoEntity() {
@@ -156,6 +162,33 @@ public class FeriadoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof FeriadoEntity)) {
+	           return false;
+	    }
+
+	    FeriadoEntity that = (FeriadoEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
 	}
 
 	@Override

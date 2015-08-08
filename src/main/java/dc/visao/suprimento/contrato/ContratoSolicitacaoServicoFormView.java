@@ -374,7 +374,7 @@ public class ContratoSolicitacaoServicoFormView extends CustomComponent {
 	}
 	
 	public enum ResponsavelEnum{
-		FORNECEDOR("Forncedor"),
+		FORNECEDOR("Fornecedor"),
 		CLIENTE("Cliente");
 		private String label;
 		

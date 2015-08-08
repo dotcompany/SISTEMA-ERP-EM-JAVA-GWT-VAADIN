@@ -211,6 +211,11 @@ public class ProdutoBusinessImpl implements Serializable,
 				GrupoEntity grupo = this.grupoDAO.find(ent.getGrupo().getId());
 				ent.setGrupo(grupo);
 			}
+			
+			if (ObjectUtils.isNotBlank(ent.getUnidadeProduto())) {
+				UnidadeProdutoEntity unidadeProduto = this.unidadeProdutoDAO.find(ent.getUnidadeProduto().getId());
+				ent.setUnidadeProduto(unidadeProduto);
+			}
 
 			if (ObjectUtils.isNotBlank(ent.getGrupoTributario())) {
 				GrupoTributarioEntity grupoTributario = this.grupoTributarioDAO
@@ -233,11 +238,11 @@ public class ProdutoBusinessImpl implements Serializable,
 						.getSubGrupo().getId());
 				ent.setSubGrupo(subGrupo);
 			}
-
-			if (ObjectUtils.isNotBlank(ent.getUnidadeProduto())) {
-				UnidadeProdutoEntity unidadeProduto = this.unidadeProdutoDAO
-						.find(ent.getUnidadeProduto().getId());
-				ent.setUnidadeProduto(unidadeProduto);
+			
+			if (ObjectUtils.isNotBlank(ent.getIcmsCustomizado())) {
+				IcmsCustomizadoCabecalhoEntity icms = this.icmsCustomizadoDAO.find(ent
+						.getIcmsCustomizado().getId());
+				ent.setIcmsCustomizado(icms);
 			}
 
 			this.dao.saveOrUpdate(ent);
@@ -270,21 +275,5 @@ public class ProdutoBusinessImpl implements Serializable,
 	/**
 	 * 
 	 */
-
-	@Override
-	public List<ProdutoEntity> list() throws Exception {
-		// TODO Auto-generated method stub
-		try {
-			System.out.println(":: [" + getClass().getSimpleName() + "] list");
-
-			List<ProdutoEntity> auxLista = this.dao.list();
-
-			return auxLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw e;
-		}
-	}
 
 }

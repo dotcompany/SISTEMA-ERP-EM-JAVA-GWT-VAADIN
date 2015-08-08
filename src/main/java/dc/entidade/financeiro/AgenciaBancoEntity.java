@@ -167,9 +167,10 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Caption("Banco")
-	@ManyToOne(cascade = { CascadeType.PERSIST })
-	@JoinColumn(name = "id_banco")
-	@NotNull(message = "Banco é Obrigatório!")
+	//@ManyToOne(cascade = { CascadeType.PERSIST })
+	@JoinColumn(name = "id_banco", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	//@JoinColumn(name = "id_banco")
 	private BancoEntity banco;
 
 	@Caption("UF")
