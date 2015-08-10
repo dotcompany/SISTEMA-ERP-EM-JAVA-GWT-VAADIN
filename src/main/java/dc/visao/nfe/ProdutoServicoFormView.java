@@ -30,7 +30,6 @@ import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

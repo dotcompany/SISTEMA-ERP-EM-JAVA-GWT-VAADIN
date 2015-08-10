@@ -27,7 +27,6 @@ import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

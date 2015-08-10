@@ -14,7 +14,6 @@ import dc.controller.nfe.ProdutoServicoFormController;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

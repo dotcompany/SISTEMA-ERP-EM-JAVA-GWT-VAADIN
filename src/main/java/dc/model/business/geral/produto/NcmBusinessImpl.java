@@ -16,7 +16,6 @@ import dc.model.dao.geral.produto.NcmDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

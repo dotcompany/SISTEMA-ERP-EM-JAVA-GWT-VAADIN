@@ -24,7 +24,6 @@ import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 
@@ -51,7 +50,6 @@ public class VendedorEntity extends AbstractMultiEmpresaModel<Integer>
 	private Integer id;
 
 	/**
-	 * @autor Gutemberg A. Da Silva
 	 * 
 	 * @module FOLHAPAGAMENTO
 	 */

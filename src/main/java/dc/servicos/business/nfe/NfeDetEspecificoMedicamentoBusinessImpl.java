@@ -15,7 +15,6 @@ import dc.servicos.dao.nfe.NfeDetEspecificoMedicamentoDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

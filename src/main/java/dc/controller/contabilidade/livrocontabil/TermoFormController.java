@@ -20,8 +20,6 @@ import dc.visao.contabilidade.livrocontabil.TermoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class TermoFormController extends CRUDFormController<TermoEntity> {

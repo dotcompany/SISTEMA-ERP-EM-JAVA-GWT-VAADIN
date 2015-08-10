@@ -22,8 +22,6 @@ import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.ApoliceSeguroFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class ApoliceSeguroFormController extends CRUDFormController<ApoliceSeguroEntity> {

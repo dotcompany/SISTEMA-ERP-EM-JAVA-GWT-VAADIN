@@ -19,8 +19,6 @@ import dc.visao.contabilidade.lancamento.LancamentoOrcadoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class LancamentoOrcadoFormController extends

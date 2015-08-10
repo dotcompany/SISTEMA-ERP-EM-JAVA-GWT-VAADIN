@@ -33,7 +33,6 @@ import dc.model.dao.tributario.IcmsCustomizadoDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

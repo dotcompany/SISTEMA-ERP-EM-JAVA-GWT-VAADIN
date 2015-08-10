@@ -118,11 +118,11 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 
 	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<ParcelaReceber> parcelasReceber = new ArrayList<>();
+	private List<ParcelaReceber> parcelasReceber = new ArrayList<ParcelaReceber>();
 
 	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<LctoReceberNtFinanceiraEntity> LctoReceberNtFinanceira = new ArrayList<>();
+	private List<LctoReceberNtFinanceiraEntity> LctoReceberNtFinanceira = new ArrayList<LctoReceberNtFinanceiraEntity>();
 	
 	//@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	//@Fetch(FetchMode.SUBSELECT)

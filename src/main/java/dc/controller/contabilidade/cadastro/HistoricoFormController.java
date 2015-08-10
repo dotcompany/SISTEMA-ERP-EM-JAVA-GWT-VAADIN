@@ -15,7 +15,6 @@ import dc.servicos.dao.contabilidade.cadastro.HistoricoDAO;
 import dc.visao.contabilidade.cadastro.HistoricoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")

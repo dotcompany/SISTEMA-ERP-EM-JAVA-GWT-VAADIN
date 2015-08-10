@@ -16,7 +16,6 @@ import dc.model.dao.geral.pessoal.EstadoCivilDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

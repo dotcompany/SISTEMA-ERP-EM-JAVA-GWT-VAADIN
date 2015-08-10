@@ -19,7 +19,6 @@ import org.hibernate.search.annotations.Indexed;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

@@ -61,7 +61,6 @@ public class ColaboradorDAO extends AbstractCrudDAO<ColaboradorEntity> {
 	 */
 
 	/**
-	 * @autor Gutemberg A. Da Silva
 	 * 
 	 * @module FOLHAPAGAMENTO
 	 */

@@ -38,7 +38,6 @@ import dc.entidade.geral.pessoal.FornecedorEntity;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

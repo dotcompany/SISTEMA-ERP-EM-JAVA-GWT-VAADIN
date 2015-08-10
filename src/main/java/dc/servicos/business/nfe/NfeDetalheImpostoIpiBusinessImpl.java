@@ -15,7 +15,6 @@ import dc.servicos.dao.nfe.NfeDetalheImpostoIpiDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

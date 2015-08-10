@@ -222,7 +222,7 @@ public void salvarParcelasReceber() {
 	StatusParcela statusParcela;
 	try {
 
-		statusParcela = this.statusParcelaDAO.findBySituacao("Em Aberto");
+		statusParcela = this.statusParcelaDAO.findBySituacao("Outro");
 		if (statusParcela == null) {
 			mensagemErro("O status de parcela em aberto não está cadastrado.\nEntre em contato com a Software House.");
 		} else {

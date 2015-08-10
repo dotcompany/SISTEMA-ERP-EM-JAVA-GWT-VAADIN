@@ -15,7 +15,6 @@ import dc.servicos.dao.contabilidade.demonstrativo.DfcDAO;
 import dc.visao.contabilidade.demonstrativo.DfcFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")

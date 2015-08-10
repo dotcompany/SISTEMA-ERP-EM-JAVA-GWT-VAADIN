@@ -15,7 +15,6 @@ import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

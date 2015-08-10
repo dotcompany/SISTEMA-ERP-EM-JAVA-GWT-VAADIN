@@ -29,8 +29,6 @@ import dc.servicos.dao.patrimonio.TipoAquisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.BemFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class BemFormController extends CRUDFormController<BemEntity> {

@@ -2,7 +2,6 @@ package dc.entidade.nfe;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

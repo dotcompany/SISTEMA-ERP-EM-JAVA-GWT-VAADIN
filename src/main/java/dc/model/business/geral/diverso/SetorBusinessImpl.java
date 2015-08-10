@@ -16,7 +16,6 @@ import dc.model.dao.geral.diverso.SetorDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

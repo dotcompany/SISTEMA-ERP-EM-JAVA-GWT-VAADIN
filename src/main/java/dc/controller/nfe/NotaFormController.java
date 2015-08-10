@@ -15,8 +15,6 @@ import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.NotaFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class NotaFormController extends CRUDFormController<LivroEntity> {

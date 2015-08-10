@@ -15,7 +15,6 @@ import dc.servicos.dao.nfe.NfeDetEspecificoArmamentoDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

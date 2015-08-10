@@ -38,7 +38,6 @@ import dc.entidade.tributario.OperacaoFiscalEntity;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

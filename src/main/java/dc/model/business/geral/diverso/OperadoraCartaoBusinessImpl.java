@@ -16,7 +16,6 @@ import dc.model.dao.geral.diverso.OperadoraCartaoDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

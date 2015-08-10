@@ -19,8 +19,6 @@ import dc.servicos.dao.patrimonio.DepreciacaoBemDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.DepreciacaoBemFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class DepreciacaoBemFormController extends CRUDFormController<DepreciacaoBemEntity> {

@@ -21,7 +21,6 @@ import dc.entidade.framework.AbstractModel;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

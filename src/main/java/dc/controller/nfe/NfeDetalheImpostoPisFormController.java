@@ -15,8 +15,6 @@ import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.ProdutoServicoFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class NfeDetalheImpostoPisFormController extends CRUDFormController<NfeDetalheImpostoPisEntity> {

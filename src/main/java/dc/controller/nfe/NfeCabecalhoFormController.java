@@ -12,8 +12,6 @@ import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.NfeCabecalhoFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class NfeCabecalhoFormController extends CRUDFormController<NfeCabecalhoEntity> {

@@ -16,7 +16,6 @@ import dc.model.dao.administrativo.seguranca.UsuarioDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

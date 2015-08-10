@@ -16,7 +16,6 @@ import dc.model.dao.geral.outro.SindicatoDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

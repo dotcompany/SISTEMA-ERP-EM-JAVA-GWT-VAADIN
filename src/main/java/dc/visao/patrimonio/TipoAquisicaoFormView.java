@@ -11,7 +11,6 @@ import dc.controller.patrimonio.TipoAquisicaoFormController;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

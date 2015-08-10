@@ -14,7 +14,6 @@ import dc.visao.framework.util.ComponentUtil;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

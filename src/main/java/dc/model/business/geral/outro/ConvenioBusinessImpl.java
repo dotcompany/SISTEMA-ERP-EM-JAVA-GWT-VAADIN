@@ -16,7 +16,6 @@ import dc.model.dao.geral.outro.ConvenioDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

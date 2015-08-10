@@ -17,8 +17,6 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.GrupoBemFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class GrupoBemFormController extends CRUDFormController<GrupoBemEntity> {

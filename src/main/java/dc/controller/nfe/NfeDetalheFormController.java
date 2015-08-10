@@ -14,8 +14,6 @@ import dc.entidade.nfe.NfeDetalheImpostoCofinsEntity;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.ProdutoServicoFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class NfeDetalheFormController extends CRUDFormController<NfeDetalheImpostoCofinsEntity> {

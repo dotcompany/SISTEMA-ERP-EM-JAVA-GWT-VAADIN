@@ -18,7 +18,6 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

@@ -14,8 +14,6 @@ import dc.servicos.dao.nfe.NfeCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.DadoNfeFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class DadoNfeFormController extends CRUDFormController<NfeCabecalhoEntity> {

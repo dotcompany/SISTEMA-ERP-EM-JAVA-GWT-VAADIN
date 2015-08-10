@@ -16,7 +16,6 @@ import dc.entidade.patrimonio.BemEntity;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

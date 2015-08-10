@@ -98,7 +98,6 @@ public class IndiceEconomico extends AbstractMultiEmpresaModel<Integer>
 	private PaisEntity paisId;
 
 	/**
-	 * @autor Gutemberg A. Da Silva
 	 * 
 	 * @module CONTABILIDADE
 	 */

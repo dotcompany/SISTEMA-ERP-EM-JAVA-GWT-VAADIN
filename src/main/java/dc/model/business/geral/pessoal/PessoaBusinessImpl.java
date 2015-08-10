@@ -37,7 +37,6 @@ import dc.model.dao.geral.pessoal.TransportadoraDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

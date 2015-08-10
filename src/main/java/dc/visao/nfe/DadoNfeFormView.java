@@ -11,7 +11,6 @@ import dc.controller.nfe.DadoNfeFormController;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

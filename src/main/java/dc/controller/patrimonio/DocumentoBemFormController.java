@@ -18,8 +18,6 @@ import dc.servicos.dao.patrimonio.DocumentoBemDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.DocumentoBemFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class DocumentoBemFormController extends CRUDFormController<DocumentoBemEntity> {

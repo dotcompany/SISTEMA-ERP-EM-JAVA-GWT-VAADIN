@@ -15,7 +15,6 @@ import dc.servicos.dao.nfe.NfeDetEspecificoCombustivelDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

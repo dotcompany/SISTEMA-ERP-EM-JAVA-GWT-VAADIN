@@ -32,7 +32,6 @@ import dc.entidade.nfe.NfeCabecalhoEntity;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

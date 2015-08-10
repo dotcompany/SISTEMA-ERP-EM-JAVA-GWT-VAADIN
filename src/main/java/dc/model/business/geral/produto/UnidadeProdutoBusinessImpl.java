@@ -16,7 +16,6 @@ import dc.model.dao.geral.produto.UnidadeProdutoDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

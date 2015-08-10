@@ -17,8 +17,6 @@ import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.SeguradoraFormView;
 import dc.visao.spring.SecuritySessionProvider;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class SeguradoraFormController extends CRUDFormController<SeguradoraEntity> {

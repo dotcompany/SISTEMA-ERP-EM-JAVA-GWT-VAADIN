@@ -24,7 +24,7 @@ public class ExtratoContaBancoDAO extends AbstractCrudDAO<ExtratoContaBancoEntit
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "" };
+		return new String[] { "mes","ano","dataMovimento","valor","observacoes" };
 	}
 	
 	@Transactional

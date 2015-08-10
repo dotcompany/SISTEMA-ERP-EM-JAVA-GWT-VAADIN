@@ -37,7 +37,7 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 
 @Entity
-@Table(name = "PARCELA_RECEBER")
+@Table(name = "parcela_receber")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)

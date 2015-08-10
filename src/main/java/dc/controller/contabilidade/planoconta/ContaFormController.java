@@ -22,8 +22,6 @@ import dc.visao.contabilidade.planoconta.ContaFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class ContaFormController extends CRUDFormController<ContaEntity> {

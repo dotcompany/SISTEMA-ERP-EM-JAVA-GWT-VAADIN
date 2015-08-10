@@ -17,8 +17,6 @@ import dc.visao.folhapagamento.inss.InssFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class InssFormController extends CRUDFormController<InssEntity> {

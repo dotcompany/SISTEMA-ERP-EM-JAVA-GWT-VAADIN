@@ -14,8 +14,6 @@ import dc.servicos.dao.nfe.NfeDestinatarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.NfeDestinatarioFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class NfeDestinatarioFormController extends CRUDFormController<NfeDestinatarioEntity> {

@@ -87,7 +87,6 @@ public class OperadoraPlanoSaudeEntity extends
 	 */
 
 	/**
-	 * @autor Gutemberg A. Da Silva
 	 * 
 	 * @module FOLHAPAGAMENTO
 	 */

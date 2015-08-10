@@ -19,7 +19,6 @@ import dc.model.dao.geral.produto.SubGrupoDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

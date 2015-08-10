@@ -9,8 +9,6 @@ import com.vaadin.data.Property.ValueChangeEvent;
  * Esta classe tem como objetivo validar objetos para a camada de visão como
  * para a camada de controle.
  * 
- * @author Gutemberg A. Da Silva
- * @version 1.0
  * 
  */
 

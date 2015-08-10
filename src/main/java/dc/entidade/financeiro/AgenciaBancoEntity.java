@@ -183,7 +183,6 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	/**
-	 * @autor Gutemberg A. Da Silva
 	 * 
 	 * @module FINANCEIRO
 	 */

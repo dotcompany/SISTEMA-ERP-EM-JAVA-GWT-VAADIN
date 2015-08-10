@@ -15,8 +15,6 @@ import dc.servicos.dao.folhapagamento.movimento.LancamentoDAO;
 import dc.visao.folhapagamento.movimento.LancamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class LancamentoFormController extends

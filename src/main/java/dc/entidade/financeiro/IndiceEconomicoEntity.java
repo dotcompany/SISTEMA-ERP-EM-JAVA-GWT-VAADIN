@@ -31,7 +31,6 @@ import dc.entidade.geral.diverso.PaisEntity;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 
