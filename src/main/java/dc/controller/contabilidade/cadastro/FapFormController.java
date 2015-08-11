@@ -18,7 +18,6 @@ import dc.servicos.dao.contabilidade.cadastro.FapDAO;
 import dc.visao.contabilidade.cadastro.FapFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")

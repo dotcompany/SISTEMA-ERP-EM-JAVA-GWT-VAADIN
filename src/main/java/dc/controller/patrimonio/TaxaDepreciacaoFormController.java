@@ -15,8 +15,6 @@ import dc.servicos.dao.patrimonio.TaxaDepreciacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.TaxaDepreciacaoFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class TaxaDepreciacaoFormController extends CRUDFormController<TaxaDepreciacaoEntity> {

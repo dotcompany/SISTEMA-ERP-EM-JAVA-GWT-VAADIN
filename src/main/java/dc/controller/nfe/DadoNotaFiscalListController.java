@@ -13,7 +13,6 @@ import dc.visao.framework.geral.CRUDListController;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

@@ -16,7 +16,6 @@ import dc.model.dao.suprimento.compra.TipoRequisicaoDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

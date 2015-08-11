@@ -17,8 +17,6 @@ import dc.servicos.dao.patrimonio.IndiceAtualizacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.IndiceAtualizacaoFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class IndiceAtualizacaoFormController extends CRUDFormController<IndiceAtualizacaoEntity> {

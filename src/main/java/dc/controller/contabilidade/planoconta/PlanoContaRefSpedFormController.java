@@ -17,8 +17,6 @@ import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
 import dc.visao.contabilidade.planoconta.PlanoContaRefSpedFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller(value = "contabilidadePlanoContaRefSpedFormController")
 @Scope("prototype")
 public class PlanoContaRefSpedFormController extends

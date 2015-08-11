@@ -22,8 +22,6 @@ import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.visao.folhapagamento.cadastro.PlanoSaudeFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class PlanoSaudeFormController extends

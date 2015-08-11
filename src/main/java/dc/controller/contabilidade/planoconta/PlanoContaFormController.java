@@ -17,8 +17,6 @@ import dc.servicos.dao.contabilidade.planoconta.PlanoContaDAO;
 import dc.visao.contabilidade.planoconta.PlanoContaFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller(value = "contabilidadePlanoContaFormController")
 @Scope("prototype")
 public class PlanoContaFormController extends

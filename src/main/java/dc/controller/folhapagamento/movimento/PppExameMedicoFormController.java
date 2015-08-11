@@ -20,8 +20,6 @@ import dc.servicos.dao.folhapagamento.movimento.PppExameMedicoDAO;
 import dc.visao.folhapagamento.movimento.PppExameMedicoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class PppExameMedicoFormController extends

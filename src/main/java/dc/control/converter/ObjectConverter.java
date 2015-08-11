@@ -9,8 +9,6 @@ import com.vaadin.event.FieldEvents.TextChangeEvent;
  * Esta classe tem como objetivo converter objetos para a camada de visão como
  * para a camada de controle.
  * 
- * @author Gutemberg A. Da Silva
- * @version 1.0
  */
 
 public class ObjectConverter {

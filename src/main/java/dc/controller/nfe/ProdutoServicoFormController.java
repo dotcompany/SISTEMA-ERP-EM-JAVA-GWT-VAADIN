@@ -61,8 +61,6 @@ import dc.visao.framework.component.manytoonecombo.ManyToOneCombo.ItemValue;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.ProdutoServicoFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class ProdutoServicoFormController extends

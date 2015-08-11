@@ -15,7 +15,6 @@ import dc.servicos.dao.contabilidade.demonstrativo.BalancoPatrimonialDAO;
 import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")

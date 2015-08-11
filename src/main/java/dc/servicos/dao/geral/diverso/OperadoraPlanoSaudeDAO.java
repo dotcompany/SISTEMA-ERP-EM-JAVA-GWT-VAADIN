@@ -44,7 +44,6 @@ public class OperadoraPlanoSaudeDAO extends	AbstractCrudDAO<OperadoraPlanoSaudeE
 	 */
 
 	/**
-	 * @autor Gutemberg A. Da Silva
 	 * 
 	 * @module FOLHAPAGAMENTO
 	 */

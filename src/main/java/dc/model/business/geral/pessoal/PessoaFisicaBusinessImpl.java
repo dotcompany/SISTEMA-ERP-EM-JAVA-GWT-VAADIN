@@ -16,7 +16,6 @@ import dc.model.dao.geral.pessoal.PessoaFisicaDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

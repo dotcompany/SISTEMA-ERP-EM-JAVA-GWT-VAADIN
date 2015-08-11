@@ -18,7 +18,6 @@ import dc.entidade.patrimonio.TipoMovimentacaoEntity;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

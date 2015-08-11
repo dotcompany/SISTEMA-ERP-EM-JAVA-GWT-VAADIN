@@ -17,8 +17,6 @@ import dc.servicos.dao.contabilidade.lancamento.FechamentoDAO;
 import dc.visao.contabilidade.lancamento.FechamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller(value = "contabilidadeFechamentoFormController")
 @Scope("prototype")
 public class FechamentoFormController extends

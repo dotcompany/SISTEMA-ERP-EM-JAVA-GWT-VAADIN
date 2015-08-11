@@ -25,7 +25,6 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

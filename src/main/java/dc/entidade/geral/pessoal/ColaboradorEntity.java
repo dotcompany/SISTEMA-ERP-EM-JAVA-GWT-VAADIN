@@ -492,7 +492,6 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	 */
 
 	/**
-	 * @autor Gutemberg A. Da Silva
 	 * 
 	 * @module PATRIMONIO
 	 */
@@ -506,7 +505,6 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	 */
 
 	/**
-	 * @autor Gutemberg A. Da Silva
 	 * 
 	 * @module FOLHAPAGAMENTO
 	 */
@@ -556,7 +554,6 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	 */
 
 	/**
-	 * @autor Gutemberg A. Da Silva
 	 * 
 	 * @module FOLHAPAGAMENTO
 	 */

@@ -21,8 +21,6 @@ import dc.visao.contabilidade.lancamento.LancamentoCabecalhoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class LancamentoCabecalhoFormController extends

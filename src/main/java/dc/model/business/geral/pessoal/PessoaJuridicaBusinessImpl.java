@@ -16,7 +16,6 @@ import dc.model.dao.geral.pessoal.PessoaJuridicaDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

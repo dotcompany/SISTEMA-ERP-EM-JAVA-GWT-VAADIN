@@ -11,7 +11,6 @@ import dc.controller.patrimonio.GrupoBemFormController;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

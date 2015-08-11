@@ -16,7 +16,6 @@ import dc.model.dao.geral.diverso.OperadoraPlanoSaudeDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

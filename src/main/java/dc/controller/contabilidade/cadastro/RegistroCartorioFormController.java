@@ -17,7 +17,6 @@ import dc.servicos.dao.contabilidade.cadastro.RegistroCartorioDAO;
 import dc.visao.contabilidade.cadastro.RegistroCartorioFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
 
 @Controller
 @Scope("prototype")

@@ -23,7 +23,6 @@ import dc.visao.framework.component.SubFormComponent;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

@@ -15,8 +15,6 @@ import dc.servicos.dao.contabilidade.lancamento.LancamentoPadraoDAO;
 import dc.visao.contabilidade.lancamento.LancamentoPadraoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class LancamentoPadraoFormController extends

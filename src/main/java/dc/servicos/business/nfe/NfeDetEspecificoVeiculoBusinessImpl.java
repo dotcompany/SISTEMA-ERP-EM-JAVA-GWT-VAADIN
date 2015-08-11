@@ -15,7 +15,6 @@ import dc.servicos.dao.nfe.NfeDetEspecificoVeiculoDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

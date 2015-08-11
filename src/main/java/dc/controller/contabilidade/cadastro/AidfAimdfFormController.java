@@ -17,8 +17,6 @@ import dc.servicos.dao.contabilidade.cadastro.AidfAimdfDAO;
 import dc.visao.contabilidade.cadastro.AidfAimdfFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class AidfAimdfFormController extends

@@ -19,8 +19,6 @@ import dc.servicos.dao.folhapagamento.movimento.PppFatorRiscoDAO;
 import dc.visao.folhapagamento.movimento.PppFatorRiscoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class PppFatorRiscoFormController extends

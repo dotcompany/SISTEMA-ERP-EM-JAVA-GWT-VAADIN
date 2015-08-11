@@ -16,7 +16,6 @@ import dc.servicos.dao.contabilidade.cadastro.ParametrosDAO;
 import dc.visao.contabilidade.cadastro.ParametrosFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
 
 @Controller()
 @Scope("prototype")

@@ -40,7 +40,7 @@ public class ExtratoContaBancoListController extends CRUDListController<ExtratoC
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "" };
+		return new String[] { "mes","ano","dataMovimento","valor","observacoes" };
 	}
 
 	@Override

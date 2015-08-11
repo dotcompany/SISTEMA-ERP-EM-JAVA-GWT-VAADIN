@@ -11,7 +11,6 @@ import dc.controller.patrimonio.EstadoConservacaoFormController;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

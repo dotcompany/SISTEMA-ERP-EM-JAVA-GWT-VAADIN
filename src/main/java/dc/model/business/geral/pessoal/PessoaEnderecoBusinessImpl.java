@@ -17,7 +17,6 @@ import dc.model.dao.geral.pessoal.PessoaEnderecoDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

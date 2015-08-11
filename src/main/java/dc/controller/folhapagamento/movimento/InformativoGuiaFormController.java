@@ -15,8 +15,6 @@ import dc.servicos.dao.folhapagamento.movimento.InformativoGuiaDAO;
 import dc.visao.folhapagamento.movimento.InformativoGuiaFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class InformativoGuiaFormController extends

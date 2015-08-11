@@ -15,8 +15,6 @@ import dc.servicos.dao.folhapagamento.movimento.AlteracaoSalarialDAO;
 import dc.visao.folhapagamento.movimento.AlteracaoSalarialFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class AlteracaoSalarialFormController extends

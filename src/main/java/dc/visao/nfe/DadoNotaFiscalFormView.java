@@ -10,7 +10,6 @@ import com.vaadin.ui.VerticalLayout;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

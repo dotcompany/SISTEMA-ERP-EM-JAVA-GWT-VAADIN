@@ -21,8 +21,6 @@ import dc.servicos.dao.patrimonio.TipoMovimentacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.MovimentacaoBemFormView;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class MovimentacaoBemFormController extends CRUDFormController<MovimentacaoBemEntity> {

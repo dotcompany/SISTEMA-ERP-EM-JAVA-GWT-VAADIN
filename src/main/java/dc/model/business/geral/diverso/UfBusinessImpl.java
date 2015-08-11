@@ -18,7 +18,6 @@ import dc.model.dao.geral.diverso.UfDAO;
 
 /**
  * 
- * @author Gutemberg A Da Silva
  * 
  */
 

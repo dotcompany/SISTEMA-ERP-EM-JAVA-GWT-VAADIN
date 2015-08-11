@@ -11,7 +11,6 @@ import dc.controller.patrimonio.TipoMovimentacaoFormController;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

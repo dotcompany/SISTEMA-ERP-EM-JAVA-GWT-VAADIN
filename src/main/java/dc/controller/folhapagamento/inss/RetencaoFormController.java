@@ -23,8 +23,6 @@ import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {

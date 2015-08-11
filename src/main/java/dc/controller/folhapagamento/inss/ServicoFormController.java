@@ -15,8 +15,6 @@ import dc.servicos.dao.folhapagamento.inss.ServicoDAO;
 import dc.visao.folhapagamento.inss.ServicoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class ServicoFormController extends CRUDFormController<ServicoEntity> {

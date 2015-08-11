@@ -15,8 +15,6 @@ import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
 import dc.visao.contabilidade.livrocontabil.LivroFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class LivroFormController extends CRUDFormController<LivroEntity> {

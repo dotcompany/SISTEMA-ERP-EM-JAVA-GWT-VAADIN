@@ -164,7 +164,6 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 	// private List<OperadoraCartaoEntity> operadoraCartaoList;
 
 	/**
-	 * @autor Gutemberg A. Da Silva
 	 * 
 	 * @module FINANCEIRO
 	 */

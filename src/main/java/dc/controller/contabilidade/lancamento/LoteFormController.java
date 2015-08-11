@@ -17,8 +17,6 @@ import dc.servicos.dao.contabilidade.lancamento.LoteDAO;
 import dc.visao.contabilidade.lancamento.LoteFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class LoteFormController extends CRUDFormController<LoteEntity> {

@@ -12,7 +12,6 @@ import dc.controller.nfe.NotaFormController;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

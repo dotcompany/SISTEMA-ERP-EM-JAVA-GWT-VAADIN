@@ -17,8 +17,6 @@ import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeCabDAO;
 import dc.visao.contabilidade.demonstrativo.EncerramentoExeCabFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class EncerramentoExeCabFormController extends

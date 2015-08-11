@@ -12,11 +12,10 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.controller.geral.diverso.UfListController;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
+import dc.model.business.geral.pessoal.ContadorBusiness;
 import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.geral.pessoal.ContadorDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.ContadorFormView;
@@ -32,13 +31,16 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 
 	private ContadorFormView subView;
 
-	@Autowired
-	private ContadorDAO contadorDAO;
+	//@Autowired
+	//private ContadorDAO contadorDAO;
 
 	@Autowired
 	private UfDAO ufDAO;
 
 	private ContadorEntity currentBean;
+	
+	@Autowired
+	private ContadorBusiness<ContadorEntity> business;
 
 	@Override
 	protected boolean validaSalvar() {
@@ -94,7 +96,7 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.contadorDAO.find(id);
+			this.currentBean = this.business.find(id);
 			fieldGroup.setItemDataSource(this.currentBean);
 
 		} catch (Exception e) {
@@ -107,7 +109,7 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 	protected void actionSalvar() {
 		
 		try {
-			contadorDAO.saveOrUpdate(currentBean);
+			this.business.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
@@ -125,7 +127,7 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.contadorDAO.deleteAll(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {

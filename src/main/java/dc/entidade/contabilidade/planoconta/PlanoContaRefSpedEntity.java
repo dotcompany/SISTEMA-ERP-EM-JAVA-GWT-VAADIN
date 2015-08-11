@@ -30,7 +30,6 @@ import dc.entidade.framework.ComboValue;
 
 /**
  * 
- * @author Gutemberg A. Da Silva
  * 
  */
 

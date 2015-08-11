@@ -15,8 +15,6 @@ import dc.servicos.dao.contabilidade.demonstrativo.DreCabecalhoDAO;
 import dc.visao.contabilidade.demonstrativo.DreCabecalhoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
-/** @author Gutemberg A. Da Silva */
-
 @Controller
 @Scope("prototype")
 public class DreCabecalhoFormController extends
