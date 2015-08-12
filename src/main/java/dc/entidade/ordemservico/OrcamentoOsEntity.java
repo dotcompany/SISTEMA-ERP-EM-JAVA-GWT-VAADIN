@@ -292,7 +292,7 @@ public class OrcamentoOsEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	public OrcamentoOsItemEntity addOrcamentoOsItem(OrcamentoOsItemEntity orcamentoOsItem) {
 		getItens().add(orcamentoOsItem);
-		orcamentoOsItem.setOrcamentoOs(this);
+		orcamentoOsItem.setOrcamentoOs(this);;
 
 		return orcamentoOsItem;
 	}

@@ -177,7 +177,7 @@ public class OrcamentoOsFormView extends CustomComponent {
 
 		layout.addComponent(abaVendaPeca);
 		subForms.addComponent(layout);
-//		subForms.addTab(layout, "Ordem de ServiÃ§o Simples", null);
+//		subForms.addTab(layout, "Ordem de Serviço Simples", null);
 
 	}
 

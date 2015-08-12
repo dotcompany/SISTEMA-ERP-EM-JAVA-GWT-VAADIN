@@ -10,7 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.octo.captcha.module.servlet.image.SimpleImageCaptchaServlet;
-
+ 
 public class CustomFilterLoginCaptcha extends
 		UsernamePasswordAuthenticationFilter {
 

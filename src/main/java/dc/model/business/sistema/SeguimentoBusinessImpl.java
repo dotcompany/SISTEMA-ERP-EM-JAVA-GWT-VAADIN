@@ -16,6 +16,7 @@ import dc.model.dao.sistema.SeguimentoDAO;
 
 /**
  * 
+ * @author Gutemberg A Da Silva
  * 
  */
 

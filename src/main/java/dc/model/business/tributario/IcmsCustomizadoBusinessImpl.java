@@ -16,6 +16,7 @@ import dc.model.dao.tributario.IcmsCustomizadoDAO;
 
 /**
  * 
+ * @author Gutemberg A Da Silva
  * 
  */
 
@@ -192,21 +193,6 @@ public class IcmsCustomizadoBusinessImpl implements Serializable,
 	public List<IcmsCustomizadoCabecalhoEntity> comboTextSearch(String value,
 			FmMenu menu, Boolean getAll) {
 		return dao.comboTextSearch(value, menu, getAll);
-	}
-
-	@Override
-	public List<IcmsCustomizadoCabecalhoEntity> list() throws Exception {
-		try {
-			System.out.println(":: [" + getClass().getSimpleName() + "] list");
-
-			List<IcmsCustomizadoCabecalhoEntity> auxLista = this.dao.list();
-
-			return auxLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw e;
-		}
 	}
 
 }

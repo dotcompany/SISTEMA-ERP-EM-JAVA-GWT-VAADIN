@@ -21,6 +21,7 @@ import dc.model.dao.suprimento.estoque.ContagemDetalheDAO;
 
 /**
  * 
+ * @author Gutemberg A Da Silva
  * 
  */
 
