@@ -159,7 +159,7 @@ dependencies {
     compile 'com.itextpdf:itextpdf:5.5.5'
     compile 'javax.mail:mail:1.4.7'
     
-    compile 'mysql:mysql-connector-java:5.1.21'
+   // compile 'mysql:mysql-connector-java:5.1.21'
     compile ('org.postgresql:postgresql:9.4-1201-jdbc41') {
         exclude module: 'slf4j-simple'
     }
@@ -186,7 +186,7 @@ dependencies {
     compile 'org.springframework:spring-context-support:4.2.0.RELEASE'
 
  
-    compile 'org.freemarker:freemarker:2.3.22'
+    compile 'org.freemarker:freemarker:2.3.23'
 
     compile 'org.springframework.security:spring-security-core:4.0.2.RELEASE'
     compile "org.springframework.security:spring-security-web:4.0.2.RELEASE"
