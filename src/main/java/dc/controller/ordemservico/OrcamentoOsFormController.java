@@ -95,7 +95,7 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOsEnt
 
 		if (!Validator.validateObject(subView.getTfNome().getValue())) {
 			valido = false;
-			mensagemErro("O campo nome nÃ£o pode ficar em branco.");
+			mensagemErro("O campo nome não pode ficar em branco.");
 		}
 		return valido;
 	}
@@ -147,6 +147,11 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOsEnt
 	protected void remover(List<Serializable> ids) {
 		orcamentoOsDAO.deleteAllByIds(ids);
 		mensagemRemovidoOK();
+	}
+
+	@Override
+	protected void quandoNovo() {
+//		subView.preencheSubForm(currentBean.getItens());
 	}
 
 	@Override

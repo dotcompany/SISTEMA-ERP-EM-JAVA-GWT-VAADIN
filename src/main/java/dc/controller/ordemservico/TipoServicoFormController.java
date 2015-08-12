@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClassUtils;
 import dc.entidade.ordemservico.TipoServicoOsEntity;
 import dc.servicos.dao.ordemservico.TipoServicoOsDAO;
 import dc.servicos.util.Validator;
@@ -32,11 +31,6 @@ public class TipoServicoFormController extends CRUDFormController<TipoServicoOsE
 	@Override
 	protected String getNome() {
 		return "Tipo de Serviço";
-	}
-	
-	@Override
-	protected boolean isFullSized() {
-		return true;
 	}
 
 	@Override
@@ -64,17 +58,6 @@ public class TipoServicoFormController extends CRUDFormController<TipoServicoOsE
 
 	@Override
 	protected void quandoNovo() {
-		
-		try {
-			this.currentBean = new TipoServicoOsEntity();
-
-			this.subView.getTfDescricao().setValue(this.currentBean.getDescricao());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
 
 	}
 
@@ -114,11 +97,10 @@ public class TipoServicoFormController extends CRUDFormController<TipoServicoOsE
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 	}
-	
+
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
-		return ClassUtils.getUrl(this);
+		return "tipoServicoForm";
 	}
 
 	@Override

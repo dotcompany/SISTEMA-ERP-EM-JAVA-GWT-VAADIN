@@ -31,7 +31,7 @@ public class OrdemServicoListController extends CRUDListController<OrdemServicoE
 
 	@Override
 	protected String getTitulo() {
-		return "Ordem de Serviço";
+		return "Ordem de serviço";
 	}
 
 	@Override

@@ -9,13 +9,12 @@ public class GrupoUtils {
 	public static void validateRequiredFields(GrupoOsFormView subView)
 			throws DotErpException {
 		
-		String nome = subView.getTxtNome().getValue();
-		
-		    if (StringUtils.isBlank(nome)) {
-		        throw new DotErpException(subView.getTxtNome(),
-		                "::DotERP - Não pode ficar em branco");
-		   }
-		
+		String grupo = subView.getTxtNome().getValue();
+
+		if (StringUtils.isBlank(grupo)) {
+			throw new DotErpException(subView.getTxtNome(),
+					"::DotERP - Não pode ficar em branco");
+		}
 	}
 
 	public static void validateFieldValue(GrupoOsFormView subView)
