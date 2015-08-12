@@ -287,7 +287,7 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 
 	@Override
 	public String toString() {
-		return "com.t2tierp.financeiro.java.ParcelaReceber[id=" + id + "]";
+		return finStatusParcela.getDescricao();
 	}
 
 	public boolean isSelecionado() {

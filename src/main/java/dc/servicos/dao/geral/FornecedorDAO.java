@@ -9,6 +9,7 @@ import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
+@SuppressWarnings("unchecked")
 public class FornecedorDAO extends AbstractCrudDAO<FornecedorEntity> {
 
 	@Override
@@ -17,11 +18,12 @@ public class FornecedorDAO extends AbstractCrudDAO<FornecedorEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "pessoa" };
+		return new String[] { "pessoa","situacaoForCli","atividadeForCli","desde", "contaRemetente","prazoMedioEntrega","quantidadeParcelas","observacao" };
 	}
 	
 	@Transactional
 	public List<FornecedorEntity> listaTodos() {
+		
 		List<FornecedorEntity> lista = getSession().createQuery("from Fornecedor")
 				.list();
 

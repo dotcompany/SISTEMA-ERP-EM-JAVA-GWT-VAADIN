@@ -72,7 +72,7 @@ public List<LancamentoPagarEntity> query(String value) {
 }
 
 public String[] getDefaultSearchFields() {
-	return new String[] { "descricao" };
+	return new String[] { "valorTotal" };
 }
 
 }

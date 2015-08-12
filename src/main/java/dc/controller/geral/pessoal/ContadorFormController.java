@@ -41,6 +41,10 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 	
 	@Autowired
 	private ContadorBusiness<ContadorEntity> business;
+	
+	public ContadorBusiness<ContadorEntity> getBusiness() {
+		 return business;
+	}
 
 	@Override
 	protected boolean validaSalvar() {
@@ -76,8 +80,7 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 			// Mapeia os campos
 			
 			fieldGroup.bind(this.subView.getTxtNome(),"nome");
-			fieldGroup.bind(this.subView.getTxtCpf(),"cpf");
-			fieldGroup.bind(this.subView.getTxtCnpj(),"cnpj");
+			fieldGroup.bind(this.subView.getTxtComplemento(),"complemento");
 			fieldGroup.bind(this.subView.getTxtLogradouro(),"logradouro");
 			fieldGroup.bind(this.subView.getTxtBairro(),"bairro");
 			fieldGroup.bind(this.subView.getTxtEmail(),"email");

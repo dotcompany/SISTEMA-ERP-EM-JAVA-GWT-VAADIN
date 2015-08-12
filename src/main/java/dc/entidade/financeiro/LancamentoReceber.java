@@ -1,5 +1,6 @@
 package dc.entidade.financeiro;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,20 +36,24 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.pessoal.ClienteEntity;
 
 @Entity
-@Table(name = "LANCAMENTO_RECEBER")
+@Table(name = "lancamento_receber")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
+public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lancamento_receber_id_seq")
+	@SequenceGenerator(name = "lancamento_receber_id_seq", sequenceName = "lancamento_receber_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
-	@Column(name = "ID")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Field
@@ -118,11 +124,11 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> {
 
 	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<ParcelaReceber> parcelasReceber = new ArrayList<ParcelaReceber>();
+	private List<ParcelaReceber> parcelasReceber = new ArrayList<>();
 
 	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<LctoReceberNtFinanceiraEntity> LctoReceberNtFinanceira = new ArrayList<LctoReceberNtFinanceiraEntity>();
+	private List<LctoReceberNtFinanceiraEntity> LctoReceberNtFinanceira = new ArrayList<>();
 	
 	//@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	//@Fetch(FetchMode.SUBSELECT)

@@ -60,7 +60,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fornecedor_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "fornecedor_id_seq")
 	@SequenceGenerator(name = "fornecedor_id_seq", sequenceName = "fornecedor_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -204,20 +204,16 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@NotNull(message = "Pessoa é Obrigatório!")
 	private PessoaEntity pessoa;
 	
-	//@Caption("Situação fornecedor / cliente")
-	//@ManyToOne(fetch = FetchType.EAGER)
-	//@JoinColumn(name = "id_situacao_for_cli", referencedColumnName = "id")
 	@Caption("Situação fornecedor / cliente")
 	@ManyToOne
-	@JoinColumn(name = "id_situacao_for_cli", nullable = true)
+	@JoinColumn(name = "id_situacao_for_cli", referencedColumnName = "id")
+	@NotNull(message = "Situação fornecedor é Obrigatório!")
 	private SituacaoForCliEntity situacaoForCli;
 
-	//@Caption("Atividade fornecedor / cliente")
-	//@ManyToOne(fetch = FetchType.EAGER)
-	//@JoinColumn(name = "id_atividade_for_cli", referencedColumnName = "id")
 	@Caption("Atividade fornecedor / cliente")
-	@ManyToOne
-	@JoinColumn(name = "id_atividade_for_cli", nullable = true)
+	@ManyToOne()
+	@JoinColumn(name = "id_atividade_for_cli", referencedColumnName = "id")
+	@NotNull(message = "Atividade fornecedor é Obrigatório!")
 	private AtividadeForCliEntity atividadeForCli;
 
 	/**

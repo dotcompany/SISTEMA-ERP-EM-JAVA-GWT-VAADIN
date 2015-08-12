@@ -11,6 +11,7 @@ import dc.servicos.dao.financeiro.LancamentoReceberDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
+
 @Controller
 @Scope("prototype")
 public class LancamentoReceberListController extends CRUDListController<LancamentoReceber> {

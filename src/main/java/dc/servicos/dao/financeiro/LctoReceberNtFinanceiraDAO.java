@@ -68,5 +68,22 @@ public class LctoReceberNtFinanceiraDAO extends
 		}
 		return lista;
 	}
+	
+	@Transactional
+	public List<LctoReceberNtFinanceiraEntity> findByNaturezaReceber(LancamentoReceber currentBean) {
+
+			List<LctoReceberNtFinanceiraEntity> lista = new ArrayList<>();
+
+			try{
+				if(currentBean!=null){
+					lista =  getSession()
+							.createQuery("from LctoReceberNtFinanceira i where i.lancamentoReceber = :lancamentoReceber")
+							.setParameter("lancamentoReceber", currentBean).list();
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return lista;
+	}	
 
 }

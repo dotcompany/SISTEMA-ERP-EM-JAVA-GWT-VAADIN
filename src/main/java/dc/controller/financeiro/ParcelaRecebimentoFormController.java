@@ -187,7 +187,7 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 	protected void actionSalvar() {
 		subView.preencheBean(currentBean);
 		try {
-			parcelaRecebimentoDAO.saveOrUpdate(currentBean);
+			this.parcelaRecebimentoDAO.saveOrUpdate(this.currentBean);
 			notifiyFrameworkSaveOK(this.currentBean.getParcelaReceber());
 		} catch (Exception e) {
 			e.printStackTrace();

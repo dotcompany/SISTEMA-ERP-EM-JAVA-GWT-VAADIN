@@ -14,7 +14,7 @@ import dc.control.enums.LocalizacaoEn;
 import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.FornecedorEntity;
-import dc.servicos.dao.geral.FornecedorDAO;
+import dc.model.business.geral.pessoal.FornecedorBusiness;
 import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.servicos.dao.geral.pessoal.SituacaoForCliDAO;
@@ -43,13 +43,16 @@ public class FornecedorFormController extends
 	/**
 	 * BUSINESS
 	 */
+	
+	@Autowired
+	private FornecedorBusiness<FornecedorEntity> business;
 
 	/**
 	 * DAO
 	 */
 
-	@Autowired
-	private FornecedorDAO dao;
+	//@Autowired
+	//private FornecedorDAO dao;
 
 	@Autowired
 	private AtividadeForCliDAO atividadeForCliDAO;
@@ -66,6 +69,10 @@ public class FornecedorFormController extends
 
 	public FornecedorFormController() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public FornecedorBusiness<FornecedorEntity> getBusiness() {
+		 return business;
 	}
 
 	@Override
@@ -110,6 +117,8 @@ public class FornecedorFormController extends
 			fieldGroup.bind(this.subView.getTfChequeNominalA(),"chequeNominalA");
 			
 			fieldGroup.bind(this.subView.getMocPessoa(),"pessoa");
+			fieldGroup.bind(this.subView.getMocSituacaoForCli(),"situacaoForCli");
+			fieldGroup.bind(this.subView.getMocAtividadeForCli(),"atividadeForCli");
 			
 			this.subView.getMocPessoa().configuraCombo(
 					"nome", PessoaListController.class, this.pessoaDAO, this.getMainController());
@@ -142,7 +151,7 @@ public class FornecedorFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.dao.saveOrUpdate(this.entity);
+			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
@@ -155,7 +164,7 @@ public class FornecedorFormController extends
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.entity = this.dao.find(id);
+			this.entity = this.business.find(id);
 			
 			fieldGroup.setItemDataSource(this.entity);
 
@@ -182,7 +191,7 @@ public class FornecedorFormController extends
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.dao.deleteAllByIds(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {

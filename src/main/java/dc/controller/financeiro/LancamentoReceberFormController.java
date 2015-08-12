@@ -55,12 +55,12 @@ import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
+import dc.model.business.financeiro.LancamentoReceberBusiness;
 import dc.servicos.dao.contabilidade.ContabilContaDAO;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.servicos.dao.financeiro.ConfiguracaoBoletoDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
-import dc.servicos.dao.financeiro.LancamentoReceberDAO;
 import dc.servicos.dao.financeiro.LctoReceberNtFinanceiraDAO;
 import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.servicos.dao.financeiro.ParcelaReceberDAO;
@@ -73,7 +73,6 @@ import dc.visao.financeiro.LancamentoReceberFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
-import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
@@ -115,9 +114,15 @@ public class LancamentoReceberFormController extends
 	private static final long serialVersionUID = 1L;
 
 	private LancamentoReceberFormView subView;
-
+	
+	/**
+	 * BUSINESS
+	 */
 	@Autowired
-	private LancamentoReceberDAO lancamentoReceberDAO;
+	private LancamentoReceberBusiness<LancamentoReceber> business;
+
+	//@Autowired
+	//private LancamentoReceberDAO lancamentoReceberDAO;
 
 	@Autowired
 	private ParcelaReceberDAO parcelaReceberDAO;
@@ -169,54 +174,48 @@ public class LancamentoReceberFormController extends
 	protected Component getSubView() {
 		return subView;
 	}
+	
+public LancamentoReceberBusiness<LancamentoReceber> getBusiness() {
+		return business;
+}
 
 @Override
 protected void actionSalvar() {
 		
 	try {
 		
-		subView.preencheBean(currentBean);
+		boolean valido = validaSalvar();
+		if (valido) {
 		
-		currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
-				.getConta().getEmpresa());
-		lancamentoReceberDAO.saveOrUpdate(currentBean);
-		notifiyFrameworkSaveOK(this.currentBean);
-
-		boolean valido = true;
-
-		List<ParcelaReceber> parcelasReceber = subView.getParcelasSubForm()
-				.getDados();
-		List<LctoReceberNtFinanceiraEntity> naturezasanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
-
-		if (((BigDecimal) subView.getTxValorReceber().getConvertedValue())
-				.compareTo(getTotalParcelaReceber(parcelasReceber)) != 0) {
-			adicionarErroDeValidacao(subView.getParcelasSubForm(),
-					"Os valores informados nas parcelas não batem com o valor a pagar.");
-			valido = false;
-			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
-		}
+		    subView.preencheBean(currentBean);
 		
-		setIntervaloParcelaByTipoVencimento();
-		salvarParcelasReceber();
+		    List<ParcelaReceber> parcelasReceber = subView.getParcelasSubForm().getDados();
+		    List<LctoReceberNtFinanceiraEntity> naturezasFinanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
 
-		if (((BigDecimal) subView.getTxValorReceber().getConvertedValue())
-				.compareTo(getTotalNaturezaFinanceira(naturezasanceiras)) != 0) {
-			adicionarErroDeValidacao(
-					subView.getNaturezaFinanceiraSubForm(),
-					"Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
-			valido = false;
+		    if (((BigDecimal) subView.getTxValorReceber().getConvertedValue()).compareTo(getTotalParcelaReceber(parcelasReceber)) != 0) {
+			        adicionarErroDeValidacao(subView.getParcelasSubForm(),"Os valores informados nas parcelas não batem com o valor a pagar.");
+			        mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
+		    }
+		
+		    setIntervaloParcelaByTipoVencimento();
+		    salvarParcelasReceber();
 
-			mensagemErro("Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
+		    if (((BigDecimal) subView.getTxValorReceber().getConvertedValue()).compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
+			        adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),"Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
+			        mensagemErro("Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
+		    }
+		    
+		    this.business.saveOrUpdate(this.currentBean);
+		    notifiyFrameworkSaveOK(this.currentBean);
+		    
 		}
-
-			
 			
 	}catch (Exception e) {
 	        e.printStackTrace();
 	        mensagemErro(e.getMessage());
 	}
 		
-	}
+}
 
 public void salvarParcelasReceber() {
 	StatusParcela statusParcela;
@@ -245,7 +244,12 @@ public void salvarParcelasReceber() {
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.lancamentoReceberDAO.find(id);
+			this.currentBean = this.business.find(id);
+			
+            subView.preencheForm(currentBean);
+			
+			List<LctoReceberNtFinanceiraEntity> itens = lctoFinanceiraDAO.findByNaturezaReceber(currentBean);
+			subView.preencheSubForm(itens);
 			
 			// Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
 			fieldGroup.setItemDataSource(this.currentBean);
@@ -411,7 +415,7 @@ protected void criarNovoBean() {
 	protected void remover(List<Serializable> ids) {
 		try {
 			//this.business.deleteAll(ids);
-			this.lancamentoReceberDAO.deleteAll(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -432,17 +436,6 @@ protected boolean validaSalvar() {
         return false;
     }
 }
-
-	private boolean verificaSeFoiParcelado() {
-		// TODO
-		/*
-		 * return ((Integer)
-		 * subView.getTxQuantidadeParcela().getConvertedValue()) > 1 &&
-		 * TipoVencimento
-		 * .DIARIO.equals(subView.getCbTipoVencimento().getValue());
-		 */
-		return false;
-	}
 
 	private BigDecimal getTotalParcelaReceber(List<ParcelaReceber> parcelas) {
 		BigDecimal total = BigDecimal.ZERO;
@@ -483,7 +476,12 @@ protected boolean validaSalvar() {
 				parcelaReceber.setLancamentoReceber(null);
 			}
 
-			lancamentoReceberDAO.delete(lancamentoReceber);
+			try {
+				business.delete(lancamentoReceber);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 		mensagemRemovidoOK();
@@ -494,12 +492,12 @@ protected boolean validaSalvar() {
 
 		return "lancamentoReceberForm";
 	}
-
-	@Override
-	protected boolean isFullSized() {
-
-		return true;
-	}
+	
+	/**
+	 * 
+	 * @author wesleyj
+	 *
+	 */
 
 	public void gerarParcelas() throws Exception {
 
@@ -891,6 +889,11 @@ public List<LctoReceberNtFinanceiraEntity> getNaturezasFinan() {
 	
 	public List<NaturezaFinanceira> buscarNaturezas() {
 		return naturezaFinanceiraDAO.getAll(NaturezaFinanceira.class);
+	}
+	
+	@Override
+	public boolean isFullSized() {
+		return true;
 	}
 
 }

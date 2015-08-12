@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.financeiro.ParcelaPagamento;
 import dc.entidade.financeiro.ParcelaReceber;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -19,12 +18,13 @@ public class ParcelaReceberDAO extends AbstractCrudDAO<ParcelaReceber> {
 	}
 
 	@Transactional
-	public List<ParcelaPagamento> listaTodos() {
+	public List<ParcelaReceber> listaTodos() {
 		return getSession().createQuery("from ParcelaReceber").list();
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] {};
+		return new String[] {"contaCaixa", "numeroParcela", "dataEmissao", "dataVencimento", "descontoAte", "valor", "valorFaltante", "taxaJuro",
+				"valorJuro", "taxaMulta", "valorMulta", "taxaDesconto", "valorDesconto", "emitiuBoleto", "boletoNossoNumero"};
 	}
 
 }

@@ -45,6 +45,7 @@ import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.component.manytoonecombo.ManyToOneComboField;
 import dc.visao.framework.util.ComponentUtil;
 
+
 public class LancamentoReceberFormView extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
@@ -616,6 +617,10 @@ public class LancamentoReceberFormView extends CustomComponent {
 		txValorReceber.setConvertedValue(currentBean.getValorAReceber());
 		txValorComissao.setConvertedValue(currentBean.getTaxaComissao());
 		txValorTotal.setConvertedValue(currentBean.getValorTotal());
+	}
+	
+	public void preencheSubForm(List<LctoReceberNtFinanceiraEntity> detalhes) {
+		naturezaFinanceiraSubForm.fillWith(detalhes);
 	}
 
 	public ManyToOneComboField<DocumentoOrigem> getCbDocumentoOrigem() {

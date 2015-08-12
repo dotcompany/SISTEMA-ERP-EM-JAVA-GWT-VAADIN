@@ -42,7 +42,7 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contador_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "contador_id_seq")
 	@SequenceGenerator(name = "contador_id_seq", sequenceName = "contador_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -51,7 +51,7 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Caption("Inscricao CRC")
-	@Column(name = "INSCRICAO_CRC", length = 50)
+	@Column(name = "INSCRICAO_CRC")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String inscricaoCrc;
@@ -65,7 +65,7 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Caption("Telefone")
-	@Column(name = "FONE", length = 50)
+	@Column(name = "FONE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone;
@@ -79,7 +79,7 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Caption("Logradouro")
-	@Column(name = "LOGRADOURO", length = 100)
+	@Column(name = "LOGRADOURO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Logradouro é Obrigatório!")
@@ -87,21 +87,22 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Caption("Numero")
-	@Column(name = "NUMERO", length = 50)
+	@Column(name = "NUMERO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String numero;
 
 	@Field
 	@Caption("Complemento")
-	@Column(name = "complemento", length = 100)
+	@Column(name = "complemento")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Complemento é Obrigatório!")
 	private String complemento;
 
 	@Field
 	@Caption("Bairro")
-	@Column(name = "BAIRRO", length = 100)
+	@Column(name = "BAIRRO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Bairro é Obrigatório!")
@@ -109,21 +110,21 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Caption("Cidade")
-	@Column(name = "CIDADE", length = 100)
+	@Column(name = "CIDADE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String cidade;
 
 	@Field
 	@Caption("Cep")
-	@Column(name = "CEP", length = 50)
+	@Column(name = "CEP")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String cep;
 
 	@Field
 	@Caption("Municipio IBGE")
-	@Column(name = "MUNICIPIO_IBGE", length = 100)
+	@Column(name = "MUNICIPIO_IBGE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer municipioIBGE;
@@ -139,7 +140,7 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Caption("Email")
-	@Column(name = "EMAIL", length = 100)
+	@Column(name = "EMAIL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Email é Obrigatório!")
@@ -147,29 +148,27 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Field
 	@Caption("Nome")
-	@Column(name = "NOME", length = 150)
+	@Column(name = "NOME")
 	@NotNull(message = "Nome é Obrigatório!")
 	private String nome;
 
 	@Field
 	@Caption("Cpf")
-	@Column(name = "CPF", length = 50)
+	@Column(name = "CPF")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Cpf é Obrigatório!")
 	private String cpf;
 
 	@Field
 	@Caption("Cnpj")
-	@Column(name = "CNPJ", length = 100)
+	@Column(name = "CNPJ")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Cnpj é Obrigatório!")
 	private String cnpj;
 
 	@Field
 	@Caption("Site")
-	@Column(name = "SITE", length = 150)
+	@Column(name = "SITE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String site;

@@ -10,8 +10,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.geral.pessoal.ContadorFormController;
-import dc.entidade.geral.diverso.UfEntity;
-import dc.visao.framework.component.manytoonecombo.ManyToOneComboField;
 import dc.visao.framework.util.ComponentUtil;
 
 public class ContadorFormView extends CustomComponent {
