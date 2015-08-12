@@ -46,7 +46,7 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sindicato_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "sindicato_id_seq")
 	@SequenceGenerator(name = "sindicato_id_seq", sequenceName = "sindicato_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -109,7 +109,6 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	@Column(name = "FONE1", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Telefone 1 é Obrigatório!")
 	private String fone1 = "";
 
 	@Field
@@ -163,7 +162,6 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	@Column(name = "CNPJ", length = 30)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "CNPJ é Obrigatório!")
 	private String cnpj = "";
 
 	@Field

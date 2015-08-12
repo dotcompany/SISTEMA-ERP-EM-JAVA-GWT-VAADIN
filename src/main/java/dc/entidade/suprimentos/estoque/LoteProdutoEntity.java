@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -56,6 +57,7 @@ public class LoteProdutoEntity extends AbstractMultiEmpresaModel<Integer> implem
 	    @Field
 		@Caption(value = "Nome")
 	    @Column(name = "NOME")
+	    @NotNull(message = "Nome é Obrigatório!")
 	    private String nome;
 	    
 	    @Field

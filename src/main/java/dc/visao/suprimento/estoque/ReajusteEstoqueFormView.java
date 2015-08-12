@@ -90,7 +90,7 @@ public class ReajusteEstoqueFormView extends CustomComponent {
 		dataReajuste.setImmediate(false);
 		fields.addComponent(dataReajuste, 0, 0);
 
-		porcentagem = ComponentUtil.buildTextField("Porcentagem");
+		porcentagem = ComponentUtil.buildPercentageField("Porcentagem");
 		fields.addComponent(porcentagem, 1, 0);
 
 		cmbTipoReajuste = ComponentUtil.buildComboBox("Tipo de Reajuste");

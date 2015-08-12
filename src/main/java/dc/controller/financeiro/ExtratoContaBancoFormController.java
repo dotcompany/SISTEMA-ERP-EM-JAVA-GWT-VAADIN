@@ -28,6 +28,7 @@ import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.ExtratoContaBancoEntity;
 import dc.entidade.financeiro.ImportaOFX;
+import dc.entidade.suprimentos.contrato.PrevFaturamentoEntity;
 import dc.servicos.dao.financeiro.ExtratoContaBancoDAO;
 import dc.visao.financeiro.ExtratoContaBancoFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -78,8 +79,11 @@ public class ExtratoContaBancoFormController extends CRUDFormController<ExtratoC
 	protected boolean validaSalvar() {
 		try {
 			 fieldGroup.commit();
+			 List<ExtratoContaBancoEntity> extrato = subView.getExtratoContaBancoSubForm().getDados();
+			 subView.preencheSubForm(extrato);
+			 
 			return true;
-		} catch (FieldGroup.CommitException ce) {
+		} catch (Exception ce) {
 			return false;
 		}
 	}
@@ -216,6 +220,8 @@ protected void actionSalvar() {
 	try {
 		//this.business.saveOrUpdate(this.entity);
 		this.extratoContaBancoDAO.saveOrUpdate(this.entity);
+		List<ExtratoContaBancoEntity> extrato = subView.getExtratoContaBancoSubForm().getDados();
+		 subView.preencheSubForm(extrato);
 
 		notifiyFrameworkSaveOK(this.entity);
     } catch (Exception e) {

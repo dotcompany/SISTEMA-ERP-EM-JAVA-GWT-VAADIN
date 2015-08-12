@@ -19,18 +19,18 @@ public class SindicatoDAO extends AbstractCrudDAO<SindicatoEntity> {
 
 	@Transactional
 	public List<SindicatoEntity> listaTodos() {
-		return getSession().createQuery("from SindicatoEntity").list();
+		return getSession().createQuery("from Sindicato").list();
 	}
 
 	@Transactional
 	public List<SindicatoEntity> procuraNomeContendo(String query) {
 		return getSession()
-				.createQuery("from SindicatoEntity where nome like :q")
+				.createQuery("from Sindicato where nome like :q")
 				.setParameter("q", "%" + query + "%").list();
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "nome", "logradouro" };
+		return new String[] { "nome", "logradouro","bairro","email" };
 	}
 
 	@Transactional
@@ -47,7 +47,7 @@ public class SindicatoDAO extends AbstractCrudDAO<SindicatoEntity> {
 		try {
 			List<SindicatoEntity> auxLista = new ArrayList<SindicatoEntity>();
 
-			String sql = "SELECT new SindicatoEntity(ent.id, ent.nome) FROM SindicatoEntity ent";
+			String sql = "SELECT new Sindicato(ent.id, ent.nome) FROM Sindicato ent";
 
 			auxLista = getSession().createQuery(sql).list();
 

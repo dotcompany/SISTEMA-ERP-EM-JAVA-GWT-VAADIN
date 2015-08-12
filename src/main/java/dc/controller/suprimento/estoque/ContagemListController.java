@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.contabilidade.cadastro.IndiceEntity;
 import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -51,7 +50,7 @@ public class ContagemListController extends
 
 	@Override
 	protected String getTitulo() {
-		return super.getTitulo(this);
+		return "Contagem";
 	}
 
 	@Override
