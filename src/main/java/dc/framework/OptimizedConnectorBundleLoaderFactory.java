@@ -5,8 +5,8 @@ import java.util.Set;
 
 import org.vaadin.hene.popupbutton.widgetset.client.ui.PopupButtonConnector;
 
-import com.google.gwt.core.ext.typeinfo.JClassType;
 import com.vaadin.client.ui.button.ButtonConnector;
+import com.google.gwt.core.ext.typeinfo.JClassType;
 import com.vaadin.client.ui.csslayout.CssLayoutConnector;
 import com.vaadin.client.ui.label.LabelConnector;
 import com.vaadin.client.ui.orderedlayout.HorizontalLayoutConnector;
