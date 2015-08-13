@@ -57,6 +57,7 @@ import dc.entidade.suprimentos.CupomFiscalReferenciadoEntity;
 import dc.entidade.suprimentos.NfeDuplicata;
 import dc.entidade.suprimentos.NotaFiscalEmitente;
 import dc.entidade.suprimentos.NotaReferenciada;
+import dc.entidade.suprimentos.estoque.LoteProdutoEntity;
 import dc.entidade.suprimentos.estoque.NotaFiscal;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.util.ComponentUtil;
@@ -98,6 +99,8 @@ public class NotaFiscalFormView extends CustomComponent {
 	private SubFormComponent<NfeDuplicata, Integer> duplicataSubForm;
 
 	private SubFormComponent<ProdutoEntity, Integer> produtoSubForm;
+	
+	private SubFormComponent<LoteProdutoEntity, Integer> loteProdutoSubForm;
 
 	private SubFormComponent<CupomFiscalReferenciadoEntity, Integer> cuponsSubForm;
 
@@ -134,7 +137,7 @@ public class NotaFiscalFormView extends CustomComponent {
 		buildAbaNFEReferenciada();
 		buildAbaEntregaRetirada();
 		buildAbaProdutos();
-		buildAbaLoteProduto();
+		buildAbaLoteProdutos();
 		buildAbaTransporte();
 		buildAbaCobranca();
 		buildAbaLote();
@@ -1005,7 +1008,7 @@ public class NotaFiscalFormView extends CustomComponent {
 							Component uiContext) {
 						if ("descricao".equals(propertyId)) {
 							TextField textField = ComponentUtil
-									.buildNumberField(null);
+									.buildTextField(null);
 
 							return textField;
 						}
@@ -1545,9 +1548,91 @@ public class NotaFiscalFormView extends CustomComponent {
 		this.rntcVeiculo = rntcVeiculo;
 	}
 
-	public void buildAbaLoteProduto() {
-		VerticalLayout l = new VerticalLayout();
-		subForms.addTab(l, "Lote de Produto", null);
+
+	public void buildAbaLoteProdutos() {
+		TabSheet abaProdutos = buildLoteProdutosSubForm();
+		GridLayout layout = new GridLayout(1, 1);
+		layout.setImmediate(false);
+		layout.setWidth("100.0%");
+		layout.setHeight("100.0%");
+		layout.setMargin(true);
+		layout.setSpacing(true);
+		layout.setSizeFull();
+		layout.addComponent(abaProdutos);
+		subForms.addTab(layout, "Lote de Produtos", null);
+	}
+	
+	private TabSheet buildLoteProdutosSubForm() {
+		// common part: create layout
+		TabSheet sub = new TabSheet();
+		sub.setWidth("100.0%");
+		sub.setHeight("100.0%");
+		sub.setSizeFull();
+		sub.setImmediate(true);
+
+		loteProdutoSubForm = new SubFormComponent<LoteProdutoEntity, Integer>(
+				LoteProdutoEntity.class, new String[] { "codigo","nome","dataCadastro","dataCompra","dataFabricacao","dataVencimento",
+					"descricao","observacao"},
+				new String[] { "Código","Nome","Data de Cadastro","Data de Compra","Data de Fabricação","Data de Vencimento","Descrição","Observação" }) {
+			@Override
+			protected TableFieldFactory getFieldFactory() {
+				return new TableFieldFactory() {
+					@Override
+					public Field<?> createField(Container container,
+							Object itemId, Object propertyId,
+							Component uiContext) {
+						if ("codigo".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildNumberField(null);
+							return textField;
+						}
+						if ("nome".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildTextField(null);
+							return textField;
+						}
+						if ("dataCadastro".equals(propertyId)) {
+							PopupDateField textField = ComponentUtil.buildPopupDateField(null);
+							return textField;
+						}
+						if ("dataCompra".equals(propertyId)) {
+							PopupDateField textField = ComponentUtil.buildPopupDateField(null);
+							return textField;
+						}
+						if ("dataFabricacao".equals(propertyId)) {
+							PopupDateField textField = ComponentUtil.buildPopupDateField(null);
+							return textField;
+						}
+						if ("dataVencimento".equals(propertyId)) {
+							PopupDateField textField = ComponentUtil.buildPopupDateField(null);
+							return textField;
+						}
+						if ("descricao".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildTextField(null);
+							return textField;
+						}
+						if ("observacao".equals(propertyId)) {
+							TextField textField = ComponentUtil.buildTextField(null);
+							return textField;
+						}
+
+						return null;
+					}
+				};
+			}
+
+			protected LoteProdutoEntity getNovo() {
+				return null;
+			}
+
+			@Override
+			public boolean validateItems(List<LoteProdutoEntity> items) {
+				// TODO Auto-generated method stub
+				return true;
+			}
+		};
+
+		sub.addTab(loteProdutoSubForm, "Lote de Produtos", null);
+
+		return sub;
 	}
 
 	public void buildAbaTransporte() {

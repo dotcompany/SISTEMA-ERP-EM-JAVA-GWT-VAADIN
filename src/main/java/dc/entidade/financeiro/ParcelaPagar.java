@@ -21,7 +21,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -61,7 +60,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parcela_pagar_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "parcela_pagar_id_seq")
 	@SequenceGenerator(name = "parcela_pagar_id_seq", sequenceName = "parcela_pagar_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -132,9 +131,9 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	@Caption(value = "Status Parcela")
 	@JoinColumn(name = "id_status_parcela", referencedColumnName = "id")
-	//@ManyToOne(optional = false)
+	@ManyToOne(optional = false)
 	//@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@Transient
+	//@Transient
 	private StatusParcela statusParcela;
 
 	@Caption(value = "Lançamento à Pagar")

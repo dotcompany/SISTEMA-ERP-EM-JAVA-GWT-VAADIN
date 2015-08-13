@@ -47,7 +47,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "convenio_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "convenio_id_seq")
 	@SequenceGenerator(name = "convenio_id_seq", sequenceName = "convenio_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -116,7 +116,6 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "TELEFONE", length = 14)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Telefone é Obrigatório!")
 	private String telefone = "";
 
 	@Temporal(TemporalType.DATE)
@@ -125,6 +124,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "DATA_CADASTRO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Data de Cadastro é Obrigatório!")
 	private Date dataCadastro;
 
 	@Lob
@@ -156,7 +156,6 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "CNPJ", length = 100)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "CNPJ é Obrigatório!")
 	private String cnpj = "";
 
 	@Field

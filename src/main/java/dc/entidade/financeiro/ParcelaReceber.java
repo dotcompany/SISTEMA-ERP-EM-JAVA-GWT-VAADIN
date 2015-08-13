@@ -46,7 +46,7 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parcela_receber_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "parcela_receber_id_seq")
 	@SequenceGenerator(name = "parcela_receber_id_seq", sequenceName = "parcela_receber_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -125,9 +125,9 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne(optional = false)
 	private LancamentoReceber lancamentoReceber;
 
-	@JoinColumn(name = "ID_STATUS_PARCELA", referencedColumnName = "ID", nullable = false)
-	//@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@Transient
+	@JoinColumn(name = "ID_STATUS_PARCELA", referencedColumnName = "ID")
+	//@Transient
+	@ManyToOne(optional = false)
 	private StatusParcela finStatusParcela;
 
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
