@@ -23,7 +23,7 @@ public class FreteListController extends CRUDListController<Frete> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "id", "venda", "transportadora" };
+		return new String[] { "id", "vendaCabecalho", "transportadora" };
 	}
 
 	@Override

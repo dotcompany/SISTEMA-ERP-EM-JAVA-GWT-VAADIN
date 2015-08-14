@@ -103,21 +103,21 @@ public class VendaFormController extends CRUDFormController<Venda> {
 	protected void carregar(Serializable id) {
 		currentBean = dao.find(id);
 
-		if (currentBean.getOrcamento() == null) {
+		if (currentBean.getOrcamentoVendaCabecalho() == null) {
 			subView.getCmbTipoVenda().setValue(TIPO_VENDA.VENDA_DIRETA);
 			subView.getCmbOrcamento().setReadOnly(true);
 		} else {
 			subView.getCmbTipoVenda().setValue(TIPO_VENDA.ORCAMENTO);
 			subView.getCmbOrcamento().setReadOnly(false);
-			subView.getCmbOrcamento().setValue(currentBean.getOrcamento());
+			subView.getCmbOrcamento().setValue(currentBean.getOrcamentoVendaCabecalho());
 		}
 
 		subView.getCmbCondicoesPagamento().setValue(
-				currentBean.getCondicaoPagamento());
+				currentBean.getCondicoesPagamento());
 
 		subView.getCmbVendedor().setValue(currentBean.getVendedor());
 		subView.getCmbTipoNotaFiscal()
-				.setValue(currentBean.getNotaFiscalTipo());
+				.setValue(currentBean.getTipoNotaFiscal());
 		subView.getCmbCliente().setValue(currentBean.getCliente());
 
 		subView.getDataSaida().setValue(currentBean.getDataSaida());
@@ -200,12 +200,12 @@ public class VendaFormController extends CRUDFormController<Venda> {
 
 			Orcamento orcamento = (Orcamento) subView.getCmbOrcamento()
 					.getValue();
-			currentBean.setOrcamento(orcamento);
+			currentBean.setOrcamentoVendaCabecalho(orcamento);
 
-			currentBean.setNotaFiscalTipo(tipoNotaFiscal);
+			currentBean.setTipoNotaFiscal(tipoNotaFiscal);
 			currentBean.setCliente(cliente);
 			currentBean.setVendedor(vendedor);
-			currentBean.setCondicaoPagamento(condicao);
+			currentBean.setCondicoesPagamento(condicao);
 
 			Date dataVenda = subView.getDataVenda().getValue();
 			currentBean.setDataVenda(dataVenda);

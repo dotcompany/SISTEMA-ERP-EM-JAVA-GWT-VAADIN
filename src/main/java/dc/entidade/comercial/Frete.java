@@ -1,5 +1,6 @@
 package dc.entidade.comercial;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -12,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
@@ -25,7 +28,7 @@ import dc.entidade.geral.pessoal.TransportadoraEntity;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class Frete extends AbstractMultiEmpresaModel<Integer> {
+public class Frete extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
 	
 	@Id
@@ -33,42 +36,46 @@ public class Frete extends AbstractMultiEmpresaModel<Integer> {
 	@SequenceGenerator(name = "frt", sequenceName = "venda_frete_id_seq", allocationSize = 1)
 	private Integer id;
 	
-	@ManyToOne
-	@JoinColumn(name="id_transportadora")
-	@Caption("Transportadora")
-	TransportadoraEntity transportadora;
+	@Column(name = "CONHECIMENTO")
+	private Integer conhecimento;
 	
-	@ManyToOne
-	@JoinColumn(name="id_venda_cabecalho")
-	@Caption("ID Venda")
-    Venda venda;
+
+    @Column(name = "RESPONSAVEL")
+	private String responsavel;
 	
-	Integer conhecimento;
-	
-	String responsavel;
-	
-	String placa;
+    @Column(name = "PLACA")
+	private String placa;
 	
 	@Column(name="uf_placa")
-	String ufPlaca;
+	private String ufPlaca;
 	
 	@Column(name="selo_fiscal")
-	Integer seloFiscal;
+	private Integer seloFiscal;
 	
 	@Column(name="quantidade_volume")
-	BigDecimal quantidadeVolume;
+	private BigDecimal quantidadeVolume;
 	
 	@Column(name="marca_volume")
-	String marcaVolume;
+	private String marcaVolume;
 	
 	@Column(name="especie_volume")
-	String especieVolume;
+	private String especieVolume;
 	
 	@Column(name="peso_bruto")
-	BigDecimal pesoBruto;
+	private BigDecimal pesoBruto;
 	
 	@Column(name="peso_liquido")
-	BigDecimal pesoLiquido;
+	private BigDecimal pesoLiquido;
+	
+    @Caption("Venda")
+    @JoinColumn(name = "ID_VENDA_CABECALHO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Venda vendaCabecalho;
+    
+    @Caption("Transportadora")
+    @JoinColumn(name = "ID_TRANSPORTADORA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private TransportadoraEntity transportadora;
 	
 	public Integer getId() {
 		return id;
@@ -85,13 +92,13 @@ public class Frete extends AbstractMultiEmpresaModel<Integer> {
 	public void setTransportadora(TransportadoraEntity transportadora) {
 		this.transportadora = transportadora;
 	}
-
-	public Venda getVenda() {
-		return venda;
+	
+	public Venda getVendaCabecalho() {
+		return vendaCabecalho;
 	}
 
-	public void setVenda(Venda venda) {
-		this.venda = venda;
+	public void setVendaCabecalho(Venda vendaCabecalho) {
+		this.vendaCabecalho = vendaCabecalho;
 	}
 
 	public Integer getConhecimento() {
@@ -174,6 +181,42 @@ public class Frete extends AbstractMultiEmpresaModel<Integer> {
 		this.especieVolume = especieVolume;
 	}
 	
+	@Override
+	public String toString() {
+		return responsavel;
+	}
+
+//@Override
+//	public String toString() {
+//		return ToStringBuilder.reflectionToString(this);
+//	}
+
+   @Override
+   public boolean equals(Object obj) {
+       if (this == obj) {
+           return true;
+       }
+
+       if (!(obj instanceof Frete)) {
+           return false;
+       }
+
+       Frete that = (Frete) obj;
+       EqualsBuilder eb = new EqualsBuilder();
+       eb.append(getId(), that.getId());
+       return eb.isEquals();
+   }
+
+   @Override
+   public int hashCode() {
+       if (getId() == null) {
+           return super.hashCode();
+       } else {
+           return new HashCodeBuilder()
+                   .append(id)
+                   .toHashCode();
+       }
+   }
 	
 	
 }

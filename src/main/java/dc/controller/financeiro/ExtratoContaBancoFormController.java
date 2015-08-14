@@ -21,14 +21,12 @@ import org.vaadin.easyuploads.UploadField;
 import com.sun.mail.iap.Response;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.ExtratoContaBancoEntity;
 import dc.entidade.financeiro.ImportaOFX;
-import dc.entidade.suprimentos.contrato.PrevFaturamentoEntity;
 import dc.servicos.dao.financeiro.ExtratoContaBancoDAO;
 import dc.visao.financeiro.ExtratoContaBancoFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -78,7 +76,6 @@ public class ExtratoContaBancoFormController extends CRUDFormController<ExtratoC
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			 fieldGroup.commit();
 			 List<ExtratoContaBancoEntity> extrato = subView.getExtratoContaBancoSubForm().getDados();
 			 subView.preencheSubForm(extrato);
 			 
