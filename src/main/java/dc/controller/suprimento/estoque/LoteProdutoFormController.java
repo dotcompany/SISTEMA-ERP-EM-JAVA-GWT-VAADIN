@@ -13,8 +13,9 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.entidade.suprimentos.estoque.LoteProdutoEntity;
-import dc.model.dao.suprimento.estoque.LoteProdutoDAO;
+import dc.model.business.suprimento.estoque.LoteProdutoBusiness;
 import dc.servicos.dao.nfe.NfeDetalheDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.estoque.LoteProdutoFormView;
 
@@ -30,11 +31,22 @@ public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEnt
 	LoteProdutoEntity entity;
 	LoteProdutoFormView subView;
 	
+	/**
+	 * BUSINESS
+	 */
+
 	@Autowired
-	private LoteProdutoDAO loteProdutoDAO;
+	private LoteProdutoBusiness<LoteProdutoEntity> business;
+	
+	//@Autowired
+	//private LoteProdutoDAO loteProdutoDAO;
 	
 	@Autowired
 	private NfeDetalheDAO nfeDetalheDAO;
+	
+	public LoteProdutoBusiness<LoteProdutoEntity> getBusiness() {
+		return business;
+	}
 
 	@Override
 	public String getViewIdentifier() {
@@ -58,7 +70,7 @@ public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEnt
 	        this.entity = new LoteProdutoEntity();
 
 	        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
-	        //fieldGroup.setItemDataSource(this.entity);
+	        fieldGroup.setItemDataSource(this.entity);
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -73,11 +85,11 @@ public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEnt
 			
 			subView = new LoteProdutoFormView(this);
 			
-			//this.fieldGroup = new DCFieldGroup<>(LoteProdutoEntity.class);
+			this.fieldGroup = new DCFieldGroup<>(LoteProdutoEntity.class);
 			
 			// Mapeia os campos
-			/*fieldGroup.bind(this.subView.getTxQuantidadeParcela(),"quantidadeParcela");
-			fieldGroup.bind(this.subView.getDtPrimeiroVencimento(),"primeiroVencimento");
+			fieldGroup.bind(this.subView.getTxtNome(),"nome");
+			/*fieldGroup.bind(this.subView.getDtPrimeiroVencimento(),"primeiroVencimento");
 			fieldGroup.bind(this.subView.getCbDocumentoOrigem(),"documentoOrigem");
 			fieldGroup.bind(this.subView.getCbCliente(),"cliente");
 			
@@ -97,10 +109,10 @@ public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEnt
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.entity = this.loteProdutoDAO.find(id);
+			this.entity = this.business.find(id);
 			
 			// Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
-			//fieldGroup.setItemDataSource(this.currentBean);
+			fieldGroup.setItemDataSource(this.entity);
 			
 			List<NfeDetalheEntity> itens = nfeDetalheDAO.findByNfeDetalhe(entity);
 			subView.preencheSubForm(itens);
@@ -115,7 +127,7 @@ public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEnt
 	protected void actionSalvar() {
 		try {
 			
-			loteProdutoDAO.saveOrUpdate(entity);
+			business.saveOrUpdate(entity);
 			notifiyFrameworkSaveOK(this.entity);
 				
 		}catch (Exception e) {
@@ -141,7 +153,7 @@ public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEnt
 	protected void remover(List<Serializable> ids) {
 		try {
 			//this.business.deleteAll(ids);
-			this.loteProdutoDAO.deleteAll(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {

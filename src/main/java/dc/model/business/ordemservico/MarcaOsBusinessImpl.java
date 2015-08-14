@@ -16,7 +16,7 @@ import dc.model.dao.ordemservico.MarcaOsDAO;
 
 /**
  * 
- * @author Paulo Sergio Ferreira
+ * @author Paulo Sérgio Ferreira
  * 
  */
 @Service

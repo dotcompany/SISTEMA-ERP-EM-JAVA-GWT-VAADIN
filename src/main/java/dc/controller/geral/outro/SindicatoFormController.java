@@ -104,10 +104,8 @@ public class SindicatoFormController extends CRUDFormController<SindicatoEntity>
 			// Mapeia os campos
 			
 			fieldGroup.bind(this.subView.getTfNome(),"nome");
-			fieldGroup.bind(this.subView.getTfCnpj(),"cnpj");
 			fieldGroup.bind(this.subView.getTfLogradouro(),"logradouro");
 			fieldGroup.bind(this.subView.getTfBairro(),"bairro");
-			fieldGroup.bind(this.subView.getTfTelefone1(),"fone1");
 			fieldGroup.bind(this.subView.getTfEmail(),"email");
 			
 			//this.subView.getMocUf().configuraCombo(

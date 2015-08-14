@@ -236,7 +236,7 @@ public class ServicoOsFormView extends CustomComponent {
 		horizontalLayout_3.setMargin(false);
 		horizontalLayout_3.setSpacing(true);
 
-		tfValorComissaoTecnico = ComponentUtil.buildCurrencyField("Valor Comissão Técnico");
+		tfValorComissaoTecnico = ComponentUtil.buildNumberField("Valor Comissão Técnico");
 		horizontalLayout_3.addComponent(tfValorComissaoTecnico);
 		
 		// tipo de comissão do técnico
@@ -266,7 +266,7 @@ public class ServicoOsFormView extends CustomComponent {
 		horizontalLayout_4.setMargin(false);
 		horizontalLayout_4.setSpacing(true);
 
-		tfValorComissaoVendedor = ComponentUtil.buildCurrencyField("Valor Comissão Vendedor");
+		tfValorComissaoVendedor = ComponentUtil.buildNumberField("Valor Comissão Vendedor");
 		horizontalLayout_4.addComponent(tfValorComissaoVendedor);
 
 		// tipo de comissão do vendedor

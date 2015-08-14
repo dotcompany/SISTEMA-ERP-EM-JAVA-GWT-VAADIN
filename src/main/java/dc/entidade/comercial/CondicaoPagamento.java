@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
@@ -152,6 +154,33 @@ public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer>
 	public String toString() {
 		return  nome ;
 	}
+	
+   @Override
+   public boolean equals(Object obj) {
+       if (this == obj) {
+           return true;
+       }
+
+       if (!(obj instanceof CondicaoPagamento)) {
+           return false;
+       }
+
+       CondicaoPagamento that = (CondicaoPagamento) obj;
+       EqualsBuilder eb = new EqualsBuilder();
+       eb.append(getId(), that.getId());
+       return eb.isEquals();
+   }
+
+   @Override
+   public int hashCode() {
+       if (getId() == null) {
+           return super.hashCode();
+       } else {
+           return new HashCodeBuilder()
+                   .append(id)
+                   .toHashCode();
+       }
+   }
 	
 	
 

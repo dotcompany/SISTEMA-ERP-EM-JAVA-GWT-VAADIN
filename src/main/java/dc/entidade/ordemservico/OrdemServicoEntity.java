@@ -192,7 +192,7 @@ public class OrdemServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 	
-	@Caption(value = "Data ExclusÃ£o")
+	@Caption(value = "Data Exclusão")
 	@Column(name = "data_exclusao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")

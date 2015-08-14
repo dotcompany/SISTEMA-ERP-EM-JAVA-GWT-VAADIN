@@ -28,6 +28,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.TransportadoraEntity;
 
 @Entity
 @Table(name = "venda_cabecalho")
@@ -45,28 +46,6 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	@OneToMany(mappedBy = "venda", orphanRemoval = true, cascade = CascadeType.ALL)
 	@Caption("Detalhe")
 	private List<VendaDetalhe> detalhes;
-
-	@ManyToOne
-	@JoinColumn(name = "id_venda_orcamento_cabecalho")
-	Orcamento orcamento;
-
-	@ManyToOne
-	@JoinColumn(name = "id_nota_fiscal_tipo")
-	NotaFiscalTipo notaFiscalTipo;
-
-	@ManyToOne
-	@JoinColumn(name = "id_cliente")
-	@Caption("Cliente")
-	ClienteEntity cliente;
-
-	@ManyToOne
-	@JoinColumn(name = "id_vendedor")
-	@Caption("Vendedor")
-	VendedorEntity vendedor;
-
-	@ManyToOne
-	@JoinColumn(name = "id_venda_condicoes_pagamento")
-	CondicaoPagamento condicaoPagamento;
 
 	@Column(name = "data_venda")
 	@Temporal(TemporalType.DATE)
@@ -110,6 +89,34 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	BigDecimal valorTotal;
 
 	String observacao;
+	
+
+    @JoinColumn(name = "ID_ORCAMENTO_VENDA_CABECALHO", referencedColumnName = "ID")
+    @ManyToOne
+    private Orcamento orcamentoVendaCabecalho;
+    
+    @JoinColumn(name = "ID_CONDICOES_PAGAMENTO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private CondicaoPagamento condicoesPagamento;
+    
+    @Caption("Cliente")
+    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private ClienteEntity cliente;
+    
+    @Caption("Vendedor")
+    @JoinColumn(name = "ID_VENDEDOR", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private VendedorEntity vendedor;
+    
+    @JoinColumn(name = "ID_TIPO_NOTA_FISCAL", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private NotaFiscalTipo tipoNotaFiscal;
+    
+    @Caption("Transportadora")
+    @JoinColumn(name = "ID_TRANSPORTADORA", referencedColumnName = "ID")
+    @ManyToOne
+    private TransportadoraEntity transportadora;
 
 	/**
 	 * REFERENCIA - LIST
@@ -159,14 +166,6 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 		return detalhe;
 	}
 
-	public NotaFiscalTipo getNotaFiscalTipo() {
-		return notaFiscalTipo;
-	}
-
-	public void setNotaFiscalTipo(NotaFiscalTipo notaFiscalTipo) {
-		this.notaFiscalTipo = notaFiscalTipo;
-	}
-
 	public ClienteEntity getCliente() {
 		return cliente;
 	}
@@ -181,14 +180,6 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setVendedor(VendedorEntity vendedor) {
 		this.vendedor = vendedor;
-	}
-
-	public CondicaoPagamento getCondicaoPagamento() {
-		return condicaoPagamento;
-	}
-
-	public void setCondicaoPagamento(CondicaoPagamento condicaoPagamento) {
-		this.condicaoPagamento = condicaoPagamento;
 	}
 
 	public Date getDataVenda() {
@@ -302,15 +293,7 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
-	public Orcamento getOrcamento() {
-		return orcamento;
-	}
-
-	public void setOrcamento(Orcamento orcamento) {
-		this.orcamento = orcamento;
-	}
-
+	
 	/**
 	 * Módulo: NFE
 	 */
@@ -327,6 +310,38 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	/**
 	 * 
 	 */
+
+	public Orcamento getOrcamentoVendaCabecalho() {
+		return orcamentoVendaCabecalho;
+	}
+
+	public void setOrcamentoVendaCabecalho(Orcamento orcamentoVendaCabecalho) {
+		this.orcamentoVendaCabecalho = orcamentoVendaCabecalho;
+	}
+
+	public CondicaoPagamento getCondicoesPagamento() {
+		return condicoesPagamento;
+	}
+
+	public void setCondicoesPagamento(CondicaoPagamento condicoesPagamento) {
+		this.condicoesPagamento = condicoesPagamento;
+	}
+
+	public NotaFiscalTipo getTipoNotaFiscal() {
+		return tipoNotaFiscal;
+	}
+
+	public void setTipoNotaFiscal(NotaFiscalTipo tipoNotaFiscal) {
+		this.tipoNotaFiscal = tipoNotaFiscal;
+	}
+
+	public TransportadoraEntity getTransportadora() {
+		return transportadora;
+	}
+
+	public void setTransportadora(TransportadoraEntity transportadora) {
+		this.transportadora = transportadora;
+	}
 
 	/**
 	 * TO STRING

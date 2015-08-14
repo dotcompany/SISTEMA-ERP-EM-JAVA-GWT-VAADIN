@@ -16,7 +16,7 @@ public class FreteDAO extends AbstractCrudDAO<Frete> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"nome"};
+		return new String[] {"transportadora"};
 	}
 	
 	@Transactional

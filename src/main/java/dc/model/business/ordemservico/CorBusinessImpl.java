@@ -16,7 +16,7 @@ import dc.model.dao.ordemservico.CorDAO;
 
 /**
  * 
- * @author Paulo Sergio Ferreira
+ * @author Paulo Sérgio Ferreira
  * 
  */
 

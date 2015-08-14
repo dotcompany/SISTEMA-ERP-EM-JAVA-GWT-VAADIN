@@ -14,6 +14,8 @@ import dc.servicos.dao.ordemservico.LaudoTecnicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.LaudoTecnicoFormView;
 
+/** @author Gutemberg A. Da Silva */
+
 @Controller
 @Scope("prototype")
 public class LaudoTecnicoFormController extends CRUDFormController<LaudoTecnicoEntity> {

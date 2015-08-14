@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,8 +47,7 @@ public class ExtratoContaBancoEntity extends AbstractMultiEmpresaModel<Integer> 
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fin_extrato_conta_banco_id_seq")
-	@SequenceGenerator(name = "fin_extrato_conta_banco_id_seq", sequenceName = "fin_extrato_conta_banco_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -115,10 +113,10 @@ public class ExtratoContaBancoEntity extends AbstractMultiEmpresaModel<Integer> 
     
     @Lob
     @Field
-	@Caption("Observações")
+	@Caption("Observação")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-    @Column(name = "OBSERVACOES")
+    @Column(name = "observacao")
     private String observacoes;
     
     @Caption("Conta Caixa")

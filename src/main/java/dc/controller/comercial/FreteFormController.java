@@ -78,7 +78,7 @@ public class FreteFormController extends CRUDFormController<Frete> {
 		try {
 
 			subView.getCmbTransportadora().setValue(currentBean.getTransportadora());
-			subView.getCmbVenda().setValue(currentBean.getVenda());
+			subView.getCmbVenda().setValue(currentBean.getVendaCabecalho());
 			if (conhecimento != null)
 				subView.getTxtConhecimento().setValue(conhecimento.toString());
 			if (responsavel != null)
@@ -129,7 +129,7 @@ public class FreteFormController extends CRUDFormController<Frete> {
 				throw new ErroValidacaoException("Informe o ID da venda");
 			}
 			currentBean.setTransportadora(transportadora);
-			currentBean.setVenda(venda);
+			currentBean.setVendaCabecalho(venda);
 
 			if (Validator.validateString(conhecimento)) {
 				currentBean.setConhecimento(new Integer(conhecimento));
