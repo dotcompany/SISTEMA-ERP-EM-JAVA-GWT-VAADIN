@@ -23,7 +23,7 @@ public class VendaListController extends CRUDListController<Venda> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "id", "cliente", "vendedor" };
+		return new String[] { "cliente", "vendedor" };
 	}
 
 	@Override

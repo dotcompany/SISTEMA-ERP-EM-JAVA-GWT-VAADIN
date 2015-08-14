@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.comercial.Frete;
 import dc.servicos.dao.comercial.FreteDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -15,6 +16,8 @@ import dc.visao.framework.geral.CRUDListController;
 @Scope("prototype")
 public class FreteListController extends CRUDListController<Frete> {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Autowired
 	FreteDAO dao;
 
@@ -23,7 +26,7 @@ public class FreteListController extends CRUDListController<Frete> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "id", "vendaCabecalho", "transportadora" };
+		return new String[] { "responsavel", "vendaCabecalho", "transportadora" };
 	}
 
 	@Override
@@ -43,19 +46,44 @@ public class FreteListController extends CRUDListController<Frete> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "Frete";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected List<Frete> pesquisa(String valor) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			List<Frete> auxLista = this.dao.procuraNomeContendo(valor);
+			
+
+			return auxLista;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 	@Override
 	protected List<Frete> pesquisaDefault() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			List<Frete> auxLista = this.dao.listaTodos();
+			
+
+			return auxLista;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+
+	}
+
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
 	}
 
 	@Override

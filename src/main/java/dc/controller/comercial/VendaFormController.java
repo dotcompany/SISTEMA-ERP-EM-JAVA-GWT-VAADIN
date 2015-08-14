@@ -1,27 +1,23 @@
 package dc.controller.comercial;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
-import dc.entidade.comercial.CondicaoPagamento;
+import dc.control.util.ClassUtils;
+import dc.controller.folhapagamento.ausencia.VendedorListController;
+import dc.controller.geral.pessoal.ClienteListController;
+import dc.controller.geral.pessoal.TransportadoraListController;
 import dc.entidade.comercial.ItemOrcamento;
-import dc.entidade.comercial.NotaFiscalTipo;
 import dc.entidade.comercial.Orcamento;
 import dc.entidade.comercial.Venda;
 import dc.entidade.comercial.VendaDetalhe;
-import dc.entidade.folhapagamento.VendedorEntity;
-import dc.entidade.geral.pessoal.ClienteEntity;
-import dc.entidade.geral.produto.ProdutoEntity;
-import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
 import dc.servicos.dao.comercial.ItemOrcamentoDAO;
 import dc.servicos.dao.comercial.NotaFiscalTipoDAO;
@@ -30,10 +26,10 @@ import dc.servicos.dao.comercial.VendaDAO;
 import dc.servicos.dao.comercial.VendaDetalheDAO;
 import dc.servicos.dao.folhapagamento.VendedorDAO;
 import dc.servicos.dao.geral.pessoal.ClienteDAO;
+import dc.servicos.dao.geral.pessoal.TransportadoraDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
-import dc.servicos.util.Validator;
 import dc.visao.comercial.VendaFormView;
-import dc.visao.comercial.VendaFormView.TIPO_VENDA;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
@@ -51,6 +47,9 @@ public class VendaFormController extends CRUDFormController<Venda> {
 
 	@Autowired
 	VendaDAO dao;
+	
+	@Autowired
+	TransportadoraDAO transportadoraDAO;
 
 	@Autowired
 	VendaDetalheDAO detalheDAO;
@@ -78,91 +77,67 @@ public class VendaFormController extends CRUDFormController<Venda> {
 
 	@Override
 	public String getViewIdentifier() {
-		return "tipoNotaForm";
+		return ClassUtils.getUrl(this);
 	}
 
-	@Override
-	protected boolean validaSalvar() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+@Override
+protected boolean validaSalvar() {
+	 try {
+        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+        fieldGroup.commit();
+        return true;
+    } catch (FieldGroup.CommitException ce) {
+        return false;
+    }
+}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Venda();
+		try {
+			currentBean = new Venda();
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
+		}
 
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new VendaFormView(this);
+		try {
+			subView = new VendaFormView(this);
+			this.fieldGroup = new DCFieldGroup<>(Venda.class);
+		
+			
+			//fieldGroup.bind(this.subView.getTxtResponsavel(), "responsavel");
+			//fieldGroup.bind(this.subView.getTxtPlaca(), "placa");
+			//fieldGroup.bind(this.subView.getCmbVenda(), "vendaCabecalho");
+			
+			 this.subView.getCmbOrcamento().configuraCombo(
+					"observacao", OrcamentoListController.class, this.orcamentoDAO, this.getMainController());
+			 this.subView.getCmbTipoNotaFiscal().configuraCombo(
+						"nome", NotaFiscalTipoListController.class, this.notaFiscalTipoDAO, this.getMainController());
+			 this.subView.getCmbVendedor().configuraCombo(
+						"colaborador", VendedorListController.class, this.vendedorDAO, this.getMainController());
+			 this.subView.getCmbCliente().configuraCombo(
+						"pessoa", ClienteListController.class, this.clienteDAO, this.getMainController());
+			 this.subView.getCmbTransportadora().configuraCombo(
+						"observacao", TransportadoraListController.class, this.transportadoraDAO, this.getMainController());
+			 this.subView.getCmbCondicoesPagamento().configuraCombo(
+						"nome", CondicaoPagamentoListController.class, this.condicaoPagamentoDAO, this.getMainController());
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = dao.find(id);
-
-		if (currentBean.getOrcamentoVendaCabecalho() == null) {
-			subView.getCmbTipoVenda().setValue(TIPO_VENDA.VENDA_DIRETA);
-			subView.getCmbOrcamento().setReadOnly(true);
-		} else {
-			subView.getCmbTipoVenda().setValue(TIPO_VENDA.ORCAMENTO);
-			subView.getCmbOrcamento().setReadOnly(false);
-			subView.getCmbOrcamento().setValue(currentBean.getOrcamentoVendaCabecalho());
-		}
-
-		subView.getCmbCondicoesPagamento().setValue(
-				currentBean.getCondicoesPagamento());
-
-		subView.getCmbVendedor().setValue(currentBean.getVendedor());
-		subView.getCmbTipoNotaFiscal()
-				.setValue(currentBean.getTipoNotaFiscal());
-		subView.getCmbCliente().setValue(currentBean.getCliente());
-
-		subView.getDataSaida().setValue(currentBean.getDataSaida());
-		subView.getDataVenda().setValue(currentBean.getDataVenda());
-		subView.getTxtHoraSaida().setValue(currentBean.getHoraSaida());
-
-		if (currentBean.getNumeroFatura() != null) {
-			subView.getTxtNumeroFatura().setValue(
-					currentBean.getNumeroFatura().toString());
-		}
-
-		subView.getTxtLocalEntrega().setValue(currentBean.getLocalEntrega());
-		subView.getTxtLocalCobranca().setValue(currentBean.getLocalCobranca());
-
-		if (currentBean.getValorSubTotal() != null) {
-			subView.getTxtValorSubTotal().setValue(
-					currentBean.getValorSubTotal().toString());
-		}
-		if (currentBean.getValorFrete() != null) {
-			subView.getTxtValorFrete().setValue(
-					currentBean.getValorFrete().toString());
-		}
-		if (currentBean.getTaxaComissao() != null) {
-			subView.getTxtTaxaComissao().setValue(
-					currentBean.getTaxaComissao().toString());
-		}
-		if (currentBean.getValorComissao() != null) {
-			subView.getTxtValorComissao().setValue(
-					currentBean.getValorComissao().toString());
-		}
-		if (currentBean.getTaxaDesconto() != null) {
-			subView.getTxtTaxaDesconto().setValue(
-					currentBean.getTaxaDesconto().toString());
-		}
-		if (currentBean.getValorDesconto() != null) {
-			subView.getTxtValorDesconto().setValue(
-					currentBean.getValorDesconto().toString());
-		}
-		if (currentBean.getValorTotal() != null) {
-			subView.getTxtValorTotal().setValue(
-					currentBean.getValorTotal().toString());
-		}
-
-		subView.getTxtObservacoes().setValue(currentBean.getObservacao());
-
+		fieldGroup.setItemDataSource(this.currentBean);
 		List<VendaDetalhe> detalhes = detalheDAO.detalhesPorVenda(currentBean);
 		if (detalhes != null) {
 			subView.preencheSubForm(detalhes);
@@ -174,119 +149,13 @@ public class VendaFormController extends CRUDFormController<Venda> {
 
 		try {
 
-			NotaFiscalTipo tipoNotaFiscal = (NotaFiscalTipo) subView
-					.getCmbTipoNotaFiscal().getValue();
-			if (!Validator.validateObject(tipoNotaFiscal)) {
-				throw new ErroValidacaoException("Informe Nota Fiscal Tipo");
-			}
-			ClienteEntity cliente = (ClienteEntity) subView.getCmbCliente()
-					.getValue();
-			if (!Validator.validateObject(cliente)) {
-				throw new ErroValidacaoException("Informe o Cliente");
-			}
-
-			VendedorEntity vendedor = (VendedorEntity) subView.getCmbVendedor()
-					.getValue();
-			if (!Validator.validateObject(vendedor)) {
-				throw new ErroValidacaoException("Informe o Vendedor");
-			}
-
-			CondicaoPagamento condicao = (CondicaoPagamento) subView
-					.getCmbCondicoesPagamento().getValue();
-			if (!Validator.validateObject(condicao)) {
-				throw new ErroValidacaoException(
-						"Informe a Condição de Pagamento");
-			}
-
-			Orcamento orcamento = (Orcamento) subView.getCmbOrcamento()
-					.getValue();
-			currentBean.setOrcamentoVendaCabecalho(orcamento);
-
-			currentBean.setTipoNotaFiscal(tipoNotaFiscal);
-			currentBean.setCliente(cliente);
-			currentBean.setVendedor(vendedor);
-			currentBean.setCondicoesPagamento(condicao);
-
-			Date dataVenda = subView.getDataVenda().getValue();
-			currentBean.setDataVenda(dataVenda);
-
-			Date dataSaida = subView.getDataSaida().getValue();
-			currentBean.setDataSaida(dataSaida);
-
-			String horaSaida = subView.getTxtHoraSaida().getValue();
-			currentBean.setHoraSaida(horaSaida);
-
-			String fatura = subView.getTxtNumeroFatura().getValue();
-			if (Validator.validateString(fatura)) {
-				Integer numeroFatura = new Integer(fatura);
-				currentBean.setNumeroFatura(numeroFatura);
-			}
-
-			String localEntrega = subView.getTxtLocalEntrega().getValue();
-			currentBean.setLocalEntrega(localEntrega);
-
-			String localCobranca = subView.getTxtLocalCobranca().getValue();
-			currentBean.setLocalCobranca(localCobranca);
-
-			String valorSubTotal = subView.getTxtValorSubTotal().getValue();
-			if (Validator.validateString(valorSubTotal)) {
-				valorSubTotal = formataMoeda(valorSubTotal);
-				currentBean.setValorSubTotal(new BigDecimal(valorSubTotal));
-			}
-
-			String valorFrete = subView.getTxtValorFrete().getValue();
-			if (Validator.validateString(valorFrete)) {
-				valorFrete = formataMoeda(valorFrete);
-				currentBean.setValorFrete(new BigDecimal(valorFrete));
-			}
-
-			String taxaComissao = subView.getTxtTaxaComissao().getValue();
-			if (Validator.validateString(taxaComissao)) {
-				taxaComissao = formataBigDecimal(taxaComissao);
-				currentBean.setTaxaComissao(new BigDecimal(taxaComissao));
-			}
-
-			String valorComissao = subView.getTxtValorComissao().getValue();
-			if (Validator.validateString(valorComissao)) {
-				valorComissao = formataMoeda(valorComissao);
-				currentBean.setValorComissao(new BigDecimal(valorComissao));
-			}
-
-			String taxaDesconto = subView.getTxtTaxaDesconto().getValue();
-			if (Validator.validateString(taxaDesconto)) {
-				taxaDesconto = formataBigDecimal(taxaDesconto);
-				currentBean.setTaxaDesconto(new BigDecimal(taxaDesconto));
-			}
-
-			String valorDesconto = subView.getTxtValorDesconto().getValue();
-			if (Validator.validateString(valorDesconto)) {
-				valorDesconto = formataMoeda(valorDesconto);
-				currentBean.setValorDesconto(new BigDecimal(valorDesconto));
-			}
-
-			String valorTotal = subView.getTxtValorTotal().getValue();
-			if (Validator.validateString(valorTotal)) {
-				valorTotal = formataMoeda(valorTotal);
-				currentBean.setValorTotal(new BigDecimal(valorTotal));
-			}
-
-			String observacao = subView.getTxtObservacoes().getValue();
-			currentBean.setObservacao(observacao);
-
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
 
-		} catch (ErroValidacaoException e) {
-			mensagemErro(e.montaMensagemErro());
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
-
-	}
-
-	@Override
-	protected void quandoNovo() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -326,7 +195,7 @@ public class VendaFormController extends CRUDFormController<Venda> {
 		return detalhe;
 	}
 
-	public BeanItemContainer<VendedorEntity> carregarVendedores() {
+	/*public BeanItemContainer<VendedorEntity> carregarVendedores() {
 		BeanItemContainer<VendedorEntity> container = new BeanItemContainer<>(
 				VendedorEntity.class);
 		for (VendedorEntity c : vendedorDAO.listarTodos()) {
@@ -392,7 +261,7 @@ public class VendaFormController extends CRUDFormController<Venda> {
 			container.addBean(p);
 		}
 		return container;
-	}
+	}*/
 
 	public List<ItemOrcamento> carregarItensOrcamento(Orcamento orcamento) {
 		return itemOrcamentoDAO.findByOrcamento(orcamento);

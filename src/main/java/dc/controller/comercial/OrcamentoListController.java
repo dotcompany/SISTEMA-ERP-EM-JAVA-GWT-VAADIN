@@ -28,7 +28,7 @@ public class OrcamentoListController extends CRUDListController<Orcamento> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "id", "cliente", "vendedor" };
+		return new String[] { "cliente", "vendedor" };
 	}
 
 	@Override

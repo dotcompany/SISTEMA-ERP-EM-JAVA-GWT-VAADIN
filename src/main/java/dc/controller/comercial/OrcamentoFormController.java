@@ -13,10 +13,14 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
+import dc.controller.folhapagamento.ausencia.VendedorListController;
+import dc.controller.geral.pessoal.ClienteListController;
+import dc.controller.geral.pessoal.TransportadoraListController;
 import dc.entidade.comercial.CondicaoPagamento;
 import dc.entidade.comercial.Frete;
 import dc.entidade.comercial.ItemOrcamento;
 import dc.entidade.comercial.Orcamento;
+import dc.entidade.comercial.Venda;
 import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.TransportadoraEntity;
@@ -32,6 +36,8 @@ import dc.servicos.dao.geral.pessoal.TransportadoraDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.comercial.OrcamentoFormView;
+import dc.visao.comercial.VendaFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
@@ -85,65 +91,37 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Orcamento();
+		
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new OrcamentoFormView(this);
+		try {
+			subView = new OrcamentoFormView(this);
+			this.fieldGroup = new DCFieldGroup<>(Orcamento.class);
+		
+			
+			//fieldGroup.bind(this.subView.getTxtResponsavel(), "responsavel");
+			//fieldGroup.bind(this.subView.getTxtPlaca(), "placa");
+			//fieldGroup.bind(this.subView.getCmbVenda(), "vendaCabecalho");
+			
+			 this.subView.getCmbVendedor().configuraCombo(
+						"colaborador", VendedorListController.class, this.vendedorDAO, this.getMainController());
+			 this.subView.getCmbCliente().configuraCombo(
+						"pessoa", ClienteListController.class, this.clienteDAO, this.getMainController());
+			 this.subView.getCmbTransportadora().configuraCombo(
+						"observacao", TransportadoraListController.class, this.transportadoraDAO, this.getMainController());
+			 this.subView.getCmbCondicaoPagamento().configuraCombo(
+						"nome", CondicaoPagamentoListController.class, this.condicaoPagamentoDAO, this.getMainController());
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = dao.find(id);
-
-		subView.getCmbVendedor().setValue(currentBean.getVendedor());
-		subView.getCmbCliente().setValue(currentBean.getCliente());
-		subView.getCmbCondicaoPagamento().setValue(
-				currentBean.getCondicaoPagamento());
-		subView.getCmbTransportadora()
-				.setValue(currentBean.getTransportadora());
-
-		subView.getDataCadastro().setValue(currentBean.getDataCadastro());
-		subView.getDataEntrega().setValue(currentBean.getDataEntrega());
-		subView.getDataValidade().setValue(currentBean.getDataValidade());
-
-		BigDecimal valorSubTotal = currentBean.getValorSubTotal();
-		BigDecimal valorFrete = currentBean.getValorFrete();
-
-		BigDecimal taxaComissao = currentBean.getTaxaComissao();
-		BigDecimal valorComissao = currentBean.getValorComissao();
-
-		BigDecimal taxaDesconto = currentBean.getTaxaDesconto();
-		BigDecimal valorDesconto = currentBean.getValorDesconto();
-		BigDecimal valorTotal = currentBean.getValorTotal();
-
-		if (valorSubTotal != null) {
-			subView.getTxtValorSubTotal().setValue(valorSubTotal.toString());
-		}
-
-		if (valorFrete != null) {
-			subView.getTxtValorFrete().setValue(valorFrete.toString());
-		}
-
-		if (taxaComissao != null) {
-			subView.getTxtTaxaComissao().setValue(taxaComissao.toString());
-		}
-
-		if (valorComissao != null) {
-			subView.getTxtValorComissao().setValue(valorComissao.toString());
-		}
-
-		if (taxaDesconto != null) {
-			subView.getTxtTaxaDesconto().setValue(taxaDesconto.toString());
-		}
-
-		if (valorDesconto != null) {
-			subView.getTxtValorDesconto().setValue(valorDesconto.toString());
-		}
-
-		if (valorTotal != null) {
-			subView.getTxtValorTotal().setValue(valorTotal.toString());
-		}
 
 		List<ItemOrcamento> itens = itemOrcamentoDAO
 				.findByOrcamento(currentBean);
@@ -154,107 +132,11 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			CondicaoPagamento condicao = (CondicaoPagamento) subView
-					.getCmbCondicaoPagamento().getValue();
-			VendedorEntity vendedor = (VendedorEntity) subView.getCmbVendedor()
-					.getValue();
-			ClienteEntity cliente = (ClienteEntity) subView.getCmbCliente()
-					.getValue();
-			TransportadoraEntity transportadora = (TransportadoraEntity) subView
-					.getCmbTransportadora().getValue();
-
-			String valorSubTotal = subView.getTxtValorSubTotal().getValue();
-			String valorFrete = subView.getTxtValorFrete().getValue();
-			String taxaComissao = subView.getTxtTaxaComissao().getValue();
-
-			String valorComissao = subView.getTxtValorComissao().getValue();
-			String taxaDesconto = subView.getTxtTaxaDesconto().getValue();
-			String valorDesconto = subView.getTxtValorDesconto().getValue();
-			String valorTotal = subView.getTxtValorTotal().getValue();
-
-			String observacao = subView.getTxtDescricao().getValue();
-
-			if (!Validator.validateObject(vendedor)) {
-				throw new ErroValidacaoException("Informe o Vendedor");
-			}
-
-			if (!Validator.validateObject(cliente)) {
-				throw new ErroValidacaoException("Informe o Cliente");
-			}
-
-			if (!Validator.validateObject(condicao)) {
-				throw new ErroValidacaoException(
-						"Informe a Condição de Pagamento");
-			}
-
-			if (Validator.validateObject(condicao)) {
-				currentBean.setCondicaoPagamento(condicao);
-			}
-
-			if (Validator.validateObject(vendedor)) {
-				currentBean.setVendedor(vendedor);
-			}
-
-			if (Validator.validateObject(cliente)) {
-				currentBean.setCliente(cliente);
-			}
-
-			if (Validator.validateObject(transportadora)) {
-				currentBean.setTransportadora(transportadora);
-			}
-
-			Date dataCadastro = subView.getDataCadastro().getValue();
-			Date dataEntrega = subView.getDataEntrega().getValue();
-			Date dataValidade = subView.getDataValidade().getValue();
-
-			currentBean.setDataCadastro(dataCadastro);
-			currentBean.setDataEntrega(dataEntrega);
-			currentBean.setDataValidade(dataValidade);
-			currentBean.setObservacao(observacao);
-
-			if (Validator.validateString(valorSubTotal)) {
-				currentBean.setValorSubTotal(formataValor(valorSubTotal));
-			}
-
-			if (Validator.validateString(valorFrete)) {
-				currentBean.setValorFrete(formataValor(valorFrete));
-			}
-
-			if (Validator.validateString(taxaComissao)) {
-				taxaComissao = taxaComissao.replace(",", ".");
-				currentBean.setTaxaComissao(new BigDecimal(taxaComissao));
-			}
-
-			if (Validator.validateString(valorComissao)) {
-				currentBean.setValorComissao(formataValor(valorComissao));
-			}
-
-			if (Validator.validateString(taxaDesconto)) {
-				taxaDesconto = taxaDesconto.replace(",", ".");
-				currentBean.setTaxaDesconto(new BigDecimal(taxaDesconto));
-			}
-
-			if (Validator.validateString(valorDesconto)) {
-				currentBean.setValorDesconto(formataValor(valorDesconto));
-			}
-
-			if (Validator.validateString(valorTotal)) {
-				currentBean.setValorTotal(formataValor(valorTotal));
-			}
-
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
-		} catch (ErroValidacaoException e) {
-			mensagemErro(e.montaMensagemErro());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -312,50 +194,6 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		item.setOrcamento(currentBean);
 
 		return item;
-	}
-
-	public BeanItemContainer<CondicaoPagamento> carregarCondicoes() {
-		BeanItemContainer<CondicaoPagamento> container = new BeanItemContainer<>(
-				CondicaoPagamento.class);
-
-		for (CondicaoPagamento c : condicaoPagamentoDAO.listarTodos()) {
-			container.addBean(c);
-		}
-
-		return container;
-	}
-
-	public BeanItemContainer<ClienteEntity> carregarClientes() {
-		BeanItemContainer<ClienteEntity> container = new BeanItemContainer<>(
-				ClienteEntity.class);
-
-		for (ClienteEntity c : clienteDAO.listaTodos()) {
-			container.addBean(c);
-		}
-
-		return container;
-	}
-
-	public BeanItemContainer<TransportadoraEntity> carregarTransportadoras() {
-		BeanItemContainer<TransportadoraEntity> container = new BeanItemContainer<>(
-				TransportadoraEntity.class);
-
-		for (TransportadoraEntity c : transportadoraDAO.listaTodos()) {
-			container.addBean(c);
-		}
-
-		return container;
-	}
-
-	public BeanItemContainer<VendedorEntity> carregarVendedores() {
-		BeanItemContainer<VendedorEntity> container = new BeanItemContainer<>(
-				VendedorEntity.class);
-
-		for (VendedorEntity c : vendedorDAO.listarTodos()) {
-			container.addBean(c);
-		}
-
-		return container;
 	}
 
 	public BeanItemContainer<ProdutoEntity> carregarProdutos() {

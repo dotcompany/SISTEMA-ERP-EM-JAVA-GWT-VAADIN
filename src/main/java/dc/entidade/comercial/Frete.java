@@ -12,11 +12,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
@@ -25,10 +28,12 @@ import dc.entidade.geral.pessoal.TransportadoraEntity;
 
 @Entity
 @Table(name = "venda_frete")
-@SuppressWarnings("serial")
+@XmlRootElement
 @Indexed
-@Analyzer(impl=BrazilianAnalyzer.class)
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class Frete extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	
 	@Id
@@ -36,14 +41,21 @@ public class Frete extends AbstractMultiEmpresaModel<Integer> implements Seriali
 	@SequenceGenerator(name = "frt", sequenceName = "venda_frete_id_seq", allocationSize = 1)
 	private Integer id;
 	
+	@Field
+	@Caption("Conhecimento")
 	@Column(name = "CONHECIMENTO")
 	private Integer conhecimento;
 	
-
+    @Field
+    @Caption("Responsável")
     @Column(name = "RESPONSAVEL")
+    @NotNull(message = "Responsável é Obrigatório!")
 	private String responsavel;
 	
+    @Field
+    @Caption("Placa")
     @Column(name = "PLACA")
+    @NotNull(message = "Placa é Obrigatório!")
 	private String placa;
 	
 	@Column(name="uf_placa")
@@ -70,6 +82,7 @@ public class Frete extends AbstractMultiEmpresaModel<Integer> implements Seriali
     @Caption("Venda")
     @JoinColumn(name = "ID_VENDA_CABECALHO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
+    @NotNull(message = "Venda é Obrigatório!")
     private Venda vendaCabecalho;
     
     @Caption("Transportadora")
