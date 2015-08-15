@@ -124,50 +124,50 @@ public class LancamentoPagarFormController extends
 	@Override
 	protected void actionSalvar() {
 
-		try {
+		subView.preencheBean(currentBean);
 
-			boolean valido = validaSalvar();
-			if (valido) {
-				subView.preencheBean(currentBean);
-				currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
-						.getConta().getEmpresa());
+		boolean valido = true;
 
-				List<ParcelaPagar> parcelasPagar = subView.getParcelasSubForm()
-						.getDados();
-				List<LctoPagarNtFinanceira> naturezasFinanceiras = subView
-						.getNaturezaFinanceiraSubForm().getDados();
+		List<ParcelaPagar> parcelasPagar = subView.getParcelasSubForm().getDados();
+		List<LctoPagarNtFinanceira> naturezasFinanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
 
-				if (((BigDecimal) subView.getTxValorPagar().getConvertedValue())
-						.compareTo(getTotalParcelaPagar(parcelasPagar)) != 0) {
-					adicionarErroDeValidacao(subView.getParcelasSubForm(),
-							"Os valores informados nas parcelas não batem com o valor a pagar.");
-					//valido = false;
-					mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
-				}
-
-				setIntervaloParcelaByTipoVencimento();
-				salvarParcelasPagar();
-
-				if (((BigDecimal) subView.getTxValorPagar().getConvertedValue())
-						.compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
-					adicionarErroDeValidacao(
-							subView.getNaturezaFinanceiraSubForm(),
-							"Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
-					//valido = false;
-
-					mensagemErro("Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
-				}
-
-				this.business.saveOrUpdate(this.currentBean);
-				//this.lancamentoPagarDAO.saveOrUpdate(this.currentBean);
-
-				notifiyFrameworkSaveOK(this.currentBean);
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalParcelaPagar(parcelasPagar)) != 0) {
+			adicionarErroDeValidacao(subView.getParcelasSubForm(),
+					"Os valores informados nas parcelas nao batem com o valor a pagar.");
+			valido = false;
+			mensagemErro("Os valores informados nas parcelas nao batem com o valor a pagar.");
 		}
 
+		if (((BigDecimal) subView.getTxValorPagar().getConvertedValue()).compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
+			adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),
+					"Os valores informados nas naturezas financeiras nÃ£o batem com o valor a pagar.");
+			valido = false;
+
+			mensagemErro("Os valores informados nas naturezas financeiras nao batem com o valor a pagar.");
+		}
+
+		if (valido) {
+
+			setIntervaloParcelaByTipoVencimento();
+
+			StatusParcela statusParcela = statusParcelaDAO.findBySituacao("Outro");
+			if (statusParcela == null) {
+				mensagemErro("O status de parcela em aberto nao esta cadastrado.\nEntre em contato com a Software House.");
+			} else {
+				for (ParcelaPagar p : currentBean.getParcelasPagar()) {
+					p.setStatusParcela(statusParcela);
+				}
+
+				try {
+					currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
+							.getConta().getEmpresa());
+					business.saveOrUpdate(currentBean);
+					notifiyFrameworkSaveOK(this.currentBean);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public void salvarParcelasPagar() {

@@ -153,7 +153,7 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 	private ClienteEntity cliente;
 
     @ManyToOne(optional = false)
-	@JoinColumn(name = "id_venda_condicoes_pagamento", referencedColumnName = "ID")
+	@JoinColumn(name = "id_venda_condicoes_pagamento", referencedColumnName = "ID", nullable = false)
 	@Caption("Condições de pagamento")
 	private CondicaoPagamento condicaoPagamento;
 
