@@ -195,19 +195,19 @@ protected void actionSalvar() {
 	if (((BigDecimal) subView.getTxValorReceber().getConvertedValue())
 			.compareTo(getTotalParcelaReceber(parcelasReceber)) != 0) {
 		adicionarErroDeValidacao(subView.getParcelasSubForm(),
-				"Os valores informados nas parcelas nao batem com o valor a pagar.");
+				"Os valores informados nas parcelas nao batem com o valor a receber.");
 		valido = false;
-		mensagemErro("Os valores informados nas parcelas nao batem com o valor a pagar.");
+		mensagemErro("Os valores informados nas parcelas nao batem com o valor a receber.");
 	}
 
 	if (((BigDecimal) subView.getTxValorReceber().getConvertedValue())
 			.compareTo(getTotalNaturezaFinanceira(naturezasanceiras)) != 0) {
 		adicionarErroDeValidacao(
 				subView.getNaturezaFinanceiraSubForm(),
-				"Os valores informados nas naturezas financeiras nao batem com o valor a pagar.");
+				"Os valores informados nas naturezas financeiras nao batem com o valor a receber.");
 		valido = false;
 
-		mensagemErro("Os valores informados nas naturezas financeiras nao batem com o valor a pagar.");
+		mensagemErro("Os valores informados nas naturezas financeiras nao batem com o valor a receber.");
 	}
 
 	if (valido) {

@@ -23,8 +23,7 @@ import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
 @Scope("prototype")
-public class AgenciaBancoFormController extends
-		CRUDFormController<AgenciaBancoEntity> {
+public class AgenciaBancoFormController extends CRUDFormController<AgenciaBancoEntity> {
 
 	/**
 	 * 
@@ -34,15 +33,26 @@ public class AgenciaBancoFormController extends
 	private AgenciaBancoFormView subView;
 
 	private AgenciaBancoEntity currentBean;
-
+	
+	/**
+	 * BUSINESS
+	 */
+	
+	//@Autowired
+	//private AgenciaBancoBusiness<AgenciaBancoEntity> business;
+	
 	@Autowired
-	private AgenciaBancoDAO agenciaBancoDAO;
+	public AgenciaBancoDAO dao;
 
 	@Autowired
 	private BancoDAO bancoDAO;
 
 	@Autowired
 	private UfDAO ufDAO;
+	
+	/**public AgenciaBancoBusiness<AgenciaBancoEntity> getBusiness() {
+		 return business;
+	}**/
 
 	@Override
 	protected String getNome() {
@@ -81,10 +91,10 @@ public class AgenciaBancoFormController extends
 			fieldGroup.bind(this.subView.getTfCodigo(),"codigo");
 			fieldGroup.bind(this.subView.getTfNome(),"nome");
 			fieldGroup.bind(this.subView.getTfLogradouro(),"logradouro");
-			fieldGroup.bind(this.subView.getTfCep(),"cep");
-			fieldGroup.bind(this.subView.getTfTelefone(),"telefone");
-			fieldGroup.bind(this.subView.getTfContato(),"contato");
+			fieldGroup.bind(this.subView.getTfBairro(),"bairro");
+			fieldGroup.bind(this.subView.getCbUf(),"uf");
 			fieldGroup.bind(this.subView.getTfGerente(),"gerente");
+			fieldGroup.bind(this.subView.getMocBanco(),"banco");
 			
 			this.subView.getMocBanco().configuraCombo(
 					"nome", BancoListController.class, this.bancoDAO, this.getMainController());
@@ -110,7 +120,7 @@ public class AgenciaBancoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.agenciaBancoDAO.saveOrUpdate(this.currentBean);
+			this.dao.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -123,7 +133,7 @@ public class AgenciaBancoFormController extends
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.agenciaBancoDAO.find(id);
+			this.currentBean = this.dao.find(id);
 			
 			 fieldGroup.setItemDataSource(this.currentBean);
 
@@ -148,7 +158,7 @@ public class AgenciaBancoFormController extends
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.agenciaBancoDAO.deleteAllByIds(ids);
+			this.dao.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -169,10 +179,6 @@ public class AgenciaBancoFormController extends
 		}
 
 	}
-
-	/**
-	 * 
-	 */
 
 	public void carregarUf() {
 		try {

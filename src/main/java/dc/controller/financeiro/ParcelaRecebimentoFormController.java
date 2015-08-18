@@ -288,7 +288,7 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 			     calculaTotalRecebido();
 			     ParcelaRecebimento pagamento = currentBean;
 			     pagamento.setChequeRecebido(null);
-			     if (pagamento.getTipoRecebimento().getTipo().equals("02")) {
+			     if (pagamento.getTipoRecebimento().getDescricao().equals("Dinheiro")) {
 				// FinSelecionaChequeGrid chequeGrid = new
 				// FinSelecionaChequeGrid(MDIFrame.getInstance(), true, true);
 				// chequeGrid.setVisible(true);
@@ -335,7 +335,7 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 		}
 
 		if (statusParcela == null) {
-			throw new Exception("Status de parcela nÃ£o cadastrado. Entre em contato com a Software House");
+			throw new Exception("Status de parcela nao cadastrado. Entre em contato com a Software House");
 		}
 
 		ParcelaReceber parcelaReceber = parcelaRecebimento.getParcelaReceber();

@@ -207,11 +207,6 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	}
 
 	@Override
-	protected void quandoNovo() {
-
-	}
-
-	@Override
 	protected Component getSubView() {
 		return subView;
 	}
@@ -301,7 +296,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 			calculaTotalPago();
 			ParcelaPagamento pagamento = currentBean;
 			System.out.println(pagamento.getChequeEmitido());
-			if (pagamento.getTipoPagamento().getTipo().equals("02")) {
+			if (pagamento.getTipoPagamento().getDescricao().equals("Dinheiro")) {
 				// FinSelecionaChequeGrid chequeGrid = new
 				// FinSelecionaChequeGrid(MDIFrame.getInstance(), true, true);
 				// chequeGrid.setVisible(true);
@@ -339,7 +334,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 		parcelaPagamentoDAO.save(parcelaPagamento);
 
-		StatusParcela statusParcela = null;
+		StatusParcela statusParcela;
 		if ("T".equalsIgnoreCase(tipoBaixa)) {
 			statusParcela = statusParcelaDAO.findBySituacao("Quitado");
 		} else {

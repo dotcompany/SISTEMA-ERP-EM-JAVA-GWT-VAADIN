@@ -27,8 +27,6 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
@@ -53,7 +51,6 @@ import dc.entidade.framework.ComboValue;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	private static final long serialVersionUID = 1L;
@@ -101,7 +98,6 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Taxa Juro")
 	@Column(name = "TAXA_JURO", precision = 14, scale = 0)
 	@Field
-	//@NotNull(message = "Taxa Juro é Obrigatório!")
 	private BigDecimal taxaJuro;
 
 	@Caption(value = "Taxa Multa")
@@ -163,7 +159,6 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	@OneToMany(mappedBy = "parcelaPagar", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<ParcelaPagamento> parcelapagamentos = new ArrayList<>();
 
 	@Transient

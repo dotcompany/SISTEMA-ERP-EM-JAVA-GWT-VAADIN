@@ -21,7 +21,7 @@ public class AgenciaBancoListController extends
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	@Autowired
 	private AgenciaBancoDAO dao;
 
@@ -55,26 +55,42 @@ public class AgenciaBancoListController extends
 	}
 
 	@Override
-	protected List<AgenciaBancoEntity> pesquisa(String valor) {
-		// return dao.fullTextSearch(valor);
-		return null;
-	}
-
-	@Override
 	protected boolean deletaEmCascata() {
 		return false;
-	}
-
-	@Override
-	protected List<AgenciaBancoEntity> pesquisaDefault() {
-		// return (List<AgenciaBancoEntity>) dao.getAll(getEntityClass());
-		return null;
 	}
 
 	@Override
 	protected void actionRemoverSelecionados() {
 		super.actionRemoverSelecionados();
 
+	}
+	
+	@Override
+	protected List<AgenciaBancoEntity> pesquisa(String valor) {
+		try {
+			
+			List<AgenciaBancoEntity> auxLista = this.dao.fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
+	protected List<AgenciaBancoEntity> pesquisaDefault() {
+		try {
+			
+			List<AgenciaBancoEntity> auxLista = (List<AgenciaBancoEntity>) this.dao.getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

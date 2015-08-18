@@ -167,12 +167,12 @@ public class CerimonialEventosFormView extends CustomComponent {
 		// fields.addComponent(txtContato,1,4,1,4);
 		txtContato = ComponentUtil.buildMaskedTextField("Contato",	"(##) #####-####");
 		txtContato.setMaskClientOnly(true);
-		fields.addComponent(txtContato, 0, 4);
+		fields.addComponent(txtContato, 3, 3);
 
 		// tfEmail = ComponentUtil.buildTextField("Email");
 		// fields.addComponent(tfEmail,0,5,0,5);
 		tfEmail = ComponentUtil.buildTextField("Email");
-		fields.addComponent(tfEmail, 1, 4);
+		fields.addComponent(tfEmail, 0, 4);
 
 		return fields;
 	}
