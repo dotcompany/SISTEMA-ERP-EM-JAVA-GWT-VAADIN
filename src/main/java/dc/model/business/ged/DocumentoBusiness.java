@@ -12,7 +12,10 @@ import dc.entidade.geral.ged.Documento;
 @org.springframework.stereotype.Component
 @Scope("singleton")
 public interface DocumentoBusiness {
-	public void gravarAnexo(Documento documento, List<String> listArquivos, File certificado, String senhaCertificado) throws IOException;
+	public void gravarAnexo(Documento documento, List<String> listArquivos, List<String> listArquivosExcluidos, File certificado, String senhaCertificado) throws IOException;
 
 	public Integer getProximoNumeroVersao(Documento documento);
+	public File gravaArquivoTemporario(File arquivo, String nomeArquivo, Documento currentBean);
+	public String getDiretorio(Documento documento);
+	public boolean isArquivoTemporario(File arquivo, Documento documento);
 }

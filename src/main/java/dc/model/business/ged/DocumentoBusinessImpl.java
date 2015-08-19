@@ -1,13 +1,16 @@
 package dc.model.business.ged;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
+import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.geral.ged.Documento;
 import dc.entidade.geral.ged.DocumentoArquivo;
@@ -23,18 +26,17 @@ public class DocumentoBusinessImpl implements DocumentoBusiness {
 
 	@Autowired
 	private DocumentoDAO documentoDAO;
+	private String homePath = System.getProperty("user.home");
+	private String customCompanyBaseFolder = "dc-erp";
 
 	@Override
-	public void gravarAnexo(Documento documento, List<String> listArquivos, File certificado, String senhaCertificado) throws IOException {
-		File tmpFile = null;
-
-		String caminho = null;
-		String hash = null;
+	public void gravarAnexo(Documento documento, List<String> listArquivos, List<String> listArquivosExcluidos, File certificado, String senhaCertificado) throws IOException {
 
 		for (int i = 0; i < listArquivos.size(); i++) {
 			String file = listArquivos.get(i);
+			File tmpFile = new File(file);
 
-			tmpFile = new File(file);
+			String hash = null;
 
 			try {
 				hash = Util.md5Arquivo(tmpFile.getAbsolutePath());
@@ -43,53 +45,76 @@ public class DocumentoBusinessImpl implements DocumentoBusiness {
 			}
 
 			if (file.indexOf(hash) == -1 && !hash.equals("0")) {
+				File arquivo = null;
+				// if (isArquivoTemporario(tmpFile, documento)) {
+				arquivo = gravaArquivoEmDisco(tmpFile, documento, hash);
+				try {
+					tmpFile.delete();
+				} catch (Exception e) {
 
-				byte[] temp = Util.lerBytesArquivo(tmpFile);
-
-				String homePath = System.getProperty("user.home");
-				String customCompanyBaseFolder = "dc-erp";
-				String arqOriginal = file;
-
-				// String copyArquivo = homePath + "/" + customCompanyBaseFolder
-				// + "/" + documento.getEmpresa().getId() + "/" +
-				// documento.getId() + "/" + file;
-
-				caminho = homePath + "/" + customCompanyBaseFolder + "/" + documento.getEmpresa().getId() + "/" + documento.getId() + "/" + hash + getExtensao(file);
-
-				Util.copyFile(new File(arqOriginal), new File(caminho));
-
-				File arquivo = Util.gravarArquivo(caminho, temp);
-
+				}
 				if (arquivo != null && arquivo.exists()) {
 					if (documento.getAssinado()) {
 						byte[] assinatura = Util.geraAssinaturaArquivo(Util.lerBytesArquivo(arquivo), certificado, senhaCertificado.toCharArray());
 						// usa o array de bytes e salva
 						Util.gravarArquivo(hash, assinatura);
 					}
+					// }
+				} else {
+					arquivo = tmpFile;
 				}
 
 				DocumentoArquivo doc = new DocumentoArquivo();
-				doc.setCaminho(caminho);
+				doc.setCaminho(arquivo.getAbsolutePath());
 				doc.setHash(hash);
-				doc.setExtensaoArquivo(getExtensao(caminho));
+				doc.setExtensaoArquivo(getExtensao(arquivo.getAbsolutePath()));
 
 				doc.setDocumento(documento);
 				documento.getDocumentos().add(doc);
 
 				VersaoDocumento versao = verificaVersao(documento, doc);
 
-				if (versao != null){
+				if (versao != null) {
 					documentoDAO.saveOrUpdate(versao);
-				}
-				try {
-					tmpFile.delete();
-				} catch (Exception e) {
-
 				}
 			}
 		}
-		
+
+		if (listArquivosExcluidos != null) {
+
+			for (String arquivo : listArquivosExcluidos) {
+				for (Iterator<DocumentoArquivo> iteratorDocumentos = documento.getDocumentos().iterator(); iteratorDocumentos.hasNext();) {
+					DocumentoArquivo documentoArquivo = (DocumentoArquivo) iteratorDocumentos.next();
+					if (documentoArquivo.getCaminho().equals(arquivo)) {
+						iteratorDocumentos.remove();
+						break;
+					}
+				}
+				removeArquivo(arquivo);
+			}
+		}
+
 		documentoDAO.saveOrUpdate(documento);
+	}
+
+	private File gravaArquivoEmDisco(File tmpFile, Documento documento, String hash) throws IOException {
+		String caminho = getDiretorio(documento) + hash + getExtensao(tmpFile.getName());
+
+		File arquivo = null;
+		try {
+			arquivo = gravarArquivo(caminho, Util.lerBytesArquivo(tmpFile));
+		} catch (IOException e) {
+		}
+		return arquivo;
+
+	}
+
+	public String getDiretorio(Documento documento) {
+		if (documento == null || documento.getId() == null) {
+			return homePath + File.separator + customCompanyBaseFolder + File.separator + getIDEmpresa() + File.separator;
+		} else {
+			return homePath + File.separator + customCompanyBaseFolder + File.separator + getIDEmpresa() + File.separator + documento.getId() + File.separator;
+		}
 	}
 
 	public VersaoDocumento verificaVersao(Documento documento, DocumentoArquivo doc) {
@@ -149,15 +174,80 @@ public class DocumentoBusinessImpl implements DocumentoBusiness {
 
 		return "";
 	}
-	
-	public void removeArquivo(String caminho) throws Exception {
+
+	public void removeArquivo(String caminho) {
 		File arquivo = new File(caminho);
 		try {
-		   arquivo.delete();
+			arquivo.delete();
 		} catch (Exception e) {
-			throw e;
-		} 
+			e.printStackTrace();
+		}
 
+	}
+
+	private String getIDEmpresa() {
+		UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
+		EmpresaEntity empresa = usuario.getConta().getEmpresa();
+		return empresa.getId().toString();
+
+	}
+
+	@Override
+	public File gravaArquivoTemporario(File arquivo, String nomeArquivo, Documento documento) {
+		String diretorio = getDiretorio(documento);
+
+		String nomeArquivoVisualizacao = diretorio + "/" + nomeArquivo;
+
+		/*
+		 * nomeArquivoVisualizacao = nomeArquivo;
+		 * 
+		 * if(!this.idDocumento.equals("")){ nomeArquivoVisualizacao = homePath
+		 * + "/"+ customCompanyBaseFolder + "/" + this.idEmpresa + "/" +
+		 * this.idDocumento+"/"+ nomeArquivoVisualizacao; } else{
+		 * nomeArquivoVisualizacao = homePath + "/"+ customCompanyBaseFolder +
+		 * "/" + this.idEmpresa + "/" + nomeArquivoVisualizacao; }
+		 */
+
+		File tmp = null;
+		try {
+			tmp = gravarArquivo(nomeArquivoVisualizacao, Util.lerBytesArquivo(arquivo));
+		} catch (IOException e) {
+		}
+		return tmp;
+	}
+
+	private File gravarArquivo(String caminho, byte[] dados) throws IOException {
+		File arquivo = new File(caminho);
+		FileOutputStream fos = null;
+		try {
+			if (!arquivo.exists()) {
+				File pastaPai = arquivo.getParentFile();
+				if (pastaPai != null) {
+					pastaPai.mkdirs();
+					arquivo.createNewFile();
+				}
+			}
+			fos = new FileOutputStream(arquivo);
+			fos.write(dados);
+		} catch (IOException e) {
+			throw e;
+		} finally {
+			try {
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return arquivo;
+
+	}
+
+	public boolean isArquivoTemporario(File arquivo, Documento documento) {
+		if (documento.getId() == null) {
+			return !arquivo.getAbsolutePath().contains(customCompanyBaseFolder);
+		} else {
+			return !arquivo.getAbsolutePath().contains(getDiretorio(documento));
+		}
 	}
 
 }

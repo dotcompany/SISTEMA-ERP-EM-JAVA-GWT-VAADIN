@@ -1,7 +1,6 @@
 package dc.controller.geral.ged;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +23,6 @@ import dc.model.business.ged.DocumentoBusiness;
 import dc.servicos.dao.geral.ged.DocumentoDAO;
 import dc.servicos.dao.geral.ged.TipoDocumentoDAO;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
-import dc.servicos.util.Util;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.CompanyFileHandler;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -47,11 +45,9 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	@Autowired
 	private DocumentoDAO documentoDAO;
 
-	
 	@Autowired
 	private DocumentoBusiness documentoBusiness;
 
-	
 	@Autowired
 	private MainController mainController;
 
@@ -65,8 +61,6 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 	@Autowired
 	private CompanyFileHandler companyFileHandler;
-
-	private static String DOCUMENT_PATH = "";
 
 	@Override
 	protected boolean validaSalvar() {
@@ -109,7 +103,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 			for (int i = 0; i < listArquivos.size(); i++) {
 				String file = listArquivos.get(i);
 
-				if(!file.contains(".doc")){
+				if (!file.contains(".doc")) {
 					adicionarErroDeValidacao(subView.getUpArquivo(), "Os templates de contrato devem ser no formato WORD com a extensão .doc");
 					valido = false;
 					break;
@@ -120,21 +114,12 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		return valido;
 	}
 
-	private Double tamanhoArquivoMega(File tmpFile) {
-		double bytes = tmpFile.length();
-		double kilobytes = (bytes / 1024);
-		double megabytes = (kilobytes / 1024);
-
-		return megabytes;
-	}
-
 	@Override
 	protected void criarNovoBean() {
 		currentBean = new Documento();
 		UsuarioEntity usuario = SecuritySessionProvider.getUsuario();
 		EmpresaEntity empresa = usuario.getConta().getEmpresa();
 		currentBean.setEmpresa(empresa);
-		subView.setIdEmpresa(getIDEmpresa());
 		subView.setListArquivos(new ArrayList<String>());
 	}
 
@@ -147,7 +132,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 	@Override
 	protected void initSubView() {
-		subView = new DocumentoFormView();
+		subView = new DocumentoFormView(this);
 		companyFileHandler = new CompanyFileHandler();
 		DefaultManyToOneComboModel<TipoDocumento> model = new DefaultManyToOneComboModel<TipoDocumento>(TipoDocumentoListController.class, tipoDocumentoDAO, mainController);
 		subView.getCmbTipoDocumento().setModel(model);
@@ -169,10 +154,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 		List<DocumentoArquivo> listArquivos = currentBean.getDocumentos();
 
-		subView.setIdDocumento(currentBean.getId().toString());
-
-		subView.setIdEmpresa(getIDEmpresa());
-
+		subView.limparMiniaturas();
 		for (int i = 0; i < listArquivos.size(); i++) {
 			String arquivo = listArquivos.get(i).getCaminho();
 			subView.atualizaMiniatura(new File(arquivo), new File(arquivo).getName(), "A", (i + 1));
@@ -206,8 +188,9 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 			File certificado = (File) subView.getUpAssinatura().getValue();
 			String senhaCertificado = subView.getPwSenhaCertificado().getValue();
 			List<String> listArquivos = subView.getListArquivos();
-			
-			documentoBusiness.gravarAnexo(currentBean, listArquivos, certificado, senhaCertificado);
+			List<String> listArquivosExcluidos = subView.getListArquivosExcluidos();
+
+			documentoBusiness.gravarAnexo(currentBean, listArquivos, listArquivosExcluidos, certificado, senhaCertificado);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception ex) {
@@ -255,6 +238,15 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		mensagemRemovidoOK();
 	}
 
+	public void removeArquivo(String caminho) throws Exception {
+		File arquivo = new File(caminho);
+		try {
+			arquivo.delete();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 
@@ -262,14 +254,24 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
 		return "documentoForm";
 	}
 
 	@Override
 	public Documento getModelBean() {
-		// TODO Auto-generated method stub
 		return currentBean;
 	}
 
+	public File gravaArquivoTemporario(File arquivo, String nomeArquivo) {
+
+		return documentoBusiness.gravaArquivoTemporario(arquivo, nomeArquivo, currentBean);
+	}
+
+	public boolean isArquivoTemporario(File arquivo) {
+		return documentoBusiness.isArquivoTemporario(arquivo, currentBean);
+	}
+	
+	public String getDiretorio(){
+		return documentoBusiness.getDiretorio(currentBean);
+	}
 }

@@ -3,8 +3,6 @@ package dc.visao.geral.ged;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,13 +54,11 @@ import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
+import dc.controller.geral.ged.DocumentoFormController;
 import dc.entidade.geral.ged.DocumentoArquivo;
 import dc.entidade.geral.ged.TipoDocumento;
-import dc.servicos.util.Util;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 import dc.visao.framework.util.ComponentUtil;
-
-
 
 public class DocumentoFormView extends CustomComponent {
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
@@ -105,31 +101,25 @@ public class DocumentoFormView extends CustomComponent {
 	private TextField txtNome;
 	private static final long serialVersionUID = 1L;
 	private String nomeArquivo;
-	private String nomeArquivoVisualizacao;
 	private String nomeArquivoAssinatura;
-	private int contRowImage = 7;
 	private GridLayout sources;
-	private int contColImage = 0;
 	private Window subwindow;
 	private Panel nPanel;
 	private final TextField selectedImage = new TextField();
-	private  ImageViewer imageViewer = new ImageViewer();
-	private String idDocumento = "";
+	private ImageViewer imageViewer = new ImageViewer();
 	private List<String> listArquivos = new ArrayList<String>();
-	private String idEmpresa = "";
-	private 	String homePath = System.getProperty("user.home");
-	private   String customCompanyBaseFolder = "dc-erp";
-	
+	private List<String> listArquivosDeletados = new ArrayList<String>();
+	private DocumentoFormController documentoFormController;
+
 	private ManyToOneCombo<TipoDocumento> cmbTipoDocumento;
 
 	public VerticalLayout getMainLayout() {
 		return mainLayout;
 	}
-	
+
 	public void setListArquivos(List<String> listArquivos) {
 		this.listArquivos = listArquivos;
 	}
-
 
 	public void setMainLayout(VerticalLayout mainLayout) {
 		this.mainLayout = mainLayout;
@@ -142,59 +132,45 @@ public class DocumentoFormView extends CustomComponent {
 	public void setTxtPalavraChave(TextField txtPalavraChave) {
 		this.txtPalavraChave = txtPalavraChave;
 	}
-	
-	public void setIdDocumento(String id){
-		this.idDocumento = id;
-	}
 
 	public PopupDateField getDtFimVigencia() {
 		return dtFimVigencia;
 	}
-	
-	public void setIdEmpresa(String id){
-		this.idEmpresa = id;
-	}
-	
-	
+
 	public void setDtFimVigencia(PopupDateField dtFimVigencia) {
 		this.dtFimVigencia = dtFimVigencia;
 	}
-	
+
 	public List<String> getListArquivos() {
 		return listArquivos;
 	}
 
-	public DocumentoFormView() {
-		contColImage = 0;
-		contRowImage = 7;
+	public DocumentoFormView(DocumentoFormController documentoFormController) {
+		this.documentoFormController = documentoFormController;
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 		configuraComponentes();
-	        
 	}
 
 	@SuppressWarnings("serial")
 	private void configuraComponentes() {
-		
-	
+
 		upAssinatura.setFieldType(FieldType.FILE);
 		upAssinatura.addListener(new ValueChangeListener() {
-			
+
 			@Override
 			public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
 				UploadField upload = (UploadField) event.getProperty();
 				Upload up = (Upload) upload.getRootLayout().getComponent(0);
-				nomeArquivoAssinatura = ((FileBuffer) up.getReceiver())
-						.getLastFileName();
-				
+				nomeArquivoAssinatura = ((FileBuffer) up.getReceiver()).getLastFileName();
+
 			}
 		});
 	}
 
 	public void atualizaMiniatura(List<DocumentoArquivo> documentos) {
 		for (DocumentoArquivo documento : documentos) {
-			atualizaMiniatura(documento.getFile(), documento.getFile()
-					.getName(), "", 0);
+			atualizaMiniatura(documento.getFile(), documento.getFile().getName(), "", 0);
 		}
 
 	}
@@ -211,435 +187,358 @@ public class DocumentoFormView extends CustomComponent {
 
 	@SuppressWarnings("deprecation")
 	public void atualizaMiniatura(File arquivo, String nomeArquivo, String acao, int contador) {
-  
-		 if(arquivo.length() > 0){
-		 
-				List<String> extensao= new ArrayList<String>();
-				extensao.add(".exe");
-				extensao.add(".bat");
-				extensao.add(".bin");
-				
-				if(sources == null){
-					
-					nPanel = new Panel();
-					nPanel.setImmediate(true);
-					nPanel.setHeight("350px");
-					nPanel.setWidth("100%");
-					nPanel.setScrollTop(1600);
-				    sources = new GridLayout(12,100);
-				    nPanel.setContent(sources);
-				    gridLayout.addComponent(nPanel, 0, 6, 5,6);
-		           
-				}else{
-					
-					if(acao.equals("A") && contador == 1){
-						gridLayout.removeComponent(nPanel);
-						this.sources.markAsDirtyRecursive();
-						this.gridLayout.markAsDirtyRecursive();
-						this.mainLayout.markAsDirtyRecursive();
-						this.markAsDirtyRecursive();
-						
-						nPanel = new Panel();
-						nPanel.setImmediate(true);
-						nPanel.setHeight("350px");
-						nPanel.setWidth("100%");
-						nPanel.setScrollTop(1600);
-					    sources = new GridLayout(12,100);
-					    nPanel.setContent(sources);
-					    gridLayout.addComponent(nPanel, 0, 6, 5,6);
-					}
-					
+
+		if (arquivo.length() > 0) {
+			List<String> extensao = new ArrayList<String>();
+			extensao.add(".exe");
+			extensao.add(".bat");
+			extensao.add(".bin");
+
+			if (sources == null) {
+				montarPainelMiniaturas();
+			} else {
+				if (acao.equals("A") && contador == 1) {
+					gridLayout.removeComponent(nPanel);
+					this.sources.markAsDirtyRecursive();
+					this.gridLayout.markAsDirtyRecursive();
+					this.mainLayout.markAsDirtyRecursive();
+					this.markAsDirtyRecursive();
+
+					montarPainelMiniaturas();
 				}
+
+			}
+
+			if (!extensao.contains(getExtensao(nomeArquivo))) {
 				
-		
-				if (!extensao.contains(getExtensao(nomeArquivo))) {
-					
-		            nomeArquivoVisualizacao = nomeArquivo;
-				
-					if(!this.idDocumento.equals("")){
-						 nomeArquivoVisualizacao = homePath + "/"+ customCompanyBaseFolder + "/" + this.idEmpresa + "/" + this.idDocumento+"/"+ nomeArquivoVisualizacao;
+				try {
+					final File arquivoMiniatura;
+					//Caso o arquivo esteja em uma pasta temporária do SO o componente não consegue rendereizar a miniatura
+					//Para isso guardamos o arquivo temporariamente em uma pasta dentro do sistema. 
+					if(documentoFormController.isArquivoTemporario(arquivo)){
+						arquivoMiniatura = documentoFormController.gravaArquivoTemporario(arquivo, nomeArquivo);
 					}
 					else{
-						nomeArquivoVisualizacao = homePath + "/"+ customCompanyBaseFolder + "/" + this.idEmpresa + "/" + nomeArquivoVisualizacao;
+						arquivoMiniatura = arquivo;
 					}
 					
-					try {
-						File tmp = gravarArquivo(nomeArquivoVisualizacao,
-								Util.lerBytesArquivo(arquivo));
-						nomeArquivoVisualizacao = tmp.getAbsolutePath();
-						
-						Embedded image = new Embedded();
-						if(getExtensao(nomeArquivo).toLowerCase().trim().indexOf("doc") != -1){
-							image.setSource(new ThemeResource("img/word.png"));
-						}else if(getExtensao(nomeArquivo).toLowerCase().trim().indexOf("xls") != -1){
-							image.setSource(new ThemeResource("img/excel.png"));
-						}else if(getExtensao(nomeArquivo).toLowerCase().trim().indexOf("pdf") != -1){
-							image.setSource(new ThemeResource("img/pdf.png"));
-							
-						}else if(getExtensao(nomeArquivo).toLowerCase().trim().indexOf("txt") != -1){
-							image.setSource(new ThemeResource("img/txtfile.png"));
-						}else{
-							image.setSource(new FileResource(tmp));
-						}
-						
-						image.setWidth("110px");
-						image.setHeight("90px");
-					
-						image.setId(nomeArquivoVisualizacao);
-						
-						image.addListener(new ClickListener(){
-						    @Override
-						    public void click(com.vaadin.event.MouseEvents.ClickEvent event){
-						    	
-						    	VerticalLayout mainLayoutViewer = new VerticalLayout();
-						    	mainLayoutViewer.setSizeFull();
-						    	mainLayoutViewer.setMargin(true);
-						    	mainLayoutViewer.setSpacing(true);
-						        
-						         imageViewer.setSizeFull();
-						         imageViewer.setImages(createImageList());
-						         imageViewer.setAnimationEnabled(false);
-						         imageViewer.setSideImageRelativeWidth(0.7f);
-		
-						         imageViewer.addListener(new ImageViewer.ImageSelectionListener() {
-									
-									@Override
-									public void imageSelected(ImageSelectedEvent e) {
-										 if (e.getSelectedImageIndex() >= 0) {
-						                     selectedImage.setValue(String.valueOf(e
-						                             .getSelectedImageIndex()));
-						                 } else {
-						                     selectedImage.setValue("-");
-						                 }
-										
-									}
-							     });
-						         HorizontalLayout hl = new HorizontalLayout();
-						         hl.setSizeUndefined();
-						         hl.setMargin(false);
-						         hl.setSpacing(true);
-						         mainLayoutViewer.addComponent(hl);
-						         mainLayoutViewer.addComponent(imageViewer);
-						         mainLayoutViewer.setExpandRatio(imageViewer, 1);
-		
-						         Layout ctrls = createControls();
-						         mainLayoutViewer.addComponent(ctrls);
-						         mainLayoutViewer.setComponentAlignment(ctrls, Alignment.BOTTOM_CENTER);
-						         
-						         
-							        
-						         // Configure the windws layout; by default a VerticalLayout
-						         VerticalLayout layout = new VerticalLayout();
-						         layout.setMargin(true);
-						         layout.setSpacing(true);
-						        
-						         com.vaadin.ui.Button close = new com.vaadin.ui.Button("Fechar", new com.vaadin.ui.Button.ClickListener() {
-						             // inline click-listener
-						             public void buttonClick(ClickEvent event) {
-						                 // close the window by removing it from the main window
-						             	subwindow.close();
-						             }
-						         });
-						         close.setClickShortcut(KeyCode.ESCAPE, null);
-						         
-						         // The components added to the window are actually added to the window's
-						         // layout; you can use either. Alignments are set using the layout
-						         layout.addComponent(close);
-						         layout.setComponentAlignment(close, Alignment.BOTTOM_RIGHT);
-						         mainLayoutViewer.addComponent(layout);
-						        
-						         imageViewer.setCenterImageIndex(0);
-						         imageViewer.focus();
-						         subwindow.setContent(mainLayoutViewer);
-						    	
-						    	
-						    	
-						    	
-						    	
-						    	
-						           subwindow.center();
-						           UI.getCurrent().addWindow(subwindow);
-						    }
-					    });
-						
-						
-						// Wrap it in a Drag and Drop Wrapper
-						DragAndDropWrapper wrapper = new DragAndDropWrapper(image);
-						wrapper.setSizeUndefined(); // Shrink to fit
-						// Enable dragging the wrapper
-						wrapper.setDragStartMode(DragStartMode.WRAPPER);
-						
-		
-						linkDownload = new Button("baixar");
-						linkDownload.setStyleName("link"); 
-						
-						final File file = tmp;
-						
-						final StreamSource s = new StreamSource() {
+					Embedded image = new Embedded();
+					if (getExtensao(nomeArquivo).toLowerCase().trim().indexOf("doc") != -1) {
+						image.setSource(new ThemeResource("img/word.png"));
+					} else if (getExtensao(nomeArquivo).toLowerCase().trim().indexOf("xls") != -1) {
+						image.setSource(new ThemeResource("img/excel.png"));
+					} else if (getExtensao(nomeArquivo).toLowerCase().trim().indexOf("pdf") != -1) {
+						image.setSource(new ThemeResource("img/pdf.png"));
 
-					        public java.io.InputStream getStream() {
-					            try {
-					                FileInputStream fis = new FileInputStream(file);
-					                return fis;
-					            } catch (FileNotFoundException e) {
-					                // TODO Auto-generated catch block
-					                e.printStackTrace();
-					            }
-					            return null;
-					        }
-					    };
-						
-						linkDownload.addListener(new Button.ClickListener() {
-							public void buttonClick(Button.ClickEvent event) {
-								
-								
-								String filename = file.getName();
-							    StreamResource resource = new StreamResource(s, filename);
-							    resource.getStream().setContentType("application/image");
-							    resource.getStream().setFileName(filename);
-							    resource.getStream().setParameter("Content-Disposition", "attachment; filename=\"" + filename + "\"");
-							    resource.getStream().setParameter("Content-Length", Long.toString(file.length()));
-							    resource.setCacheTime(5000);
-							    resource.setMIMEType("application/image");
-							    Page.getCurrent().open(resource, "_blank", false);
-								
+					} else if (getExtensao(nomeArquivo).toLowerCase().trim().indexOf("txt") != -1) {
+						image.setSource(new ThemeResource("img/txtfile.png"));
+					} else {
+						image.setSource(new FileResource(arquivoMiniatura));
+					}
+
+					image.setWidth("110px");
+					image.setHeight("90px");
+					image.setId(nomeArquivo);
+					image.addListener(getImageClickListener());
+
+					// Wrap it in a Drag and Drop Wrapper
+					DragAndDropWrapper wrapper = new DragAndDropWrapper(image);
+					wrapper.setSizeUndefined(); // Shrink to fit
+					// Enable dragging the wrapper
+					wrapper.setDragStartMode(DragStartMode.WRAPPER);
+
+					linkDownload = new Button("baixar");
+					linkDownload.setStyleName("link");
+
+					final StreamSource s = new StreamSource() {
+						private static final long serialVersionUID = 1L;
+
+						public java.io.InputStream getStream() {
+							try {
+								FileInputStream fis = new FileInputStream(arquivoMiniatura);
+								return fis;
+							} catch (FileNotFoundException e) {
+								e.printStackTrace();
 							}
-						});
-						
-						
-						//GridLayout gridImage = new GridLayout(2,2);
-						//gridImage.addComponent(wrapper, 0, 1);
-						//gridImage.addComponent(linkDonwload, 1, 2);
-									           
-						//sources.addComponent(gridImage);
-						
-						sources.addComponent(wrapper);
-						sources.addComponent(linkDownload);
-						
-						listArquivos.add(nomeArquivoVisualizacao);
-				
-						
-						
-					} catch (Exception e) {
-						// TODO: handle exception
-					}		
-					
-					this.markAsDirtyRecursive();
-					this.requestRepaintAll();
-					
-					
-					
+							return null;
+						}
+					};
+
+					linkDownload.addListener(new Button.ClickListener() {
+						/**
+							 * 
+							 */
+						private static final long serialVersionUID = 1L;
+
+						public void buttonClick(Button.ClickEvent event) {
+
+							String filename = arquivoMiniatura.getName();
+							StreamResource resource = new StreamResource(s, filename);
+							resource.getStream().setContentType("application/image");
+							resource.getStream().setFileName(filename);
+							resource.getStream().setParameter("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+							resource.getStream().setParameter("Content-Length", Long.toString(arquivoMiniatura.length()));
+							resource.setCacheTime(5000);
+							resource.setMIMEType("application/image");
+							Page.getCurrent().open(resource, "_blank", false);
+
+						}
+					});
+
+					// GridLayout gridImage = new GridLayout(2,2);
+					// gridImage.addComponent(wrapper, 0, 1);
+					// gridImage.addComponent(linkDonwload, 1, 2);
+
+					// sources.addComponent(gridImage);
+
+					sources.addComponent(wrapper);
+					sources.addComponent(linkDownload);
+
+					listArquivos.add(arquivoMiniatura.getAbsolutePath());
+
+				} catch (Exception e) {
 				}
-		 }else{
-			 try{
-				 arquivo.delete();
-			 }catch(Exception e){}
-		 }
+
+				this.markAsDirtyRecursive();
+				this.requestRepaintAll();
+
+			}
+		} else {
+			try {
+				arquivo.delete();
+			} catch (Exception e) {
+			}
+		}
 	}
 
-	
-	private Layout createControls() {
-        HorizontalLayout hl = new HorizontalLayout();
-        hl.setSizeUndefined();
-        hl.setMargin(false);
-        hl.setSpacing(true);
+	public void montarPainelMiniaturas() {
+		nPanel = new Panel();
+		nPanel.setImmediate(true);
+		nPanel.setHeight("350px");
+		nPanel.setWidth("100%");
+		nPanel.setScrollTop(1600);
+		sources = new GridLayout(12, 100);
+		nPanel.setContent(sources);
+		gridLayout.addComponent(nPanel, 0, 6, 5, 6);
+	}
 
-        CheckBox c = new CheckBox("Efeito");
-        c.setImmediate(true);
-        c.addValueChangeListener(new Property.ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                boolean checked = (Boolean) event.getProperty().getValue();
-                imageViewer.setHiLiteEnabled(checked);
-                imageViewer.focus();
-            }
-        });
-        c.setValue(true);
-        hl.addComponent(c);
-        hl.setComponentAlignment(c, Alignment.BOTTOM_CENTER);
-
-        c = new CheckBox("Anima��o");
-        c.setImmediate(true);
-        c.addValueChangeListener(new Property.ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                boolean checked = (Boolean) event.getProperty().getValue();
-                imageViewer.setAnimationEnabled(checked);
-                imageViewer.focus();
-            }
-        });
-        c.setValue(true);
-        hl.addComponent(c);
-        hl.setComponentAlignment(c, Alignment.BOTTOM_CENTER);
-
-        Slider s = new Slider("Dura��o Anima��o");
-        s.setMax(2000);
-        s.setMin(200);
-        s.setImmediate(true);
-        s.setWidth("120px");
-        s.addValueChangeListener(new Property.ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                try {
-                    int duration = (int) Math.round((Double) event
-                            .getProperty().getValue());
-                    imageViewer.setAnimationDuration(duration);
-                    imageViewer.focus();
-                } catch (Exception ignored) {
-                }
-            }
-        });
-        try {
-            s.setValue(350d);
-        } catch (ValueOutOfBoundsException e) {
-        }
-        hl.addComponent(s);
-        hl.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
-
-        s = new Slider("Largura da Imagem Centro");
-        s.setResolution(2);
-        s.setMax(1);
-        s.setMin(0.1);
-        s.setImmediate(true);
-        s.setWidth("120px");
-        s.addValueChangeListener(new Property.ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                try {
-                    double d = (Double) event.getProperty().getValue();
-                    imageViewer.setCenterImageRelativeWidth((float) d);
-                    imageViewer.focus();
-                } catch (Exception ignored) {
-                }
-            }
-        });
-        try {
-            s.setValue(0.55);
-        } catch (ValueOutOfBoundsException e) {
-        }
-        hl.addComponent(s);
-        hl.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
-
-        s = new Slider("Contagem imagem");
-        s.setMax(5);
-        s.setMin(1);
-        s.setImmediate(true);
-        s.setWidth("120px");
-        s.addValueChangeListener(new Property.ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                try {
-                    int sideImageCount = (int) Math.round((Double) event
-                            .getProperty().getValue());
-                    imageViewer.setSideImageCount(sideImageCount);
-                    imageViewer.focus();
-                } catch (Exception ignored) {
-                }
-            }
-        });
-        try {
-            s.setValue(2d);
-        } catch (ValueOutOfBoundsException e) {
-        }
-        hl.addComponent(s);
-        hl.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
-
-        s = new Slider("Tamanho Imagem (miniatura)");
-        s.setResolution(2);
-        s.setMax(0.8);
-        s.setMin(0.5);
-        s.setImmediate(true);
-        s.setWidth("120px");
-        s.addValueChangeListener(new Property.ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                try {
-                    double d = (Double) event.getProperty().getValue();
-                    imageViewer.setSideImageRelativeWidth((float) d);
-                    imageViewer.focus();
-                } catch (Exception ignored) {
-                }
-            }
-        });
-        try {
-            s.setValue(0.65);
-        } catch (ValueOutOfBoundsException e) {
-        }
-        hl.addComponent(s);
-        hl.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
-
-        s = new Slider("Preenchimento Horizontal");
-        s.setMax(10);
-        s.setMin(0);
-        s.setImmediate(true);
-        s.setWidth("120px");
-        s.addValueChangeListener(new Property.ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                try {
-                    double d = (Double) event.getProperty().getValue();
-                    imageViewer.setImageHorizontalPadding((int) Math.round(d));
-                    imageViewer.focus();
-                } catch (Exception ignored) {
-                }
-            }
-        });
-        try {
-            s.setValue(1d);
-        } catch (ValueOutOfBoundsException e) {
-        }
-        hl.addComponent(s);
-        hl.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
-
-        s = new Slider("Preenchimento Vertical");
-        s.setMax(10);
-        s.setMin(0);
-        s.setImmediate(true);
-        s.setWidth("120px");
-        s.addValueChangeListener(new Property.ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                try {
-                    double d = (Double) event.getProperty().getValue();
-                    imageViewer.setImageVerticalPadding((int) Math.round(d));
-                    imageViewer.focus();
-                } catch (Exception ignored) {
-                }
-            }
-        });
-        try {
-            s.setValue(5d);
-        } catch (ValueOutOfBoundsException e) {
-        }
-        hl.addComponent(s);
-        hl.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
-
-        selectedImage.setWidth("50px");
-        selectedImage.setImmediate(true);
-        hl.addComponent(selectedImage);
-        hl.setComponentAlignment(selectedImage, Alignment.BOTTOM_CENTER);
-
-        return hl;
-    }
-
-    /**
-     * Creates a list of Resources to be shown in the ImageViewer.
-     * 
-     * @return List of Resource instances
-     */
-    private List<FileResource> createImageList() {
-        List<FileResource> img = new ArrayList<FileResource>();
-    	String diretorio = homePath + "/"+ customCompanyBaseFolder + "/" + this.idEmpresa ;
-		
-		if(!this.idDocumento.equals("")){
-			diretorio = homePath + "/"+ customCompanyBaseFolder + "/" + this.idEmpresa + "/" + this.idDocumento;
+	public void limparMiniaturas() {
+		if (sources != null) {
+			sources.removeAllComponents();
 		}
-		
-		File dir = new File(diretorio); 
-		File fList[] = dir.listFiles(); 
+	}
 
-		for ( int i = 0; i < fList.length; i++ ){ 
-		    String arquivo = fList[i].getAbsolutePath();
-		    
-		    File arqImg = new File(arquivo);
+	private Layout createControls() {
+		HorizontalLayout hl = new HorizontalLayout();
+		hl.setSizeUndefined();
+		hl.setMargin(false);
+		hl.setSpacing(true);
+
+		CheckBox c = new CheckBox("Efeito");
+		c.setImmediate(true);
+		c.addValueChangeListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void valueChange(ValueChangeEvent event) {
+				boolean checked = (Boolean) event.getProperty().getValue();
+				imageViewer.setHiLiteEnabled(checked);
+				imageViewer.focus();
+			}
+		});
+		c.setValue(true);
+		hl.addComponent(c);
+		hl.setComponentAlignment(c, Alignment.BOTTOM_CENTER);
+
+		c = new CheckBox("Animaçãoo");
+		c.setImmediate(true);
+		c.addValueChangeListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void valueChange(ValueChangeEvent event) {
+				boolean checked = (Boolean) event.getProperty().getValue();
+				imageViewer.setAnimationEnabled(checked);
+				imageViewer.focus();
+			}
+		});
+		c.setValue(true);
+		hl.addComponent(c);
+		hl.setComponentAlignment(c, Alignment.BOTTOM_CENTER);
+
+		Slider s = new Slider("Duração Animação");
+		s.setMax(2000);
+		s.setMin(200);
+		s.setImmediate(true);
+		s.setWidth("120px");
+		s.addValueChangeListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void valueChange(ValueChangeEvent event) {
+				try {
+					int duration = (int) Math.round((Double) event.getProperty().getValue());
+					imageViewer.setAnimationDuration(duration);
+					imageViewer.focus();
+				} catch (Exception ignored) {
+				}
+			}
+		});
+		try {
+			s.setValue(350d);
+		} catch (ValueOutOfBoundsException e) {
+		}
+		hl.addComponent(s);
+		hl.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
+
+		s = new Slider("Largura da Imagem Centro");
+		s.setResolution(2);
+		s.setMax(1);
+		s.setMin(0.1);
+		s.setImmediate(true);
+		s.setWidth("120px");
+		s.addValueChangeListener(new Property.ValueChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void valueChange(ValueChangeEvent event) {
+				try {
+					double d = (Double) event.getProperty().getValue();
+					imageViewer.setCenterImageRelativeWidth((float) d);
+					imageViewer.focus();
+				} catch (Exception ignored) {
+				}
+			}
+		});
+		try {
+			s.setValue(0.55);
+		} catch (ValueOutOfBoundsException e) {
+		}
+		hl.addComponent(s);
+		hl.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
+
+		s = new Slider("Contagem imagem");
+		s.setMax(5);
+		s.setMin(1);
+		s.setImmediate(true);
+		s.setWidth("120px");
+		s.addValueChangeListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void valueChange(ValueChangeEvent event) {
+				try {
+					int sideImageCount = (int) Math.round((Double) event.getProperty().getValue());
+					imageViewer.setSideImageCount(sideImageCount);
+					imageViewer.focus();
+				} catch (Exception ignored) {
+				}
+			}
+		});
+		try {
+			s.setValue(2d);
+		} catch (ValueOutOfBoundsException e) {
+		}
+		hl.addComponent(s);
+		hl.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
+
+		s = new Slider("Tamanho Imagem (miniatura)");
+		s.setResolution(2);
+		s.setMax(0.8);
+		s.setMin(0.5);
+		s.setImmediate(true);
+		s.setWidth("120px");
+		s.addValueChangeListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void valueChange(ValueChangeEvent event) {
+				try {
+					double d = (Double) event.getProperty().getValue();
+					imageViewer.setSideImageRelativeWidth((float) d);
+					imageViewer.focus();
+				} catch (Exception ignored) {
+				}
+			}
+		});
+		try {
+			s.setValue(0.65);
+		} catch (ValueOutOfBoundsException e) {
+		}
+		hl.addComponent(s);
+		hl.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
+
+		s = new Slider("Preenchimento Horizontal");
+		s.setMax(10);
+		s.setMin(0);
+		s.setImmediate(true);
+		s.setWidth("120px");
+		s.addValueChangeListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void valueChange(ValueChangeEvent event) {
+				try {
+					double d = (Double) event.getProperty().getValue();
+					imageViewer.setImageHorizontalPadding((int) Math.round(d));
+					imageViewer.focus();
+				} catch (Exception ignored) {
+				}
+			}
+		});
+		try {
+			s.setValue(1d);
+		} catch (ValueOutOfBoundsException e) {
+		}
+		hl.addComponent(s);
+		hl.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
+
+		s = new Slider("Preenchimento Vertical");
+		s.setMax(10);
+		s.setMin(0);
+		s.setImmediate(true);
+		s.setWidth("120px");
+		s.addValueChangeListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
+
+			public void valueChange(ValueChangeEvent event) {
+				try {
+					double d = (Double) event.getProperty().getValue();
+					imageViewer.setImageVerticalPadding((int) Math.round(d));
+					imageViewer.focus();
+				} catch (Exception ignored) {
+				}
+			}
+		});
+		try {
+			s.setValue(5d);
+		} catch (ValueOutOfBoundsException e) {
+		}
+		hl.addComponent(s);
+		hl.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
+
+		selectedImage.setWidth("50px");
+		selectedImage.setImmediate(true);
+		hl.addComponent(selectedImage);
+		hl.setComponentAlignment(selectedImage, Alignment.BOTTOM_CENTER);
+
+		return hl;
+	}
+
+	/**
+	 * Creates a list of Resources to be shown in the ImageViewer.
+	 * 
+	 * @return List of Resource instances
+	 */
+	private List<FileResource> createImageList() {
+		List<FileResource> img = new ArrayList<FileResource>();
+
+		for (int i = 0; i < listArquivos.size(); i++) {
+			String arquivo = listArquivos.get(i);
+
+			File arqImg = new File(arquivo);
 			img.add(new FileResource(arqImg));
-		} 
-		
-        return img;
-    }
-	
+		}
+
+		return img;
+	}
+
 	public AbsoluteLayout getAbsoluteLayout_2() {
 		return absoluteLayout_2;
 	}
@@ -740,56 +639,12 @@ public class DocumentoFormView extends CustomComponent {
 		this.linkDownload = linkDonwload;
 	}
 
-	private File gravarArquivo(String caminho, byte[] dados) throws IOException {
-		File arquivo = new File(caminho);
-		FileOutputStream fos = null;
-		try {
-			if (!arquivo.exists()) {
-				File pastaPai = arquivo.getParentFile();
-				if (pastaPai != null) {
-					pastaPai.mkdirs();
-					arquivo.createNewFile();
-				}
-			}
-			fos = new FileOutputStream(arquivo);
-			fos.write(dados);
-		} catch (IOException e) {
-			throw e;
-		} finally {
-			try {
-				fos.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return arquivo;
-
-	}
-
-	private void removeArquivo(String caminho) throws Exception {
-		File arquivo = new File(caminho);
-		try {
-		   arquivo.delete();
-		} catch (Exception e) {
-			throw e;
-		} 
-
-	}
-	
 	public Image getImage() {
 		return image;
 	}
 
 	public void setImage(Image image) {
 		this.image = image;
-	}
-
-	public String getNomeArquivoVisualizacao() {
-		return nomeArquivoVisualizacao;
-	}
-
-	public void setNomeArquivoVisualizacao(String nomeArquivoVisualizacao) {
-		this.nomeArquivoVisualizacao = nomeArquivoVisualizacao;
 	}
 
 	@AutoGenerated
@@ -804,8 +659,6 @@ public class DocumentoFormView extends CustomComponent {
 		mainLayout.addComponent(gridLayout);
 		mainLayout.setExpandRatio(gridLayout, 1);
 
-		
-		
 		return mainLayout;
 	}
 
@@ -850,16 +703,15 @@ public class DocumentoFormView extends CustomComponent {
 		cmbTipoDocumento.setCaption("Tipo Documento");
 		cmbTipoDocumento.setWidth("290px");
 		cmbTipoDocumento.setSizeFull();
-		
+
 		UI.getCurrent().getPage().getStyles().add(".v-slot { position:static !important;}");
-		
+
 		gridLayout.addComponent(cmbTipoDocumento, 0, 3);
-		
-		
+
 		// dtFimVigencia
 		dtFimVigencia = ComponentUtil.buildPopupDateField("Data Vigência");
 		gridLayout.addComponent(dtFimVigencia, 1, 1);
-		
+
 		// pwSenhaCertificado
 		pwSenhaCertificado = new PasswordField();
 		pwSenhaCertificado.setCaption("Senha Certificado");
@@ -869,7 +721,7 @@ public class DocumentoFormView extends CustomComponent {
 		// ckbAssinado
 		ckbAssinado = ComponentUtil.buildCheckBox("Assinado");
 		gridLayout.addComponent(ckbAssinado, 2, 2);
-		
+
 		// ckbPodeAlterar
 		ckbPodeAlterar = ComponentUtil.buildCheckBox("Pode Alterar");
 		gridLayout.addComponent(ckbPodeAlterar, 3, 2);
@@ -877,10 +729,10 @@ public class DocumentoFormView extends CustomComponent {
 		// ckbPodeExcluir
 		ckbPodeExcluir = ComponentUtil.buildCheckBox("Pode Excluir");
 		gridLayout.addComponent(ckbPodeExcluir, 4, 2);
-		
-		ckbTemplate =  ComponentUtil.buildCheckBox("Template Contrato");
-		gridLayout.addComponent(ckbTemplate, 5, 2);		
-	
+
+		ckbTemplate = ComponentUtil.buildCheckBox("Template Contrato");
+		gridLayout.addComponent(ckbTemplate, 5, 2);
+
 		upAssinatura = new UploadField();
 		upAssinatura.setCaption("Certificado");
 		upAssinatura.setImmediate(false);
@@ -888,95 +740,95 @@ public class DocumentoFormView extends CustomComponent {
 
 		// upArquivo
 		upArquivo = new SlowMultiFileUpload() {
-			
+			private static final long serialVersionUID = 1L;
+
+			@SuppressWarnings("deprecation")
 			@Override
-			protected void handleFile(File file, String fileName, String mimeType,
-					long length) {
-				
+			protected void handleFile(File file, String fileName, String mimeType, long length) {
+
 				atualizaMiniatura(file, fileName.toLowerCase().trim(), "", 0);
-				
-				new Notification("Arquivo", "Arquivo enviado com sucesso",
-						Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page
-						.getCurrent());
+
+				new Notification("Arquivo", "Arquivo enviado com sucesso", Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page.getCurrent());
 			}
 		};
-		
+
 		upArquivo.setCaption("Documento");
 		upArquivo.setUploadButtonCaption("Selecione o(s) arquivo(s)");
 		gridLayout.addComponent(upArquivo, 0, 4);
-		
+
 		Embedded imageLixeira = new Embedded(null, new ThemeResource("img/lixeira.png"));
 		imageLixeira.setWidth("64px");
 		imageLixeira.setHeight("64px");
-		
-		 DragAndDropWrapper targetWrapper = new DragAndDropWrapper(imageLixeira);
-		 targetWrapper.setWidth("100px");
-		 targetWrapper.setHeight("100px");
-		 
-		 gridLayout.addComponent(targetWrapper, 5, 4);
 
-		 
+		DragAndDropWrapper targetWrapper = new DragAndDropWrapper(imageLixeira);
+		targetWrapper.setWidth("100px");
+		targetWrapper.setHeight("100px");
+
+		gridLayout.addComponent(targetWrapper, 5, 4);
+
 		// Handle drops
-		  targetWrapper.setDropHandler(new DropHandler() {
-		 	            private static final long serialVersionUID = -5709370299130660699L;
-		 	
-		 	            @Override
-		 	            public AcceptCriterion getAcceptCriterion() {
-		 	                // Accept all drops from anywhere
-		 	                return AcceptAll.get();
-		 	            }
-		 	           
-		 	            @Override
-		 	            public void drop(DragAndDropEvent event) {
-		 	                WrapperTransferable t =
-		 	                    (WrapperTransferable) event.getTransferable();
-		 	               
-		 	                // Get the dragged component (not the wrapper)
-		 	                Embedded sourceDD = (Embedded) t.getDraggedComponent();
-		 	                try{
-		 	                 removeArquivo(sourceDD.getId());
-		 	                 listArquivos.remove(sourceDD.getId());
-		 	               }catch(Exception e){
-		 	            	   
-		 	               }
-		 	                
-		 	               sources.removeComponent(t.getDraggedComponent());
-		 	               repaint();
-		 	  			
-		 	            }
-		 	        });
-		
-		
+		targetWrapper.setDropHandler(new DropHandler() {
+			private static final long serialVersionUID = -5709370299130660699L;
+
+			@Override
+			public AcceptCriterion getAcceptCriterion() {
+				// Accept all drops from anywhere
+				return AcceptAll.get();
+			}
+
+			@Override
+			public void drop(DragAndDropEvent event) {
+				WrapperTransferable t = (WrapperTransferable) event.getTransferable();
+
+				// Get the dragged component (not the wrapper)
+				Embedded sourceDD = (Embedded) t.getDraggedComponent();
+				try {
+					// TODO
+					// removeArquivo(sourceDD.getId());
+					listArquivosDeletados.add(sourceDD.getId());
+					listArquivos.remove(sourceDD.getId());
+				} catch (Exception e) {
+
+				}
+
+				sources.removeComponent(t.getDraggedComponent());
+				repaint();
+
+			}
+		});
+
 		// Create the window...
-        subwindow = new Window("GED Documentos - Visualizador de Imagens");
-        // ...and make it modal
-        subwindow.setModal(true);
-        subwindow.setWidth("100%");
-        subwindow.setHeight("100%");	
-		
-		
+		subwindow = new Window("GED Documentos - Visualizador de Imagens");
+		// ...and make it modal
+		subwindow.setModal(true);
+		subwindow.setWidth("100%");
+		subwindow.setHeight("100%");
+
 		return gridLayout;
 	}
-	
-	public void repaint(){
+
+	@SuppressWarnings("deprecation")
+	public void repaint() {
 		gridLayout.removeComponent(nPanel);
-		this.sources.markAsDirtyRecursive();
+		if (sources != null) {
+			this.sources.markAsDirtyRecursive();
+		}
 		this.gridLayout.markAsDirtyRecursive();
 		this.mainLayout.markAsDirtyRecursive();
 		this.markAsDirtyRecursive();
-		
+
 		nPanel = new Panel();
 		nPanel.setImmediate(true);
 		nPanel.setHeight("350px");
 		nPanel.setWidth("900px");
 		nPanel.setScrollTop(1600);
-		
-	   sources = new GridLayout(6,20);
-	   
-        for(int i = 0; i < listArquivos.size(); i++){
-        	String caminho = listArquivos.get(i);
-	        File arquivo = new File(caminho);
-	        Embedded image = new Embedded();
+
+		sources = new GridLayout(6, 20);
+
+		for (int i = 0; i < listArquivos.size(); i++) {
+			String caminho = listArquivos.get(i);
+			File arquivo = new File(caminho);
+			Embedded image = new Embedded();
 			image.setSource(new FileResource(arquivo));
 			image.setId(caminho);
 			// Wrap it in a Drag and Drop Wrapper
@@ -984,147 +836,58 @@ public class DocumentoFormView extends CustomComponent {
 			wrapper.setSizeUndefined(); // Shrink to fit
 			// Enable dragging the wrapper
 			wrapper.setDragStartMode(DragStartMode.WRAPPER);
-						           
-			
-			
-			
+
 			image.setWidth("110px");
 			image.setHeight("90px");
-		
-				
-			image.addListener(new ClickListener(){
-			    @Override
-			    public void click(com.vaadin.event.MouseEvents.ClickEvent event){
-			    	
-			    	VerticalLayout mainLayoutViewer = new VerticalLayout();
-			    	//mainLayoutViewer.addStyleName(Reindeer.LAYOUT_BLACK);
-			    	mainLayoutViewer.setSizeFull();
-			    	mainLayoutViewer.setMargin(true);
-			    	mainLayoutViewer.setSpacing(true);
 
-			        
-			         imageViewer.setSizeFull();
-			         imageViewer.setImages(createImageList());
-			         imageViewer.setAnimationEnabled(false);
-			         imageViewer.setSideImageRelativeWidth(0.7f);
+			image.addListener(getImageClickListener());
 
-			         imageViewer.addListener(new ImageViewer.ImageSelectionListener() {
-						
-						@Override
-						public void imageSelected(ImageSelectedEvent e) {
-							 if (e.getSelectedImageIndex() >= 0) {
-			                     selectedImage.setValue(String.valueOf(e
-			                             .getSelectedImageIndex()));
-			                 } else {
-			                     selectedImage.setValue("-");
-			                 }
-							
-						}
-				     });
-			         HorizontalLayout hl = new HorizontalLayout();
-			         hl.setSizeUndefined();
-			         hl.setMargin(false);
-			         hl.setSpacing(true);
-			         mainLayoutViewer.addComponent(hl);
-			         mainLayoutViewer.addComponent(imageViewer);
-			         mainLayoutViewer.setExpandRatio(imageViewer, 1);
-
-			         Layout ctrls = createControls();
-			         mainLayoutViewer.addComponent(ctrls);
-			         mainLayoutViewer.setComponentAlignment(ctrls, Alignment.BOTTOM_CENTER);
-			         
-			         
-			         
-
-			        
-			         // Configure the windws layout; by default a VerticalLayout
-			         VerticalLayout layout = new VerticalLayout();
-			         layout.setMargin(true);
-			         layout.setSpacing(true);
-			        
-			         com.vaadin.ui.Button close = new com.vaadin.ui.Button("Fechar", new com.vaadin.ui.Button.ClickListener() {
-			             // inline click-listener
-			             public void buttonClick(ClickEvent event) {
-			                 // close the window by removing it from the main window
-			             	subwindow.close();
-			             }
-			         });
-			         close.setClickShortcut(KeyCode.ESCAPE, null);
-			         
-			         // The components added to the window are actually added to the window's
-			         // layout; you can use either. Alignments are set using the layout
-			         layout.addComponent(close);
-			         layout.setComponentAlignment(close, Alignment.BOTTOM_RIGHT);
-			         mainLayoutViewer.addComponent(layout);
-			        
-			         imageViewer.setCenterImageIndex(0);
-			         imageViewer.focus();
-			         subwindow.setContent(mainLayoutViewer);
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			           subwindow.center();
-			           UI.getCurrent().addWindow(subwindow);
-			    }
-		    });
-			
-			
-			
-
-			//linkDonwload = new Link("baixar", new FileResource(arquivo));
-			//linkDonwload.setTargetName("_blank");
-			
 			linkDownload = new Button("baixar");
-			linkDownload.setStyleName("link"); 
-			
+			linkDownload.setStyleName("link");
+
 			final File file = arquivo;
-			
+
 			final StreamSource s = new StreamSource() {
 
-		        public java.io.InputStream getStream() {
-		            try {
-		                FileInputStream fis = new FileInputStream(file);
-		                return fis;
-		            } catch (FileNotFoundException e) {
-		                // TODO Auto-generated catch block
-		                e.printStackTrace();
-		            }
-		            return null;
-		        }
-		    };
-			
+				private static final long serialVersionUID = 1L;
+
+				public java.io.InputStream getStream() {
+					try {
+						FileInputStream fis = new FileInputStream(file);
+						return fis;
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
+					return null;
+				}
+			};
+
 			linkDownload.addListener(new Button.ClickListener() {
+				private static final long serialVersionUID = 1L;
+
 				public void buttonClick(Button.ClickEvent event) {
-					
-					
+
 					String filename = file.getName();
-				    StreamResource resource = new StreamResource(s, filename);
-				    resource.getStream().setContentType("application/image");
-				    resource.getStream().setFileName(filename);
-				    resource.getStream().setParameter("Content-Disposition", "attachment; filename=\"" + filename + "\"");
-				    resource.getStream().setParameter("Content-Length", Long.toString(file.length()));
-				    resource.setCacheTime(5000);
-				    resource.setMIMEType("application/image");
-				    Page.getCurrent().open(resource, "_blank", false);
-					
+					StreamResource resource = new StreamResource(s, filename);
+					resource.getStream().setContentType("application/image");
+					resource.getStream().setFileName(filename);
+					resource.getStream().setParameter("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+					resource.getStream().setParameter("Content-Length", Long.toString(file.length()));
+					resource.setCacheTime(5000);
+					resource.setMIMEType("application/image");
+					Page.getCurrent().open(resource, "_blank", false);
+
 				}
 			});
-			
-			
-			
+
 			sources.addComponent(wrapper);
 			sources.addComponent(linkDownload);
-			
-			
-        }
-        
-        nPanel.setContent(sources);
- 	   
-        gridLayout.addComponent(nPanel, 0, 6, 5 , 6);
-		
+		}
+
+		nPanel.setContent(sources);
+
+		gridLayout.addComponent(nPanel, 0, 6, 5, 6);
+
 	}
 
 	public ManyToOneCombo<TipoDocumento> getCmbTipoDocumento() {
@@ -1134,23 +897,17 @@ public class DocumentoFormView extends CustomComponent {
 	public void setCmbTipoDocumento(ManyToOneCombo<TipoDocumento> cbmTipoDocumento) {
 		this.cmbTipoDocumento = cbmTipoDocumento;
 	}
-	
-	
 
-    class SlowMultiFileUpload extends MultiFileUpload {
-        @Override
-        protected void handleFile(File file, String fileName, String mimeType,
-                long length) {
-            String msg = fileName + " uploaded.";
-           new Notification("Arquivo", msg,
-					Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page
-					.getCurrent());
-        }
+	class SlowMultiFileUpload extends MultiFileUpload {
+		private static final long serialVersionUID = 1L;
 
-   
-    }
-
-
+		@SuppressWarnings("deprecation")
+		@Override
+		protected void handleFile(File file, String fileName, String mimeType, long length) {
+			String msg = fileName + " uploaded.";
+			new Notification("Arquivo", msg, Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page.getCurrent());
+		}
+	}
 
 	public CheckBox getCkbTemplate() {
 		return ckbTemplate;
@@ -1158,6 +915,90 @@ public class DocumentoFormView extends CustomComponent {
 
 	public void setCkbTemplate(CheckBox ckbTemplate) {
 		this.ckbTemplate = ckbTemplate;
+	}
+
+	public ClickListener getImageClickListener() {
+		return new ClickListener() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void click(com.vaadin.event.MouseEvents.ClickEvent event) {
+
+				VerticalLayout mainLayoutViewer = new VerticalLayout();
+				// mainLayoutViewer.addStyleName(Reindeer.LAYOUT_BLACK);
+				mainLayoutViewer.setSizeFull();
+				mainLayoutViewer.setMargin(true);
+				mainLayoutViewer.setSpacing(true);
+
+				imageViewer.setSizeFull();
+				imageViewer.setImages(createImageList());
+				imageViewer.setAnimationEnabled(false);
+				imageViewer.setSideImageRelativeWidth(0.7f);
+
+				imageViewer.addListener(new ImageViewer.ImageSelectionListener() {
+
+					@Override
+					public void imageSelected(ImageSelectedEvent e) {
+						if (e.getSelectedImageIndex() >= 0) {
+							selectedImage.setValue(String.valueOf(e.getSelectedImageIndex()));
+						} else {
+							selectedImage.setValue("-");
+						}
+
+					}
+				});
+				HorizontalLayout hl = new HorizontalLayout();
+				hl.setSizeUndefined();
+				hl.setMargin(false);
+				hl.setSpacing(true);
+				mainLayoutViewer.addComponent(hl);
+				mainLayoutViewer.addComponent(imageViewer);
+				mainLayoutViewer.setExpandRatio(imageViewer, 1);
+
+				Layout ctrls = createControls();
+				mainLayoutViewer.addComponent(ctrls);
+				mainLayoutViewer.setComponentAlignment(ctrls, Alignment.BOTTOM_CENTER);
+
+				// Configure the windws layout; by default a VerticalLayout
+				VerticalLayout layout = new VerticalLayout();
+				layout.setMargin(true);
+				layout.setSpacing(true);
+
+				com.vaadin.ui.Button close = new com.vaadin.ui.Button("Fechar", new com.vaadin.ui.Button.ClickListener() {
+					private static final long serialVersionUID = 1L;
+
+					// inline click-listener
+					public void buttonClick(ClickEvent event) {
+						// close the window by removing it from the main window
+						subwindow.close();
+					}
+				});
+				close.setClickShortcut(KeyCode.ESCAPE, null);
+
+				// The components added to the window are actually added to the
+				// window's
+				// layout; you can use either. Alignments are set using the
+				// layout
+				layout.addComponent(close);
+				layout.setComponentAlignment(close, Alignment.BOTTOM_RIGHT);
+				mainLayoutViewer.addComponent(layout);
+
+				imageViewer.setCenterImageIndex(0);
+				imageViewer.focus();
+				subwindow.setContent(mainLayoutViewer);
+
+				subwindow.center();
+				UI.getCurrent().addWindow(subwindow);
+			}
+		};
+	}
+
+	public List<String> getListArquivosExcluidos() {
+		return listArquivosDeletados;
+	}
+
+	public void setListArquivosDeletados(List<String> listArquivosDeletados) {
+		this.listArquivosDeletados = listArquivosDeletados;
 	}
 
 }
