@@ -51,7 +51,7 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Id
 	@Column(name = "ID", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tnf")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "tnf")
 	@SequenceGenerator(name = "tnf", sequenceName = "venda_orcamento_cabecalho_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -152,8 +152,8 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption("Cliente")
 	private ClienteEntity cliente;
 
-	@ManyToOne
-	@JoinColumn(name = "id_venda_condicoes_pagamento")
+    @ManyToOne(optional = false)
+	@JoinColumn(name = "id_venda_condicoes_pagamento", referencedColumnName = "ID", nullable = false)
 	@Caption("Condições de pagamento")
 	private CondicaoPagamento condicaoPagamento;
 

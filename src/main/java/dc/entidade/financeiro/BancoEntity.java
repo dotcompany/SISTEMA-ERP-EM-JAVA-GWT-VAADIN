@@ -88,7 +88,7 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(mappedBy="banco",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<AgenciaBancoEntity> agenciaBancoList = new ArrayList<AgenciaBancoEntity>();
+	private List<AgenciaBancoEntity> agenciaBancoList = new ArrayList<>();
 
 	/**
 	 * TRANSIENT

@@ -37,7 +37,7 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cerimonial_eventos_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "cerimonial_eventos_id_seq")
 	@SequenceGenerator(name = "cerimonial_eventos_id_seq", sequenceName = "cerimonial_eventos_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

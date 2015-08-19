@@ -18,6 +18,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
@@ -58,6 +59,7 @@ public class VendedorEntity extends AbstractMultiEmpresaModel<Integer>
 	// private List<LancamentoComissaoEntity> lancamentoComissaoList;
 
 	@ManyToOne
+	@Caption("Colaborador")
 	@JoinColumn(name = "id_colaborador")
 	private ColaboradorEntity colaborador;
 

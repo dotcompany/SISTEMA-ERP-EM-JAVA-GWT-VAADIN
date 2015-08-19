@@ -24,7 +24,7 @@ public class TransportadoraDAO extends AbstractCrudDAO<TransportadoraEntity> {
 	@Transactional
 	public List<TransportadoraEntity> procuraNomeContendo(String query) {
 		return getSession()
-				.createQuery("from Transportadora where nome like :q")
+				.createQuery("from Transportadora where observacao like :q")
 				.setParameter("q", "%" + query + "%").list();
 	}
 

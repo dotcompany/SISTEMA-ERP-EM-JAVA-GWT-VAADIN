@@ -73,6 +73,7 @@ import dc.visao.financeiro.LancamentoReceberFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
+import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
@@ -182,41 +183,59 @@ public LancamentoReceberBusiness<LancamentoReceber> getBusiness() {
 @Override
 protected void actionSalvar() {
 		
-	try {
-		
-		boolean valido = validaSalvar();
-		if (valido) {
-		
-		    subView.preencheBean(currentBean);
-		
-		    List<ParcelaReceber> parcelasReceber = subView.getParcelasSubForm().getDados();
-		    List<LctoReceberNtFinanceiraEntity> naturezasFinanceiras = subView.getNaturezaFinanceiraSubForm().getDados();
+	subView.preencheBean(currentBean);
 
-		    if (((BigDecimal) subView.getTxValorReceber().getConvertedValue()).compareTo(getTotalParcelaReceber(parcelasReceber)) != 0) {
-			        adicionarErroDeValidacao(subView.getParcelasSubForm(),"Os valores informados nas parcelas não batem com o valor a pagar.");
-			        mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
-		    }
-		
-		    setIntervaloParcelaByTipoVencimento();
-		    salvarParcelasReceber();
+	boolean valido = true;
 
-		    if (((BigDecimal) subView.getTxValorReceber().getConvertedValue()).compareTo(getTotalNaturezaFinanceira(naturezasFinanceiras)) != 0) {
-			        adicionarErroDeValidacao(subView.getNaturezaFinanceiraSubForm(),"Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
-			        mensagemErro("Os valores informados nas naturezas financeiras não batem com o valor a pagar.");
-		    }
-		    
-		    this.business.saveOrUpdate(this.currentBean);
-		    notifiyFrameworkSaveOK(this.currentBean);
-		    
-		}
-			
-	}catch (Exception e) {
-	        e.printStackTrace();
-	        mensagemErro(e.getMessage());
+	List<ParcelaReceber> parcelasReceber = subView.getParcelasSubForm()
+			.getDados();
+	List<LctoReceberNtFinanceiraEntity> naturezasanceiras = subView
+			.getNaturezaFinanceiraSubForm().getDados();
+
+	if (((BigDecimal) subView.getTxValorReceber().getConvertedValue())
+			.compareTo(getTotalParcelaReceber(parcelasReceber)) != 0) {
+		adicionarErroDeValidacao(subView.getParcelasSubForm(),
+				"Os valores informados nas parcelas nao batem com o valor a receber.");
+		valido = false;
+		mensagemErro("Os valores informados nas parcelas nao batem com o valor a receber.");
 	}
-		
+
+	if (((BigDecimal) subView.getTxValorReceber().getConvertedValue())
+			.compareTo(getTotalNaturezaFinanceira(naturezasanceiras)) != 0) {
+		adicionarErroDeValidacao(
+				subView.getNaturezaFinanceiraSubForm(),
+				"Os valores informados nas naturezas financeiras nao batem com o valor a receber.");
+		valido = false;
+
+		mensagemErro("Os valores informados nas naturezas financeiras nao batem com o valor a receber.");
+	}
+
+	if (valido) {
+
+		setIntervaloParcelaByTipoVencimento();
+
+		StatusParcela statusParcela = statusParcelaDAO.findBySituacao("Outro");
+		if (statusParcela == null) {
+			mensagemErro("O status de parcela em aberto nao esta cadastrado.\nEntre em contato com a Software House.");
+		} else {
+
+			for (ParcelaReceber p : currentBean.getParcelasReceber()) {
+				p.setStatusParcela(statusParcela);
+			}
+
+			try {
+				currentBean.setEmpresa(SecuritySessionProvider.getUsuario()
+						.getConta().getEmpresa());
+				business.saveOrUpdate(currentBean);
+				notifiyFrameworkSaveOK(this.currentBean);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
 
+		
 public void salvarParcelasReceber() {
 	StatusParcela statusParcela;
 	try {

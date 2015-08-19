@@ -48,7 +48,7 @@ public class StatusParcelaDAO extends AbstractCrudDAO<StatusParcela>{
 	public StatusParcela findBySituacao(String descricao) {
 		Criteria criteria = getSession().createCriteria(StatusParcela.class);
         criteria.add(Restrictions.eq("descricao", descricao));
-        StatusParcela statusParcela = (StatusParcela) criteria.uniqueResult();
+        StatusParcela statusParcela = (StatusParcela) criteria.list().get(0);
         
         return statusParcela;
 		

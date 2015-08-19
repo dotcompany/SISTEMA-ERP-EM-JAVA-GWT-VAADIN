@@ -17,7 +17,7 @@ public class OrcamentoDAO extends AbstractCrudDAO<Orcamento> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "nome" };
+		return new String[] { "valorTotal","observacao" };
 	}
 
 	@Transactional

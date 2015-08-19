@@ -29,11 +29,10 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer>
-
-{
+public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer> {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cnd")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "cnd")
 	@SequenceGenerator(name = "cnd", sequenceName = "venda_condicoes_pagamento_id_seq", allocationSize = 1)
 	private Integer id;
 

@@ -38,7 +38,7 @@ import dc.entidade.geral.pessoal.TransportadoraEntity;
 public class Venda extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vnd")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "vnd")
 	@SequenceGenerator(name = "vnd", sequenceName = "venda_cabecalho_id_seq", allocationSize = 1)
 	@Caption("ID")
 	private Integer id;
@@ -91,11 +91,11 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
 	String observacao;
 	
 
-    @JoinColumn(name = "ID_ORCAMENTO_VENDA_CABECALHO", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_VENDA_ORCAMENTO_CABECALHO", referencedColumnName = "ID")
     @ManyToOne
     private Orcamento orcamentoVendaCabecalho;
     
-    @JoinColumn(name = "ID_CONDICOES_PAGAMENTO", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_VENDA_CONDICOES_PAGAMENTO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private CondicaoPagamento condicoesPagamento;
     

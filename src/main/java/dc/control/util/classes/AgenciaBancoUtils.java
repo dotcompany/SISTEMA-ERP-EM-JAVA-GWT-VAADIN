@@ -4,7 +4,6 @@ import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.financeiro.BancoEntity;
-import dc.entidade.geral.diverso.UfEntity;
 import dc.visao.financeiro.AgenciaBancoFormView;
 
 public class AgenciaBancoUtils {
@@ -25,31 +24,10 @@ public class AgenciaBancoUtils {
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		String bairro = subView.getTfBairro().getValue();
-
-		if (StringUtils.isBlank(bairro)) {
-			throw new DotErpException(subView.getTfBairro(),
-					"::DotERP - Não pode ficar em branco");
-		}
-
-		String numero = subView.getTfNumero().getValue();
-
-		if (StringUtils.isBlank(numero)) {
-			throw new DotErpException(subView.getTfNumero(),
-					"::DotERP - Não pode ficar em branco");
-		}
-
 		String cep = subView.getTfCep().getValue();
 
 		if (StringUtils.isBlank(cep)) {
 			throw new DotErpException(subView.getTfCep(),
-					"::DotERP - Não pode ficar em branco");
-		}
-
-		String municipio = subView.getTfMunicipio().getValue();
-
-		if (StringUtils.isBlank(municipio)) {
-			throw new DotErpException(subView.getTfMunicipio(),
 					"::DotERP - Não pode ficar em branco");
 		}
 
@@ -60,12 +38,6 @@ public class AgenciaBancoUtils {
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		UfEntity uf = (UfEntity) subView.getCbUf().getValue();
-
-		if (ObjectUtils.isBlank(uf)) {
-			throw new DotErpException(subView.getCbUf(),
-					"::DotERP - Não pode ficar em branco");
-		}
 	}
 
 	public static void validateFieldValue(AgenciaBancoFormView subView)

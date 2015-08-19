@@ -15,7 +15,7 @@ public class VendedorDAO extends AbstractCrudDAO<VendedorEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"dataRegistro"};
+		return new String[] {"colaborador"};
 	}
 	
 	@Transactional
