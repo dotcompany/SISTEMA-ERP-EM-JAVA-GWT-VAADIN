@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 
 @Entity
 @Table(name = "venda_condicoes_pagamento")
@@ -32,8 +34,12 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer> {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "cnd")
-	@SequenceGenerator(name = "cnd", sequenceName = "venda_condicoes_pagamento_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venda_condicoes_pagamento_id_seq")
+	@SequenceGenerator(name = "venda_condicoes_pagamento_id_seq", sequenceName = "venda_condicoes_pagamento_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
 	@Caption("Nome")

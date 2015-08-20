@@ -3,7 +3,7 @@ package dc.entidade.financeiro.type;
 
 public enum StatusChequeType {
 	
-	E("EMSER", "E"),
+	E("EM SER", "E"),
 
 	B("BAIXADO", "B"),
 
