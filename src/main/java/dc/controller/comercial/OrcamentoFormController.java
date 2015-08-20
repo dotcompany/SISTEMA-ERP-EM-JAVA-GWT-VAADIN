@@ -3,7 +3,6 @@ package dc.controller.comercial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +15,10 @@ import com.vaadin.ui.Component;
 import dc.controller.folhapagamento.ausencia.VendedorListController;
 import dc.controller.geral.pessoal.ClienteListController;
 import dc.controller.geral.pessoal.TransportadoraListController;
-import dc.entidade.comercial.CondicaoPagamento;
 import dc.entidade.comercial.Frete;
 import dc.entidade.comercial.ItemOrcamento;
 import dc.entidade.comercial.Orcamento;
-import dc.entidade.comercial.Venda;
-import dc.entidade.folhapagamento.VendedorEntity;
-import dc.entidade.geral.pessoal.ClienteEntity;
-import dc.entidade.geral.pessoal.TransportadoraEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
 import dc.servicos.dao.comercial.FreteDAO;
 import dc.servicos.dao.comercial.ItemOrcamentoDAO;
@@ -34,9 +27,7 @@ import dc.servicos.dao.folhapagamento.VendedorDAO;
 import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.geral.pessoal.TransportadoraDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
-import dc.servicos.util.Validator;
 import dc.visao.comercial.OrcamentoFormView;
-import dc.visao.comercial.VendaFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -196,15 +187,8 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		return item;
 	}
 
-	public BeanItemContainer<ProdutoEntity> carregarProdutos() {
-		BeanItemContainer<ProdutoEntity> container = new BeanItemContainer<>(
-				ProdutoEntity.class);
-
-		for (ProdutoEntity p : produtoDAO.listaTodos()) {
-			container.addBean(p);
-		}
-
-		return container;
+	public List<ProdutoEntity> buscarProdutos() {
+		return produtoDAO.getAll(ProdutoEntity.class);
 	}
 
 	public BeanItemContainer<Frete> carregarFretes() {

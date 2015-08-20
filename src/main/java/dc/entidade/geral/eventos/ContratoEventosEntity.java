@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +44,7 @@ public class ContratoEventosEntity extends AbstractMultiEmpresaModel<Integer> im
 	
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_eventos_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "contrato_eventos_id_seq")
 	@SequenceGenerator(name = "contrato_eventos_id_seq", sequenceName = "contrato_eventos_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -101,8 +101,9 @@ public class ContratoEventosEntity extends AbstractMultiEmpresaModel<Integer> im
 	
 	
 	@Caption("Nome Cerimonial")
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_nome_cerimonial", nullable = false)
+	@JoinColumn(name = "id_nome_cerimonial", referencedColumnName = "id")
+	//@ManyToOne(optional = false)
+	@ManyToOne(optional = false,fetch = FetchType.EAGER)
 	private CerimonialEventosEntity nomeCerimonial;
 	
 	@Enumerated(EnumType.STRING)

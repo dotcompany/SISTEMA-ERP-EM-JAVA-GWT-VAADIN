@@ -2,7 +2,6 @@ package dc.controller.administrativo.empresa;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -380,38 +379,40 @@ public class SocioFormController extends CRUDFormController<SocioEntity> {
 		return true;
 	}
 
-	public DependenteEntity adicionarDependente() {
-		DependenteEntity dep = new DependenteEntity();
-		List<DependenteEntity> dependentes = dependenteDAO.findBySocio(currentBean);
-		if (dependentes == null)
-			dependentes = new ArrayList<DependenteEntity>();
-		currentBean.setDependentes(dependentes);
-		currentBean.getDependentes().add(dep);
-		dep.setSocio(currentBean);
-		return dep;
-	}
-
-	public ParticipacaoSocietariaEntity adicionarParticipacao() {
-		ParticipacaoSocietariaEntity p = new ParticipacaoSocietariaEntity();
-		List<ParticipacaoSocietariaEntity> lista = participacaoSocietariaDAO.findBySocio(currentBean);
-		if (lista == null)
-			lista = new ArrayList<ParticipacaoSocietariaEntity>();
-		currentBean.setParticipacoes(lista);
-		currentBean.getParticipacoes().add(p);
-		p.setSocio(currentBean);
-		return p;
-	}
-
-	public List<TipoRelacionamentoEntity> carregarTipoRelacionamento() {
-		List<TipoRelacionamentoEntity> lista = new ArrayList<TipoRelacionamentoEntity>();
-		for (TipoRelacionamentoEntity tipo : tipoRelacionamentoDAO.listaTodos()) {
-			lista.add(tipo);
-		}
-		return lista;
-	}
-
 	public List<UfEntity> listarUfs() {
 		return ufDAO.listaTodos();
+	}
+	
+	public ParticipacaoSocietariaEntity adicionarParticipacao() {
+		ParticipacaoSocietariaEntity participacao = new ParticipacaoSocietariaEntity();
+		this.currentBean.addParticipacao(participacao);
+
+		return participacao;
+	}
+
+	public void removerParticipacao(List<ParticipacaoSocietariaEntity> values) {
+		for (ParticipacaoSocietariaEntity participacao : values) {
+			this.currentBean.removeParticipacao(participacao);
+		}
+
+		mensagemRemovidoOK();
+
+	}
+	
+	public DependenteEntity adicionarDependente() {
+		DependenteEntity depe = new DependenteEntity();
+		this.currentBean.addDependente(depe);
+
+		return depe;
+	}
+
+	public void removerDependente(List<DependenteEntity> values) {
+		for (DependenteEntity depe : values) {
+			this.currentBean.removeDependente(depe);
+		}
+
+		mensagemRemovidoOK();
+
 	}
 
 	public BeanItemContainer<String> carregarUFs() {
@@ -422,6 +423,10 @@ public class SocioFormController extends CRUDFormController<SocioEntity> {
 		}
 
 		return container;
+	}
+	
+	public List<TipoRelacionamentoEntity> buscarRelacionamentos() {
+		return tipoRelacionamentoDAO.getAll(TipoRelacionamentoEntity.class);
 	}
 
 	public List<QuadroSocietarioEntity> listarQuadros() {

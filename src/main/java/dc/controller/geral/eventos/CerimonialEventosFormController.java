@@ -22,12 +22,14 @@ import dc.visao.geral.eventos.CerimonialEventosFormView;
 
 @Controller
 @Scope("prototype")
-public class CerimonialEventosFormController extends CRUDFormController<CerimonialEventosEntity> {
+public class CerimonialEventosFormController extends
+		CRUDFormController<CerimonialEventosEntity> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 
 	private CerimonialEventosFormView subView;
 
@@ -41,8 +43,8 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 	 * BUSINESS
 	 */
 
-	//@Autowired
-	//private CerimonialBusiness<CerimonialEventosEntity> business;
+	// @Autowired
+	// private CerimonialBusiness<CerimonialEventosEntity> business;
 
 	/**
 	 * DAO
@@ -50,7 +52,7 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 
 	@Autowired
 	private CerimonialEventosDAO cerimonialEventosDAO;
-	
+
 	@Autowired
 	private UfDAO ufDAO;
 
@@ -62,9 +64,9 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 		// TODO Auto-generated constructor stub
 	}
 
-	//public CerimonialBusiness<CerimonialEventosEntity> getBusiness() {
-	//	return business;
-	//}
+	// public CerimonialBusiness<CerimonialEventosEntity> getBusiness() {
+	// return business;
+	// }
 
 	@Override
 	protected String getNome() {
@@ -96,23 +98,22 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 	protected void initSubView() {
 		try {
 			this.subView = new CerimonialEventosFormView(this);
-			
-            this.fieldGroup = new DCFieldGroup<>(CerimonialEventosEntity.class);
-			
+
+			this.fieldGroup = new DCFieldGroup<>(CerimonialEventosEntity.class);
+
 			// Mapeia os campos
-			
-			fieldGroup.bind(this.subView.getTxtNome(),"nome");
-			fieldGroup.bind(this.subView.getTxtCnpj(),"cnpj");
-			fieldGroup.bind(this.subView.getTfEndereco(),"endereco");
-			fieldGroup.bind(this.subView.getTfBairro(),"bairro");
-			fieldGroup.bind(this.subView.getTxtComplemento(),"complemento");
-			fieldGroup.bind(this.subView.getTfCep(),"cep");
-			fieldGroup.bind(this.subView.getTfTelefone(),"telefone");
-			fieldGroup.bind(this.subView.getTfEmail(),"email");
-			
-			//this.subView.getMocUf().configuraCombo(
-			//		"nome", UfListController.class, this.ufDAO, this.getMainController());
-			
+
+			fieldGroup.bind(this.subView.getTxtNome(), "nome");
+			fieldGroup.bind(this.subView.getTxtCnpj(), "cnpj");
+			fieldGroup.bind(this.subView.getTfEndereco(), "endereco");
+			fieldGroup.bind(this.subView.getTfBairro(), "bairro");
+			fieldGroup.bind(this.subView.getTxtComplemento(), "complemento");
+			fieldGroup.bind(this.subView.getTfEmail(), "email");
+
+			// this.subView.getMocUf().configuraCombo(
+			// "nome", UfListController.class, this.ufDAO,
+			// this.getMainController());
+
 			carregarUf();
 
 		} catch (Exception e) {
@@ -122,20 +123,20 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 
 	protected boolean validaSalvar() {
 		try {
-			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			// Commit tenta transferir os dados do View para a entidade ,
+			// levando em conta os critérios de validação.
 			fieldGroup.commit();
-		    return true;
+			return true;
 		} catch (FieldGroup.CommitException ce) {
-		    return false;
+			return false;
 		}
 	}
 
 	@Override
 	protected void actionSalvar() {
 		try {
-			//this.business.saveOrUpdate(this.entity);
+			// this.business.saveOrUpdate(this.entity);
 			this.cerimonialEventosDAO.saveOrUpdate(this.entity);
-
 
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
@@ -147,8 +148,8 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 
 	protected void carregar(Serializable id) {
 		try {
-			//this.entity = this.business.find(id);
-			
+			// this.entity = this.business.find(id);
+
 			this.entity = this.cerimonialEventosDAO.find(id);
 			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
@@ -171,10 +172,9 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			//this.business.deleteAll(ids);
-			
-			this.cerimonialEventosDAO.deleteAllByIds(ids);
+			// this.business.deleteAll(ids);
 
+			this.cerimonialEventosDAO.deleteAllByIds(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -195,21 +195,20 @@ public class CerimonialEventosFormController extends CRUDFormController<Cerimoni
 		}
 	}
 
-public void carregarUf() {
-	try {
-		List<UfEntity> auxLista = this.ufDAO.listaTodos();
-		BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
-				UfEntity.class, auxLista);
+	public void carregarUf() {
+		try {
+			List<UfEntity> auxLista = this.ufDAO.listaTodos();
+			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
+					UfEntity.class, auxLista);
 
-		this.subView.getMocUf().setContainerDataSource(bic);
-		this.subView.getMocUf().setItemCaptionPropertyId("nome");
-	} catch (Exception e) {
-		e.printStackTrace();
+			this.subView.getMocUf().setContainerDataSource(bic);
+			this.subView.getMocUf().setItemCaptionPropertyId("nome");
+		} catch (Exception e) {
+			e.printStackTrace();
 
-		throw e;
+			throw e;
+		}
 	}
-}
-
 
 	/**
 	 * 

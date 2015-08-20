@@ -222,7 +222,7 @@ public class ReajusteEstoqueFormView extends CustomComponent {
 									ProdutoEntity.class,
 									controller.buscarProdutos());
 							comboBox.setContainerDataSource(produtoContainer);
-							comboBox.setItemCaptionPropertyId("descricao");
+							comboBox.setItemCaptionPropertyId("nome");
 							comboBox.addBlurListener(getBlurListener(container,
 									itemId, propertyId));
 							return comboBox;

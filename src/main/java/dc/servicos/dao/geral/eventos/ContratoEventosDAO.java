@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.geral.eventos.ContratoEventosEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-@Repository("contratoEventosDAO")
+@Repository
 @SuppressWarnings("unchecked")
 public class ContratoEventosDAO extends AbstractCrudDAO<ContratoEventosEntity> {
 
@@ -25,7 +25,7 @@ public class ContratoEventosDAO extends AbstractCrudDAO<ContratoEventosEntity> {
 	@Transactional
 	public List<ContratoEventosEntity> procuraNomeContendo(String query) {
 		return getSession()
-				.createQuery("from ContratoEventosEntity where nome like :q")
+				.createQuery("from ContratoEventos where curso like :q")
 				.setParameter("q", "%" + query + "%").list();
 	}
 

@@ -18,6 +18,7 @@ import dc.entidade.comercial.ItemOrcamento;
 import dc.entidade.comercial.Orcamento;
 import dc.entidade.comercial.Venda;
 import dc.entidade.comercial.VendaDetalhe;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
 import dc.servicos.dao.comercial.ItemOrcamentoDAO;
 import dc.servicos.dao.comercial.NotaFiscalTipoDAO;
@@ -229,18 +230,9 @@ protected boolean validaSalvar() {
 			container.addBean(c);
 		}
 		return container;
-	}
+	}*/
 
-	public BeanItemContainer<ProdutoEntity> carregarProdutos() {
-		BeanItemContainer<ProdutoEntity> container = new BeanItemContainer<>(
-				ProdutoEntity.class);
-		for (ProdutoEntity p : produtoDAO.listaTodos()) {
-			container.addBean(p);
-		}
-		return container;
-	}
-
-	public String formataMoeda(String valor) {
+	/*public String formataMoeda(String valor) {
 		String format = "";
 		format = valor.replace("R$", "").substring(0, valor.indexOf(",")).
 
@@ -262,6 +254,10 @@ protected boolean validaSalvar() {
 		}
 		return container;
 	}*/
+	
+	public List<ProdutoEntity> buscarProdutos() {
+		return produtoDAO.getAll(ProdutoEntity.class);
+	}
 
 	public List<ItemOrcamento> carregarItensOrcamento(Orcamento orcamento) {
 		return itemOrcamentoDAO.findByOrcamento(orcamento);
