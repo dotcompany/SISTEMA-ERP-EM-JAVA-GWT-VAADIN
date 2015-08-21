@@ -18,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
@@ -97,6 +98,7 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
     
     @JoinColumn(name = "ID_VENDA_CONDICOES_PAGAMENTO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
+    @NotNull(message = "Condição Pagamento é Obrigatório!")
     private CondicaoPagamento condicoesPagamento;
     
     @Caption("Cliente")
@@ -109,8 +111,9 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
     @ManyToOne(optional = false)
     private VendedorEntity vendedor;
     
-    @JoinColumn(name = "ID_TIPO_NOTA_FISCAL", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_NOTA_FISCAL_TIPO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
+    @NotNull(message = "Nota Fiscal Tipo é Obrigatório!")
     private NotaFiscalTipo tipoNotaFiscal;
     
     @Caption("Transportadora")

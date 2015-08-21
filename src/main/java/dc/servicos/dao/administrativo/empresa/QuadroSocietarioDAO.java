@@ -20,7 +20,7 @@ public class QuadroSocietarioDAO extends AbstractCrudDAO<QuadroSocietarioEntity>
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"dataRegistro"};
+		return new String[] {"dataRegistro","quantidadeCotas"};
 	}
 	
 	@Transactional

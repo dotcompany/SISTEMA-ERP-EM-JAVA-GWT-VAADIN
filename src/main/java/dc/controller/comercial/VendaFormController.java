@@ -116,6 +116,9 @@ protected boolean validaSalvar() {
 			//fieldGroup.bind(this.subView.getTxtPlaca(), "placa");
 			//fieldGroup.bind(this.subView.getCmbVenda(), "vendaCabecalho");
 			
+			fieldGroup.bind(this.subView.getCmbCondicoesPagamento(), "condicoesPagamento");
+			fieldGroup.bind(this.subView.getCmbTipoNotaFiscal(), "tipoNotaFiscal");
+			
 			 this.subView.getCmbOrcamento().configuraCombo(
 					"observacao", OrcamentoListController.class, this.orcamentoDAO, this.getMainController());
 			 this.subView.getCmbTipoNotaFiscal().configuraCombo(

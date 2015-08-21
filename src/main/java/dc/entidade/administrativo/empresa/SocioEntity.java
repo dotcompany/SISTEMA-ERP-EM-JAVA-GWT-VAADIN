@@ -14,13 +14,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -47,8 +47,7 @@ public class SocioEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "soc")
-	@SequenceGenerator(name = "soc", sequenceName = "socio_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -59,36 +58,48 @@ public class SocioEntity extends AbstractMultiEmpresaModel<Integer> {
 	//private QuadroSocietarioEntity quadroSocietario;
 	
 	@Caption("Quadro Societario")
-	@OneToOne
-	@JoinColumn(name = "id_quadro_societario", insertable = true, updatable = true)
+	@JoinColumn(name = "id_quadro_societario", nullable = true)
+	@ManyToOne()
+	@NotNull(message = "Quadro Societário é Obrigatório!")
 	private QuadroSocietarioEntity quadroSocietario;
 	
 	@Field
 	@Caption("Nome")
+	@Column(name="nome")
+	@NotNull(message = "Nome é Obrigatório!")
 	String nome;
 	
 	@Field
 	@Caption("Cpf")
+	@Column(name="cpf")
 	String cpf;
 
 	@Field
 	@Caption("Logradouro")
+	@Column(name="logradouro")
+	@NotNull(message = "Logradouro é Obrigatório!")
 	String logradouro;
 
 	@Field
 	@Caption("Numero")
+	@Column(name="numero")
 	Integer numero;
 
 	@Field
 	@Caption("Complemento")
+	@Column(name="complemento")
+	@NotNull(message = "Complemento é Obrigatório!")
 	String complemento;
 
 	@Field
 	@Caption("Bairro")
+	@Column(name="bairro")
+	@NotNull(message = "Bairro é Obrigatório!")
 	String bairro;
 
 	@Field
 	@Caption("Municipio")
+	@Column(name="municipio")
 	String municipio;
 
 	//String uf;

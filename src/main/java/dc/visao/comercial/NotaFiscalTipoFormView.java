@@ -63,7 +63,6 @@ public class NotaFiscalTipoFormView extends CustomComponent {
 		fields.setSpacing(true);
 
 		txtNome = ComponentUtil.buildTextField("Nome");
-		txtNome.setRequired(true);
 		fields.addComponent(txtNome, 0, 0);
 
 		txtDescricao = ComponentUtil.buildTextField("Descrição");

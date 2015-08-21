@@ -220,11 +220,11 @@ public class VendaFormView extends CustomComponent {
 
 		fields.addComponent(cmbOrcamento, 1, 0,2,0);
 		fields.addComponent(cmbTipoNotaFiscal, 3, 0,4,0);
-		fields.addComponent(cmbVendedor, 0, 1);
+		fields.addComponent(cmbVendedor, 0, 1, 0,1);
 		fields.addComponent(cmbCliente, 2,1,3, 1);
 
 		fields.addComponent(cmbTransportadora, 4, 1);
-		fields.addComponent(cmbCondicoesPagamento, 0, 2);
+		fields.addComponent(cmbCondicoesPagamento, 0, 2, 0,2);
 
 		fields.addComponent(cmbFormaPagamento, 2, 2);
 		fields.addComponent(cmbFrete, 3, 2);

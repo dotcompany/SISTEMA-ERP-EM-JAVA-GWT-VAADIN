@@ -30,7 +30,7 @@ import dc.entidade.framework.ComboValue;
 public class QuadroSocietarioEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "qdr")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "qdr")
 	@SequenceGenerator(name = "qdr", sequenceName = "quadro_societario_id_seq", allocationSize = 1)
 	@ComboCode
 	@ComboValue
