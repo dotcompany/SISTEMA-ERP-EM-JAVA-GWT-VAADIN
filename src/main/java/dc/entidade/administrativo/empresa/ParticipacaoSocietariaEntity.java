@@ -4,6 +4,7 @@ package dc.entidade.administrativo.empresa;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,14 +17,17 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
-import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 import dc.visao.administrativo.empresa.SocioFormView.DIRIGENTE;
 
 
@@ -32,11 +36,16 @@ import dc.visao.administrativo.empresa.SocioFormView.DIRIGENTE;
 @SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class ParticipacaoSocietariaEntity extends AbstractModel<Integer> {
+@XmlRootElement
+public class ParticipacaoSocietariaEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pps")
-	@SequenceGenerator(name = "pps", sequenceName = "socio_participacao_societaria_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "socio_participacao_societaria_id_seq")
+	@SequenceGenerator(name = "socio_participacao_societaria_id_seq", sequenceName = "socio_participacao_societaria_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 		
 	@Caption("nome")
@@ -54,8 +63,8 @@ public class ParticipacaoSocietariaEntity extends AbstractModel<Integer> {
 	Date dataSaida;
 			
 	@ManyToOne
-	@JoinColumn(name="id_socio")
-	SocioEntity socio;
+	@JoinColumn(name="id_socio", referencedColumnName = "ID")
+	private SocioEntity socio;
 	
 	BigDecimal participacao;
 
@@ -148,9 +157,31 @@ public class ParticipacaoSocietariaEntity extends AbstractModel<Integer> {
 	}
 
 	
-	
-	
-	
-	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ParticipacaoSocietariaEntity)) {
+            return false;
+        }
+
+        ParticipacaoSocietariaEntity that = (ParticipacaoSocietariaEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }	
 	
 }

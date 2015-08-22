@@ -1,8 +1,14 @@
 package dc.controller.suprimento.estoque;
 
+import java.io.File;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -12,6 +18,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.ProdutoEntity;
+import dc.entidade.nfe.ImportaXMLNFe;
+import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.entidade.suprimentos.CupomFiscalReferenciadoEntity;
 import dc.entidade.suprimentos.NFeTransporte;
 import dc.entidade.suprimentos.NfeDuplicata;
@@ -779,5 +787,69 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}
+	
+	 public void importaNfe() {
+
+	        FileFilter filter = new FileFilter() {
+
+	            @Override
+	            public boolean accept(File f) {
+	                String arquivo = f.getName().toLowerCase();
+	                return f.isDirectory()
+	                        || arquivo.endsWith(".xml");
+	            }
+
+	            @Override
+	            public String getDescription() {
+	                return "*.xml";
+	            }
+	        };
+
+	        JFileChooser fileChooser = new JFileChooser();
+	        fileChooser.setFileFilter(filter);
+	        fileChooser.showOpenDialog(fileChooser);
+	        File file = fileChooser.getSelectedFile();
+
+	        if (file != null) {
+	            ImportaXMLNFe importaXml = new ImportaXMLNFe();
+	            Map map = importaXml.importarXmlNFe(file);
+	            if (map != null) {
+	            	//subView.getSubForms().getData().setValueObject((NfeCabecalhoEntity) map.get("cabecalho"));
+	                //telaEntradaNotaDetalhe.getFormEmitente().getVOModel().setValueObject((NfeCabecalhoEntity) map.get("emitente"));
+	                //telaEntradaNotaDetalhe.getGridProdutos().getVOListTableModel().clear();
+	                List<NfeCabecalhoEntity> listaDetalhe = (ArrayList) map.get("detalhe");
+	                for (int i = 0; i < listaDetalhe.size(); i++) {
+	                    //telaEntradaNotaDetalhe.getGridProdutos().getVOListTableModel().addObject(listaDetalhe.get(i));
+	                }
+	                //telaEntradaNotaDetalhe.getFormDadosNfe().pull();
+	               // telaEntradaNotaDetalhe.getFormEmitente().pull();
+	                //JOptionPane.showMessageDialog(telaEntradaNotaDetalhe, "Dados importados com sucesso!", "InformaÃ§Ã£o do Sistema", JOptionPane.INFORMATION_MESSAGE);
+	            } else {
+	               // JOptionPane.showMessageDialog(telaEntradaNotaDetalhe, "Erro ao importar os dados!", "Erro do Sistema", JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
+	    }
+
+	    private void valoresPadrao() {
+	        NfeCabecalhoEntity nfeCabecalho = (NfeCabecalhoEntity) subView.getDadosNfe().getData();
+
+	        nfeCabecalho.setTipoOperacao(0);
+	        nfeCabecalho.setStatusNota("5");
+	        nfeCabecalho.setBaseCalculoIcms(BigDecimal.ZERO);
+	        nfeCabecalho.setValorIcms(BigDecimal.ZERO);
+	        nfeCabecalho.setValorTotalProdutos(BigDecimal.ZERO);
+	        nfeCabecalho.setBaseCalculoIcmsSt(BigDecimal.ZERO);
+	        nfeCabecalho.setValorIcmsSt(BigDecimal.ZERO);
+	        nfeCabecalho.setValorIpi(BigDecimal.ZERO);
+	        nfeCabecalho.setValorPis(BigDecimal.ZERO);
+	        nfeCabecalho.setValorCofins(BigDecimal.ZERO);
+	        nfeCabecalho.setValorFrete(BigDecimal.ZERO);
+	        nfeCabecalho.setValorSeguro(BigDecimal.ZERO);
+	        nfeCabecalho.setValorDespesasAcessorias(BigDecimal.ZERO);
+	        nfeCabecalho.setValorDesconto(BigDecimal.ZERO);
+	        nfeCabecalho.setValorTotal(BigDecimal.ZERO);
+
+	        //subView.getDadosNfe().fillWith(nfeCabecalho);
+	    }
 
 }

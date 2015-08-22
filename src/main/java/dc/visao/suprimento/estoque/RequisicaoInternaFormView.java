@@ -142,7 +142,7 @@ public class RequisicaoInternaFormView extends CustomComponent {
 									ProdutoEntity.class,
 									controller.buscarProdutos());
 							comboBox.setContainerDataSource(produtoContainer);
-							comboBox.setItemCaptionPropertyId("descricao");
+							comboBox.setItemCaptionPropertyId("nome");
 							return comboBox;
 						} else if ("quantidade".equals(propertyId)) {
 							TextField textField = ComponentUtil

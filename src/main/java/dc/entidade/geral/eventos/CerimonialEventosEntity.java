@@ -103,7 +103,6 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "CEP", length = 8)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Cep é Obrigatório!")
 	private String cep = "";
 
 	@Field
@@ -111,7 +110,6 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "TELEFONE", length = 14)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Telefone é Obrigatório!")
 	private String telefone;
 
 	@Field
@@ -143,8 +141,9 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@NotNull(message = "Email é Obrigatório!")
 	private String email;
 	
-	/*@OneToMany(mappedBy = "cerimonialEventos", fetch = FetchType.LAZY)
-	private List<ContratoEventosEntity> contratoEventosList;*/
+	/*@OneToMany(mappedBy = "cerimonialEventos", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ContratoEventosEntity> contratoEventosList = new ArrayList<>();*/
 	
 	@Transient
 	private UfEntity uf;

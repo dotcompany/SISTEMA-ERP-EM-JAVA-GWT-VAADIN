@@ -272,6 +272,70 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorIpiDevolvido = new BigDecimal(0);
+	
+	@Column(name = "ORIGEM_MERCADORIA")
+    private String origemMercadoria = "";
+	
+    @Column(name = "CST_ICMS_B")
+    private String cstIcmsB = "";
+    
+    @Column(name = "CSOSN_B")
+    private String csosnB = "";
+    
+    @Column(name = "MODALIDADE_BC_ICMS")
+    private String modalidadeBcIcms = "";
+    
+    @Column(name = "TAXA_REDUCAO_BC_ICMS")
+    private BigDecimal taxaReducaoBcIcms = new BigDecimal(0);
+    
+    @Column(name = "BASE_CALCULO_ICMS")
+    private BigDecimal baseCalculoIcms = new BigDecimal(0);
+    
+    @Column(name = "ALIQUOTA_ICMS")
+    private BigDecimal aliquotaIcms = new BigDecimal(0);
+    
+    @Column(name = "VALOR_ICMS")
+    private BigDecimal valorIcms = new BigDecimal(0);
+    
+    @Column(name = "CST_PIS")
+    private String cstPis = "";
+    
+    @Column(name = "VALOR_BASE_CALCULO_PIS")
+    private BigDecimal valorBaseCalculoPis = new BigDecimal(0);
+    
+    @Column(name = "ALIQUOTA_PIS_PERCENTUAL")
+    private BigDecimal aliquotaPisPercentual = new BigDecimal(0);
+    
+    @Column(name = "ALIQUOTA_PIS_REAIS")
+    private BigDecimal aliquotaPisReais = new BigDecimal(0);
+    
+    @Column(name = "VALOR_PIS")
+    private BigDecimal valorPis = new BigDecimal(0);
+    
+    @Column(name = "CST_COFINS")
+    private String cstCofins = "";
+    
+    @Column(name = "BASE_CALCULO_COFINS")
+    private BigDecimal baseCalculoCofins = new BigDecimal(0);
+    
+    @Column(name = "ALIQUOTA_COFINS_PERCENTUAL")
+    private BigDecimal aliquotaCofinsPercentual = new BigDecimal(0);
+    
+    @Column(name = "ALIQUOTA_COFINS_REAIS")
+    private BigDecimal aliquotaCofinsReais = new BigDecimal(0);
+    
+    @Column(name = "VALOR_COFINS")
+    private BigDecimal valorCofins = new BigDecimal(0);
+    
+    @Column(name = "BASE_CALCULO_ISSQN")
+    private BigDecimal baseCalculoIssqn = new BigDecimal(0);
+    
+    @Column(name = "ALIQUOTA_ISSQN")
+    private BigDecimal aliquotaIssqn = new BigDecimal(0);
+    
+    @Column(name = "VALOR_ISSQN")
+    private BigDecimal valorIssqn = new BigDecimal(0);
+
 
 	/**
 	 * REFERENCIA - FK
@@ -749,6 +813,174 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setLoteProduto(LoteProdutoEntity loteProduto) {
 		this.loteProduto = loteProduto;
+	}
+	
+	public String getOrigemMercadoria() {
+		return origemMercadoria;
+	}
+
+	public void setOrigemMercadoria(String origemMercadoria) {
+		this.origemMercadoria = origemMercadoria;
+	}
+
+	public String getCstIcmsB() {
+		return cstIcmsB;
+	}
+
+	public void setCstIcmsB(String cstIcmsB) {
+		this.cstIcmsB = cstIcmsB;
+	}
+
+	public String getCsosnB() {
+		return csosnB;
+	}
+
+	public void setCsosnB(String csosnB) {
+		this.csosnB = csosnB;
+	}
+
+	public String getModalidadeBcIcms() {
+		return modalidadeBcIcms;
+	}
+
+	public void setModalidadeBcIcms(String modalidadeBcIcms) {
+		this.modalidadeBcIcms = modalidadeBcIcms;
+	}
+
+	public BigDecimal getTaxaReducaoBcIcms() {
+		return taxaReducaoBcIcms;
+	}
+
+	public void setTaxaReducaoBcIcms(BigDecimal taxaReducaoBcIcms) {
+		this.taxaReducaoBcIcms = taxaReducaoBcIcms;
+	}
+
+	public BigDecimal getBaseCalculoIcms() {
+		return baseCalculoIcms;
+	}
+
+	public void setBaseCalculoIcms(BigDecimal baseCalculoIcms) {
+		this.baseCalculoIcms = baseCalculoIcms;
+	}
+
+	public BigDecimal getAliquotaIcms() {
+		return aliquotaIcms;
+	}
+
+	public void setAliquotaIcms(BigDecimal aliquotaIcms) {
+		this.aliquotaIcms = aliquotaIcms;
+	}
+
+	public BigDecimal getValorIcms() {
+		return valorIcms;
+	}
+
+	public void setValorIcms(BigDecimal valorIcms) {
+		this.valorIcms = valorIcms;
+	}
+	
+	public String getCstPis() {
+		return cstPis;
+	}
+
+	public void setCstPis(String cstPis) {
+		this.cstPis = cstPis;
+	}
+
+	public BigDecimal getValorBaseCalculoPis() {
+		return valorBaseCalculoPis;
+	}
+
+	public void setValorBaseCalculoPis(BigDecimal valorBaseCalculoPis) {
+		this.valorBaseCalculoPis = valorBaseCalculoPis;
+	}
+
+	public BigDecimal getAliquotaPisPercentual() {
+		return aliquotaPisPercentual;
+	}
+
+	public void setAliquotaPisPercentual(BigDecimal aliquotaPisPercentual) {
+		this.aliquotaPisPercentual = aliquotaPisPercentual;
+	}
+
+	public BigDecimal getAliquotaPisReais() {
+		return aliquotaPisReais;
+	}
+
+	public void setAliquotaPisReais(BigDecimal aliquotaPisReais) {
+		this.aliquotaPisReais = aliquotaPisReais;
+	}
+
+	public BigDecimal getValorPis() {
+		return valorPis;
+	}
+
+	public void setValorPis(BigDecimal valorPis) {
+		this.valorPis = valorPis;
+	}
+
+	public String getCstCofins() {
+		return cstCofins;
+	}
+
+	public void setCstCofins(String cstCofins) {
+		this.cstCofins = cstCofins;
+	}
+
+	public BigDecimal getBaseCalculoCofins() {
+		return baseCalculoCofins;
+	}
+
+	public void setBaseCalculoCofins(BigDecimal baseCalculoCofins) {
+		this.baseCalculoCofins = baseCalculoCofins;
+	}
+
+	public BigDecimal getAliquotaCofinsPercentual() {
+		return aliquotaCofinsPercentual;
+	}
+
+	public void setAliquotaCofinsPercentual(BigDecimal aliquotaCofinsPercentual) {
+		this.aliquotaCofinsPercentual = aliquotaCofinsPercentual;
+	}
+
+	public BigDecimal getAliquotaCofinsReais() {
+		return aliquotaCofinsReais;
+	}
+
+	public void setAliquotaCofinsReais(BigDecimal aliquotaCofinsReais) {
+		this.aliquotaCofinsReais = aliquotaCofinsReais;
+	}
+
+	public BigDecimal getValorCofins() {
+		return valorCofins;
+	}
+
+	public void setValorCofins(BigDecimal valorCofins) {
+		this.valorCofins = valorCofins;
+	}
+
+	public BigDecimal getBaseCalculoIssqn() {
+		return baseCalculoIssqn;
+	}
+
+	public void setBaseCalculoIssqn(BigDecimal baseCalculoIssqn) {
+		this.baseCalculoIssqn = baseCalculoIssqn;
+	}
+
+	public BigDecimal getAliquotaIssqn() {
+		return aliquotaIssqn;
+	}
+
+	public void setAliquotaIssqn(BigDecimal aliquotaIssqn) {
+		this.aliquotaIssqn = aliquotaIssqn;
+	}
+
+	public BigDecimal getValorIssqn() {
+		return valorIssqn;
+	}
+
+	public void setValorIssqn(BigDecimal valorIssqn) {
+		this.valorIssqn = valorIssqn;
 	}
 
 	/**

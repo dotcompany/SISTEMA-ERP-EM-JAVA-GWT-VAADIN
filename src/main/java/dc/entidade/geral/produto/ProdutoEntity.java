@@ -363,7 +363,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private GrupoEntity grupo;
 
 	@Caption("Unidade do produto")
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne()
 	@JoinColumn(name = "id_unidade_produto",referencedColumnName = "id", nullable = false)
     @NotNull(message = "Unidade do produto é obrigatório")
 	private UnidadeProdutoEntity unidadeProduto;

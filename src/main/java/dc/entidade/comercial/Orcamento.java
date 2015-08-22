@@ -142,25 +142,23 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne
-	@JoinColumn(name = "id_vendedor")
-	@Caption("Vendedor")
-	private VendedorEntity vendedor;
 
-	@ManyToOne
-	@JoinColumn(name = "id_cliente")
-	@Caption("Cliente")
-	private ClienteEntity cliente;
-
+    @JoinColumn(name = "id_venda_condicoes_pagamento", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-	@JoinColumn(name = "id_venda_condicoes_pagamento", referencedColumnName = "ID", nullable = false)
-	@Caption("Condições de pagamento")
-	private CondicaoPagamento condicaoPagamento;
+    private CondicaoPagamento condicaoPagamento;
+    
+    @JoinColumn(name = "ID_TRANSPORTADORA", referencedColumnName = "ID")
+    @ManyToOne
+    private TransportadoraEntity transportadora;
+    
+    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private ClienteEntity cliente;
+    
+    @JoinColumn(name = "ID_VENDEDOR", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private VendedorEntity vendedor;
 
-	@ManyToOne
-	@JoinColumn(name = "id_transportadora")
-	@Caption("Transportadora")
-	private TransportadoraEntity transportadora;
 
 	/**
 	 * REFERENCIA - LIST

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.FormaPagamentoEn;
@@ -16,8 +17,8 @@ import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.planoconta.PlanoContaListController;
 import dc.controller.financeiro.ContaCaixaListController;
 import dc.controller.geral.diverso.SetorListController;
-import dc.controller.geral.diverso.UfListController;
 import dc.controller.geral.outro.SindicatoListController;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
@@ -147,8 +148,6 @@ public class ColaboradorFormController extends
 					"nome", PlanoContaListController.class, this.planoContaDAO, this.getMainController());
 			this.subView.getMocContaCaixa().configuraCombo(
 					"nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
-			this.subView.getMocUf().configuraCombo(
-					"nome", UfListController.class, this.ufDAO, this.getMainController());
 
 
 			comboDescontoPlanoSaude();
@@ -157,7 +156,7 @@ public class ColaboradorFormController extends
 			comboSaiRais();
 			comboPriorizarPgto();
 			comboComissaoOver();
-			// comboUf();
+			carregarUf();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -278,6 +277,22 @@ public class ColaboradorFormController extends
 	public ColaboradorEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
+	}
+	
+	public void carregarUf() {
+		try {
+			List<UfEntity> auxLista = this.ufDAO.listaTodos();
+
+			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
+					UfEntity.class, auxLista);
+
+			this.subView.getMocUf().setContainerDataSource(bic);
+			this.subView.getMocUf().setItemCaptionPropertyId("nome");
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 }

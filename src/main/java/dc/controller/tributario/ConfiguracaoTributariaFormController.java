@@ -440,16 +440,6 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	}
 
 	@Override
-	protected void quandoNovo() {
-		try {
-			// subView.filContagemEstoqueDetalhesSubForm(currentBean.getContagemDetalhes());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	@Override
 	protected Component getSubView() {
 		return subView;
 	}

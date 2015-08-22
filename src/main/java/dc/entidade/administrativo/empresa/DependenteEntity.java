@@ -2,6 +2,7 @@ package dc.entidade.administrativo.empresa;
 
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,30 +14,39 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
-import dc.entidade.framework.AbstractModel;
+import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
 
 
 @Entity
 @Table(name = "socio_dependente")
 @Indexed
+@XmlRootElement
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class DependenteEntity extends AbstractModel<Integer> {
+public class DependenteEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dpn")
-	@SequenceGenerator(name = "dpn", sequenceName = "socio_dependente_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "socio_dependente_id_seq")
+	@SequenceGenerator(name = "socio_dependente_id_seq", sequenceName = "socio_dependente_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name="id_tipo_relacionamento")
-	TipoRelacionamentoEntity tipoRelacionamento;
+	@JoinColumn(name="id_tipo_relacionamento", referencedColumnName = "ID")
+	private TipoRelacionamentoEntity tipoRelacionamento;
 	
 	@Caption("nome")
 	String nome;
@@ -56,8 +66,8 @@ public class DependenteEntity extends AbstractModel<Integer> {
 	String cpf;
 	
 	@ManyToOne
-	@JoinColumn(name="id_socio")
-	SocioEntity socio;
+	@JoinColumn(name="id_socio", referencedColumnName = "ID")
+	private SocioEntity socio;
 
 	public Integer getId() {
 		return id;
@@ -123,7 +133,32 @@ public class DependenteEntity extends AbstractModel<Integer> {
 		this.socio = socio;
 	}
 	
-	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof DependenteEntity)) {
+            return false;
+        }
+
+        DependenteEntity that = (DependenteEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 	
 	
 	

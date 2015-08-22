@@ -172,7 +172,7 @@ public class CerimonialEventosFormView extends CustomComponent {
 		// tfEmail = ComponentUtil.buildTextField("Email");
 		// fields.addComponent(tfEmail,0,5,0,5);
 		tfEmail = ComponentUtil.buildTextField("Email");
-		fields.addComponent(tfEmail, 0, 4);
+		fields.addComponent(tfEmail, 0, 4, 1,4);
 
 		return fields;
 	}

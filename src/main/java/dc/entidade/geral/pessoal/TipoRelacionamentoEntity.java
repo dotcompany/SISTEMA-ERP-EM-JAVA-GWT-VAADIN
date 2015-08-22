@@ -162,5 +162,10 @@ public class TipoRelacionamentoEntity extends
                     .toHashCode();
         }
     }
+    
+    @Override
+    public String toString() {
+    	return nome;
+    }
 
 }
