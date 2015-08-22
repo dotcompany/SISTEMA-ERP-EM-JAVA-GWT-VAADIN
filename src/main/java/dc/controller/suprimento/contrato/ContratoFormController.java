@@ -58,6 +58,7 @@ import dc.entidade.suprimentos.contrato.HistoricoReajusteEntity;
 import dc.entidade.suprimentos.contrato.PrevFaturamentoEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
+import dc.model.business.ged.DocumentoBusiness;
 import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
 import dc.servicos.dao.geral.PessoaEnderecoDAO;
 import dc.servicos.dao.geral.UfDAO;
@@ -67,6 +68,7 @@ import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.contrato.ContratoDAO;
 import dc.servicos.dao.suprimentos.contrato.SolicitacaoServicoDAO;
 import dc.servicos.dao.suprimentos.contrato.TipoContratoDAO;
+import dc.servicos.util.Util;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -87,6 +89,9 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 	@Autowired
 	private ContratoDAO contratoDAO;
+	
+	@Autowired
+	private DocumentoBusiness documentoBusiness;
 
 	// @Autowired
 	// private MainController mainController;
@@ -119,7 +124,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	private PessoaEnderecoDAO pessoaEnderecoDAO;
 	
 	private ContratoEntity currentBean;
-
+	
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = validaCampos();
@@ -521,6 +526,9 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 								}
 
 								doc.write(bos);
+								
+								File arquivoContratoGerado = Util.gravarArquivo(getDiretorio(), bos.toByteArray());
+								subView.uploadArquivo(arquivoContratoGerado, "contratoGerado", "", bos.toByteArray().length);
 
 								return new ByteArrayInputStream(bos.toByteArray());
 							}
@@ -577,8 +585,11 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			// boolean valido = true;
 
 			// currentBean.setContabilConta(subView.getCbmContabilConta().getValue());
+			List<String> listArquivos = subView.getListArquivos();
+			List<String> listArquivosExcluidos = subView.getListArquivosExcluidos();
 
 			contratoDAO.saveOrUpdate(currentBean);
+			documentoBusiness.gravarAnexo(currentBean.getDocumento(), listArquivos, listArquivosExcluidos, null, "");
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -834,6 +845,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 	private static File getFileFromDocumento(Documento documento) {
 		File arquivo = null;
+		//TODO pegar doc
 		if (documento != null && documento.getDocumentos() != null && !documento.getDocumentos().isEmpty()) {
 			arquivo = documento.getDocumentos().get(0).getFile();
 		}
@@ -869,6 +881,19 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		PopupDateField dtVigencia = subView.getDtVigencia();
 
 		return documento != null && enderecoEmpresaContratada != null && dadosContratante != null && solicitacaoServico != null && valor != null && dtVigencia != null;
+	}
+
+	public File gravaArquivoTemporario(File arquivo, String nomeArquivo) {
+
+		return documentoBusiness.gravaArquivoTemporario(arquivo, nomeArquivo, currentBean.getDocumento());
+	}
+
+	public boolean isArquivoTemporario(File arquivo) {
+		return documentoBusiness.isArquivoTemporario(arquivo, currentBean.getDocumento());
+	}
+	
+	public String getDiretorio(){
+		return documentoBusiness.getDiretorio(currentBean.getDocumento());
 	}
 
 }

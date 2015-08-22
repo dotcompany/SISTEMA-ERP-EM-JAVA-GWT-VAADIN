@@ -157,7 +157,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 		subView.limparMiniaturas();
 		for (int i = 0; i < listArquivos.size(); i++) {
 			String arquivo = listArquivos.get(i).getCaminho();
-			subView.atualizaMiniatura(new File(arquivo), new File(arquivo).getName(), "A", (i + 1));
+			subView.uploadArquivo(new File(arquivo), new File(arquivo).getName(), "A", (i + 1));
 		}
 
 		subView.getCmbTipoDocumento().setValue(currentBean.getTipoDocumento());
