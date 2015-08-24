@@ -104,6 +104,7 @@ public class Venda extends AbstractMultiEmpresaModel<Integer> {
     @Caption("Cliente")
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
     @ManyToOne(optional = false)
+    @NotNull(message = "Cliente é Obrigatório!")
     private ClienteEntity cliente;
     
     @Caption("Vendedor")

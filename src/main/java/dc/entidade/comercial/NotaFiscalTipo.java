@@ -37,7 +37,7 @@ public class NotaFiscalTipo extends AbstractMultiEmpresaModel<Integer> implement
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "nota_fiscal_tipo_id_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nota_fiscal_tipo_id_seq")
 	@SequenceGenerator(name = "nota_fiscal_tipo_id_seq", sequenceName = "nota_fiscal_tipo_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
