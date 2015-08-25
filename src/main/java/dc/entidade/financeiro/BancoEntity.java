@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -46,9 +45,8 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "banco_id_seq")
-	@SequenceGenerator(name = "banco_id_seq", sequenceName = "banco_id_seq", allocationSize = 1, initialValue = 0)
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -87,7 +85,7 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="banco",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "banco", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<AgenciaBancoEntity> agenciaBancoList = new ArrayList<>();
 
 	/**

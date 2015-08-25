@@ -32,8 +32,9 @@ import dc.entidade.geral.diverso.UfEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-@SuppressWarnings("serial")
 public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Column(name = "id", nullable = false)
