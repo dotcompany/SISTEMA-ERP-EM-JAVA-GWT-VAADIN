@@ -163,7 +163,7 @@ public class DocumentoBusinessImpl implements DocumentoBusiness {
 		return documentoDAO.nextVersionNumber(documento);
 	}
 
-	private String getExtensao(String caminho) {
+	public static String getExtensao(String caminho) {
 		if (caminho != null && !caminho.isEmpty()) {
 			int indiceExtensao = caminho.lastIndexOf(".");
 

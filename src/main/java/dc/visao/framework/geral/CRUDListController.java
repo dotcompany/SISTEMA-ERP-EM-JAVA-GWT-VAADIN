@@ -114,6 +114,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 	@PostConstruct
 	protected void init() {
+		long inicio = System.currentTimeMillis();
 		getFormController().setListController(this);
 
 		genericDAO.setPojoClass(getEntityClass());
@@ -210,7 +211,12 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 		permissaoOperacao();
 
+		long inicioBusca = System.currentTimeMillis();
+		logger.info("Antes de começar a busca foi gasto" + ((inicioBusca - inicio)/1000) + " segundos montando a tela.");
+
 		actionPesquisa();
+		long fimBusca = System.currentTimeMillis();
+		logger.info("A Busca demorou" + ((fimBusca - inicioBusca)/1000) + " segundos.");
 
 		// Botao Fechar (Sair)
 
@@ -232,6 +238,8 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 			}
 		});
+		long fim = System.currentTimeMillis();
+		logger.info("A montagem da tela demorou " + ((fim - inicio)/1000) + " segundos.");
 	}
 
 	/*

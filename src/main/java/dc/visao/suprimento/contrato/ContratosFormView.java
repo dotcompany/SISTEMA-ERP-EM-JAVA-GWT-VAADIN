@@ -2,6 +2,7 @@ package dc.visao.suprimento.contrato;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +41,7 @@ import com.vaadin.ui.VerticalLayout;
 import dc.controller.suprimento.contrato.ContratoFormController;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.ged.Documento;
+import dc.entidade.geral.ged.DocumentoArquivo;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.contrato.ContratoEntity;
@@ -362,7 +364,7 @@ public class ContratosFormView extends CustomComponent {
 		upArquivo.setUploadButtonCaption("Selecione o(s) arquivo(s)");
 		gridLayout_5.addComponent(upArquivo, 0, 1);
 
-		gridLayout_5.addComponent(montarPainelMiniaturas(), 0, 2);
+		gridLayout_5.addComponent(montarPainelMiniaturas(), 0, 2, 3, 2);
 
 		return gridLayout_5;
 	}
@@ -1053,7 +1055,7 @@ public class ContratosFormView extends CustomComponent {
 
 		contrato.setQuantidadeParcelas(Integer.parseInt(getTxtQuantidadeParcelas().getValue()));
 		contrato.setTipoContrato((TipoContratoEntity) cbmTipoContrato.getValue());
-		contrato.setValor((BigDecimal) txtValor.getConvertedValue());
+		contrato.setValor(((BigDecimal) txtValor.getConvertedValue()).setScale(2, RoundingMode.HALF_EVEN));
 
 	}
 
@@ -1081,6 +1083,12 @@ public class ContratosFormView extends CustomComponent {
 		historicoReajustesSubForm.fillWith(contrato.getContratosHistoricosReajustes());
 		previsaoFaturamentoSubForm.fillWith(contrato.getContratosPrevisoesFaturamentos());
 
+		if (contrato.getDocumento() != null && contrato.getDocumento().getDocumentos() != null) {
+			for (DocumentoArquivo documentos : contrato.getDocumento().getDocumentos()) {
+				uploadArquivo(documentos.getFile(), documentos.getFile().getName(), "", 0);
+			}
+		}
+
 		/*
 		 * this.fillContratoHistoricoFaturamentoSubForm(contrato.
 		 * getContratosHistoricosFaturamentos());
@@ -1105,7 +1113,7 @@ public class ContratosFormView extends CustomComponent {
 			arquivo = controller.gravaArquivoTemporario(arquivo, nomeArquivo);
 		}
 
-		Embedded image = DCMultiFileUpload.geraMiniaturaArquivo(nomeArquivo, arquivo);
+		Embedded image = DCMultiFileUpload.gerarMiniaturaArquivo(nomeArquivo, arquivo);
 		// Wrap it in a Drag and Drop Wrapper
 		DragAndDropWrapper wrapper = new DragAndDropWrapper(image);
 		wrapper.setSizeUndefined(); // Shrink to fit

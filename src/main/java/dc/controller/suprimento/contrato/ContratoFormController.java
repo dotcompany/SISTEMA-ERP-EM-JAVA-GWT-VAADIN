@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,6 +47,7 @@ import dc.controller.geral.pessoal.PessoaListController;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.ged.Documento;
+import dc.entidade.geral.ged.DocumentoArquivo;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
@@ -59,6 +59,7 @@ import dc.entidade.suprimentos.contrato.PrevFaturamentoEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.model.business.ged.DocumentoBusiness;
+import dc.model.business.ged.DocumentoBusinessImpl;
 import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
 import dc.servicos.dao.geral.PessoaEnderecoDAO;
 import dc.servicos.dao.geral.UfDAO;
@@ -89,7 +90,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 	@Autowired
 	private ContratoDAO contratoDAO;
-	
+
 	@Autowired
 	private DocumentoBusiness documentoBusiness;
 
@@ -122,19 +123,23 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 	@Autowired
 	private PessoaEnderecoDAO pessoaEnderecoDAO;
-	
+
 	private ContratoEntity currentBean;
-	
+
 	@Override
 	protected boolean validaSalvar() {
 		boolean valido = validaCampos();
 
 		List<PrevFaturamentoEntity> contratoPrevFaturamento = subView.getPrevisaoFaturamentoSubForm().getDados();
 
-		if (((BigDecimal) subView.getTxtValor().getConvertedValue()).compareTo(getTotal(contratoPrevFaturamento)) != 0) {
-			adicionarErroDeValidacao(subView.getPrevisaoFaturamentoSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
-			valido = false;
-			mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
+		if (Validator.validateString(subView.getTxtValor().getValue())) {
+			BigDecimal valorTela = (BigDecimal) subView.getTxtValor().getConvertedValue();
+			valorTela = valorTela.setScale(2, RoundingMode.HALF_EVEN);
+			if (valorTela.compareTo(getTotal(contratoPrevFaturamento)) != 0) {
+				adicionarErroDeValidacao(subView.getPrevisaoFaturamentoSubForm(), "Os valores informados nas parcelas não batem com o valor a pagar.");
+				valido = false;
+				mensagemErro("Os valores informados nas parcelas não batem com o valor a pagar.");
+			}
 		}
 
 		return valido;
@@ -435,7 +440,8 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 					PessoaEnderecoEntity enderecoEmpresaContratada = new PessoaEnderecoEntity();
 					PessoaEntity dadosContratante = subView.getCbmPessoa().getValue();
 					PessoaEnderecoEntity enderecoEmpresaContratante = new PessoaEnderecoEntity();
-					//SolicitacaoServicoEntity solicitacaoServico = subView.getCmbSolicitacaoServico().getValue();
+					// SolicitacaoServicoEntity solicitacaoServico =
+					// subView.getCmbSolicitacaoServico().getValue();
 
 					if (documento != null) {
 						EmpresaEntity empresa = documento.getEmpresa();
@@ -526,9 +532,10 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 								}
 
 								doc.write(bos);
-								
-								File arquivoContratoGerado = Util.gravarArquivo(getDiretorio(), bos.toByteArray());
-								subView.uploadArquivo(arquivoContratoGerado, "contratoGerado", "", bos.toByteArray().length);
+
+								String nomeArquivo = getDiretorio() + "contrato.docx";
+								File arquivoContratoGerado = Util.gravarArquivo(nomeArquivo, bos.toByteArray());
+								subView.uploadArquivo(arquivoContratoGerado, nomeArquivo, "", bos.toByteArray().length);
 
 								return new ByteArrayInputStream(bos.toByteArray());
 							}
@@ -589,8 +596,9 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			List<String> listArquivosExcluidos = subView.getListArquivosExcluidos();
 
 			contratoDAO.saveOrUpdate(currentBean);
-			documentoBusiness.gravarAnexo(currentBean.getDocumento(), listArquivos, listArquivosExcluidos, null, "");
-
+			if (currentBean.getDocumento() != null) {
+				documentoBusiness.gravarAnexo(currentBean.getDocumento(), listArquivos, listArquivosExcluidos, null, "");
+			}
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -703,7 +711,9 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			final List<PrevFaturamentoEntity> contratoprevFaturamento = new ArrayList<PrevFaturamentoEntity>();
 
 			List<PrevFaturamentoEntity> dados = subView.getPrevisaoFaturamentoSubForm().getDados();
-			Integer i = (Integer) (!subView.getTxtIntervaloParcelas().getValue().equals("") ? new Integer(0) : subView.getTxtIntervaloParcelas().getValue());
+			// Integer i = (Integer)
+			// (!subView.getTxtIntervaloParcelas().getValue().equals("") ? new
+			// Integer(0) : subView.getTxtIntervaloParcelas().getValue());
 
 			if (dados != null) {
 				contratoprevFaturamento.addAll(subView.getPrevisaoFaturamentoSubForm().getDados());
@@ -753,11 +763,11 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		BigDecimal valorParcela = contrato.getValor().divide(BigDecimal.valueOf(contrato.getQuantidadeParcelas()), RoundingMode.HALF_DOWN);
 		BigDecimal somaParcelas = BigDecimal.ZERO;
 		BigDecimal residuo = BigDecimal.ZERO;
-		String nossoNumero = null;
-		DecimalFormat formatoNossoNumero = new DecimalFormat("0000");
-		DecimalFormat formatoNossoNumero1 = new DecimalFormat("00000");
-		SimpleDateFormat formatoNossoNumero2 = new SimpleDateFormat("D");
-		Date dataAtual = new Date();
+		// String nossoNumero = null;
+		// DecimalFormat formatoNossoNumero = new DecimalFormat("0000");
+		// DecimalFormat formatoNossoNumero1 = new DecimalFormat("00000");
+		// SimpleDateFormat formatoNossoNumero2 = new SimpleDateFormat("D");
+		// Date dataAtual = new Date();
 
 		for (int i = 0; i < contrato.getQuantidadeParcelas(); i++) {
 			contratoPrevFaturamento = new PrevFaturamentoEntity();
@@ -773,25 +783,26 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			// contratoPrevFaturamento.setDataVencimento(primeiroVencimento.getTime());
 			contratoPrevFaturamento.setDataPrevista(primeiroVencimento.getTime());
 
-			nossoNumero += formatoNossoNumero1.format(contratoPrevFaturamento.getPessoa().getId());
-			nossoNumero += formatoNossoNumero.format(contratoPrevFaturamento.getNumeroParcela());
-			nossoNumero += formatoNossoNumero2.format(dataAtual);
+			// nossoNumero +=
+			// formatoNossoNumero1.format(contratoPrevFaturamento.getPessoa().getId());
+			// nossoNumero +=
+			// formatoNossoNumero.format(contratoPrevFaturamento.getNumeroParcela());
+			// nossoNumero += formatoNossoNumero2.format(dataAtual);
 
 			contratoPrevFaturamento.setValor(valorParcela);
 
 			somaParcelas = somaParcelas.add(valorParcela);
-
-			if (i == (contrato.getQuantidadeParcelas() - 1)) {
-				residuo = contrato.getValor().subtract(somaParcelas);
-				valorParcela = valorParcela.add(residuo);
-				contrato.setValor(valorParcela);
-			}
 
 			contratopreFaturamento.add(contratoPrevFaturamento);
 			novoContrato(contratoPrevFaturamento);
 			// novoContratoPrevFaturamento(contratoPrevFaturamento);
 		}
 
+		residuo = contrato.getValor().subtract(somaParcelas);
+		valorParcela = valorParcela.add(residuo);
+		if (residuo.compareTo(BigDecimal.ZERO) != 0) {
+			contratopreFaturamento.get(contratopreFaturamento.size() - 1).setValor(valorParcela);
+		}
 		// subView.getPrevisaoFaturamentoSubForm().fillWith(parcelasPagar);
 		subView.getPrevisaoFaturamentoSubForm().fillWith(contratopreFaturamento);
 	}
@@ -845,11 +856,13 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 
 	private static File getFileFromDocumento(Documento documento) {
 		File arquivo = null;
-		//TODO pegar doc
-		if (documento != null && documento.getDocumentos() != null && !documento.getDocumentos().isEmpty()) {
-			arquivo = documento.getDocumentos().get(0).getFile();
+		if (documento != null && documento.getDocumentos() != null) {
+			for (DocumentoArquivo documentoArquivo : documento.getDocumentos()) {
+				if (DocumentoBusinessImpl.getExtensao(documentoArquivo.getFile().getName()).contains("doc")) {
+					return documentoArquivo.getFile();
+				}
+			}
 		}
-
 		return arquivo;
 	}
 
@@ -891,8 +904,8 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	public boolean isArquivoTemporario(File arquivo) {
 		return documentoBusiness.isArquivoTemporario(arquivo, currentBean.getDocumento());
 	}
-	
-	public String getDiretorio(){
+
+	public String getDiretorio() {
 		return documentoBusiness.getDiretorio(currentBean.getDocumento());
 	}
 
