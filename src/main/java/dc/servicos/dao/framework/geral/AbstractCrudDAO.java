@@ -733,7 +733,7 @@ public abstract class AbstractCrudDAO<T> {
 	
 	@Transactional
 	public void initialize(Object object){
-		if(!Hibernate.isInitialized(object)){
+		if(object != null && !Hibernate.isInitialized(object)){
 			Hibernate.initialize(object);
 		}
 	}

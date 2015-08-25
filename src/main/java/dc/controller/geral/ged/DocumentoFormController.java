@@ -100,14 +100,18 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 
 		if (subView.getCkbTemplate().getValue()) {
 			List<String> listArquivos = subView.getListArquivos();
-			for (int i = 0; i < listArquivos.size(); i++) {
-				String file = listArquivos.get(i);
 
-				if (!file.contains(".doc")) {
-					adicionarErroDeValidacao(subView.getUpArquivo(), "Os templates de contrato devem ser no formato WORD com a extensão .doc");
-					valido = false;
+			boolean algumDoc = false;
+
+			for (String file : listArquivos) {
+				if (file.contains(".doc")) {
+					algumDoc = true;
 					break;
 				}
+			}
+			
+			if (!algumDoc) {
+				adicionarErroDeValidacao(subView.getUpArquivo(), "Os templates de contrato devem ser no formato WORD com a extensão .doc");
 			}
 		}
 
@@ -270,8 +274,8 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	public boolean isArquivoTemporario(File arquivo) {
 		return documentoBusiness.isArquivoTemporario(arquivo, currentBean);
 	}
-	
-	public String getDiretorio(){
+
+	public String getDiretorio() {
 		return documentoBusiness.getDiretorio(currentBean);
 	}
 }

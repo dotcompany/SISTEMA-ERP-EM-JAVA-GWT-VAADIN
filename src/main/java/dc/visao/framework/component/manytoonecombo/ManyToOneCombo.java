@@ -155,12 +155,16 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	@SuppressWarnings("serial")
 	class FilteredBeanItemContainer extends BeanItemContainer<ItemValue> {
 
-		public FilteredBeanItemContainer() throws IllegalArgumentException {
+		public FilteredBeanItemContainer(List<T> all) throws IllegalArgumentException {
 			super(ItemValue.class);
 
-			this.addAll(wrapValues(getModel().getAll()));
+			this.addAll(wrapValues(all));
 		}
 
+		public FilteredBeanItemContainer() throws IllegalArgumentException {
+			this(getModel().getAll());
+		}
+		
 		@Override
 		public void addContainerFilter(Filter filter) {
 			String q = filterString;
@@ -208,7 +212,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 		createItemValue = new ItemValue();
 		createItemValue.setType(ITEM_TYPE_CREATE);
 
-		cmbResult.setContainerDataSource(new FilteredBeanItemContainer());
+		//cmbResult.setContainerDataSource(new FilteredBeanItemContainer());
 		cmbResult.setItemCaptionMode(ItemCaptionMode.PROPERTY);
 		cmbResult.setItemCaptionPropertyId("caption");
 		//cmbResult.setSizeFull();
@@ -447,6 +451,9 @@ public class ManyToOneCombo<T> extends CustomComponent {
             ItemValue beanItem = new ItemValue();
 
             List<T> resultado = model.getAll();
+            if (cmbResult.getContainerDataSource() == null || cmbResult.getContainerDataSource().getItemIds().size() == 0) {
+    			cmbResult.setContainerDataSource(new FilteredBeanItemContainer(resultado));
+    		}
 
             for (T t : resultado) {
                 ItemValue item = new ItemValue();
@@ -512,5 +519,12 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	public boolean isRequired() {
 		return cmbResult.isRequired();
 	}
-
+	
+	@Override
+	public void beforeClientResponse(boolean initial) {
+		if (cmbResult.getContainerDataSource() == null || cmbResult.getContainerDataSource().getItemIds().size() == 0) {
+			cmbResult.setContainerDataSource(new FilteredBeanItemContainer());
+		}
+		super.beforeClientResponse(initial);
+	}
 }
