@@ -249,14 +249,15 @@ public class LancamentoPagarFormController extends
 			
 			fieldGroup.bind(this.subView.getCbDocumentoOrigem(),"documentoOrigem");
 			//fieldGroup.bind(this.subView.getCbPessoa(),"pessoa");
+			fieldGroup.bind(this.subView.getCbFornecedor(),"fornecedor");
 			
 			
 			this.subView.getCbContaCaixa().configuraCombo(
 					"nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
 			this.subView.getCbDocumentoOrigem().configuraCombo(
 					"descricao", DocumentoOrigemListController.class, this.documentoOrigemDAO, this.getMainController());
-			this.subView.getCbPessoa().configuraCombo(
-					"nome", PessoaListController.class, this.pessoaDAO, this.getMainController());
+			/*this.subView.getCbPessoa().configuraCombo(
+					"nome", PessoaListController.class, this.pessoaDAO, this.getMainController());*/
 			this.subView.getCbFornecedor().configuraCombo(
 					"pessoa.nome", FornecedorListController.class, this.fornecedorDAO, this.getMainController());
 			
