@@ -25,6 +25,7 @@ import com.vaadin.ui.Component;
 import dc.control.enums.TipoVencimentoEn;
 import dc.control.util.ClassUtils;
 import dc.controller.geral.pessoal.FornecedorListController;
+import dc.controller.geral.pessoal.PessoaListController;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.entidade.financeiro.LctoPagarNtFinanceira;
@@ -40,6 +41,7 @@ import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.geral.FornecedorDAO;
+import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.visao.financeiro.LancamentoPagarFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -85,6 +87,9 @@ public class LancamentoPagarFormController extends
 
 	private LancamentoPagarEntity currentBean;
 	private ParcelaPagar parcelaPagar;
+	
+	@Autowired
+	private PessoaDAO pessoaDAO;
 
 	@Autowired
 	private ContabilContaDAO contabilcontaDAO;
@@ -243,13 +248,15 @@ public class LancamentoPagarFormController extends
 			fieldGroup.bind(this.subView.getDtPrimeiroVencimento(),"primeiroVencimento");
 			
 			fieldGroup.bind(this.subView.getCbDocumentoOrigem(),"documentoOrigem");
-			fieldGroup.bind(this.subView.getCbFornecedor(),"fornecedor");
+			//fieldGroup.bind(this.subView.getCbPessoa(),"pessoa");
 			
 			
 			this.subView.getCbContaCaixa().configuraCombo(
 					"nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
 			this.subView.getCbDocumentoOrigem().configuraCombo(
 					"descricao", DocumentoOrigemListController.class, this.documentoOrigemDAO, this.getMainController());
+			this.subView.getCbPessoa().configuraCombo(
+					"nome", PessoaListController.class, this.pessoaDAO, this.getMainController());
 			this.subView.getCbFornecedor().configuraCombo(
 					"pessoa.nome", FornecedorListController.class, this.fornecedorDAO, this.getMainController());
 			

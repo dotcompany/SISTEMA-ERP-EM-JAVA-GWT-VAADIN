@@ -162,7 +162,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Caption("Banco")
     @ManyToOne(optional = false)
-    @JoinColumn(name="ID_BANCO", nullable=false)
+    @JoinColumn(name="ID_BANCO")
 	@NotNull(message = "Banco é Obrigatório!")
 	private BancoEntity banco;
 

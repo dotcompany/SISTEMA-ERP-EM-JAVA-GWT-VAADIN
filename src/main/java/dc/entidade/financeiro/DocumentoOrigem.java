@@ -124,7 +124,7 @@ public class DocumentoOrigem extends AbstractMultiEmpresaModel<Integer> {
 
 	@Override
 	public String toString() {
-		return codigo;
+		return descricao;
 	}
 
 	public String getCodigo() {

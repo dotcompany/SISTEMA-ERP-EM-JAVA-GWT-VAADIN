@@ -15,7 +15,7 @@ public class LancamentoPagarUtils {
 		FornecedorEntity fornecedor = subView.getCbFornecedor().getValue();
 		if (ObjectUtils.isBlank(fornecedor)) {
 			throw new DotErpException(subView.getCbFornecedor(),
-					"::DotERP - Não pode ficar em branco");
+					"::DotERP - Não pode ficar em branco"); 
 		}
 		
 		DocumentoOrigem documentoOrigem = subView.getCbDocumentoOrigem().getValue();
