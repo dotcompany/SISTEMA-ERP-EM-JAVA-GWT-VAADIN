@@ -38,7 +38,9 @@ public class FornecedorListController extends CRUDListController<FornecedorEntit
 	@Override
 	public String[] getColunas() {
 		// TODO Auto-generated method stub
-		return new String[] {"pessoa","situacaoForCli","atividadeForCli","desde", "contaRemetente","prazoMedioEntrega","quantidadeParcelas","observacao"};
+		return new String[] {"pessoa","situacaoForCli","atividadeForCli","desde", "contaRemetente","geraFaturamento",
+				"optanteSimplesNacional", "localizacao","sofreRetencao","numDiasPrimeiroVencimento", "numDiasIntervalo","chequeNominalA",
+				"prazoMedioEntrega","quantidadeParcelas","observacao"};
 	}
 
 	@Override

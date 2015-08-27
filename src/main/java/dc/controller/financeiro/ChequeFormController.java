@@ -39,11 +39,22 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 
 	@Autowired
 	ChequeDAO chequeDAO;
+	
+	/**
+	 * BUSINESS
+	 */
+	
+	//@Autowired
+	//private ChequeBusiness<Cheque> business;
 
 	@Autowired
 	private TalonarioChequeDAO talonarioChequeDAO;
 
 	private Cheque currentBean;
+	
+	/*public ChequeBusiness<Cheque> getBusiness() {
+		 return business;
+	}*/
 
 	@Override
 	protected String getNome() {
@@ -69,7 +80,7 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			chequeDAO.saveOrUpdate(currentBean);
+			this.chequeDAO.saveOrUpdate(this.currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();

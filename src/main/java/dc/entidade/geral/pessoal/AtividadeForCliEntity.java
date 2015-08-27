@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -49,11 +48,9 @@ public class AtividadeForCliEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "atividade_for_cli_id_seq")
-	@SequenceGenerator(name = "atividade_for_cli_id_seq", sequenceName = "atividade_for_cli_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@ComboCode
-	@NotNull
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 

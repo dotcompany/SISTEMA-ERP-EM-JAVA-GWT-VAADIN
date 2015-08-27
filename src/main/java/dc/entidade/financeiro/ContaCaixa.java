@@ -41,7 +41,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "ID", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conta_caixa_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "conta_caixa_id_seq")
 	@SequenceGenerator(name = "conta_caixa_id_seq", sequenceName = "conta_caixa_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

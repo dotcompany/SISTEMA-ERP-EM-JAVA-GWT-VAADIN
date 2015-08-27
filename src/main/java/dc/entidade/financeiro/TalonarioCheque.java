@@ -53,11 +53,9 @@ public class TalonarioCheque extends AbstractMultiEmpresaModel<Integer> implemen
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "talonario_cheque_id_seq")
-	@SequenceGenerator(name = "talonario_cheque_id_seq", sequenceName = "talonario_cheque_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@ComboCode
-	@NotNull
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
@@ -149,6 +147,9 @@ public class TalonarioCheque extends AbstractMultiEmpresaModel<Integer> implemen
 	/**
 	 * TO STRING
 	 **/
+	public String toString() {
+		return talao;
+	}
 
 	@Override
 	public boolean equals(Object obj) {

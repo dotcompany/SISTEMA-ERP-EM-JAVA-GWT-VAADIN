@@ -2,6 +2,7 @@ package dc.servicos.dao.financeiro;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +34,28 @@ public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 	@Transactional
 	public List<AgenciaBancoEntity> query(String q) {
 		q = "%" + q.toLowerCase() +"%";
-		return getSession().createQuery("from AgenciaBanco where lower(nome) like :q").setParameter("q", q).list();
+		return getSession().createQuery("from AgenciaBancoEntity where lower(nome) like :q").setParameter("q", q).list();
+	}
+	
+	@Transactional
+	public AgenciaBancoEntity find(String codigo) throws Exception {
+		try {
+			String sql = "FROM :entity ent WHERE (1 = 1) AND ent.codigo = :codigo";
+			sql = sql.replace(":entity", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("codigo", codigo);
+
+			AgenciaBancoEntity entity = (AgenciaBancoEntity) query.uniqueResult();
+
+			if (entity == null) {
+				entity = new AgenciaBancoEntity();
+			}
+
+			return entity;
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 }
