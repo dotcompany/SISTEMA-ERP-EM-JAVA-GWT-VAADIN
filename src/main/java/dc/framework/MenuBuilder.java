@@ -153,7 +153,10 @@ public class MenuBuilder implements Serializable {
 
 			@Override
 			public void menuSelected(MenuItem selectedItem) {
+				long inicio = System.currentTimeMillis();
 				buildContent(m, main, u, moduleID);
+				long fim = System.currentTimeMillis();
+				logger.info("------- Abrir a listagem demorou " + ((fim - inicio)/1000) + " segundos.");
 			}
 
 		});

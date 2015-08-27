@@ -30,7 +30,7 @@ public abstract class AbstractMultiEmpresaModel<ID extends Serializable>
 	@OneToOne()
 	@JoinColumn(name = "id_empresa")
 	@Analyzer(definition = "id_empresa_analyzer")
-	@IndexedEmbedded
+	@IndexedEmbedded(includeEmbeddedObjectId=true)
 	private EmpresaEntity empresa;
 
 	

@@ -22,7 +22,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -95,6 +94,7 @@ public class Documento extends AbstractMultiEmpresaModel<Integer> {
 	@Field()
 	@Caption("Template")
 	@Column(name = "template_contrato")
+	@Analyzer(impl = org.apache.lucene.analysis.core.SimpleAnalyzer.class)
 	private Boolean templateContrato;
 
 	@OneToMany(fetch = FetchType.EAGER)

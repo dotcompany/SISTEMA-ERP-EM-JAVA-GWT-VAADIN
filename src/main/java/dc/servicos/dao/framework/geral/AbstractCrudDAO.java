@@ -193,6 +193,14 @@ public abstract class AbstractCrudDAO<T> {
 	public List<T> getAllForCombo(final Class<T> type, int idEmpresa, FmMenu menu, Boolean getAll) {
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria crit = session.createCriteria(type);
+		
+		//crit.createAlias(type.getSimpleName(), type.getName().substring(0, 1));
+		
+		/*crit.setProjection(Projections.projectionList()
+		      .add(Projections.property(comboCode), comboCode)
+		    .add(Projections.property(comboValue), comboValue))
+		 .setResultTransformer(new AliasToBeanConstructorResultTransformer(type.getConstructors()[0]));
+	*/
 
 		if (getAll == null) {
 			getAll = false;
@@ -203,8 +211,10 @@ public abstract class AbstractCrudDAO<T> {
 		}
 
 		String order = comboValue.contains(".") ? comboValue.split("\\.")[0] : comboValue;
-
-		return crit.addOrder(Order.asc(order)).list();
+		List list = crit.addOrder(Order.asc(order)).list();
+		return list;
+		
+		//return comboFilteredSearch(null, menu, getAll, null);
 	}
 
 	@Transactional
@@ -297,10 +307,18 @@ public abstract class AbstractCrudDAO<T> {
 		// q.setFirstResult(first);
 		// q.setMaxResults(pageSize);
 		List<T> resultSet = q.list();
+		
+		try {
+			List<T> resultSet2 =  fullTextSession.createFullTextQuery(new QueryParser(Version.LUCENE_CURRENT, "title", getFullTextSession().getSearchFactory().getAnalyzer(Documento.class)).parse("empresa.id:87"), getEntityClass()).list();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		logger.info("found for: " + value);
 		logger.info("found: " + resultSet.size() + " entities...");
 
+		//filterEmpresa(menu, resultSet);
 		return resultSet;
 	}
 
@@ -325,10 +343,38 @@ public abstract class AbstractCrudDAO<T> {
 		FullTextSession fullTextSession = getFullTextSession();
 
 		org.apache.lucene.search.Query query = createQuery(searchValue, getSearchFields(), menu, filters, fullTextSession, null);
+		/*try {
+		  int resultSize = 
+				  fullTextSession.createFullTextQuery(new QueryParser(Version.LUCENE_CURRENT, "", new BrazilianAnalyzer()).parse("+empresa.id:87"), getEntityClass()).getResultSize()
+				  ;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 
+		//List list = fullTextSession.createFullTextQuery(query, getEntityClass()).list();
+	//	filterEmpresa(menu, list);
+		
+		
 		return fullTextSession.createFullTextQuery(query, getEntityClass()).getResultSize();
 	}
 
+	/*private void filterEmpresa(FmMenu menu, List list) {
+		if (isConsultaMultiEmpresa(getEntityClass(), menu, null)) {
+			for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+				Object object = (Object) iterator.next();
+				if (object instanceof AbstractMultiEmpresaModel) {
+					AbstractMultiEmpresaModel entity = (AbstractMultiEmpresaModel) object;
+					Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
+
+					if (entity.getEmpresa().getId() != idEmpresa) {
+						iterator.remove();
+					}
+				}
+			}
+		}
+	}
+*/
 	private org.apache.lucene.search.Query createSimpleFullTextQuery(String value, String[] searchFields, FullTextSession fullTextSession, List<Filter> filters) {
 		BooleanQuery booleanQuery = createFieldQueryByValue(value, searchFields);
 
@@ -367,10 +413,13 @@ public abstract class AbstractCrudDAO<T> {
 		FullTextSession fullTextSession = getFullTextSession();
 		org.apache.lucene.search.BooleanQuery booleanQuery = new BooleanQuery();
 
-		org.apache.lucene.search.Query multiEmpresaQuery = buildMultiEmpresaQuery(value, searchFields, fullTextSession, menu);
+		if (dc.control.validator.ObjectValidator.validateString(value)) {
+			org.apache.lucene.search.Query multiEmpresaQuery = buildMultiEmpresaQuery(value, searchFields, fullTextSession, menu);
+			booleanQuery.add(multiEmpresaQuery, Occur.MUST);
+		}
+		
 		org.apache.lucene.search.Query filterQuery = generateFiltersQuery(filters);
-
-		booleanQuery.add(multiEmpresaQuery, Occur.SHOULD);
+		booleanQuery.add(buildLuceneQueryForEmpresa(fullTextSession), Occur.MUST);
 
 		if (filterQuery != null) {
 			booleanQuery.add(filterQuery, Occur.MUST);
@@ -542,8 +591,9 @@ public abstract class AbstractCrudDAO<T> {
 			q.setSort(sort);
 		}
 	}
-
-	private org.apache.lucene.search.Query buildMultiEmpresaQuery(String value, String[] searchFields, FullTextSession fullTextSession, FmMenu menu) {
+	
+	private org.apache.lucene.search.Query buildLuceneQueryForEmpresa(FullTextSession fullTextSession){
+		
 		org.apache.lucene.search.Query luceneQueryForEmpresa = new org.apache.lucene.search.Query() {
 
 			/**
@@ -558,29 +608,26 @@ public abstract class AbstractCrudDAO<T> {
 
 		};
 
-		BooleanQuery booleanQuery = new BooleanQuery();
+		Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
 
+		String empresaField = "empresa.id";
+		if (getEntityClass().equals(EmpresaEntity.class)) {
+			empresaField = "id";
+		}
+
+		Analyzer an2 = fullTextSession.getSearchFactory().getAnalyzer("id_empresa_analyzer");
+		QueryParser parser = new QueryParser(Version.LUCENE_43, empresaField, an2);
 		try {
-			Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
-
-			String empresaField = "empresa.id";
-			if (getEntityClass().equals(EmpresaEntity.class)) {
-				empresaField = "id";
-			}
-
-			Analyzer an2 = fullTextSession.getSearchFactory().getAnalyzer("id_empresa_analyzer");
-			QueryParser parser = new QueryParser(Version.LUCENE_43, empresaField, an2);
 			luceneQueryForEmpresa = parser.parse(String.valueOf(idEmpresa));
-
-			if (dc.control.validator.ObjectValidator.validateString(value)) {
-				booleanQuery.add(createFieldQueryByValue(value, searchFields), Occur.MUST);
-			}
-			booleanQuery.add(luceneQueryForEmpresa, Occur.MUST);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		return luceneQueryForEmpresa;
+	}
 
-		return booleanQuery;
+	private org.apache.lucene.search.Query buildMultiEmpresaQuery(String value, String[] searchFields, FullTextSession fullTextSession, FmMenu menu) {
+		
+		return createFieldQueryByValue(value, searchFields);
 	}
 
 	protected abstract String[] getDefaultSearchFields();

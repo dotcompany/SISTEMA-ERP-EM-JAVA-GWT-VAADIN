@@ -30,14 +30,14 @@ public class DCBeanQueryMultiEmpresa extends AbstractDCBeanQuery {
 		Integer idEmpresa = (Integer) getQueryConfiguration().get("id_empresa");
 		FmMenu menu = (FmMenu) getQueryConfiguration().get("menu");
 
-		if (isSeach(searchTerm)) {
+		return dao.fullTextSearch(searchTerm, arg0, arg1, this.sortingFields, this.sortingStates, menu, filters);
+//		if (isSeach(searchTerm)) {
 
-			return dao.fullTextSearch(searchTerm, arg0, arg1, this.sortingFields, this.sortingStates, menu, filters);
-		} else {
-			logger.info("null or empty search term, loading all..");
+	//	} else {
+		//	logger.info("null or empty search term, loading all..");
 
-			return dao.getAllPagedByEmpresa(pojoClass, idEmpresa, arg0, arg1, this.sortingFields, this.sortingStates);
-		}
+			//return dao.getAllPagedByEmpresa(pojoClass, idEmpresa, arg0, arg1, this.sortingFields, this.sortingStates);
+	//	}
 	}
 
 	@Override
@@ -50,11 +50,11 @@ public class DCBeanQueryMultiEmpresa extends AbstractDCBeanQuery {
 
 		int size = 0;
 
-		if (isSeach(searchTerm)) {
+		//if (isSeach(searchTerm)) {
 			size = dao.fullTextSearchCount(searchTerm, menu, filters);
-		} else {
-			size = dao.countByEmpresa(pojoClass, idEmpresa);
-		}
+		//} else {
+			//size = dao.countByEmpresa(pojoClass, idEmpresa);
+		//}
 
 		logger.info("query result set size:" + size);
 

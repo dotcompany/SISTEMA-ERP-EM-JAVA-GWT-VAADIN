@@ -211,12 +211,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 		permissaoOperacao();
 
-		long inicioBusca = System.currentTimeMillis();
-		logger.info("Antes de começar a busca foi gasto" + ((inicioBusca - inicio)/1000) + " segundos montando a tela.");
-
 		actionPesquisa();
-		long fimBusca = System.currentTimeMillis();
-		logger.info("A Busca demorou" + ((fimBusca - inicioBusca)/1000) + " segundos.");
 
 		// Botao Fechar (Sair)
 
@@ -332,6 +327,9 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 	protected abstract CRUDFormController<E> getFormController();
 
 	protected void actionPesquisa() {
+		
+		
+		
 		String valor = view.getTxtPesquisa().getValue();
 
 		// Configura da tabela
@@ -489,11 +487,15 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 				});
 
+		long inicioBusca = System.currentTimeMillis();
 		doSearch(valor);
+		long fimBusca = System.currentTimeMillis();
+		logger.info("-----------------------  A Busca demorou" + ((fimBusca - inicioBusca)/1000) + " segundos.");
 
 		view.getVltTabela().removeAllComponents();
 		view.getVltTabela().addComponent(table);
 		table.setStyleName("sortTable");
+		
 	}
 
 	public void doSearch(String valor) {

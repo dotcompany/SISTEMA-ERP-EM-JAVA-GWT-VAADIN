@@ -62,15 +62,15 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@Caption("Nome")
 	@Column(name = "NOME")
-	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Nome é Obrigatório!")
+	@ComboValue
 	private String nome = "";
 
 	@Field
 	@Caption("Email")
 	@Column(name = "EMAIL")
-	@ComboValue
+	
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Email é Obrigatório!")
 	private String email = "";
@@ -78,7 +78,7 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@Caption("Site")
 	@Column(name = "SITE")
-	@ComboValue
+	
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Site é Obrigatório!")
 	private String site = "";
@@ -86,28 +86,28 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@Caption("Cliente")
 	@Column(name = "CLIENTE")
-	@ComboValue
+	
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipoCliente = "0";
 
 	@Field
 	@Caption("Fornecedor")
 	@Column(name = "FORNECEDOR")
-	@ComboValue
+	
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean tipoFornecedor = Boolean.FALSE;
 
 	@Field
 	@Caption("Colaborador")
 	@Column(name = "COLABORADOR")
-	@ComboValue
+	
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean tipoColaborador = Boolean.FALSE;
 
 	@Field
 	@Caption("Transportadora")
 	@Column(name = "TRANSPORTADORA")
-	@ComboValue
+	
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean tipoTransportadora = Boolean.FALSE;
 
@@ -115,7 +115,7 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@Caption("Tipo")
 	@Column(name = "TIPO")
-	@ComboValue
+	
 	@Analyzer(definition = "dc_combo_analyzer")
 	//@NotNull(message = "Tipo de Pessoa é Obrigatório!")
 	private TipoPessoaEn tipo;
