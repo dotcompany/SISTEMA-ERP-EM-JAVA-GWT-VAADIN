@@ -306,14 +306,15 @@ public abstract class AbstractCrudDAO<T> {
 		configureSorting(sortingFields, q);
 		// q.setFirstResult(first);
 		// q.setMaxResults(pageSize);
-		List<T> resultSet = q.list();
+		List<T> resultSet = null;//q.list();
 		
 		try {
-			List<T> resultSet2 =  fullTextSession.createFullTextQuery(new QueryParser(Version.LUCENE_CURRENT, "title", getFullTextSession().getSearchFactory().getAnalyzer(Documento.class)).parse("empresa.id:87"), getEntityClass()).list();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			List<T> resultSet2 = fullTextSession.createFullTextQuery(
+					new QueryParser(Version.LUCENE_CURRENT, "title", getFullTextSession().getSearchFactory().getAnalyzer(Documento.class)).parse(q.getQueryString()), getEntityClass()).list();
+		resultSet = resultSet2;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		logger.info("found for: " + value);
 		logger.info("found: " + resultSet.size() + " entities...");
