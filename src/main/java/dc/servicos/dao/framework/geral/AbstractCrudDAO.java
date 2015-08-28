@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +23,7 @@ import org.apache.lucene.util.Version;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
+import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -306,15 +308,15 @@ public abstract class AbstractCrudDAO<T> {
 		configureSorting(sortingFields, q);
 		// q.setFirstResult(first);
 		// q.setMaxResults(pageSize);
-		List<T> resultSet = null;//q.list();
-		
-		try {
+		List<T> resultSet = q.list();
+
+		/*try {
 			List<T> resultSet2 = fullTextSession.createFullTextQuery(
 					new QueryParser(Version.LUCENE_CURRENT, "title", getFullTextSession().getSearchFactory().getAnalyzer(Documento.class)).parse(q.getQueryString()), getEntityClass()).list();
 		resultSet = resultSet2;
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		logger.info("found for: " + value);
 		logger.info("found: " + resultSet.size() + " entities...");

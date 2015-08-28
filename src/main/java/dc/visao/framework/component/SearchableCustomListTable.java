@@ -1,6 +1,7 @@
 package dc.visao.framework.component;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -29,6 +30,7 @@ public class SearchableCustomListTable extends FilterTable {
 	public static Logger logger = Logger.getLogger(SearchableCustomListTable.class);
 	private CompanyFileHandler fileHandler = new CompanyFileHandler();
 	private String entityName;
+	private boolean filterReset = true;
 
 	public static final Object CUSTOM_SELECT_ID = "";
 	final CheckBox checkbox = new CheckBox();
@@ -167,7 +169,7 @@ public class SearchableCustomListTable extends FilterTable {
 
 	@Override
 	public void setContainerDataSource(Container newDataSource) {
-		// TODO Auto-generated method stub
+		filterReset = true;
 		super.setContainerDataSource(newDataSource);
 
 		Map<Object, Component> columns = getColumnIdToFilterMap();
@@ -185,5 +187,12 @@ public class SearchableCustomListTable extends FilterTable {
 				});
 			}
 		}
+	}	
+	@Override
+	public void resetFilters() {
+		if (filterReset) {
+			super.resetFilters();
+		}
+		filterReset = false;
 	}
 }
