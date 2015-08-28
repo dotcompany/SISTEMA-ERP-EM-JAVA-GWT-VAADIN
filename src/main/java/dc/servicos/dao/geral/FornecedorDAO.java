@@ -18,7 +18,9 @@ public class FornecedorDAO extends AbstractCrudDAO<FornecedorEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "pessoa","situacaoForCli","atividadeForCli","desde", "contaRemetente","prazoMedioEntrega","quantidadeParcelas","observacao" };
+		return new String[] { "pessoa","situacaoForCli","atividadeForCli","desde", "contaRemetente","geraFaturamento",
+				"optanteSimplesNacional", "localizacao","sofreRetencao","numDiasPrimeiroVencimento", "numDiasIntervalo","chequeNominalA",
+				"prazoMedioEntrega","quantidadeParcelas","observacao" };
 	}
 	
 	@Transactional

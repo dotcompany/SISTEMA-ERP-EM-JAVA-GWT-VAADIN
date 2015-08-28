@@ -18,7 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -163,7 +162,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Caption("Banco")
 	@OneToOne
-	@JoinColumn(name = "ID_BANCO", insertable = true, updatable = true)
+    @JoinColumn(name = "ID_BANCO")
 	@NotNull(message = "Banco é Obrigatório!")
 	private BancoEntity banco;
 

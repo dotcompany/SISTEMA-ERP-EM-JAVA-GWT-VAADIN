@@ -30,7 +30,6 @@ public class ChequeDAO extends AbstractCrudDAO<Cheque>{
 		return Cheque.class;
 	}
 	
-	
 	@Transactional
 	public List<Cheque> listaTodos() {
 		return getSession().createQuery("from Cheque").list();
@@ -42,7 +41,7 @@ public class ChequeDAO extends AbstractCrudDAO<Cheque>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"statusCheque", "numero", "dataStatus"};
+		return new String[] {"idTalonarioCheque","statusCheque", "numero", "dataStatus"};
 	}
 
 }

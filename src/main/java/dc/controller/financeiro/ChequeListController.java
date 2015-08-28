@@ -36,7 +36,7 @@ public class ChequeListController extends CRUDListController<Cheque> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "statusCheque", "numero", "dataStatus" };
+		return new String[] { "idTalonarioCheque","statusCheque", "numero", "dataStatus" };
 	}
 
 	@Override
