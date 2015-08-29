@@ -216,5 +216,10 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
                     .toHashCode();
         }
     }
+    
+    @Override
+    public String toString() {
+    	return nomePtbr;
+    }
 
 }

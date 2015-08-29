@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -49,8 +48,7 @@ public class PessoaFisicaEntity implements Serializable {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_fisica_id_seq")
-	@SequenceGenerator(name = "pessoa_fisica_id_seq", sequenceName = "pessoa_fisica_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")

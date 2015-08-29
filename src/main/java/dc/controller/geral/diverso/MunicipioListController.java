@@ -39,7 +39,7 @@ public class MunicipioListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "codigoIbge", "codigoReceitaFederal" };
+		return new String[] { "nome","uf", "codigoIbge", "codigoReceitaFederal","codigoEstadual" };
 	}
 
 	@Override

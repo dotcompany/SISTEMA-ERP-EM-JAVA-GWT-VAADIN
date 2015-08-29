@@ -90,6 +90,7 @@ dependencies {
     compile ('be.cyberelf.nanoxml:nanoxml:2.2.3')
     compile ('commons-logging:commons-logging:1.2')
     
+    compile ('com.tunyk.currencyconverter:currency-converter-api:1.0')    
 
     compile('org.vaadin.addon:confirmdialog:2.1.3') {
         //compile('org.vaadin.addon:confirmdialog:2.1.2'){

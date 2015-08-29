@@ -31,7 +31,7 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 	public String[] getColunas() {
 		
 		return new String[] { "fornecedor", "documentoOrigem","dataLancamento","pagamentoCompartilhado","valorTotal","valorAPagar" ,
-				"quantidadeParcela","numeroDocumento","primeiroVencimento","intervaloEntreParcelas" };
+				"quantidadeParcela","numeroDocumento","primeiroVencimento" };
 	}
 
 	@Override

@@ -1727,6 +1727,7 @@ public class PessoaFormView extends CustomComponent {
 		// mocEstadoCivil
 		mocEstadoCivil = new ManyToOneComboField<>(EstadoCivilEntity.class);
 		mocEstadoCivil.setCaption("Estado civil");
+		mocEstadoCivil.setRequired(true);
 		glGeralPessoaFisica.addComponent(mocEstadoCivil, 2, 0);
 
 		// cbRaca

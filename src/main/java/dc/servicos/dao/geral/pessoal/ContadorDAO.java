@@ -23,7 +23,7 @@ public class ContadorDAO extends AbstractCrudDAO<ContadorEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "nome", "logradouro", "bairro","complemento","email","fone","fax",
+		return new String[] { "nome", "logradouro", "bairro","complemento","numero","uf","email","fone","fax",
 				"cpf","cnpj","cep" };
 	}
 

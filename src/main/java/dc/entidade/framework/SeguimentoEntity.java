@@ -1,6 +1,7 @@
 package dc.entidade.framework;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -16,7 +17,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -29,7 +29,7 @@ import dc.anotacoes.Caption;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class SeguimentoEntity extends AbstractModel<Integer> implements
+public class SeguimentoEntity extends AbstractMultiEmpresaModel<Integer> implements
 		Serializable {
 
 	/**
@@ -70,6 +70,9 @@ public class SeguimentoEntity extends AbstractModel<Integer> implements
 
 	@OneToMany(mappedBy = "seguimento", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<EmpresaSeguimento> empresaSeguimentoList;
+	
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	private List<PapelMenu> papelMenuList = new ArrayList<PapelMenu>();
 
 	/**
 	 * CONSTRUTOR
@@ -124,6 +127,14 @@ public class SeguimentoEntity extends AbstractModel<Integer> implements
 	@Override
 	public String toString() {
 		return nome;
+	}
+	
+	public List<PapelMenu> getPapelMenuList() {
+		return papelMenuList;
+	}
+
+	public void setPapelMenuList(List<PapelMenu> papelMenuList) {
+		this.papelMenuList = papelMenuList;
 	}
 
 }

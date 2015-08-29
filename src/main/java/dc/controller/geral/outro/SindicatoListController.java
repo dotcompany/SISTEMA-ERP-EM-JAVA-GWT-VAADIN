@@ -39,7 +39,8 @@ public class SindicatoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "logradouro","bairro","email" };
+		return new String[] { "nome","codigoBanco","codigoAgencia","contaBanco","codigoCedente",
+				"logradouro","numero","bairro","fone1","fone2","email","tipoSindicato","dataBase","cnpj"};
 	}
 
 	@Override

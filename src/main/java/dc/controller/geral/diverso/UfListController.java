@@ -38,7 +38,7 @@ public class UfListController extends CRUDListController<UfEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "sigla" };
+		return new String[] {"pais", "nome", "sigla" ,"codigoIbge"};
 	}
 
 	@Override

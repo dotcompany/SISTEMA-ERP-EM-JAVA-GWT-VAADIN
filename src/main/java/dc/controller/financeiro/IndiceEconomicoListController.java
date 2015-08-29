@@ -39,7 +39,7 @@ public class IndiceEconomicoListController extends CRUDListController<IndiceEcon
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "sigla" };
+		return new String[] { "nome", "sigla","descricao" };
 	}
 
 	@Override

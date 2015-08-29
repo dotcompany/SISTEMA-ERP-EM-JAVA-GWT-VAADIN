@@ -39,7 +39,7 @@ public class NivelFormacaoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "descricao" };
+		return new String[] { "nome","grauInstrucaoCaged","grauInstrucaoSefip","grauInstrucaoRais", "descricao" };
 	}
 
 	@Override

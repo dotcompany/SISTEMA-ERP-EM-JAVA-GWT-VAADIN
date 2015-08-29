@@ -49,8 +49,7 @@ public class PapelEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "papel_id_seq")
-	@SequenceGenerator(name = "papel_id_seq", sequenceName = "papel_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")

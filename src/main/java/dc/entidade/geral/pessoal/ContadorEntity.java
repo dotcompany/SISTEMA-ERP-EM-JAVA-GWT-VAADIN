@@ -136,6 +136,7 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 	//private String uf;
 	
 	@Transient
+	@Caption("UF")
 	private UfEntity uf;
 
 	@Field

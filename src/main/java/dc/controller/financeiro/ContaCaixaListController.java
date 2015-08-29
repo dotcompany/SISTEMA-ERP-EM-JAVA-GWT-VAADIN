@@ -35,7 +35,7 @@ public class ContaCaixaListController extends CRUDListController<ContaCaixa> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "digito", "descricao" };
+		return new String[] {"agenciaBanco","codigo", "digito", "nome", "tipoConta","descricao" };
 	}
 
 	@Override

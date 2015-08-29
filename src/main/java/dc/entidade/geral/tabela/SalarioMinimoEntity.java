@@ -83,6 +83,8 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	
 	@Column(name = "DOU")
 	@ComboValue
+	@Field
+	@Caption("DOU")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dou;
 	

@@ -34,7 +34,7 @@ public class CfopListController extends CRUDListController<CfopEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "descricao", "aplicacao" };
+		return new String[] {"cfop", "descricao", "aplicacao" };
 	}
 
 	@Override

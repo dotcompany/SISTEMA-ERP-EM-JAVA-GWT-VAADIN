@@ -33,7 +33,7 @@ public class SalarioMinimoListController extends CRUDListController<SalarioMinim
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "vigencia", "valorMensal", "valorDiario", "valorHora" };
+		return new String[] { "vigencia", "valorMensal", "valorDiario", "valorHora","normaLegal","dou" };
 	}
 
 	@Override

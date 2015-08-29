@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -42,8 +41,7 @@ public class PapelMenu extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "papel_menu_id_seq")
-	@SequenceGenerator(name = "papel_menu_id_seq", sequenceName = "papel_menu_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -100,6 +98,10 @@ public class PapelMenu extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne()
 	@JoinColumn(name = "id_papel")
 	private PapelEntity papel;
+	
+	@ManyToOne()
+	@JoinColumn(name = "id_seguimento")
+	private SeguimentoEntity seguimento;
 
 	/**
 	 * REFERENCIA - LIST
@@ -124,6 +126,11 @@ public class PapelMenu extends AbstractMultiEmpresaModel<Integer> implements
 	public PapelMenu(FmMenu f, PapelEntity p) {
 		this.menu = f;
 		this.papel = p;
+	}
+
+	public PapelMenu(FmMenu fm, SeguimentoEntity bean) {
+		this.menu = fm;
+		this.seguimento = bean;
 	}
 
 	/**
@@ -193,6 +200,14 @@ public class PapelMenu extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setPapel(PapelEntity papel) {
 		this.papel = papel;
+	}
+	
+	public SeguimentoEntity getSeguimento() {
+		return seguimento;
+	}
+
+	public void setSeguimento(SeguimentoEntity seguimento) {
+		this.seguimento = seguimento;
 	}
 
 	/**

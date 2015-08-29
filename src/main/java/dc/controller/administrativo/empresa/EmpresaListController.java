@@ -39,7 +39,7 @@ public class EmpresaListController extends CRUDListController<EmpresaEntity> {
 
 	@Override
 	protected String getTitulo() {
-		return super.getTitulo(this);
+		return "Empresa";
 	}
 
 	@Override

@@ -8,19 +8,13 @@ public class SeguimentoUtils {
 
 	public static void validateRequiredFields(SeguimentoFormView subView)
 			throws DotErpException {
-		String nome = subView.getTfNome().getValue();
+		String nome = subView.getTxtNome().getValue();
 
 		if (StringUtils.isBlank(nome)) {
-			throw new DotErpException(subView.getTfNome(),
+			throw new DotErpException(subView.getTxtNome(),
 					"::DotERP - Não pode ficar em branco");
 		}
 
-		String descricao = subView.getTfDescricao().getValue();
-
-		if (StringUtils.isBlank(descricao)) {
-			throw new DotErpException(subView.getTfDescricao(),
-					"::DotERP - Não pode ficar em branco");
-		}
 	}
 
 	public static void validateFieldValue(SeguimentoFormView subView)

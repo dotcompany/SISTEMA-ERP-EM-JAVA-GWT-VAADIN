@@ -29,7 +29,8 @@ public class LancamentoReceberListController extends CRUDListController<Lancamen
 
 	@Override
 	public String[] getColunas() {
-		return new String[] {"documentoOrigem", "cliente", "valorTotal", "valorAReceber", "dataLancamento" };
+		return new String[] {"cliente", "documentoOrigem","numeroDocumento", "valorTotal", "valorAReceber", "dataLancamento",
+				"taxaComissao","primeiroVencimento","quantidadeParcela"};
 	}
 
 	@Override

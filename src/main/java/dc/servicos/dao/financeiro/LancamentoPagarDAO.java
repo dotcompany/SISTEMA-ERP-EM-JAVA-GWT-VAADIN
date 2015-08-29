@@ -26,7 +26,7 @@ public class LancamentoPagarDAO extends AbstractCrudDAO<LancamentoPagarEntity> {
 
 	protected String[] getDefaultSearchFields() {
 		return new String[] {"fornecedor", "documentoOrigem","dataLancamento","pagamentoCompartilhado","valorTotal","valorAPagar" ,
-				"quantidadeParcela","numeroDocumento","primeiroVencimento","intervaloEntreParcelas"};
+				"quantidadeParcela","numeroDocumento","primeiroVencimento"};
 	}
 	
 	@Transactional

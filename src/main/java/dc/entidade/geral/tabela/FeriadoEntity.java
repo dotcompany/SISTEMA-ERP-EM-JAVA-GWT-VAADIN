@@ -67,12 +67,15 @@ public class FeriadoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private String nome;
 
 	@Column(name = "ABRANGENCIA")
+	@Field
+	@Caption("Abrangência")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String abrangencia;
 
 	// @ManyToOne(optional = false)
 	// @JoinColumn(name = "UF", referencedColumnName = "ID")
 	@Column(name = "UF")
+	@Caption("UF")
 	private UfEntity uf;
 
 	@Field
@@ -82,12 +85,16 @@ public class FeriadoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer municipioIbge;
 
+	@Field
+	@Caption("Tipo")
 	@Column(name = "TIPO")
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String tipo;
 
 	@Column(name = "DATA_FERIADO")
 	@ComboValue
+	@Field
+	@Caption("Data Feriado")
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Data Feriado é Obrigatório")
 	private Date data;

@@ -38,7 +38,7 @@ public class CepListController extends CRUDListController<CepEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "cep", "logradouro" };
+		return new String[] { "cep", "logradouro" ,"complemento","bairro","municipio","uf","codigoIbgeMunicipio"};
 	}
 
 	@Override

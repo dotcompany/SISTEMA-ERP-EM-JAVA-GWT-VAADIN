@@ -8,13 +8,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -58,12 +56,10 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_id_seq")
-	@SequenceGenerator(name = "produto_id_seq", sequenceName = "produto_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
-    @NotNull
 	private Integer id;
 
 	@Field
@@ -389,7 +385,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption("Grupo tributário")
 	@ManyToOne()
 	@JoinColumn(name = "id_grupo_tributario", nullable = true)
-	@NotNull(message = "Grupo Tributário é obrigatório")
+	//@NotNull(message = "Grupo Tributário é obrigatório")
 	private GrupoTributarioEntity grupoTributario;
 
 	@Caption("ICMS customizado")

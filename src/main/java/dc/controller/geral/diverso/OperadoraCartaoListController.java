@@ -39,7 +39,8 @@ public class OperadoraCartaoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome", "bandeira" };
+		return new String[] {"contaCaixa", "nome", "bandeira","taxaAdm","taxaAdmDebito","valorAluguelPosPin","vencimentoAluguel",
+				"fone1","fone2"};
 	}
 
 	@Override

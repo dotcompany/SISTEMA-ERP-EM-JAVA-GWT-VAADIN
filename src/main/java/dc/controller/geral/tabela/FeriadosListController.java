@@ -34,7 +34,7 @@ public class FeriadosListController extends CRUDListController<FeriadoEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "ano", "nome" };
+		return new String[] { "ano", "nome","abrangencia","uf","tipo","municipioIbge","data" };
 	}
 
 	@Override
