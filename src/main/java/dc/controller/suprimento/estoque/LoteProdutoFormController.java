@@ -89,16 +89,7 @@ public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEnt
 			
 			// Mapeia os campos
 			fieldGroup.bind(this.subView.getTxtNome(),"nome");
-			/*fieldGroup.bind(this.subView.getDtPrimeiroVencimento(),"primeiroVencimento");
-			fieldGroup.bind(this.subView.getCbDocumentoOrigem(),"documentoOrigem");
-			fieldGroup.bind(this.subView.getCbCliente(),"cliente");
-			
-			this.subView.getCbContaCaixa().configuraCombo(
-					"nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());
-			this.subView.getCbDocumentoOrigem().configuraCombo(
-					"descricao", DocumentoOrigemListController.class, this.documentoOrigemDAO, this.getMainController());
-			this.subView.getCbCliente().configuraCombo(
-					"pessoa.nome", ClienteListController.class, this.clienteDAO, this.getMainController());*/
+			fieldGroup.bind(this.subView.getPdDataCadastro(),"dataCadastro");
 
 		}catch (Exception e) {
 		   e.printStackTrace();

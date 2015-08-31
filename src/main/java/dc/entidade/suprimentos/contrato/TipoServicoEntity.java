@@ -10,7 +10,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -90,7 +89,7 @@ public class TipoServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return nome;
 	}
 
 }

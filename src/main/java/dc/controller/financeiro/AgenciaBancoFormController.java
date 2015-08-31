@@ -14,7 +14,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.entidade.geral.diverso.UfEntity;
-import dc.servicos.dao.financeiro.AgenciaBancoDAO;
+import dc.model.business.geral.pessoal.AgenciaBancoBusiness;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.servicos.dao.geral.UfDAO;
 import dc.visao.financeiro.AgenciaBancoFormView;
@@ -38,11 +38,11 @@ public class AgenciaBancoFormController extends CRUDFormController<AgenciaBancoE
 	 * BUSINESS
 	 */
 	
-	//@Autowired
-	//private AgenciaBancoBusiness<AgenciaBancoEntity> business;
-	
 	@Autowired
-	public AgenciaBancoDAO dao;
+	private AgenciaBancoBusiness<AgenciaBancoEntity> business;
+	
+	//@Autowired
+	//public AgenciaBancoDAO dao;
 
 	@Autowired
 	private BancoDAO bancoDAO;
@@ -50,9 +50,9 @@ public class AgenciaBancoFormController extends CRUDFormController<AgenciaBancoE
 	@Autowired
 	private UfDAO ufDAO;
 	
-	/**public AgenciaBancoBusiness<AgenciaBancoEntity> getBusiness() {
+	public AgenciaBancoBusiness<AgenciaBancoEntity> getBusiness() {
 		 return business;
-	}**/
+	}
 
 	@Override
 	protected String getNome() {
@@ -120,7 +120,7 @@ public class AgenciaBancoFormController extends CRUDFormController<AgenciaBancoE
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.dao.saveOrUpdate(this.currentBean);
+			this.business.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -133,7 +133,7 @@ public class AgenciaBancoFormController extends CRUDFormController<AgenciaBancoE
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.dao.find(id);
+			this.currentBean = this.business.find(id);
 			
 			 fieldGroup.setItemDataSource(this.currentBean);
 
@@ -158,7 +158,7 @@ public class AgenciaBancoFormController extends CRUDFormController<AgenciaBancoE
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.dao.deleteAll(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {

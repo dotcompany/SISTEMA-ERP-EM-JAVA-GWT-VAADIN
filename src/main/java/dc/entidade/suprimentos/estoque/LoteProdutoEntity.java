@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -69,16 +68,23 @@ public class LoteProdutoEntity extends AbstractMultiEmpresaModel<Integer> implem
 		@Caption(value = "Data Cadastro")
 	    @Column(name = "DATA_CADASTRO")
 	    @Temporal(TemporalType.DATE)
+	    @NotNull(message = "Data Cadastro é Obrigatório!")
 	    private Date dataCadastro;
 	    
+	    @Field
+		@Caption(value = "Data Compra")
 	    @Column(name = "DATA_COMPRA")
 	    @Temporal(TemporalType.DATE)
 	    private Date dataCompra;
 	    
+	    @Field
+		@Caption(value = "Data Fabricação")
 	    @Column(name = "DATA_FABRICACAO")
 	    @Temporal(TemporalType.DATE)
 	    private Date dataFabricacao;
 	    
+	    @Field
+		@Caption(value = "Data Vencimento")
 	    @Column(name = "DATA_VENCIMENTO")
 	    @Temporal(TemporalType.DATE)
 	    private Date dataVencimento;
@@ -89,7 +95,8 @@ public class LoteProdutoEntity extends AbstractMultiEmpresaModel<Integer> implem
 	    @Column(name = "OBSERVACAO")
 	    private String observacao;
 	    
-	    @OneToMany(mappedBy = "loteProduto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	   // @OneToMany(mappedBy = "loteProduto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	    @OneToMany(mappedBy="loteProduto", fetch = FetchType.LAZY)
 		@Fetch(FetchMode.SUBSELECT)
 		private List<NfeDetalheEntity> NfeDetalhe = new ArrayList<>();
 

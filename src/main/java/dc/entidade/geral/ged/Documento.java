@@ -62,6 +62,7 @@ public class Documento extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@Caption("Pode Excluir")
 	@Column(name = "PODE_EXCLUIR")
+	
 	private Boolean podeExcluir;
 
 	@Field

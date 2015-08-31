@@ -40,7 +40,7 @@ public class LoteProdutoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome" };
+		return new String[] {"codigo", "nome","dataCadastro","dataCompra","dataFabricacao","dataVencimento","descricao","observacao" };
 	}
 
 	@Override

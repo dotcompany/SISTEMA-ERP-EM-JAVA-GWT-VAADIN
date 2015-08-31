@@ -82,7 +82,6 @@ public class BancoFormController extends CRUDFormController<BancoEntity> {
 
         fieldGroup.bind(this.subView.getTxtNome(), "nome");
         fieldGroup.bind(this.subView.getTxtCodigo(), "codigo");
-        fieldGroup.bind(this.subView.getTxtURL(), "url");
 	}
 
 	/*

@@ -30,7 +30,8 @@ public class ContratoSolicitacaoServicoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "fornecedor","cliente","setor","colaborador","dataSolicitacao", "urgente", "descricao", "statusSolicitacao"  };
+		return new String[] { "fornecedor","cliente","setor","colaborador","contratoTipoServico","dataDesejadaInicio",
+				"dataSolicitacao", "urgente", "descricao", "statusSolicitacao"  };
 	}
 
 	@Override

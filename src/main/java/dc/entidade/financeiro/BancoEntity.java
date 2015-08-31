@@ -67,7 +67,6 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "URL")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Url é Obrigatório!")
 	private String url = "";
 
 	@Field
@@ -87,7 +86,8 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy = "banco", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	//@OneToMany(mappedBy = "banco", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="banco", fetch = FetchType.LAZY)
 	private List<AgenciaBancoEntity> agenciaBancoList = new ArrayList<>();
 
 	/**

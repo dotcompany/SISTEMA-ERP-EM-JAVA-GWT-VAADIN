@@ -29,7 +29,8 @@ public class ContratoListController extends CRUDListController<ContratoEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] {"pessoa", "numero", "nome", "dataCadastro", "observacao" };
+		return new String[] {"pessoa","tipoContrato","contratoSolicitacaoServico","documento", "numero", "nome", "dataCadastro", "observacao",
+				"dataInicioVigencia","dataFimVigencia","diaFaturamento","valor","quantidadeParcelas","intervaloEntreParcelas","descricao"};
 	}
 
 	@Override
