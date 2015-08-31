@@ -48,7 +48,7 @@ public class LancamentoPagarDAO extends AbstractCrudDAO<LancamentoPagarEntity> {
 	
 	@Transactional
 	public List<LancamentoPagarEntity> procuraNomeContendo(String query) {
-		return getSession().createQuery("from LancamentoPagar where fornecedor like :q")
+		return getSession().createQuery("from LancamentoPagar where valorTotal like :q")
 				.setParameter("q", "%" + query + "%").list();
 	}
 

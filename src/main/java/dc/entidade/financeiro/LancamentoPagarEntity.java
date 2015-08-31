@@ -17,7 +17,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -31,7 +30,6 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -78,25 +76,33 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Caption("Valor Total")
 	@Column(name = "VALOR_TOTAL", precision = 14, scale = 0)
 	//@NotNull(message = "Valor Total é Obrigatório")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorTotal;
 
 	@Field
 	@Column(name = "VALOR_A_PAGAR", precision = 14, scale = 0)
 	@Caption(value = "Valor à Pagar")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private BigDecimal valorAPagar;
 
 	@Field
 	@Caption(value = "Data Lançamento")
 	@Column(name = "DATA_LANCAMENTO")
 	@Temporal(TemporalType.DATE)
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataLancamento;
 
-	@Lob
+	/*@Lob
 	@Type(type = "text")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "IMAGEM_DOCUMENTO")
 	@Caption(value = "Imagem Documento")
-	private String imagemDocumento;
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private String imagemDocumento;*/
 
 	@JoinColumn(name = "ID_DOCUMENTO_ORIGEM", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
@@ -114,11 +120,15 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Caption(value = "Quantidade Parcela")
 	@Column(name = "QUANTIDADE_PARCELA")
 	@NotNull(message = "Quantidade de Parcelas é Obrigatório")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer quantidadeParcela;
 
 	@Field
 	@Caption(value = "Número Documento")
 	@Column(name = "NUMERO_DOCUMENTO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String numeroDocumento;
 
 	@Field
@@ -126,16 +136,22 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Temporal(TemporalType.DATE)
 	@Column(name = "PRIMEIRO_VENCIMENTO")
 	@NotNull(message = "Primeiro Vencimento é Obrigatório")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date primeiroVencimento;
 
 	@Field
 	@Caption(value = "Código Módulo Lcto.")
 	@Column(name = "CODIGO_MODULO_LCTO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoModuloLcto;
 
 	@Field
 	@Caption(value = "Intervalo Entre Parcelas")
 	@Column(name = "INTERVALO_ENTRE_PARCELAS")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer intervaloEntreParcelas;
 
 	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -193,13 +209,13 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 		this.dataLancamento = dataLancamento;
 	}
 
-	public String getImagemDocumento() {
+	/**public String getImagemDocumento() {
 		return imagemDocumento;
 	}
 
 	public void setImagemDocumento(String imagemDocumento) {
 		this.imagemDocumento = imagemDocumento;
-	}
+	}**/
 
 	@Override
 	public String toString() {

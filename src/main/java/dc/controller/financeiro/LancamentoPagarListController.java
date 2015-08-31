@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.LancamentoPagarEntity;
+import dc.entidade.geral.tabela.CfopEntity;
 import dc.servicos.dao.financeiro.LancamentoPagarDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -46,6 +47,16 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 
 	@Override
 	protected List<LancamentoPagarEntity> pesquisa(String valor) {
+		/*try {
+			List<LancamentoPagarEntity> auxLista = (List<LancamentoPagarEntity>) this.lancamentoPagarFormController.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}*/
+		
 		return dao.fullTextSearch(valor);
 	}
 
@@ -72,7 +83,21 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 
 	@Override
 	protected List<LancamentoPagarEntity> pesquisaDefault() {
-		return dao.getAll(LancamentoPagarEntity.class);
+		/*try {
+			List<LancamentoPagarEntity> auxLista = (List<LancamentoPagarEntity>) this.lancamentoPagarFormController.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+		
+	}*/
+		
+		return (List<LancamentoPagarEntity>) dao.getAll(getEntityClass());
+		
 	}
+	
 
 }
