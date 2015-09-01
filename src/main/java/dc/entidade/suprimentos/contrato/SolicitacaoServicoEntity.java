@@ -209,7 +209,7 @@ public class SolicitacaoServicoEntity extends
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return descricao;
 	}
 
 }

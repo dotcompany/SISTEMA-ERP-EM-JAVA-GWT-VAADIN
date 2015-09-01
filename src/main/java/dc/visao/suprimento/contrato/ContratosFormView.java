@@ -1082,6 +1082,8 @@ public class ContratosFormView extends CustomComponent {
 		historicoFaturamentoSubForm.fillWith(contrato.getContratosHistoricosFaturamentos());
 		historicoReajustesSubForm.fillWith(contrato.getContratosHistoricosReajustes());
 		previsaoFaturamentoSubForm.fillWith(contrato.getContratosPrevisoesFaturamentos());
+		
+		miniaturasLayout.removeAllComponents();
 
 		if (contrato.getDocumento() != null && contrato.getDocumento().getDocumentos() != null) {
 			for (DocumentoArquivo documentos : contrato.getDocumento().getDocumentos()) {

@@ -39,11 +39,10 @@ public class TipoDocumento extends AbstractMultiEmpresaModel<Integer> implements
 	    @Caption("Nome")
 	    private String nome;
 	    
+	    @Field
 	    @Column(name = "TAMANHO_MAXIMO")
 	    @Caption("Tamanho Maximo")
 	    private BigDecimal tamanhoMaximo;
-
-	    
 
 	    public TipoDocumento() {
 	    }
