@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -14,7 +15,9 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.suprimentos.estoque.NotaFiscal;
 
 @Entity
@@ -67,7 +70,12 @@ public class NotaFiscalEmitente extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "nome_municipio")
 	String cidade;
 
-	String uf;
+	//String uf;
+	
+	@Caption("UF")
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "uf")
+	private UfEntity uf;
 
 	@Column(name = "inscricao_estadual")
 	String inscricaoEstadual;
@@ -172,11 +180,11 @@ public class NotaFiscalEmitente extends AbstractMultiEmpresaModel<Integer> {
 		this.cidade = cidade;
 	}
 
-	public String getUf() {
+	public UfEntity getUf() {
 		return uf;
 	}
 
-	public void setUf(String uf) {
+	public void setUf(UfEntity uf) {
 		this.uf = uf;
 	}
 

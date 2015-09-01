@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Generated;
@@ -33,6 +34,7 @@ import dc.entidade.geral.pessoal.ClienteEntity;
 @Entity
 @Table(name = "os_carro")
 @Indexed
+@XmlRootElement
 @Analyzer(impl=BrazilianAnalyzer.class)
 public class CarroEntity extends AbstractMultiEmpresaModel<Integer> {
 
@@ -210,5 +212,12 @@ public class CarroEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
+	}
+	
+	@Override
+	public String toString() {
+		
+		return placa;
+		
 	}
 }

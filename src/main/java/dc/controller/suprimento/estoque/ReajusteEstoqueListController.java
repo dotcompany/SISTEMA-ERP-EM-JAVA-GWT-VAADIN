@@ -30,7 +30,7 @@ public class ReajusteEstoqueListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "colaborador", "dataReajuste", "tipoString" };
+		return new String[] {"colaborador", "porcentagem", "dataReajuste", "tipoString" };
 	}
 
 	@Override

@@ -14,19 +14,16 @@ import dc.control.util.classes.ordemservico.CarroUtils;
 import dc.control.validator.DotErpException;
 import dc.controller.geral.pessoal.ClienteListController;
 import dc.entidade.ordemservico.CarroEntity;
-import dc.entidade.ordemservico.CombustivelEntity;
-import dc.entidade.ordemservico.CorEntity;
-import dc.entidade.ordemservico.MarcaOsEntity;
 import dc.entidade.ordemservico.ModeloOsEntity;
-import dc.entidade.geral.pessoal.ClienteEntity;
-import dc.model.business.geral.pessoal.ClienteBusiness;
 import dc.model.business.ordemservico.CarroBusiness;
-import dc.model.business.ordemservico.CombustivelBusiness;
-import dc.model.business.ordemservico.CorBusiness;
-import dc.model.business.ordemservico.MarcaOsBusiness;
 import dc.model.business.ordemservico.ModeloOsBusiness;
+import dc.servicos.dao.geral.pessoal.ClienteDAO;
+import dc.servicos.dao.ordemservico.CombustivelDAO;
+import dc.servicos.dao.ordemservico.CorDAO;
+import dc.servicos.dao.ordemservico.MarcaDAO;
+import dc.servicos.dao.ordemservico.ModeloDAO;
 import dc.servicos.util.Validator;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModelSelect;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.CarroFormView;
@@ -46,7 +43,7 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 	@Autowired
 	private CarroBusiness<CarroEntity> business;
 
-	@Autowired
+	/*@Autowired
 	private CorBusiness<CorEntity> businessCor;
 
 	@Autowired
@@ -59,7 +56,27 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 	private ModeloOsBusiness<ModeloOsEntity> businessModeloOs;
 
 	@Autowired
-	private ClienteBusiness<ClienteEntity> businessCliente;
+	private ClienteBusiness<ClienteEntity> businessCliente;*/
+	
+	@Autowired
+	private ModeloOsBusiness<ModeloOsEntity> businessModeloOs;
+	
+	@Autowired
+	private CorDAO corDAO;
+	
+	@Autowired
+	private CombustivelDAO combustivelDAO;
+	
+	@Autowired
+	private MarcaDAO marcaDAO;
+	
+	@Autowired
+	private ModeloDAO modeloDAO;
+	
+	@Autowired
+	private ClienteDAO clienteDAO;
+	
+	
 
 	/**
 	 * CONSTRUTOR
@@ -135,21 +152,35 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 		}
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
-	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
-	 * padrÃ£o
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
-
 	@Override
 	protected void initSubView() {
-		subView = new CarroFormView(this);
-
-		preencheCombos();
+	
+		//preencheCombos();
+		
+		try {
+			subView = new CarroFormView(this);
+			this.fieldGroup = new DCFieldGroup<>(CarroEntity.class);
+		
+     	    //fieldGroup.bind(this.subView.getTfNome(), "nome");
+	        //fieldGroup.bind(this.subView.getMocUnidadeProduto(), "unidadeProduto");
+	       // fieldGroup.bind(this.subView.getMocSubGrupo(), "subGrupo");
+	        //fieldGroup.bind(this.subView.getCbIppt(), "ippt");
+			
+			        // Configura os ManyToOneComboFields
+			        this.subView.getCbCliente().configuraCombo(
+			                "pessoa.nome", ClienteListController.class, this.clienteDAO, this.getMainController());
+			        
+			        this.subView.getCbMarca().configuraCombo(
+			                "nome", MarcaListController.class, this.marcaDAO, this.getMainController());
+			        
+			        this.subView.getCbCor().configuraCombo(
+			                "nome", CorListController.class, this.corDAO, this.getMainController());
+			        
+			        this.subView.getCbCombustivel().configuraCombo(
+			                "nome", CombustivelListController.class, this.combustivelDAO, this.getMainController());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -161,12 +192,11 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 		currentBean = new CarroEntity();
 	}
 
-	private void preencheCombos() {
+	/*private void preencheCombos() {
 		DefaultManyToOneComboModel<ClienteEntity> cliente = new DefaultManyToOneComboModel<ClienteEntity>(ClienteListController.class,super.getMainController(),false,this.businessCliente);
 
 		this.subView.getCbCliente().setModel(cliente);
 
-		
 		DefaultManyToOneComboModel<MarcaOsEntity> marca = new DefaultManyToOneComboModel<MarcaOsEntity>(MarcaListController.class,super.getMainController(),false,this.businessMarcaOs);
 
 		this.subView.getCbMarca().setModel(marca);
@@ -180,7 +210,7 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 
 		this.subView.getCbCombustivel().setModel(combustivel);
 
-	}
+	}*/
 
 	
 	public void getModelo(String classePesquisa, Integer idSelecionado) {

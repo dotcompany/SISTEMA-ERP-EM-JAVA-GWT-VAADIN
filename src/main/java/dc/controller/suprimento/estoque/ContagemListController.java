@@ -50,7 +50,7 @@ public class ContagemListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Contagem";
+		return "Contagem Estoque";
 	}
 
 	@Override

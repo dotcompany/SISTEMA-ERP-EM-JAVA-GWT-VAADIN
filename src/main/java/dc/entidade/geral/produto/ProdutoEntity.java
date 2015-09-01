@@ -396,7 +396,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	/**
 	 * REFERENCIA - LIST
 	 */
-
+	
 	/**
 	 * CONSTRUTOR
 	 */
@@ -787,7 +787,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public void setIcmsCustomizado(IcmsCustomizadoCabecalhoEntity icmsCustomizado) {
 		this.icmsCustomizado = icmsCustomizado;
 	}
-
+	
 	/**
 	 * TO STRING
 	 */

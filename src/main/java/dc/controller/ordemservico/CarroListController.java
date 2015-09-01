@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.ordemservico.CarroEntity;
 import dc.servicos.dao.ordemservico.CarroDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -41,7 +42,7 @@ public class CarroListController extends CRUDListController<CarroEntity> {
 	
 	@Override
 	public String getViewIdentifier() {
-		return "listaCarro";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -51,13 +52,11 @@ public class CarroListController extends CRUDListController<CarroEntity> {
 
 	@Override
 	public Class<? super CarroEntity> getEntityClass() {
-		System.out.println("getEntityClass CarroListCrud");
 		return CarroEntity.class;
 	}
 
 	@Override
 	protected List<CarroEntity> pesquisaDefault() {
-System.out.println("pesquisaDefault CarroListCrud");
 		return dao.getAll(CarroEntity.class);
 	}
 

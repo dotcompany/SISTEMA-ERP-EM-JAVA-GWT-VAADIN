@@ -14,9 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.nfe.ImportaXMLNFe;
 import dc.entidade.nfe.NfeCabecalhoEntity;
@@ -29,6 +31,7 @@ import dc.entidade.suprimentos.NfeLocalRetirada;
 import dc.entidade.suprimentos.NotaFiscalEmitente;
 import dc.entidade.suprimentos.NotaReferenciada;
 import dc.entidade.suprimentos.estoque.NotaFiscal;
+import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.suprimentos.CupomVinculadoDAO;
 import dc.servicos.dao.suprimentos.DuplicataDAO;
 import dc.servicos.dao.suprimentos.NFEmitenteDAO;
@@ -58,6 +61,9 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 
 	@Autowired
 	NotaFiscalDAO dao;
+	
+	@Autowired
+	UfDAO ufDAO;
 
 	@Autowired
 	NFEmitenteDAO emitenteDAO;
@@ -245,10 +251,6 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 					.getCodigoMunicipioTransp().getValue()));
 		}
 
-		if (subView.getUfTransp() != null) {
-			transporte.setUf(subView.getUfTransp().getValue());
-		}
-
 		if (subView.getCfopTransp() != null
 				&& !(subView.getCfopTransp().getValue().isEmpty())) {
 			transporte.setCfop(new Integer(subView.getCfopTransp().getValue()));
@@ -276,10 +278,6 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 				&& !(subView.getIcmsRetidoTransp().getValue().isEmpty())) {
 			transporte.setValorIcmsRetido(new BigDecimal(subView
 					.getIcmsRetidoTransp().getValue()));
-		}
-
-		if (subView.getUfVeiculo() != null) {
-			transporte.setUfVeiculo(subView.getUfVeiculo().getValue());
 		}
 
 		if (subView.getPlacaVeiculo() != null) {
@@ -342,10 +340,6 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 
 			if (subView.getCidade() != null) {
 				emitente.setCidade(subView.getCidade().getValue());
-			}
-
-			if (subView.getUf() != null) {
-				emitente.setUf(subView.getUf().getValue());
 			}
 
 			if (subView.getInscricao() != null) {
@@ -416,11 +410,6 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 			entrega.setCidade(subView.getCidadeEnt().getValue());
 		}
 
-		if (subView.getUfEnt() != null
-				&& !(subView.getUfEnt().getValue().isEmpty())) {
-			entrega.setUf(subView.getUfEnt().getValue());
-		}
-
 		entrega.setNotaFiscal(currentBean);
 		localEntregaDAO.saveOrUpdate(entrega);
 	}
@@ -474,11 +463,6 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 			retirada.setCidade(subView.getCidadeRet().getValue());
 		}
 
-		if (subView.getUfRet() != null
-				&& !(subView.getUfRet().getValue().isEmpty())) {
-			retirada.setUf(subView.getUfRet().getValue());
-		}
-
 		retirada.setNotaFiscal(currentBean);
 		localRetiradaDAO.saveOrUpdate(retirada);
 	}
@@ -523,7 +507,7 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 		subView.getTxtSerie().setValue(currentBean.getSerie());
 		subView.getTxtNumero().setValue(currentBean.getNumero());
 
-		subView.carregarFormaPagamento();
+		/*subView.carregarFormaPagamento();
 		subView.carregarFormaEmissao();
 		subView.carregarTipoOperacao();
 		subView.carregarFinalidadeEmissao();
@@ -539,6 +523,7 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 		carregarTransporte();
 		carregarFatura();
 		carregarDuplicatas();
+		carregarUf();*/
 
 	}
 
@@ -719,7 +704,33 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 
 	@Override
 	protected void initSubView() {
-		subView = new NotaFiscalFormView(this);
+		
+		
+		try {
+			subView = new NotaFiscalFormView(this);
+			
+			subView.carregarFormaPagamento();
+			subView.carregarFormaEmissao();
+			subView.carregarTipoOperacao();
+			subView.carregarFinalidadeEmissao();
+			subView.carregarTipoDANFE();
+			subView.carregarCRT();
+			subView.carregarView(currentBean);
+
+			carregarEmitente();
+			carregarCuponsVinculados();
+			carregarNotasReferenciadas();
+			carregarLocalEntrega();
+			carregarLocalRetirada();
+			carregarTransporte();
+			carregarFatura();
+			carregarDuplicatas();
+			carregarUf();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
@@ -851,5 +862,21 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 
 	        //subView.getDadosNfe().fillWith(nfeCabecalho);
 	    }
+	    
+public void carregarUf() {
+	try {
+		List<UfEntity> auxLista = this.ufDAO.listaTodos();
+
+		BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
+				UfEntity.class, auxLista);
+
+		this.subView.getUf().setContainerDataSource(bic);
+		this.subView.getUf().setItemCaptionPropertyId("nome");
+	} catch (Exception e) {
+		e.printStackTrace();
+
+		throw e;
+	}
+}
 
 }

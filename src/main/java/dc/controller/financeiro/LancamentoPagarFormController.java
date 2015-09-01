@@ -25,7 +25,6 @@ import com.vaadin.ui.Component;
 import dc.control.enums.TipoVencimentoEn;
 import dc.control.util.ClassUtils;
 import dc.controller.geral.pessoal.FornecedorListController;
-import dc.controller.geral.pessoal.PessoaListController;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.entidade.financeiro.LctoPagarNtFinanceira;

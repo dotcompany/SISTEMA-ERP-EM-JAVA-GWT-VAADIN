@@ -117,29 +117,22 @@ public class RequisicaoCompraFormView extends CustomComponent {
 		fields.setMargin(false);
 		fields.setSpacing(true);
 
-		// lblId
-		lblId = new Label();
-		lblId.setCaption("Id");
-		lblId.setImmediate(false);
-		lblId.setSizeFull();
-		fields.addComponent(lblId, 0, 0);
-
 		// cmbTipoRequisicao
 		cmbTipoRequisicao = ComponentUtil.buildComboBox("Tipo de Requisição");
-		fields.addComponent(cmbTipoRequisicao, 1, 0);
+		fields.addComponent(cmbTipoRequisicao, 0, 0);
 
 		// lkpRequisitante
 		lkpRequisitante = ComponentUtil.buildLookup("Id", "Requisitante");
-		fields.addComponent(lkpRequisitante, 2, 0, 4, 0);
+		fields.addComponent(lkpRequisitante, 1, 0, 3, 0);
 
 		// calDataRequisicao
 		calDataRequisicao = new PopupDateField();
 		calDataRequisicao.setCaption("Data Requisição");
 		calDataRequisicao.setImmediate(false);
-		fields.addComponent(calDataRequisicao, 5, 0);
+		fields.addComponent(calDataRequisicao, 4, 0);
 
 		txtObservacao = ComponentUtil.buildTextArea("Observação");
-		fields.addComponent(txtObservacao, 0, 1);
+		fields.addComponent(txtObservacao, 0, 1, 4,1);
 
 		return fields;
 	}
@@ -165,8 +158,9 @@ public class RequisicaoCompraFormView extends CustomComponent {
 							BeanItemContainer<ProdutoEntity> produtoContainer = new BeanItemContainer<>(
 									ProdutoEntity.class,
 									controller.buscarProdutos());
+							produtoContainer.addNestedContainerProperty("nome");
 							comboBox.setContainerDataSource(produtoContainer);
-							comboBox.setItemCaptionPropertyId("descricao");
+							comboBox.setItemCaptionPropertyId("nome");
 							return comboBox;
 						} else if ("quantidade".equals(propertyId)) {
 							TextField textField = ComponentUtil

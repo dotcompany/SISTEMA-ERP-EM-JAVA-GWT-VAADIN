@@ -127,20 +127,13 @@ public class PedidoCompraFormView extends CustomComponent {
 		topFields.setWidth("100.0%");
 		topFields.setSpacing(true);
 
-		// lblId
-		lblId = new Label();
-		lblId.setCaption("Id");
-		lblId.setImmediate(false);
-		lblId.setSizeFull();
-		topFields.addComponent(lblId, 0, 0);
-
 		// cmbTipoPedido
 		cmbTipoPedido = ComponentUtil.buildComboBox("Tipo Pedido de Compra");
-		topFields.addComponent(cmbTipoPedido, 1, 0);
+		topFields.addComponent(cmbTipoPedido, 0, 0);
 
 		// cmbFornecedor
 		cmbFornecedor = ComponentUtil.buildComboBox("Fornecedor");
-		topFields.addComponent(cmbFornecedor, 2, 0, 4, 0);
+		topFields.addComponent(cmbFornecedor, 1, 0, 4, 0);
 
 		// calDataPedido
 		calDataPedido = new PopupDateField();
@@ -280,8 +273,9 @@ public class PedidoCompraFormView extends CustomComponent {
 							BeanItemContainer<ProdutoEntity> produtoContainer = new BeanItemContainer<>(
 									ProdutoEntity.class,
 									controller.buscarProdutos());
+							produtoContainer.addNestedContainerProperty("nome");
 							comboBox.setContainerDataSource(produtoContainer);
-							comboBox.setItemCaptionPropertyId("descricao");
+							comboBox.setItemCaptionPropertyId("nome");
 							return comboBox;
 						} else if ("quantidade".equals(propertyId)) {
 							TextField textField = ComponentUtil

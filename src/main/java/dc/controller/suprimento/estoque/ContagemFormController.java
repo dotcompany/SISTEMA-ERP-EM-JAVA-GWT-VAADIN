@@ -1,6 +1,8 @@
 package dc.controller.suprimento.estoque;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +78,7 @@ public class ContagemFormController extends
 
 	@Override
 	protected String getNome() {
-		return "Contagem";
+		return "Contagem Estoque";
 	}
 
 	@Override
@@ -93,6 +95,13 @@ public class ContagemFormController extends
 	@Override
 	public boolean isFullSized() {
 		return true;
+	}
+	
+	public ContagemDetalheEntity calculaAcuracidade(ContagemDetalheEntity contagem) {
+		
+		contagem.setAcuracidade(contagem.getQuantidadeSistema().divide(contagem.getQuantidadeContada(), RoundingMode.UP).multiply(BigDecimal.valueOf(100)));
+		
+		return contagem;
 	}
 
 	@Override
@@ -121,7 +130,7 @@ public class ContagemFormController extends
 			return false;
 		}
 	}
-
+	
 	@Override
 	protected void actionSalvar() {
 		try {

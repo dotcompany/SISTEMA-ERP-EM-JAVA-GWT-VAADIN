@@ -591,41 +591,41 @@ public class NotaFiscalFormView extends CustomComponent {
 		layout.addComponent(natureza, 4, 3, 6, 3);
 
 		// Linha 4
-		baseICMS = new TextField("Base de Cálculo ICMS");
+		baseICMS = ComponentUtil.buildCurrencyField("Base de Cálculo ICMS");
 		layout.addComponent(baseICMS, 0, 4);
 
-		valorICMS = new TextField("Valor do Cálculo ICMS");
+		valorICMS = ComponentUtil.buildCurrencyField("Valor do Cálculo ICMS");
 		layout.addComponent(valorICMS, 1, 4);
 
-		baseICMSST = new TextField("Base de Cálculo ICMS ST:");
+		baseICMSST = ComponentUtil.buildCurrencyField("Base de Cálculo ICMS ST:");
 		layout.addComponent(baseICMSST, 2, 4);
 
-		valorICMSST = new TextField("Valor do Cálculo ICMS ST:");
+		valorICMSST =ComponentUtil.buildCurrencyField("Valor do Cálculo ICMS ST:");
 		layout.addComponent(valorICMSST, 3, 4);
 
-		totalCofins = new TextField("Valor Total COFINS");
+		totalCofins = ComponentUtil.buildCurrencyField("Valor Total COFINS");
 		layout.addComponent(totalCofins, 4, 4);
 
-		totalProdutos = new TextField("Total Produtos");
+		totalProdutos = ComponentUtil.buildCurrencyField("Total Produtos");
 		layout.addComponent(totalProdutos, 5, 4);
 
 		// Linha 5
-		valorFrete = new TextField("Valor do Frete");
+		valorFrete = ComponentUtil.buildCurrencyField("Valor do Frete");
 		layout.addComponent(valorFrete, 0, 5);
 
-		valorSeguro = new TextField("Valor do Seguro");
+		valorSeguro = ComponentUtil.buildCurrencyField("Valor do Seguro");
 		layout.addComponent(valorSeguro, 1, 5);
 
-		outrasDespesas = new TextField("Outras Desp.Acessórias");
+		outrasDespesas = ComponentUtil.buildCurrencyField("Outras Desp.Acessórias");
 		layout.addComponent(outrasDespesas, 2, 5);
 
-		valorTotalPIS = new TextField("Valor Total do PIS");
+		valorTotalPIS = ComponentUtil.buildCurrencyField("Valor Total do PIS");
 		layout.addComponent(valorTotalPIS, 3, 5);
 
-		descontos = new TextField("Descontos");
+		descontos = ComponentUtil.buildCurrencyField("Descontos");
 		layout.addComponent(descontos, 4, 5);
 
-		totalNota = new TextField("Total Nota");
+		totalNota = ComponentUtil.buildCurrencyField("Total Nota");
 		layout.addComponent(totalNota, 5, 5);
 
 		// Linha 6
@@ -714,7 +714,7 @@ public class NotaFiscalFormView extends CustomComponent {
 
 	TextField cidade;
 
-	TextField uf;
+	ComboBox uf;
 
 	TextField inscricao;
 
@@ -787,11 +787,11 @@ public class NotaFiscalFormView extends CustomComponent {
 		this.cidade = cidade;
 	}
 
-	public TextField getUf() {
+	public ComboBox getUf() {
 		return uf;
 	}
 
-	public void setUf(TextField uf) {
+	public void setUf(ComboBox uf) {
 		this.uf = uf;
 	}
 
@@ -843,60 +843,51 @@ public class NotaFiscalFormView extends CustomComponent {
 		layout.setMargin(true);
 		layout.setSpacing(true);
 
-		cpfCnpjEm = new TextField("CPF/CNPJ Emitente");
+		cpfCnpjEm = ComponentUtil.buildTextField("CPF/CNPJ");
 		layout.addComponent(cpfCnpjEm, 0, 0);
 
-		razaoEm = new TextField("Razão Social");
-		razaoEm.setWidth("350");
-		layout.addComponent(razaoEm, 1, 0);
+		razaoEm = ComponentUtil.buildTextField("Razão Social");
+		layout.addComponent(razaoEm, 1, 0, 2,0);
 
-		fantasiaEm = new TextField("Nome Fantasia");
-		fantasiaEm.setWidth("300");
-		layout.addComponent(fantasiaEm, 2, 0);
+		fantasiaEm = ComponentUtil.buildTextField("Nome Fantasia");
+		layout.addComponent(fantasiaEm, 3, 0, 5,0);
 
-		cep = new MaskedTextField("CEP", "##.###-###");
+		cep = ComponentUtil.buildMaskedTextField("CEP", "##.###-###");
 		layout.addComponent(cep, 0, 1);
 
-		logradouro = new TextField("Logradouro");
-		logradouro.setWidth("250");
-		layout.addComponent(logradouro, 1, 1);
+		logradouro = ComponentUtil.buildTextField("Logradouro");
+		layout.addComponent(logradouro, 1, 1, 2,1);
 
-		numero = new TextField("Número");
-		layout.addComponent(numero, 2, 1);
+		numero = ComponentUtil.buildTextField("Número");
+		layout.addComponent(numero, 3, 1);
 
-		complemento = new TextField("Complemento");
-		complemento.setNullRepresentation("");
-		logradouro.setWidth("350");
-		layout.addComponent(complemento, 3, 1, 5, 1);
+		complemento = ComponentUtil.buildTextField("Complemento");
+		layout.addComponent(complemento, 4, 1, 5, 1);
 
 		// Linha 3
-		bairro = new TextField("Bairro");
-
+		bairro = ComponentUtil.buildTextField("Bairro");
 		layout.addComponent(bairro, 0, 2);
 
-		codigoMunicipio = new TextField("Código IBGE");
+		codigoMunicipio = ComponentUtil.buildTextField("Código IBGE");
 		layout.addComponent(codigoMunicipio, 1, 2);
 
-		cidade = new TextField("Cidade");
-		cidade.setWidth("300");
-		layout.addComponent(cidade, 2, 2, 3, 2);
+		cidade = ComponentUtil.buildTextField("Cidade");
+		layout.addComponent(cidade, 2, 2, 3,2);
 
-		uf = new TextField("UF");
-		uf.setMaxLength(2);
-		layout.addComponent(uf, 4, 2);
+		uf = ComponentUtil.buildComboBox("UF");
+		layout.addComponent(uf, 4, 2, 5,2);
 
 		// Linha 4
 
-		inscricao = new TextField("Inscrição Estadual");
+		inscricao = ComponentUtil.buildTextField("Inscrição Estadual");
 		layout.addComponent(inscricao, 0, 3);
 
-		telefone = new TextField("Telefone");
-		telefone.setWidth("160");
+		telefone = ComponentUtil.buildMaskedTextField("Telefone", "(##) ####-#####");
 		layout.addComponent(telefone, 1, 3);
 
-		crt = new ComboBox("CRT");
+		crt = ComponentUtil.buildComboBox("CRT");
 		carregarCRT();
-		layout.addComponent(crt, 2, 3);
+		layout.addComponent(crt, 2, 3, 3,3);
 
 		subForms.addTab(layout, "Emitente", null);
 	}
@@ -1138,7 +1129,7 @@ public class NotaFiscalFormView extends CustomComponent {
 
 	TextField cidadeEnt;
 
-	TextField ufEnt;
+	ComboBox ufEnt;
 
 	TextField cnpjRet;
 
@@ -1154,7 +1145,7 @@ public class NotaFiscalFormView extends CustomComponent {
 
 	TextField cidadeRet;
 
-	TextField ufRet;
+	ComboBox ufRet;
 
 	public TextField getCnpjEnt() {
 		return cnpjEnt;
@@ -1212,11 +1203,11 @@ public class NotaFiscalFormView extends CustomComponent {
 		this.cidadeEnt = cidadeEnt;
 	}
 
-	public TextField getUfEnt() {
+	public ComboBox getUfEnt() {
 		return ufEnt;
 	}
 
-	public void setUfEnt(TextField ufEnt) {
+	public void setUfEnt(ComboBox ufEnt) {
 		this.ufEnt = ufEnt;
 	}
 
@@ -1276,11 +1267,11 @@ public class NotaFiscalFormView extends CustomComponent {
 		this.cidadeRet = cidadeRet;
 	}
 
-	public TextField getUfRet() {
+	public ComboBox getUfRet() {
 		return ufRet;
 	}
 
-	public void setUfRet(TextField ufRet) {
+	public void setUfRet(ComboBox ufRet) {
 		this.ufRet = ufRet;
 	}
 
@@ -1325,10 +1316,7 @@ public class NotaFiscalFormView extends CustomComponent {
 		cidadeEnt.setWidth("300");
 		layout.addComponent(cidadeEnt, 3, 1, 5, 1);
 
-		ufEnt = new TextField("UF");
-		ufEnt.setNullRepresentation(" ");
-		ufEnt.setMaxLength(2);
-		ufEnt.setWidth("50");
+		ufEnt = ComponentUtil.buildComboBox("UF");
 		layout.addComponent(ufEnt, 6, 1);
 
 		entrega.setContent(layout);
@@ -1373,10 +1361,7 @@ public class NotaFiscalFormView extends CustomComponent {
 		cidadeRet.setWidth("300");
 		layoutRet.addComponent(cidadeRet, 3, 1, 5, 1);
 
-		ufRet = new TextField("UF");
-		ufRet.setNullRepresentation(" ");
-		ufRet.setMaxLength(2);
-		ufRet.setWidth("50");
+		ufRet = ComponentUtil.buildComboBox("UF");
 		layoutRet.addComponent(ufRet, 6, 1);
 
 		retirada.setContent(layoutRet);
@@ -1411,7 +1396,7 @@ public class NotaFiscalFormView extends CustomComponent {
 
 	TextField cidadeTransp;
 
-	TextField ufTransp;
+	ComboBox ufTransp;
 
 	TextField codigoMunicipioTransp;
 
@@ -1425,7 +1410,7 @@ public class NotaFiscalFormView extends CustomComponent {
 
 	TextField icmsRetidoTransp;
 
-	TextField ufVeiculo;
+	ComboBox ufVeiculo;
 
 	TextField placaVeiculo;
 
@@ -1471,11 +1456,11 @@ public class NotaFiscalFormView extends CustomComponent {
 		this.cidadeTransp = cidadeTransp;
 	}
 
-	public TextField getUfTransp() {
+	public ComboBox getUfTransp() {
 		return ufTransp;
 	}
 
-	public void setUfTransp(TextField ufTransp) {
+	public void setUfTransp(ComboBox ufTransp) {
 		this.ufTransp = ufTransp;
 	}
 
@@ -1527,11 +1512,11 @@ public class NotaFiscalFormView extends CustomComponent {
 		this.icmsRetidoTransp = icmsRetidoTransp;
 	}
 
-	public TextField getUfVeiculo() {
+	public ComboBox getUfVeiculo() {
 		return ufVeiculo;
 	}
 
-	public void setUfVeiculo(TextField ufVeiculo) {
+	public void setUfVeiculo(ComboBox ufVeiculo) {
 		this.ufVeiculo = ufVeiculo;
 	}
 
@@ -1670,7 +1655,7 @@ public class NotaFiscalFormView extends CustomComponent {
 		cidadeTransp.setWidth("400");
 		gridTransporte.addComponent(cidadeTransp, 4, 1, 5, 1);
 
-		ufTransp = new MaskedTextField("UF", "UU");
+		ufTransp = ComponentUtil.buildComboBox("UF");
 		gridTransporte.addComponent(ufTransp, 6, 1);
 
 		panelTransporte.setContent(gridTransporte);
@@ -1689,13 +1674,13 @@ public class NotaFiscalFormView extends CustomComponent {
 		cfopTransp = new TextField("CFOP");
 		gridRetencao.addComponent(cfopTransp, 1, 0);
 
-		baseCalculoTransp = new TextField("Base de Cálculo");
+		baseCalculoTransp = ComponentUtil.buildCurrencyField("Base de Cálculo");
 		gridRetencao.addComponent(baseCalculoTransp, 2, 0);
 
 		aliquotaTransp = new TextField("Aliquota");
 		gridRetencao.addComponent(aliquotaTransp, 3, 0);
 
-		valorServicoTransp = new TextField("Valor Serviço");
+		valorServicoTransp = ComponentUtil.buildCurrencyField("Valor Serviço");
 		gridRetencao.addComponent(valorServicoTransp, 4, 0);
 
 		icmsRetidoTransp = new TextField("ICMS Retido");
@@ -1711,7 +1696,7 @@ public class NotaFiscalFormView extends CustomComponent {
 		gridVeiculo.setMargin(true);
 		gridVeiculo.setSpacing(true);
 
-		ufVeiculo = new MaskedTextField("UF", "UU");
+		ufVeiculo = ComponentUtil.buildComboBox("UF");
 		gridVeiculo.addComponent(ufVeiculo, 0, 0);
 
 		placaVeiculo = new MaskedTextField("Placa", "UUU-####");
@@ -1768,9 +1753,9 @@ public class NotaFiscalFormView extends CustomComponent {
 
 	public void buildAbaCobranca() {
 		numeroFatura = new TextField("Número");
-		valorOriginalFatura = new TextField("Valor Original");
-		valorDescontoFatura = new TextField("Valor Desconto");
-		valorLiquidoFatura = new TextField("Valor Liquido");
+		valorOriginalFatura = ComponentUtil.buildCurrencyField("Valor Original");
+		valorDescontoFatura = ComponentUtil.buildCurrencyField("Valor Desconto");
+		valorLiquidoFatura = ComponentUtil.buildCurrencyField("Valor Liquido");
 
 		GridLayout gridFatura = new GridLayout(4, 1);
 		gridFatura.setImmediate(false);
@@ -1822,8 +1807,7 @@ public class NotaFiscalFormView extends CustomComponent {
 
 							return textField;
 						} else if ("valor".equals(propertyId)) {
-							TextField textField = ComponentUtil
-									.buildNumberField(null);
+							TextField textField = ComponentUtil.buildCurrencyField(null);
 
 							return textField;
 						}

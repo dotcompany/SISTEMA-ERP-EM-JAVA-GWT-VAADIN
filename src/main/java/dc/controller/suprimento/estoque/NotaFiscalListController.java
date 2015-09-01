@@ -34,7 +34,10 @@ public class NotaFiscalListController extends CRUDListController<NotaFiscal> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "serie", "numero" };
+		return new String[] {"status","chaveAcesso","modelo", "serie", "numero","dataEmissao","dataEntradaSaida","horaEntradaSaida",
+				"tipoOperacao","formaPagamento","formaEmissao","finalidadeEmissao","tipoImpressaoDanfe","naturezaOperacao",
+				"baseCalculoIcms","valorIcms","baseCalculoIcmsSt","valorIcmsSt","valorCofins","valorFrete","valorSeguro","outrasDespesasAcessorias",
+				"valorPis","valorDescontos","valorTotalProdutos","valorTotalNota","informacoesFisco","informacoesContribuinte"};
 	}
 
 	@Override
