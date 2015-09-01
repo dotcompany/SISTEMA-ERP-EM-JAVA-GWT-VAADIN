@@ -16,7 +16,7 @@ import dc.model.dao.geral.pessoal.AgenciaBancoDAO;
 
 @Service
 @Transactional(readOnly = true)
-public class AgenciaBancoBusinessImpl implements FornecedorBusiness<AgenciaBancoEntity>, Serializable  {	
+public class AgenciaBancoBusinessImpl implements AgenciaBancoBusiness<AgenciaBancoEntity>, Serializable  {	
 	
 	
 private static final long serialVersionUID = 1L;

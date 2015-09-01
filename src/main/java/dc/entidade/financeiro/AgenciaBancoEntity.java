@@ -17,6 +17,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -52,7 +53,8 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "agencia_banco_id_seq")
+	@SequenceGenerator(name = "agencia_banco_id_seq", sequenceName = "agencia_banco_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -161,8 +163,8 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Caption("Banco")
-	@ManyToOne(optional = false)
-    @JoinColumn(name = "id_banco", referencedColumnName = "ID")
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) 
+	@JoinColumn(name = "id_banco", referencedColumnName = "id")
 	@NotNull(message = "Banco é Obrigatório!")
 	private BancoEntity banco;
 

@@ -286,6 +286,15 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
+	public int fullTextSearchCount(String searchValue, FmMenu menu, List<Filter> filters) {
+		FullTextSession fullTextSession = getFullTextSession();
+
+		org.apache.lucene.search.Query query = createQuery(searchValue, getSearchFields(), menu, filters, fullTextSession, null);		
+		
+		return fullTextSession.createFullTextQuery(query, getEntityClass()).getResultSize();
+	}
+	
+	@Transactional
 	private List<T> fullTextSearch(String value, String[] searchFields, int first, int pageSize, String[] sortingFieldsStrings, boolean[] sortStates, FmMenu menu, List<Filter> filters) {
 		FullTextSession fullTextSession = getFullTextSession();
 
@@ -304,18 +313,9 @@ public abstract class AbstractCrudDAO<T> {
 		// q.setMaxResults(pageSize);
 		List<T> resultSet = q.list();
 
-		/*try {
-			List<T> resultSet2 = fullTextSession.createFullTextQuery(
-					new QueryParser(Version.LUCENE_CURRENT, "title", getFullTextSession().getSearchFactory().getAnalyzer(Documento.class)).parse(q.getQueryString()), getEntityClass()).list();
-		resultSet = resultSet2;
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}*/
-
 		logger.info("found for: " + value);
 		logger.info("found: " + resultSet.size() + " entities...");
 
-		//filterEmpresa(menu, resultSet);
 		return resultSet;
 	}
 
@@ -339,44 +339,7 @@ public abstract class AbstractCrudDAO<T> {
 		
 		return query;
 	}
-
-	@Transactional
-	public int fullTextSearchCount(String searchValue, FmMenu menu, List<Filter> filters) {
-		FullTextSession fullTextSession = getFullTextSession();
-
-		org.apache.lucene.search.Query query = createQuery(searchValue, getSearchFields(), menu, filters, fullTextSession, null);
-		/*try {
-		  int resultSize = 
-				  fullTextSession.createFullTextQuery(new QueryParser(Version.LUCENE_CURRENT, "", new BrazilianAnalyzer()).parse("+empresa.id:87"), getEntityClass()).getResultSize()
-				  ;
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-
-		//List list = fullTextSession.createFullTextQuery(query, getEntityClass()).list();
-	//	filterEmpresa(menu, list);
-		
-		
-		return fullTextSession.createFullTextQuery(query, getEntityClass()).getResultSize();
-	}
-
-	/*private void filterEmpresa(FmMenu menu, List list) {
-		if (isConsultaMultiEmpresa(getEntityClass(), menu, null)) {
-			for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-				Object object = (Object) iterator.next();
-				if (object instanceof AbstractMultiEmpresaModel) {
-					AbstractMultiEmpresaModel entity = (AbstractMultiEmpresaModel) object;
-					Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta().getEmpresa().getId();
-
-					if (entity.getEmpresa().getId() != idEmpresa) {
-						iterator.remove();
-					}
-				}
-			}
-		}
-	}
-*/
+	
 	private org.apache.lucene.search.Query createSimpleFullTextQuery(String value, String[] searchFields, FullTextSession fullTextSession, List<Filter> filters) {
 		BooleanQuery booleanQuery = createFieldQueryByValue(value, searchFields);
 

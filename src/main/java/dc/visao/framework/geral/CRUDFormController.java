@@ -391,6 +391,7 @@ public abstract class CRUDFormController<E extends AbstractModel> extends
     }
 
     private void addChangeListeners() {
+    	changed = false;
         percorreComponentes(view);
 
     }

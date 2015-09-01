@@ -77,6 +77,8 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Data Cadastro")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_CADASTRO")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
 	@Field
@@ -118,12 +120,17 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "VALOR")
 	private BigDecimal valor;
 
+	@Field
+	@Caption(value = "Quantidade de Parcelas")
 	@Column(name = "QUANTIDADE_PARCELAS")
 	private Integer quantidadeParcelas;
 
+	@Field
+	@Caption(value = "Intervalo entre Parcelas")
 	@Column(name = "INTERVALO_ENTRE_PARCELAS")
 	private Integer intervaloEntreParcelas;
 
+	@Field
 	@Caption(value = "Observação")
 	private String observacao;
 
@@ -137,6 +144,7 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne(optional = false)
 	private TipoContratoEntity tipoContrato;
 
+	@Caption(value = "Solicitação de Serviço")
 	@JoinColumn(name = "ID_SOLICITACAO_SERVICO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	private SolicitacaoServicoEntity contratoSolicitacaoServico;

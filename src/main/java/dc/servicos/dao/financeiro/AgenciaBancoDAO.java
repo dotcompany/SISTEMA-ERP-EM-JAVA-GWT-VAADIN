@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.financeiro.AgenciaBancoEntity;
-import dc.entidade.financeiro.BancoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
@@ -61,16 +60,5 @@ public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 		} catch (Exception e) {
 			throw e;
 		}
-	}
-	
-	@Override
-	@Transactional
-	public <E> void saveOrUpdate(E o) {
-		AgenciaBancoEntity agenciaBancoEntity = (AgenciaBancoEntity)o;
-		if(agenciaBancoEntity.getBanco() != null){
-			BancoEntity banco = bancoDAO.find(agenciaBancoEntity.getBanco().getId());
-			agenciaBancoEntity.setBanco(banco);
-		}
-		super.saveOrUpdate(o);
 	}
 }
