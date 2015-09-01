@@ -65,7 +65,7 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@Caption("URL")
 	@Column(name = "URL")
-	@ComboValue
+	
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Url é Obrigatório!")
 	private String url = "";
@@ -73,7 +73,7 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@Caption("Código")
 	@Column(name = "CODIGO")
-	@ComboValue
+	
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Código é Obrigatório!")
 	private String codigo = "";

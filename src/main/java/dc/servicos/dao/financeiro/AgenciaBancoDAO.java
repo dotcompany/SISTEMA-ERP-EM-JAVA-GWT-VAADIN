@@ -3,15 +3,20 @@ package dc.servicos.dao.financeiro;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.financeiro.AgenciaBancoEntity;
+import dc.entidade.financeiro.BancoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 
+	@Autowired
+	private BancoDAO bancoDAO;
+	
 	@Override
 	public Class<AgenciaBancoEntity> getEntityClass() {
 		return AgenciaBancoEntity.class;
@@ -28,7 +33,7 @@ public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"banco","codigo","nome", "logradouro","cep","telefone","contato"};
+		return new String[] {"banco", "nome", "codigo", "logradouro","cep","telefone","contato"};
 	}
 	
 	@Transactional
@@ -57,5 +62,15 @@ public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 			throw e;
 		}
 	}
-
+	
+	@Override
+	@Transactional
+	public <E> void saveOrUpdate(E o) {
+		AgenciaBancoEntity agenciaBancoEntity = (AgenciaBancoEntity)o;
+		if(agenciaBancoEntity.getBanco() != null){
+			BancoEntity banco = bancoDAO.find(agenciaBancoEntity.getBanco().getId());
+			agenciaBancoEntity.setBanco(banco);
+		}
+		super.saveOrUpdate(o);
+	}
 }

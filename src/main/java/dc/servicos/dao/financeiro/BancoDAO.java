@@ -37,7 +37,7 @@ public class BancoDAO extends AbstractCrudDAO<BancoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "codigo", "nome", "url" };
+		return new String[] { "nome", "codigo", "url" };
 	}
 
 }

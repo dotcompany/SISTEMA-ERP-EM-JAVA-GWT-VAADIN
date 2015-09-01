@@ -195,28 +195,16 @@ public abstract class AbstractCrudDAO<T> {
 	public List<T> getAllForCombo(final Class<T> type, int idEmpresa, FmMenu menu, Boolean getAll) {
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria crit = session.createCriteria(type);
-		
-		//crit.createAlias(type.getSimpleName(), type.getName().substring(0, 1));
-		
-		/*crit.setProjection(Projections.projectionList()
-		      .add(Projections.property(comboCode), comboCode)
-		    .add(Projections.property(comboValue), comboValue))
-		 .setResultTransformer(new AliasToBeanConstructorResultTransformer(type.getConstructors()[0]));
-	*/
-
+	
 		if (getAll == null) {
 			getAll = false;
 		}
 
 		if (!getAll && isConsultaMultiEmpresa(getEntityClass(), menu)) {
 			crit.add(Restrictions.eq("empresa.id", idEmpresa));
-		}
-
-		String order = comboValue.contains(".") ? comboValue.split("\\.")[0] : comboValue;
-		List list = crit.addOrder(Order.asc(order)).list();
-		return list;
+		}		
 		
-		//return comboFilteredSearch(null, menu, getAll, null);
+		return comboFilteredSearch(null, menu, getAll, null);
 	}
 
 	@Transactional
@@ -228,7 +216,13 @@ public abstract class AbstractCrudDAO<T> {
 
 		org.apache.lucene.search.Query query = createQuery(value, fields, menu, filters, fullTextSession, getAll);
 
-		resultSet = fullTextSession.createFullTextQuery(query, getEntityClass()).setFirstResult(0).list();
+		SortField[] sortingFields = new SortField[1];
+		sortingFields[0] = new SortField(comboValue, SortField.Type.STRING, true);
+		
+		FullTextQuery fullTextQuery = fullTextSession.createFullTextQuery(query, getEntityClass());
+		configureSorting(sortingFields, fullTextQuery);
+		
+		resultSet = fullTextQuery.setFirstResult(0).list();	
 
 		return resultSet;
 	}
@@ -332,12 +326,17 @@ public abstract class AbstractCrudDAO<T> {
 			searchFields = new String[0];
 		}
 
-		if (isConsultaMultiEmpresa(getEntityClass(), menu, getAll)) {
+
+		if (getAll == null) {
+			getAll = false;
+		}
+
+		if (!getAll && isConsultaMultiEmpresa(getEntityClass(), menu)) {
 			query = createMultiEmpresaQuery(value, searchFields, menu, filters);
 		} else {
 			query = createSimpleFullTextQuery(value, searchFields, fullTextSession, filters);
 		}
-
+		
 		return query;
 	}
 
@@ -385,6 +384,14 @@ public abstract class AbstractCrudDAO<T> {
 
 		if (filtersQuery != null) {
 			booleanQuery.add(filtersQuery, Occur.MUST);
+		}
+		
+		if("".equals(booleanQuery.toString())){
+			QueryParser parser = new QueryParser(Version.LUCENE_43, "id", fullTextSession.getSearchFactory().getAnalyzer("id_empresa_analyzer"));
+			try {
+				booleanQuery.add(parser.parse("[0 999999]"), Occur.SHOULD);
+			} catch (ParseException e) {
+			}
 		}
 
 		return booleanQuery;
@@ -754,7 +761,7 @@ public abstract class AbstractCrudDAO<T> {
 		org.apache.lucene.search.Query booleanQuery = createQuery(value, fields, menu, null, fullTextSession, getAll);
 		resultSet = fullTextSession.createFullTextQuery(booleanQuery, getEntityClass()).setFirstResult(0).list();
 
-		return resultSet;
+		return comboFilteredSearch(value, menu, getAll, null);
 	}
 
 	@Transactional

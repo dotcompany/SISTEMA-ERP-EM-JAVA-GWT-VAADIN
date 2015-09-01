@@ -116,10 +116,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	public List<T> getResultado(String q) {
 		System.out.println("");
 
-		CRUDListController ctrl = (CRUDListController) mainController
-				.getEntityController(ctrlClass);
-
-		FmMenu menu = ctrl.getMenu();
+		FmMenu menu = mainController.getMenu(this.ctrlClass.getName());
 
 		if (business != null) {
 			try {
@@ -277,9 +274,15 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		if (filters != null && !filters.isEmpty()) {
 			return dao.comboFilteredSearch(null, menu, this.getAll, filters);
 		}
-		return dao.getAllForCombo(this.getEntityClass(),
-				SecuritySessionProvider.getUsuario().getConta().getEmpresa()
-						.getId(), menu, this.getAll);
+		
+		long inicio = System.currentTimeMillis();
+		 List<T> allForCombo = dao.getAllForCombo(this.getEntityClass(),
+					SecuritySessionProvider.getUsuario().getConta().getEmpresa()
+							.getId(), menu, this.getAll);
+		
+		long fim = System.currentTimeMillis();
+		System.out.println(fim-inicio);
+		return allForCombo;
 	}
 
 	@Override
