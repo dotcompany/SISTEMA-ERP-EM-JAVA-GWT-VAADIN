@@ -48,6 +48,7 @@ import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.ged.Documento;
 import dc.entidade.geral.ged.DocumentoArquivo;
+import dc.entidade.geral.ged.TipoDocumento;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
@@ -595,10 +596,19 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			List<String> listArquivos = subView.getListArquivos();
 			List<String> listArquivosExcluidos = subView.getListArquivosExcluidos();
 
-			contratoDAO.saveOrUpdate(currentBean);
+			
+			
 			if (currentBean.getDocumento() != null) {
+				TipoDocumento tipoDocumento = documentoBusiness.findTipoDocumento("Contrato");
+				if(tipoDocumento == null){
+					mensagemAtencao("Crie um tipo de documento chamado \"Contrato\"");
+					return;
+				}
+				currentBean.getDocumento().setTipoDocumento(tipoDocumento);
+				currentBean.getDocumento().setTemplateContrato(false);
 				documentoBusiness.gravarAnexo(currentBean.getDocumento(), listArquivos, listArquivosExcluidos, null, "");
 			}
+			contratoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();

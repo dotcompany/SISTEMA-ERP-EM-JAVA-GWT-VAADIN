@@ -14,9 +14,11 @@ import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.geral.ged.Documento;
 import dc.entidade.geral.ged.DocumentoArquivo;
+import dc.entidade.geral.ged.TipoDocumento;
 import dc.entidade.geral.ged.VersaoDocumento;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.servicos.dao.geral.ged.DocumentoDAO;
+import dc.servicos.dao.geral.ged.TipoDocumentoDAO;
 import dc.servicos.util.Util;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -26,6 +28,9 @@ public class DocumentoBusinessImpl implements DocumentoBusiness {
 
 	@Autowired
 	private DocumentoDAO documentoDAO;
+	@Autowired
+	private TipoDocumentoDAO tipoDocumentoDAO;
+	
 	private String homePath = System.getProperty("user.home");
 	private String customCompanyBaseFolder = "dc-erp";
 
@@ -54,7 +59,7 @@ public class DocumentoBusinessImpl implements DocumentoBusiness {
 
 				}
 				if (arquivo != null && arquivo.exists()) {
-					if (documento.getAssinado()) {
+					if (documento.getAssinado() != null && documento.getAssinado()) {
 						byte[] assinatura = Util.geraAssinaturaArquivo(Util.lerBytesArquivo(arquivo), certificado, senhaCertificado.toCharArray());
 						// usa o array de bytes e salva
 						Util.gravarArquivo(hash, assinatura);
@@ -248,6 +253,15 @@ public class DocumentoBusinessImpl implements DocumentoBusiness {
 		} else {
 			return !arquivo.getAbsolutePath().contains(getDiretorio(documento));
 		}
+	}
+
+	@Override
+	public TipoDocumento findTipoDocumento(String valor) {
+		List<TipoDocumento> tipoDocumento = tipoDocumentoDAO.fullTextSearch(valor);
+		if (tipoDocumento.size() > 0) {
+			return tipoDocumento.get(0);
+		}
+		return null;
 	}
 
 }

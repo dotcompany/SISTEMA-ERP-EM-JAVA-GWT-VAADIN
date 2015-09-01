@@ -251,7 +251,7 @@ public abstract class AbstractCrudDAO<T> {
 		UsuarioEntity usuarioEntity = (UsuarioEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		boolean isAdm = usuarioEntity != null && (usuarioEntity.getSuperAdministrador() == null ? false : usuarioEntity.getSuperAdministrador());
 
-		if (Boolean.TRUE.equals(menu.getSuperAdministradorOnly()) && !isAdm) {
+		if (menu != null && Boolean.TRUE.equals(menu.getSuperAdministradorOnly()) && !isAdm) {
 			return true;
 		}
 

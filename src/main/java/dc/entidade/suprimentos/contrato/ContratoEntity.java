@@ -9,6 +9,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,8 +25,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -151,7 +150,7 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Caption(value = "Modelo Documento")
 	@JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	private Documento documento;
 
 	/**
@@ -160,24 +159,20 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 	 * 
 	 */
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@Caption(value = "Pessoa")
 	private PessoaEntity pessoa;
 
-	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<HistFaturamentoEntity> contratosHistoricosFaturamentos = new ArrayList<>();
 
-	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ContratoProduto> contratoProduto = new ArrayList<>();
 
-	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<HistoricoReajusteEntity> contratosHistoricosReajustes = new ArrayList<>();
 
-	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<PrevFaturamentoEntity> contratosPrevisoesFaturamentos = new ArrayList<>();
 
 	/*
