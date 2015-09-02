@@ -26,7 +26,8 @@ public class OrcamentoOsListController extends CRUDListController<OrcamentoOsEnt
 
 	@Override
 	public String[] getColunas() {
-		return new String[] {"placa", "nome"};
+		return new String[] {"nomeVendedor","formaPagamento","nome","endereco","fone", "placa","marca","modelo","cor",
+				"ano","motor","motorizacao"};
 	}
 
 	@Override

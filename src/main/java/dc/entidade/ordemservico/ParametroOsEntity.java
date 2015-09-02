@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +26,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.visao.ordemservico.SimNaoEn;
 
 @Entity
 @Table(name = "os_parametros")
@@ -43,15 +46,27 @@ public class ParametroOsEntity extends AbstractMultiEmpresaModel<Integer> implem
 
 	@Caption("Limpar BD")
 	@Column(name = "limpar_bd")
-	private Boolean limparBdAut;
+	@Enumerated(EnumType.STRING)
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn limparBdAut;
 
 	
 	@Caption("Usar vendedor\\atendente")
 	@Column(name = "vendedor_atendente")
+	//@Enumerated(EnumType.STRING)
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean vendedorAtendente;
 
 	@Caption("Usar vendedor no produto")
 	@Column(name = "vendedor_produto")
+	//@Enumerated(EnumType.STRING)
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean vendedorProduto;
 
 	@Caption("Usar vendedor no serviço")
@@ -64,10 +79,18 @@ public class ParametroOsEntity extends AbstractMultiEmpresaModel<Integer> implem
 
 	@Caption("Usar desconto geral")
 	@Column(name = "desconto_geral")
-	private Boolean descontoGeral;
+	@Enumerated(EnumType.STRING)
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	private SimNaoEn descontoGeral;
 
 	@Caption("Usar técnico lançam. produto")
 	@Column(name = "tecnico_produto")
+	//@Enumerated(EnumType.STRING)
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean tecnicoProduto;
 
 	@Caption("Usar O.S simplificada")
@@ -80,6 +103,10 @@ public class ParametroOsEntity extends AbstractMultiEmpresaModel<Integer> implem
 
 	@Caption("Perguntar qtd dias próxima revisão")
 	@Column(name = "qtd_dias_revisao")
+	//@Enumerated(EnumType.STRING)
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Boolean qtdDiasRevisao;
 
 	@Caption("Qtde dias padrão revisão")
@@ -123,11 +150,11 @@ public class ParametroOsEntity extends AbstractMultiEmpresaModel<Integer> implem
 		this.id = id;
 	}
 
-	public Boolean getLimparBdAut() {
+	public SimNaoEn getLimparBdAut() {
 		return limparBdAut;
 	}
 
-	public void setLimparBdAut(Boolean limparBdAut) {
+	public void setLimparBdAut(SimNaoEn limparBdAut) {
 		this.limparBdAut = limparBdAut;
 	}
 
@@ -155,11 +182,11 @@ public class ParametroOsEntity extends AbstractMultiEmpresaModel<Integer> implem
 		this.valorPagoPeca = valorPagoPeca;
 	}
 
-	public Boolean getDescontoGeral() {
+	public SimNaoEn getDescontoGeral() {
 		return descontoGeral;
 	}
 
-	public void setDescontoGeral(Boolean descontoGeral) {
+	public void setDescontoGeral(SimNaoEn descontoGeral) {
 		this.descontoGeral = descontoGeral;
 	}
 

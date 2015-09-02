@@ -377,8 +377,8 @@ public class OrdemServicoFormView extends CustomComponent {
 		cbSituacaoServico.setCaption("Situação do serviço");
 		gridLayout_1.addComponent(cbSituacaoServico,2,3,3,3);
 		
-		tfFone = ComponentUtil.buildTextField("Telefone");
-		gridLayout_1.addComponent(tfFone,4,3,4,3);
+		tfFone = ComponentUtil.buildMaskedTextField("Telefone","(##) #####-####");
+		gridLayout_1.addComponent(tfFone,5,3,5,3);
 
 		 
 		// Placa do veículo
@@ -424,7 +424,7 @@ public class OrdemServicoFormView extends CustomComponent {
 			gridLayout_1.addComponent(pdfProximaRevisao,3,4);
 			gridLayout_1.addComponent(cbTipoServico,4,4,5,4);
 		}else{
-			gridLayout_1.addComponent(cbTipoServico,3,4,5,4);
+			gridLayout_1.addComponent(cbTipoServico,4,4,5,4);
 		}
 
 

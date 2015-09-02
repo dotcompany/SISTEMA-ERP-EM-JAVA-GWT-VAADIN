@@ -14,6 +14,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.folhapagamento.movimento.PppCatFormController;
 import dc.entidade.folhapagamento.movimento.PppEntity;
+import dc.visao.framework.util.ComponentUtil;
 
 public class PppCatFormView extends CustomComponent {
 
@@ -154,37 +155,20 @@ public class PppCatFormView extends CustomComponent {
 		gridLayout_1.setColumns(2);
 
 		// tfNumeroCat
-		tfNumeroCat = new TextField();
-		tfNumeroCat.setCaption("Número cat:");
-		tfNumeroCat.setImmediate(false);
-		tfNumeroCat.setWidth("175px");
-		tfNumeroCat.setHeight("-1px");
-		tfNumeroCat.setSizeFull();
-		tfNumeroCat.setNullRepresentation("");
+		tfNumeroCat = ComponentUtil.buildNumericField("Número cat:");
 		gridLayout_1.addComponent(tfNumeroCat, 0, 1);
 
 		// pdfDataAfastamento
-		pdfDataAfastamento = new PopupDateField();
-		pdfDataAfastamento.setCaption("Data do afastamento:");
-		pdfDataAfastamento.setImmediate(false);
-		pdfDataAfastamento.setWidth("-1px");
-		pdfDataAfastamento.setHeight("-1px");
+		pdfDataAfastamento = ComponentUtil.buildPopupDateField("Data do afastamento:");
 		gridLayout_1.addComponent(pdfDataAfastamento, 1, 1);
 
 		// pdfDataRegistro
-		pdfDataRegistro = new PopupDateField();
-		pdfDataRegistro.setCaption("Data do registro:");
-		pdfDataRegistro.setImmediate(false);
-		pdfDataRegistro.setWidth("-1px");
-		pdfDataRegistro.setHeight("-1px");
+		pdfDataRegistro = ComponentUtil.buildPopupDateField("Data do registro:");
 		gridLayout_1.addComponent(pdfDataRegistro, 0, 2);
 
 		// cbPpp
-		cbPpp = new ComboBox();
-		cbPpp.setCaption("PPP");
+		cbPpp = ComponentUtil.buildComboBox("PPP");
 		cbPpp.setImmediate(false);
-		cbPpp.setWidth("-1px");
-		cbPpp.setHeight("-1px");
 		cbPpp.setRequired(true);
 		gridLayout_1.addComponent(cbPpp, 1, 2);
 

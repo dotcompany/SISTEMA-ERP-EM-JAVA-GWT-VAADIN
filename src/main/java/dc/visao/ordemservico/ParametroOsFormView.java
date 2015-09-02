@@ -11,6 +11,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.ordemservico.ParametroOsFormController;
+import dc.entidade.financeiro.type.StatusChequeType;
 import dc.visao.framework.util.ComponentUtil;
 
 public class ParametroOsFormView extends CustomComponent {
@@ -78,65 +79,65 @@ public class ParametroOsFormView extends CustomComponent {
 		cbLimparBD = ComponentUtil.buildComboBox("Limpar banco de dados automaticamente");
 		gridLayout_1.addComponent(cbLimparBD,0,1,1,1);
 
-		for (SimNao value : SimNao.values()) {
-			cbLimparBD.addItem(value.valor);
-			cbLimparBD.setItemCaption(value.valor, value.label);
+		for (SimNaoEn value : SimNaoEn.values()) {
+			cbLimparBD.addItem(value);
+			//cbLimparBD.setItemCaption(value.valor, value.label);
 		}
 		
 		cbVendedorAtendente = ComponentUtil.buildComboBox("Usar vendedor\\atendente");
 		gridLayout_1.addComponent(cbVendedorAtendente,2,1,3,1);
 
-		for (SimNao value : SimNao.values()) {
-			cbVendedorAtendente.addItem(value.valor);
-			cbVendedorAtendente.setItemCaption(value.valor, value.label);
+		for (SimNaoEn value : SimNaoEn.values()) {
+			cbVendedorAtendente.addItem(value);
+			//cbVendedorAtendente.setItemCaption(value.valor, value.label);
 		}
 
 		cbVendedorProduto= ComponentUtil.buildComboBox("Usar vendedor no lançamento de produto");
 		gridLayout_1.addComponent(cbVendedorProduto,4,1,5,1);
 
-		for (SimNao value : SimNao.values()) {
-			cbVendedorProduto.addItem(value.valor);
-			cbVendedorProduto.setItemCaption(value.valor, value.label);
+		for (SimNaoEn value : SimNaoEn.values()) {
+			cbVendedorProduto.addItem(value);
+			//cbVendedorProduto.setItemCaption(value.valor, value.label);
 		}
 
 		cbValorPagoPeca= ComponentUtil.buildComboBox("Usar campo valor pago na peça\\produto");
 		gridLayout_1.addComponent(cbValorPagoPeca,0,2,1,2);
 
-		for (SimNao value : SimNao.values()) {
-			cbValorPagoPeca.addItem(value.valor);
-			cbValorPagoPeca.setItemCaption(value.valor, value.label);
+		for (SimNaoEn value : SimNaoEn.values()) {
+			cbValorPagoPeca.addItem(value);
+			//cbValorPagoPeca.setItemCaption(value.valor, value.label);
 		}
 
 		cbDesconto= ComponentUtil.buildComboBox("Usar desconto geral");
 		gridLayout_1.addComponent(cbDesconto,2,2,3,2);
 
-		for (SimNao value : SimNao.values()) {
-			cbDesconto.addItem(value.valor);
-			cbDesconto.setItemCaption(value.valor, value.label);
+		for (SimNaoEn value : SimNaoEn.values()) {
+			cbDesconto.addItem(value);
+			//cbDesconto.setItemCaption(value.valor, value.label);
 		}
 
 		cbTecnicoProduto= ComponentUtil.buildComboBox("Usar técnico no lançamento de produto");
 		gridLayout_1.addComponent(cbTecnicoProduto,4,2,5,2);
 
-		for (SimNao value : SimNao.values()) {
-			cbTecnicoProduto.addItem(value.valor);
-			cbTecnicoProduto.setItemCaption(value.valor, value.label);
+		for (SimNaoEn value : SimNaoEn.values()) {
+			cbTecnicoProduto.addItem(value);
+			//cbTecnicoProduto.setItemCaption(value.valor, value.label);
 		}
 
 		cbVendedorServico= ComponentUtil.buildComboBox("Usar vendedor no lançamento de seviço");
 		gridLayout_1.addComponent(cbVendedorServico,0,3,1,3);
 
-		for (SimNao value : SimNao.values()) {
-			cbVendedorServico.addItem(value.valor);
-			cbVendedorServico.setItemCaption(value.valor, value.label);
+		for (SimNaoEn value : SimNaoEn.values()) {
+			cbVendedorServico.addItem(value);
+			//cbVendedorServico.setItemCaption(value.valor, value.label);
 		}
 
 		cbProximaRevisao = ComponentUtil.buildComboBox("Perguntar quantidade de dias próxima revisão");
 		gridLayout_1.addComponent(cbProximaRevisao,2,3,3,3);
 
-		for (SimNao value : SimNao.values()) {
-			cbProximaRevisao.addItem(value.valor);
-			cbProximaRevisao.setItemCaption(value.valor, value.label);
+		for (SimNaoEn value : SimNaoEn.values()) {
+			cbProximaRevisao.addItem(value);
+			//cbProximaRevisao.setItemCaption(value.valor, value.label);
 		}
 
 		tfDiasPadrao = ComponentUtil.buildNumericField("Quantidade dias padrão");
@@ -167,7 +168,7 @@ public class ParametroOsFormView extends CustomComponent {
 		subForms.addTab(gridLayout_1, "Ordem serviço", null);
 	}
 
-	public enum SimNao {
+	/*public enum SimNao {
 
 		SIM("Sim", true), NAO("Não", false);
 
@@ -202,7 +203,7 @@ public class ParametroOsFormView extends CustomComponent {
 		public String toString() {
 			return label;
 		}
-	}
+	}*/
 
 	public OptionGroup getOptBaixaProduto() {
 		return optBaixaProduto;

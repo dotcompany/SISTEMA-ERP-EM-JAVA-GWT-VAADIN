@@ -1,6 +1,7 @@
 package dc.entidade.folhapagamento.movimento;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -47,7 +49,7 @@ public class PppEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "folha_ppp_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "folha_ppp_id_seq")
 	@SequenceGenerator(name = "folha_ppp_id_seq", sequenceName = "folha_ppp_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	private Integer id;
@@ -55,6 +57,7 @@ public class PppEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "observacao")
 	@Field
 	@Caption("Observação")
+	@NotNull(message = "Observação é Obrigatório!")
 	private String observacao = "";
 
 	/**
@@ -65,8 +68,8 @@ public class PppEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador", nullable = false)
+    @NotNull(message = "Colaborador é Obrigatório!")
 	@Caption("Colaborador")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ColaboradorEntity colaborador;
 
 	/**
@@ -74,7 +77,7 @@ public class PppEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 */
 
 	@OneToMany(mappedBy = "ppp", fetch = FetchType.LAZY)
-	private List<PppAtividadeEntity> pppAtividadeList;
+	private List<PppAtividadeEntity> pppAtividadeList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "ppp", fetch = FetchType.LAZY)
 	private List<PppCatEntity> pppCatList;

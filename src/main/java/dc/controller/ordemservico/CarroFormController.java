@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.ordemservico.CarroUtils;
-import dc.control.validator.DotErpException;
 import dc.controller.geral.pessoal.ClienteListController;
 import dc.entidade.ordemservico.CarroEntity;
 import dc.entidade.ordemservico.ModeloOsEntity;
@@ -21,8 +20,7 @@ import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.ordemservico.CombustivelDAO;
 import dc.servicos.dao.ordemservico.CorDAO;
 import dc.servicos.dao.ordemservico.MarcaDAO;
-import dc.servicos.dao.ordemservico.ModeloDAO;
-import dc.servicos.util.Validator;
+import dc.servicos.dao.ordemservico.ModeloOsDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModelSelect;
 import dc.visao.framework.geral.CRUDFormController;
@@ -71,7 +69,7 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 	private MarcaDAO marcaDAO;
 	
 	@Autowired
-	private ModeloDAO modeloDAO;
+	private ModeloOsDAO modeloDAO;
 	
 	@Autowired
 	private ClienteDAO clienteDAO;
@@ -105,26 +103,6 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 
 	@Override
 	protected void actionSalvar() {
-		String placa = subView.getTfPlaca().getValue();
-		if (Validator.validateString(placa)) {
-			placa = placa.replace("-", "").trim();
-			this.currentBean.setPlaca(placa);
-		}
-		this.currentBean.setCliente(subView.getCbCliente().getValue());
-		this.currentBean.setMarca(subView.getCbMarca().getValue());
-		this.currentBean.setCor(subView.getCbCor().getValue());
-		this.currentBean.setModelo(subView.getCbModelo().getValue());
-		this.currentBean.setCombustivel(subView.getCbCombustivel().getValue());
-		this.currentBean.setMotorizacao(subView.getTfMotorizacao().getValue());
-		if(subView.getTfAno()!=null && !subView.getTfAno().getValue().equals("")){
-			this.currentBean.setAno(Integer.parseInt(subView.getTfAno().getValue().toString()));
-		}
-		if(subView.getTfChassi()!=null && !subView.getTfChassi().getValue().equals("")){
-			this.currentBean.setChassi(subView.getTfChassi().getValue());
-		}
-		if(subView.getTaObservacao()!=null && !subView.getTaObservacao().getValue().equals("")){
-			this.currentBean.setObservacao(subView.getTaObservacao().getValue());
-		}
 		try {
 			this.business.saveOrUpdate(this.currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -137,16 +115,7 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 	protected void carregar(Serializable id) {
 		try {
 			this.currentBean = this.business.find(id);
-			subView.getTfPlaca().setValue(this.currentBean.getPlaca());
-			subView.getCbCliente().setValue(this.currentBean.getCliente());
-			subView.getCbMarca().setValue(this.currentBean.getMarca());
-			subView.getCbCor().setValue(this.currentBean.getCor());
-			subView.getCbModelo().setValue(this.currentBean.getModelo());
-			subView.getCbCombustivel().setValue(this.currentBean.getCombustivel());
-			subView.getTfMotorizacao().setValue(this.currentBean.getMotorizacao());
-			subView.getTfAno().setValue(this.currentBean.getAno().toString());
-			subView.getTfChassi().setValue(this.currentBean.getChassi());
-			subView.getTaObservacao().setValue(this.currentBean.getObservacao());
+			fieldGroup.setItemDataSource(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -161,10 +130,11 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 			subView = new CarroFormView(this);
 			this.fieldGroup = new DCFieldGroup<>(CarroEntity.class);
 		
-     	    //fieldGroup.bind(this.subView.getTfNome(), "nome");
-	        //fieldGroup.bind(this.subView.getMocUnidadeProduto(), "unidadeProduto");
-	       // fieldGroup.bind(this.subView.getMocSubGrupo(), "subGrupo");
-	        //fieldGroup.bind(this.subView.getCbIppt(), "ippt");
+     	    fieldGroup.bind(this.subView.getTfPlaca(), "placa");
+			
+	        fieldGroup.bind(this.subView.getCbCliente(), "cliente");
+	        fieldGroup.bind(this.subView.getCbMarca(), "marca");
+			fieldGroup.bind(this.subView.getCbModelo(), "modelo");
 			
 			        // Configura os ManyToOneComboFields
 			        this.subView.getCbCliente().configuraCombo(
@@ -178,6 +148,9 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 			        
 			        this.subView.getCbCombustivel().configuraCombo(
 			                "nome", CombustivelListController.class, this.combustivelDAO, this.getMainController());
+			        
+			        this.subView.getCbModelo().configuraCombo(
+			                "nome", ModeloListController.class, this.modeloDAO, this.getMainController());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -189,7 +162,15 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CarroEntity();
+		
+		
+		try {
+			currentBean = new CarroEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch(Exception e) {
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	/*private void preencheCombos() {
@@ -213,12 +194,12 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 	}*/
 
 	
-	public void getModelo(String classePesquisa, Integer idSelecionado) {
+	/*public void getModelo(String classePesquisa, Integer idSelecionado) {
 		DefaultManyToOneComboModelSelect<ModeloOsEntity> modelo = new DefaultManyToOneComboModelSelect<ModeloOsEntity>(ModeloListController.class, this.businessModeloOs,
 				super.getMainController(), classePesquisa, idSelecionado, false);
 
 		this.subView.getCbModelo().setModel(modelo);
-	}
+	}*/
 
 	@Override
 	protected void remover(List<Serializable> ids) {
@@ -236,11 +217,9 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			CarroUtils.validateRequiredFields(this.subView);
-
+			fieldGroup.commit();
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 
 			return false;
 		}
@@ -248,6 +227,13 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+	
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override

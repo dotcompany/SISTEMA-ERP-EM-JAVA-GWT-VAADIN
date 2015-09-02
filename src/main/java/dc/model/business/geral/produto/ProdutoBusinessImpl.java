@@ -51,7 +51,7 @@ public class ProdutoBusinessImpl implements Serializable,
 	@Autowired
 	private ProdutoDAO<ProdutoEntity> dao;
 
-	@Autowired
+	/*@Autowired
 	private UnidadeProdutoDAO<UnidadeProdutoEntity> unidadeProdutoDAO;
 
 	@Autowired
@@ -200,7 +200,7 @@ public class ProdutoBusinessImpl implements Serializable,
 
 			ProdutoEntity ent = (ProdutoEntity) o;
 
-			if (ObjectUtils.isNotBlank(ent.getAlmoxarifado())) {
+			/*if (ObjectUtils.isNotBlank(ent.getAlmoxarifado())) {
 				AlmoxarifadoEntity almoxarifado = this.almoxarifadoDAO.find(ent
 						.getAlmoxarifado().getId());
 				ent.setAlmoxarifado(almoxarifado);
@@ -242,7 +242,7 @@ public class ProdutoBusinessImpl implements Serializable,
 				IcmsCustomizadoCabecalhoEntity icms = this.icmsCustomizadoDAO.find(ent
 						.getIcmsCustomizado().getId());
 				ent.setIcmsCustomizado(icms);
-			}
+			}*/
 
 			this.dao.saveOrUpdate(ent);
 		} catch (Exception e) {

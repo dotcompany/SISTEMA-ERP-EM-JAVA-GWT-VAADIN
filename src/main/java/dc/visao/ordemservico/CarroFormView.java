@@ -107,8 +107,7 @@ public class CarroFormView extends CustomComponent {
 
 		cbCliente = new ManyToOneComboField<>(ClienteEntity.class);
 		cbCliente.setCaption("Cliente");
-		cbCliente.setRequired(true);
-		cbCliente.addValueChangeListener(new ValueChangeListener() {
+		/*cbCliente.addValueChangeListener(new ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -118,19 +117,18 @@ public class CarroFormView extends CustomComponent {
 				tfRazao.setValue(cli.getPessoa().getNome());
 			}
 			
-		});
+		});*/
 		fields.addComponent(cbCliente, 0,1,0,1);
 
 		tfRazao = ComponentUtil.buildTextField("Razão");
 		fields.addComponent(tfRazao,1,1,2,1);
 		
 		tfPlaca = ComponentUtil.buildMaskedTextField("Placa", "UUU-####");
-		tfPlaca.setRequired(true);
 		fields.addComponent(tfPlaca,0,2,0,2);
 		
 		cbMarca = new ManyToOneComboField<>(MarcaOsEntity.class);
 		cbMarca.setCaption("Marca");
-		cbMarca.addValueChangeListener(new ValueChangeListener() {
+		/*cbMarca.addValueChangeListener(new ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -138,23 +136,19 @@ public class CarroFormView extends CustomComponent {
 				controller.getModelo("marca", cbMarca.getValue().getId());
 			}
 			
-		});
-		cbMarca.setRequired(true);
+		});*/
 		fields.addComponent(cbMarca, 0, 3, 0, 3);
 
 		cbModelo = new ManyToOneComboField<>(ModeloOsEntity.class);
 		cbModelo.setCaption("Modelo");
-		cbModelo.setRequired(true);
 		fields.addComponent(cbModelo, 1, 3, 1, 3);
 
 		cbCor = new ManyToOneComboField<>(CorEntity.class);
 		cbCor.setCaption("Cor");
-		cbCor.setRequired(true);
 		fields.addComponent(cbCor, 0, 4, 0, 4);
 
 		cbCombustivel = new ManyToOneComboField<>(CombustivelEntity.class);
 		cbCombustivel.setCaption("Combustível");
-		cbCombustivel.setRequired(true);
 		fields.addComponent(cbCombustivel, 1, 4, 1, 4);
 
 		tfAno = new TextField();

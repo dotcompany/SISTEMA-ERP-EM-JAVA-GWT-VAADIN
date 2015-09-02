@@ -1,22 +1,21 @@
 package dc.controller.folhapagamento.cadastro;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.folhapagamento.cadastro.GuiaAcumuladaEntity;
 import dc.servicos.dao.folhapagamento.cadastro.GuiaAcumuladaDAO;
 import dc.visao.folhapagamento.cadastro.GuiaAcumuladaFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
@@ -60,52 +59,6 @@ public class GuiaAcumuladaFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			String gpsTipo = this.subView.getTfGpsTipo().getValue();
-			String gpsCompetencia = this.subView.getTfGpsCompetencia()
-					.getValue();
-			Double gpsValorInss = Double.parseDouble(this.subView
-					.getTfGpsValorInss().getValue());
-			Double gpsValorOutrasEnt = Double.parseDouble(this.subView
-					.getTfGpsValorOutrasEnt().getValue());
-			Date gpsDataPagamento = this.subView.getPdfGpsDataPagamento()
-					.getValue();
-			String irrfCompetencia = this.subView.getTfIrrfCompetencia()
-					.getValue();
-			Integer irrfCodigoRecolhimento = Integer.parseInt(this.subView
-					.getTfIrrfCodigoRecolhimento().getValue());
-			Double irrfValorAcumulado = Double.parseDouble(this.subView
-					.getTfIrrfValorAcumulado().getValue());
-			Date irrfDataPagamento = this.subView.getPdfIrrfDataPagamento()
-					.getValue();
-			String pisCompetencia = this.subView.getTfPisCompetencia()
-					.getValue();
-			Double pisValorAcumulado = Double.parseDouble(this.subView
-					.getTfPisValorAcumulado().getValue());
-			Date pisDataPagamento = this.subView.getPdfPisDataPagamento()
-					.getValue();
-
-			this.pEntity.setGpsTipo(gpsTipo);
-			this.pEntity.setGpsCompetencia(gpsCompetencia);
-			this.pEntity.setGpsValorInss(gpsValorInss);
-			this.pEntity.setGpsValorOutrasEnt(gpsValorOutrasEnt);
-			this.pEntity.setGpsDataPagamento(gpsDataPagamento);
-			this.pEntity.setIrrfCompetencia(irrfCompetencia);
-			this.pEntity.setIrrfCodigoRecolhimento(irrfCodigoRecolhimento);
-			this.pEntity.setIrrfValorAcumulado(irrfValorAcumulado);
-			this.pEntity.setIrrfDataPagamento(irrfDataPagamento);
-			this.pEntity.setPisCompetencia(pisCompetencia);
-			this.pEntity.setPisValorAcumulado(pisValorAcumulado);
-			this.pEntity.setPisDataPagamento(pisDataPagamento);
-
-			/** Empresa vinda da conta do usuário logado */
-
-			EmpresaEntity empresa = SecuritySessionProvider.getUsuario().getConta()
-					.getEmpresa();
-
-			this.pEntity.setEmpresa(empresa);
-
-			/** ************************************** */
-
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);
@@ -113,86 +66,15 @@ public class GuiaAcumuladaFormController extends
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
-		} finally {
-			novoObjeto(0);
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			novoObjeto(id);
-
-			/*
-			 * this.pEntity = this.pDAO.find(id);
-			 * 
-			 * this.subView.getTfGpsTipo().setValue(this.pEntity.getGpsTipo());
-			 * this.subView.getTfGpsCompetencia().setValue(
-			 * this.pEntity.getGpsCompetencia());
-			 * this.subView.getTfGpsValorInss().setValue(
-			 * this.pEntity.getGpsValorInss().toString());
-			 * this.subView.getTfGpsValorOutrasEnt().setValue(
-			 * this.pEntity.getGpsValorOutrasEnt().toString());
-			 * this.subView.getPdfGpsDataPagamento().setValue(
-			 * this.pEntity.getGpsDataPagamento());
-			 * this.subView.getTfIrrfCompetencia().setValue(
-			 * this.pEntity.getIrrfCompetencia());
-			 * this.subView.getTfIrrfCodigoRecolhimento().setValue(
-			 * this.pEntity.getIrrfCodigoRecolhimento().toString());
-			 * this.subView.getTfIrrfValorAcumulado().setValue(
-			 * this.pEntity.getIrrfValorAcumulado().toString());
-			 * this.subView.getPdfIrrfDataPagamento().setValue(
-			 * this.pEntity.getIrrfDataPagamento());
-			 * this.subView.getTfPisCompetencia().setValue(
-			 * this.pEntity.getPisCompetencia());
-			 * this.subView.getTfPisValorAcumulado().setValue(
-			 * this.pEntity.getPisValorAcumulado().toString());
-			 * this.subView.getPdfPisDataPagamento().setValue(
-			 * this.pEntity.getPisDataPagamento());
-			 */
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
-		try {
-			novoObjeto(0);
-
-			/*
-			 * this.pEntity = new GuiaAcumuladaEntity();
-			 * 
-			 * this.subView.getTfGpsTipo().setValue(this.pEntity.getGpsTipo());
-			 * this.subView.getTfGpsCompetencia().setValue(
-			 * this.pEntity.getGpsCompetencia());
-			 * this.subView.getTfGpsValorInss().setValue(
-			 * this.pEntity.getGpsValorInss().toString());
-			 * this.subView.getTfGpsValorOutrasEnt().setValue(
-			 * this.pEntity.getGpsValorOutrasEnt().toString());
-			 * this.subView.getPdfGpsDataPagamento().setValue(
-			 * this.pEntity.getGpsDataPagamento());
-			 * this.subView.getTfIrrfCompetencia().setValue(
-			 * this.pEntity.getIrrfCompetencia());
-			 * this.subView.getTfIrrfCodigoRecolhimento().setValue(
-			 * this.pEntity.getIrrfCodigoRecolhimento().toString());
-			 * this.subView.getTfIrrfValorAcumulado().setValue(
-			 * this.pEntity.getIrrfValorAcumulado().toString());
-			 * this.subView.getPdfIrrfDataPagamento().setValue(
-			 * this.pEntity.getIrrfDataPagamento());
-			 * this.subView.getTfPisCompetencia().setValue(
-			 * this.pEntity.getPisCompetencia());
-			 * this.subView.getTfPisValorAcumulado().setValue(
-			 * this.pEntity.getPisValorAcumulado().toString());
-			 * this.subView.getPdfPisDataPagamento().setValue(
-			 * this.pEntity.getPisDataPagamento());
-			 */
+			this.pEntity = this.pDAO.find(id);
+			
+			fieldGroup.setItemDataSource(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -202,7 +84,28 @@ public class GuiaAcumuladaFormController extends
 
 	@Override
 	protected void initSubView() {
-		this.subView = new GuiaAcumuladaFormView(this);
+		
+		try {
+			
+			this.subView = new GuiaAcumuladaFormView(this);
+			this.fieldGroup = new DCFieldGroup<>(GuiaAcumuladaEntity.class);
+			
+			fieldGroup.bind(this.subView.getTfGpsTipo(),"gpsTipo");
+			fieldGroup.bind(this.subView.getTfGpsCompetencia(),"gpsCompetencia");
+			fieldGroup.bind(this.subView.getTfGpsValorInss(),"gpsValorInss");
+			fieldGroup.bind(this.subView.getTfGpsValorOutrasEnt(),"gpsValorOutrasEnt");
+			fieldGroup.bind(this.subView.getPdfGpsDataPagamento(),"gpsDataPagamento");
+			fieldGroup.bind(this.subView.getTfIrrfCompetencia(),"irrfCompetencia");
+			fieldGroup.bind(this.subView.getTfIrrfCodigoRecolhimento(),"irrfCodigoRecolhimento");
+			fieldGroup.bind(this.subView.getTfIrrfValorAcumulado(),"irrfValorAcumulado");
+			fieldGroup.bind(this.subView.getPdfIrrfDataPagamento(),"irrfDataPagamento");
+			fieldGroup.bind(this.subView.getTfPisCompetencia(),"pisCompetencia");
+			fieldGroup.bind(this.subView.getTfPisValorAcumulado(),"pisValorAcumulado");
+			fieldGroup.bind(this.subView.getPdfPisDataPagamento(),"pisDataPagamento");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -212,39 +115,10 @@ public class GuiaAcumuladaFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			if (this.pDAO == null) {
-				this.pDAO = new GuiaAcumuladaDAO();
-			}
 
-			novoObjeto(0);
-
-			/*
-			 * this.pEntity = new GuiaAcumuladaEntity();
-			 * 
-			 * this.subView.getTfGpsTipo().setValue(this.pEntity.getGpsTipo());
-			 * this.subView.getTfGpsCompetencia().setValue(
-			 * this.pEntity.getGpsCompetencia());
-			 * this.subView.getTfGpsValorInss().setValue(
-			 * this.pEntity.getGpsValorInss().toString());
-			 * this.subView.getTfGpsValorOutrasEnt().setValue(
-			 * this.pEntity.getGpsValorOutrasEnt().toString());
-			 * this.subView.getPdfGpsDataPagamento().setValue(
-			 * this.pEntity.getGpsDataPagamento());
-			 * this.subView.getTfIrrfCompetencia().setValue(
-			 * this.pEntity.getIrrfCompetencia());
-			 * this.subView.getTfIrrfCodigoRecolhimento().setValue(
-			 * this.pEntity.getIrrfCodigoRecolhimento().toString());
-			 * this.subView.getTfIrrfValorAcumulado().setValue(
-			 * this.pEntity.getIrrfValorAcumulado().toString());
-			 * this.subView.getPdfIrrfDataPagamento().setValue(
-			 * this.pEntity.getIrrfDataPagamento());
-			 * this.subView.getTfPisCompetencia().setValue(
-			 * this.pEntity.getPisCompetencia());
-			 * this.subView.getTfPisValorAcumulado().setValue(
-			 * this.pEntity.getPisValorAcumulado().toString());
-			 * this.subView.getPdfPisDataPagamento().setValue(
-			 * this.pEntity.getPisDataPagamento());
-			 */
+			this.pEntity = new GuiaAcumuladaEntity();
+			
+			fieldGroup.setItemDataSource(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -266,13 +140,25 @@ public class GuiaAcumuladaFormController extends
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
-	@Override
-	protected boolean validaSalvar() {
-		return true;
-	}
+@Override
+protected boolean validaSalvar() {
+	try {
+        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+        fieldGroup.commit();
+        return true;
+    } catch (FieldGroup.CommitException ce) {
+        return false;
+    }
+}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 
@@ -291,7 +177,7 @@ public class GuiaAcumuladaFormController extends
 
 	/** ************************************** */
 
-	private void novoObjeto(Serializable id) {
+	/*private void novoObjeto(Serializable id) {
 		try {
 			if (id.equals(0) || id == null) {
 				this.pEntity = new GuiaAcumuladaEntity();
@@ -326,7 +212,7 @@ public class GuiaAcumuladaFormController extends
 			e.printStackTrace();
 		}
 	}
-
+*/
 	@Override
 	public GuiaAcumuladaEntity getModelBean() {
 		// TODO Auto-generated method stub

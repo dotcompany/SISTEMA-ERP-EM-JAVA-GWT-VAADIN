@@ -20,6 +20,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.validator.constraints.Length;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -44,7 +45,7 @@ public class PppExameMedicoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "folha_ppp_exame_medico_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "folha_ppp_exame_medico_id_seq")
 	@SequenceGenerator(name = "folha_ppp_exame_medico_id_seq", sequenceName = "folha_ppp_exame_medico_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	private Integer id;
@@ -57,6 +58,7 @@ public class PppExameMedicoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "tipo")
 	@Field
 	@Caption("Tipo")
+	@Length(max = 1, message = "O tamanho deve ser no máximo 1 caracter")
 	private String tipo = "";
 
 	@Column(name = "natureza")
@@ -67,6 +69,7 @@ public class PppExameMedicoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "exame")
 	@Field
 	@Caption("Exame")
+	@Length(max = 1, message = "O tamanho deve ser no máximo 1 caracter")
 	private String exame = "";
 
 	@Column(name = "indicacao_resultados")

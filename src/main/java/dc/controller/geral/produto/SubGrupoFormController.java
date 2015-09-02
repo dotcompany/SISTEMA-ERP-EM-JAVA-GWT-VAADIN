@@ -120,8 +120,6 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setGrupo(this.subView.getMocGrupoProduto().getValue());
-
 			this.business.saveOrUpdate(this.entity);
 
 			notifiyFrameworkSaveOK(this.entity);
@@ -139,7 +137,6 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 
 			fieldGroup.setItemDataSource(this.entity);
 
-			this.subView.getMocGrupoProduto().setValue(this.entity.getGrupo());
 		} catch (Exception e) {
 			e.printStackTrace();
 

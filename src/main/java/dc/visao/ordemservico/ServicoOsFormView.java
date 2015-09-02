@@ -183,7 +183,7 @@ public class ServicoOsFormView extends CustomComponent {
 
 		cbGrupo = new ManyToOneComboField<>(GrupoOsEntity.class);
 		cbGrupo.setCaption("Grupo");
-		cbGrupo.addValueChangeListener(new ValueChangeListener() {
+		/*cbGrupo.addValueChangeListener(new ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -191,7 +191,7 @@ public class ServicoOsFormView extends CustomComponent {
 				controller.getSubgrupo("grupo", cbGrupo.getValue().getId());
 			}
 			
-		});
+		});*/
 		horizontalLayout_1.addComponent(cbGrupo);
 
 		cbSubGrupo = new ManyToOneComboField<>(SubGrupoOsEntity.class);

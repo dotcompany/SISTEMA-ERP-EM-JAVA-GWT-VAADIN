@@ -1,6 +1,7 @@
 package dc.entidade.folhapagamento.cadastro;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -11,9 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -42,7 +45,7 @@ public class GuiaAcumuladaEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "guias_acumuladas_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "guias_acumuladas_id_seq")
 	@SequenceGenerator(name = "guias_acumuladas_id_seq", sequenceName = "guias_acumuladas_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	private Integer id;
@@ -50,61 +53,73 @@ public class GuiaAcumuladaEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Caption("Gps tipo")
 	@Column(name = "gps_tipo")
+	@NotNull(message = "GPS Tipo é Obrigatório!")
 	private String gpsTipo = "";
 
 	@Field
 	@Caption("Gps competência")
 	@Column(name = "gps_competencia", length = 1)
+	@NotNull(message = "Gps competência é Obrigatório!")
 	private String gpsCompetencia = "";
 
 	@Field
 	@Caption("Gps valor INSS")
-	@Column(name = "gps_valor_inss")
-	private Double gpsValorInss = new Double(0.0);
+	@Column(name = "gps_valor_inss", precision = 14, scale = 0)
+	@NotNull(message = "Gps valor INSS é Obrigatório!")
+	private BigDecimal gpsValorInss;
 
 	@Field
 	@Caption("Gps valor outras ent")
-	@Column(name = "gps_valor_outras_ent")
-	private Double gpsValorOutrasEnt = new Double(0.0);
+	@Column(name = "gps_valor_outras_ent", precision = 14, scale = 0)
+	@NotNull(message = "Gps valor outras ent é Obrigatório!")
+	private BigDecimal gpsValorOutrasEnt ;
 
 	@Field
 	@Caption("Gps data pagamento")
 	@Column(name = "gps_data_pagamento")
+	@NotNull(message = "Gps data pagamento é Obrigatório!")
 	private Date gpsDataPagamento;
 
 	@Field
 	@Caption("IRRF competência")
 	@Column(name = "irrf_competencia")
+	@NotNull(message = "IRRF competência é Obrigatório!")
 	private String irrfCompetencia = "";
 
 	@Field
 	@Caption("IRRF código recolhimento")
 	@Column(name = "irrf_codigo_recolhimento")
-	private Integer irrfCodigoRecolhimento = new Integer(0);
+	@NotNull(message = "IRRF código recolhimento é Obrigatório!")
+	private Integer irrfCodigoRecolhimento ;
 
 	@Field
 	@Caption("IRRF valor acumulado")
-	@Column(name = "irrf_valor_acumulado")
-	private Double irrfValorAcumulado = new Double(0.0);
+	@Column(name = "irrf_valor_acumulado", precision = 14, scale = 0)
+	@NotNull(message = "IRRF valor acumulado é Obrigatório!")
+	private BigDecimal irrfValorAcumulado ;
 
 	@Field
 	@Caption("IRRF data pagamento")
 	@Column(name = "irrf_data_pagamento")
+	@NotNull(message = "IRRF data pagamento é Obrigatório!")
 	private Date irrfDataPagamento;
 
 	@Field
 	@Caption("PIS competência")
 	@Column(name = "pis_competencia")
+	@NotNull(message = "PIS competência é Obrigatório!")
 	private String pisCompetencia = "";
 
 	@Field
 	@Caption("PIS valor acumulado")
-	@Column(name = "pis_valor_acumulado")
-	private Double pisValorAcumulado = new Double(0.0);
+	@Column(name = "pis_valor_acumulado", precision = 14, scale = 0)
+	@NotNull(message = "PIS valor acumulado é Obrigatório!")
+	private BigDecimal pisValorAcumulado;
 
 	@Field
-	@Caption("Gps tipo")
+	@Caption("PIS Data Pagamento")
 	@Column(name = "pis_data_pagamento")
+	@NotNull(message = "PIS Data Pagamento é Obrigatório!")
 	private Date pisDataPagamento;
 
 	/**
@@ -166,24 +181,6 @@ public class GuiaAcumuladaEntity extends AbstractMultiEmpresaModel<Integer>
 				.toUpperCase());
 	}
 
-	public Double getGpsValorInss() {
-		return gpsValorInss;
-	}
-
-	public void setGpsValorInss(Double gpsValorInss) {
-		this.gpsValorInss = (gpsValorInss == null ? new Double(0.0)
-				: gpsValorInss);
-	}
-
-	public Double getGpsValorOutrasEnt() {
-		return gpsValorOutrasEnt;
-	}
-
-	public void setGpsValorOutrasEnt(Double gpsValorOutrasEnt) {
-		this.gpsValorOutrasEnt = (gpsValorOutrasEnt == null ? new Double(0.0)
-				: gpsValorOutrasEnt);
-	}
-
 	public Date getGpsDataPagamento() {
 		return gpsDataPagamento;
 	}
@@ -210,15 +207,6 @@ public class GuiaAcumuladaEntity extends AbstractMultiEmpresaModel<Integer>
 				0) : irrfCodigoRecolhimento);
 	}
 
-	public Double getIrrfValorAcumulado() {
-		return irrfValorAcumulado;
-	}
-
-	public void setIrrfValorAcumulado(Double irrfValorAcumulado) {
-		this.irrfValorAcumulado = (irrfValorAcumulado == null ? new Double(0.0)
-				: irrfValorAcumulado);
-	}
-
 	public Date getIrrfDataPagamento() {
 		return irrfDataPagamento;
 	}
@@ -236,21 +224,44 @@ public class GuiaAcumuladaEntity extends AbstractMultiEmpresaModel<Integer>
 				.toUpperCase());
 	}
 
-	public Double getPisValorAcumulado() {
-		return pisValorAcumulado;
-	}
-
-	public void setPisValorAcumulado(Double pisValorAcumulado) {
-		this.pisValorAcumulado = (pisValorAcumulado == null ? new Double(0.0)
-				: pisValorAcumulado);
-	}
-
 	public Date getPisDataPagamento() {
 		return pisDataPagamento;
 	}
 
 	public void setPisDataPagamento(Date pisDataPagamento) {
 		this.pisDataPagamento = pisDataPagamento;
+	}
+	
+	public BigDecimal getGpsValorInss() {
+		return gpsValorInss;
+	}
+
+	public void setGpsValorInss(BigDecimal gpsValorInss) {
+		this.gpsValorInss = gpsValorInss;
+	}
+
+	public BigDecimal getGpsValorOutrasEnt() {
+		return gpsValorOutrasEnt;
+	}
+
+	public void setGpsValorOutrasEnt(BigDecimal gpsValorOutrasEnt) {
+		this.gpsValorOutrasEnt = gpsValorOutrasEnt;
+	}
+
+	public BigDecimal getIrrfValorAcumulado() {
+		return irrfValorAcumulado;
+	}
+
+	public void setIrrfValorAcumulado(BigDecimal irrfValorAcumulado) {
+		this.irrfValorAcumulado = irrfValorAcumulado;
+	}
+
+	public BigDecimal getPisValorAcumulado() {
+		return pisValorAcumulado;
+	}
+
+	public void setPisValorAcumulado(BigDecimal pisValorAcumulado) {
+		this.pisValorAcumulado = pisValorAcumulado;
 	}
 
 	/**
@@ -259,7 +270,34 @@ public class GuiaAcumuladaEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return gpsTipo;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof GuiaAcumuladaEntity)) {
+	           return false;
+	    }
+
+	    GuiaAcumuladaEntity that = (GuiaAcumuladaEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
 	}
 
 }
