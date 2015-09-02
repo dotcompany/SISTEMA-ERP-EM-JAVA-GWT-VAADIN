@@ -599,14 +599,16 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			
 			
 			if (currentBean.getDocumento() != null) {
+				Documento documento = currentBean.getDocumento();
 				TipoDocumento tipoDocumento = documentoBusiness.findTipoDocumento("Contrato");
 				if(tipoDocumento == null){
 					mensagemAtencao("Crie um tipo de documento chamado \"Contrato\"");
 					return;
 				}
-				currentBean.getDocumento().setTipoDocumento(tipoDocumento);
-				currentBean.getDocumento().setTemplateContrato(false);
-				documentoBusiness.gravarAnexo(currentBean.getDocumento(), listArquivos, listArquivosExcluidos, null, "");
+				documento.setTipoDocumento(tipoDocumento);
+				documento.setTemplateContrato(false);
+				documento.setDescricao(currentBean.getDescricao());
+				documentoBusiness.gravarAnexo(documento, listArquivos, listArquivosExcluidos, null, "");
 			}
 			contratoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
