@@ -44,7 +44,7 @@ public class LancamentoDetalheListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "historico", "valor", "tipo" };
+		return new String[] { "historico", "valor", "descricaoHistorico" };
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.contabilidade.cadastro.RegistroCartorioFormController;
+import dc.visao.framework.util.ComponentUtil;
 
 public class RegistroCartorioFormView extends CustomComponent {
 
@@ -168,67 +169,32 @@ public class RegistroCartorioFormView extends CustomComponent {
 		// gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
-		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(2);
+		gridLayout_1.setRows(4);
+		gridLayout_1.setColumns(4);
 
 		// tfNomeCartorio
-		tfNomeCartorio = new TextField();
-		tfNomeCartorio.setCaption("Nome do cartório:");
-		tfNomeCartorio.setImmediate(false);
-		tfNomeCartorio.setWidth("175px");
-		tfNomeCartorio.setHeight("-1px");
-		tfNomeCartorio.setSizeFull();
-		tfNomeCartorio.setNullRepresentation("");
-		gridLayout_1.addComponent(tfNomeCartorio, 0, 1);
+		tfNomeCartorio = ComponentUtil.buildTextField("Nome do cartório:");
+		gridLayout_1.addComponent(tfNomeCartorio, 0, 1,1,1);
 
 		// pdfDataRegistro
-		pdfDataRegistro = new PopupDateField();
-		pdfDataRegistro.setCaption("Data de registro:");
-		pdfDataRegistro.setImmediate(false);
-		pdfDataRegistro.setWidth("175px");
-		pdfDataRegistro.setHeight("-1px");
-		pdfDataRegistro.setSizeFull();
-		gridLayout_1.addComponent(pdfDataRegistro, 1, 1);
+		pdfDataRegistro = ComponentUtil.buildPopupDateField("Data de registro:");
+		gridLayout_1.addComponent(pdfDataRegistro, 2, 1, 3,1);
 
 		// tfNumero
-		tfNumero = new TextField();
-		tfNumero.setCaption("Número:");
-		tfNumero.setImmediate(false);
-		tfNumero.setWidth("175px");
-		tfNumero.setHeight("-1px");
-		tfNumero.setSizeFull();
-		tfNumero.setNullRepresentation("");
-		gridLayout_1.addComponent(tfNumero, 0, 2);
+		tfNumero = ComponentUtil.buildNumericField("Número:");
+		gridLayout_1.addComponent(tfNumero, 0, 2, 1,2);
 
 		// tfFolha
-		tfFolha = new TextField();
-		tfFolha.setCaption("Folha:");
-		tfFolha.setImmediate(false);
-		tfFolha.setWidth("175px");
-		tfFolha.setHeight("-1px");
-		tfFolha.setSizeFull();
-		tfFolha.setNullRepresentation("");
-		gridLayout_1.addComponent(tfFolha, 1, 2);
+		tfFolha = ComponentUtil.buildNumericField("Folha:");
+		gridLayout_1.addComponent(tfFolha, 2, 2, 3,2);
 
 		// tfLivro
-		tfLivro = new TextField();
-		tfLivro.setCaption("Livro:");
-		tfLivro.setImmediate(false);
-		tfLivro.setWidth("175px");
-		tfLivro.setHeight("-1px");
-		tfLivro.setSizeFull();
-		tfLivro.setNullRepresentation("");
-		gridLayout_1.addComponent(tfLivro, 0, 3);
+		tfLivro = ComponentUtil.buildNumericField("Livro:");
+		gridLayout_1.addComponent(tfLivro, 0, 3, 1,3);
 
 		// tfNire
-		tfNire = new TextField();
-		tfNire.setCaption("Nire:");
-		tfNire.setImmediate(false);
-		tfNire.setWidth("175px");
-		tfNire.setHeight("-1px");
-		tfNire.setSizeFull();
-		tfNire.setNullRepresentation("");
-		gridLayout_1.addComponent(tfNire, 1, 3);
+		tfNire = ComponentUtil.buildTextField("Nire:");
+		gridLayout_1.addComponent(tfNire, 2, 3,3,3);
 
 		return gridLayout_1;
 	}

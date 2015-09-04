@@ -28,6 +28,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.financeiro.IndiceEconomicoEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -105,6 +106,10 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(mappedBy="pais",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<UfEntity> ufList = new ArrayList<UfEntity>();
+	
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="pais", fetch = FetchType.LAZY)
+	private List<IndiceEconomicoEntity> indiceList = new ArrayList<>();
 
 	/**
 	 * REFERENCIA - LIST
@@ -217,7 +222,16 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
         }
     }
     
-    @Override
+    
+    public List<IndiceEconomicoEntity> getIndiceList() {
+		return indiceList;
+	}
+
+	public void setIndiceList(List<IndiceEconomicoEntity> indiceList) {
+		this.indiceList = indiceList;
+	}
+
+	@Override
     public String toString() {
     	return nomePtbr;
     }

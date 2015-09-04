@@ -9,6 +9,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.contabilidade.cadastro.AidfAimdfFormController;
+import dc.visao.framework.util.ComponentUtil;
 
 public class AidfAimdfFormView extends CustomComponent {
 
@@ -156,56 +157,28 @@ public class AidfAimdfFormView extends CustomComponent {
 		// gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
-		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(2);
+		gridLayout_1.setRows(4);
+		gridLayout_1.setColumns(4);
 
 		// tfNumero
-		tfNumero = new TextField();
-		tfNumero.setCaption("Número:");
-		tfNumero.setImmediate(false);
-		tfNumero.setWidth("175px");
-		tfNumero.setHeight("-1px");
-		tfNumero.setSizeFull();
-		tfNumero.setNullRepresentation("");
-		gridLayout_1.addComponent(tfNumero, 0, 1);
+		tfNumero = ComponentUtil.buildNumericField("Número:");
+		gridLayout_1.addComponent(tfNumero, 0, 1, 1,1);
 
 		// pdfDataValidade
-		pdfDataValidade = new PopupDateField();
-		pdfDataValidade.setCaption("Data da validade:");
-		pdfDataValidade.setImmediate(false);
-		pdfDataValidade.setWidth("175px");
-		pdfDataValidade.setHeight("-1px");
-		pdfDataValidade.setSizeFull();
-		gridLayout_1.addComponent(pdfDataValidade, 1, 1);
+		pdfDataValidade = ComponentUtil.buildPopupDateField("Data da validade:");
+		gridLayout_1.addComponent(pdfDataValidade, 2, 1, 3,1);
 
 		// pdfDataAutorizacao
-		pdfDataAutorizacao = new PopupDateField();
-		pdfDataAutorizacao.setCaption("Data da autorização:");
-		pdfDataAutorizacao.setImmediate(false);
-		pdfDataAutorizacao.setWidth("175px");
-		pdfDataAutorizacao.setHeight("-1px");
-		pdfDataAutorizacao.setSizeFull();
-		gridLayout_1.addComponent(pdfDataAutorizacao, 0, 2);
+		pdfDataAutorizacao = ComponentUtil.buildPopupDateField("Data da autorização:");
+		gridLayout_1.addComponent(pdfDataAutorizacao, 0, 2, 1,2);
 
 		// tfNumeroAutorizacao
-		tfNumeroAutorizacao = new TextField();
-		tfNumeroAutorizacao.setCaption("Número da autorização:");
-		tfNumeroAutorizacao.setImmediate(false);
-		tfNumeroAutorizacao.setWidth("175px");
-		tfNumeroAutorizacao.setHeight("-1px");
-		tfNumeroAutorizacao.setSizeFull();
-		tfNumeroAutorizacao.setNullRepresentation("");
-		gridLayout_1.addComponent(tfNumeroAutorizacao, 1, 2);
+		tfNumeroAutorizacao = ComponentUtil.buildTextField("Número da autorização:");
+		gridLayout_1.addComponent(tfNumeroAutorizacao, 2, 2, 3,2);
 
 		// tfFormularioDisponivel
-		tfFormularioDisponivel = new TextField();
-		tfFormularioDisponivel.setCaption("Formulário disponível:");
-		tfFormularioDisponivel.setImmediate(false);
-		tfFormularioDisponivel.setWidth("175px");
-		tfFormularioDisponivel.setHeight("-1px");
-		tfFormularioDisponivel.setSizeFull();
-		tfFormularioDisponivel.setNullRepresentation("");
-		gridLayout_1.addComponent(tfFormularioDisponivel, 0, 3);
+		tfFormularioDisponivel = ComponentUtil.buildTextField("Formulário disponível:");
+		gridLayout_1.addComponent(tfFormularioDisponivel, 0, 3, 1,3);
 
 		return gridLayout_1;
 	}

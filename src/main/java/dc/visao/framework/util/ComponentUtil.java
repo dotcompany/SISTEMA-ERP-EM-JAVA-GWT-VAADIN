@@ -1,11 +1,16 @@
 package dc.visao.framework.util;
 
+import java.math.BigDecimal;
+
 import org.vaadin.addons.maskedtextfield.MaskedTextField;
 import org.vaadin.addons.maskedtextfield.NumericField;
 
+import com.vaadin.data.util.converter.StringToDateConverter;
+import com.vaadin.data.util.converter.StringToDoubleConverter;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.Grid.FooterRow;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.RichTextArea;
@@ -13,6 +18,7 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
 import dc.control.converter.CurrencyConverter;
+import dc.control.converter.CurrencyT;
 import dc.visao.framework.component.BigDecimalConverter;
 import dc.visao.framework.component.LookupComponent;
 
@@ -53,11 +59,50 @@ public final class ComponentUtil {
 		textField.setImmediate(true);
 		textField.setSizeFull();
 		textField.setConverter(new BigDecimalConverter("R$ "));
+		//textField.setConverter(new StringToDoubleConverter());
 		textField.addTextChangeListener(event -> CurrencyConverter.vceMask(
 				event, textField));
 
 		return textField;
 	}
+	
+	public static TextField buildCurrencyTField(String caption) {
+		final TextField textField = new TextField();
+		textField.setNullRepresentation("");
+		textField.setCaption(caption);
+		textField.setImmediate(true);
+		textField.setSizeFull();
+		textField.setConverter(new BigDecimalConverter("R$ "));
+		//textField.setConverter(new StringToDoubleConverter());
+		textField.addTextChangeListener(event -> CurrencyT.vceMask(
+				event, textField));
+
+		return textField;
+	}
+	
+	/*private void setSummaryFooterCells(FooterRow footer) {
+        for (int i = 0; i < numberOfYearHalves; i++) {
+            String propertyId = ExampleUtil.getBudgetPeriodPropertyId(i);
+ 
+            // Loop items in the data source to calculate sums
+            double sum = 0;
+            for (Object itemId : sample.getContainerDataSource().getItemIds()) {
+                BigDecimal value = (BigDecimal) sample.getContainerDataSource()
+                        .getItem(itemId).getItemProperty(propertyId).getValue();
+                sum += value.doubleValue();
+            }
+ 
+            // Use the same converter as the column values use
+            footer.getCell(propertyId).setText(
+                    ((DollarConverter) sample.getColumn(propertyId)
+                            .getConverter()).convertToPresentation(
+                            new BigDecimal(sum), String.class,
+                            sample.getLocale()));
+ 
+            // Align the footer text
+            footer.getCell(propertyId).setStyleName("align-right");
+        }
+    }*/
 	
 	public static TextField buildTextField(String caption) {
 		TextField textField = new TextField();

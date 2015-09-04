@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,9 +15,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 
@@ -29,16 +36,24 @@ public class PontoBancoHoras extends AbstractMultiEmpresaModel<Integer>  {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    
     @Temporal(TemporalType.DATE)
     @Column(name = "DATA_TRABALHO")
     @Caption(value = "Data Trabalho")
     private Date dataTrabalho;
+    
     @Column(name = "QUANTIDADE")
     @Caption(value = "Quantidade")
     private String quantidade;
+    
+    @Enumerated(EnumType.STRING)
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
     @Column(name = "SITUACAO")
     @Caption(value = "Situação")
-    private String situacao;
+    private SituacaoBancoHoras situacao;
+    
     @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     @Caption(value = "Colaborador")
@@ -71,11 +86,11 @@ public class PontoBancoHoras extends AbstractMultiEmpresaModel<Integer>  {
         this.quantidade = quantidade;
     }
 
-    public String getSituacao() {
+    public SituacaoBancoHoras getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(String situacao) {
+    public void setSituacao(SituacaoBancoHoras situacao) {
         this.situacao = situacao;
     }
 

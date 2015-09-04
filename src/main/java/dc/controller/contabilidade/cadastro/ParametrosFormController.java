@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
+import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.ParametrosEntity;
@@ -62,20 +63,28 @@ public class ParametrosFormController extends
 			String mascara = this.subView.getTfMascara().getValue();
 			Integer niveis = Integer.parseInt(this.subView.getTfNiveis()
 					.getValue());
-			String informarContaPor = this.subView.getTfInformarContaPor()
-					.getValue();
-			String compartilhaPlanoConta = this.subView
+			
+			SimNaoEn informarContaPor = (SimNaoEn) this.subView
+					.getTfInformarContaPor().getValue();
+			
+			SimNaoEn compartilhaPlanoConta = (SimNaoEn) this.subView
 					.getTfCompartilhaPlanoConta().getValue();
-			String compartilhaHistoricos = this.subView
+			
+			SimNaoEn compartilhaHistoricos = (SimNaoEn) this.subView
 					.getTfCompartilhaHistoricos().getValue();
-			String alteraLancamentoOutro = this.subView
+			
+			SimNaoEn alteraLancamentoOutro = (SimNaoEn) this.subView
 					.getTfAlteraLancamentoOutro().getValue();
-			String historicoObrigatorio = this.subView
+			
+			SimNaoEn historicoObrigatorio = (SimNaoEn) this.subView
 					.getTfHistoricoObrigatorio().getValue();
-			String permiteLancamentoZerado = this.subView
+			
+			SimNaoEn permiteLancamentoZerado = (SimNaoEn) this.subView
 					.getTfPermiteLancamentoZerado().getValue();
-			String geraInformativoSped = this.subView
+			
+			SimNaoEn geraInformativoSped = (SimNaoEn) this.subView
 					.getTfGeraInformativoSped().getValue();
+			
 			String spedFormaEscritDiario = this.subView
 					.getTfSpedFormaEscritDiario().getValue();
 			String spedNomeLivroDiario = this.subView

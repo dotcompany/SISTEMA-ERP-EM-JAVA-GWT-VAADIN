@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +22,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.control.enums.SimNaoEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -66,54 +69,61 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Níveis")
 	private Integer niveis = new Integer(0);
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Column(name = "informar_conta_por")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Informar conta por")
-	private String informarContaPor = "";
+	private SimNaoEn informarContaPor;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Column(name = "compartilha_plano_conta")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Compartilha plano de conta")
-	private String compartilhaPlanoConta = "";
+	private SimNaoEn compartilhaPlanoConta;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Column(name = "compartilha_historicos")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Compartilha históricos")
-	private String compartilhaHistoricos = "";
+	private SimNaoEn compartilhaHistoricos;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Column(name = "altera_lancamento_outro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Altera lançamento outro")
-	private String alteraLancamentoOutro = "";
+	private SimNaoEn alteraLancamentoOutro;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Column(name = "historico_obrigatorio")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Histórico obrigatório")
-	private String historicoObrigatorio = "";
+	private SimNaoEn historicoObrigatorio;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Column(name = "permite_lancamento_zerado")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Permite lançamento zerado")
-	private String permiteLancamentoZerado = "";
+	private SimNaoEn permiteLancamentoZerado;
 
+	@Enumerated(EnumType.STRING)
 	@Field
 	@Column(name = "gera_informativo_sped")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Gera informativo sped")
-	private String geraInformativoSped = "";
+	private SimNaoEn geraInformativoSped;
 
 	@Field
 	@Column(name = "sped_forma_escrit_diario")
@@ -373,67 +383,62 @@ public class ParametrosEntity extends AbstractMultiEmpresaModel<Integer>
 		this.niveis = (niveis == null ? new Integer(0) : niveis);
 	}
 
-	public String getInformarContaPor() {
+	
+
+	public SimNaoEn getInformarContaPor() {
 		return informarContaPor;
 	}
 
-	public void setInformarContaPor(String informarContaPor) {
-		this.informarContaPor = (informarContaPor == null ? ""
-				: informarContaPor.toUpperCase());
+	public void setInformarContaPor(SimNaoEn informarContaPor) {
+		this.informarContaPor = informarContaPor;
 	}
 
-	public String getCompartilhaPlanoConta() {
+	public SimNaoEn getCompartilhaPlanoConta() {
 		return compartilhaPlanoConta;
 	}
 
-	public void setCompartilhaPlanoConta(String compartilhaPlanoConta) {
-		this.compartilhaPlanoConta = (compartilhaPlanoConta == null ? ""
-				: compartilhaPlanoConta.toUpperCase());
+	public void setCompartilhaPlanoConta(SimNaoEn compartilhaPlanoConta) {
+		this.compartilhaPlanoConta = compartilhaPlanoConta;
 	}
 
-	public String getCompartilhaHistoricos() {
+	public SimNaoEn getCompartilhaHistoricos() {
 		return compartilhaHistoricos;
 	}
 
-	public void setCompartilhaHistoricos(String compartilhaHistoricos) {
-		this.compartilhaHistoricos = (compartilhaHistoricos == null ? ""
-				: compartilhaHistoricos.toUpperCase());
+	public void setCompartilhaHistoricos(SimNaoEn compartilhaHistoricos) {
+		this.compartilhaHistoricos = compartilhaHistoricos;
 	}
 
-	public String getAlteraLancamentoOutro() {
+	public SimNaoEn getAlteraLancamentoOutro() {
 		return alteraLancamentoOutro;
 	}
 
-	public void setAlteraLancamentoOutro(String alteraLancamentoOutro) {
-		this.alteraLancamentoOutro = (alteraLancamentoOutro == null ? ""
-				: alteraLancamentoOutro.toUpperCase());
+	public void setAlteraLancamentoOutro(SimNaoEn alteraLancamentoOutro) {
+		this.alteraLancamentoOutro = alteraLancamentoOutro;
 	}
 
-	public String getHistoricoObrigatorio() {
+	public SimNaoEn getHistoricoObrigatorio() {
 		return historicoObrigatorio;
 	}
 
-	public void setHistoricoObrigatorio(String historicoObrigatorio) {
-		this.historicoObrigatorio = (historicoObrigatorio == null ? ""
-				: historicoObrigatorio.toUpperCase());
+	public void setHistoricoObrigatorio(SimNaoEn historicoObrigatorio) {
+		this.historicoObrigatorio = historicoObrigatorio;
 	}
 
-	public String getPermiteLancamentoZerado() {
+	public SimNaoEn getPermiteLancamentoZerado() {
 		return permiteLancamentoZerado;
 	}
 
-	public void setPermiteLancamentoZerado(String permiteLancamentoZerado) {
-		this.permiteLancamentoZerado = (permiteLancamentoZerado == null ? ""
-				: permiteLancamentoZerado.toUpperCase());
+	public void setPermiteLancamentoZerado(SimNaoEn permiteLancamentoZerado) {
+		this.permiteLancamentoZerado = permiteLancamentoZerado;
 	}
 
-	public String getGeraInformativoSped() {
+	public SimNaoEn getGeraInformativoSped() {
 		return geraInformativoSped;
 	}
 
-	public void setGeraInformativoSped(String geraInformativoSped) {
-		this.geraInformativoSped = (geraInformativoSped == null ? ""
-				: geraInformativoSped.toUpperCase());
+	public void setGeraInformativoSped(SimNaoEn geraInformativoSped) {
+		this.geraInformativoSped = geraInformativoSped;
 	}
 
 	public String getSpedFormaEscritDiario() {

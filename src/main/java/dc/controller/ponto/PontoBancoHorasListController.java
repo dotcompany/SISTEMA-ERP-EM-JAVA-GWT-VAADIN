@@ -10,7 +10,6 @@ import dc.entidade.ponto.PontoBancoHoras;
 import dc.servicos.dao.ponto.PontoBancoHorasDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
-import dc.visao.ponto.PontoBancoHorasFormView.SituacaoBancoHoras;
 
 @Controller
 @Scope("prototype")
@@ -61,14 +60,22 @@ public class PontoBancoHorasListController extends CRUDListController<PontoBanco
 
 	@Override
 	protected List<PontoBancoHoras> pesquisaDefault() {
-		return ajustaEnums((List<PontoBancoHoras>) dao.getAll(getEntityClass()));
+		try {
+			List<PontoBancoHoras> auxLista = (List<PontoBancoHoras>) this.dao.getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
-	private List<PontoBancoHoras> ajustaEnums(List<PontoBancoHoras> all) {
+	/*private List<PontoBancoHoras> ajustaEnums(List<PontoBancoHoras> all) {
 		for (PontoBancoHoras pontoBancoHoras : all) {
 			pontoBancoHoras.setSituacao(SituacaoBancoHoras.getSituacao(pontoBancoHoras.getSituacao()).getLabel());
 		}
 		return all;
-	}
+	}*/
 
 }

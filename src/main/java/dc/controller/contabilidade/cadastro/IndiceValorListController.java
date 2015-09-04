@@ -44,7 +44,7 @@ public class IndiceValorListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "dataIndice", "valor" };
+		return new String[] {"indice", "dataIndice", "valor" };
 	}
 
 	@Override

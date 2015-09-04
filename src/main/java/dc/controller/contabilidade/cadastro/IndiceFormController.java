@@ -1,24 +1,22 @@
 package dc.controller.contabilidade.cadastro;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.validator.ObjectValidator;
 import dc.controller.financeiro.IndiceEconomicoListController;
 import dc.entidade.contabilidade.cadastro.IndiceEntity;
-import dc.entidade.financeiro.IndiceEconomicoEntity;
 import dc.servicos.dao.contabilidade.cadastro.IndiceDAO;
 import dc.servicos.dao.financeiro.IndiceEconomicoDAO;
 import dc.visao.contabilidade.cadastro.IndiceFormView;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
 
@@ -48,9 +46,6 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 	/** CONSTRUTOR */
 
 	public IndiceFormController() {
-		if (this.pEntity == null) {
-			this.pEntity = new IndiceEntity();
-		}
 	}
 
 	@Override
@@ -66,20 +61,6 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			String periocidade = this.subView.getTfPeriodicidade().getValue();
-			Date diarioPartirDe = this.subView.getPdfDiarioPartirDe()
-					.getValue();
-			String mensalMesAno = this.subView.getTfMensalMesAno().getValue();
-
-			IndiceEconomicoEntity indiceEconomico = this.subView
-					.getCbIndiceEconomico().getValue();
-
-			this.pEntity.setPeriodicidade(periocidade);
-			this.pEntity.setDiarioPartirDe(diarioPartirDe);
-			this.pEntity.setMensalMesAno(mensalMesAno);
-
-			this.pEntity.setIndiceEconomico(indiceEconomico);
-
 			this.pDAO.saveOrUpdate(this.pEntity);
 
 			notifiyFrameworkSaveOK(this.pEntity);
@@ -87,28 +68,17 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 			e.printStackTrace();
 
 			mensagemErro(e.getMessage());
-		} finally {
-			novoObjeto(0);
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			novoObjeto(id);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
-		try {
-			novoObjeto(0);
+			
+			this.pEntity = this.pDAO.find(id);
+			
+			        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+			fieldGroup.setItemDataSource(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -116,9 +86,21 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 
 	@Override
 	protected void initSubView() {
-		this.subView = new IndiceFormView(this);
-
-		popularCombo();
+		try {
+	        this.subView = new IndiceFormView(this);
+	
+	        // Cria o DCFieldGroup
+	        this.fieldGroup = new DCFieldGroup<>(IndiceEntity.class);
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTfPeriodicidade(),"periodicidade");
+	        fieldGroup.bind(this.subView.getCbIndiceEconomico(),"indiceEconomico");
+	        
+	        this.subView.getCbIndiceEconomico().configuraCombo(
+	        		"nome", IndiceEconomicoListController.class, this.ieDAO, this.getMainController());
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/*
@@ -128,7 +110,11 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 	@Override
 	protected void criarNovoBean() {
 		try {
-			novoObjeto(0);
+			
+			this.pEntity = new IndiceEntity();
+			
+			        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+			fieldGroup.setItemDataSource(this.pEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -148,30 +134,13 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
-		Object diarioPartirDe = this.subView.getPdfDiarioPartirDe().getValue();
-
-		if (!ObjectValidator.validateNotRequiredDate(diarioPartirDe)) {
-			String msg = "Não pode ficar em branco.";
-
-			adicionarErroDeValidacao(this.subView.getPdfDiarioPartirDe(), msg);
-
-			return false;
+		try {
+	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
 		}
-
-		/** REQUIRED */
-
-		IndiceEconomicoEntity indiceEconomico = this.subView
-				.getCbIndiceEconomico().getValue();
-
-		if (!ObjectValidator.validateObject(indiceEconomico)) {
-			String msg = "Não pode ficar em branco.";
-
-			adicionarErroDeValidacao(this.subView.getCbIndiceEconomico(), msg);
-
-			return false;
-		}
-
-		return true;
 	}
 
 	@Override
@@ -188,58 +157,9 @@ public class IndiceFormController extends CRUDFormController<IndiceEntity> {
 		return ClassUtils.getUrl(this);
 	}
 
-	/** COMBOS */
-
-	private void popularCombo() {
-		try {
-			DefaultManyToOneComboModel<IndiceEconomicoEntity> model = new DefaultManyToOneComboModel<IndiceEconomicoEntity>(
-					IndiceEconomicoListController.class, this.ieDAO,
-					super.getMainController()) {
-
-				@Override
-				public String getCaptionProperty() {
-					return "nome";
-				}
-			};
-
-			this.subView.getCbIndiceEconomico().setModel(model);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/** ************************************** */
-
 	@Override
 	protected boolean isFullSized() {
 		return true;
-	}
-
-	/** ************************************** */
-
-	private void novoObjeto(Serializable id) {
-		try {
-			if (id.equals(0) || id == null) {
-				this.pEntity = new IndiceEntity();
-
-				// this.subView.getCbIndiceEconomico().setValue(
-				// this.pEntity.getIndiceEconomico());
-			} else {
-				this.pEntity = this.pDAO.find(id);
-
-				this.subView.getCbIndiceEconomico().setValue(
-						this.pEntity.getIndiceEconomico());
-			}
-
-			this.subView.getTfPeriodicidade().setValue(
-					this.pEntity.getPeriodicidade());
-			this.subView.getPdfDiarioPartirDe().setValue(
-					this.pEntity.getDiarioPartirDe());
-			this.subView.getTfMensalMesAno().setValue(
-					this.pEntity.getMensalMesAno());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
