@@ -29,7 +29,7 @@
 	}
 
 .v-vaadin-version:after {
-	content: "7.5.4";
+	content: "7.5.5";
 }
 
 .v-generated-body {
@@ -766,10 +766,6 @@
 
 .v-ie .dotcompany .v-nativebutton-link {
 	padding: 0;
-}
-
-.dotcompany .v-checkbox {
-	display: block;
 }
 
 .dotcompany .v-checkbox, .dotcompany .v-checkbox label, .dotcompany .v-checkbox input, .dotcompany .v-checkbox .v-icon {
