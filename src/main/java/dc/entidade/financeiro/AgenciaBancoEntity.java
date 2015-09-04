@@ -79,7 +79,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Caption("Logradouro")
 	@Column(name = "LOGRADOURO", length = 100)
-	
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Logradouro é Obrigatório!")
 	private String logradouro = "";
@@ -87,21 +87,21 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Caption("Número")
 	@Column(name = "NUMERO", length = 10)
-	
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String numero = "";
 
 	@Field
 	@Caption("CEP")
 	@Column(name = "CEP", length = 10)
-	
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String cep = "";
 
 	@Field
 	@Caption("Bairro")
 	@Column(name = "BAIRRO", length = 60)
-	
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Bairro é Obrigatório!")
 	private String bairro = "";
@@ -109,28 +109,28 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Caption("Município")
 	@Column(name = "MUNICIPIO", length = 60)
-	
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String municipio = "";
 
 	@Field
 	@Caption("UF")
 	@Column(name = "UF")
-	
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String siglaUf = "";
 
 	@Field
 	@Caption("Telefone")
 	@Column(name = "TELEFONE", length = 10)
-	
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String telefone = "";
 
 	@Field
 	@Caption("Gerente")
 	@Column(name = "GERENTE", length = 30)
-	
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NotNull(message = "Gerente é Obrigatório!")
 	private String gerente = "";
@@ -138,7 +138,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Caption("Contato")
 	@Column(name = "CONTATO", length = 30)
-	
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String contato = "";
 
@@ -147,14 +147,14 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Caption("Observação")
 	@Column(name = "OBSERVACAO")
-	
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String observacao = "";
 
 	@Field
 	@Caption("Dígito")
 	@Column(name = "DIGITO", length = 1)
-	
+	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String digito = "";
 

@@ -44,8 +44,8 @@ public class GuiaAcumuladaListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "gpsTipo", "gpsCompetencia", "irrfCompetencia",
-				"pisCompetencia" };
+		return new String[] { "gpsTipo", "gpsCompetencia","gpsValorInss","gpsValorOutrasEnt","gpsDataPagamento", "irrfCompetencia",
+				"irrfCodigoRecolhimento","irrfValorAcumulado","irrfDataPagamento","pisCompetencia" ,"pisValorAcumulado","pisDataPagamento"};
 	}
 
 	@Override

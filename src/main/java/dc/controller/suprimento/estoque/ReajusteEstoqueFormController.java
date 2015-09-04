@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
@@ -16,6 +17,7 @@ import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.estoque.ReajusteCabecalhoEntity;
 import dc.entidade.suprimentos.estoque.ReajusteDetalheEntity;
+import dc.model.business.geral.produto.ProdutoBusiness;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.estoque.ReajusteCabecalhoDAO;
 import dc.servicos.util.Validator;
@@ -43,6 +45,9 @@ public class ReajusteEstoqueFormController extends
 	private ReajusteCabecalhoEntity currentBean;
 
 	ReajusteEstoqueFormView subView;
+	
+	@Autowired
+	private ProdutoBusiness<ProdutoEntity> produtoBusiness;
 
 	@Override
 	protected String getNome() {
@@ -65,8 +70,7 @@ public class ReajusteEstoqueFormController extends
 	protected void actionSalvar() {
 		try {
 			currentBean.setDataReajuste(subView.getDataReajuste().getValue());
-			currentBean.setPorcentagem(new BigDecimal(subView.getPorcentagem()
-					.getValue()));
+			currentBean.setPorcentagem(new BigDecimal(subView.getPorcentagem().getValue()));
 			currentBean.setTipo(((TipoReajuste) subView.getCmbTipoReajuste()
 					.getValue()).getCodigo());
 			currentBean.setColaborador(buscaColaborador());
@@ -82,7 +86,7 @@ public class ReajusteEstoqueFormController extends
 	@Override
 	protected void carregar(Serializable id) {
 		currentBean = dao.find((Integer) id);
-		subView.carregarTipoReajuste();
+		
 		subView.getDataReajuste().setValue(currentBean.getDataReajuste());
 		subView.getPorcentagem().setValue(
 				currentBean.getPorcentagem().toString());
@@ -94,7 +98,16 @@ public class ReajusteEstoqueFormController extends
 
 	@Override
 	protected void initSubView() {
-		subView = new ReajusteEstoqueFormView(this);
+	
+		
+		try {
+			subView = new ReajusteEstoqueFormView(this);
+			
+			subView.carregarTipoReajuste();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -174,6 +187,21 @@ public class ReajusteEstoqueFormController extends
 	public ReajusteCabecalhoEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
+	}
+
+	public BeanItemContainer<ProdutoEntity> getProdutoBic() {
+		try {
+			List<ProdutoEntity> auxLista = this.produtoBusiness.findAll();
+
+			BeanItemContainer<ProdutoEntity> bic = new BeanItemContainer<ProdutoEntity>(
+					ProdutoEntity.class, auxLista);
+
+			return bic;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

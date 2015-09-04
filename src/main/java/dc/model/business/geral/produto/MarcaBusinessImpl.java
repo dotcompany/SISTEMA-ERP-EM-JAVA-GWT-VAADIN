@@ -29,7 +29,7 @@ public class MarcaBusinessImpl implements Serializable,
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Logger logger = Logger.getLogger(GrupoBusinessImpl.class);
+	private static Logger logger = Logger.getLogger(MarcaBusinessImpl.class);
 
 	@Autowired
 	private MarcaDAO<MarcaEntity> dao;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -83,14 +84,15 @@ public class SubGrupoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Caption(value = "Grupo")
 	@ManyToOne()
 	@JoinColumn(name = "id_grupo", nullable = false)
+	@NotNull(message = "Grupo de Produto é obrigatório")
 	private GrupoEntity grupo;
 
 	/**
 	 * REFERENCIA - LIST
 	 */
 
+	@OneToMany(mappedBy = "subGrupo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="subGrupo", fetch = FetchType.EAGER)
 	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
 	/**

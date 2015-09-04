@@ -43,7 +43,7 @@ public class ConfirmaCotacaoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "id", "dataCotacao", "descricao", "situacao" };
+		return new String[] { "dataCotacao", "descricao", "situacao" };
 	}
 
 	@Override

@@ -243,7 +243,7 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
     protected void actionSalvar() {
 
         try {
-            this.dao.saveOrUpdate(this.entity);
+            this.business.saveOrUpdate(this.entity);
             
             /*this.entity.setValorVenda(NumberUtils.createBigDecimal(this.subView.getCfValorVenda().getConvertedValue()));
             this.entity.setValorCompra(NumberUtils.createBigDecimal(this.subView.getCfValorCompra().getConvertedValue()));

@@ -16,7 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -33,6 +37,7 @@ import dc.entidade.geral.pessoal.ClienteEntity;
 @Entity
 @Table(name = "os_carro")
 @Indexed
+@XmlRootElement
 @Analyzer(impl=BrazilianAnalyzer.class)
 public class CarroEntity extends AbstractMultiEmpresaModel<Integer> {
 
@@ -51,6 +56,7 @@ public class CarroEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "placa")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Placa é Obrigatório!")
 	private String placa;
 
 	@Field
@@ -80,11 +86,13 @@ public class CarroEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Cliente")
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@NotNull(message = "Cliente é Obrigatório!")
 	private ClienteEntity cliente;
 
 	@Caption("Marca")
 	@JoinColumn(name = "id_marca", referencedColumnName = "id")
 	@ManyToOne(optional = false)
+	@NotNull(message = "Marca é Obrigatório!")
 	private MarcaOsEntity marca;
 
 	@Caption("Cor")
@@ -95,6 +103,7 @@ public class CarroEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Modelo")
 	@JoinColumn(name = "id_modelo", referencedColumnName = "id")
 	@ManyToOne(optional = false)
+	@NotNull(message = "Modelo é Obrigatório!")
 	private ModeloOsEntity modelo;
 
 	@Caption("Combustível")
@@ -211,4 +220,38 @@ public class CarroEntity extends AbstractMultiEmpresaModel<Integer> {
 	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
+	
+	@Override
+	public String toString() {
+		
+		return placa;
+		
+	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof CarroEntity)) {
+            return false;
+        }
+
+        CarroEntity that = (CarroEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 }

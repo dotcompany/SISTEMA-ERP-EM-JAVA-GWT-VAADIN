@@ -44,7 +44,8 @@ public class PppFatorRiscoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "dataInicio", "dataTermino", "tipo" };
+		return new String[] { "ppp","dataInicio", "dataTermino", "tipo","fatorRisco","intensidade","tecnicaUtilizada","epcEficaz","epiEficaz",
+				"caEpi","atendimentoNr061","atendimentoNr062","atendimentoNr063","atendimentoNr064","atendimentoNr065"};
 	}
 
 	@Override

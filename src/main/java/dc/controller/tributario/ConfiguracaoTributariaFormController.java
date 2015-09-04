@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
@@ -541,33 +540,25 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 		return format;
 	}
 
-	public BeanItemContainer<CsosnbEntity> carregarCsosnb() {
-		BeanItemContainer<CsosnbEntity> container = new BeanItemContainer<>(CsosnbEntity.class);
-		for (CsosnbEntity obj : csosnbDAO.listaTodos()) {
-			container.addBean(obj);
-		}
-		return container;
-	}
-
-	public BeanItemContainer<CstIcmsbEntity> carregarCstB() {
-		BeanItemContainer<CstIcmsbEntity> container = new BeanItemContainer<>(CstIcmsbEntity.class);
-		for (CstIcmsbEntity obj : cstbDAO.listaTodos()) {
-			container.addBean(obj);
-		}
-		return container;
-	}
-
-	public BeanItemContainer<CfopEntity> carregarCfop() {
-		BeanItemContainer<CfopEntity> container = new BeanItemContainer<>(CfopEntity.class);
-		for (CfopEntity obj : cfopDAO.listaTodos()) {
-			container.addBean(obj);
-		}
-		return container;
-	}
-
 	@Override
 	public ConfiguracaoTributariaEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
+	}
+
+	public List<UfEntity> buscarUf() {
+		return ufDAO.getAll(UfEntity.class);
+	}
+	
+	public List<CfopEntity> buscarCfop() {
+		return cfopDAO.getAll(CfopEntity.class);
+	}
+	
+	public List<CsosnbEntity> buscarCsosn() {
+		return csosnbDAO.getAll(CsosnbEntity.class);
+	}
+	
+	public List<CstIcmsbEntity> buscarCst() {
+		return cstbDAO.getAll(CstIcmsbEntity.class);
 	}
 }

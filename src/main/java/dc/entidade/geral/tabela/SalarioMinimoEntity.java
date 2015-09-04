@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -40,7 +41,7 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "salario_minimo_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "salario_minimo_id_seq")
 	@SequenceGenerator(name = "salario_minimo_id_seq", sequenceName = "salario_minimo_id_seq", allocationSize = 1)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -51,6 +52,7 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	@Column(name = "VIGENCIA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Data Vigência é Obrigatório!")
 	private Date vigencia;
 	
 	@Field
@@ -58,6 +60,7 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "VALOR_MENSAL", precision = 18, scale = 6)
+	@NotNull(message = "Valor Mensal é Obrigatório!")
 	private BigDecimal valorMensal;
 	
 	@Field

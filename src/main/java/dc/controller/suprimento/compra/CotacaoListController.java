@@ -42,7 +42,7 @@ public class CotacaoListController extends CRUDListController<CotacaoEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "id", "dataCotacao", "descricao", "situacao" };
+		return new String[] { "dataCotacao", "descricao"};
 	}
 
 	@Override

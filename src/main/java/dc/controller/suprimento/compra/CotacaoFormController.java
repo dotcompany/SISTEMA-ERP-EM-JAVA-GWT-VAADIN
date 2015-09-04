@@ -45,7 +45,7 @@ public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
 
 	@Override
 	protected String getNome() {
-		return "cotação de Compra";
+		return "Cotação de Compra";
 	}
 
 	@Override

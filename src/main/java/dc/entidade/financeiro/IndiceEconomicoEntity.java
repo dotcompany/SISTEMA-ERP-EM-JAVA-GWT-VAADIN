@@ -3,8 +3,10 @@ package dc.entidade.financeiro;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +52,7 @@ public class IndiceEconomicoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "indice_economico_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "indice_economico_id_seq")
 	@SequenceGenerator(name = "indice_economico_id_seq", sequenceName = "indice_economico_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -86,9 +88,12 @@ public class IndiceEconomicoEntity extends AbstractMultiEmpresaModel<Integer>
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne
-	@JoinColumn(name = "id_pais", nullable = false)
+	//@ManyToOne
+	//@JoinColumn(name = "id_pais", nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) 
+	@JoinColumn(name = "id_pais", referencedColumnName = "id")
 	@Caption("País")
+	@NotNull(message = "País é Obrigatório")
 	private PaisEntity pais;
 
 	/**

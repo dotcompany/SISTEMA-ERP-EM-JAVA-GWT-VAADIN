@@ -84,16 +84,9 @@ public class CotacaoFormView extends CustomComponent {
 		fields.setMargin(false);
 		fields.setSpacing(true);
 
-		// lblId
-		lblId = new Label();
-		lblId.setCaption("Id");
-		lblId.setImmediate(false);
-		lblId.setSizeFull();
-		fields.addComponent(lblId, 0, 0);
-
 		// txtDescricao
 		txtDescricao = ComponentUtil.buildTextField("Descrição");
-		fields.addComponent(txtDescricao, 1, 0, 4, 0);
+		fields.addComponent(txtDescricao, 0, 0, 4, 0);
 
 		// calDataCotacao
 		calDataCotacao = new PopupDateField();

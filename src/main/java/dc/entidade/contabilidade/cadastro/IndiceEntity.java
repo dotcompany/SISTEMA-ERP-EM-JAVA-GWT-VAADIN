@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -54,7 +55,7 @@ public class IndiceEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contabil_indice_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "contabil_indice_id_seq")
 	@SequenceGenerator(name = "contabil_indice_id_seq", sequenceName = "contabil_indice_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -66,6 +67,7 @@ public class IndiceEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Periodicidade")
+	@NotNull(message = "Periodicidade é Obrigatório!")
 	private String periodicidade = "";
 
 	@Field
@@ -94,7 +96,7 @@ public class IndiceEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne
 	@JoinColumn(name = "id_indice_economico", nullable = false)
 	@Caption("Índice econômico")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	@NotNull(message = "índice Econômico é Obrigatório!")
 	private IndiceEconomicoEntity indiceEconomico;
 
 	/**

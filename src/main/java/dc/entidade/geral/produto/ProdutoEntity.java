@@ -82,7 +82,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
     @NotNull(message = "Nome é obrigatório")
-    @Length(min = 4, message = "O tamanho deve ser no mínimo 4 caracteres")
+    //@Length(min = 4, message = "O tamanho deve ser no mínimo 4 caracteres")
 	private String nome = "";
 
 	// @Lob
@@ -396,7 +396,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	/**
 	 * REFERENCIA - LIST
 	 */
-
+	
 	/**
 	 * CONSTRUTOR
 	 */
@@ -787,7 +787,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public void setIcmsCustomizado(IcmsCustomizadoCabecalhoEntity icmsCustomizado) {
 		this.icmsCustomizado = icmsCustomizado;
 	}
-
+	
 	/**
 	 * TO STRING
 	 */

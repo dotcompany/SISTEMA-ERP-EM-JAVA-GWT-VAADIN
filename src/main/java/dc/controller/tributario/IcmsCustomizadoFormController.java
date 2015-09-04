@@ -225,6 +225,22 @@ public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustom
 			entity.removeDetalhe(value);
 		}
 	}
+	
+	public List<UfEntity> buscarUf() {
+		return ufDAO.getAll(UfEntity.class);
+	}
+	
+	public List<CfopEntity> buscarCfop() {
+		return cfopDAO.getAll(CfopEntity.class);
+	}
+	
+	public List<CsosnbEntity> buscarCsosn() {
+		return csosnbDAO.getAll(CsosnbEntity.class);
+	}
+	
+	public List<CstIcmsbEntity> buscarCst() {
+		return cstbDAO.getAll(CstIcmsbEntity.class);
+	}
 
 
 }

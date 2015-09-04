@@ -14,14 +14,22 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 
 import dc.controller.tributario.ConfiguracaoTributariaFormController;
+import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.geral.diverso.UfEntity;
+import dc.entidade.geral.produto.ProdutoEntity;
+import dc.entidade.geral.tabela.CfopEntity;
+import dc.entidade.geral.tabela.CsosnaEntity;
+import dc.entidade.geral.tabela.CsosnbEntity;
 import dc.entidade.geral.tabela.CstCofinsEntity;
+import dc.entidade.geral.tabela.CstIcmsbEntity;
 import dc.entidade.geral.tabela.CstIpiEntity;
 import dc.entidade.geral.tabela.CstPisEntity;
 import dc.entidade.geral.tabela.EfdTabela435Entity;
@@ -436,44 +444,44 @@ public class ConfiguracaoTributariaFormView extends CustomComponent {
 							Component uiContext) {
 
 						if ("ufDestino".equals(propertyId)) {
-							ComboBox cmb = ComponentUtil.buildComboBox("UF");
-							// BeanItemContainer<UF> containerUf = new
-							// BeanItemContainer<>(controller.listarUfs());
-							// cmb.setContainerDataSource(containerUf);
-							// cmb.setItemCaptionMode(ItemCaptionMode.PROPERTY);
-							// cmb.setItemCaptionPropertyId("sigla");
-							List<UfEntity> ufs = controller.listarUfs();
-							BeanItemContainer<String> beanUf = new BeanItemContainer<>(
-									String.class);
-							for (UfEntity u : ufs) {
-								beanUf.addBean(u.getSigla());
-							}
-							cmb.setContainerDataSource(beanUf);
-							return cmb;
+							ComboBox comboBox = ComponentUtil.buildComboBox(null);
+							BeanItemContainer<UfEntity> beanUf = new BeanItemContainer<>(UfEntity.class,
+									controller.buscarUf());
+							beanUf.addNestedContainerProperty("nome");
+							comboBox.setContainerDataSource(beanUf);
+							comboBox.setItemCaptionPropertyId("nome");
+							return comboBox;
 						}
 
 						if ("cfop".equals(propertyId)) {
-							ComboBox combo = ComponentUtil
-									.buildComboBox("CFOP");
-							combo.setContainerDataSource(controller
-									.carregarCfop());
-							return combo;
+							
+							ComboBox comboBox = ComponentUtil.buildComboBox(null);
+							BeanItemContainer<CfopEntity> bean = new BeanItemContainer<>(CfopEntity.class,
+									controller.buscarCfop());
+							bean.addNestedContainerProperty("descricao");
+							comboBox.setContainerDataSource(bean);
+							comboBox.setItemCaptionPropertyId("descricao");
+							return comboBox;
 						}
 
 						if ("csosn".equals(propertyId)) {
-							ComboBox combo = ComponentUtil
-									.buildComboBox("CSOSN_B");
-							combo.setContainerDataSource(controller
-									.carregarCsosnb());
-							return combo;
+							ComboBox comboBox = ComponentUtil.buildComboBox(null);
+							BeanItemContainer<CsosnbEntity> bean = new BeanItemContainer<>(CsosnbEntity.class,
+									controller.buscarCsosn());
+							bean.addNestedContainerProperty("descricao");
+							comboBox.setContainerDataSource(bean);
+							comboBox.setItemCaptionPropertyId("descricao");
+							return comboBox;
 						}
 
 						if ("cst".equals(propertyId)) {
-							ComboBox combo = ComponentUtil
-									.buildComboBox("CST_B");
-							combo.setContainerDataSource(controller
-									.carregarCstB());
-							return combo;
+							ComboBox comboBox = ComponentUtil.buildComboBox(null);
+							BeanItemContainer<CstIcmsbEntity> bean = new BeanItemContainer<>(CstIcmsbEntity.class,
+									controller.buscarCst());
+							bean.addNestedContainerProperty("descricao");
+							comboBox.setContainerDataSource(bean);
+							comboBox.setItemCaptionPropertyId("descricao");
+							return comboBox;
 						}
 
 						if ("modalidadeBc".equals(propertyId)) {

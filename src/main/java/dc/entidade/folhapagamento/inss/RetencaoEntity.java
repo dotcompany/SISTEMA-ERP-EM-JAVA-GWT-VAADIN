@@ -1,6 +1,7 @@
 package dc.entidade.folhapagamento.inss;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -51,12 +53,14 @@ public class RetencaoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Field
 	@Caption("Valor mensal")
 	@Column(name = "valor_mensal")
-	private Double valorMensal = new Double(0.0);
+	@NotNull(message = "Valor Mensal é Obrigatório!")
+	private BigDecimal valorMensal;
 
 	@Field
 	@Caption("Valor 13")
 	@Column(name = "valor_13")
-	private Double valor13 = new Double(0.0);
+	@NotNull(message = "Valor 13 é Obrigatório!")
+	private BigDecimal valor13;
 
 	/**
 	 * REFERENCIA - FK
@@ -69,13 +73,11 @@ public class RetencaoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_folha_inss", nullable = false)
 	@Caption("INSS")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private InssEntity inss;
 
 	@ManyToOne
 	@JoinColumn(name = "id_folha_inss_servico", nullable = false)
 	@Caption("Serviço")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ServicoEntity servico;
 
 	/**
@@ -102,21 +104,21 @@ public class RetencaoEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public Double getValorMensal() {
+	
+	public BigDecimal getValorMensal() {
 		return valorMensal;
 	}
 
-	public void setValorMensal(Double valorMensal) {
-		this.valorMensal = (valorMensal == null ? new Double(0.0) : valorMensal);
+	public void setValorMensal(BigDecimal valorMensal) {
+		this.valorMensal = valorMensal;
 	}
 
-	public Double getValor13() {
+	public BigDecimal getValor13() {
 		return valor13;
 	}
 
-	public void setValor13(Double valor13) {
-		this.valor13 = (valor13 == null ? new Double(0.0) : valor13);
+	public void setValor13(BigDecimal valor13) {
+		this.valor13 = valor13;
 	}
 
 	public InssEntity getInss() {

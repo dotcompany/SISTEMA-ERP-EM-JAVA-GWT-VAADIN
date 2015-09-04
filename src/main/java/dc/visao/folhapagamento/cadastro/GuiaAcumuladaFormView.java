@@ -9,6 +9,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.folhapagamento.cadastro.GuiaAcumuladaFormController;
+import dc.visao.framework.util.ComponentUtil;
 
 public class GuiaAcumuladaFormView extends CustomComponent {
 
@@ -233,122 +234,59 @@ public class GuiaAcumuladaFormView extends CustomComponent {
 		// gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
-		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(2);
+		gridLayout_1.setRows(8);
+		gridLayout_1.setColumns(8);
 
 		// tfGpsTipo
-		tfGpsTipo = new TextField();
-		tfGpsTipo.setCaption("GPS tipo:");
-		tfGpsTipo.setImmediate(false);
-		tfGpsTipo.setWidth("175px");
-		tfGpsTipo.setHeight("-1px");
-		tfGpsTipo.setSizeFull();
-		tfGpsTipo.setNullRepresentation("");
-		gridLayout_1.addComponent(tfGpsTipo, 0, 1);
+		tfGpsTipo = ComponentUtil.buildTextField("GPS tipo:");
+		gridLayout_1.addComponent(tfGpsTipo, 0, 1, 1,1);
 
 		// tfGpsCompetencia
-		tfGpsCompetencia = new TextField();
-		tfGpsCompetencia.setCaption("GPS competência:");
-		tfGpsCompetencia.setImmediate(false);
-		tfGpsCompetencia.setWidth("175px");
-		tfGpsCompetencia.setHeight("-1px");
-		tfGpsCompetencia.setSizeFull();
-		tfGpsCompetencia.setNullRepresentation("");
-		gridLayout_1.addComponent(tfGpsCompetencia, 1, 1);
+		tfGpsCompetencia = ComponentUtil.buildTextField("GPS competência:");
+		gridLayout_1.addComponent(tfGpsCompetencia, 2, 1, 3,1);
 
 		// tfGpsValorInss
-		tfGpsValorInss = new TextField();
-		tfGpsValorInss.setCaption("GPS valor do INSS:");
-		tfGpsValorInss.setImmediate(false);
-		tfGpsValorInss.setWidth("175px");
-		tfGpsValorInss.setHeight("-1px");
-		tfGpsValorInss.setSizeFull();
-		tfGpsValorInss.setNullRepresentation("");
-		gridLayout_1.addComponent(tfGpsValorInss, 0, 2);
+		tfGpsValorInss = ComponentUtil.buildCurrencyField("GPS valor do INSS:");
+		gridLayout_1.addComponent(tfGpsValorInss, 0, 2, 1,2);
 
 		// tfGpsValorOutrasEnt
-		tfGpsValorOutrasEnt = new TextField();
-		tfGpsValorOutrasEnt.setCaption("GPS valor outras ent:");
-		tfGpsValorOutrasEnt.setImmediate(false);
-		tfGpsValorOutrasEnt.setWidth("175px");
-		tfGpsValorOutrasEnt.setHeight("-1px");
-		tfGpsValorOutrasEnt.setSizeFull();
-		tfGpsValorOutrasEnt.setNullRepresentation("");
-		gridLayout_1.addComponent(tfGpsValorOutrasEnt, 1, 2);
+		tfGpsValorOutrasEnt = ComponentUtil.buildCurrencyField("GPS valor outras ent:");
+		gridLayout_1.addComponent(tfGpsValorOutrasEnt, 2, 2, 3,2);
 
 		// pdfGpsDataPagamento
-		pdfGpsDataPagamento = new PopupDateField();
-		pdfGpsDataPagamento.setCaption("GPS data de pagamento:");
-		pdfGpsDataPagamento.setImmediate(false);
+		pdfGpsDataPagamento = ComponentUtil.buildPopupDateField("GPS data de pagamento:");
 		pdfGpsDataPagamento.setWidth("175px");
-		pdfGpsDataPagamento.setHeight("-1px");
-		gridLayout_1.addComponent(pdfGpsDataPagamento, 0, 3);
+		gridLayout_1.addComponent(pdfGpsDataPagamento, 0, 3, 1,3);
 
 		// tfIrrfCompetencia
-		tfIrrfCompetencia = new TextField();
-		tfIrrfCompetencia.setCaption("IRRF competência:");
-		tfIrrfCompetencia.setImmediate(false);
-		tfIrrfCompetencia.setWidth("175px");
-		tfIrrfCompetencia.setHeight("-1px");
-		tfIrrfCompetencia.setSizeFull();
-		tfIrrfCompetencia.setNullRepresentation("");
-		gridLayout_1.addComponent(tfIrrfCompetencia, 1, 3);
+		tfIrrfCompetencia = ComponentUtil.buildTextField("IRRF competência:");
+		gridLayout_1.addComponent(tfIrrfCompetencia, 2, 3, 3,3);
 
 		// tfIrrfCodigoRecolhimento
-		tfIrrfCodigoRecolhimento = new TextField();
-		tfIrrfCodigoRecolhimento.setCaption("IRRF código de recolhimento:");
-		tfIrrfCodigoRecolhimento.setImmediate(false);
-		tfIrrfCodigoRecolhimento.setWidth("175px");
-		tfIrrfCodigoRecolhimento.setHeight("-1px");
-		tfIrrfCodigoRecolhimento.setSizeFull();
-		tfIrrfCodigoRecolhimento.setNullRepresentation("");
-		gridLayout_1.addComponent(tfIrrfCodigoRecolhimento, 0, 4);
+		tfIrrfCodigoRecolhimento = ComponentUtil.buildNumberField("IRRF código de recolhimento:");
+		gridLayout_1.addComponent(tfIrrfCodigoRecolhimento, 0, 4, 1,4);
 
 		// tfIrrfValorAcumulado
-		tfIrrfValorAcumulado = new TextField();
-		tfIrrfValorAcumulado.setCaption("IRRF valor acumulado:");
-		tfIrrfValorAcumulado.setImmediate(false);
-		tfIrrfValorAcumulado.setWidth("175px");
-		tfIrrfValorAcumulado.setHeight("-1px");
-		tfIrrfValorAcumulado.setSizeFull();
-		tfIrrfValorAcumulado.setNullRepresentation("");
-		gridLayout_1.addComponent(tfIrrfValorAcumulado, 1, 4);
+		tfIrrfValorAcumulado = ComponentUtil.buildCurrencyField("IRRF valor acumulado:");
+		gridLayout_1.addComponent(tfIrrfValorAcumulado, 2, 4, 3,4);
 
 		// pdfIrrfDataPagamento
-		pdfIrrfDataPagamento = new PopupDateField();
-		pdfIrrfDataPagamento.setCaption("IRRF data de pagamento:");
-		pdfIrrfDataPagamento.setImmediate(false);
+		pdfIrrfDataPagamento = ComponentUtil.buildPopupDateField("IRRF data de pagamento:");
 		pdfIrrfDataPagamento.setWidth("175px");
-		pdfIrrfDataPagamento.setHeight("-1px");
-		gridLayout_1.addComponent(pdfIrrfDataPagamento, 0, 5);
+		gridLayout_1.addComponent(pdfIrrfDataPagamento, 0, 5, 1,5);
 
 		// tfPisCompetencia
-		tfPisCompetencia = new TextField();
-		tfPisCompetencia.setCaption("PIS competência:");
-		tfPisCompetencia.setImmediate(false);
-		tfPisCompetencia.setWidth("175px");
-		tfPisCompetencia.setHeight("-1px");
-		tfPisCompetencia.setSizeFull();
-		tfPisCompetencia.setNullRepresentation("");
-		gridLayout_1.addComponent(tfPisCompetencia, 1, 5);
+		tfPisCompetencia = ComponentUtil.buildTextField("PIS competência:");
+		gridLayout_1.addComponent(tfPisCompetencia, 2, 5, 3,5);
 
 		// tfPisValorAcumulado
-		tfPisValorAcumulado = new TextField();
-		tfPisValorAcumulado.setCaption("PIS valor acumulado:");
-		tfPisValorAcumulado.setImmediate(false);
-		tfPisValorAcumulado.setWidth("175px");
-		tfPisValorAcumulado.setHeight("-1px");
-		tfPisValorAcumulado.setSizeFull();
-		tfPisValorAcumulado.setNullRepresentation("");
-		gridLayout_1.addComponent(tfPisValorAcumulado, 0, 6);
+		tfPisValorAcumulado = ComponentUtil.buildCurrencyField("PIS valor acumulado:");
+		gridLayout_1.addComponent(tfPisValorAcumulado, 0, 6, 1,6);
 
 		// pdfPisDataPagamento
-		pdfPisDataPagamento = new PopupDateField();
-		pdfPisDataPagamento.setCaption("PIS data de pagamento:");
-		pdfPisDataPagamento.setImmediate(false);
+		pdfPisDataPagamento = ComponentUtil.buildPopupDateField("PIS data de pagamento:");
 		pdfPisDataPagamento.setWidth("175px");
-		pdfPisDataPagamento.setHeight("-1px");
-		gridLayout_1.addComponent(pdfPisDataPagamento, 1, 6);
+		gridLayout_1.addComponent(pdfPisDataPagamento, 2, 6, 3,6);
 
 		return gridLayout_1;
 	}

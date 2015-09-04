@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -51,7 +52,7 @@ public class IndiceValorEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contabil_indice_valor_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "contabil_indice_valor_id_seq")
 	@SequenceGenerator(name = "contabil_indice_valor_id_seq", sequenceName = "contabil_indice_valor_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -71,6 +72,7 @@ public class IndiceValorEntity extends AbstractMultiEmpresaModel<Integer>
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Valor")
+	@NotNull(message = "Valor é Obrigatório")
 	private BigDecimal valor = new BigDecimal(0.0);
 
 	/**
@@ -84,7 +86,7 @@ public class IndiceValorEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_contabil_indice", nullable = false)
 	@Caption("Índice")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
+	@NotNull(message = "Indice é Obrigatório!")
 	private IndiceEntity indice;
 
 	/**

@@ -9,6 +9,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.contabilidade.cadastro.FapFormController;
+import dc.visao.framework.util.ComponentUtil;
 
 public class FapFormView extends CustomComponent {
 
@@ -134,36 +135,20 @@ public class FapFormView extends CustomComponent {
 		// gridLayout_1.setHeight("100.0%");
 		gridLayout_1.setMargin(false);
 		gridLayout_1.setSpacing(true);
-		gridLayout_1.setRows(20);
-		gridLayout_1.setColumns(2);
+		gridLayout_1.setRows(4);
+		gridLayout_1.setColumns(4);
 
 		// tfFap
-		tfFap = new TextField();
-		tfFap.setCaption("Fap:");
-		tfFap.setImmediate(false);
-		tfFap.setWidth("175px");
-		tfFap.setHeight("-1px");
-		tfFap.setSizeFull();
-		tfFap.setNullRepresentation("");
-		gridLayout_1.addComponent(tfFap, 0, 1);
+		tfFap = ComponentUtil.buildNumericField("Fap:");
+		gridLayout_1.addComponent(tfFap, 0, 1, 1,1);
 
 		// pdfDataInicial
-		pdfDataInicial = new PopupDateField();
-		pdfDataInicial.setCaption("Data inicial:");
-		pdfDataInicial.setImmediate(false);
-		pdfDataInicial.setWidth("175px");
-		pdfDataInicial.setHeight("-1px");
-		pdfDataInicial.setSizeFull();
-		gridLayout_1.addComponent(pdfDataInicial, 1, 1);
+		pdfDataInicial = ComponentUtil.buildPopupDateField("Data inicial:");
+		gridLayout_1.addComponent(pdfDataInicial, 2, 1, 3,1);
 
 		// pdfDataFinal
-		pdfDataFinal = new PopupDateField();
-		pdfDataFinal.setCaption("Data término:");
-		pdfDataFinal.setImmediate(false);
-		pdfDataFinal.setWidth("175px");
-		pdfDataFinal.setHeight("-1px");
-		pdfDataFinal.setSizeFull();
-		gridLayout_1.addComponent(pdfDataFinal, 0, 2);
+		pdfDataFinal = ComponentUtil.buildPopupDateField("Data término:");
+		gridLayout_1.addComponent(pdfDataFinal, 0, 2, 1,2);
 
 		return gridLayout_1;
 	}

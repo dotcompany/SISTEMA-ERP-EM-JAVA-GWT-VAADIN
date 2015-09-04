@@ -36,7 +36,7 @@ public class RequisicaoInternaListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "colaborador", "dataRequisicao" };
+		return new String[] {"colaborador", "dataRequisicao" };
 	}
 
 	@Override

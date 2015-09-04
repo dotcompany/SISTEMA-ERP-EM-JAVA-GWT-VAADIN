@@ -1,24 +1,26 @@
 package dc.controller.suprimento.estoque;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.controller.geral.pessoal.ColaboradorListController;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.estoque.RequisicaoInternaCabecalhoEntity;
 import dc.entidade.suprimentos.estoque.RequisicaoInternaDetalheEntity;
+import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.suprimentos.estoque.RequisicaoInternaCabecalhoDAO;
-import dc.servicos.util.Validator;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 import dc.visao.suprimento.estoque.RequisicaoInternaFormView;
@@ -37,6 +39,9 @@ public class RequisicaoInternaFormController extends
 
 	@Autowired
 	RequisicaoInternaCabecalhoDAO dao;
+	
+	@Autowired
+	ColaboradorDAO colaboradorDAO;
 
 	private RequisicaoInternaCabecalhoEntity currentBean;
 
@@ -63,9 +68,6 @@ public class RequisicaoInternaFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setDataRequisicao(subView.getDataRequisicao()
-					.getValue());
-			currentBean.setColaborador(buscaColaborador());
 			dao.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -77,19 +79,48 @@ public class RequisicaoInternaFormController extends
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = dao.find((Integer) id);
-		subView.getDataRequisicao().setValue(currentBean.getDataRequisicao());
-		subView.fillRequisicaoDetalhesSubForm(currentBean.getDetalhes());
+		
+		try {
+			currentBean = dao.find((Integer) id);
+			fieldGroup.setItemDataSource(this.currentBean);
+			subView.fillRequisicaoDetalhesSubForm(currentBean.getDetalhes());
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new RequisicaoInternaFormView(this);
+		try {
+			this.subView = new RequisicaoInternaFormView(this);
+			
+            this.fieldGroup = new DCFieldGroup<>(RequisicaoInternaCabecalhoEntity.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getDataRequisicao(),"dataRequisicao");
+			fieldGroup.bind(this.subView.getCmbColaborador(),"colaborador");
+			
+			this.subView.getCmbColaborador().configuraCombo(
+					"pessoa.nome", ColaboradorListController.class, this.colaboradorDAO, this.getMainController());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new RequisicaoInternaCabecalhoEntity();
+		
+		try {
+			currentBean = new RequisicaoInternaCabecalhoEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		
+		}catch(Exception e ) {
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
@@ -99,36 +130,37 @@ public class RequisicaoInternaFormController extends
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		Date dataRequisicao = (Date) subView.getDataRequisicao().getValue();
-
-		if (!Validator.validateObject(dataRequisicao)) {
-			adicionarErroDeValidacao(subView.getDataRequisicao(),
-					"Informe a Data da Requisição!");
-			valido = false;
-		}
-
-		System.out.println("");
-
-		return valido;
+		
+		 try {
+			         // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
+	    }
 	}
-
-	@Override
-	protected void quandoNovo() {
-		subView.fillRequisicaoDetalhesSubForm(currentBean.getDetalhes());
-
-	}
-
 	@Override
 	protected void remover(List<Serializable> ids) {
-		// TODO Auto-generated method stub
+		try {
+			this.dao.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
-		// TODO Auto-generated method stub
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 

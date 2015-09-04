@@ -46,14 +46,14 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOsEnt
 			boolean valido = validaSalvar();
 
 			if (valido) {
-				currentBean.setLimparBdAut(Boolean.valueOf(subView.getCbLimparBD().getValue().toString()));
-				currentBean.setVendedorProduto(Boolean.valueOf(subView.getCbVendedorProduto().getValue().toString()));
+				//currentBean.setLimparBdAut(Boolean.valueOf(subView.getCbLimparBD().getValue().toString()));
+				//currentBean.setVendedorProduto(Boolean.valueOf(subView.getCbVendedorProduto().getValue().toString()));
 				currentBean.setValorPagoPeca(Boolean.valueOf(subView.getCbValorPagoPeca().getValue().toString()));
-				currentBean.setDescontoGeral(Boolean.valueOf(subView.getCbDesconto().getValue().toString()));
-				currentBean.setTecnicoProduto(Boolean.valueOf(subView.getCbTecnicoProduto().getValue().toString()));
-				currentBean.setVendedorAtendente(Boolean.valueOf(subView.getCbVendedorAtendente().getValue().toString()));
+				//currentBean.setDescontoGeral(Boolean.valueOf(subView.getCbDesconto().getValue().toString()));
+				//currentBean.setTecnicoProduto(Boolean.valueOf(subView.getCbTecnicoProduto().getValue().toString()));
+				//currentBean.setVendedorAtendente(Boolean.valueOf(subView.getCbVendedorAtendente().getValue().toString()));
 				currentBean.setVendedorServico(Boolean.valueOf(subView.getCbVendedorServico().getValue().toString()));
-				currentBean.setQtdDiasRevisao(Boolean.valueOf(subView.getCbProximaRevisao().getValue().toString()));
+				//currentBean.setQtdDiasRevisao(Boolean.valueOf(subView.getCbProximaRevisao().getValue().toString()));
 				currentBean.setQtdDiasPadrao(Integer.valueOf(subView.getTfDiasPadrao().getValue()));
 				currentBean.setObsDefeitoPadrao(subView.getTaDefeitoApresentado().getValue());
 				currentBean.setObsPadraoOsSimples(subView.getTaObsPadraoSimpes().getValue());
