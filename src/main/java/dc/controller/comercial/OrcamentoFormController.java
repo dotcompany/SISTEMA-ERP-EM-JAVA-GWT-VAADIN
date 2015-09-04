@@ -2,7 +2,6 @@ package dc.controller.comercial;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,8 +170,24 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 	public boolean isFullSized() {
 		return true;
 	}
+	
+public ItemOrcamento adicionarItem() {
+		
+	    ItemOrcamento item = new ItemOrcamento();
+		currentBean.addItem(item);
+		return item;
+	}
 
-	public ItemOrcamento adicionarItem() {
+	public void removerItem(List<ItemOrcamento> values) {
+		for (ItemOrcamento value : values) {
+			currentBean.removeItem(value);
+		}
+		
+		mensagemRemovidoOK();
+
+	}
+
+	/*public ItemOrcamento adicionarItem() {
 		ItemOrcamento item = new ItemOrcamento();
 		List<ItemOrcamento> lista = itemOrcamentoDAO
 				.findByOrcamento(currentBean);
@@ -185,7 +200,7 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		item.setOrcamento(currentBean);
 
 		return item;
-	}
+	}*/
 
 	public List<ProdutoEntity> buscarProdutos() {
 		return produtoDAO.getAll(ProdutoEntity.class);
