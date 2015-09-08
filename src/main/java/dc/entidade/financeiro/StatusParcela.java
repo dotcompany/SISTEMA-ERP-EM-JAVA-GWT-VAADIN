@@ -61,7 +61,7 @@ public class StatusParcela extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "PROCEDIMENTO")
 	@Caption(value = "Procedimento")
 	@Field
-	@NotNull(message = "Procedimento é obrigatório do ${this.nome}.") 
+	//@NotNull(message = "Procedimento é obrigatório do ${this.descricao}.") 
 	@Basic(fetch = javax.persistence.FetchType.LAZY) 
 	private String procedimento;
 
