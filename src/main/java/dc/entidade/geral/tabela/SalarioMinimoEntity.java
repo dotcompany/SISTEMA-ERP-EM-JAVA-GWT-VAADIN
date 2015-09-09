@@ -60,7 +60,7 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "VALOR_MENSAL", precision = 18, scale = 6)
-	@NotNull(message = "Valor Mensal é Obrigatório!")
+	//@NotNull(message = "Valor Mensal é Obrigatório!")
 	private BigDecimal valorMensal;
 	
 	@Field

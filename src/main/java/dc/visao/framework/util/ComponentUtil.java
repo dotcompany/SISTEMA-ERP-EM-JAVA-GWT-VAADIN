@@ -4,7 +4,6 @@ import org.vaadin.addons.maskedtextfield.DecimalField;
 import org.vaadin.addons.maskedtextfield.MaskedTextField;
 import org.vaadin.addons.maskedtextfield.NumericField;
 
-import com.vaadin.data.util.converter.StringToDoubleConverter;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
@@ -19,6 +18,8 @@ import dc.visao.framework.component.BigDecimalConverter;
 import dc.visao.framework.component.LookupComponent;
 
 public final class ComponentUtil {
+	
+	static Class<?> fieldClass;
 
 	public static TextField buildPercentageField(String caption) {
 		TextField textField = new TextField();
@@ -55,9 +56,11 @@ public final class ComponentUtil {
 		textField.setImmediate(true);
 		textField.setSizeFull();
 		textField.setConverter(new BigDecimalConverter("R$ "));
+		//textField.setConverter(Money.class);
+		//((BigDecimal) textField.getConvertedValue()).setScale(2, RoundingMode.HALF_EVEN);
+		//textField.setConvertedValue(new DoubleConverter("R$ "));
 		//textField.setConverter(new StringToDoubleConverter());
-		textField.addTextChangeListener(event -> CurrencyConverter.vceMask(
-				event, textField));
+		textField.addTextChangeListener(event -> CurrencyConverter.vceMask(event, textField));
 
 		return textField;
 	}
@@ -68,10 +71,10 @@ public final class ComponentUtil {
 		textField.setCaption(caption);
 		textField.setImmediate(true);
 		textField.setSizeFull();
-		textField.setConverter(new StringToDoubleConverter());
 		//textField.setConverter(new StringToDoubleConverter());
-		textField.addTextChangeListener(event -> CurrencyConverter.vceMask(
-				event, textField));
+		//setConverter(new MaskNumberConverter());
+		//textField.setConverter(new StringToDoubleConverter());
+		textField.addTextChangeListener(event -> CurrencyConverter.vceMask(event, textField));
 
 		return textField;
 	}
@@ -119,7 +122,20 @@ public final class ComponentUtil {
 		textField.setCaption(caption);
 		textField.setImmediate(true);
 		textField.setSizeFull();
+		
+/*		 // Ajusta representação nula
+        if (textField instanceof TextField) {
+            textField.setNullRepresentation("");
+            textField.setNullSettingAllowed(true);
+        }
 
+        // Atribui conversor ao tipo de retorno do campo no bean
+        if (textField instanceof AbstractField) {
+            AbstractField<?> af = (AbstractField) textField;
+            af.setValidationVisible(false);
+            af.setConverter(fieldClass);
+        }
+*/
 		return textField;
 	}
 	

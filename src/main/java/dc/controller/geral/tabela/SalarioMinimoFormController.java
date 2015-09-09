@@ -46,6 +46,8 @@ public class SalarioMinimoFormController extends
 		try {
 
 			salarioMinimoDAO.saveOrUpdate(currentBean);
+			
+			//currentBean.setValorMensal(((BigDecimal) this.subView.getTxtValorMensal().getConvertedValue()).setScale(2, RoundingMode.HALF_EVEN));
 			notifiyFrameworkSaveOK(this.currentBean);
 
 		} catch (Exception e) {
@@ -59,6 +61,8 @@ public class SalarioMinimoFormController extends
 	protected void carregar(Serializable id) {
 		try {
 			        this.currentBean = this.salarioMinimoDAO.find(id);
+			        
+			        //this.subView.getTxtValorMensal().setConvertedValue(currentBean.getValorMensal());
 			
 			        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
 			        fieldGroup.setItemDataSource(this.currentBean);
@@ -79,8 +83,23 @@ public class SalarioMinimoFormController extends
 			
 			        // Mapeia os campos
 			        fieldGroup.bind(this.subView.getDataVigencia(),"vigencia");
-			        fieldGroup.bind(this.subView.getTxtValorMensal(),"valorMensal");
-			
+			       // fieldGroup.bind(this.subView.getTxtValorMensal(),"valorMensal");
+			        
+			       /* subView.getTxtValorMensal().addBlurListener(new BlurListener() {
+
+						/**
+						 * 
+						 */
+						/*private static final long serialVersionUID = 1L;
+
+						@Override
+						public void blur(BlurEvent event) {
+							subView.getTxtValorMensal().setConvertedValue(subView.getTxtValorMensal().getConvertedValue());
+
+						}
+
+					});*/
+			        
 			    } catch (Exception e) {
 			        e.printStackTrace();
 			    }

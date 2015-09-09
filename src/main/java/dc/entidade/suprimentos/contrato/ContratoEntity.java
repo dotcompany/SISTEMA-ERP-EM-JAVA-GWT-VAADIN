@@ -159,7 +159,8 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 	 * 
 	 */
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	//// Não se pode utilizar LAZY, pois está dando problema na sessão do Hibernate, tem que ser EAGER //////////
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@Caption(value = "Pessoa")
 	private PessoaEntity pessoa;
 
