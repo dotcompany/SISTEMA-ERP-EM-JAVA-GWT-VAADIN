@@ -39,7 +39,8 @@ public class ProdutoListController extends CRUDListController<ProdutoEntity> {
 	@Override
 	public String[] getColunas() {
 		return new String[] {  "subGrupo","unidadeProduto","marca","almoxarifado","grupo","grupoTributario", "codigoInterno", 
-				"nome", "descricao","ncm","gtin" };
+				"nome", "descricao","ncm","gtin","inativo","classe","descricaoPdv","valorCompra","valorVenda","precoVendaMinimo",
+				"precoSugerido","custoMedioLiquido","precoLucroZero","precoLucroMinimo","precoLucroMaximo","markup","quantidadeEstoque"};
 	}
 
 	@Override

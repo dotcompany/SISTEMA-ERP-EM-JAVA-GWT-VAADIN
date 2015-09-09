@@ -47,7 +47,7 @@ public class NaturezaFinanceira extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "natureza_financeira_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "natureza_financeira_id_seq")
 	@SequenceGenerator(name = "natureza_financeira_id_seq", sequenceName = "natureza_financeira_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -68,7 +68,6 @@ public class NaturezaFinanceira extends AbstractMultiEmpresaModel<Integer> {
 
 	@Column(name = "TIPO")
 	@Caption(value = "Tipo")
-	@NotNull(message = "Tipo é Obrigatório!")
 	private String tipo;
 
 	@Caption(value = "Aplicação")

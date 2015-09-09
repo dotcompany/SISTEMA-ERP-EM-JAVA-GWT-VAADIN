@@ -244,7 +244,7 @@ public class OrdemServicoFormView extends CustomComponent {
 	private Double valorDescontoPeca = 0D;
 	private Double valorTotalDesconto = 0D;
 	private Button btnEfetivacao;
-	private ParametroOsEntity parametroOs = new ParametroOsEntity();
+	private ParametroOsEntity parametroOs;
 	
 	public OrdemServicoFormView(OrdemServicoFormController controller) {
 		this.controller = controller;
@@ -252,7 +252,7 @@ public class OrdemServicoFormView extends CustomComponent {
 //			this.parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 //		}
 
-		this.parametroOs = this.controller.getParametroOs();
+		//this.parametroOs = this.controller.getParametroOs();
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 	}
