@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -52,7 +51,7 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	@Column(name = "VIGENCIA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Data Vigência é Obrigatório!")
+	//@NotNull(message = "Data Vigência é Obrigatório!")
 	private Date vigencia;
 	
 	@Field

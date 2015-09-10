@@ -50,7 +50,7 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "contrato_id_seq")
 	@SequenceGenerator(name = "contrato_id_seq", sequenceName = "contrato_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

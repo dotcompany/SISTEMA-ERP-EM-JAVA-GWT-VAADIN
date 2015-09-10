@@ -52,6 +52,7 @@ import dc.entidade.suprimentos.contrato.PrevFaturamentoEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.framework.StringToBigDecimalConverter;
+import dc.visao.framework.component.BigDecimalConverter;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
@@ -1056,6 +1057,7 @@ public class ContratosFormView extends CustomComponent {
 		contrato.setQuantidadeParcelas(Integer.parseInt(getTxtQuantidadeParcelas().getValue()));
 		contrato.setTipoContrato((TipoContratoEntity) cbmTipoContrato.getValue());
 		contrato.setValor(((BigDecimal) txtValor.getConvertedValue()).setScale(2, RoundingMode.HALF_EVEN));
+		txtValor.setConverter(new BigDecimalConverter("R$ "));
 
 	}
 
