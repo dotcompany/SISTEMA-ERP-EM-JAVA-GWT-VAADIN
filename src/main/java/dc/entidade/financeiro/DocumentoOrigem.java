@@ -44,7 +44,7 @@ public class DocumentoOrigem extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "documento_origem_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "documento_origem_id_seq")
 	@SequenceGenerator(name = "documento_origem_id_seq", sequenceName = "documento_origem_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

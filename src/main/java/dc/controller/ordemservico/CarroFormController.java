@@ -22,7 +22,6 @@ import dc.servicos.dao.ordemservico.CorDAO;
 import dc.servicos.dao.ordemservico.MarcaDAO;
 import dc.servicos.dao.ordemservico.ModeloOsDAO;
 import dc.visao.framework.DCFieldGroup;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModelSelect;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.CarroFormView;
 
@@ -135,6 +134,8 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 	        fieldGroup.bind(this.subView.getCbCliente(), "cliente");
 	        fieldGroup.bind(this.subView.getCbMarca(), "marca");
 			fieldGroup.bind(this.subView.getCbModelo(), "modelo");
+			fieldGroup.bind(this.subView.getCbCor(), "cor");
+			fieldGroup.bind(this.subView.getCbCombustivel(), "combustivel");
 			
 			        // Configura os ManyToOneComboFields
 			        this.subView.getCbCliente().configuraCombo(

@@ -38,7 +38,7 @@ public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> imple
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "configuracao_boleto_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "configuracao_boleto_id_seq")
 	@SequenceGenerator(name = "configuracao_boleto_id_seq", sequenceName = "configuracao_boleto_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

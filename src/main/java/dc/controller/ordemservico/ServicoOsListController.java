@@ -30,7 +30,7 @@ public class ServicoOsListController extends CRUDListController<ServicoOsEntity>
 
 	@Override
 	protected String getTitulo() {
-		return "ServicoOs";
+		return "Serviço OS";
 	}
 
 	@Override

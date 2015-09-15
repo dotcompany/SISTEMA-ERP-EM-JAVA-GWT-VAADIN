@@ -105,6 +105,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name = "ID_AGENCIA_BANCO", nullable = true)
 	@NotNull(message = "Agência Banco é Obrigatório!")
+	@Caption("Agência Banco")
 	private AgenciaBancoEntity agenciaBanco;
 
 	/**

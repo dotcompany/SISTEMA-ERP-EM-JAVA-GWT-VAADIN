@@ -50,7 +50,7 @@ public class PlanoNaturezaFinanceira extends AbstractMultiEmpresaModel<Integer> 
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plano_natureza_financeira_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "plano_natureza_financeira_id_seq")
 	@SequenceGenerator(name = "plano_natureza_financeira_id_seq", sequenceName = "plano_natureza_financeira_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

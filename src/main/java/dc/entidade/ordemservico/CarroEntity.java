@@ -98,6 +98,7 @@ public class CarroEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Cor")
 	@JoinColumn(name = "id_cor", referencedColumnName = "id")
 	@ManyToOne(optional = false)
+	@NotNull(message = "Cor é Obrigatório")
 	private CorEntity cor;
  
 	@Caption("Modelo")
@@ -109,6 +110,7 @@ public class CarroEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Combustível")
 	@JoinColumn(name = "id_combustivel", referencedColumnName = "id")
 	@ManyToOne(optional = false)
+	@NotNull(message = "Combustível é Obrigatório!")
 	private CombustivelEntity combustivel;
 
 	@Field 

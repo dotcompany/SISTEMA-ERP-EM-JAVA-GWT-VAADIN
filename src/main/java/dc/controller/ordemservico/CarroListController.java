@@ -27,7 +27,7 @@ public class CarroListController extends CRUDListController<CarroEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] {"placa","cliente","marca"};
+		return new String[] {"cliente","placa","marca","modelo","cor","combustivel","ano","motorizacao","chassi","observacao"};
 	}
 
 	@Override
