@@ -5,7 +5,7 @@ import dc.model.business.AbstractComboBusiness;
 
 /**
  * 
- * @author Paulo Sérgio Ferreira
+ * @author Paulo Sergio Ferreira
  * 
  */
 

@@ -19,12 +19,11 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.financeiro.TipoPagamento;
-import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;

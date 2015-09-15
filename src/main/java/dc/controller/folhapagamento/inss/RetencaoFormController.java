@@ -20,7 +20,6 @@ import dc.servicos.dao.folhapagamento.inss.RetencaoDAO;
 import dc.servicos.dao.folhapagamento.inss.ServicoDAO;
 import dc.visao.folhapagamento.inss.RetencaoFormView;
 import dc.visao.framework.DCFieldGroup;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller

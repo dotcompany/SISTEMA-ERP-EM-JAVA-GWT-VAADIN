@@ -14,6 +14,11 @@ import dc.visao.framework.geral.CRUDListController;
 @Component
 @Scope("prototype")
 public class VendaListController extends CRUDListController<Venda> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	VendaDAO dao;

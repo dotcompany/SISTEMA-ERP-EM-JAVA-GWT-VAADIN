@@ -14,6 +14,11 @@ import dc.visao.framework.geral.CRUDListController;
 @Component
 @Scope("prototype")
 public class CondicaoPagamentoListController extends CRUDListController<CondicaoPagamento> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	CondicaoPagamentoDAO dao;

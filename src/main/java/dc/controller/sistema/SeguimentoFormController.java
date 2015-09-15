@@ -11,8 +11,6 @@ import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.SeguimentoUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;

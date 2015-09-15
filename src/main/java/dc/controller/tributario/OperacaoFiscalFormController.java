@@ -11,7 +11,6 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.controller.geral.tabela.CfopListController;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.servicos.dao.geral.tabela.CfopDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;

@@ -20,6 +20,11 @@ import dc.visao.geral.tabela.SituacaoDocumentoFormView;
 @Scope("prototype")
 public class SituacaoDocumentoFormController extends
 		CRUDFormController<SituacaoDocumentoEntity> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	SituacaoDocumentoFormView subView;
 

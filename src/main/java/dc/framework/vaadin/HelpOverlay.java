@@ -4,6 +4,11 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Window;
 
 public class HelpOverlay extends Window {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
     public HelpOverlay() {
         setContent(new CssLayout());

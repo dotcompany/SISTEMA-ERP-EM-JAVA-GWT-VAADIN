@@ -14,9 +14,7 @@ import org.jrimum.texgit.Record;
 import org.jrimum.texgit.Texgit;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.ponto.PontoMarcacao;
-import dc.visao.spring.SecuritySessionProvider;
 
 public class GeraArquivoAFDT {
 

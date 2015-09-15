@@ -15,6 +15,12 @@ import dc.visao.framework.geral.CRUDListController;
 @Scope("prototype")
 @SuppressWarnings("unchecked")
 public class PontoHorarioListController extends CRUDListController<PontoHorario> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Autowired
 	PontoHorarioDAO dao;
 

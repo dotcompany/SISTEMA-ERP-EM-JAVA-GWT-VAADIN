@@ -27,6 +27,11 @@ import dc.entidade.geral.tabela.CstIcmsbEntity;
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
 public class IcmsConfiguracaoTributariaEntity extends AbstractMultiEmpresaModel<Integer> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "icm")

@@ -1,3 +1,4 @@
+
 package dc.control.util.classes;
 
 import java.util.ArrayList;
@@ -12,7 +13,6 @@ import dc.control.validator.DotErpException;
 import dc.entidade.administrativo.empresa.EmpresaCnaeEntity;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.Fpas;
-import dc.entidade.geral.CnaeEntity;
 import dc.entidade.geral.outro.SindicatoEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
 import dc.visao.administrativo.empresa.EmpresaFormView;

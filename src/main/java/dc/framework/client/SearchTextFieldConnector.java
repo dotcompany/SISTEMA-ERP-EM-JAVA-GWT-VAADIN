@@ -23,6 +23,11 @@ import dc.framework.SearchTextFieldExtension;
 
 @Connect(SearchTextFieldExtension.class)
 public class SearchTextFieldConnector extends AbstractExtensionConnector {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void extend(ServerConnector target) {

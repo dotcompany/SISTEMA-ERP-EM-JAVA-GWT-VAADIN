@@ -13,6 +13,11 @@ import dc.framework.client.SerchTextFieldServerRPC;
 import dc.visao.framework.geral.CRUDListController;
 
 public class SearchTextFieldExtension extends AbstractExtension {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private CRUDListController controller;
 	private ConfigProperties config;

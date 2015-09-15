@@ -23,6 +23,11 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
 public class PisConfiguracaoTributariaEntity extends AbstractMultiEmpresaModel<Integer> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pis")

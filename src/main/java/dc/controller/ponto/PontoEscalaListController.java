@@ -15,6 +15,12 @@ import dc.visao.framework.geral.CRUDListController;
 @Scope("prototype")
 @SuppressWarnings("unchecked")
 public class PontoEscalaListController extends CRUDListController<PontoEscala> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Autowired
 	PontoEscalaDAO dao;
 

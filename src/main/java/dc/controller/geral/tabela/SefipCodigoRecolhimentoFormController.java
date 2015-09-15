@@ -20,6 +20,11 @@ import dc.visao.geral.tabela.SefipCodigoRecolhimentoFormView;
 @Scope("prototype")
 public class SefipCodigoRecolhimentoFormController extends
 		CRUDFormController<SefipCodigoRecolhimentoEntity> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	SefipCodigoRecolhimentoFormView subView;
 

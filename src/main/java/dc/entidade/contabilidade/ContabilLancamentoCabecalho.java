@@ -17,7 +17,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.financeiro.type.TipoType;
 
 @Entity
 @Table(name = "CONTABIL_LANCAMENTO_CABECALHO")
