@@ -57,7 +57,7 @@ public final class ComponentUtil {
 		textField.setSizeFull();
 		textField.setConverter(new BigDecimalConverter("R$ "));
 		//textField.setConverter(Money.class);
-		//((BigDecimal) textField.getConvertedValue()).setScale(2, RoundingMode.HALF_EVEN);
+		//textField.setConvertedValue(((BigDecimal) textField.getConvertedValue()).setScale(2, RoundingMode.HALF_EVEN));
 		//textField.setConvertedValue(new DoubleConverter("R$ "));
 		//textField.setConverter(new StringToDoubleConverter());
 		textField.addTextChangeListener(event -> CurrencyConverter.vceMask(event, textField));
