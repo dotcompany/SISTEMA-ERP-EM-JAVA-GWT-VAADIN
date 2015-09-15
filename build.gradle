@@ -156,14 +156,14 @@ dependencies {
     compile 'org.hibernate:hibernate-entitymanager:4.3.11.Final'
     compile 'org.hibernate:hibernate-validator:4.3.2.Final'
 
-    compile 'org.hibernate:hibernate-search:5.3.0.Final'
+    compile 'org.hibernate:hibernate-search:5.4.0.Final'
     compile 'org.hibernate:hibernate-search-analyzers:5.0.0.Alpha1'//'org.hibernate:hibernate-search-analyzers:4.5.3.Final'
 
     compile 'com.itextpdf:itextpdf:5.5.5'
     compile 'javax.mail:mail:1.4.7'
     
    // compile 'mysql:mysql-connector-java:5.1.21'
-    compile ('org.postgresql:postgresql:9.4-1201-jdbc41') {
+    compile ('org.postgresql:postgresql:9.4-1202-jdbc42') {
         exclude module: 'slf4j-simple'
     }
 
