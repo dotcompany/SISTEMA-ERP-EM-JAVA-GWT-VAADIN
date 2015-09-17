@@ -25,8 +25,8 @@ public class FluxoCaixaListController extends CRUDListController<FluxoCaixaEntit
 		@Autowired
 		FluxoCaixaDAO dao;
 
-		@Autowired
-		private FluxoCaixaFormController fluxoCaixaFormController;
+		//@Autowired
+		//private FluxoCaixaFormController fluxoCaixaFormController;
 
 		@Override
 		public String[] getColunas() {
@@ -51,7 +51,8 @@ public class FluxoCaixaListController extends CRUDListController<FluxoCaixaEntit
 
 		@Override
 		protected CRUDFormController<FluxoCaixaEntity> getFormController() {
-			return fluxoCaixaFormController;
+			//return fluxoCaixaFormController;
+			return null;
 		}
 
 		@Override
