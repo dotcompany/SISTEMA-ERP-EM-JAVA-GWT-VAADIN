@@ -23,7 +23,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
-@Table(name = "fluxo_caixa_detalhe")
+@Table(name = "orcamento_fluxo_caixa_detalhe")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)

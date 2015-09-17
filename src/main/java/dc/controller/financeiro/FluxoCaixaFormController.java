@@ -1,6 +1,7 @@
 package dc.controller.financeiro;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,15 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.FluxoCaixaDetalheEntity;
 import dc.entidade.financeiro.FluxoCaixaEntity;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.model.business.financeiro.FluxoCaixaBusiness;
+import dc.servicos.dao.financeiro.FluxoCaixaPeriodoDAO;
 import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.visao.financeiro.FluxoCaixaFormView;
 import dc.visao.framework.DCFieldGroup;
@@ -41,6 +45,9 @@ public class FluxoCaixaFormController extends CRUDFormController<FluxoCaixaEntit
 		
 		@Autowired
 		private NaturezaFinanceiraDAO naturezaFinanceiraDAO;
+		
+		@Autowired
+		private FluxoCaixaPeriodoDAO fluxoCaixaPeriodoDAO;
 
 		public FluxoCaixaBusiness<FluxoCaixaEntity> getBusiness() {
 		 return business;
@@ -98,11 +105,30 @@ public class FluxoCaixaFormController extends CRUDFormController<FluxoCaixaEntit
 				
 				fieldGroup.bind(this.subView.getCbDocumentoOrigem(),"documentoOrigem");
 				//fieldGroup.bind(this.subView.getCbPessoa(),"pessoa");
-				fieldGroup.bind(this.subView.getCbFornecedor(),"fornecedor");
+				fieldGroup.bind(this.subView.getCbFornecedor(),"fornecedor");*/
+				
+				subView.getBtnCalculaVariacao().addClickListener(new ClickListener() {
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void buttonClick(ClickEvent event) {
+						try {
+							calculaVariacao();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							mensagemErro(e.getMessage());
+						}
+
+					}
+				});
 				
 				
-				this.subView.getCbContaCaixa().configuraCombo(
-						"nome", ContaCaixaListController.class, this.contaCaixaDAO, this.getMainController());*/
+				this.subView.getCbPeriodo().configuraCombo(
+						"nome", FluxoCaixaPeriodoListController.class, this.fluxoCaixaPeriodoDAO, this.getMainController());
 				
 			}catch (Exception e) {
 			    e.printStackTrace();
@@ -199,5 +225,32 @@ public class FluxoCaixaFormController extends CRUDFormController<FluxoCaixaEntit
 		public List<NaturezaFinanceira> buscarNaturezas() {
 			return naturezaFinanceiraDAO.getAll(NaturezaFinanceira.class);
 		}
+		
+		 public void calculaVariacao() throws Exception {
+		        List<FluxoCaixaDetalheEntity> listaFluxoCaixa = subView.getFluxoCaixaDetalheSubForm().getDados();
+		        if (listaFluxoCaixa.isEmpty()) {
+		        	throw new Exception(
+							"Não existe  valores para o cálculo");
+		            
+		        } else {
+		            BigDecimal taxaVariacao;
+		            BigDecimal valorVariacao;
+		            FluxoCaixaDetalheEntity fluxoCaixa;
+		            
+		            for (int i = 0; i < listaFluxoCaixa.size(); i++) {
+		                fluxoCaixa = listaFluxoCaixa.get(i);
+		                if (fluxoCaixa.getValorOrcado() != null && fluxoCaixa.getValorRealizado() != null) {
+		                    taxaVariacao = fluxoCaixa.getValorRealizado().divide(fluxoCaixa.getValorOrcado(), BigDecimal.ROUND_HALF_EVEN);
+		                    valorVariacao = fluxoCaixa.getValorRealizado().subtract(fluxoCaixa.getValorOrcado());
+		                    listaFluxoCaixa.get(i).setTaxaVariacao(taxaVariacao.subtract(BigDecimal.ONE).multiply(BigDecimal.valueOf(100.0)));
+		                    listaFluxoCaixa.get(i).setValorVariacao(valorVariacao);
+		                    subView.getFluxoCaixaDetalheSubForm().getDados();
+		                }
+		            }
+		            
+		            subView.getFluxoCaixaDetalheSubForm().fillWith(listaFluxoCaixa);
+		        }
+		    }
+
 
 }
