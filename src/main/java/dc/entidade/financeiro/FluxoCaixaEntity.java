@@ -16,8 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,12 +29,14 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
-@Table(name = "fluxo_caixa")
+@Table(name = "orcamento_fluxo_caixa")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
@@ -49,27 +49,39 @@ public class FluxoCaixaEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	    @Column(name = "ID")
 	    private Integer id;
 	    
+	    @Field
+	    @Caption("Nome")
 	    @NotNull(message = "Nome é Obrigatório!")
 	    @Column(name = "NOME")
 	    private String nome;
 	    
 	    @Lob
+	    @Field
+	    @Caption("Descrição")
 	    @Column(name = "DESCRICAO")
 	    private String descricao;
 	    
+	    @Field
+	    @Caption("Data Inicial")
 	    @Column(name = "DATA_INICIAL")
 	    @Temporal(TemporalType.DATE)
 	    private Date dataInicial;
 	    
+	    @Field
+	    @Caption("Número de Períodos")
 	    @Column(name = "NUMERO_PERIODOS")
 	    private Integer numeroPeriodos;
 	    
+	    @Field
+	    @Caption("Data Base")
 	    @Column(name = "DATA_BASE")
 	    @Temporal(TemporalType.DATE)
 	    private Date dataBase;
 	    
-	    @JoinColumn(name = "ID_FLUXO_CAIXA_PERIODO", referencedColumnName = "ID")
+	    @Caption("Fluxo Caixa de Período")
+	    @JoinColumn(name = "id_orc_fluxo_caixa_periodo", referencedColumnName = "ID")
 	    @ManyToOne(optional = false)
+	    @NotNull(message = "Fluxo Caixa Período é Obrigatório")
 	    private FluxoCaixaPeriodoEntity fluxoCaixaPeriodo;
 	    
 	    @OneToMany(mappedBy = "fluxoCaixa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

@@ -23,7 +23,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
-@Table(name = "fluxo_caixa_detalhe")
+@Table(name = "orcamento_fluxo_caixa_detalhe")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
@@ -51,7 +51,7 @@ public class FluxoCaixaDetalheEntity extends AbstractMultiEmpresaModel<Integer> 
 	    @Column(name = "VALOR_VARIACAO")
 	    private BigDecimal valorVariacao;
 	    
-	    @JoinColumn(name = "ID_FLUXO_CAIXA", referencedColumnName = "ID")
+	    @JoinColumn(name = "id_orcamento_fluxo_caixa", referencedColumnName = "ID")
 	    @ManyToOne(optional = false)
 	    private FluxoCaixaEntity fluxoCaixa;
 	    

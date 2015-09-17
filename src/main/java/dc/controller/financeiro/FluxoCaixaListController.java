@@ -31,7 +31,7 @@ public class FluxoCaixaListController extends CRUDListController<FluxoCaixaEntit
 		@Override
 		public String[] getColunas() {
 			
-			return new String[] { "nome" };
+			return new String[] { "fluxoCaixaPeriodo","nome","dataInicial","dataBase","numeroPeriodos","descricao" };
 		}
 
 		@Override

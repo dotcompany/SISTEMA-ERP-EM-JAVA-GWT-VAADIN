@@ -8,21 +8,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
-@Table(name = "fluxo_caixa_periodo")
+@Table(name = "orcamento_fluxo_caixa_periodo")
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
@@ -35,14 +36,21 @@ public class FluxoCaixaPeriodoEntity extends AbstractMultiEmpresaModel<Integer> 
 	    @Column(name = "ID")
 	    private Integer id;
 	    
+	    @Field
+	    @Caption("Período")
 	    @Column(name = "PERIODO")
 	    private String periodo;
 	    
+	    @Field
+	    @Caption("Nome")
+	    @NotNull(message = "Nome é Obrigatório!")
 	    @Column(name = "NOME")
 	    private String nome;
 	    
+	    @Caption("Conta Caixa")
 	    @JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
 	    @ManyToOne(optional = false)
+	    @NotNull(message = "Conta Caixa é Obrigatório!")
 	    private ContaCaixa contaCaixa;
 
 	    public FluxoCaixaPeriodoEntity() {
