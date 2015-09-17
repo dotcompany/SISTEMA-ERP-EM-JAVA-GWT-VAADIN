@@ -348,7 +348,7 @@ public abstract class AbstractCrudDAO<T> {
 		}
 		
 		if("".equals(booleanQuery.toString())){
-			QueryParser parser = new QueryParser(Version.LUCENE_4_9_1, "id", fullTextSession.getSearchFactory().getAnalyzer("id_empresa_analyzer"));
+			QueryParser parser = new QueryParser(Version.LUCENE_43, "id", fullTextSession.getSearchFactory().getAnalyzer("id_empresa_analyzer"));
 			try {
 				booleanQuery.add(parser.parse("[0 999999]"), Occur.SHOULD);
 			} catch (ParseException e) {
@@ -525,7 +525,7 @@ public abstract class AbstractCrudDAO<T> {
 			
 			SearchFactory searchFactory = fullTextSession.getSearchFactory();
 			org.apache.lucene.search.Query luceneQuery = null;
-			QueryParser parser = new QueryParser(Version.LUCENE_4_9_1, property.toString(), searchFactory.getAnalyzer(Documento.class));
+			QueryParser parser = new QueryParser(Version.LUCENE_43, property.toString(), searchFactory.getAnalyzer(Documento.class));
 			try {
 				luceneQuery = parser.parse("+" + property.toString() + ":" + startValue.toString());
 			} catch (ParseException e) {
@@ -587,7 +587,7 @@ public abstract class AbstractCrudDAO<T> {
 		}
 
 		Analyzer an2 = fullTextSession.getSearchFactory().getAnalyzer("id_empresa_analyzer");
-		QueryParser parser = new QueryParser(Version.LUCENE_4_9_1, empresaField, an2);
+		QueryParser parser = new QueryParser(Version.LUCENE_43, empresaField, an2);
 		try {
 			luceneQueryForEmpresa = parser.parse(String.valueOf(idEmpresa));
 		} catch (ParseException e) {
