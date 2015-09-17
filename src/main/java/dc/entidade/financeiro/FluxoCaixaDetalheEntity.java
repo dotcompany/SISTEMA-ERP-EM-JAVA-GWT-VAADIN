@@ -1,6 +1,7 @@
 package dc.entidade.financeiro;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -10,20 +11,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
-import com.ibm.icu.math.BigDecimal;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "fluxo_caixa_detalhe")
-@NamedQueries({@NamedQuery(name = "FluxoCaixaDetalhe.findAll", query = "SELECT f FROM FluxoCaixaDetalhe f")})
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class FluxoCaixaDetalheEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
 	    private static final long serialVersionUID = 1L;

@@ -11,15 +11,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "fluxo_caixa_periodo")
-@NamedQueries({@NamedQuery(name = "FluxoCaixaPeriodo.findAll", query = "SELECT f FROM FluxoCaixaPeriodo f")})
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class FluxoCaixaPeriodoEntity extends AbstractMultiEmpresaModel<Integer> {
 	
 	    private static final long serialVersionUID = 1L;

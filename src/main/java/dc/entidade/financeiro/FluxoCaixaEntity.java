@@ -22,17 +22,24 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 
 @Entity
 @Table(name = "fluxo_caixa")
-@NamedQueries({@NamedQuery(name = "FluxoCaixa.findAll", query = "SELECT f FROM FluxoCaixa f")})
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class FluxoCaixaEntity extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 	
 	    private static final long serialVersionUID = 1L;
@@ -42,6 +49,7 @@ public class FluxoCaixaEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	    @Column(name = "ID")
 	    private Integer id;
 	    
+	    @NotNull(message = "Nome é Obrigatório!")
 	    @Column(name = "NOME")
 	    private String nome;
 	    

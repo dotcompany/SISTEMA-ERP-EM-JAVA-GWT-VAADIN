@@ -260,4 +260,61 @@ public class FluxoCaixaFormView extends CustomComponent {
 		fluxoCaixaDetalheSubForm.fillWith(detalhes);
 	}
 
+	public TextField getTxNomeFluxo() {
+		return txNomeFluxo;
+	}
+
+	public void setTxNomeFluxo(TextField txNomeFluxo) {
+		this.txNomeFluxo = txNomeFluxo;
+	}
+
+	public TextField getTxNrPeriodo() {
+		return txNrPeriodo;
+	}
+
+	public void setTxNrPeriodo(TextField txNrPeriodo) {
+		this.txNrPeriodo = txNrPeriodo;
+	}
+
+	public TextArea getTxDescricao() {
+		return txDescricao;
+	}
+
+	public void setTxDescricao(TextArea txDescricao) {
+		this.txDescricao = txDescricao;
+	}
+
+	public PopupDateField getDtInicial() {
+		return dtInicial;
+	}
+
+	public void setDtInicial(PopupDateField dtInicial) {
+		this.dtInicial = dtInicial;
+	}
+
+	public PopupDateField getDtInicialBase() {
+		return dtInicialBase;
+	}
+
+	public void setDtInicialBase(PopupDateField dtInicialBase) {
+		this.dtInicialBase = dtInicialBase;
+	}
+
+	public ManyToOneComboField<FluxoCaixaPeriodoEntity> getCbPeriodo() {
+		return cbPeriodo;
+	}
+
+	public void setCbPeriodo(ManyToOneComboField<FluxoCaixaPeriodoEntity> cbPeriodo) {
+		this.cbPeriodo = cbPeriodo;
+	}
+
+	public SubFormComponent<FluxoCaixaDetalheEntity, Integer> getFluxoCaixaDetalheSubForm() {
+		return fluxoCaixaDetalheSubForm;
+	}
+
+	public void setFluxoCaixaDetalheSubForm(
+			SubFormComponent<FluxoCaixaDetalheEntity, Integer> fluxoCaixaDetalheSubForm) {
+		this.fluxoCaixaDetalheSubForm = fluxoCaixaDetalheSubForm;
+	}
+	
 }

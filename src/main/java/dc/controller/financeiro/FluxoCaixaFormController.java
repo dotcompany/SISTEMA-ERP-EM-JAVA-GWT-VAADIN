@@ -13,9 +13,8 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.FluxoCaixaDetalheEntity;
 import dc.entidade.financeiro.FluxoCaixaEntity;
-import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.entidade.financeiro.NaturezaFinanceira;
-import dc.model.business.financeiro.LancamentoPagarBusiness;
+import dc.model.business.financeiro.FluxoCaixaBusiness;
 import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.visao.financeiro.FluxoCaixaFormView;
 import dc.visao.framework.DCFieldGroup;
@@ -33,8 +32,8 @@ public class FluxoCaixaFormController extends CRUDFormController<FluxoCaixaEntit
 		/**
 		 * BUSINESS
 		 */
-		//@Autowired
-		//private FluxoCaixaBusiness<FluxoCaixaEntity> business;
+		@Autowired
+		private FluxoCaixaBusiness<FluxoCaixaEntity> business;
 
 		FluxoCaixaFormView subView;
 
@@ -43,9 +42,9 @@ public class FluxoCaixaFormController extends CRUDFormController<FluxoCaixaEntit
 		@Autowired
 		private NaturezaFinanceiraDAO naturezaFinanceiraDAO;
 
-		/*public FluxoCaixaBusiness<FluxoCaixaEntity> getBusiness() {
+		public FluxoCaixaBusiness<FluxoCaixaEntity> getBusiness() {
 		 return business;
-	}*/
+	    }
 
 		@Override
 		protected String getNome() {
@@ -68,8 +67,8 @@ public class FluxoCaixaFormController extends CRUDFormController<FluxoCaixaEntit
 		protected void carregar(Serializable id) {
 
 			try {
-				//currentBean = this.lancamentoPagarDAO.find(id);
-				//currentBean = this.business.find((Integer) id);
+			
+				currentBean = this.business.find((Integer) id);
 				subView.preencheForm(currentBean);
 				
 				List<FluxoCaixaDetalheEntity> itens = naturezaFinanceiraDAO.findByNatureza(currentBean);
@@ -92,7 +91,7 @@ public class FluxoCaixaFormController extends CRUDFormController<FluxoCaixaEntit
 				this.fieldGroup = new DCFieldGroup<>(FluxoCaixaEntity.class);
 				
 				// Mapeia os campos
-				//fieldGroup.bind(this.subView.getTxValorTotal(),"valorTotal");
+				fieldGroup.bind(this.subView.getTxNomeFluxo(),"nome");
 				/*fieldGroup.bind(this.subView.getTxQuantidadeParcela(),"quantidadeParcela");
 				fieldGroup.bind(this.subView.getCbPagamentoCompartilhado(),"pagamentoCompartilhado");
 				fieldGroup.bind(this.subView.getDtPrimeiroVencimento(),"primeiroVencimento");
@@ -127,7 +126,7 @@ public class FluxoCaixaFormController extends CRUDFormController<FluxoCaixaEntit
 		@Override
 		protected void remover(List<Serializable> ids) {
 			try {
-				//this.business.deleteAll(ids);
+				this.business.deleteAll(ids);
 
 				mensagemRemovidoOK();
 			} catch (Exception e) {
