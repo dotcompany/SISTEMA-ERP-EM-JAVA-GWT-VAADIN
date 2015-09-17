@@ -191,8 +191,16 @@ public final class ComponentUtil {
 		return data;
 	}
 
-	public static MaskedTextField buildMaskedTextField(String caption,
-			String mask) {
+	public static CheckBox buildCheckBox(String caption) {
+		CheckBox checkBox = new CheckBox();
+		checkBox.setCaption(caption);
+		checkBox.setImmediate(true);
+		checkBox.setSizeFull();
+
+		return checkBox;
+	}
+	
+	public static MaskedTextField buildMaskedTextField(String caption,String mask) {
 		MaskedTextField textField = new MaskedTextField();
 		textField.setMask(mask);
 		textField.setNullRepresentation("");
@@ -202,15 +210,6 @@ public final class ComponentUtil {
 		// textField.setSizeFull();
 
 		return textField;
-	}
-
-	public static CheckBox buildCheckBox(String caption) {
-		CheckBox checkBox = new CheckBox();
-		checkBox.setCaption(caption);
-		checkBox.setImmediate(true);
-		checkBox.setSizeFull();
-
-		return checkBox;
 	}
 
 	public static PasswordField buildPasswordField(String caption) {

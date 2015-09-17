@@ -3256,7 +3256,7 @@ public class OrdemServicoFormView extends CustomComponent {
 
 	public enum Tipo {
 
-		GENUINA("GENUÍNA", "G"), NAOGENUINA("NÃO GENUÍNA", "N");
+		GENUINA("GENUINA", "G"), NAOGENUINA("NAO GENUINA", "N");
 
 		private Tipo(String label, String codigo) {
 			this.label = label;
