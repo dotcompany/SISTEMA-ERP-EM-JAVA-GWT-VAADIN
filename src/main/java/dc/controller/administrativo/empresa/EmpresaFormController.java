@@ -584,8 +584,24 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	}
 
 	// EmpresaSeguimento
+	
+	public EmpresaSeguimento novoSeguimento() {
+		
+		EmpresaSeguimento item = new EmpresaSeguimento();
+		currentBean.addSeguimento(item);
+		return item;
+	}
 
-	public EmpresaSeguimento aderirEmpresaSeguimento() {
+	public void removerSeguimento(List<EmpresaSeguimento> values) {
+		for (EmpresaSeguimento value : values) {
+			currentBean.removeSeguimento(value);
+		}
+		
+		mensagemRemovidoOK();
+
+	}
+
+	/*public EmpresaSeguimento aderirEmpresaSeguimento() {
 		try {
 			SeguimentoEntity ent = (SeguimentoEntity) this.subView
 					.getMocSeguimento().getValue();
@@ -697,6 +713,14 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 		for (TipoEmpresaEn en : TipoEmpresaEn.values()) {
 			this.subView.getCbTipoEmpresa().addItem(en);
 		}
+	}
+	
+	public List<SeguimentoEntity> buscarSeguimentos() {
+		return seguimentoDAO.getAll(SeguimentoEntity.class);
+	}
+	
+	public List<EmpresaEntity> buscarEmpresas() {
+		return empresaDAO.getAll(EmpresaEntity.class);
 	}
 
 }

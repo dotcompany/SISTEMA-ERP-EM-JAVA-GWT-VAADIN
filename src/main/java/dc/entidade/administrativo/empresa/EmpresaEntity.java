@@ -2,6 +2,7 @@ package dc.entidade.administrativo.empresa;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,8 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -315,8 +318,10 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
 	private List<PessoaEnderecoEntity> pessoaEnderecoList;
 
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
-	private List<EmpresaSeguimento> empresaSeguimentoList;
+	//@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<EmpresaSeguimento> empresaSeguimentoList = new ArrayList<>();
 
 	/**
 	 * TRANSIENT
@@ -655,6 +660,18 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 
 	public void setTipoControleEstoque(String tipoControleEstoque) {
 		this.tipoControleEstoque = tipoControleEstoque;
+	}
+	
+	public void removeSeguimento(EmpresaSeguimento value) {
+		this.empresaSeguimentoList.remove(value);
+		value.setSeguimento(null);
+	}
+	
+	public EmpresaSeguimento addSeguimento(EmpresaSeguimento e) {
+		getEmpresaSeguimentoList().add(e);
+		//e.setSeguimento(this);
+		
+		return e;
 	}
 
 	/**
