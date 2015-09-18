@@ -301,7 +301,7 @@ public class ContratoSolicitacaoServicoFormView extends CustomComponent {
 		gridLayout_1.addComponent(cbTipoServico, 0, 5, 3, 5);
 
 		// dtSolicitacao
-		dtSolicitacao = ComponentUtil.buildPopupDateField("DataSolicitação");
+		dtSolicitacao = ComponentUtil.buildPopupDateField("Data Solicitação");
 		gridLayout_1.addComponent(dtSolicitacao, 0, 6);
 
 		// dtDesejadaInicio
