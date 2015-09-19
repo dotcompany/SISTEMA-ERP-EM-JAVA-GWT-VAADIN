@@ -46,16 +46,12 @@ public class QuadroSocietarioFormView extends CustomComponent {
 
 		// calDataRequisicao
 		dataRegistro = ComponentUtil.buildPopupDateField("Data Registro");
-		dataRegistro.setRequired(true);
 
 		txtCapitalSocial = ComponentUtil.buildCurrencyField("Capital Social");
-		txtCapitalSocial.setRequired(true);
 
 		txtValorQuota = ComponentUtil.buildCurrencyField("Valor Quota");
-		txtValorQuota.setRequired(true);
 
 		txtQuantidadeCotas = ComponentUtil.buildTextField("Quantidade Cotas");
-		txtQuantidadeCotas.setRequired(true);
 		
 		fields.addComponent(dataRegistro, 0, 0);
 		fields.addComponent(txtCapitalSocial, 1, 0);

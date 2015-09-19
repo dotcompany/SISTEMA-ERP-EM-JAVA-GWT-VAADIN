@@ -1,21 +1,21 @@
 package dc.controller.administrativo.empresa;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.administrativo.empresa.QuadroSocietarioEntity;
-import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.administrativo.empresa.QuadroSocietarioDAO;
 import dc.visao.administrativo.empresa.QuadroSocietarioFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -33,34 +33,61 @@ public class QuadroSocietarioFormController extends CRUDFormController<QuadroSoc
 
 	@Override
 	public String getViewIdentifier() {
-		return "EstoqueForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
+		try {
 
-		return valido;
+			 fieldGroup.commit();
+			return true;
+		} catch (FieldGroup.CommitException ce) {
+			return false;
+		}
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new QuadroSocietarioEntity();
+		try {
+			currentBean = new QuadroSocietarioEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch (Exception e) {
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
+	    }
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new QuadroSocietarioFormView(this);
+		try {
+			subView = new QuadroSocietarioFormView(this);
+			
+			
+			this.fieldGroup = new DCFieldGroup<>(QuadroSocietarioEntity.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getDataRegistro(),"dataRegistro");
+			fieldGroup.bind(this.subView.getTxtQuantidadeCotas(),"quantidadeCotas");
+			
+			
+		}catch (Exception e) {
+		    e.printStackTrace();
+		}
+		
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		// TODO Auto-generated method stub
-		currentBean = dao.find((Integer) id);
-		subView.getDataRegistro().setValue(currentBean.getDataRegistro());
-		subView.getTxtCapitalSocial().setValue(currentBean.getCapitalSocial().toString());
-		subView.getTxtValorQuota().setValue(currentBean.getValorQuota().toString());
-		subView.getTxtQuantidadeCotas().setValue(currentBean.getQuantidadeCotas().toString());
+		try {
+			
+			currentBean = this.dao.find((Integer) id);
+			
+			fieldGroup.setItemDataSource(this.currentBean);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public EmpresaEntity empresaAtual() {
@@ -69,47 +96,12 @@ public class QuadroSocietarioFormController extends CRUDFormController<QuadroSoc
 
 	@Override
 	protected void actionSalvar() {
-		String msgErro = "Erro ao realizar operação";
 		try {
-			String capitalSocial = subView.getTxtCapitalSocial().getValue();
-			String valorQuota = subView.getTxtValorQuota().getValue();
-			String quantidadeCotas = subView.getTxtQuantidadeCotas().getValue();
-
-			Date dataRegistro = subView.getDataRegistro().getValue();
-			if (dataRegistro == null) {
-				msgErro = "Informe a Data de Registro";
-				throw new ErroValidacaoException(msgErro);
-			}
-
-			if (capitalSocial == null || capitalSocial.isEmpty()) {
-				msgErro = "Informe o Capital Social";
-				throw new ErroValidacaoException(msgErro);
-			}
-
-			if (valorQuota == null || valorQuota.isEmpty()) {
-				msgErro = "Informe o Valor da Quota";
-				throw new ErroValidacaoException(msgErro);
-			}
-
-			if (quantidadeCotas == null || quantidadeCotas.isEmpty()) {
-				msgErro = "Informe a Quantidade de Cotas";
-				throw new ErroValidacaoException(msgErro);
-			}
-
-			capitalSocial = formataValor(capitalSocial);
-			valorQuota = formataValor(valorQuota);
-			currentBean.setDataRegistro(dataRegistro);
-			currentBean.setCapitalSocial(new BigDecimal(capitalSocial));
-			currentBean.setValorQuota(new BigDecimal(valorQuota));
-			currentBean.setQuantidadeCotas(new Integer(quantidadeCotas));
-			currentBean.setEmpresa(empresaAtual());
 			dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
-		} catch (ErroValidacaoException e) {
-			mensagemErro(msgErro);
 		} catch (Exception e) {
-			mensagemErro(msgErro);
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -119,16 +111,6 @@ public class QuadroSocietarioFormController extends CRUDFormController<QuadroSoc
 
 		replaceAll(",", "").trim();
 		return format;
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			// subView.filEstoqueDetalhesSubForm(currentBean.getDetalhes());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	@Override
