@@ -38,7 +38,7 @@ public class UsuarioListController extends CRUDListController<UsuarioEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "login" };
+		return new String[] {"colaborador","login","dataCadastro" };
 	}
 
 	@Override

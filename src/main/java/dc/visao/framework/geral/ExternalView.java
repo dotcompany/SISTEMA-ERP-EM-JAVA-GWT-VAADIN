@@ -9,6 +9,7 @@ public abstract class ExternalView extends VerticalLayout implements View{
 
 	private static final long serialVersionUID = -8326681375074030295L;
 	
+	
 	protected boolean showed;
 	public static Logger logger = Logger.getLogger(ExternalView.class);
 	

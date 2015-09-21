@@ -35,6 +35,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 
 @Entity
 @Table(name = "parcela_receber")
@@ -123,7 +124,6 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 
 	@JoinColumn(name = "ID_LANCAMENTO_RECEBER", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	@Caption("Cliente")
 	private LancamentoReceber lancamentoReceber;
 
 	@JoinColumn(name = "ID_STATUS_PARCELA", referencedColumnName = "ID")
@@ -150,6 +150,14 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 	public ParcelaReceber() {
 	}
 
+	@Transient
+	@Field
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+	public String getNomeCliente() {
+		return lancamentoReceber.getCliente().getNome();
+	}
+	
 	public Integer getId() {
 		return id;
 	}

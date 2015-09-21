@@ -28,7 +28,7 @@ public class ParcelaReceberListController extends CRUDListController<ParcelaRece
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "lancamentoReceber.cliente", "contaCaixa", "numeroParcela", "dataEmissao", "dataVencimento", "descontoAte", "valor", "valorFaltante", "taxaJuro",
+		return new String[] {  "nomeCliente","contaCaixa", "numeroParcela", "dataEmissao", "dataVencimento", "descontoAte", "valor", "valorFaltante", "taxaJuro",
 				"valorJuro", "taxaMulta", "valorMulta", "taxaDesconto", "valorDesconto", "emitiuBoleto", "boletoNossoNumero" };
 	}
 

@@ -1,7 +1,10 @@
 package dc.entidade.sistema;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -87,12 +90,17 @@ public class ConfiguracaoContaEmpresa extends AbstractMultiEmpresaModel<Integer>
 		return pergunta2;
 	}
 
-	public void setPergunta2(String pergunta2) {
+	public void setPergunta2(String pertegunta2) {
 		this.pergunta2 = pergunta2;
 	}
 
 	public List<FmModulo> getModulos() {
-		return modulos;
+		if(this.modulos != null){
+			Set mSet = new HashSet(this.modulos);
+			this.modulos = new ArrayList();
+			this.modulos.addAll(mSet);
+		}
+		return this.modulos;
 	}
 
 	public void setModulos(List<FmModulo> modulos) {

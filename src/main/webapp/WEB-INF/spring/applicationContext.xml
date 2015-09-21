@@ -94,7 +94,7 @@
                 <prop key="hibernate.jdbc.batch_size">50</prop>
                 <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
                 <prop key="hibernate.search.default.directory_provider">filesystem</prop>
-                <prop key="hibernate.search.default.indexBase">c:/lucene_indexes</prop>
+                <prop key="hibernate.search.default.indexBase">c:/lucene_indexes2</prop>
                 <prop key="hibernate.search.worker.thread_pool.size">30</prop>
                 <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
             </props>

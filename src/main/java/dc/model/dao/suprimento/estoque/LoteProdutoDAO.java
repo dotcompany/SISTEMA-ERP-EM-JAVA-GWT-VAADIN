@@ -25,5 +25,11 @@ public class LoteProdutoDAO extends AbstractCrudDAO<LoteProdutoEntity> {
 	protected String[] getDefaultSearchFields() {
 		return new String[] { "nome" };
 	}
+	
+	@Transactional
+	public List<LoteProdutoEntity> procuraNomeContendo(String query) {
+		return getSession().createQuery("from LoteProduto where nome like :q")
+				.setParameter("q", "%" + query + "%").list();
+	}
 
 }

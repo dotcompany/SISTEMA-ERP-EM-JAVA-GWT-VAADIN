@@ -1,6 +1,5 @@
 package dc.controller.suprimento.estoque;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.estoque.LoteProdutoEntity;
+import dc.model.dao.suprimento.estoque.LoteProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,6 +21,9 @@ public class LoteProdutoListController extends
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Autowired
+	LoteProdutoDAO dao;
 
 	@Autowired
 	private LoteProdutoFormController loteProdutoFormController;
@@ -40,7 +43,7 @@ public class LoteProdutoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] {"codigo", "nome","dataCadastro","dataCompra","dataFabricacao","dataVencimento","descricao","observacao" };
+		return new String[] {"codigo", "nome","dataCadastro","dataCompra","dataVencimento","descricao","observacao" };
 	}
 
 	@Override
@@ -50,7 +53,7 @@ public class LoteProdutoListController extends
 
 	@Override
 	protected String getTitulo() {
-		return "Lote de Produto";
+		return super.getTitulo(this);
 	}
 
 	@Override
@@ -66,7 +69,7 @@ public class LoteProdutoListController extends
 
 	@Override
 	protected List<LoteProdutoEntity> pesquisa(String valor) {
-		try {
+		/*try {
 			List<LoteProdutoEntity> auxLista = (List<LoteProdutoEntity>) this.loteProdutoFormController
 					.getBusiness().fullTextSearch(valor);
 
@@ -75,12 +78,13 @@ public class LoteProdutoListController extends
 			e.printStackTrace();
 
 			return new ArrayList<LoteProdutoEntity>();
-		}
+		}*/
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override
 	protected List<LoteProdutoEntity> pesquisaDefault() {
-		try {
+		/*try {
 			List<LoteProdutoEntity> auxLista = (List<LoteProdutoEntity>) this.loteProdutoFormController
 					.getBusiness().getAll(getEntityClass());
 
@@ -89,7 +93,11 @@ public class LoteProdutoListController extends
 			e.printStackTrace();
 
 			return new ArrayList<LoteProdutoEntity>();
-		}
+		}*/
+		
+		return (List<LoteProdutoEntity>) dao.getAll(getEntityClass());
+		
+		
 	}
 
 }

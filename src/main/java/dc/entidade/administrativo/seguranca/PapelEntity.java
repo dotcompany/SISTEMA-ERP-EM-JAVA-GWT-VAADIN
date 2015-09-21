@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -78,7 +80,9 @@ public class PapelEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	//@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "papel", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<PapelMenu> papelMenuList = new ArrayList<PapelMenu>();
 
 	/**

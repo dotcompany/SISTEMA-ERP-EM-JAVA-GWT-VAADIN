@@ -59,7 +59,7 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "usuario_id_seq")
 	@SequenceGenerator(name = "usuario_id_seq", sequenceName = "usuario_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

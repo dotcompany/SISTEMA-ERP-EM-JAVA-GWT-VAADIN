@@ -38,7 +38,7 @@ public class PapelListController extends CRUDListController<PapelEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "nome" };
+		return new String[] { "nome","descricao" };
 	}
 
 	@Override

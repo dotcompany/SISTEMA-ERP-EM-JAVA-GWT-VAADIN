@@ -22,6 +22,7 @@ import dc.visao.suprimento.estoque.LoteProdutoFormView;
 @Controller
 @Scope("prototype")
 public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEntity> {
+//public class LoteProdutoFormController extends BlankFormController {
 	
 	/**
 	 * 
@@ -38,7 +39,7 @@ public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEnt
 	@Autowired
 	private LoteProdutoBusiness<LoteProdutoEntity> business;
 	
-	//@Autowired
+//	//@Autowired
 	//private LoteProdutoDAO loteProdutoDAO;
 	
 	@Autowired
@@ -138,6 +139,7 @@ public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEnt
 	protected String getNome() {
 		// TODO Auto-generated method stub
 		return "Lote Produto ";
+		//return super.getNome();
 	}
 
 	@Override
