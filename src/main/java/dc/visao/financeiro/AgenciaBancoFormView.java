@@ -263,7 +263,7 @@ public class AgenciaBancoFormView extends CustomComponent {
 		glGeral.addComponent(cbUf, 1,3);
 
 		// tfTelefone
-		tfTelefone = ComponentUtil.buildMaskedTextField("Telefone", "(##) #####-####");
+		tfTelefone = ComponentUtil.buildMaskedTextField("Telefone", "(##) ####-####C");
 		tfTelefone.setMaskClientOnly(true);
 		tfTelefone.setImmediate(false);
 		glGeral.addComponent(tfTelefone,0,4);
