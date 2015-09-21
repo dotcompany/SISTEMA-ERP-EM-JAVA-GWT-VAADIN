@@ -123,6 +123,7 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 
 	@JoinColumn(name = "ID_LANCAMENTO_RECEBER", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
+	@Caption("Cliente")
 	private LancamentoReceber lancamentoReceber;
 
 	@JoinColumn(name = "ID_STATUS_PARCELA", referencedColumnName = "ID")

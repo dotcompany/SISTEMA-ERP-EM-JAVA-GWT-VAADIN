@@ -533,9 +533,14 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 			LazyQueryContainer container = new LazyQueryContainer(queryFactory,
 					getBeanIdProperty(), PAGE_SIZE, true);
+			container.getQueryView().getQueryDefinition().setMaxNestedPropertyDepth(3);
 
 			for (String id_coluna : getColunas()) {
-				if (getEntityClass().getDeclaredField(id_coluna).getType()
+				if(id_coluna.indexOf(".")>0){
+					container.addContainerProperty(id_coluna, String.class, "",
+							true, true);
+				}
+				else if (getEntityClass().getDeclaredField(id_coluna).getType()
 						.equals(Boolean.class)) {
 					container.addContainerProperty(id_coluna, Boolean.class,
 							false, true, true);
@@ -585,8 +590,14 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 			table.setContainerDataSource(container);
 
 			for (String prop : getColunas()) {
-				Caption captionAnn = AnotacoesUtil.getAnotacao(Caption.class,
-						getEntityClass(), prop);
+				Caption captionAnn = null;
+				if(prop.indexOf("\\.") == 0){
+					captionAnn = AnotacoesUtil.getAnotacao(Caption.class,
+							getEntityClass(), prop);
+				}else{
+					captionAnn = AnotacoesUtil.getAnotacao(Caption.class,
+							getEntityClass(), prop.split("\\.")[0]);
+				}
 
 				boolean existe = (captionAnn != null && !captionAnn.value()
 						.equals("NULO"));
@@ -598,7 +609,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 				// verifica se e uma propriedade de um objeto dentro do bean
 				if (prop.contains(".")) {
-					// container.addNestedContainerProperty(prop);
+					//container.addNestedContainerProperty(prop);
 				}
 
 				if (prop.equals(SearchableCustomListTable.CUSTOM_SELECT_ID)) {
