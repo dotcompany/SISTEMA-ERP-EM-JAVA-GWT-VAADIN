@@ -15,6 +15,12 @@ import dc.visao.framework.geral.CRUDListController;
 @Scope("prototype")
 @SuppressWarnings("unchecked")
 public class PontoAbonoListController extends CRUDListController<PontoAbono> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Autowired
 	PontoAbonoDAO dao;
 

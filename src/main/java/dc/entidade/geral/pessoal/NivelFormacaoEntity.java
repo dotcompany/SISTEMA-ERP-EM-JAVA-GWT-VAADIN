@@ -196,5 +196,10 @@ public class NivelFormacaoEntity extends AbstractMultiEmpresaModel<Integer>
                     .toHashCode();
         }
     }
+    
+    @Override
+    public String toString() {
+    	return nome;
+    }
 
 }

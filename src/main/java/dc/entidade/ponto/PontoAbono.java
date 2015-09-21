@@ -30,6 +30,11 @@ import dc.entidade.geral.pessoal.ColaboradorEntity;
 @Entity
 @Table(name = "PONTO_ABONO")
 public class PontoAbono extends AbstractModel<Serializable> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

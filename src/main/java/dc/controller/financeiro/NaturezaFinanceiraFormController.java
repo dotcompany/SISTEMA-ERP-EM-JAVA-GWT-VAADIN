@@ -91,7 +91,7 @@ public class NaturezaFinanceiraFormController extends CRUDFormController<Naturez
 	        fieldGroup.bind(this.subView.getTxtClassficacao(),"classificacao");
 	        fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
 	        fieldGroup.bind(this.subView.getTxtAplicacao(),"aplicacao");
-	        fieldGroup.bind(this.subView.getCbTipo(),"tipo");
+	        //fieldGroup.bind(this.subView.getCbTipo(),"tipo");
 	        fieldGroup.bind(this.subView.getCbPlanoNaturezaFinanceira(),"planoNaturezaFinanceira");
 	        fieldGroup.bind(this.subView.getCbContabilConta(),"contabilconta");
 	        

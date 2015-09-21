@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.entidade.financeiro.FluxoCaixaDetalheEntity;
+import dc.entidade.financeiro.FluxoCaixaEntity;
 import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.entidade.financeiro.LancamentoReceber;
 import dc.entidade.financeiro.NaturezaFinanceira;
@@ -79,5 +81,22 @@ public class NaturezaFinanceiraDAO extends AbstractCrudDAO<NaturezaFinanceira>{
 				e.printStackTrace();
 			}
 			return lista;
-	}	
+	}
+	
+	@Transactional
+	public List<FluxoCaixaDetalheEntity> findByNatureza(FluxoCaixaEntity currentBean) {
+
+			List<FluxoCaixaDetalheEntity> lista = new ArrayList<>();
+
+			try{
+				if(currentBean!=null){
+					lista =  getSession()
+							.createQuery("from FluxoCaixaDetalhe i where i.fluxoCaixa = :fluxoCaixa")
+							.setParameter("fluxoCaixa", currentBean).list();
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return lista;
+	}
 }

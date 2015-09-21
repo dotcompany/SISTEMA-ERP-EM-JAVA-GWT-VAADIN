@@ -22,6 +22,11 @@ import dc.visao.framework.geral.CRUDFormController;
 @Controller
 @Scope("prototype")
 public class CondicaoPagamentoFormController extends CRUDFormController<CondicaoPagamento> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	CondicaoPagamento currentBean;
 

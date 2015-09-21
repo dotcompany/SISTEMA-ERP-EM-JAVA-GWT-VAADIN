@@ -33,10 +33,14 @@ import dc.entidade.geral.pessoal.TransportadoraEntity;
 
 @Entity
 @Table(name = "venda_cabecalho")
-@SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
 public class Venda extends AbstractMultiEmpresaModel<Integer> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "vnd")

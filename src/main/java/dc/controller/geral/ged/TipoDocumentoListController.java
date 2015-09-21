@@ -14,7 +14,6 @@ import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-@SuppressWarnings("unchecked")
 public class TipoDocumentoListController extends
 		CRUDListController<TipoDocumento> {
 

@@ -43,7 +43,7 @@ public class EmpresaCnaeEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "empresa_cnae_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "empresa_cnae_id_seq")
 	@SequenceGenerator(name = "empresa_cnae_id_seq", sequenceName = "empresa_cnae_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

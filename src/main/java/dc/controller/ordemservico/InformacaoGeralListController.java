@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.ordemservico.InformacaoGeralEntity;
-import dc.entidade.ordemservico.InformacaoGeralEntity;
 import dc.servicos.dao.ordemservico.InformacaoGeralDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;

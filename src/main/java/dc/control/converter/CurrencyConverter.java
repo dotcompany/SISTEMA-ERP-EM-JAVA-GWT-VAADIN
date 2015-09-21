@@ -1,6 +1,7 @@
 package dc.control.converter;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Currency;
 
@@ -48,16 +49,21 @@ public class CurrencyConverter {
 		return value;
 	}
 
+	@SuppressWarnings("unused")
 	public synchronized static void vceMask(TextChangeEvent event, TextField t) {
 		String value = event.getText();
+		
+		DecimalFormat formato;
 
 		value = value.replaceAll("[^0-9]+", "");
 
 		if (StringUtils.isBlank(value)) {
 			value = NUMBER_FORMAT.format(new Double(0));
+			formato = new DecimalFormat("R$ 0.00;R$ -0.00");
 		} else {
 			value = NUMBER_FORMAT
 					.format(Double.parseDouble(value.trim()) / 100);
+			         formato = new DecimalFormat("US$ 0.00;US$ -0.00");
 		}
 
 		t.setValue(value);

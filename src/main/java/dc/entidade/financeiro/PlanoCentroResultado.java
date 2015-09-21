@@ -50,7 +50,7 @@ public class PlanoCentroResultado extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plano_centro_resultado_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "plano_centro_resultado_id_seq")
 	@SequenceGenerator(name = "plano_centro_resultado_id_seq", sequenceName = "plano_centro_resultado_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

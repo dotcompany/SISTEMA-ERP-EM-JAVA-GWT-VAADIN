@@ -41,14 +41,14 @@ public class ParticipacaoSocietariaEntity extends AbstractMultiEmpresaModel<Inte
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "socio_participacao_societaria_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "socio_participacao_societaria_id_seq")
 	@SequenceGenerator(name = "socio_participacao_societaria_id_seq", sequenceName = "socio_participacao_societaria_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 		
-	@Caption("nome")
+	@Caption("cnpj")
 	String cnpj;
 	
 	@Column(name="razao_social")

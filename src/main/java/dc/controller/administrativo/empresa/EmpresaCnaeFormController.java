@@ -1,3 +1,4 @@
+
 package dc.controller.administrativo.empresa;
 
 import java.io.Serializable;
@@ -13,7 +14,6 @@ import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaCnaeEntity;
 import dc.entidade.geral.CnaeEntity;
-import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.administrativo.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.geral.CnaeDAO;
 import dc.servicos.util.Validator;

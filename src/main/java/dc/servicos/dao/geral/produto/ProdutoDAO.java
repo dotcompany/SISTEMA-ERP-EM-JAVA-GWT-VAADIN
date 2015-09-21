@@ -44,8 +44,9 @@ public class ProdutoDAO extends AbstractCrudDAO<ProdutoEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "subGrupo","unidadeProduto","marca","almoxarifado", "codigoInterno", 
-				"nome", "descricao"};
+		return new String[] { "subGrupo","unidadeProduto","marca","almoxarifado","grupo","grupoTributario", "codigoInterno", 
+				"nome", "descricao","ncm","gtin","inativo","classe","descricaoPdv","valorCompra","valorVenda","precoVendaMinimo",
+				"precoSugerido","custoMedioLiquido","precoLucroZero","precoLucroMinimo","precoLucroMaximo","markup","quantidadeEstoque"};
 	}
 
 }

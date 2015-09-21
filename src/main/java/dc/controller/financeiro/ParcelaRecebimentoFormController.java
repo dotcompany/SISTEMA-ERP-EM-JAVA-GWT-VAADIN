@@ -232,16 +232,22 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 	}
 
 	public void calculaTotalRecebido() {
+		
 		subView.preencheBean(currentBean);
+		
 		ParcelaRecebimento pagamento = currentBean;
 		BigDecimal valorJuro = BigDecimal.ZERO;
 		BigDecimal valorMulta = BigDecimal.ZERO;
 		BigDecimal valorDesconto = BigDecimal.ZERO;
+		
 		if (pagamento.getTaxaJuro() != null && pagamento.getDataRecebimento() != null) {
+			
 			Calendar dataRecebimento = Calendar.getInstance();
 			dataRecebimento.setTime(pagamento.getDataRecebimento());
+			
 			Calendar dataVencimento = Calendar.getInstance();
 			dataVencimento.setTime(pagamento.getParcelaReceber().getDataVencimento());
+			
 			if (dataVencimento.before(dataRecebimento)) {
 				long diasAtraso = (dataRecebimento.getTimeInMillis() - dataVencimento.getTimeInMillis()) / 86400000l;
 

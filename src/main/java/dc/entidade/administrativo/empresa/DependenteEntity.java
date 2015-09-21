@@ -34,6 +34,11 @@ import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
 @XmlRootElement
 @Analyzer(impl=BrazilianAnalyzer.class)
 public class DependenteEntity extends AbstractMultiEmpresaModel<Integer> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id", nullable = false)

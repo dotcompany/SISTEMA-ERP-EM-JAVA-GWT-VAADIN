@@ -26,7 +26,7 @@ public class EquipamentoListController extends CRUDListController<EquipamentoEnt
 
 	@Override
 	public String[] getColunas() {
-		return new String[] {"filial","equipamento","descricao"};
+		return new String[] {"filial","equipamento","descricao","observacao"};
 	}
 
 	@Override

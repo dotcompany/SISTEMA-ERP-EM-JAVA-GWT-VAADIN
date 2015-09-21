@@ -1,6 +1,5 @@
 package dc.controller.ponto;
 
-import java.io.DataInputStream;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;

@@ -20,6 +20,11 @@ import dc.visao.geral.tabela.SefipCodigoMovimentacaoFormView;
 @Scope("prototype")
 public class SefipCodigoMovimentacaoFormController extends
 		CRUDFormController<SefipCodigoMovimentacaoEntity> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	SefipCodigoMovimentacaoFormView subView;
 

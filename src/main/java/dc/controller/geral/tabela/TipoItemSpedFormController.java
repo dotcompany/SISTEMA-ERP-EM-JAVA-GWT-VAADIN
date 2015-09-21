@@ -20,6 +20,11 @@ import dc.visao.geral.tabela.TipoItemSpedFormView;
 @Scope("prototype")
 public class TipoItemSpedFormController extends
 		CRUDFormController<TipoItemSpedEntity> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	TipoItemSpedFormView subView;
 

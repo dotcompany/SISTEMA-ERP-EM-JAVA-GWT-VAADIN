@@ -20,6 +20,11 @@ import dc.visao.geral.tabela.SefipCategoriaTrabalhoFormView;
 @Scope("prototype")
 public class SefipCategoriaTrabalhoFormController extends
 		CRUDFormController<SefipCategoriaTrabalhoEntity> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	SefipCategoriaTrabalhoFormView subView;
 

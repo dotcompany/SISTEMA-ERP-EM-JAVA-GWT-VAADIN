@@ -1,3 +1,4 @@
+
 package dc.control.util.classes;
 
 import dc.control.enums.ClasseEn;
@@ -10,9 +11,7 @@ import dc.control.util.ObjectUtils;
 import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
-import dc.entidade.geral.produto.GrupoEntity;
 import dc.entidade.geral.produto.MarcaEntity;
-import dc.entidade.geral.produto.NcmEntity;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.visao.geral.produto.ProdutoFormView;

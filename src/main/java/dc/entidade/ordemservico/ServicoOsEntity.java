@@ -1,7 +1,8 @@
 package dc.entidade.ordemservico;
 
-import java.util.Date;
 import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
@@ -45,16 +47,19 @@ public class ServicoOsEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@Caption("Nome")
 	@Column(name = "nome")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome;
 
 	@Caption("Grupo")
 	@ManyToOne
 	@JoinColumn(name = "id_grupo", referencedColumnName = "id")
+	@NotNull(message = "Grupo é Obrigatório!")
 	private GrupoOsEntity grupo;
 
 	@Caption("Subgrupo")
 	@ManyToOne
 	@JoinColumn(name = "id_sub_grupo", referencedColumnName = "id")
+	@NotNull(message = "Sub Grupo é Obrigatório!")
 	private SubGrupoOsEntity subGrupo;
 	
 	@Column(name = "aliquota_issqn")

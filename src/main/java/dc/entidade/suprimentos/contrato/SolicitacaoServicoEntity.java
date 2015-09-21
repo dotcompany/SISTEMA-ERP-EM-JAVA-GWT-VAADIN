@@ -16,7 +16,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -46,7 +45,7 @@ public class SolicitacaoServicoEntity extends
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_solicitacao_servico_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "contrato_solicitacao_servico_id_seq")
 	@SequenceGenerator(name = "contrato_solicitacao_servico_id_seq", sequenceName = "contrato_solicitacao_servico_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

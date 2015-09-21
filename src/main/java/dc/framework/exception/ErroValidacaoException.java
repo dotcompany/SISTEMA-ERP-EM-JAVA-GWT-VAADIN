@@ -1,6 +1,11 @@
 package dc.framework.exception;
 
 public class ErroValidacaoException extends Exception {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	String msgErro;
 	

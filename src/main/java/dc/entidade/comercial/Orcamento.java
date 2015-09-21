@@ -10,6 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -164,7 +167,8 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "orcamento", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "orcamento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<ItemOrcamento> itens = new ArrayList<ItemOrcamento>();
 
 	/**
@@ -319,6 +323,20 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 	public void setTransportadora(TransportadoraEntity transportadora) {
 		this.transportadora = transportadora;
 	}
+	
+	public void removeItem(ItemOrcamento value) {
+		this.itens.remove(value);
+		value.setOrcamento(null);
+	}
+	
+	public ItemOrcamento addItem(ItemOrcamento lctoPagarNtFinanceira) {
+		getItens().add(lctoPagarNtFinanceira);
+		lctoPagarNtFinanceira.setOrcamento(this);;
+
+		return lctoPagarNtFinanceira;
+	}
+	
+	
 
 	/**
 	 * TO STRING

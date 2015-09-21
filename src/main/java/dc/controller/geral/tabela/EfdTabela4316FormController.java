@@ -20,6 +20,11 @@ import dc.visao.geral.tabela.EfdTabela4316FormView;
 @Scope("prototype")
 public class EfdTabela4316FormController extends
 		CRUDFormController<EfdTabela4316Entity> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	EfdTabela4316FormView subView;
 

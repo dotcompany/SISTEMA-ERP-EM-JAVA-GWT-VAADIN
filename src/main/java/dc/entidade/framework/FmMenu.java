@@ -43,7 +43,7 @@ public class FmMenu extends AbstractModel<Integer> implements Serializable {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fm_menu_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "fm_menu_id_seq")
 	@SequenceGenerator(name = "fm_menu_id_seq", sequenceName = "fm_menu_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

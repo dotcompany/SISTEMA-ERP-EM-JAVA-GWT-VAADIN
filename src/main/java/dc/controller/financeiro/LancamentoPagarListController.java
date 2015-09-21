@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.LancamentoPagarEntity;
-import dc.entidade.geral.tabela.CfopEntity;
 import dc.servicos.dao.financeiro.LancamentoPagarDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;

@@ -94,7 +94,7 @@ public class StatusParcelaFormController extends CRUDFormController<StatusParcel
 			
 			fieldGroup.bind(this.subView.getTxtSituacao(),"situacao");
 			fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
-			fieldGroup.bind(this.subView.getTxtProcedimento(),"procedimento");
+			//fieldGroup.bind(this.subView.getTxtProcedimento(),"procedimento");
 			
 		}catch(Exception e ) {
 			e.printStackTrace();

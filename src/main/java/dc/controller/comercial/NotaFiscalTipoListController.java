@@ -14,6 +14,11 @@ import dc.visao.framework.geral.CRUDListController;
 @Component
 @Scope("prototype")
 public class NotaFiscalTipoListController extends CRUDListController<NotaFiscalTipo> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	NotaFiscalTipoDAO dao;

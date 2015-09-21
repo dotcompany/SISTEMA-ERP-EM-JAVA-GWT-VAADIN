@@ -12,9 +12,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
@@ -39,19 +41,24 @@ public class QuadroSocietarioEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Temporal(TemporalType.DATE)
 	@Column(name="data_registro")
 	@Caption("Data de Registro")
-	Date dataRegistro;
+	@NotNull(message = "Data Registro é Obrigatório!")
+	private Date dataRegistro;
 	
+	@Field
 	@Column(name="capital_social")
 	@Caption("Capital Social")
-	BigDecimal capitalSocial;
+	private BigDecimal capitalSocial;
 	
+	@Field
 	@Column(name="valor_quota")
 	@Caption("Valor Quota")
-	BigDecimal valorQuota;
+	private BigDecimal valorQuota;
 	
+	@Field
 	@Column(name="quantidade_cotas")
 	@Caption("Quantidade Cotas")
-	Integer quantidadeCotas;
+	@NotNull(message = "Quantidade de Cotas é Obrigatório!")
+	private Integer quantidadeCotas;
 	
 //	@ManyToOne
 //	@JoinColumn(name = "ID_EMPRESA", nullable = false)
