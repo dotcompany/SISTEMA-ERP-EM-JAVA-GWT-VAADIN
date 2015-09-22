@@ -55,11 +55,10 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "cliente_id_seq")
 	@SequenceGenerator(name = "cliente_id_seq", sequenceName = "cliente_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
-	@NotNull
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 

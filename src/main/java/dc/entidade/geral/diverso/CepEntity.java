@@ -105,7 +105,7 @@ public class CepEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private UfEntity uf;
 
 	@Field
-	@Caption()
+	@Caption("Código IBGE Município")
 	@Column(name = "CODIGO_IBGE_MUNICIPIO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
