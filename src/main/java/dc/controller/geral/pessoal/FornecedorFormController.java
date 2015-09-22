@@ -115,6 +115,7 @@ public class FornecedorFormController extends
 			fieldGroup.bind(this.subView.getCbLocalizacao(),"localizacao");
 			fieldGroup.bind(this.subView.getCbSofreRentencao(),"sofreRetencao");
 			fieldGroup.bind(this.subView.getTfChequeNominalA(),"chequeNominalA");
+			fieldGroup.bind(this.subView.getTaObservacao(),"observacao");
 			
 			fieldGroup.bind(this.subView.getMocPessoa(),"pessoa");
 			fieldGroup.bind(this.subView.getMocSituacaoForCli(),"situacaoForCli");

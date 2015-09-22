@@ -100,6 +100,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
+	@NotNull(message = "Observação é Obrigatório!")
 	private String observacao = "";
 
 	@Field

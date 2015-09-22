@@ -15,14 +15,27 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller
 @Scope("prototype")
 public class ContratoEventosListController extends CRUDListController<ContratoEventosEntity> {
-	
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Autowired
+	private ContratoEventosDAO dao;
 
 	@Autowired
-	private ContratoEventosFormController contratoFormController;
-	
-	@Autowired
-	private ContratoEventosDAO contratoEventosDAO;
+	private ContratoEventosFormController contratoEventosFormController;
+
+	@Override
+	public String[] getColunas() {
+		return new String[] { "curso","unidade" };
+	}
+
+	@Override
+	protected String getTitulo() {
+		return super.getTitulo(this);
+	}
 
 	@Override
 	public String getViewIdentifier() {
@@ -31,71 +44,52 @@ public class ContratoEventosListController extends CRUDListController<ContratoEv
 	}
 
 	@Override
-	protected CRUDFormController<ContratoEventosEntity> getFormController() {
-		// TODO Auto-generated method stub
-		return contratoFormController;
-	}
-
-	@Override
-	public String[] getColunas() {
-		// TODO Auto-generated method stub
-		return new String[] { "unidade", "curso", "dataContrato", "dataPrimeiroEvento" };
-
-	}
-
-	@Override
 	public Class<? super ContratoEventosEntity> getEntityClass() {
-		// TODO Auto-generated method stub
 		return ContratoEventosEntity.class;
 	}
 
 	@Override
-	protected List<ContratoEventosEntity> pesquisa(String valor) {
-		// TODO Auto-generated method stub
-		
-		try {
-			List<ContratoEventosEntity> auxLista = this.contratoEventosDAO.procuraNomeContendo(valor);
-			
-			//List<ContratoEventosEntity> auxLista = (List<ContratoEventosEntity>) this.contratoFormController.getBusiness().fullTextSearch(valor);
-
-
-			return auxLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
-		}
-
-	}
-
-	@Override
-	protected List<ContratoEventosEntity> pesquisaDefault() {
-		// TODO Auto-generated method stub
-		try {
-			List<ContratoEventosEntity> auxLista = this.contratoEventosDAO.listaTodos();
-			
-			//List<ContratoEventosEntity> auxLista = (List<ContratoEventosEntity>) this.contratoFormController.getBusiness().getAll(getEntityClass());
-
-
-			return auxLista;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return null;
-		}
-
-	}
-
-	@Override
-	protected String getTitulo() {
-		// TODO Auto-generated method stub
-		return super.getTitulo(this);
+	protected CRUDFormController<ContratoEventosEntity> getFormController() {
+		return contratoEventosFormController;
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
+	}
+	
+	@Override
+	protected List<ContratoEventosEntity> pesquisa(String valor) {
+		try {
+			
+			List<ContratoEventosEntity> auxLista = this.dao.fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+
+	@Override
+	protected List<ContratoEventosEntity> pesquisaDefault() {
+		try {
+			
+			List<ContratoEventosEntity> auxLista = (List<ContratoEventosEntity>) this.dao.getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }
