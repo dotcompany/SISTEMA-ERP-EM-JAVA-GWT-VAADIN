@@ -68,5 +68,11 @@ public class TipoPagamentoListController extends CRUDListController<TipoPagament
 	protected List<TipoPagamento> pesquisaDefault() {
 		return (List<TipoPagamento>) dao.getAll(getEntityClass());
 	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
+	}
 
 }

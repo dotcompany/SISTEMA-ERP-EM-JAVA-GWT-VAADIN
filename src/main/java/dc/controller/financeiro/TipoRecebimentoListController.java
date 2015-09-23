@@ -69,5 +69,11 @@ public class TipoRecebimentoListController extends CRUDListController<TipoRecebi
 	protected List<TipoRecebimento> pesquisaDefault() {
 		return (List<TipoRecebimento>) dao.getAll(getEntityClass());
 	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
+	}
 
 }

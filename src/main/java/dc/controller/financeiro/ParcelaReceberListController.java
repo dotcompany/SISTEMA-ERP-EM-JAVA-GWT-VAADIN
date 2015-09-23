@@ -57,6 +57,12 @@ public class ParcelaReceberListController extends CRUDListController<ParcelaRece
 	public String getViewIdentifier() {
 		return "listaParcelasReceber";
 	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
+	}
 
 	@Override
 	protected boolean deletaEmCascata() {

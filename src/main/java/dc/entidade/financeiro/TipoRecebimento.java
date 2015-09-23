@@ -80,7 +80,7 @@ public class TipoRecebimento extends AbstractMultiEmpresaModel<Integer> {
 
 	@Override
 	public String toString() {
-		return "com.t2tierp.financeiro.java.FinTipoRecebimento[id=" + id + "]";
+		return descricao;
 	}
 	
 	@Override
