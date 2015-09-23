@@ -112,7 +112,7 @@ public class TemplateEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return nome;
 	}
 
 }
