@@ -12,7 +12,9 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.FormaPagamentoEn;
+import dc.control.enums.LancamentoComissao;
 import dc.control.enums.SimNaoEn;
+import dc.control.enums.VendedorAtendente;
 import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.planoconta.PlanoContaListController;
 import dc.controller.financeiro.ContaCaixaListController;
@@ -156,6 +158,8 @@ public class ColaboradorFormController extends
 			comboSaiRais();
 			comboPriorizarPgto();
 			comboComissaoOver();
+			comboVendedorAtendente();
+			comboLancamentoComissao();
 			carregarUf();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -270,6 +274,18 @@ public class ColaboradorFormController extends
 	public void comboComissaoOver() {
 		for (SimNaoEn en : SimNaoEn.values()) {
 			this.subView.getCbComissaoOver().addItem(en);
+		}
+	}
+	
+	public void comboVendedorAtendente() {
+		for(VendedorAtendente en : VendedorAtendente.values()) {
+			this.subView.getCbPgtoComissao().addItem(en);
+		}
+	}
+	
+	public void comboLancamentoComissao() {
+		for(LancamentoComissao en : LancamentoComissao.values()) {
+			this.subView.getCbLctoComissao().addItem(en);
 		}
 	}
 
