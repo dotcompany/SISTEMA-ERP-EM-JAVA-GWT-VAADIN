@@ -11,10 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -22,6 +25,9 @@ import dc.entidade.framework.ComboCode;
 
 @Entity
 @Table(name = "CENTRO_RESULTADO")
+@XmlRootElement
+@Indexed
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class CentroResultado extends AbstractMultiEmpresaModel<Integer> {
 	private static final long serialVersionUID = 1L;
 
@@ -133,6 +139,11 @@ public class CentroResultado extends AbstractMultiEmpresaModel<Integer> {
 	 */
 	public void setPlanoCentroResultado(PlanoCentroResultado planoCentroResultado) {
 		this.planoCentroResultado = planoCentroResultado;
+	}
+	
+	@Override
+	public String toString() {
+		return descricao;
 	}
 
 }

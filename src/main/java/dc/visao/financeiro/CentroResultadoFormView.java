@@ -80,6 +80,7 @@ public class CentroResultadoFormView extends CustomComponent {
 		mainLayout.setSizeFull();
 		mainLayout.setSpacing(true);
 		mainLayout.setRows(5);
+		mainLayout.setColumns(2);
 
 		// top-level component properties
 		setWidth("100.0%");
