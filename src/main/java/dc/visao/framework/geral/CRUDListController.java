@@ -1,6 +1,7 @@
 package dc.visao.framework.geral;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
@@ -13,6 +14,8 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 import org.vaadin.addons.lazyquerycontainer.BeanQueryFactory;
 import org.vaadin.addons.lazyquerycontainer.CompositeItem;
 import org.vaadin.addons.lazyquerycontainer.LazyQueryContainer;
@@ -556,6 +559,25 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 						.equals(Double.class)) {
 					container.addContainerProperty(id_coluna, Double.class,
 							null, false, true);
+					table.addGeneratedColumn(id_coluna, new ValueColumnGenerator("%.2f €"));
+
+				}
+
+				else if (getEntityClass().getDeclaredField(id_coluna).getType()
+						.equals(BigDecimal.class)) {
+					container.addContainerProperty(id_coluna, Double.class,
+							null, false, true);
+					
+					NumberFormat anotacao = AnotacoesUtil.getAnotacao(NumberFormat.class,
+							getEntityClass(), id_coluna);
+					if(anotacao != null){
+						for (Method method : anotacao.annotationType().getDeclaredMethods()) {
+							Object value = method.invoke(anotacao, (Object[])null);
+							if("style".equals(method.getName()) && value.equals(Style.CURRENCY)){
+								table.addGeneratedColumn(id_coluna, new ValueColumnGenerator("R$ %.2f"));
+							}			                
+			            }
+					}
 				}
 
 				else if (getEntityClass().getDeclaredField(id_coluna).getType()
@@ -890,5 +912,45 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 			throw e;
 		}
 	}
+	
+	class ValueColumnGenerator implements  ColumnGenerator {
+        String format; /* Format string for the Double values. */
+
+        /** Creates double value column formatter with the given format string. */
+        public ValueColumnGenerator(String format) {
+            this.format = format;
+        }
+
+	@Override
+	public Object generateCell(CustomTable source, Object itemId, Object columnId) {
+		  Property prop = source.getItem(itemId).getItemProperty(columnId);
+	        if (prop.getType().equals(Double.class)) {
+	            Label label = new Label(String.format(format,
+	                    new Object[] { (Double) prop.getValue() }));
+
+	            // Set styles for the column: one indicating that it's a value
+	            // and a more
+	            // specific one with the column name in it. This assumes that
+	            // the column
+	            // name is proper for CSS.
+	            label.addStyleName("column-type-value");
+	            label.addStyleName("column-" + (String) columnId);
+	            return label;
+	        }else  if (prop.getType().equals(BigDecimal.class)) {
+	        	 Label label = new Label(String.format(format,
+		                    new Object[] { ((BigDecimal) prop.getValue()).doubleValue() }));
+
+		            // Set styles for the column: one indicating that it's a value
+		            // and a more
+		            // specific one with the column name in it. This assumes that
+		            // the column
+		            // name is proper for CSS.
+		            label.addStyleName("column-type-value");
+		            label.addStyleName("column-" + (String) columnId);
+		            return label;
+	        }
+	        return null;
+	}
+}
 
 }
