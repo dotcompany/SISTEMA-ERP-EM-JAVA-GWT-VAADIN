@@ -194,6 +194,9 @@ public abstract class CRUDFormController<E extends AbstractModel> extends
         ConfirmDialog.show(MainUI.getCurrent(), "Tem certeza que deseja sair?",
         		"Você não salvou nenhuma de suas alterações. ", "Sim", "Não",
                 new ConfirmDialog.Listener() {
+        	
+        	      private static final long serialVersionUID = 1L;
+        	
                     public void onClose(ConfirmDialog dialog) {
                         if (dialog.isConfirmed()) {
                             newAttemptOpen = false;

@@ -17,6 +17,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.validator.constraints.Length;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -55,6 +56,7 @@ public class DocumentoOrigem extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "CODIGO")
 	@Field
 	@NotNull(message = "Código é Obrigatório!")
+	@Length(max = 3, message =  "O tamanho deve ser no máximo 3 caracteres")
 	private String codigo;
 
 	@Caption(value = "Sigla Documento")

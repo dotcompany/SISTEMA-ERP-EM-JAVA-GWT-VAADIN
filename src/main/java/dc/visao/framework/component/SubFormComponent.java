@@ -247,8 +247,11 @@ public abstract class SubFormComponent<T extends AbstractModel<ID>, ID extends S
 				if (values.isEmpty()) {
 					mensagemErro("Nenhum registro selecionado para remoção");
 				} else {
-					ConfirmDialog.show(MainUI.getCurrent(), "Confirme a remoção",
-							"Você tem certeza? Isso apagará os registros selecionados e Não poderá ser revertido.", "Sim", "Não",
+						ConfirmDialog
+							.show(MainUI.getCurrent(),
+									"Confirme a remoção",
+									"Isso apagará os registros selecionados e Não poderá ser revertido.!\nDeseja continuar?",
+									"Sim", "Não",
 							new ConfirmDialog.Listener() {
 
 								public void onClose(ConfirmDialog dialog) {

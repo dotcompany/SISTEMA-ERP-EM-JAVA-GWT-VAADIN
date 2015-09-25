@@ -281,10 +281,12 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 					"Nenhum registro selecionado para remoção");
 		} else {
 			ConfirmDialog
-					.show(MainUI.getCurrent(),
-							"Confirme a remoção",
-							"Você tem certeza? Isso apagará os registros selecionados e Não poderá ser revertido.",
-							"Sim", "Não", new ConfirmDialog.Listener() {
+			    .show(MainUI.getCurrent(),
+					"Confirme a remoção",
+					"Isso apagará os registros selecionados e Não poderá ser revertido.!\nDeseja continuar?",
+					"Sim", "Não", new ConfirmDialog.Listener() {
+			    	
+			    	private static final long serialVersionUID = 1L;
 
 								public void onClose(ConfirmDialog dialog) {
 									if (dialog.isConfirmed()) {
