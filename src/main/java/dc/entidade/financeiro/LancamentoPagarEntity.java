@@ -33,6 +33,8 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import dc.anotacoes.Caption;
 import dc.control.enums.SimNaoEn;
@@ -78,6 +80,7 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	//@NotNull(message = "Valor Total é Obrigatório")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorTotal;
 
 	@Field
