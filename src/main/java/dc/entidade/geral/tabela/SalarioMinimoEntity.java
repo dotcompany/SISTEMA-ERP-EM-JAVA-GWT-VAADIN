@@ -18,6 +18,8 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -60,6 +62,7 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "VALOR_MENSAL", precision = 18, scale = 6)
 	//@NotNull(message = "Valor Mensal é Obrigatório!")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorMensal;
 	
 	@Field
@@ -67,6 +70,7 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "VALOR_DIARIO", precision = 18, scale = 6)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorDiario;
 	
 	@Field
@@ -74,6 +78,7 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "VALOR_HORA", precision = 18, scale = 6)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorHora;
 	
 	@Field
