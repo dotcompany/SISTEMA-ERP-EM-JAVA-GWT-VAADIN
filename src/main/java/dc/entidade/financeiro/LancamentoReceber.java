@@ -33,6 +33,8 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -65,11 +67,13 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> implem
 	@Field
 	@Column(name = "VALOR_TOTAL")
 	@Caption(value = "Valor Total")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorTotal;
 
 	@Field
 	@Column(name = "VALOR_A_RECEBER")
 	@Caption(value = "Valor Receber")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorAReceber;
 
 	@Field
@@ -98,6 +102,7 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> implem
 	@Field
 	@Column(name = "VALOR_COMISSAO")
 	@Caption(value = "Valor Comissão")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorComissao;
 
 	@Column(name = "INTERVALO_ENTRE_PARCELAS")

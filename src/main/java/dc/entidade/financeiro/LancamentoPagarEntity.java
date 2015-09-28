@@ -88,6 +88,7 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Caption(value = "Valor à Pagar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorAPagar;
 
 	@Field

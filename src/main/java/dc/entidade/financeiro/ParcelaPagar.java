@@ -32,6 +32,8 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -93,6 +95,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@Caption(value = "Valor")
 	@Column(name = "VALOR")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valor;
 
 	@Caption(value = "Taxa Juro")
@@ -111,16 +114,19 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	private BigDecimal taxaDesconto;
 
 	@Caption(value = "Valor Juro")
+	//@NumberFormat(style=Style.CURRENCY)
 	@Column(name = "VALOR_JURO", precision = 14, scale = 0)
 	@Field
 	private BigDecimal valorJuro;
 
 	@Caption(value = "Valor Multa")
+	///@NumberFormat(style=Style.CURRENCY)
 	@Column(name = "VALOR_MULTA", precision = 14, scale = 0)
 	@Field
 	private BigDecimal valorMulta;
 
 	@Caption(value = "Valor Desconto")
+	//@NumberFormat(style=Style.CURRENCY)
 	@Column(name = "VALOR_DESCONTO", precision = 14, scale = 0)
 	@Field
 	private BigDecimal valorDesconto;

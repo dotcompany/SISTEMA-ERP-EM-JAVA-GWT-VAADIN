@@ -23,6 +23,8 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -69,21 +71,25 @@ public class ParcelaRecebimento extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Valor juros")
 	@Column(name = "VALOR_JURO")
 	@Field
+	//@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorJuro;
 
 	@Column(name = "VALOR_MULTA")
 	@Caption(value = "Valor Multa")
 	@Field
+	//@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorMulta;
 
 	@Caption(value = "Valor Desconto")
 	@Column(name = "VALOR_DESCONTO")
 	@Field
+	//@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorDesconto;
 
 	@Caption(value = "Valor Recebido")
 	@Column(name = "VALOR_RECEBIDO")
 	@Field
+	//@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorRecebido;
 
 	@Caption(value = "Histórico")
