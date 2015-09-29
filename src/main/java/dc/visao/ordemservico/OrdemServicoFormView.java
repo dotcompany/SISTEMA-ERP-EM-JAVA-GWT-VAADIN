@@ -28,15 +28,15 @@ import com.vaadin.server.FileResource;
 import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.AbstractComponent;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.DragAndDropWrapper;
+import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.GridLayout;
@@ -49,19 +49,22 @@ import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.Slider;
+import com.vaadin.ui.Slider.ValueOutOfBoundsException;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.Window;
-import com.vaadin.ui.Slider.ValueOutOfBoundsException;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 import dc.controller.ordemservico.OrdemServicoFormController;
 import dc.entidade.financeiro.TipoPagamento;
 import dc.entidade.geral.ged.DocumentoArquivo;
+import dc.entidade.geral.pessoal.ClienteEntity;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
+import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.ordemservico.AcessorioEntity;
 import dc.entidade.ordemservico.AcessorioOsEntity;
 import dc.entidade.ordemservico.CarroEntity;
@@ -71,8 +74,8 @@ import dc.entidade.ordemservico.EquipamentoEntity;
 import dc.entidade.ordemservico.MarcaOsEntity;
 import dc.entidade.ordemservico.MaterialServicoEntity;
 import dc.entidade.ordemservico.ModeloOsEntity;
-import dc.entidade.ordemservico.OrdemServicoEntity;
 import dc.entidade.ordemservico.OrdemServicoEfetivacaoEntity;
+import dc.entidade.ordemservico.OrdemServicoEntity;
 import dc.entidade.ordemservico.ParametroOsEntity;
 import dc.entidade.ordemservico.RevendaEntity;
 import dc.entidade.ordemservico.ServicoOsEntity;
@@ -80,14 +83,12 @@ import dc.entidade.ordemservico.SituacaoServicoEntity;
 import dc.entidade.ordemservico.StatusOsEntity;
 import dc.entidade.ordemservico.TipoServicoOsEntity;
 import dc.entidade.ordemservico.VendaPecaEntity;
-import dc.entidade.geral.pessoal.ClienteEntity;
-import dc.entidade.geral.pessoal.ColaboradorEntity;
-import dc.entidade.geral.produto.ProdutoEntity;
 import dc.model.business.ordemservico.ParametroOsBusiness;
 import dc.servicos.util.Util;
 import dc.visao.framework.component.SubFormComponent;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
 import dc.visao.framework.util.ComponentUtil;
+import dc.visao.spring.SecuritySessionProvider;
 
 public class OrdemServicoFormView extends CustomComponent {
 
@@ -252,7 +253,8 @@ public class OrdemServicoFormView extends CustomComponent {
 //			this.parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 //		}
 
-		//this.parametroOs = this.controller.getParametroOs();
+		this.parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+		this.parametroOs = this.controller.getParametroOs();
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 	}
@@ -355,7 +357,7 @@ public class OrdemServicoFormView extends CustomComponent {
 
 		tfNumeroComanda = ComponentUtil.buildTextField("Nr. comanda");
 		
-		if(this.parametroOs.getVendedorAtendente()){
+		if(this.parametroOs.getVendedorAtendente() != null){
 			gridLayout_1.addComponent(cbAtendente,0,2,1,2);
 			gridLayout_1.addComponent(pdfDataEntrada,2,2);
 			gridLayout_1.addComponent(pdfDataEfetiv,3,2);

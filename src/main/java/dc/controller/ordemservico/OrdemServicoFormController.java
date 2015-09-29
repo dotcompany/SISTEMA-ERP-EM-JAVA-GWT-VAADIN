@@ -1965,12 +1965,12 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 		this.subView.getCbPlaca().setModel(carro);
 	}
 
-	/*public ParametroOsEntity getParametroOs() {
+	public ParametroOsEntity getParametroOs() {
 		if(SecuritySessionProvider.getUsuario().getConta().getEmpresa()!=null){
 			parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 		}
 		return parametroOs;
-	}*/
+	}
 
 	public void setParametroOs(ParametroOsEntity parametroOs) {
 		this.parametroOs = parametroOs;
