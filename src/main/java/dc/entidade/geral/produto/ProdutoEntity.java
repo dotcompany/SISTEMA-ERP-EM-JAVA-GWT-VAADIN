@@ -108,7 +108,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	//@NotNull(message = "Valor de Compra é obrigatório")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorCompra;
 
 	@Field
@@ -117,7 +117,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	//@NotNull(message = "Valor de Venda é obrigatório")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorVenda;
 
 	@Field
@@ -126,7 +126,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	//@NotNull(message = "Preco de Venda Mínimo é obrigatório")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal precoVendaMinimo;
 
 	@Field
@@ -135,7 +135,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	//@NotNull(message = "Preço Sugerido é obrigatório")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal precoSugerido;
 
 	@Field
@@ -144,7 +144,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	//@NotNull(message = "Custo Médio Líquido é obrigatório")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal custoMedioLiquido;
 
 	@Field
@@ -153,7 +153,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	//@NotNull(message = "Preço Lucro Zero é obrigatório")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal precoLucroZero;
 
 	@Field
@@ -162,7 +162,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	//@NotNull(message = "Preço Lucro Mínimo é obrigatório")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal precoLucroMinimo;
 
 	@Field
@@ -171,7 +171,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	//@NotNull(message = "Preço Lucro Máximo é obrigatório")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal precoLucroMaximo;
 
 	@Field
@@ -179,7 +179,7 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "MARKUP")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal markup;
 
 	@Field
