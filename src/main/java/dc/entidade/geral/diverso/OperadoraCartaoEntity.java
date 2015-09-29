@@ -22,8 +22,6 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.springframework.format.annotation.NumberFormat;
-import org.springframework.format.annotation.NumberFormat.Style;
 
 import dc.anotacoes.Caption;
 import dc.entidade.financeiro.ContaCaixa;
@@ -87,7 +85,7 @@ public class OperadoraCartaoEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Column(name = "VALOR_ALUGUEL_POS_PIN", precision = 14, scale = 0)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NumberFormat(style=Style.CURRENCY)
+	//@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorAluguelPosPin;
 
 	@Field

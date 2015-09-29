@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.event.FieldEvents.BlurEvent;
+import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
@@ -105,6 +107,21 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
             fieldGroup.bind(this.subView.getTfVencimentoAluguel(),"vencimentoAluguel");
             fieldGroup.bind(this.subView.getTfTelefone1(),"fone1");
             fieldGroup.bind(this.subView.getTfTelefone2(),"fone2");
+            
+            subView.getTfValorAluguelPosPin().addBlurListener(new BlurListener() {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void blur(BlurEvent event) {
+					subView.getTfValorAluguelPosPin().setConvertedValue(
+							subView.getTfValorAluguelPosPin().getConvertedValue());
+
+				}
+			});
 
             
          // Configura os ManyToOneComboFields

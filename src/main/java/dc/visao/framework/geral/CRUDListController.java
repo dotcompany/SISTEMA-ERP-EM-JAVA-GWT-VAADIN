@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -949,6 +951,13 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 		            // name is proper for CSS.
 		            label.addStyleName("column-type-value");
 		            label.addStyleName("column-" + (String) columnId);
+		            
+		            Locale pt_BR = new Locale("pt", "BR");
+		            Locale pt_PT = new Locale("pt", "PT");
+		            label.addStyleName("R$" + Currency.getInstance(pt_BR).getSymbol(pt_BR));
+		            label.addStyleName("BR$" + Currency.getInstance(pt_BR).getSymbol(pt_PT));
+		            label.addStyleName("€" + Currency.getInstance(pt_PT).getSymbol(pt_BR));
+		            label.addStyleName("€" + Currency.getInstance(pt_PT).getSymbol(pt_PT));
 		            return label;
 	        }
 	        return null;
