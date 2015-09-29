@@ -926,42 +926,30 @@ public abstract class CRUDListController<E extends AbstractModel> extends
         }
 
 	@Override
-	public Object generateCell(CustomTable source, Object itemId, Object columnId) {
-		  Property prop = source.getItem(itemId).getItemProperty(columnId);
-	        if (prop.getType().equals(Double.class)) {
-	            Label label = new Label(String.format(format,
-	                    new Object[] { (Double) prop.getValue() }));
+		public Object generateCell(CustomTable source, Object itemId, Object columnId) {
+			Property prop = source.getItem(itemId).getItemProperty(columnId);
+			if (prop.getType().equals(Double.class)) {
+				Double value = (Double) prop.getValue();
+				if (value != null) {
+					Label label = new Label(String.format(format, new Object[] { value }));
 
-	            // Set styles for the column: one indicating that it's a value
-	            // and a more
-	            // specific one with the column name in it. This assumes that
-	            // the column
-	            // name is proper for CSS.
-	            label.addStyleName("column-type-value");
-	            label.addStyleName("column-" + (String) columnId);
-	            return label;
-	        }else  if (prop.getType().equals(BigDecimal.class)) {
-	        	 Label label = new Label(String.format(format,
-		                    new Object[] { ((BigDecimal) prop.getValue()).doubleValue() }));
+					label.addStyleName("column-type-value");
+					label.addStyleName("column-" + (String) columnId);
+					return label;
+				}
+			} else if (prop.getType().equals(BigDecimal.class)) {
+				BigDecimal value = (BigDecimal) prop.getValue();
+				if (value != null) {
+					Label label = new Label(String.format(format, new Object[] { ((BigDecimal) prop.getValue()).doubleValue() }));
 
-		            // Set styles for the column: one indicating that it's a value
-		            // and a more
-		            // specific one with the column name in it. This assumes that
-		            // the column
-		            // name is proper for CSS.
-		            label.addStyleName("column-type-value");
-		            label.addStyleName("column-" + (String) columnId);
-		            
-		            Locale pt_BR = new Locale("pt", "BR");
-		            Locale pt_PT = new Locale("pt", "PT");
-		            label.addStyleName("R$" + Currency.getInstance(pt_BR).getSymbol(pt_BR));
-		            label.addStyleName("BR$" + Currency.getInstance(pt_BR).getSymbol(pt_PT));
-		            label.addStyleName("€" + Currency.getInstance(pt_PT).getSymbol(pt_BR));
-		            label.addStyleName("€" + Currency.getInstance(pt_PT).getSymbol(pt_PT));
-		            return label;
-	        }
-	        return null;
-	}
+					label.addStyleName("column-type-value");
+					label.addStyleName("column-" + (String) columnId);
+
+					return label;
+				}
+			}
+			return null;
+		}
 }
 
 }
