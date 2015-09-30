@@ -49,13 +49,13 @@ public class QuadroSocietarioEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@Column(name="capital_social")
 	@Caption("Capital Social")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal capitalSocial;
 	
 	@Field
 	@Column(name="valor_quota")
 	@Caption("Valor Quota")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorQuota;
 	
 	@Field
