@@ -103,19 +103,19 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@Column(name = "VALOR_JURO")
 	@Caption(value = "Valor Juro")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorJuro;
 
 	@Field
 	@Column(name = "VALOR_MULTA")
 	@Caption(value = "Valor Multa")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorMulta;
 
 	@Field
 	@Column(name = "VALOR_DESCONTO")
 	@Caption(value = "Valor Desconto")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorDesconto;
 
 	@Column(name = "EMITIU_BOLETO")
@@ -151,6 +151,7 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 
 	@Transient
 	@Caption(value = "Valor Faltante")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorFaltante;
 
 	public ParcelaReceber() {

@@ -114,19 +114,19 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	private BigDecimal taxaDesconto;
 
 	@Caption(value = "Valor Juro")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	@Column(name = "VALOR_JURO", precision = 14, scale = 0)
 	@Field
 	private BigDecimal valorJuro;
 
 	@Caption(value = "Valor Multa")
-	///@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	@Column(name = "VALOR_MULTA", precision = 14, scale = 0)
 	@Field
 	private BigDecimal valorMulta;
 
 	@Caption(value = "Valor Desconto")
-	//@NumberFormat(style=Style.CURRENCY)
+	@NumberFormat(style=Style.CURRENCY)
 	@Column(name = "VALOR_DESCONTO", precision = 14, scale = 0)
 	@Field
 	private BigDecimal valorDesconto;
@@ -170,6 +170,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Transient
 	@Caption(value = "Valor Faltante")
 	@Field
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorFaltante;
 
 	public ParcelaPagar() {

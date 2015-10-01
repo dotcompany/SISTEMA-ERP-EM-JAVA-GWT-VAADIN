@@ -109,13 +109,13 @@ public class FornecedorFormController extends
             this.fieldGroup = new DCFieldGroup<>(FornecedorEntity.class);
 			
 			// Mapeia os campos
-			fieldGroup.bind(this.subView.getPdfDesde(),"desde");
+			//fieldGroup.bind(this.subView.getPdfDesde(),"desde");
 			fieldGroup.bind(this.subView.getCbGerarFaturamento(),"geraFaturamento");
-			fieldGroup.bind(this.subView.getCbOptanteSimples(),"optanteSimplesNacional");
-			fieldGroup.bind(this.subView.getCbLocalizacao(),"localizacao");
-			fieldGroup.bind(this.subView.getCbSofreRentencao(),"sofreRetencao");
-			fieldGroup.bind(this.subView.getTfChequeNominalA(),"chequeNominalA");
-			fieldGroup.bind(this.subView.getTaObservacao(),"observacao");
+			//fieldGroup.bind(this.subView.getCbOptanteSimples(),"optanteSimplesNacional");
+			//fieldGroup.bind(this.subView.getCbLocalizacao(),"localizacao");
+			//fieldGroup.bind(this.subView.getCbSofreRentencao(),"sofreRetencao");
+			//fieldGroup.bind(this.subView.getTfChequeNominalA(),"chequeNominalA");
+			//fieldGroup.bind(this.subView.getTaObservacao(),"observacao");
 			
 			fieldGroup.bind(this.subView.getMocPessoa(),"pessoa");
 			fieldGroup.bind(this.subView.getMocSituacaoForCli(),"situacaoForCli");

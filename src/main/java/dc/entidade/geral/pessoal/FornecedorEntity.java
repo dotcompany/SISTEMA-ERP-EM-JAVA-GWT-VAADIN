@@ -73,7 +73,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@Column(name = "desde")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Desde é Obrigatório!")
+	//@NotNull(message = "Desde é Obrigatório!")
 	private Date desde;
 
 	@Temporal(TemporalType.DATE)
@@ -89,7 +89,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@Column(name = "cheque_nominal_a")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Cheque Nominal a é Obrigatório!")
+	//@NotNull(message = "Cheque Nominal a é Obrigatório!")
 	private String chequeNominalA = "";
 
 	@Lob
@@ -100,7 +100,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
-	@NotNull(message = "Observação é Obrigatório!")
+	//@NotNull(message = "Observação é Obrigatório!")
 	private String observacao = "";
 
 	@Field
@@ -144,7 +144,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@Column(name = "optante_simples_nacional")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Optante Simples Nacional é Obrigatório!")
+	//@NotNull(message = "Optante Simples Nacional é Obrigatório!")
 	private SimNaoEn optanteSimplesNacional;
 
 	@Enumerated(EnumType.STRING)
@@ -153,7 +153,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@Column(name = "localizacao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Localização é Obrigatório!")
+	//@NotNull(message = "Localização é Obrigatório!")
 	private LocalizacaoEn localizacao;
 
 	@Enumerated(EnumType.STRING)
@@ -162,7 +162,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@Column(name = "sofre_retencao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Sofre Retenção é Obrigatório!")
+	//@NotNull(message = "Sofre Retenção é Obrigatório!")
 	private SimNaoEn sofreRetencao;
 
 	@Enumerated(EnumType.STRING)
@@ -171,7 +171,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@Column(name = "gera_faturamento")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Gera Faturamento é Obrigatório!")
+	//@NotNull(message = "Gera Faturamento é Obrigatório!")
 	private SimNaoEn geraFaturamento;
 
 	@Field
