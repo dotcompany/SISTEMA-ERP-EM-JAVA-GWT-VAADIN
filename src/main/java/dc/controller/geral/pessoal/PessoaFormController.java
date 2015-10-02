@@ -19,6 +19,7 @@ import dc.control.enums.CrtEn;
 import dc.control.enums.FormaDescontoEn;
 import dc.control.enums.FormaPagamentoEn;
 import dc.control.enums.IndicadorPrecoEn;
+import dc.control.enums.LancamentoComissao;
 import dc.control.enums.LocalizacaoEn;
 import dc.control.enums.RacaEn;
 import dc.control.enums.SexoEn;
@@ -29,6 +30,7 @@ import dc.control.enums.TipoFreteEn;
 import dc.control.enums.TipoPessoaEn;
 import dc.control.enums.TipoRegimeEn;
 import dc.control.enums.TipoSanguineoEn;
+import dc.control.enums.VendedorAtendente;
 import dc.control.util.ClassUtils;
 import dc.control.util.NumberUtils;
 import dc.control.util.ObjectUtils;
@@ -380,6 +382,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			carregarComissaoOver();
 			carregarTipoComissaoProduto();
 			carregarTipoComissaoServico();
+			carregarVendedorAtendente();
+			carregarLancamentoComissao();
 
 			carregarSofreRetencao();
 			carregarGerarFaturamento();
@@ -1676,6 +1680,18 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	public void carregarTipoComissaoServico() {
 		for (TipoComissaoServicoEn en : TipoComissaoServicoEn.values()) {
 			this.subView.getOgColaboradorTipoComissaoServico().addItem(en);
+		}
+	}
+	
+	public void carregarVendedorAtendente() {
+		for (VendedorAtendente en : VendedorAtendente.values()) {
+			this.subView.getCbColaboradorPgtoComissao().addItem(en);
+		}
+	}
+	
+	public void carregarLancamentoComissao() {
+		for (LancamentoComissao en : LancamentoComissao.values()) {
+			this.subView.getCbColaboradorLctoComissao().addItem(en);
 		}
 	}
 
