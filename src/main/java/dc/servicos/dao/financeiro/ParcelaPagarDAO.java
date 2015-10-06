@@ -28,7 +28,8 @@ public class ParcelaPagarDAO extends AbstractCrudDAO<ParcelaPagar>{
 	}
 	
 	protected String[] getDefaultSearchFields() {
-		return new String[] {};
+		return new String[] {"lancamentoPagar.fornecedor", "contaCaixa", "numeroParcela", "valor", "dataEmissao", "dataVencimento", "descontoAte", "sofreRetencao",
+				"valorFaltante", "taxaJuro", "valorJuro", "taxaMulta", "valorMulta", "taxaDesconto", "valorDesconto"};
 	}
 	
 	@Transactional

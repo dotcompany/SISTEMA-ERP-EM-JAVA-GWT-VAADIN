@@ -40,7 +40,7 @@ public class ParcelaPagamentoDAO extends AbstractCrudDAO<ParcelaPagamento> {
 	@Override
 	protected String[] getDefaultSearchFields() {
 
-		return new String[] { ""  };
+		return new String[] { "contaCaixa","parcelaPagar","tipoPagamento"  };
 	}
 
 }
