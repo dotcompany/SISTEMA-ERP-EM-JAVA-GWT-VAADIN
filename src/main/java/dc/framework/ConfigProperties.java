@@ -10,6 +10,6 @@ public class ConfigProperties {
 	@Value("${combo.delayValue}")
 	public int COMBO_DELAYVALUE;
 	
-	
-	
+	@Value("${phone.nine.digits.prefixes}")
+	public String PHONE_NINE_DIGITS_PREFIXES;	
 }

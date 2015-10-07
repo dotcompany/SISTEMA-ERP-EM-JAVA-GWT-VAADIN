@@ -71,7 +71,8 @@ configurations.compile.exclude module: 'asm'
 
 
 dependencies {
-    compile files('libs/maskedtextfield-0.1.4.jar')
+    compile files('libs/maskedtextfield-0.1.9.jar')
+    compile files('libs/maskedtextfield-0.1.9-sources.jar')
     compile files('libs/jrimum/jrimum-bopepo-0.2.3-SNAPSHOT.jar')
     compile files('libs/jrimum/jrimum-domkee-0.2.3-SNAPSHOT.jar')
     compile files('libs/jrimum/jrimum-texgit-0.2.0-SNAPSHOT.jar')
@@ -236,6 +237,7 @@ dependencies {
     compile 'org.apache.poi:ooxml-schemas:1.1'
     compile 'joda-time:joda-time:2.3'
     compile 'org.apache.commons:commons-lang3:3.3'
+    compile 'org.json:json:20141113'
 
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
 

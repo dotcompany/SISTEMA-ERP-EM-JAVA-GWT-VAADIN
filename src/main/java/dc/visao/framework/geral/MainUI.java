@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.vaadin.annotations.JavaScript;
 //import com.porotype.iconfont.FontAwesome;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.DefaultErrorHandler;
@@ -26,6 +27,7 @@ import dc.visao.framework.geral.fake.DataProvider;
 @Scope("request")
 @SuppressWarnings("serial")
 @Theme("dotcompany")
+@JavaScript({"jquery-1.11.1.min.js", "jquery.inputmask.bundle.2.4.18.min.js"})
 public class MainUI extends UI implements ErrorHandler {
 
 	public DataProvider dataProvider = new DataProvider();
@@ -97,6 +99,7 @@ public class MainUI extends UI implements ErrorHandler {
 		layout.addComponent(new Label(cause, ContentMode.HTML));
 
 		setContent(layout);
+		
 
 		DefaultErrorHandler.doDefault(event);
 	}

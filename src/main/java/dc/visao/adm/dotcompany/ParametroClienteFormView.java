@@ -45,7 +45,7 @@ public class ParametroClienteFormView extends CustomComponent {
 	
 	private PopupDateField dtDataEntrada, dtVencimentoPromocao, dtDiaVencimento;
 
-	private MaskedTextField txtTelefone;
+	private TextField txtTelefone;
 	
 	private TextArea txtObsFechamento;
 	
@@ -315,8 +315,8 @@ public class ParametroClienteFormView extends CustomComponent {
 		txtNomeResponsavel= ComponentUtil.buildTextField("Nome Responsável");
 		gridLayout_1.addComponent(txtNomeResponsavel, 0,2);
 		
-		txtTelefone = ComponentUtil.buildMaskedTextField("Telefone ",	"(##) #####-####");
-		txtTelefone.setMaskClientOnly(true);
+		txtTelefone = ComponentUtil.buildPhoneField("Telefone");
+		//txtTelefone.setMaskClientOnly(true);
 		gridLayout_1.addComponent(txtTelefone, 0, 3);		
 
 		subForms.addTab(gridLayout_1, "Dados Cobrança", null);
@@ -460,7 +460,7 @@ public class ParametroClienteFormView extends CustomComponent {
 
 		// txtTelefone
 		txtTelefone = ComponentUtil.buildMaskedTextField("Telefone ",	"(##) #####-####");
-		txtTelefone.setMaskClientOnly(true);
+		//txtTelefone.setMaskClientOnly(true);
 		//txtTelefone.setImmediate(false);
 		//txtTelefone.setWidth("-1px");
 		//txtTelefone.setHeight("-1px");
@@ -856,11 +856,11 @@ public class ParametroClienteFormView extends CustomComponent {
 		this.dtDiaVencimento = dtDiaVencimento;
 	}
 
-	public MaskedTextField getTxtTelefone() {
+	public TextField getTxtTelefone() {
 		return txtTelefone;
 	}
 
-	public void setTxtTelefone(MaskedTextField txtTelefone) {
+	public void setTxtTelefone(TextField txtTelefone) {
 		this.txtTelefone = txtTelefone;
 	}
 

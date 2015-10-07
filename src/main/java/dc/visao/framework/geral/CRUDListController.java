@@ -1,6 +1,7 @@
 package dc.visao.framework.geral;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -563,8 +564,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 						.equals(Double.class)) {
 					container.addContainerProperty(id_coluna, Double.class,
 							null, false, true);
-					table.addGeneratedColumn(id_coluna, new ValueColumnGenerator("%.2f €"));
-
+					configureMoneyMask(id_coluna);
 				}
 
 				else if (getEntityClass().getDeclaredField(id_coluna).getType()
@@ -572,16 +572,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 					container.addContainerProperty(id_coluna, Double.class,
 							null, false, true);
 					
-					NumberFormat anotacao = AnotacoesUtil.getAnotacao(NumberFormat.class,
-							getEntityClass(), id_coluna);
-					if(anotacao != null){
-						for (Method method : anotacao.annotationType().getDeclaredMethods()) {
-							Object value = method.invoke(anotacao, (Object[])null);
-							if("style".equals(method.getName()) && value.equals(Style.CURRENCY)){
-								table.addGeneratedColumn(id_coluna, new ValueColumnGenerator("R$ %.2f"));
-							}			                
-			            }
-					}
+					configureMoneyMask(id_coluna);
 				}
 
 				else if (getEntityClass().getDeclaredField(id_coluna).getType()
@@ -666,6 +657,19 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 			getFormController()
 					.mensagemErro(
 							"Ocorreu um erro na busca. Entre em contato com o administrador");
+		}
+	}
+
+	private void configureMoneyMask(String id_coluna) throws IllegalAccessException, InvocationTargetException {
+		NumberFormat anotacao = AnotacoesUtil.getAnotacao(NumberFormat.class,
+				getEntityClass(), id_coluna);
+		if(anotacao != null){
+			for (Method method : anotacao.annotationType().getDeclaredMethods()) {
+				Object value = method.invoke(anotacao, (Object[])null);
+				if("style".equals(method.getName()) && value.equals(Style.CURRENCY)){
+					table.addGeneratedColumn(id_coluna, new ValueColumnGenerator("R$ %.2f"));
+				}			                
+		    }
 		}
 	}
 
@@ -918,13 +922,17 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 	}
 	
 	class ValueColumnGenerator implements  ColumnGenerator {
-        String format; /* Format string for the Double values. */
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		String format; /* Format string for the Double values. */
 
-        /** Creates double value column formatter with the given format string. */
         public ValueColumnGenerator(String format) {
             this.format = format;
         }
 
+	@SuppressWarnings("rawtypes")
 	@Override
 		public Object generateCell(CustomTable source, Object itemId, Object columnId) {
 			Property prop = source.getItem(itemId).getItemProperty(columnId);

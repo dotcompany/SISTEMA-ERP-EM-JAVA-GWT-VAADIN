@@ -1,9 +1,16 @@
 package dc.visao.framework.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.vaadin.addons.maskedtextfield.DecimalField;
 import org.vaadin.addons.maskedtextfield.MaskedTextField;
 import org.vaadin.addons.maskedtextfield.NumericField;
+import org.vaadin.addons.maskedtextfield.PrefixedMaskedTextField;
 
+import com.vaadin.server.VaadinServlet;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
@@ -14,13 +21,24 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
 import dc.control.converter.CurrencyConverter;
+import dc.framework.ConfigProperties;
 import dc.visao.framework.component.BigDecimalConverter;
 import dc.visao.framework.component.LookupComponent;
 
 public final class ComponentUtil {
 	
 	static Class<?> fieldClass;
-
+	private static final String[] PHONE_NINE_DIGITS_PREFIXES;
+	
+	static{
+		WebApplicationContext ctx = WebApplicationContextUtils
+				.getWebApplicationContext(VaadinServlet.getCurrent()
+						.getServletContext());
+		ConfigProperties  config =(ConfigProperties) ctx
+		.getBean(ConfigProperties.class);
+		String prefixes = config.PHONE_NINE_DIGITS_PREFIXES;
+		PHONE_NINE_DIGITS_PREFIXES = prefixes.split(",");
+	}
 	public static TextField buildPercentageField(String caption) {
 		TextField textField = new TextField();
 		textField.setNullRepresentation("");
@@ -231,5 +249,22 @@ public final class ComponentUtil {
 
 		return textField;
 	}
+	
+	public static MaskedTextField buildPhoneField(String caption){
+		Map<String, String> prefixesMap = new HashMap<String, String>();
+		String nineDigitsMask = "(##) ####-#####";
+		for (String prefix : PHONE_NINE_DIGITS_PREFIXES) {
+			prefixesMap.put("(" + prefix + ")", nineDigitsMask);
+		}	
+		PrefixedMaskedTextField textField = new PrefixedMaskedTextField(caption, "(##) ####-####", prefixesMap);
+		
+		textField.setNullRepresentation("");
+		textField.setCaption(caption);
+		textField.setImmediate(true);
+		textField.setMaskClientOnly(true);
+        
+        return textField;
+	}
+	
 
 }

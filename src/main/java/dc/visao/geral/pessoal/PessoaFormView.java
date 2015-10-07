@@ -3284,8 +3284,9 @@ public class PessoaFormView extends CustomComponent {
 
 						if ("foneComercial".equals(propertyId)) {
 							MaskedTextField textField = ComponentUtil
-									.buildMaskedTextField("Telefone comercial",
-											"(##) #####-####");
+									.buildMaskedTextField(
+											"Telefone residencial",
+											"(##) ####-####+");
 							textField.setMaskClientOnly(true);
 
 							return textField;
@@ -3293,9 +3294,7 @@ public class PessoaFormView extends CustomComponent {
 
 						if ("foneResidencial".equals(propertyId)) {
 							MaskedTextField textField = ComponentUtil
-									.buildMaskedTextField(
-											"Telefone residencial",
-											"(##) #####-####");
+									.buildPhoneField("Telefone residencial");
 							textField.setMaskClientOnly(true);
 
 							return textField;
@@ -3303,8 +3302,9 @@ public class PessoaFormView extends CustomComponent {
 
 						if ("foneCelular".equals(propertyId)) {
 							MaskedTextField textField = ComponentUtil
-									.buildMaskedTextField("Celular",
-											"(##) #####-####");
+									.buildMaskedTextField(
+											"Telefone residencial",
+											"(##) ####-####*");
 							textField.setMaskClientOnly(true);
 
 							return textField;
