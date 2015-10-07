@@ -33,6 +33,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
@@ -118,6 +119,7 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@ManyToOne(optional = false)
 	@Caption(value = "Fornecedor")
 	@NotNull(message = "Fornecedor é Obrigatório")
+	//@IndexedEmbedded(depth=3,includePaths={"pessoa.nome"})
 	private FornecedorEntity fornecedor;
 
 	@Field

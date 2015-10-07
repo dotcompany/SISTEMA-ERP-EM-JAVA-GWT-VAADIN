@@ -581,9 +581,9 @@ public class LancamentoReceberFormView extends CustomComponent {
 		currentBean.setPrimeiroVencimento(dtPrimeiroVencimento.getValue());
 		currentBean.setDocumentoOrigem((DocumentoOrigem) cbDocumentoOrigem
 				.getValue());
-		currentBean.setIntervaloEntreParcelas(txIntervaloParcela
-				.getConvertedValue() != null ? (Integer) txIntervaloParcela
-				.getConvertedValue() : 0);
+		Object txIntervaloParcelaConvertedValue = txIntervaloParcela.getConvertedValue();
+		currentBean.setIntervaloEntreParcelas(txIntervaloParcelaConvertedValue != null 
+				&& !"".equals(txIntervaloParcelaConvertedValue)? (Integer) txIntervaloParcelaConvertedValue : 0);
 		currentBean.setNumeroDocumento(txNumeroDocumento.getValue());
 		currentBean.setQuantidadeParcela((Integer) txQuantidadeParcela
 				.getConvertedValue());

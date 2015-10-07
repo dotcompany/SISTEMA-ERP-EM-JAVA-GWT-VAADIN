@@ -571,8 +571,9 @@ public class LancamentoPagarFormView extends CustomComponent {
 				.getConvertedValue());
 		currentBean
 				.setValorTotal((BigDecimal) txValorTotal.getConvertedValue());
-		currentBean.setIntervaloEntreParcelas(txIntervaloParcela
-				.getConvertedValue() != null ? (Integer) txIntervaloParcela
+		Object txIntervaloParcelaConvertedValue = txIntervaloParcela.getConvertedValue();
+		currentBean.setIntervaloEntreParcelas( txIntervaloParcelaConvertedValue != null &&
+				!"".equals(txIntervaloParcelaConvertedValue) ? (Integer) txIntervaloParcela
 				.getConvertedValue() : 0);
 		currentBean.setNumeroDocumento(txNumeroDocumento.getValue());
 		currentBean.setQuantidadeParcela((Integer) txQuantidadeParcela

@@ -237,7 +237,6 @@ dependencies {
     compile 'org.apache.poi:ooxml-schemas:1.1'
     compile 'joda-time:joda-time:2.3'
     compile 'org.apache.commons:commons-lang3:3.3'
-    compile 'org.json:json:20141113'
 
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
 

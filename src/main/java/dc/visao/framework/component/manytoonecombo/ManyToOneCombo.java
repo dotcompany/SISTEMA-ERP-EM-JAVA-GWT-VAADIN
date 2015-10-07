@@ -476,7 +476,7 @@ public class ManyToOneCombo<T> extends CustomComponent {
 	}
 
 	public void addValueChangeListener(ValueChangeListener listener) {
-		System.out.println("modelo chanaddValueChangeListenerged:");
+		//System.out.println("modelo chanaddValueChangeListenerged:");
 
 		if (valueChangeListeners == null) {
 			valueChangeListeners = new LinkedList<ValueChangeListener>();

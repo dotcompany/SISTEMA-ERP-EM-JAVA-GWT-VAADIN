@@ -312,7 +312,7 @@ public class LancamentoPagarFormController extends
 
 							if (TipoVencimentoEn.M.equals(tipoVencimento)) {
 								subView.getTxIntervaloParcela().setEnabled(false);
-								subView.getTxIntervaloParcela().setValue(null);
+								subView.getTxIntervaloParcela().setValue("");
 								currentBean.setIntervaloEntreParcelas(30);
 							} else {
 								subView.getTxIntervaloParcela().setEnabled(true);

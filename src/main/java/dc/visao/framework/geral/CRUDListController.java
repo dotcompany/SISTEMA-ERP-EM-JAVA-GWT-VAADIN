@@ -667,7 +667,9 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 			for (Method method : anotacao.annotationType().getDeclaredMethods()) {
 				Object value = method.invoke(anotacao, (Object[])null);
 				if("style".equals(method.getName()) && value.equals(Style.CURRENCY)){
-					table.addGeneratedColumn(id_coluna, new ValueColumnGenerator("R$ %.2f"));
+					if(table.getColumnGenerator(id_coluna) == null){
+						table.addGeneratedColumn(id_coluna, new ValueColumnGenerator("R$ %.2f"));
+					}
 				}			                
 		    }
 		}
