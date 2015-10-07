@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -25,6 +26,10 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 
 	@Autowired
 	private ParcelaPagamentoFormController parcelaPagamentoFormController;
+	
+    public ParcelaPagarListController() {
+		
+	}
 
 	@Override
 	public String[] getColunas() {
@@ -51,11 +56,18 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 	protected CRUDFormController<ParcelaPagar> getFormController() {
 		return parcelaPagamentoFormController;
 	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
+	}
 
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaParcelasPagar";
+		//return "listaParcelasPagar";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -63,10 +75,8 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected List<ParcelaPagar> pesquisaDefault() {
 		return (List<ParcelaPagar>) dao.getAll(getEntityClass());
 	}
-
 }

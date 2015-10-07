@@ -21,7 +21,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -117,6 +116,7 @@ public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "ID_FIN_PARCELA_PAGAR", referencedColumnName = "ID")
 	//@ManyToOne(fetch = FetchType.EAGER)
+	@Caption("Parcela à Pagar")
 	private ParcelaPagar parcelaPagar;
 
 	@Caption("Cheque Emitido")
@@ -253,7 +253,7 @@ public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return getContaCaixa().getNome();
 	}
 
 	/**

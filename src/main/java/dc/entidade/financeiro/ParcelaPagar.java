@@ -25,7 +25,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -68,70 +67,70 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	@Column(name = "DATA_EMISSAO")
 	@Temporal(TemporalType.DATE)
-	@Caption(value = "Data Emissão")
+	@Caption("Data Emissão")
 	@Field
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	//@NotNull(message = "Data Pagamento é Obrigatório!")
 	private Date dataEmissao;
 
-	@Caption(value = "Data Vencimento")
+	@Caption("Data Vencimento")
 	@Column(name = "DATA_VENCIMENTO")
 	@Temporal(TemporalType.DATE)
 	@Field
 	private Date dataVencimento;
 
-	@Caption(value = "Desconto Até")
+	@Caption("Desconto Até")
 	@Column(name = "DESCONTO_ATE")
 	@Temporal(TemporalType.DATE)
 	@Field
 	private Date descontoAte;
 
-	@Caption(value = "Sofre Retencao")
+	@Caption("Sofre Retencao")
 	@Column(name = "SOFRE_RETENCAO")
 	@Field
 	private String sofreRetencao;
 
 	@Field
-	@Caption(value = "Valor")
+	@Caption("Valor")
 	@Column(name = "VALOR")
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valor;
 
-	@Caption(value = "Taxa Juro")
+	@Caption("Taxa Juro")
 	@Column(name = "TAXA_JURO", precision = 14, scale = 0)
 	@Field
 	private BigDecimal taxaJuro;
 
-	@Caption(value = "Taxa Multa")
+	@Caption("Taxa Multa")
 	@Column(name = "TAXA_MULTA", precision = 14, scale = 0)
 	@Field
 	private BigDecimal taxaMulta;
 
-	@Caption(value = "Taxa Desconto")
+	@Caption("Taxa Desconto")
 	@Column(name = "TAXA_DESCONTO", precision = 14, scale = 0)
 	@Field
 	private BigDecimal taxaDesconto;
 
-	@Caption(value = "Valor Juro")
+	@Caption("Valor Juro")
 	@NumberFormat(style=Style.CURRENCY)
 	@Column(name = "VALOR_JURO", precision = 14, scale = 0)
 	@Field
 	private BigDecimal valorJuro;
 
-	@Caption(value = "Valor Multa")
+	@Caption("Valor Multa")
 	@NumberFormat(style=Style.CURRENCY)
 	@Column(name = "VALOR_MULTA", precision = 14, scale = 0)
 	@Field
 	private BigDecimal valorMulta;
 
-	@Caption(value = "Valor Desconto")
+	@Caption("Valor Desconto")
 	@NumberFormat(style=Style.CURRENCY)
 	@Column(name = "VALOR_DESCONTO", precision = 14, scale = 0)
 	@Field
 	private BigDecimal valorDesconto;
 
-	@Caption(value = "Status Parcela")
+	@Caption("Status Parcela")
 	@JoinColumn(name = "id_status_parcela", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	//@ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -152,12 +151,12 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	 * @ManyToOne(optional = false) private Contrato contrato;
 	 */
 
-	@Caption(value = "Número Parcela")
+	@Caption("Número Parcela")
 	@Column(name = "NUMERO_PARCELA")
 	@Field
 	private Integer numeroParcela;
 
-	@Caption(value = "Conta Caixa")
+	@Caption("Conta Caixa")
 	@JoinColumn(name = "id_conta_caixa", referencedColumnName = "id")
 	@ManyToOne(fetch = FetchType.EAGER)
 	//@NotNull(message = "Conta Caixa é Obrigatório!")
@@ -168,7 +167,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	private List<ParcelaPagamento> parcelapagamentos = new ArrayList<>();
 
 	@Transient
-	@Caption(value = "Valor Faltante")
+	@Caption("Valor Faltante")
 	@Field
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorFaltante;
@@ -275,25 +274,36 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	public void setValorDesconto(BigDecimal valorDesconto) {
 		this.valorDesconto = valorDesconto;
 	}
-
 	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, new String[] { "id" });
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof ParcelaPagar)) {
+	           return false;
+	    }
+
+	    ParcelaPagar that = (ParcelaPagar) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (object instanceof ParcelaPagar == false)
-			return false;
-		if (this == object)
-			return true;
-		final ParcelaPagar other = (ParcelaPagar) object;
-		return EqualsBuilder.reflectionEquals(this, other);
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
 	}
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return getLancamentoPagar().getFornecedor().getNome();
 	}
 
 	/** @return the statusParcela */

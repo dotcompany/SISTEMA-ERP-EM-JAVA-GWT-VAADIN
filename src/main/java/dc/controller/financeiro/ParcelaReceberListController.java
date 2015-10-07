@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ParcelaReceber;
 import dc.servicos.dao.financeiro.ParcelaReceberDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -25,6 +26,10 @@ public class ParcelaReceberListController extends CRUDListController<ParcelaRece
 
 	@Autowired
 	private ParcelaRecebimentoFormController parcelaRecebimentoFormController;
+	
+    public ParcelaReceberListController() {
+		
+	} 
 
 	@Override
 	public String[] getColunas() {
@@ -55,7 +60,8 @@ public class ParcelaReceberListController extends CRUDListController<ParcelaRece
 	// Identificador da VIEW, para posterior uso nas urls de navegacao
 	@Override
 	public String getViewIdentifier() {
-		return "listaParcelasReceber";
+		//return "listaParcelasReceber";
+		return ClassUtils.getUrl(this);
 	}
 	
 	@Override

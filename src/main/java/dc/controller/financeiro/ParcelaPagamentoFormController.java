@@ -20,6 +20,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.control.enums.TipoBaixaEn;
+import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.ParcelaPagamento;
 import dc.entidade.financeiro.ParcelaPagar;
@@ -229,7 +230,8 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 	@Override
 	public String getViewIdentifier() {
-		return "parcelaPagamentoFormController";
+		//return "parcelaPagamentoFormController";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
