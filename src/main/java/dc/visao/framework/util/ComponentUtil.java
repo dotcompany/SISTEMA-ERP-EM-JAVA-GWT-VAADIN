@@ -251,19 +251,24 @@ public final class ComponentUtil {
 	}
 	
 	public static MaskedTextField buildPhoneField(String caption){
+		return buildPhoneField(caption, true);
+	}
+	public static MaskedTextField buildPhoneField(String caption, boolean nineDigitsAble) {
 		Map<String, String> prefixesMap = new HashMap<String, String>();
 		String nineDigitsMask = "(##) ####-#####";
-		for (String prefix : PHONE_NINE_DIGITS_PREFIXES) {
-			prefixesMap.put("(" + prefix + ")", nineDigitsMask);
-		}	
+		if (nineDigitsAble) {
+			for (String prefix : PHONE_NINE_DIGITS_PREFIXES) {
+				prefixesMap.put("(" + prefix + ")", nineDigitsMask);
+			}
+		}
 		PrefixedMaskedTextField textField = new PrefixedMaskedTextField(caption, "(##) ####-####", prefixesMap);
-		
+
 		textField.setNullRepresentation("");
 		textField.setCaption(caption);
 		textField.setImmediate(true);
 		textField.setMaskClientOnly(true);
-        
-        return textField;
+
+		return textField;
 	}
 	
 	public static MaskedTextField buildCnpjField(String caption){
