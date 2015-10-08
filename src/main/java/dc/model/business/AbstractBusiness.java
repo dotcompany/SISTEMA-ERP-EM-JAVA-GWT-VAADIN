@@ -17,6 +17,8 @@ public interface AbstractBusiness<T> {
 	public void delete(T t) throws Exception;
 
 	public void deleteAll(List<Serializable> list) throws Exception;
+	
+	
 
 	public T find(Serializable id) throws Exception;
 

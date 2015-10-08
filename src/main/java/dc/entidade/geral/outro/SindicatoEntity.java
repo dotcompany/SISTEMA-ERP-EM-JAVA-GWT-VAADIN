@@ -109,6 +109,7 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	@Column(name = "FONE1", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Telefone 1 é Obrigatório!")
 	private String fone1 = "";
 
 	@Field
@@ -116,6 +117,7 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	@Column(name = "FONE2", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Telefone 2 é Obrigatório!")
 	private String fone2 = "";
 
 	@Field
@@ -159,9 +161,10 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 
 	@Field
 	@Caption("CNPJ")
-	@Column(name = "CNPJ", length = 30)
+	@Column(name = "CNPJ")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "CNPJ é Obrigatório!")
 	private String cnpj = "";
 
 	@Field

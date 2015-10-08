@@ -266,5 +266,28 @@ public final class ComponentUtil {
         return textField;
 	}
 	
+	public static MaskedTextField buildCnpjField(String caption){
+		Map<String, String> prefixesMap = new HashMap<String, String>();
+		PrefixedMaskedTextField textField = new PrefixedMaskedTextField(caption, "##.###.###/####-##", prefixesMap);
+		
+		textField.setNullRepresentation("");
+		textField.setCaption(caption);
+		textField.setImmediate(true);
+		textField.setMaskClientOnly(true);
+        
+        return textField;
+	}
+	
+	public static DecimalField buildCurrencysField(String caption) {
+		
+		DecimalField field = new DecimalField("0.00", ',','.');
+		
+		field.setNullRepresentation("");
+		field.setCaption(caption);
+		field.setImmediate(true);
+        
+        return field;
+	}
+	
 
 }

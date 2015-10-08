@@ -118,10 +118,10 @@ public class ColaboradorOsFormView extends CustomComponent {
 		tfRgInscEstadual = ComponentUtil.buildTextField("Rg/Insc estadual");
 		gridLayout_1.addComponent(tfRgInscEstadual,2,3,2,3);
 
-		tfTelefone = ComponentUtil.buildTextField("Telefone");
+		tfTelefone = ComponentUtil.buildPhoneField("Telefone");
 		gridLayout_1.addComponent(tfTelefone,3,3,3,3);
 
-		tfCelular = ComponentUtil.buildTextField("Celular");
+		tfCelular = ComponentUtil.buildPhoneField("Celular");
 		gridLayout_1.addComponent(tfCelular,4,3,4,3);
 
 		tfCep = ComponentUtil.buildTextField("Cep");

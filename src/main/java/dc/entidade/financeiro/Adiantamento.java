@@ -28,6 +28,8 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -73,6 +75,7 @@ public class Adiantamento extends AbstractMultiEmpresaModel<Integer> implements
 	@Field
 	@Caption("Valor")
 	@Column(name = "VALOR", precision = 14, scale = 0)
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valor;
 
 	@Lob

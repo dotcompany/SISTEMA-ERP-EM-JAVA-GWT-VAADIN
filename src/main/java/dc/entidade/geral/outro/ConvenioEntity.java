@@ -109,6 +109,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "CONTATO", length = 30)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Contato é Obrigatório!")
 	private String contato = "";
 
 	@Field
@@ -116,6 +117,7 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 	@Column(name = "TELEFONE", length = 14)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Telefone é Obrigatório!")
 	private String telefone = "";
 
 	@Temporal(TemporalType.DATE)
@@ -153,9 +155,10 @@ public class ConvenioEntity extends AbstractMultiEmpresaModel<Integer> implement
 
 	@Field
 	@Caption("CNPJ")
-	@Column(name = "CNPJ", length = 100)
+	@Column(name = "CNPJ")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "CNPJ é Obrigatório!")
 	private String cnpj = "";
 
 	@Field

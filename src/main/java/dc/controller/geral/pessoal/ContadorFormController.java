@@ -84,6 +84,7 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 			fieldGroup.bind(this.subView.getTxtLogradouro(),"logradouro");
 			fieldGroup.bind(this.subView.getTxtBairro(),"bairro");
 			fieldGroup.bind(this.subView.getTxtEmail(),"email");
+			fieldGroup.bind(this.subView.getTxtTelefone(),"fone");
 			
 			//this.subView.getMocUf().configuraCombo(
 			//		"nome", UfListController.class, this.ufDAO, this.getMainController());

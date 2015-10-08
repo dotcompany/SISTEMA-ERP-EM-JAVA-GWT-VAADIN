@@ -113,7 +113,7 @@ public class SalarioMinimoFormView extends CustomComponent {
 		fields.addComponent(txtValorDiario, 2, 0);
 		
 		// txtValorHora
-		txtValorHora = ComponentUtil.buildCurrencyField("Valor Hora");
+		txtValorHora = ComponentUtil.buildCurrencysField("Valor Hora");
 		txtValorHora.setImmediate(false);
 		txtValorHora.setRequired(true);
 		txtValorHora.setWidth("156px");

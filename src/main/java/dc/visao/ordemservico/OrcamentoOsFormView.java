@@ -137,7 +137,7 @@ public class OrcamentoOsFormView extends CustomComponent {
 		tfEndereco = ComponentUtil.buildTextField("Endereço");
 		fields.addComponent(tfEndereco, 2, 1,3,1);
 
-		tfFone = ComponentUtil.buildMaskedTextField("Telefone", "(##) #####-####");
+		tfFone = ComponentUtil.buildPhoneField("Telefone");
 		fields.addComponent(tfFone, 0, 2,0,2);
 		
 		tfPlaca = ComponentUtil.buildMaskedTextField("Placa", "UUU-####");

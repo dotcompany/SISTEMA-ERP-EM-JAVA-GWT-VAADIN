@@ -52,16 +52,22 @@ public class ProdutoListController extends CRUDListController<ProdutoEntity> {
 	protected String getTitulo() {
 		return super.getTitulo(this);
 	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
+	}
+
+	@Override
+	protected boolean deletaEmCascata() {
+		return true;
+	}
 
 	@Override
 	public String getViewIdentifier() {
 		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
-	}
-
-	@Override
-	protected boolean deletaEmCascata() {
-		return false;
 	}
 
 	@Override

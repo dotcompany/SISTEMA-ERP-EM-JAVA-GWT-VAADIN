@@ -379,7 +379,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		cbSituacaoServico.setCaption("Situação do serviço");
 		gridLayout_1.addComponent(cbSituacaoServico,2,3,3,3);
 		
-		tfFone = ComponentUtil.buildMaskedTextField("Telefone","(##) #####-####");
+		tfFone = ComponentUtil.buildPhoneField("Telefone");
 		gridLayout_1.addComponent(tfFone,5,3,5,3);
 
 		 

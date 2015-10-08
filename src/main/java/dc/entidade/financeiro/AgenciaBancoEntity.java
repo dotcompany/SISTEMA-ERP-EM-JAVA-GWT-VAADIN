@@ -125,6 +125,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "TELEFONE", length = 10)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Telefone é Obrigatório!")
 	private String telefone = "";
 
 	@Field
@@ -140,6 +141,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "CONTATO", length = 30)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Contato é Obrigatório!")
 	private String contato = "";
 
 	@Lob

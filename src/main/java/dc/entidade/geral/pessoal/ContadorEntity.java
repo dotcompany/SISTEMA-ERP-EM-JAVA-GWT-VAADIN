@@ -68,6 +68,7 @@ public class ContadorEntity extends AbstractMultiEmpresaModel<Integer>
 	@Column(name = "FONE")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Telefone é Obrigatório!")
 	private String fone;
 
 	@Field

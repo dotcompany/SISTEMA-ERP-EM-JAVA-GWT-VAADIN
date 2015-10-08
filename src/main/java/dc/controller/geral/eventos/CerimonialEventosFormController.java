@@ -109,6 +109,9 @@ public class CerimonialEventosFormController extends
 			fieldGroup.bind(this.subView.getTfBairro(), "bairro");
 			fieldGroup.bind(this.subView.getTxtComplemento(), "complemento");
 			fieldGroup.bind(this.subView.getTfEmail(), "email");
+			
+			fieldGroup.bind(this.subView.getTfTelefone(),"telefone");
+			fieldGroup.bind(this.subView.getTfCelular(),"celular");
 
 			// this.subView.getMocUf().configuraCombo(
 			// "nome", UfListController.class, this.ufDAO,

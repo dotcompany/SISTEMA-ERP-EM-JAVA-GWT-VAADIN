@@ -107,6 +107,10 @@ public class SindicatoFormController extends CRUDFormController<SindicatoEntity>
 			fieldGroup.bind(this.subView.getTfLogradouro(),"logradouro");
 			fieldGroup.bind(this.subView.getTfBairro(),"bairro");
 			fieldGroup.bind(this.subView.getTfEmail(),"email");
+			fieldGroup.bind(this.subView.getTfCnpj(), "cnpj");
+			
+			fieldGroup.bind(this.subView.getTfTelefone1(),"fone1");
+			fieldGroup.bind(this.subView.getTfTelefone2(),"fone2");
 			
 			//this.subView.getMocUf().configuraCombo(
 			//		"nome", UfListController.class, this.ufDAO, this.getMainController());
@@ -133,6 +137,8 @@ public class SindicatoFormController extends CRUDFormController<SindicatoEntity>
 	protected void actionSalvar() {
 		try {
 			this.business.saveOrUpdate(this.entity);
+			
+			entity.setCnpj(this.subView.getTfCnpj().getValue());
 
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {

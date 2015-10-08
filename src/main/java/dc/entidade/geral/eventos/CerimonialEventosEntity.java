@@ -111,6 +111,7 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "TELEFONE", length = 14)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Telefone é Obrigatório!")
 	private String telefone;
 
 	@Field
@@ -118,6 +119,7 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "CELULAR", length = 14)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Celular é Obrigatório!")
 	private String celular;
 	
 	@Field

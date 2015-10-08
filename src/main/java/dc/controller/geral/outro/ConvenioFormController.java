@@ -111,6 +111,10 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 				fieldGroup.bind(this.subView.getPdfDataCadastro(),"dataCadastro");
 				fieldGroup.bind(this.subView.getTfLogradouro(),"logradouro");
 				fieldGroup.bind(this.subView.getTfBairro(),"bairro");
+				fieldGroup.bind(this.subView.getTfCnpj(),"cnpj");
+				
+				fieldGroup.bind(this.subView.getTfTelefone(),"telefone");
+				fieldGroup.bind(this.subView.getTfContato(),"contato");
 				
 				fieldGroup.bind(this.subView.getMocPessoa(),"pessoa");
 				

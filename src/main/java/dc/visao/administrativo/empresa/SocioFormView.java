@@ -521,7 +521,7 @@ public class SocioFormView extends CustomComponent {
 
 						if ("cnpj".equals(propertyId)) {
 							TextField textField = ComponentUtil
-									.buildMaskedTextField("CNPJ","##.###.###/####-##");
+									.buildCnpjField("CNPJ");
 							return textField;
 						}
 

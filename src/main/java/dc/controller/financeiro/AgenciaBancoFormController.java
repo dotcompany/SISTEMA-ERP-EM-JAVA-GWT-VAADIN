@@ -94,6 +94,8 @@ public class AgenciaBancoFormController extends CRUDFormController<AgenciaBancoE
 			fieldGroup.bind(this.subView.getTfBairro(),"bairro");
 			fieldGroup.bind(this.subView.getCbUf(),"uf");
 			fieldGroup.bind(this.subView.getTfGerente(),"gerente");
+			fieldGroup.bind(this.subView.getTfTelefone(),"telefone");
+			fieldGroup.bind(this.subView.getTfContato(),"contato");
 			fieldGroup.bind(this.subView.getMocBanco(),"banco");
 			
 			this.subView.getMocBanco().configuraCombo(
