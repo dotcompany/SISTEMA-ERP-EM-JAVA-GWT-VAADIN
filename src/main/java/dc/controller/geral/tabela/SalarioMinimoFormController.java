@@ -1,22 +1,18 @@
 package dc.controller.geral.tabela;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.vaadin.event.FieldEvents.BlurEvent;
-import com.vaadin.event.FieldEvents.BlurListener;
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.SalarioMinimoEntity;
 import dc.servicos.dao.geral.tabela.SalarioMinimoDAO;
-import dc.servicos.util.Validator;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.SalarioMinimoFormView;
 
@@ -54,7 +50,7 @@ public class SalarioMinimoFormController extends
 
 		try {
 			
-			subView.preencheSalario(currentBean);
+			//subView.preencheSalario(currentBean);
 
 			salarioMinimoDAO.saveOrUpdate(currentBean);
 			
@@ -75,10 +71,10 @@ public class SalarioMinimoFormController extends
 			        
 			        //this.subView.getTxtValorMensal().setConvertedValue(currentBean.getValorMensal());
 			        
-			        subView.preencheSalarioForm(currentBean);
+			       // subView.preencheSalarioForm(currentBean);
 			
 			        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
-			        //fieldGroup.setItemDataSource(this.currentBean);
+			        fieldGroup.setItemDataSource(this.currentBean);
 			
 			    } catch (Exception e) {
 			        e.printStackTrace();
@@ -92,17 +88,19 @@ public class SalarioMinimoFormController extends
 			        this.subView = new SalarioMinimoFormView(this);
 			
 			        // Cria o DCFieldGroup
-			        ///this.fieldGroup = new DCFieldGroup<>(SalarioMinimoEntity.class);			
+			       this.fieldGroup = new DCFieldGroup<>(SalarioMinimoEntity.class);			
 			        // Mapeia os campos
-			        //fieldGroup.bind(this.subView.getDataVigencia(),"vigencia");
-			       // fieldGroup.bind(this.subView.getTxtValorMensal(),"valorMensal");
+			       fieldGroup.bind(this.subView.getDataVigencia(),"vigencia");
+			       fieldGroup.bind(this.subView.getTxtValorMensal(),"valorMensal");
+			       fieldGroup.bind(this.subView.getTxtValorDiario(),"valorDiario");
+			       fieldGroup.bind(this.subView.getTxtValorHora(),"valorHora");
 			        
-			        subView.getTxtValorMensal().addBlurListener(new BlurListener() {
+			       /* subView.getTxtValorMensal().addBlurListener(new BlurListener() {
 
 						/**
 						 * 
 						 */
-						private static final long serialVersionUID = 1L;
+						/*private static final long serialVersionUID = 1L;
 
 						@Override
 						public void blur(BlurEvent event) {
@@ -117,7 +115,7 @@ public class SalarioMinimoFormController extends
 						/**
 						 * 
 						 */
-						private static final long serialVersionUID = 1L;
+						/*private static final long serialVersionUID = 1L;
 
 						@Override
 						public void blur(BlurEvent event) {
@@ -132,7 +130,7 @@ public class SalarioMinimoFormController extends
 						/**
 						 * 
 						 */
-						private static final long serialVersionUID = 1L;
+						/*private static final long serialVersionUID = 1L;
 
 						@Override
 						public void blur(BlurEvent event) {
@@ -140,7 +138,7 @@ public class SalarioMinimoFormController extends
 
 						}
 
-					});
+					});*/
 			        
 			    } catch (Exception e) {
 			        e.printStackTrace();
@@ -157,7 +155,7 @@ public class SalarioMinimoFormController extends
 			        this.currentBean = new SalarioMinimoEntity();
 			
 			        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
-			        //fieldGroup.setItemDataSource(this.currentBean);
+			        fieldGroup.setItemDataSource(this.currentBean);
 			
 			    } catch (Exception e) {
 			        e.printStackTrace();
@@ -183,8 +181,8 @@ public class SalarioMinimoFormController extends
 			    }
 	}*/
 	
-	protected boolean validaSalvar() {
-		boolean valido = true;
+protected boolean validaSalvar() {
+		/*boolean valido = true;
 
 		Date dataVigencia = (Date) subView.getDataVigencia().getValue();
 		
@@ -203,8 +201,16 @@ public class SalarioMinimoFormController extends
 			valido = false;
 		}
 		
-		return valido;
-	}
+		return valido;*/
+		
+try {
+		        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+        fieldGroup.commit();
+        return true;
+    } catch (FieldGroup.CommitException ce) {
+        return false;
+    }
+}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {

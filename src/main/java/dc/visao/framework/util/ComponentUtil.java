@@ -1,5 +1,6 @@
 package dc.visao.framework.util;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,8 @@ public final class ComponentUtil {
 	
 	static Class<?> fieldClass;
 	private static final String[] PHONE_NINE_DIGITS_PREFIXES;
+	
+	private static NumberFormat NUMBER_FORMAT = NumberFormat.getCurrencyInstance();
 	
 	static{
 		WebApplicationContext ctx = WebApplicationContextUtils
@@ -283,14 +286,14 @@ public final class ComponentUtil {
         return textField;
 	}
 	
-	public static DecimalField buildCurrencysField(String caption) {
+	public static TextField buildCurrencysField(String caption) {
 		
-		DecimalField field = new DecimalField("0.00", ',','.');
-		
+		//caption = NUMBER_FORMAT.format(new Double(0));
+		DecimalField field = new DecimalField("R$ 0.00", ',', '.');
 		field.setNullRepresentation("");
 		field.setCaption(caption);
 		field.setImmediate(true);
-        
+		
         return field;
 	}
 	

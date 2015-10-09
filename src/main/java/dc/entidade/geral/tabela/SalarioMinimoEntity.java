@@ -11,9 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -53,7 +56,7 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	@Column(name = "VIGENCIA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Data Vigência é Obrigatório!")
+	@NotNull(message = "Data Vigência é Obrigatório!")
 	private Date vigencia;
 	
 	@Field
@@ -61,7 +64,7 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "VALOR_MENSAL", precision = 18, scale = 6)
-	//@NotNull(message = "Valor Mensal é Obrigatório!")
+	@NotNull(message = "Valor Mensal é Obrigatório!")
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorMensal;
 	
@@ -71,6 +74,7 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "VALOR_DIARIO", precision = 18, scale = 6)
 	@NumberFormat(style=Style.CURRENCY)
+	@NotNull(message = "Valor Diário é Obrigatório!")
 	private BigDecimal valorDiario;
 	
 	@Field
@@ -78,6 +82,7 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "VALOR_HORA", precision = 18, scale = 6)
+	@NotNull(message = "Valor Hora é Obrigatório!")
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorHora;
 	
@@ -173,6 +178,33 @@ public class SalarioMinimoEntity extends AbstractMultiEmpresaModel<Integer> impl
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	          return true;
+	    }
+
+	    if (!(obj instanceof SalarioMinimoEntity)) {
+	           return false;
+	    }
+
+	    SalarioMinimoEntity that = (SalarioMinimoEntity) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(getId(), that.getId());
+	    return eb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+	    if (getId() == null) {
+	          return super.hashCode();
+	    } else {
+	          return new HashCodeBuilder()
+	                    .append(id)
+	                    .toHashCode();
+	    }
 	}
 	
 }
