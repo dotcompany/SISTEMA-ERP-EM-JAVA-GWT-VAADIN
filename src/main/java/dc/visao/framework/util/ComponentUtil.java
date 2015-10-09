@@ -289,7 +289,7 @@ public final class ComponentUtil {
 	public static TextField buildCurrencysField(String caption) {
 		
 		//caption = NUMBER_FORMAT.format(new Double(0));
-		DecimalField field = new DecimalField("R$ 0.00", ',', '.');
+		DecimalField field = new DecimalField("R$ #,##0.00", ',', '.');
 		field.setNullRepresentation("");
 		field.setCaption(caption);
 		field.setImmediate(true);
