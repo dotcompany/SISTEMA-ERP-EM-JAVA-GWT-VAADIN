@@ -152,16 +152,16 @@ public class LancamentoReceberFormView extends CustomComponent {
 		dtLancamento = ComponentUtil.buildPopupDateField("Data Lançamento");
 		fields.addComponent(dtLancamento, 0, 2);
 
-		txValorTotal = ComponentUtil.buildCurrencyField("Valor Total");
+		txValorTotal = ComponentUtil.buildCurrencysField("Valor Total");
 		fields.addComponent(txValorTotal, 1, 2);
 
-		txValorReceber = ComponentUtil.buildCurrencyField("Valor à Receber");
+		txValorReceber = ComponentUtil.buildCurrencysField("Valor à Receber");
 		fields.addComponent(txValorReceber, 2, 2);
 
 		txTaxaComissao = ComponentUtil.buildPercentageField("Taxa Comissão");
 		fields.addComponent(txTaxaComissao, 3, 2);
 
-		txValorComissao = ComponentUtil.buildCurrencyField("Valor Comissão");
+		txValorComissao = ComponentUtil.buildCurrencysField("Valor Comissão");
 		fields.addComponent(txValorComissao, 4, 2);
 		
 		/*txTaxaJuro = ComponentUtil.buildPercentageField("Taxa Juro");
@@ -259,7 +259,7 @@ public class LancamentoReceberFormView extends CustomComponent {
 							dateField.setSizeFull();
 							return dateField;
 						} else if ("valor".equals(propertyId)) {
-							return ComponentUtil.buildCurrencyField(null);
+							return ComponentUtil.buildCurrencysField(null);
 						} else if ("naturezaFinanceira".equals(propertyId)) {
 							//ComboBox cmb = ComponentUtil.buildComboBox(null);
 							//cmb.removeAllItems();

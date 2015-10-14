@@ -90,8 +90,8 @@ public class AdiantamentoFormController extends CRUDFormController<Adiantamento>
 
 	        // Mapeia os campos
 	        fieldGroup.bind(this.subView.getDtAdiantamento(),"dataAdiantamento");
-	        fieldGroup.bind(this.subView.getTxtObservacoes(),"observacoes");
 	        fieldGroup.bind(this.subView.getCmbLancamentoPagar(),"idLancamentoPagar");
+	        fieldGroup.bind(this.subView.getTxtValor(), "valor");
 	        
 	        this.subView.getCmbLancamentoPagar().configuraCombo(
 	        		"fornecedor.pessoa.nome", LancamentoPagarListController.class, this.lancamentoPagarDAO, this.getMainController());

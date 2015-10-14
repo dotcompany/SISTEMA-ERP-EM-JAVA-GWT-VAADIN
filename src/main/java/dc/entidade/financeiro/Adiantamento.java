@@ -76,6 +76,7 @@ public class Adiantamento extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption("Valor")
 	@Column(name = "VALOR", precision = 14, scale = 0)
 	@NumberFormat(style=Style.CURRENCY)
+	@NotNull(message = "Valor é Obrigatório!")
 	private BigDecimal valor;
 
 	@Lob
@@ -84,7 +85,6 @@ public class Adiantamento extends AbstractMultiEmpresaModel<Integer> implements
 	@Type(type = "text")
 	@Basic(fetch = javax.persistence.FetchType.LAZY)
 	@Column(name = "OBSERVACOES")
-	@NotNull(message = "Observações é Obrigatório!")
 	private String observacoes;
 
 	@Caption("Lançamento Pagar")

@@ -65,13 +65,13 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> implem
 	private Integer quantidadeParcela;
 
 	@Field
-	@Column(name = "VALOR_TOTAL")
+	@Column(name = "VALOR_TOTAL", precision = 18, scale = 6)
 	@Caption(value = "Valor Total")
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorTotal;
 
 	@Field
-	@Column(name = "VALOR_A_RECEBER")
+	@Column(name = "VALOR_A_RECEBER", precision = 18, scale = 6)
 	@Caption(value = "Valor Receber")
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorAReceber;
@@ -100,7 +100,7 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> implem
 	private BigDecimal taxaComissao;
 
 	@Field
-	@Column(name = "VALOR_COMISSAO")
+	@Column(name = "VALOR_COMISSAO",precision = 18, scale = 6)
 	@Caption(value = "Valor Comissão")
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorComissao;

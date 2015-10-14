@@ -36,7 +36,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.control.enums.LocalizacaoEn;
@@ -224,7 +223,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	 */
 	
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="fornecedor",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="fornecedor",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<BemEntity> bemList = new ArrayList<BemEntity>();
 
 
@@ -233,7 +232,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="fornecedor",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="fornecedor",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<NfeCabecalhoEntity> nfeCabecalhoList =  new ArrayList<NfeCabecalhoEntity>();
 
 	/**

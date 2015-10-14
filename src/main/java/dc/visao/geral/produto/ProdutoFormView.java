@@ -440,13 +440,13 @@ public class ProdutoFormView extends CustomComponent {
 		glInformacaoValor.setSpacing(true);
 
 		// tfValorCompra
-		cfValorCompra = ComponentUtil.buildCurrencyField("Valor de compra");
+		cfValorCompra = ComponentUtil.buildCurrencysField("Valor de compra");
 		// cfValorCompra.setWidth("150px");
 		// cfValorCompra.setHeight("-1px");
 		glInformacaoValor.addComponent(cfValorCompra, 0, 0);
 
 		// tfValorVenda
-		cfValorVenda = ComponentUtil.buildCurrencyField("Valor de venda");
+		cfValorVenda = ComponentUtil.buildCurrencysField("Valor de venda");
 		// cfValorVenda = new NumberField("Valor de venda");
 		// cfValorVenda.setWidth("150px");
 		// cfValorVenda.setHeight("-1px");
@@ -455,14 +455,14 @@ public class ProdutoFormView extends CustomComponent {
 		// tfValorVendaMinimo
 		// tfValorVendaMinimo =
 		cfValorVendaMinimo = ComponentUtil
-				.buildCurrencyField("Valor de venda mínimo");
+				.buildCurrencysField("Valor de venda mínimo");
 		// cfValorVendaMinimo = new NumberField("Valor de venda mínimo");
 		// cfValorVendaMinimo.setWidth("150px");
 		// cfValorVendaMinimo.setHeight("-1px");
 		glInformacaoValor.addComponent(cfValorVendaMinimo, 2, 0);
 
 		// tfValorSugerido
-		cfValorSugerido = ComponentUtil.buildCurrencyField("Valor sugerido");
+		cfValorSugerido = ComponentUtil.buildCurrencysField("Valor sugerido");
 		// cfValorSugerido = new NumberField("Valor sugerido");
 		// cfValorSugerido.setWidth("150px");
 		// cfValorSugerido.setHeight("-1px");
@@ -471,7 +471,7 @@ public class ProdutoFormView extends CustomComponent {
 		// tfCustoMedioLiquido
 		// tfCustoMedioLiquido =
 		cfCustoMedioLiquido = ComponentUtil
-				.buildCurrencyField("Custo médio líquido");
+				.buildCurrencysField("Custo médio líquido");
 		// cfCustoMedioLiquido = new NumberField("Custo médio líquido");
 		// cfCustoMedioLiquido.setWidth("150px");
 		// cfCustoMedioLiquido.setHeight("-1px");
@@ -480,7 +480,7 @@ public class ProdutoFormView extends CustomComponent {
 		// tfPrecoLucroZero
 		// tfPrecoLucroZero =
 		cfPrecoLucroZero = ComponentUtil
-				.buildCurrencyField("Preço de lucro zero");
+				.buildCurrencysField("Preço de lucro zero");
 		// cfPrecoLucroZero = new NumberField("Preço de lucro zero");
 		// cfPrecoLucroZero.setWidth("150px");
 		// cfPrecoLucroZero.setHeight("-1px");
@@ -489,7 +489,7 @@ public class ProdutoFormView extends CustomComponent {
 		// tfPrecoLucroMinimo
 		// tfPrecoLucroMinimo =
 		cfPrecoLucroMinimo = ComponentUtil
-				.buildCurrencyField("Preço de lucro mínimo");
+				.buildCurrencysField("Preço de lucro mínimo");
 		// cfPrecoLucroMinimo = new NumberField("Preço de lucro mínimo");
 		// cfPrecoLucroMinimo.setWidth("150px");
 		// cfPrecoLucroMinimo.setHeight("-1px");
@@ -498,14 +498,14 @@ public class ProdutoFormView extends CustomComponent {
 		// tfPrecoLucroMaximo
 		// tfPrecoLucroMaximo =
 		cfPrecoLucroMaximo = ComponentUtil
-				.buildCurrencyField("Preço de lucro máximo");
+				.buildCurrencysField("Preço de lucro máximo");
 		// cfPrecoLucroMaximo = new NumberField("Preço de lucro máximo");
 		// cfPrecoLucroMaximo.setWidth("150px");
 		// cfPrecoLucroMaximo.setHeight("-1px");
 		glInformacaoValor.addComponent(cfPrecoLucroMaximo, 2, 1);
 
 		// tfMarkup
-		cfMarkup = ComponentUtil.buildCurrencyField("Markup");
+		cfMarkup = ComponentUtil.buildCurrencysField("Markup");
 		// cfMarkup = new NumberField("Markup");
 		// cfMarkup.setWidth("150px");
 		// cfMarkup.setHeight("-1px");
@@ -629,7 +629,7 @@ public class ProdutoFormView extends CustomComponent {
 		//cbTipoItemSped.setWidth("150px");
 		glInformacaoComplementar.addComponent(cbTipoItemSped, 5, 0);
 
-		tfTotalizadorParcial = ComponentUtil.buildCurrencyField("Totalizador parcial");
+		tfTotalizadorParcial = ComponentUtil.buildCurrencysField("Totalizador parcial");
 		//tfTotalizadorParcial.setHeight("-1px");
 		//tfTotalizadorParcial.setWidth("150px");
 		glInformacaoComplementar.addComponent(tfTotalizadorParcial, 0, 1);

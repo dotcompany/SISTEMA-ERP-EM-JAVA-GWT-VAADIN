@@ -77,7 +77,7 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 
 	@Field
 	@Caption("Valor Total")
-	@Column(name = "VALOR_TOTAL", precision = 14, scale = 0)
+	@Column(name = "VALOR_TOTAL", precision = 18, scale = 6)
 	//@NotNull(message = "Valor Total é Obrigatório")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -85,7 +85,7 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	private BigDecimal valorTotal;
 
 	@Field
-	@Column(name = "VALOR_A_PAGAR", precision = 14, scale = 0)
+	@Column(name = "VALOR_A_PAGAR", precision = 18, scale = 6)
 	@Caption(value = "Valor à Pagar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")

@@ -3,6 +3,7 @@ package dc.model.business.geral.pessoal;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,6 +62,17 @@ public class ColaboradorBusinessImpl implements Serializable,
 			System.out.println(":: [" + getClass().getSimpleName() + "] find");
 
 			ColaboradorEntity ent = this.dao.find(id);
+			
+			Hibernate.initialize(ent.getEmpresa());
+			Hibernate.initialize(ent.getBemList());
+			Hibernate.initialize(ent.getAfastamentoList());
+			Hibernate.initialize(ent.getPlanoSaudeList());
+			Hibernate.initialize(ent.getPppList());
+			Hibernate.initialize(ent.getRescisaoList());
+			Hibernate.initialize(ent.getValeTransporteList());
+			Hibernate.initialize(ent.getHistoricoSalarialList());
+			Hibernate.initialize(ent.getLancamentoCabecalhoList());
+			Hibernate.initialize(ent.getFeriasPeriodoAquisitivoEntityList());
 
 			return ent;
 		} catch (Exception e) {

@@ -97,7 +97,7 @@ public class AdiantamentoFormView extends CustomComponent {
 		fields.addComponent(dtAdiantamento, 0, 1);
 		
 		// txtValor
-		txtValor = ComponentUtil.buildCurrencyField("Valor ");
+		txtValor = ComponentUtil.buildCurrencysField("Valor ");
 		txtValor.setSizeFull();
 		fields.addComponent(txtValor, 1, 1);
 		

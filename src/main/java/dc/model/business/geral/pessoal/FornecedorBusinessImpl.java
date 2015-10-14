@@ -3,6 +3,7 @@ package dc.model.business.geral.pessoal;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,6 +59,10 @@ public class FornecedorBusinessImpl implements Serializable, FornecedorBusiness<
 				System.out.println(":: [" + getClass().getSimpleName() + "] find");
 
 				FornecedorEntity ent = this.dao.find(id);
+				
+				Hibernate.initialize(ent.getEmpresa());
+				Hibernate.initialize(ent.getBemList());
+				Hibernate.initialize(ent.getNfeCabecalhoList());
 
 				return ent;
 			} catch (Exception e) {

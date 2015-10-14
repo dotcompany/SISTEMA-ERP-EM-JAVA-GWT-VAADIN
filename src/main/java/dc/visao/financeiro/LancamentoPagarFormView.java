@@ -184,10 +184,10 @@ public class LancamentoPagarFormView extends CustomComponent {
 		dtLancamento = ComponentUtil.buildPopupDateField("Data Lançamento");
 		fields.addComponent(dtLancamento, 0, 2);
 
-		txValorTotal = ComponentUtil.buildCurrencyField("Valor Total");
+		txValorTotal = ComponentUtil.buildCurrencysField("Valor Total");
 		fields.addComponent(txValorTotal, 1, 2);
 
-		txValorPagar = ComponentUtil.buildCurrencyField("Valor à Pagar");
+		txValorPagar = ComponentUtil.buildCurrencysField("Valor à Pagar");
 		fields.addComponent(txValorPagar, 2, 2);
 
 		txQuantidadeParcela = ComponentUtil
@@ -351,7 +351,7 @@ public class LancamentoPagarFormView extends CustomComponent {
 							dateField.setSizeFull();
 							return dateField;
 						} else if ("valor".equals(propertyId)) {
-							return ComponentUtil.buildCurrencyField(null);
+							return ComponentUtil.buildCurrencysField(null);
 						} else if ("naturezaFinanceira".equals(propertyId)) {
 							/*ComboBox cmb = ComponentUtil.buildComboBox(null);
 							cmb.removeAllItems();							

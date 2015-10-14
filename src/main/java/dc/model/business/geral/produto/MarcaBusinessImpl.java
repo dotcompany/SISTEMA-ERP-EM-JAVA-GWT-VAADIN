@@ -3,6 +3,7 @@ package dc.model.business.geral.produto;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,6 +74,9 @@ public class MarcaBusinessImpl implements Serializable,
 			System.out.println(":: [" + getClass().getSimpleName() + "] find");
 
 			MarcaEntity ent = this.dao.find(id);
+			
+			Hibernate.initialize(ent.getEmpresa());
+			Hibernate.initialize(ent.getProdutoList());
 
 			return ent;
 		} catch (Exception e) {

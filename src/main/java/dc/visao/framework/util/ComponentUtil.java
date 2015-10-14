@@ -291,6 +291,7 @@ public final class ComponentUtil {
 		//caption = NUMBER_FORMAT.format(new Double(0));
 		DecimalField field = new DecimalField("R$ #,##0.00", ',', '.');
 		field.setNullRepresentation("");
+		field.setConverter(new BigDecimalConverter());
 		field.setCaption(caption);
 		field.setImmediate(true);
 		
