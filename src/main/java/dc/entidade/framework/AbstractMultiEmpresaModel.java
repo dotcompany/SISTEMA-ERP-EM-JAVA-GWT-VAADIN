@@ -3,6 +3,7 @@ package dc.entidade.framework;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
@@ -27,7 +28,7 @@ import dc.entidade.administrativo.empresa.EmpresaEntity;
 public abstract class AbstractMultiEmpresaModel<ID extends Serializable>
 		extends AbstractModel<ID> {
 
-	@OneToOne()
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_empresa")
 	@Analyzer(definition = "id_empresa_analyzer")
 	@IndexedEmbedded(includeEmbeddedObjectId=true)
