@@ -3,6 +3,7 @@ package dc.model.business.financeiro;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,9 @@ import dc.servicos.dao.financeiro.LancamentoPagarDAOf;
 public class LancamentoPagarBusinessImpl implements LancamentoPagarBusiness<LancamentoPagarEntity>, Serializable  {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private static final int FIRST_ROW = 1;
+	private static final int DEFAULT_PAGE_SIZE = 50;
 	
 	private static Logger logger = Logger.getLogger(LancamentoPagarBusinessImpl.class);
 	
@@ -59,6 +63,12 @@ public class LancamentoPagarBusinessImpl implements LancamentoPagarBusiness<Lanc
 			System.out.println(":: [" + getClass().getSimpleName() + "] find");
 
 			LancamentoPagarEntity ent = this.dao.find(id);
+			
+			Hibernate.initialize(ent.getEmpresa());
+			Hibernate.initialize(ent.getFornecedor());
+			Hibernate.initialize(ent.getDocumentoOrigem());
+			Hibernate.initialize(ent.getParcelasPagar());
+			Hibernate.initialize(ent.getLctoPagarNtFinanceiras());
 
 			return ent;
 		} catch (Exception e) {
@@ -96,10 +106,10 @@ public class LancamentoPagarBusinessImpl implements LancamentoPagarBusiness<Lanc
 	public List<LancamentoPagarEntity> findAll(LancamentoPagarEntity t) throws Exception {
 		return null;
 	}
-
+	
 	@Override
 	public List<LancamentoPagarEntity> fullTextSearch(String valor) throws Exception {
-		return null;
+		return fullTextSearch(valor);
 	}
 
 	@Override

@@ -46,7 +46,7 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 
 	@Override
 	protected List<LancamentoPagarEntity> pesquisa(String valor) {
-		/*try {
+		try {
 			List<LancamentoPagarEntity> auxLista = (List<LancamentoPagarEntity>) this.lancamentoPagarFormController.getBusiness().fullTextSearch(valor);
 
 			return auxLista;
@@ -54,9 +54,9 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 			e.printStackTrace();
 
 			return null;
-		}*/
+		}
 		
-		return dao.fullTextSearch(valor);
+		//return dao.fullTextSearch(valor);
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 
 	@Override
 	protected List<LancamentoPagarEntity> pesquisaDefault() {
-		/*try {
+		try {
 			List<LancamentoPagarEntity> auxLista = (List<LancamentoPagarEntity>) this.lancamentoPagarFormController.getBusiness().getAll(getEntityClass());
 
 			return auxLista;
@@ -92,9 +92,7 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 			return null;
 		}
 		
-	}*/
-		
-		return (List<LancamentoPagarEntity>) dao.getAll(getEntityClass());
+		//return (List<LancamentoPagarEntity>) dao.getAll(getEntityClass());
 		
 	}
 	

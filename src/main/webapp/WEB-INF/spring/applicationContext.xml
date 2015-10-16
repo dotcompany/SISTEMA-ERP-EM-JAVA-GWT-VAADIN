@@ -93,10 +93,18 @@
                 <prop key="hibernate.cache.use_query_cache">false</prop>
                 <prop key="hibernate.jdbc.batch_size">50</prop>
                 <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
-                <prop key="hibernate.search.default.directory_provider">filesystem</prop>
                 
                 <!--  LUCENE_INDEXES2 PARA TESTE -->
+
                 <prop key="hibernate.search.default.indexBase">c:/lucene_indexes3</prop>
+
+                <!--  <prop key="hibernate.search.default.indexBase">c:/lucene_indexes2</prop> -->
+                <prop key="hibernate.search.default.directory_provider">filesystem</prop> 
+                <prop key="lucene.indexer.cacheEnabled">true</prop>
+                <prop key="lucene.indexer.maxLinkAspectCacheSize">10000</prop>
+                <prop key="lucene.indexer.maxParentCacheSize">10000</prop>
+                <prop key="lucene.indexer.maxPathCacheSize">10000</prop>
+
                 
                 <!--  LUCENE_INDEXES PARA PRODUCAO -->
                 <!--  <prop key="hibernate.search.default.indexBase">c:/lucene_indexes</prop> -->

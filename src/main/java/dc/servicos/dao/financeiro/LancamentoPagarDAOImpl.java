@@ -1,5 +1,6 @@
 package dc.servicos.dao.financeiro;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -71,8 +72,47 @@ public List<LancamentoPagarEntity> query(String value) {
 	}
 }
 
+public List<LancamentoPagarEntity> list() {
+	try {
+		String sql = "SELECT new - FROM # ent WHERE (1 = 1)";
+		sql = sql.replace("#", this.getEntityClass().getName());
+		sql = sql.replace("-", this.getEntityClass().getSimpleName()
+				+ "(ent.id, ent.nome)");
+		
+		Query query = super.getSession().createQuery(sql);
+
+		List<LancamentoPagarEntity> auxLista = query.list();
+
+		return auxLista;
+	} catch (Exception e) {
+		e.printStackTrace();
+
+		throw e;
+	}
+}
+
 public String[] getDefaultSearchFields() {
-	return new String[] { "valorTotal" };
+	return new String[] { "fornecedor", "documentoOrigem","dataLancamento","pagamentoCompartilhado","valorTotal","valorAPagar" ,
+			"quantidadeParcela","numeroDocumento","primeiroVencimento" };
+}
+
+@Override
+public LancamentoPagarEntity find(Serializable id) {
+	try {
+		String sql = "FROM # ent WHERE (1 = 1) AND ent.id = :id";
+		sql = sql.replace("#", this.getEntityClass().getName());
+		
+		Query query = super.getSession().createQuery(sql);
+		query.setParameter("id", id);
+
+		LancamentoPagarEntity ent = (LancamentoPagarEntity) query.uniqueResult();
+
+		return ent;
+	} catch (Exception e) {
+		e.printStackTrace();
+
+		throw e;
+	}
 }
 
 }

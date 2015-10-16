@@ -1964,6 +1964,7 @@ public class PessoaFormView extends CustomComponent {
 		mocClienteSituacao = new ManyToOneComboField<>(SituacaoForCliEntity.class);
 		mocClienteSituacao.setCaption("Situação");
 		mocClienteSituacao.setImmediate(false);
+		mocClienteSituacao.setRequired(true);
 		mocClienteSituacao.setHeight("-1px");
 		hlRow1.addComponent(mocClienteSituacao);
 
@@ -1971,6 +1972,7 @@ public class PessoaFormView extends CustomComponent {
 		mocClienteAtividade = new ManyToOneComboField<>(AtividadeForCliEntity.class);
 		mocClienteAtividade.setCaption("Atividade");
 		mocClienteAtividade.setImmediate(false);
+		mocClienteAtividade.setRequired(true);
 		mocClienteAtividade.setHeight("-1px");
 		hlRow1.addComponent(mocClienteAtividade);
 
@@ -2071,7 +2073,7 @@ public class PessoaFormView extends CustomComponent {
 		tfClienteLimiteCredito = new TextField();
 		tfClienteLimiteCredito.setCaption("Limite de crédito");
 		tfClienteLimiteCredito.setImmediate(false);
-		tfClienteLimiteCredito.setRequired(true);
+		//tfClienteLimiteCredito.setRequired(true);
 		tfClienteLimiteCredito.setWidth("194px");
 		tfClienteLimiteCredito.setHeight("-1px");
 		hlRow4.addComponent(tfClienteLimiteCredito);

@@ -211,6 +211,8 @@ public abstract class AbstractCrudDAO<T> {
 
 		FullTextSession fullTextSession = getFullTextSession();
 		List<T> resultSet = new ArrayList<T>();
+		
+		
 
 		org.apache.lucene.search.Query query = createQuery(value, fields, menu, filters, fullTextSession, getAll);
 
@@ -286,7 +288,7 @@ public abstract class AbstractCrudDAO<T> {
 	@Transactional
 	public int fullTextSearchCount(String searchValue, FmMenu menu, List<Filter> filters) {
 		FullTextSession fullTextSession = getFullTextSession();
-
+		
 		org.apache.lucene.search.Query query = createQuery(searchValue, getSearchFields(), menu, filters, fullTextSession, null);		
 		
 		return fullTextSession.createFullTextQuery(query, getEntityClass()).getResultSize();

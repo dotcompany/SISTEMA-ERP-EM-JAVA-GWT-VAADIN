@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -210,6 +211,7 @@ public class PessoaFisicaEntity implements Serializable {
 	@Caption("Estado civil")
 	@ManyToOne
 	@JoinColumn(name = "id_estado_civil")
+	@NotNull(message = "Estado Civil é Obrigatório!")
 	private EstadoCivilEntity estadoCivil;
 
 	@Caption("Pessoa")

@@ -86,14 +86,15 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 
 	@Field
 	@Column(name = "VALOR_A_PAGAR", precision = 18, scale = 6)
-	@Caption(value = "Valor à Pagar")
+	@Caption(
+			"Valor à Pagar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorAPagar;
 
 	@Field
-	@Caption(value = "Data Lançamento")
+	@Caption("Data Lançamento")
 	@Column(name = "DATA_LANCAMENTO")
 	@Temporal(TemporalType.DATE)
 	@ComboValue
@@ -111,19 +112,19 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 
 	@JoinColumn(name = "ID_DOCUMENTO_ORIGEM", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	@Caption(value = "Documento Origem")
+	@Caption("Documento Origem")
 	@NotNull(message = "Documento Origem é Obrigatório")
 	private DocumentoOrigem documentoOrigem;
 
 	@JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	@Caption(value = "Fornecedor")
+	@Caption("Fornecedor")
 	@NotNull(message = "Fornecedor é Obrigatório")
 	//@IndexedEmbedded(depth=3,includePaths={"pessoa.nome"})
 	private FornecedorEntity fornecedor;
 
 	@Field
-	@Caption(value = "Quantidade Parcela")
+	@Caption("Quantidade Parcela")
 	@Column(name = "QUANTIDADE_PARCELA")
 	@NotNull(message = "Quantidade de Parcelas é Obrigatório")
 	@ComboValue
@@ -131,14 +132,14 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	private Integer quantidadeParcela;
 
 	@Field
-	@Caption(value = "Número Documento")
+	@Caption("Número Documento")
 	@Column(name = "NUMERO_DOCUMENTO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String numeroDocumento;
 
 	@Field
-	@Caption(value = "Primeiro Vencimento")
+	@Caption("Primeiro Vencimento")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "PRIMEIRO_VENCIMENTO")
 	@NotNull(message = "Primeiro Vencimento é Obrigatório")
@@ -147,24 +148,24 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	private Date primeiroVencimento;
 
 	@Field
-	@Caption(value = "Código Módulo Lcto.")
+	@Caption("Código Módulo Lcto.")
 	@Column(name = "CODIGO_MODULO_LCTO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String codigoModuloLcto;
 
 	@Field
-	@Caption(value = "Intervalo Entre Parcelas")
+	@Caption("Intervalo Entre Parcelas")
 	@Column(name = "INTERVALO_ENTRE_PARCELAS")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer intervaloEntreParcelas;
 
-	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ParcelaPagar> parcelasPagar = new ArrayList<>();
 
-	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lancamentoPagar", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<LctoPagarNtFinanceira> LctoPagarNtFinanceiras = new ArrayList<>();
 

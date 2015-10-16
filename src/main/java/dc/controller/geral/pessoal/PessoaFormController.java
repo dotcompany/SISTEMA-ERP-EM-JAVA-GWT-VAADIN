@@ -229,6 +229,8 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 			fieldGroup.bind(this.subView.getTfEmail(),"email");
 			fieldGroup.bind(this.subView.getTfSite(),"site");
 			
+			//fieldGroup.bind(this.subView.getMocEstadoCivil(), "pessoaFisica.estadoCivil");
+			
 			this.subView.getMocEstadoCivil().configuraCombo(
 					"nome", EstadoCivilListController.class, this.estadoCivilDAO, this.getMainController());
 			
