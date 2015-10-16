@@ -135,7 +135,7 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 
 	@JoinColumn(name = "ID_STATUS_PARCELA", referencedColumnName = "ID")
 	//@Transient
-	@ManyToOne(optional = false, cascade = {CascadeType.ALL})
+	@ManyToOne(optional = false)
 	private StatusParcela finStatusParcela;
 
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")

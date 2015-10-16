@@ -121,22 +121,22 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - FK
 	 */
 
-	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private PessoaFisicaEntity pessoaFisica;
 
-	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private PessoaJuridicaEntity pessoaJuridica;
 
-	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private ClienteEntity cliente;
 
-	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private ColaboradorEntity colaborador;
 
-	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private FornecedorEntity fornecedor;
 
-	@OneToOne(mappedBy = "pessoa", cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private TransportadoraEntity transportadora;
 
 	/**

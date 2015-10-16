@@ -40,6 +40,7 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.control.enums.LocalizacaoEn;
 import dc.control.enums.SimNaoEn;
+import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -235,6 +236,11 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@OneToMany(mappedBy="fornecedor",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<NfeCabecalhoEntity> nfeCabecalhoList =  new ArrayList<NfeCabecalhoEntity>();
 
+
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="fornecedor",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<LancamentoPagarEntity> lancamentoPagarList =  new ArrayList<LancamentoPagarEntity>();
+	
 	/**
 	 * TRANSIENT
 	 */
@@ -455,6 +461,15 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 
 	public void setNfeCabecalhoList(List<NfeCabecalhoEntity> nfeCabecalhoList) {
 		this.nfeCabecalhoList = nfeCabecalhoList;
+	}
+
+	public List<LancamentoPagarEntity> getLancamentoPagarList() {
+		return lancamentoPagarList;
+	}
+
+	public void setLancamentoPagarList(
+			List<LancamentoPagarEntity> lancamentoPagarList) {
+		this.lancamentoPagarList = lancamentoPagarList;
 	}
 
 	/**

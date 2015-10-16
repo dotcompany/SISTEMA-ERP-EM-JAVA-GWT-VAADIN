@@ -219,6 +219,19 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			ParcelaReceber parcelaReceber = (ParcelaReceber) id;
+
+			try {
+				parcelaReceberDAO.delete(parcelaReceber);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

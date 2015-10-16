@@ -85,7 +85,7 @@ public class SituacaoForCliEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="situacaoForCli",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="situacaoForCli",orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<ClienteEntity> clienteList = new ArrayList<ClienteEntity>();
 
 	/**

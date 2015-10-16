@@ -127,11 +127,11 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> implem
 	@NotNull(message = "Cliente é Obrigatório!")
 	private ClienteEntity cliente;
 
-	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ParcelaReceber> parcelasReceber = new ArrayList<>();
 
-	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<LctoReceberNtFinanceiraEntity> LctoReceberNtFinanceira = new ArrayList<>();
 	

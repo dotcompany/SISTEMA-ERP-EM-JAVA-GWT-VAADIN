@@ -305,7 +305,7 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer contador;
 
-	@OneToOne(mappedBy = "empresa", cascade = CascadeType.ALL, optional = false, fetch=FetchType.EAGER, orphanRemoval=true)
+	@OneToOne(mappedBy = "empresa", cascade = CascadeType.ALL, optional = false, fetch=FetchType.LAZY, orphanRemoval=true)
 	private ContaEmpresa contaEmpresa;
 
 	/**
@@ -319,7 +319,7 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	private List<PessoaEnderecoEntity> pessoaEnderecoList;
 
 	//@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<EmpresaSeguimento> empresaSeguimentoList = new ArrayList<>();
 

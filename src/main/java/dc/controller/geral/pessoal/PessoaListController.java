@@ -59,7 +59,7 @@ public class PessoaListController extends CRUDListController<PessoaEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

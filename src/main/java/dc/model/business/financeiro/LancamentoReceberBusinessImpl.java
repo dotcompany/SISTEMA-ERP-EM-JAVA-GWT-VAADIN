@@ -32,7 +32,7 @@ public class LancamentoReceberBusinessImpl implements Serializable, LancamentoRe
 		@Override
 		@Transactional(readOnly = false)
 		public void delete(LancamentoReceber t) throws Exception {
-			
+			dao.delete(t);
 		}
 
 		@Override

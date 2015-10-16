@@ -82,7 +82,7 @@ public class AtividadeForCliEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="atividadeForCli",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="atividadeForCli",orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ClienteEntity> clienteList = new ArrayList<ClienteEntity>();
 
 	/**

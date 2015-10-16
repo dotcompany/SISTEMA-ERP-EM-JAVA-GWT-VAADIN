@@ -3,6 +3,8 @@ package dc.model.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Session;
+
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
@@ -58,4 +60,6 @@ public interface AbstractDAO<T> {
 
 	public <E> void saveOrUpdate(final E o);
 
+	public Session getSession();
+	
 }

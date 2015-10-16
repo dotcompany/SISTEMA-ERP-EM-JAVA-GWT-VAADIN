@@ -3,7 +3,7 @@ package dc.model.business.geral.pessoal;
 import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,8 +95,10 @@ public class PessoaBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(PessoaEntity t) throws Exception {
-		// TODO Auto-generated method stub
-
+		Session session = this.dao.getSession();
+		t = (PessoaEntity) session.get(PessoaEntity.class, t.getId());
+		
+		this.dao.delete(t);
 	}
 
 	@Transactional(readOnly = false)
@@ -122,16 +124,6 @@ public class PessoaBusinessImpl implements Serializable,
 			System.out.println(":: [" + getClass().getSimpleName() + "] find");
 
 			PessoaEntity ent = this.dao.find(id);
-
-			Hibernate.initialize(ent.getEmpresa());
-			Hibernate.initialize(ent.getPessoaFisica());
-			Hibernate.initialize(ent.getPessoaJuridica());
-			Hibernate.initialize(ent.getCliente());
-			Hibernate.initialize(ent.getColaborador());
-			Hibernate.initialize(ent.getFornecedor());
-			Hibernate.initialize(ent.getTransportadora());
-			Hibernate.initialize(ent.getPessoaContatoList());
-			Hibernate.initialize(ent.getPessoaEnderecoList());
 			
 			return ent;
 		} catch (Exception e) {

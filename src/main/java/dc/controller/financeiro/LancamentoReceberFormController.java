@@ -433,7 +433,6 @@ protected void criarNovoBean() {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			//this.business.deleteAll(ids);
 			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
@@ -479,21 +478,6 @@ protected boolean validaSalvar() {
 	protected void removerEmCascata(List<Serializable> ids) {
 		for (Serializable id : ids) {
 			LancamentoReceber lancamentoReceber = (LancamentoReceber) id;
-			List<LctoReceberNtFinanceiraEntity> lctoReceberNFinanceiras = lancamentoReceber
-					.getLctoReceberNtFinanceira();
-
-			for (LctoReceberNtFinanceiraEntity lctoReceberNFinanceira : lctoReceberNFinanceiras) {
-				lctoReceberNFinanceira.setLancamentoReceber(null);
-
-			}
-
-			List<ParcelaReceber> parcelasReceber = lancamentoReceber
-					.getParcelasReceber();
-
-			for (ParcelaReceber parcelaReceber : parcelasReceber) {
-
-				parcelaReceber.setLancamentoReceber(null);
-			}
 
 			try {
 				business.delete(lancamentoReceber);
@@ -501,8 +485,8 @@ protected boolean validaSalvar() {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
+		
 		mensagemRemovidoOK();
 	}
 

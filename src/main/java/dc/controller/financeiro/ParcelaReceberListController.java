@@ -72,7 +72,7 @@ public class ParcelaReceberListController extends CRUDListController<ParcelaRece
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")

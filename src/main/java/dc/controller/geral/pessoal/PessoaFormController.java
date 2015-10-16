@@ -43,6 +43,7 @@ import dc.controller.geral.outro.SindicatoListController;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.financeiro.ContaCaixa;
+import dc.entidade.financeiro.LancamentoReceber;
 import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.outro.SindicatoEntity;
@@ -1456,13 +1457,19 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
-		try {
+		for (Serializable id : objetos) {
+			PessoaEntity pessoaEntity = (PessoaEntity) id;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
+			try {
+				business.delete(pessoaEntity);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
 		}
+		
+		mensagemRemovidoOK();
 	}
 
 	/**

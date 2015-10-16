@@ -96,7 +96,7 @@
                 <prop key="hibernate.search.default.directory_provider">filesystem</prop>
                 
                 <!--  LUCENE_INDEXES2 PARA TESTE -->
-                <prop key="hibernate.search.default.indexBase">c:/lucene_indexes2</prop>
+                <prop key="hibernate.search.default.indexBase">c:/lucene_indexes3</prop>
                 
                 <!--  LUCENE_INDEXES PARA PRODUCAO -->
                 <!--  <prop key="hibernate.search.default.indexBase">c:/lucene_indexes</prop> -->

@@ -50,11 +50,11 @@ public class LctoPagarNtFinanceira extends AbstractMultiEmpresaModel<Integer> im
 	
 	@Caption(value = "Lançamento à Pagar")
 	@JoinColumn(name = "ID_LANCAMENTO_PAGAR", referencedColumnName = "ID")
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private LancamentoPagarEntity lancamentoPagar;
 	
 	@JoinColumn(name = "ID_NATUREZA_FINANCEIRA", referencedColumnName = "ID")
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private NaturezaFinanceira naturezaFinanceira;
 	
 	@JoinColumn(name = "ID_CONTABIL_LANCAMENTO_DET", referencedColumnName = "ID")
