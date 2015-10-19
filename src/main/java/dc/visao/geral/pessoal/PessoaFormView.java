@@ -1817,7 +1817,7 @@ public class PessoaFormView extends CustomComponent {
 		tfFantasia = ComponentUtil.buildTextField("Nome fantasia");
 		glGeralPessoaJuridica.addComponent(tfFantasia, 0, 0, 5, 0);
 
-		mtfCnpj = ComponentUtil.buildPhoneField("CNPJ");
+		mtfCnpj = ComponentUtil.buildCnpjField("CNPJ");
 		tfInscricaoEstadual = ComponentUtil
 				.buildTextField("Inscrição estadual");
 		tfInscricaoMunicipal = ComponentUtil
@@ -2867,6 +2867,7 @@ public class PessoaFormView extends CustomComponent {
 		mocFornecedorContabilConta.setCaption("Conta contábil");
 		mocFornecedorContabilConta.setImmediate(false);
 		mocFornecedorContabilConta.setHeight("-1px");
+		mocFornecedorContabilConta.setEnabled(false);
 		hlRow1.addComponent(mocFornecedorContabilConta);
 
 		// row 2
