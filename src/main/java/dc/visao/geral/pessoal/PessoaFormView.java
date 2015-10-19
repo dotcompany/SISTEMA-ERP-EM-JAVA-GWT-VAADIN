@@ -2238,6 +2238,7 @@ public class PessoaFormView extends CustomComponent {
 		mocColaboradorContaContabil.setImmediate(false);
 		mocColaboradorContaContabil.setWidth("-1px");
 		mocColaboradorContaContabil.setHeight("-1px");
+		mocColaboradorContaContabil.setEnabled(false);
 		hlRow2.addComponent(mocColaboradorContaContabil);
 
 		// mocColaboradorSetor
@@ -3094,6 +3095,7 @@ public class PessoaFormView extends CustomComponent {
 		mocTransportadoraContabilConta.setWidth("640px");
 		mocTransportadoraContabilConta.setHeight("-1px");
 		mocTransportadoraContabilConta.setSizeFull();
+		mocTransportadoraContabilConta.setEnabled(false);
 		hlRow1.addComponent(mocTransportadoraContabilConta);
 
 		// row 2
