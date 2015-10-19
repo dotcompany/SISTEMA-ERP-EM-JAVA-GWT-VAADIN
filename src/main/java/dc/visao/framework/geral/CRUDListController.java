@@ -5,11 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -125,6 +123,8 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 		genericDAO.setPojoClass(getEntityClass());
 		view = new CRUDListView(this);
+		
+		this.menu = getMenu();
 
 		// Titulo
 		view.getLblNome().setValue(getTitulo());
@@ -170,7 +170,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 		List<Relatorio> relatorios = relatorioDAO
 				.findRelatoriosByMenuAndUserAndType(
-						fmMenuDAO.getMenu(this.getClass().getName()),
+						this.menu,
 						SecuritySessionProvider.getUsuario(),
 						TipoRelatorio.LISTAGEM);
 
@@ -184,15 +184,15 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 		ConfirmDialog.Factory df = new DefaultConfirmDialogFactory() {
 
-			@Override
+            @Override
             public ConfirmDialog create(String caption, String message, String okCaption, String cancelCaption, String notOkCaption) {
                 ConfirmDialog d = super.create(caption, message, okCaption,	cancelCaption, notOkCaption);
-				d.setStyleName("dc-confirm-dialog");
-				d.setWidth("35%");
-				d.setHeight("20%");
-				return d;
-			}
-		};
+                d.setStyleName("dc-confirm-dialog");
+                d.setWidth("35%");
+                d.setHeight("20%");
+                return d;
+            }
+        };
 
 		ConfirmDialog.setFactory(df);
 
@@ -287,12 +287,12 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 					"Nenhum registro selecionado para remoção");
 		} else {
 			ConfirmDialog
-					.show(MainUI.getCurrent(),
-							"Confirme a remoção",
-							"Isso apagará os registros selecionados e Não poderá ser revertido.!\nDeseja continuar?",
-							"Sim", "Não", new ConfirmDialog.Listener() {
-
-								private static final long serialVersionUID = 1L;
+			    .show(MainUI.getCurrent(),
+					"Confirme a remoção",
+					"Isso apagará os registros selecionados e Não poderá ser revertido.!\nDeseja continuar?",
+					"Sim", "Não", new ConfirmDialog.Listener() {
+			    	
+			    	private static final long serialVersionUID = 1L;
 
 								public void onClose(ConfirmDialog dialog) {
 									if (dialog.isConfirmed()) {
@@ -309,11 +309,11 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 											LazyQueryContainer container = (LazyQueryContainer) table
 													.getContainerDataSource();
 
-//											for (Object id : ids) {
-//												container.removeItem(id);
-//											}
-//
-//											container.commit();
+											for (Object id : ids) {
+												container.removeItem(id);
+											}
+
+											container.commit();
 											container.refresh();
 											selected.clear();
 											table.refreshRowCache();
@@ -334,12 +334,8 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 	protected abstract CRUDFormController<E> getFormController();
 
-	protected void actionPesquisa() {
-
+	protected void actionPesquisa() {		
 		String valor = view.getTxtPesquisa().getValue();
-
-		// Configura da tabela
-		FmMenu menu = getMenu();
 
 		table = new SearchableCustomListTable();
 		if (menu.isConsultaFilterTable()) {
@@ -501,7 +497,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 		view.getVltTabela().removeAllComponents();
 		view.getVltTabela().addComponent(table);
 		table.setStyleName("sortTable");
-
+		
 	}
 
 	public void doSearch(String valor) {
@@ -517,8 +513,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 			BeanQueryFactory queryFactory = null;
 
-			FmMenu menu = getMenu();
-			if (genericDAO.isConsultaMultiEmpresa(getEntityClass(), menu, false)) {
+			if (genericDAO.isConsultaMultiEmpresa(getEntityClass(), this.menu, false)) {
 				queryFactory = new BeanQueryFactory<DCBeanQueryMultiEmpresa>(
 						DCBeanQueryMultiEmpresa.class);
 			} else {
@@ -534,7 +529,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 			conf.put("dao", getMainDao());
 			conf.put("pojoClass", getEntityClass());
 			conf.put("id_empresa", idEmpresa);
-			conf.put("menu", menu);
+			conf.put("menu", this.menu);
 			queryFactory.setQueryConfiguration(conf);
 
 			LazyQueryContainer container = new LazyQueryContainer(queryFactory,
@@ -542,7 +537,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 			container.getQueryView().getQueryDefinition().setMaxNestedPropertyDepth(3);
 
 			for (String id_coluna : getColunas()) {
-				if (id_coluna.indexOf(".") > 0) {
+				if(id_coluna.indexOf(".")>0){
 					container.addContainerProperty(id_coluna, String.class, "",
 							true, true);
 				}
@@ -569,7 +564,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 						.equals(BigDecimal.class)) {
 					container.addContainerProperty(id_coluna, Double.class,
 							null, false, true);
-
+					
 					configureMoneyMask(id_coluna);
 				}
 
@@ -606,10 +601,10 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 			for (String prop : getColunas()) {
 				Caption captionAnn = null;
-				if (prop.indexOf("\\.") == 0) {
+				if(prop.indexOf("\\.") == 0){
 					captionAnn = AnotacoesUtil.getAnotacao(Caption.class,
 							getEntityClass(), prop);
-				} else {
+				}else{
 					captionAnn = AnotacoesUtil.getAnotacao(Caption.class,
 							getEntityClass(), prop.split("\\.")[0]);
 				}
@@ -624,7 +619,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 				// verifica se e uma propriedade de um objeto dentro do bean
 				if (prop.contains(".")) {
-					// container.addNestedContainerProperty(prop);
+					//container.addNestedContainerProperty(prop);
 				}
 
 				if (prop.equals(SearchableCustomListTable.CUSTOM_SELECT_ID)) {
@@ -661,15 +656,15 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 	private void configureMoneyMask(String id_coluna) throws IllegalAccessException, InvocationTargetException {
 		NumberFormat anotacao = AnotacoesUtil.getAnotacao(NumberFormat.class,
 				getEntityClass(), id_coluna);
-		if (anotacao != null) {
+		if(anotacao != null){
 			for (Method method : anotacao.annotationType().getDeclaredMethods()) {
-				Object value = method.invoke(anotacao, (Object[]) null);
+				Object value = method.invoke(anotacao, (Object[])null);
 				if("style".equals(method.getName()) && value.equals(Style.CURRENCY)){
-					if (table.getColumnGenerator(id_coluna) == null) {
+					if(table.getColumnGenerator(id_coluna) == null){
 						table.addGeneratedColumn(id_coluna, new ValueColumnGenerator("R$ %.2f"));
 					}
-				}
-			}
+				}			                
+		    }
 		}
 	}
 
@@ -870,6 +865,8 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 	@Autowired
 	private FmModuloDAO mDAO;
 
+	private FmMenu menu;
+
 	private void permissaoOperacao() {
 		UsuarioEntity usuario = ClassUtils.getUsuario();
 
@@ -920,20 +917,20 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 			throw e;
 		}
 	}
-
-	class ValueColumnGenerator implements ColumnGenerator {
-		/**
+	
+	class ValueColumnGenerator implements  ColumnGenerator {
+        /**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
 		String format; /* Format string for the Double values. */
 
-		public ValueColumnGenerator(String format) {
-			this.format = format;
-		}
+        public ValueColumnGenerator(String format) {
+            this.format = format;
+        }
 
-		@SuppressWarnings("rawtypes")
-		@Override
+	@SuppressWarnings("rawtypes")
+	@Override
 		public Object generateCell(CustomTable source, Object itemId, Object columnId) {
 			Property prop = source.getItem(itemId).getItemProperty(columnId);
 			if (prop.getType().equals(Double.class)) {
@@ -958,6 +955,6 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 			}
 			return null;
 		}
-	}
+}
 
 }

@@ -162,7 +162,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	//@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;
 
-	@OneToMany(mappedBy = "parcelaPagar", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "parcelaPagar", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ParcelaPagamento> parcelapagamentos = new ArrayList<>();
 

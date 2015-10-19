@@ -77,7 +77,7 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

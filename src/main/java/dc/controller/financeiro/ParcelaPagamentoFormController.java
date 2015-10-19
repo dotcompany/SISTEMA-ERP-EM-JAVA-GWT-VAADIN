@@ -224,9 +224,23 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 
 	}
 
-	@Override
-	protected void removerEmCascata(List<Serializable> ids) {
-	}
+@Override
+protected void removerEmCascata(List<Serializable> ids) {
+		
+	for (Serializable id : ids) {
+			ParcelaPagar parcelaPagar = (ParcelaPagar) id;
+
+			try {
+				parcelaPagarDAO.delete(parcelaPagar);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
+}
 
 	@Override
 	public String getViewIdentifier() {

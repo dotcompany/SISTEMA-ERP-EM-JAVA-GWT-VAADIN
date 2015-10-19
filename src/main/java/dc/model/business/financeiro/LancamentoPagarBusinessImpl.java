@@ -37,7 +37,7 @@ public class LancamentoPagarBusinessImpl implements LancamentoPagarBusiness<Lanc
 	@Override
 	@Transactional(readOnly = false)
 	public void delete(LancamentoPagarEntity t) throws Exception {
-		
+		dao.delete(t);
 	}
 
 	@Override

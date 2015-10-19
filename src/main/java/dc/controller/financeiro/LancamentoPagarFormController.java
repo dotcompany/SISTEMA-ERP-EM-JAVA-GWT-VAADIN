@@ -392,7 +392,7 @@ public class LancamentoPagarFormController extends
 		return total;
 	}
 
-	@Override
+	/*@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 		for (Serializable id : ids) {
 			LancamentoPagarEntity lancamentoPagar = (LancamentoPagarEntity) id;
@@ -416,6 +416,22 @@ public class LancamentoPagarFormController extends
 			// lancamentoPagarDAO.delete(lancamentoPagar);
 
 		}
+		mensagemRemovidoOK();
+	}*/
+	
+	@Override
+	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			LancamentoPagarEntity lancamentoPagar = (LancamentoPagarEntity) id;
+
+			try {
+				business.delete(lancamentoPagar);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
 		mensagemRemovidoOK();
 	}
 

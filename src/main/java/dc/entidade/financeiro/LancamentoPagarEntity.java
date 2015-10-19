@@ -169,6 +169,10 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Fetch(FetchMode.SUBSELECT)
 	private List<LctoPagarNtFinanceira> LctoPagarNtFinanceiras = new ArrayList<>();
 
+	@OneToMany(mappedBy = "idLancamentoPagar", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<Adiantamento> adiantamentos = new ArrayList<>();
+
 	public LancamentoPagarEntity() {
 	}
 
@@ -330,6 +334,14 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 		LctoPagarNtFinanceiras = lctoPagarNtFinanceiras;
 	}
 	
+	public List<Adiantamento> getAdiantamentos() {
+		return adiantamentos;
+	}
+
+	public void setAdiantamentos(List<Adiantamento> adiantamentos) {
+		this.adiantamentos = adiantamentos;
+	}
+
 	@Override
     public boolean equals(Object obj) {
         if (this == obj) {
