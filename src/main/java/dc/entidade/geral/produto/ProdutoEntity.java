@@ -24,6 +24,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
@@ -360,42 +361,49 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne()
 	@JoinColumn(name = "id_sub_grupo", referencedColumnName = "id", nullable = false)
 	@NotNull(message = "SubGrupo é obrigatório")
+	@IndexedEmbedded(depth=2, includePaths={"nome"})
 	private SubGrupoEntity subGrupo;
 
 	@Caption("Grupo")
 	@ManyToOne()
 	@JoinColumn(name = "id_produto_grupo", nullable = false)
 	@NotNull(message = "Grupo é obrigatório")
+	@IndexedEmbedded(includePaths={"nome"})
 	private GrupoEntity grupo;
 
 	@Caption("Unidade do produto")
 	@ManyToOne()
 	@JoinColumn(name = "id_unidade_produto",referencedColumnName = "id", nullable = false)
     @NotNull(message = "Unidade do produto é obrigatório")
+	@IndexedEmbedded(includePaths={"descricao"})
 	private UnidadeProdutoEntity unidadeProduto;
 
 	@Caption("Marca do produto")
 	@ManyToOne()
 	@JoinColumn(name = "id_marca_produto",referencedColumnName = "id", nullable = false)
 	@NotNull(message = "Marca do produto é obrigatório")
+	@IndexedEmbedded(includePaths={"nome"})
 	private MarcaEntity marca;
 
 	@Caption("Almoxarifado")
 	@ManyToOne()
 	@JoinColumn(name = "id_almoxarifado", nullable = false)
 	@NotNull(message = "Almoxarifado é obrigatório")
+	@IndexedEmbedded(includePaths={"nome"})
 	private AlmoxarifadoEntity almoxarifado;
 
 	@Caption("NCM")
 	@ManyToOne()
 	@JoinColumn(name = "id_ncm", nullable = false)
 	@NotNull(message = "Ncm é obrigatório")
+	@IndexedEmbedded(includePaths={"descricao"})
 	private NcmEntity ncm;
 
 	@Caption("Grupo tributário")
 	@ManyToOne()
 	@JoinColumn(name = "id_grupo_tributario", nullable = true)
 	//@NotNull(message = "Grupo Tributário é obrigatório")
+	@IndexedEmbedded(includePaths={"nome"})
 	private GrupoTributarioEntity grupoTributario;
 
 	@Caption("ICMS customizado")
