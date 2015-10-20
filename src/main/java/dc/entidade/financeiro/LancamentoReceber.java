@@ -33,6 +33,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
@@ -119,12 +120,14 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> implem
 	@ManyToOne(optional = false)
 	@Caption(value = "Documento Origem")
 	@NotNull(message = "Documento Origem é Obrigatório!")
+	@IndexedEmbedded(includePaths={"descricao"})
 	private DocumentoOrigem documentoOrigem;
 
 	@Caption(value = "Cliente")
 	@JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@NotNull(message = "Cliente é Obrigatório!")
+	@IndexedEmbedded(depth=3, includePaths={"pessoa.nome"})
 	private ClienteEntity cliente;
 
 	@OneToMany(mappedBy = "lancamentoReceber", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

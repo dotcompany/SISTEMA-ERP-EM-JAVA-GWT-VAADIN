@@ -1,7 +1,10 @@
 package dc.servicos.dao.framework.geral;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.FetchType;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.queryparser.classic.ParseException;
@@ -33,6 +37,7 @@ import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.SearchFactory;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.hibernate.search.query.dsl.TermTermination;
 import org.hibernate.type.Type;
@@ -48,6 +53,7 @@ import com.vaadin.data.util.filter.Compare;
 import com.vaadin.data.util.filter.Compare.Operation;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 
+import dc.anotacoes.AnotacoesUtil;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -134,6 +140,39 @@ public abstract class AbstractCrudDAO<T> {
 	@Transactional
 	public T find(Serializable id) {
 		return (T) sessionFactory.getCurrentSession().get(getEntityClass(), id);
+	}
+	
+	@Transactional
+	public T findInitialized(Serializable id) {
+		T entity = (T) sessionFactory.getCurrentSession().get(getEntityClass(), id);
+		Class<? extends Object> entityClass = entity.getClass();
+		Field[] declaredFields = entityClass.getDeclaredFields();
+		for (Field field : declaredFields) {
+			Annotation[] annotations = field.getAnnotations();
+
+			for (Annotation anotacao : annotations) {
+				for (Method method : anotacao.annotationType().getDeclaredMethods()) {
+					Object valor;
+					try {
+						valor = method.invoke(anotacao, (Object[]) null);
+
+						if ("fetch".equals(method.getName()) && FetchType.LAZY.equals(valor)) {		
+							field.setAccessible(true);
+							initialize(field.get(entity));
+						}
+
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+		}
+		return entity;
 	}
 
 	@Transactional
@@ -365,11 +404,34 @@ public abstract class AbstractCrudDAO<T> {
 
 		if (dc.control.validator.ObjectValidator.validateString(value)) {
 			QueryBuilder qb = getFullTextSession().getSearchFactory().buildQueryBuilder().forEntity(getEntityClass()).get();
+			
+			for (int i = 0; i < searchFields.length; i++) {
+				String search = searchFields[i];
 
+				try {
+					IndexedEmbedded anotacao = AnotacoesUtil.getAnotacao(IndexedEmbedded.class, getEntityClass(),
+							search);
+					if (anotacao != null) {
+						for (Method method : anotacao.annotationType().getDeclaredMethods()) {
+							Object valor;
+
+							valor = method.invoke(anotacao, (Object[]) null);
+							if ("includePaths".equals(method.getName()) && valor instanceof String[]) {
+								String[] valores = (String[]) valor;
+								searchFields[i] = search + "." + valores[0];
+							}
+						}
+					}
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			org.apache.lucene.search.Query query = qb.keyword().fuzzy().withEditDistanceUpTo(1).onFields(searchFields).matching(value).createQuery();
 
 			booleanQuery.add(query, Occur.SHOULD);
 			for (String search : searchFields) {
+	
 				query = qb.keyword().wildcard().onField(search).matching(value + "*").createQuery();
 
 				booleanQuery.add(query, Occur.SHOULD);

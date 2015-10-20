@@ -334,13 +334,14 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 
 	protected abstract CRUDFormController<E> getFormController();
 
+	@SuppressWarnings("rawtypes")
 	protected void actionPesquisa() {		
 		String valor = view.getTxtPesquisa().getValue();
 
 		table = new SearchableCustomListTable();
 		if (menu.isConsultaFilterTable()) {
 			table.setFilterDecorator(new DCFilterDecorator());
-			table.setFilterGenerator(new DCFilterGenerator());
+			table.setFilterGenerator(new DCFilterGenerator(this.getEntityClass()));
 			table.setFilterBarVisible(true);
 		}
 
