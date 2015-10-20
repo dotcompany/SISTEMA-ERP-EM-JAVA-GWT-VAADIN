@@ -118,15 +118,15 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne(optional = true, fetch = FetchType.EAGER)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
 	private ColaboradorEntity colaborador;
 
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_PAPEL", referencedColumnName = "ID")
 	private PapelEntity papel;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
 			CascadeType.DETACH })
 	private ContaEmpresa conta;
 

@@ -229,7 +229,18 @@ public class ContratoSolicitacaoServicoFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+			for (Serializable id : ids) {
+				SolicitacaoServicoEntity sol = (SolicitacaoServicoEntity) id;
 
+				try {
+					contratoSolicitacaoServicoDAO.delete(sol);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 	}
 
 	@Override

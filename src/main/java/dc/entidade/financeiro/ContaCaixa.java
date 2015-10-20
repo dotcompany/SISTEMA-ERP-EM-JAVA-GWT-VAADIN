@@ -1,16 +1,22 @@
 package dc.entidade.financeiro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -19,6 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -29,6 +37,7 @@ import dc.control.enums.ContaCaixaTipoEnum;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "conta_caixa")
@@ -111,6 +120,10 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	/**
 	 * REFERENCIA - LIST
 	 */
+	
+	@OneToMany(mappedBy = "contaCaixa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ColaboradorEntity> colaboradorList = new ArrayList<ColaboradorEntity>();
 
 	/**
 	 * TRANSIENT
@@ -197,6 +210,14 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setAgenciaBanco(AgenciaBancoEntity agenciaBanco) {
 		this.agenciaBanco = agenciaBanco;
+	}
+	
+	public List<ColaboradorEntity> getColaboradorList() {
+		return colaboradorList;
+	}
+
+	public void setColaboradorList(List<ColaboradorEntity> colaboradorList) {
+		this.colaboradorList = colaboradorList;
 	}
 
 	/**

@@ -67,7 +67,7 @@ public class ClienteListController extends CRUDListController<ClienteEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

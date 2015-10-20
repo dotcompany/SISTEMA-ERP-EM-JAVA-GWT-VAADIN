@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,8 +41,10 @@ import org.hibernate.search.annotations.Indexed;
 import dc.anotacoes.Caption;
 import dc.control.enums.FormaPagamentoEn;
 import dc.control.enums.SimNaoEn;
+import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.financeiro.ContaCaixa;
+import dc.entidade.folhapagamento.VendedorEntity;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
 import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
@@ -53,8 +57,14 @@ import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.diverso.SetorEntity;
+import dc.entidade.geral.ged.VersaoDocumento;
 import dc.entidade.geral.outro.SindicatoEntity;
+import dc.entidade.ordemservico.EntradaServicoEntity;
+import dc.entidade.ordemservico.InformacaoGeralEntity;
+import dc.entidade.ordemservico.MaterialServicoEntity;
+import dc.entidade.ordemservico.VendaPecaEntity;
 import dc.entidade.patrimonio.BemEntity;
+import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 
 @Entity
 @Table(name = "colaborador")
@@ -127,7 +137,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@Column(name = "DATA_TRANSFERENCIA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Data de Transferência é Obrigatório!")
+	//@NotNull(message = "Data de Transferência é Obrigatório!")
 	private Date dataTransferencia;
 
 	@Temporal(TemporalType.DATE)
@@ -469,7 +479,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@Caption("Conta da caixa")
 	@ManyToOne()
 	@JoinColumn(name = "id_conta_caixa")
-	@NotNull(message = "Conta Caixa é Obrigatório!")
+	//@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;
 
 	@Caption("Tipo de admissão")
@@ -477,9 +487,14 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@JoinColumn(name = "id_tipo_admissao")
 	private TipoAdmissaoEntity tipoAdmissao;
 
+	//@Caption("Pessoa")
+	//@ManyToOne()
+	//@JoinColumn(name = "id_pessoa", nullable = false)
+	//@NotNull(message = "Pessoa é Obrigatório!")
+	
 	@Caption("Pessoa")
 	@ManyToOne()
-	@JoinColumn(name = "id_pessoa", nullable = false)
+	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	@NotNull(message = "Pessoa é Obrigatório!")
 	private PessoaEntity pessoa;
 
@@ -490,48 +505,74 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	/**
 	 * ********************************************************
 	 */
+	
+	@OneToMany(mappedBy = "colaborador", orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<SolicitacaoServicoEntity> solicitacaoList = new ArrayList<SolicitacaoServicoEntity>();
+	
+	@OneToMany(mappedBy = "colaborador", orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<UsuarioEntity> usuarioList = new ArrayList<UsuarioEntity>();
+	
+	@OneToMany(mappedBy = "colaborador", orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<VersaoDocumento> versaoList = new ArrayList<VersaoDocumento>();
+
 
 	/**
 	 * 
 	 * @module PATRIMONIO
 	 */
 
+	/*@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
 	private List<BemEntity> bemList = new ArrayList<BemEntity>();
+	
+	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<VendedorEntity> vendedorList = new ArrayList<VendedorEntity>();*/
 
 	/**
 	 * ********************************************************
 	 */
-
+	
 	/**
 	 * 
 	 * @module FOLHAPAGAMENTO
 	 */
 
-	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
-	private List<AfastamentoEntity> afastamentoList;
+	/*@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<AfastamentoEntity> afastamentoList = new ArrayList<AfastamentoEntity>();
 
-	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
-	private List<PlanoSaudeEntity> planoSaudeList;
+	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<PlanoSaudeEntity> planoSaudeList = new ArrayList<PlanoSaudeEntity>();
 
-	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
-	private List<PppEntity> pppList;
+	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<PppEntity> pppList = new ArrayList<PppEntity>();
 
-	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
-	private List<RescisaoEntity> rescisaoList;
+	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<RescisaoEntity> rescisaoList = new ArrayList<RescisaoEntity>();
 
-	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
-	private List<ValeTransporteEntity> valeTransporteList;
+	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ValeTransporteEntity> valeTransporteList = new ArrayList<ValeTransporteEntity>();
 
-	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
-	private List<HistoricoSalarialEntity> historicoSalarialList;
+	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<HistoricoSalarialEntity> historicoSalarialList = new ArrayList<HistoricoSalarialEntity>();
 
-	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
-	private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList;
+	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList = new ArrayList<LancamentoCabecalhoEntity>();
 
-	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
-	private List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoEntityList;
+
+	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoEntityList = new ArrayList<FeriasPeriodoAquisitivoEntity>();
 
 	/**
 	 * ********************************************************
@@ -1062,7 +1103,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 		this.pessoa = pessoa;
 	}
 
-	public List<BemEntity> getBemList() {
+	/*public List<BemEntity> getBemList() {
 		return bemList;
 	}
 
@@ -1137,6 +1178,38 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 			List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoEntityList) {
 		this.feriasPeriodoAquisitivoEntityList = feriasPeriodoAquisitivoEntityList;
 	}
+	
+	public List<SolicitacaoServicoEntity> getSolicitacaoList() {
+		return solicitacaoList;
+	}
+
+	public void setSolicitacaoList(List<SolicitacaoServicoEntity> solicitacaoList) {
+		this.solicitacaoList = solicitacaoList;
+	}
+	
+	public List<UsuarioEntity> getUsuarioList() {
+		return usuarioList;
+	}
+
+	public void setUsuarioList(List<UsuarioEntity> usuarioList) {
+		this.usuarioList = usuarioList;
+	}
+	
+	public List<VersaoDocumento> getVersaoList() {
+		return versaoList;
+	}
+
+	public void setVersaoList(List<VersaoDocumento> versaoList) {
+		this.versaoList = versaoList;
+	}
+
+	public List<VendedorEntity> getVendedorList() {
+		return vendedorList;
+	}
+
+	public void setVendedorList(List<VendedorEntity> vendedorList) {
+		this.vendedorList = vendedorList;
+	}*/
 
 	@Override
 	public String toString() {

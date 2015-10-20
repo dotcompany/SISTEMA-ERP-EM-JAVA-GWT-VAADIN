@@ -88,7 +88,6 @@ public class HistoricoSalarialEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador", nullable = false)
 	@Caption("Colaborador")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ColaboradorEntity colaborador;
 
 	/**

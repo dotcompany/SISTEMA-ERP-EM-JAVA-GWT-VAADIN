@@ -2,16 +2,21 @@ package dc.entidade.geral.outro;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,6 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -31,6 +38,7 @@ import dc.control.enums.TipoSindicatoEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "sindicato")
@@ -188,6 +196,10 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	/**
 	 * REFERENCIA - LIST
 	 */
+	
+	@OneToMany(mappedBy = "sindicato", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ColaboradorEntity> colaboradorList = new ArrayList<ColaboradorEntity>();
 
 	/**
 	 * TRANSIENT
@@ -364,6 +376,14 @@ public class SindicatoEntity extends AbstractMultiEmpresaModel<Integer> implemen
 	public void setClassificacaoContabilConta(String classificacaoContabilConta) {
 		this.classificacaoContabilConta = (classificacaoContabilConta == null ? ""
 				.trim() : classificacaoContabilConta.toUpperCase().trim());
+	}
+	
+	public List<ColaboradorEntity> getColaboradorList() {
+		return colaboradorList;
+	}
+
+	public void setColaboradorList(List<ColaboradorEntity> colaboradorList) {
+		this.colaboradorList = colaboradorList;
 	}
 
 	/**

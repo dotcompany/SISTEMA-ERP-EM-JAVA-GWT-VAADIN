@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -87,7 +88,8 @@ public class IcmsCustomizadoCabecalhoEntity extends	AbstractMultiEmpresaModel<In
 	private List<IcmsCustomizadoDetalheEntity> detalhes = new ArrayList<IcmsCustomizadoDetalheEntity>();
 	
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy = "icmsCustomizado", fetch = FetchType.LAZY)
+	//@OneToMany(mappedBy = "icmsCustomizado", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "icmsCustomizado", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
 	/**

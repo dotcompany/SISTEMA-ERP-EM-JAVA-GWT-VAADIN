@@ -71,7 +71,6 @@ public class LancamentoCabecalhoEntity extends
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador", nullable = false)
 	@Caption("Colaborador")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ColaboradorEntity colaborador;
 
 	/* id_empresa integer NOT NULL, */

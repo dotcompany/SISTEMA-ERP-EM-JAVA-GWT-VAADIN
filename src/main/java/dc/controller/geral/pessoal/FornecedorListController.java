@@ -56,7 +56,7 @@ public class FornecedorListController extends CRUDListController<FornecedorEntit
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 	
 	public FornecedorListController() {

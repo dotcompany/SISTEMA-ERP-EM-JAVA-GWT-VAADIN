@@ -91,7 +91,8 @@ public class OperacaoFiscalEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="operacaoFiscal",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	//@OneToMany(mappedBy="operacaoFiscal",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "operacaoFiscal", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ClienteEntity> clienteList = new ArrayList<ClienteEntity>();
 
 	/**

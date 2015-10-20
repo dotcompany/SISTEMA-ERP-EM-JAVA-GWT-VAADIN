@@ -22,6 +22,7 @@ import dc.controller.geral.diverso.SetorListController;
 import dc.controller.geral.outro.SindicatoListController;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
+import dc.model.business.geral.pessoal.ColaboradorBusiness;
 import dc.servicos.dao.contabilidade.PlanoContaDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
@@ -87,6 +88,13 @@ public class ColaboradorFormController extends
 
 	@Autowired
 	private ContaCaixaDAO contaCaixaDAO;
+	
+	@Autowired
+    private ColaboradorBusiness<ColaboradorEntity> business;
+	
+	 public ColaboradorBusiness<ColaboradorEntity> getBusiness() {
+	        return business;
+	    }
 
 	@Override
 	protected boolean validaSalvar() {
@@ -121,7 +129,7 @@ public class ColaboradorFormController extends
 			// Mapeia os campos
 			
 			fieldGroup.bind(this.subView.getPdfDataCadastro(),"dataCadastro");
-			fieldGroup.bind(this.subView.getPdfDataTransferencia(),"dataTransferencia");
+			//fieldGroup.bind(this.subView.getPdfDataTransferencia(),"dataTransferencia");
 			fieldGroup.bind(this.subView.getTfMatricula(), "matricula");
 			
 			fieldGroup.bind(this.subView.getMocPessoa(), "pessoa");
@@ -130,7 +138,7 @@ public class ColaboradorFormController extends
 			fieldGroup.bind(this.subView.getMocCargo(), "cargo");
 			fieldGroup.bind(this.subView.getMocSituacaoColaborador(), "situacaoColaborador");
 			fieldGroup.bind(this.subView.getMocSetor(), "setor");
-			fieldGroup.bind(this.subView.getMocContaCaixa(), "contaCaixa");
+			//fieldGroup.bind(this.subView.getMocContaCaixa(), "contaCaixa");
 			
 			this.subView.getMocPessoa().configuraCombo(
 					"nome", PessoaListController.class, this.pessoaDAO, this.getMainController());
@@ -169,7 +177,7 @@ public class ColaboradorFormController extends
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.colaboradorDAO.find(id);
+			this.currentBean = this.business.find(id);
 			
 			fieldGroup.setItemDataSource(this.currentBean);
 
@@ -181,7 +189,7 @@ public class ColaboradorFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.colaboradorDAO.saveOrUpdate(this.currentBean);
+			this.business.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -199,7 +207,7 @@ public class ColaboradorFormController extends
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.colaboradorDAO.deleteAllByIds(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -211,14 +219,18 @@ public class ColaboradorFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
+			for (Serializable id : ids) {
+				ColaboradorEntity colab = (ColaboradorEntity) id;
 
-			mensagemErro(e.getMessage());
-		}
-
+				try {
+					business.delete(colab);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 	}
 
 	@Override

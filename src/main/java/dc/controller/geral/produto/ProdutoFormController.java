@@ -299,17 +299,21 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
 
     }
 
-    @Override
-    protected void removerEmCascata(List<Serializable> objetos) {
+@Override
+protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			ProdutoEntity produto = (ProdutoEntity) id;
 
-        try {
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            mensagemErro(e.getMessage());
-        }
-    }
+			try {
+				business.delete(produto);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
+}
 
     @Override
     public ProdutoEntity getModelBean() {

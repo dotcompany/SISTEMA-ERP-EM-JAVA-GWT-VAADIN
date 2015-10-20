@@ -36,6 +36,8 @@ public class FornecedorBusinessImpl implements Serializable, FornecedorBusiness<
 		@Transactional(readOnly = false)
 		@Override
 		public void delete(FornecedorEntity t) throws Exception {
+			
+			dao.delete(t);
 		}
 
 		@Transactional(readOnly = false)

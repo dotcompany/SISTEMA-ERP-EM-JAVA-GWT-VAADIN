@@ -204,14 +204,18 @@ public class FornecedorFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
+			for (Serializable id : ids) {
+				FornecedorEntity forn = (FornecedorEntity) id;
 
-			mensagemErro(e.getMessage());
-		}
-
+				try {
+					business.delete(forn);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 	}
 	
 	/**

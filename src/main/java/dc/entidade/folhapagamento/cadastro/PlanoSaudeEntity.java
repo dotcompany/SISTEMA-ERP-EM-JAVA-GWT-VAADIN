@@ -73,13 +73,11 @@ public class PlanoSaudeEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador", nullable = false)
 	@Caption("Colaborador")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ColaboradorEntity colaborador;
 
 	@ManyToOne
 	@JoinColumn(name = "id_operadora_plano_saude", nullable = false)
 	@Caption("Operadora do plano de saúde")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private OperadoraPlanoSaudeEntity operadoraPlanoSaude;
 
 	/**

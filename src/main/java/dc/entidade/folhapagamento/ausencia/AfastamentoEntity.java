@@ -77,13 +77,11 @@ public class AfastamentoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador", nullable = false)
 	@Caption("Colaborador")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ColaboradorEntity colaborador;
 
 	@ManyToOne
 	@JoinColumn(name = "id_folha_tipo_afastamento", nullable = false)
 	@Caption("Tipo de afastamento")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private TipoAfastamentoEntity tipoAfastamento;
 
 	/**

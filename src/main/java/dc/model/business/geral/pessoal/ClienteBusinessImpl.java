@@ -46,6 +46,8 @@ public class ClienteBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(ClienteEntity t) throws Exception {
+		
+		dao.delete(t);
 	}
 
 	@Transactional(readOnly = false)

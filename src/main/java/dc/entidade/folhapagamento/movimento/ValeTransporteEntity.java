@@ -67,13 +67,11 @@ public class ValeTransporteEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador", nullable = false)
 	@Caption("Colaborador")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ColaboradorEntity colaborador;
 
 	@ManyToOne
 	@JoinColumn(name = "id_empresa_transp_itin", nullable = false)
 	@Caption("Transporte itinerário")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private TransporteItinerarioEntity transporteItinerario;
 
 	/**

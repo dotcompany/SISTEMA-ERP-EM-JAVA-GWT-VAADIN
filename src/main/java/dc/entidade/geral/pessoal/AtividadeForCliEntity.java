@@ -82,8 +82,13 @@ public class AtividadeForCliEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="atividadeForCli",orphanRemoval = true, fetch = FetchType.LAZY)
+	//@OneToMany(mappedBy="atividadeForCli",orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "atividadeForCli", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ClienteEntity> clienteList = new ArrayList<ClienteEntity>();
+	
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "atividadeForCli", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<FornecedorEntity> fornecedorList = new ArrayList<FornecedorEntity>();
 
 	/**
 	 * TRANSIENT
@@ -137,6 +142,14 @@ public class AtividadeForCliEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setClienteList(List<ClienteEntity> clienteList) {
 		this.clienteList = clienteList;
+	}
+	
+	public List<FornecedorEntity> getFornecedorList() {
+		return fornecedorList;
+	}
+
+	public void setFornecedorList(List<FornecedorEntity> fornecedorList) {
+		this.fornecedorList = fornecedorList;
 	}
 
 	/**

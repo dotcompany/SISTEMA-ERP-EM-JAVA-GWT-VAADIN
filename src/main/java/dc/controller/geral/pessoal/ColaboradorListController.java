@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
-import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,9 +20,6 @@ public class ColaboradorListController extends
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@Autowired
-	private ColaboradorDAO dao;
 
 	@Autowired
 	private ColaboradorFormController colaboradorFormController;
@@ -46,11 +42,6 @@ public class ColaboradorListController extends
 	}
 
 	@Override
-	protected List<ColaboradorEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
-	}
-
-	@Override
 	protected CRUDFormController<ColaboradorEntity> getFormController() {
 		return colaboradorFormController;
 	}
@@ -60,15 +51,43 @@ public class ColaboradorListController extends
 		// TODO Auto-generated method stub
 		return ClassUtils.getUrl(this);
 	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
+	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
+	}
+
+	@Override
+	protected List<ColaboradorEntity> pesquisa(String valor) {
+		try {
+			List<ColaboradorEntity> auxLista = (List<ColaboradorEntity>) this.colaboradorFormController.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 	@Override
 	protected List<ColaboradorEntity> pesquisaDefault() {
-		return (List<ColaboradorEntity>) dao.getAll(getEntityClass());
+		try {
+			@SuppressWarnings("unchecked")
+			List<ColaboradorEntity> auxLista = (List<ColaboradorEntity>) this.colaboradorFormController.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 }

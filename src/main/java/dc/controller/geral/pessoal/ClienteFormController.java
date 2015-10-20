@@ -17,6 +17,7 @@ import dc.control.enums.TipoFreteEn;
 import dc.control.util.ClassUtils;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.geral.pessoal.ClienteEntity;
+import dc.model.business.geral.pessoal.ClienteBusiness;
 import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
 import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
@@ -53,6 +54,13 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 	private OperacaoFiscalDAO operacaoDAO;
 
 	private ClienteEntity currentBean;
+	
+	@Autowired
+    private ClienteBusiness<ClienteEntity> business;
+	
+	public ClienteBusiness<ClienteEntity> getBusiness() {
+        return business;
+    }
 
 	@Override
 	protected boolean validaSalvar() {
@@ -114,7 +122,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.clienteDAO.find(id);
+			this.currentBean = this.business.find(id);
 			
 			fieldGroup.setItemDataSource(this.currentBean);
 
@@ -128,7 +136,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.clienteDAO.saveOrUpdate(this.currentBean);
+			this.business.saveOrUpdate(this.currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -151,7 +159,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.clienteDAO.deleteAllByIds(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -161,12 +169,18 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			for (Serializable id : ids) {
+				ClienteEntity cli = (ClienteEntity) id;
 
+				try {
+					business.delete(cli);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 	}
 
 	@Override

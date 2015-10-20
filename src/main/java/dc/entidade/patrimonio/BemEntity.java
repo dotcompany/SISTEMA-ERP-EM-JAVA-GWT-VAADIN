@@ -316,13 +316,11 @@ public class BemEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne
 	@JoinColumn(name = "id_fornecedor", nullable = false)
 	@Caption("Fornecedor")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private FornecedorEntity fornecedor;
 
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador", nullable = false)
 	@Caption("Colaborador")
-	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
 	private ColaboradorEntity colaborador;
 
 	/**

@@ -10,26 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
-import dc.control.util.ObjectUtils;
 import dc.entidade.framework.FmMenu;
-import dc.entidade.geral.diverso.AlmoxarifadoEntity;
-import dc.entidade.geral.produto.GrupoEntity;
-import dc.entidade.geral.produto.MarcaEntity;
-import dc.entidade.geral.produto.NcmEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.geral.produto.SubGrupoEntity;
-import dc.entidade.geral.produto.UnidadeProdutoEntity;
-import dc.entidade.tributario.GrupoTributarioEntity;
-import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
-import dc.model.dao.geral.diverso.AlmoxarifadoDAO;
-import dc.model.dao.geral.produto.GrupoDAO;
-import dc.model.dao.geral.produto.MarcaDAO;
-import dc.model.dao.geral.produto.NcmDAO;
 import dc.model.dao.geral.produto.ProdutoDAO;
-import dc.model.dao.geral.produto.SubGrupoDAO;
-import dc.model.dao.geral.produto.UnidadeProdutoDAO;
-import dc.model.dao.tributario.GrupoTributarioDAO;
-import dc.model.dao.tributario.IcmsCustomizadoDAO;
 
 /**
  * 
@@ -87,7 +70,8 @@ public class ProdutoBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(ProdutoEntity t) throws Exception {
-		// TODO Auto-generated method stub
+	
+		dao.delete(t);
 
 	}
 

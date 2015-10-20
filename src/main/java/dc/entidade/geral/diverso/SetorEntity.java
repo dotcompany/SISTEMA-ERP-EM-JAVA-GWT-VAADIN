@@ -33,6 +33,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.patrimonio.BemEntity;
 
 @Entity
@@ -88,8 +89,12 @@ public class SetorEntity extends AbstractMultiEmpresaModel<Integer> implements
 	// private List<ColaboradorVO> colaboradorVOList;
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="setor",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="setor",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<BemEntity> bemList = new ArrayList<BemEntity>();
+	
+	@OneToMany(mappedBy = "setor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ColaboradorEntity> colaboradorList = new ArrayList<ColaboradorEntity>();
 
 	/**
 	 * TRANSIENT
@@ -143,6 +148,14 @@ public class SetorEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setBemList(List<BemEntity> bemList) {
 		this.bemList = bemList;
+	}
+	
+	public List<ColaboradorEntity> getColaboradorList() {
+		return colaboradorList;
+	}
+
+	public void setColaboradorList(List<ColaboradorEntity> colaboradorList) {
+		this.colaboradorList = colaboradorList;
 	}
 
 	@Override

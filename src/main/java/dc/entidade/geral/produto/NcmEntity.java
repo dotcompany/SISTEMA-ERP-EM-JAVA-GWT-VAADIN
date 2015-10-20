@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -93,7 +94,8 @@ public class NcmEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy = "ncm", fetch = FetchType.LAZY)
+	//@OneToMany(mappedBy = "ncm", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "ncm", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ProdutoEntity> produtoList = new ArrayList<ProdutoEntity>();
 
 	/**

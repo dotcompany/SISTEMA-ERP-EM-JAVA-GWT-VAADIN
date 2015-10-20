@@ -1,14 +1,19 @@
 package dc.entidade.contabilidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,6 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -25,6 +32,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 @Entity
 @Table(name = "PLANO_CONTA")
@@ -84,6 +92,10 @@ public class PlanoConta extends AbstractMultiEmpresaModel<Integer> implements
 	/**
 	 * REFERENCIA - LIST
 	 */
+	
+	@OneToMany(mappedBy = "planoConta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ColaboradorEntity> colaboradorList = new ArrayList<ColaboradorEntity>();
 
 	/**
 	 * TRANSIENT
@@ -140,6 +152,14 @@ public class PlanoConta extends AbstractMultiEmpresaModel<Integer> implements
 
 	public void setNiveis(Integer niveis) {
 		this.niveis = niveis;
+	}
+	
+	public List<ColaboradorEntity> getColaboradorList() {
+		return colaboradorList;
+	}
+
+	public void setColaboradorList(List<ColaboradorEntity> colaboradorList) {
+		this.colaboradorList = colaboradorList;
 	}
 
 	/**

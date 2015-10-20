@@ -259,17 +259,19 @@ public class UsuarioFormController extends CRUDFormController<UsuarioEntity> {
 	}
 
 	@Override
-	protected void removerEmCascata(List<Serializable> objetos) {
-		try {
-			// TODO Auto-generated method stub
-			this.business.deleteAll(objetos);
+	protected void removerEmCascata(List<Serializable> ids) {
+			for (Serializable id : ids) {
+				UsuarioEntity us = (UsuarioEntity) id;
 
+				try {
+					business.delete(us);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
 			mensagemRemovidoOK();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
 	}
 
 	public void alteraFormBaseadoEmColaborador(ColaboradorEntity colaborador) {
