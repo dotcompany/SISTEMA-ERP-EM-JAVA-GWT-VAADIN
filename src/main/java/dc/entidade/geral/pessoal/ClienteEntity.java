@@ -30,6 +30,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.control.enums.FormaDescontoEn;
@@ -155,6 +156,7 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@OneToOne
 	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	@NotNull(message = "Pessoa é Obrigatório!")
+	@IndexedEmbedded(depth=2, includePaths={"nome"})
 	private PessoaEntity pessoa;
 
 	@Caption("Situação fornecedor / cliente")

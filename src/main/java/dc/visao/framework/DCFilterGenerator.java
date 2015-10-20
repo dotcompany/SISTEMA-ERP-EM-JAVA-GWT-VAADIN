@@ -1,22 +1,34 @@
 package dc.visao.framework;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.tepi.filtertable.FilterGenerator;
 
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.util.filter.Compare;
 import com.vaadin.data.util.filter.Or;
+import com.vaadin.data.util.filter.SimpleStringFilter;
 import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Field;
 
-public class DCFilterGenerator implements FilterGenerator, Serializable {
+import dc.anotacoes.AnotacoesUtil;
+
+public class DCFilterGenerator<E> implements FilterGenerator, Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	private Class<E> entityClass;
+
+	public DCFilterGenerator(Class entityClass) {
+		this.entityClass = entityClass;
+	}
 
 	@Override
 	public Filter generateFilter(Object propertyId, Object value) {
@@ -38,7 +50,7 @@ public class DCFilterGenerator implements FilterGenerator, Serializable {
 				}
 			}
 		}
-		// For other properties, use the default filter
+
 		return null;
 	}
 
