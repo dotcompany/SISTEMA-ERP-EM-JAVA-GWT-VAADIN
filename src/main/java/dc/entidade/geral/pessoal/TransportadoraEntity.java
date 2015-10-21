@@ -44,7 +44,7 @@ public class TransportadoraEntity extends AbstractMultiEmpresaModel<Integer> imp
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transportadora_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "transportadora_id_seq")
 	@SequenceGenerator(name = "transportadora_id_seq", sequenceName = "transportadora_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

@@ -81,7 +81,7 @@ public class CargoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "SALARIO", precision = 11, scale = 2)
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Salário é Obrigatório")
+	//@NotNull(message = "Salário é Obrigatório")
 	@NumberFormat(style=Style.CURRENCY)
 	private Double salario;
 

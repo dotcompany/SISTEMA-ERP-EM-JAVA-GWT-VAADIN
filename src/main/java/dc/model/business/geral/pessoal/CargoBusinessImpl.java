@@ -46,7 +46,8 @@ public class CargoBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(CargoEntity t) throws Exception {
-		// TODO Auto-generated method stub
+		
+		dao.delete(t);
 
 	}
 

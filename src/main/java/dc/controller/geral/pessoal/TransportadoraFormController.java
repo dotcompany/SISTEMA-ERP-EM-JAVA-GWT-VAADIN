@@ -166,14 +166,20 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 	}
 
 	@Override
-	protected void removerEmCascata(List<Serializable> ids) {
-		try {
+	protected void removerEmCascata(List<Serializable> objetos) {
+		for (Serializable id : objetos) {
+			TransportadoraEntity transp = (TransportadoraEntity) id;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
+			try {
+				dao.delete(transp);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
 		}
+		
+		mensagemRemovidoOK();
 	}
 
 }
