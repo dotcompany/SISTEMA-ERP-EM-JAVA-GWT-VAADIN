@@ -104,6 +104,8 @@
                 <prop key="lucene.indexer.maxLinkAspectCacheSize">10000</prop>
                 <prop key="lucene.indexer.maxParentCacheSize">10000</prop>
                 <prop key="lucene.indexer.maxPathCacheSize">10000</prop>
+                <prop key="lucene.indexer.maxTypeCacheSize">10000</prop>
+                <prop key="lucene.indexer.mergerTargetOverlaysBlockingFactor">1</prop>
 
                 
                 <!--  LUCENE_INDEXES PARA PRODUCAO -->
