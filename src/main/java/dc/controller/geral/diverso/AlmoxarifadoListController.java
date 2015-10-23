@@ -60,7 +60,7 @@ public class AlmoxarifadoListController extends
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

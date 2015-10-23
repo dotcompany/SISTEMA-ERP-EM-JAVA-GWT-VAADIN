@@ -48,7 +48,8 @@ public class AlmoxarifadoBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(AlmoxarifadoEntity t) throws Exception {
-		// TODO Auto-generated method stub
+		
+		dao.delete(t);
 
 	}
 
