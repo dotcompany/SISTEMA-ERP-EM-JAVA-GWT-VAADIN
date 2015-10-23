@@ -71,7 +71,7 @@ public class ContaCaixaListController extends CRUDListController<ContaCaixa> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

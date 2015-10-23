@@ -58,7 +58,7 @@ public class TalonarioChequeListController extends CRUDListController<TalonarioC
 	@Override
 	protected boolean deletaEmCascata() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override

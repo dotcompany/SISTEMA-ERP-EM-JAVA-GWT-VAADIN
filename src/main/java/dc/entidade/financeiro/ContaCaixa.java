@@ -124,7 +124,11 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@OneToMany(mappedBy = "contaCaixa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ColaboradorEntity> colaboradorList = new ArrayList<ColaboradorEntity>();
-
+	
+	@OneToMany(mappedBy = "contaCaixa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<TalonarioCheque> talonarioList = new ArrayList<TalonarioCheque>();
+	
 	/**
 	 * TRANSIENT
 	 */
@@ -219,7 +223,15 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	public void setColaboradorList(List<ColaboradorEntity> colaboradorList) {
 		this.colaboradorList = colaboradorList;
 	}
+	
+	public List<TalonarioCheque> getTalonarioList() {
+		return talonarioList;
+	}
 
+	public void setTalonarioList(List<TalonarioCheque> talonarioList) {
+		this.talonarioList = talonarioList;
+	}
+	
 	/**
 	 * TO STRING
 	 */

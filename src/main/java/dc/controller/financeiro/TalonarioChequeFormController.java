@@ -136,13 +136,18 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (Serializable id : ids) {
+			TalonarioCheque cheque = (TalonarioCheque) id;
 
-			mensagemErro(e.getMessage());
+			try {
+				talonarioChequeDAO.delete(cheque);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
 		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

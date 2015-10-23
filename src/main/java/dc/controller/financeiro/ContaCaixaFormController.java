@@ -140,14 +140,18 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (Serializable id : ids) {
+			ContaCaixa cc = (ContaCaixa) id;
 
-			mensagemErro(e.getMessage());
+			try {
+				contaCaixaDAO.delete(cc);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
 		}
-
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

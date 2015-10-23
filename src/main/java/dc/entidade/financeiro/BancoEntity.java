@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -86,8 +87,8 @@ public class BancoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	//@OneToMany(mappedBy = "banco", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	@OneToMany(mappedBy="banco", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "banco", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	//@OneToMany(mappedBy="banco", fetch = FetchType.LAZY)
 	private List<AgenciaBancoEntity> agenciaBancoList = new ArrayList<>();
 
 	/**
