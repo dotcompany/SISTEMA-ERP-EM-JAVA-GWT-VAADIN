@@ -52,7 +52,7 @@ public class DreCabecalhoDAO extends AbstractCrudDAO<DreCabecalhoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Descrição", "Padrão", "Período inicial",
 				"Período final" };
 	}

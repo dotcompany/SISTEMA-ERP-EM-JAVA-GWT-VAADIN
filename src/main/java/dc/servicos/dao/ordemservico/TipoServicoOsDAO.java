@@ -17,7 +17,7 @@ public class TipoServicoOsDAO extends AbstractCrudDAO<TipoServicoOsEntity>{
 		return TipoServicoOsEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"descricao"};
 	}
 	

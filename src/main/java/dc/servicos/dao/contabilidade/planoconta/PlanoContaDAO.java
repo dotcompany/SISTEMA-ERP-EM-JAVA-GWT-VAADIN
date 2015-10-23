@@ -52,7 +52,7 @@ public class PlanoContaDAO extends AbstractCrudDAO<PlanoContaEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Nome", "Data da inclusão" };
 	}
 

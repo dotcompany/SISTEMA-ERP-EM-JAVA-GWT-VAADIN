@@ -16,7 +16,7 @@ public class NotaFiscalTipoDAO extends AbstractCrudDAO<NotaFiscalTipo> {
 		return NotaFiscalTipo.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome" };
 	}
 

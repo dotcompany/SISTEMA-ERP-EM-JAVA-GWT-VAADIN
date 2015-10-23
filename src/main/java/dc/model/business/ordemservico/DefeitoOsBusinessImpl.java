@@ -97,7 +97,7 @@ public class DefeitoOsBusinessImpl implements Serializable,DefeitoOsBusiness<Def
 	public List<DefeitoOsEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<DefeitoOsEntity> auxLista = this.dao.listaTodos();
+			List<DefeitoOsEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

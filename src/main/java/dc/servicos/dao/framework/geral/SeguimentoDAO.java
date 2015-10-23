@@ -9,7 +9,7 @@ import dc.entidade.framework.PapelMenu;
 import dc.entidade.framework.SeguimentoEntity;
 
 @Repository
-public class SeguimentoDAO extends AbstractCrudDAO<SeguimentoEntity> {
+public class SeguimentoDAO extends AbstractCrudDAO<SeguimentoEntity> implements ISeguimentoDAO {
 
 	@Override
 	public Class<SeguimentoEntity> getEntityClass() {
@@ -17,10 +17,14 @@ public class SeguimentoDAO extends AbstractCrudDAO<SeguimentoEntity> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome", "descricao" };
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.ISeguimentoDAO#getSeguimentosMenusOrdered(dc.entidade.framework.SeguimentoEntity)
+	 */
+	@Override
 	@Transactional
 	public List<PapelMenu> getSeguimentosMenusOrdered(SeguimentoEntity p) {
 		String hQ = "select pm from PapelMenu as pm "

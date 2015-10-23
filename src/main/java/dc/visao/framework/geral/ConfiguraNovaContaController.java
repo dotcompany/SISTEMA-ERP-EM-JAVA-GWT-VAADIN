@@ -19,11 +19,11 @@ import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.sistema.ConfiguracaoContaEmpresa;
 import dc.entidade.sistema.ContaEmpresa;
-import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
-import dc.servicos.dao.framework.geral.FmModuloDAO;
-import dc.servicos.dao.framework.geral.SeguimentoDAO;
-import dc.servicos.dao.sistema.ContaEmpresaDAO;
-import dc.servicos.dao.sistema.UsuarioDAO;
+import dc.model.dao.administrativo.seguranca.IUsuarioDAO;
+import dc.servicos.dao.administrativo.empresa.IEmpresaDAO;
+import dc.servicos.dao.framework.geral.IFmModuloDAO;
+import dc.servicos.dao.framework.geral.ISeguimentoDAO;
+import dc.servicos.dao.sistema.IContaEmpresaDAO;
 
 @Component
 @Scope("prototype")
@@ -33,25 +33,25 @@ public class ConfiguraNovaContaController implements Serializable,
 	private static final long serialVersionUID = -3176469284004748548L;
 
 	@Autowired
-	transient FmModuloDAO dao;
+	transient IFmModuloDAO dao;
 
 	@Autowired
-	transient ContaEmpresaDAO contaDao;
+	transient IContaEmpresaDAO contaDao;
 
 	@Autowired
-	transient UsuarioDAO userDao;
+	transient IUsuarioDAO userDao;
 
 	@Autowired
-	transient EmpresaDAO empresaDao;
+	transient IEmpresaDAO empresaDao;
 
 	@Autowired
-	transient SeguimentoDAO seguimentoDao;
+	transient ISeguimentoDAO seguimentoDao;
 
-	public SeguimentoDAO getSeguimentoDao() {
+	public ISeguimentoDAO getSeguimentoDao() {
 		return seguimentoDao;
 	}
 
-	public void setSeguimentoDao(SeguimentoDAO seguimentoDao) {
+	public void setSeguimentoDao(ISeguimentoDAO seguimentoDao) {
 		this.seguimentoDao = seguimentoDao;
 	}
 

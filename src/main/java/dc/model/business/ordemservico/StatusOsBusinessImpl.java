@@ -98,7 +98,7 @@ public class StatusOsBusinessImpl implements Serializable,
 	public List<StatusOsEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<StatusOsEntity> auxLista = this.dao.listaTodos();
+			List<StatusOsEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

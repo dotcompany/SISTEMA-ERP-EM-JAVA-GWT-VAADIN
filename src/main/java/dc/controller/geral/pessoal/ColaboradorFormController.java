@@ -309,7 +309,7 @@ public class ColaboradorFormController extends
 	
 	public void carregarUf() {
 		try {
-			List<UfEntity> auxLista = this.ufDAO.listaTodos();
+			List<UfEntity> auxLista = this.ufDAO.getAll();
 
 			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
 					UfEntity.class, auxLista);

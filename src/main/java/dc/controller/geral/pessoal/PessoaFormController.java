@@ -1807,7 +1807,7 @@ public class PessoaFormController extends CRUDFormController<PessoaEntity> {
 	}
 	
 	public List<PessoaEnderecoEntity> getPessoaEndereco() {
-		return pessoaEnderecoDAO.listaTodos();
+		return pessoaEnderecoDAO.getAll();
 	}
 
 }

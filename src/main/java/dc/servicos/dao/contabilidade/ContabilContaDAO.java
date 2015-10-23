@@ -9,7 +9,7 @@ import dc.entidade.contabilidade.ContabilContaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ContabilContaDAO extends AbstractCrudDAO<ContabilContaEntity> {
+public class ContabilContaDAO extends AbstractCrudDAO<ContabilContaEntity> implements IContabilContaDAO {
 
 	@Override
 	public Class<ContabilContaEntity> getEntityClass() {
@@ -18,7 +18,7 @@ public class ContabilContaDAO extends AbstractCrudDAO<ContabilContaEntity> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String []{"classificacao"};
 	}
 	@Transactional

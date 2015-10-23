@@ -39,7 +39,7 @@ public class ColaboradorDAO extends AbstractCrudDAO<ColaboradorEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "pessoa","tipoColaborador","cargo","setor","sindicato","nivelFormacao","matricula", "codigoTurmaPonto",
 				"dataCadastro", "dataAdmissao", "vencimentoFerias",
 				"dataTransferencia" };

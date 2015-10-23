@@ -16,7 +16,7 @@ public class CondicaoPagamentoDAO extends AbstractCrudDAO<CondicaoPagamento> {
 		return CondicaoPagamento.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome" };
 	}
 

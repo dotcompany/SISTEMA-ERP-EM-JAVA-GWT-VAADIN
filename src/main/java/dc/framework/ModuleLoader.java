@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.sistema.ConfiguracaoContaEmpresa;
-import dc.servicos.dao.framework.geral.FmModuloDAO;
-import dc.servicos.dao.sistema.ContaEmpresaDAO;
+import dc.servicos.dao.framework.geral.IFmModuloDAO;
+import dc.servicos.dao.sistema.IContaEmpresaDAO;
 
 @Component
 @Scope("prototype")
 public class ModuleLoader {
 
 	@Autowired
-	public FmModuloDAO dao;
+	public IFmModuloDAO dao;
 
 	@Autowired
-	public ContaEmpresaDAO daoConf;
+	public IContaEmpresaDAO daoConf;
 
 	public List<FmModulo> loadModules(UsuarioEntity usuario) {
 		List<FmModulo> modules = new ArrayList<FmModulo>();

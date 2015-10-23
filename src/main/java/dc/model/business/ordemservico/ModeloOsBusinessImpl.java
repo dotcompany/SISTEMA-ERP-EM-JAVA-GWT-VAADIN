@@ -98,7 +98,7 @@ ModeloOsBusiness<ModeloOsEntity> {
 	public List<ModeloOsEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<ModeloOsEntity> auxLista = this.dao.listaTodos();
+			List<ModeloOsEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

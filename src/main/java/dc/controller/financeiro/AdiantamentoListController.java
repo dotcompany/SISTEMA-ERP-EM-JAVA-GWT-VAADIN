@@ -85,7 +85,7 @@ public class AdiantamentoListController extends CRUDListController<Adiantamento>
 	protected List<Adiantamento> pesquisaDefault() {
 		
 		try {
-			List<Adiantamento> auxLista = this.dao.listaTodos();
+			List<Adiantamento> auxLista = this.dao.getAll();
 			
 
 			return auxLista;

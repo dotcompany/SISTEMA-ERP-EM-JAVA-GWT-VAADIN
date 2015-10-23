@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.SeguimentoEntity;
-import dc.model.dao.sistema.SeguimentoDAO;
+import dc.servicos.dao.framework.geral.ISeguimentoDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class SeguimentoBusinessImpl implements Serializable,
 			.getLogger(SeguimentoBusinessImpl.class);
 
 	@Autowired
-	private SeguimentoDAO<SeguimentoEntity> dao;
+	private ISeguimentoDAO dao;
 
 	/**
 	 * **********************************************
@@ -99,7 +99,7 @@ public class SeguimentoBusinessImpl implements Serializable,
 	public List<SeguimentoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<SeguimentoEntity> auxLista = this.dao.listaTodos();
+			List<SeguimentoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

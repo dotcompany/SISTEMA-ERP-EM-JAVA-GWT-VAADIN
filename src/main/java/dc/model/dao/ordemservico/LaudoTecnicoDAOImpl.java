@@ -52,13 +52,7 @@ LaudoTecnicoDAO<LaudoTecnicoEntity> {
 	public String[] getDefaultSearchFields() {
 		return new String[] { "descricao" };
 	}
-
-	@Override
-	public List<LaudoTecnicoEntity> procuraNomeContendo(String query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	public LaudoTecnicoEntity findByOrdemServico(OrdemServicoEntity ordemServico) {
 		try {
 			String sql = "SELECT ent FROM LaudoTecnicoEntity ent INNER JOIN FETCH ent.ordemServico os WHERE (1 = 1) AND ent.ordemServico.id = :id";

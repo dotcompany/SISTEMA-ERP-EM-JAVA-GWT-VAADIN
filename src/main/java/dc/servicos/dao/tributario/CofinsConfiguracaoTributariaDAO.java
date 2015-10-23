@@ -17,7 +17,7 @@ public class CofinsConfiguracaoTributariaDAO extends AbstractCrudDAO<CofinsConfi
 		return CofinsConfiguracaoTributariaEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"empresa"};
 	}
 	

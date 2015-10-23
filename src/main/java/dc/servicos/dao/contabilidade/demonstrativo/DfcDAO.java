@@ -51,7 +51,7 @@ public class DfcDAO extends AbstractCrudDAO<DfcEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Competência" };
 	}
 

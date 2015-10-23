@@ -14,7 +14,7 @@ public class RequisicaoInternaCabecalhoDAO extends
 		return RequisicaoInternaCabecalhoEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "data" };
 		// requisicao.getRequisicaoDetalhes().size();
 	}

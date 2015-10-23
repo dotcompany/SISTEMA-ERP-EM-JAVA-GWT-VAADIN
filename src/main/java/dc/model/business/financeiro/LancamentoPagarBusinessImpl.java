@@ -13,7 +13,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.financeiro.LancamentoPagarEntity;
 import dc.entidade.framework.FmMenu;
-import dc.servicos.dao.financeiro.LancamentoPagarDAOf;
+import dc.servicos.dao.financeiro.ILancamentoPagarDAO;
 
 @Service
 @Transactional(readOnly = true)
@@ -27,7 +27,7 @@ public class LancamentoPagarBusinessImpl implements LancamentoPagarBusiness<Lanc
 	private static Logger logger = Logger.getLogger(LancamentoPagarBusinessImpl.class);
 	
 	@Autowired
-	private LancamentoPagarDAOf<LancamentoPagarEntity> dao;
+	private ILancamentoPagarDAO dao;
 
 	@Override
 	public Class<LancamentoPagarEntity> getEntityClass() {
@@ -92,7 +92,7 @@ public class LancamentoPagarBusinessImpl implements LancamentoPagarBusiness<Lanc
 	public List<LancamentoPagarEntity> findAll() throws Exception {
 		
 		try {
-			List<LancamentoPagarEntity> auxLista = this.dao.listaTodos();
+			List<LancamentoPagarEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

@@ -36,7 +36,7 @@ public class CentroResultadoDAO extends AbstractCrudDAO<CentroResultado>{
 		return getSession().createQuery("from CentroResultado where descricao like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"planoCentroResultado","descricao", "sofreRateio","classificacao"};
 	}	
 }

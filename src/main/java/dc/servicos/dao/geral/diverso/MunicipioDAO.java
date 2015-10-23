@@ -35,7 +35,7 @@ public class MunicipioDAO extends AbstractCrudDAO<MunicipioEntity>{
 		return getSession().createQuery("from Municipio where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"nome","codigoIbge","codigoReceitaFederal"};
 	}
 	

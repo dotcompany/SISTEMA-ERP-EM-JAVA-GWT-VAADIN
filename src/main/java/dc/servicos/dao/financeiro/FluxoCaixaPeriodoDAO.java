@@ -21,7 +21,7 @@ public class FluxoCaixaPeriodoDAO extends AbstractCrudDAO<FluxoCaixaPeriodoEntit
 				return getSession().createQuery("from FluxoCaixaPeriodo").list();
 			}
 
-			protected String[] getDefaultSearchFields() {
+			public String[] getDefaultSearchFields() {
 				return new String[] {"contaCaixa","nome","periodo"};
 			}
 			

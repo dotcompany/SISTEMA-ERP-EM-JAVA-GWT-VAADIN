@@ -205,19 +205,19 @@ public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustom
 	}
 
 	public List<UfEntity> listarUfs() {
-		return ufDAO.listaTodos();
+		return ufDAO.getAll();
 	}
 
 	public List<CfopEntity> carregarCfop() {
-		return cfopDAO.listaTodos();
+		return cfopDAO.getAll();
 	}
 
 	public List<CsosnbEntity> carregarCsosnb() {
-		return csosnbDAO.listaTodos();
+		return csosnbDAO.getAll();
 	}
 
 	public List<CstIcmsbEntity> carregarCstb() {
-		return  cstbDAO.listaTodos();
+		return  cstbDAO.getAll();
 	}
 		
 	public void removerDetalhe(List<IcmsCustomizadoDetalheEntity> values) {

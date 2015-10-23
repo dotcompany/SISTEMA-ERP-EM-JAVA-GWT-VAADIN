@@ -17,7 +17,7 @@ import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.adm.dotcompany.ParametroClienteDAO;
 import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
-import dc.servicos.dao.financeiro.ParcelaPagarDAO;
+import dc.servicos.dao.financeiro.IParcelaPagarDAO;
 import dc.servicos.util.Validator;
 import dc.visao.adm.dotcompany.ParametroClienteFormView;
 import dc.visao.adm.dotcompany.ParametroClienteFormView.SIM_NAO;
@@ -47,7 +47,7 @@ public class ParametroClienteFormController extends
 	private EmpresaDAO empresaDAO;
 
 	@Autowired
-	private ParcelaPagarDAO parcelaPagarDAO;
+	private IParcelaPagarDAO parcelaPagarDAO;
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override

@@ -14,15 +14,13 @@ import java.util.Map;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.ui.Notification;
 
-import dc.controller.suprimento.contrato.TemplateListController;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.PapelMenu;
 import dc.model.business.AbstractComboBusiness;
-import dc.model.business.AbstractComboBusiness;
+import dc.model.dao.AbstractDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
-import dc.servicos.dao.geral.ged.DocumentoDAO;
 import dc.visao.framework.geral.CRUDListController;
 import dc.visao.framework.geral.ControllerAcesso;
 import dc.visao.framework.geral.MainController;
@@ -30,7 +28,7 @@ import dc.visao.spring.SecuritySessionProvider;
 
 public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 
-	private AbstractCrudDAO<T> dao;
+	private AbstractDAO<T> dao;
 	private Class ctrlClass;
 	private MainController mainController;
 	private int modalSize = 1; // Alterado MarcosRibeiro
@@ -45,12 +43,12 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
     private String captionProperty = "nome";
 
     public DefaultManyToOneComboModel(Class controllerClass,
-			AbstractCrudDAO<T> dao, MainController mainController) {
+			AbstractDAO<T> dao, MainController mainController) {
 		this(controllerClass, dao, mainController, false);
 	}
 
 	public DefaultManyToOneComboModel(Class controllerClass,
-			AbstractCrudDAO<T> dao, MainController mainController,
+			AbstractDAO<T> dao, MainController mainController,
 			Boolean getAll, AbstractComboBusiness<T> business) {
 		this.dao = dao;
 		this.ctrlClass = controllerClass;
@@ -60,7 +58,7 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 	}
 
 	public DefaultManyToOneComboModel(Class controllerClass,
-			AbstractCrudDAO<T> dao, MainController mainController,
+			AbstractDAO<T> dao, MainController mainController,
 			Boolean getAll) {
 		this(controllerClass, dao, mainController, false, null);
 	}

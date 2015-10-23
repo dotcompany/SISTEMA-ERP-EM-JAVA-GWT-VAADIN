@@ -16,16 +16,23 @@ import dc.entidade.geral.Teste;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class SearchIndexerDAO extends AbstractCrudDAO<Serializable> {
+public class SearchIndexerDAO extends AbstractCrudDAO<Serializable> implements ISearchIndexer {
 
 	public static Logger logger = Logger.getLogger(SearchIndexerDAO.class);
 
+	/* (non-Javadoc)
+	 * @see dc.visao.spring.ISearchIndexer#getEntityClass()
+	 */
 	@Override
 	public Class<Serializable> getEntityClass() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.visao.spring.ISearchIndexer#loadIndex()
+	 */
+	@Override
 	@Transactional
 	public void loadIndex() {
 		logger.info("loading index");
@@ -60,8 +67,11 @@ public class SearchIndexerDAO extends AbstractCrudDAO<Serializable> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.visao.spring.ISearchIndexer#getDefaultSearchFields()
+	 */
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		// TODO Auto-generated method stub
 		return null;
 	}

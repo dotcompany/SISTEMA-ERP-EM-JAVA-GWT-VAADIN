@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ContaCaixaDAO extends AbstractCrudDAO<ContaCaixa>{
+public class ContaCaixaDAO extends AbstractCrudDAO<ContaCaixa> implements IContaCaixaDAO{
 
 	@Override
 	public Class<ContaCaixa> getEntityClass() {
@@ -29,7 +29,7 @@ public class ContaCaixaDAO extends AbstractCrudDAO<ContaCaixa>{
 		return getSession().createQuery("from ContaCaixa where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"nome", "digito","descricao"};
 	}
 	

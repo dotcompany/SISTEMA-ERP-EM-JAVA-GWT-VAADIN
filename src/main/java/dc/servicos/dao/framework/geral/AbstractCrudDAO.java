@@ -61,6 +61,7 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.ged.Documento;
+import dc.model.dao.AbstractDAO;
 import dc.visao.spring.SecuritySessionProvider;
 
 /**
@@ -70,7 +71,7 @@ import dc.visao.spring.SecuritySessionProvider;
  */
 
 @SuppressWarnings({ "unchecked" })
-public abstract class AbstractCrudDAO<T> {
+public abstract class AbstractCrudDAO<T> implements AbstractDAO<T>{
 
 	private static final int FIRST_ROW = 1;
 	private static final int DEFAULT_PAGE_SIZE = 50;
@@ -220,6 +221,11 @@ public abstract class AbstractCrudDAO<T> {
 		sessionFactory.getCurrentSession().saveOrUpdate(o);
 	}
 
+	@Transactional
+	public List<T> getAll(){
+		return getAll(getEntityClass());
+	}
+	
 	@Transactional
 	public <E> List<E> getAll(final Class<E> type) {
 		final Session session = sessionFactory.getCurrentSession();
@@ -665,8 +671,10 @@ public abstract class AbstractCrudDAO<T> {
 		return createFieldQueryByValue(value, searchFields);
 	}
 
-	protected abstract String[] getDefaultSearchFields();
-
+	public  String[] getDefaultSearchFields(){
+		return generateSearchFields();
+	}
+	
 	@Transactional
 	public FullTextSession getFullTextSession() {
 		return Search.getFullTextSession(getSession());
@@ -677,30 +685,37 @@ public abstract class AbstractCrudDAO<T> {
 		return fullTextSearch(searchValue, getSearchFields(), arg0, arg1, sortingFields, sortStates, menu, filters);
 	}
 
-	public String[] getSearchFields() {
+	private String[] getSearchFields() {
 		if (defaultSearchFields == null || defaultSearchFields.length > 0) {
 			this.defaultSearchFields = getDefaultSearchFields();
 
 			if (defaultSearchFields == null || defaultSearchFields.length == 0) {
-				ClassMetadata classMetadata = sessionFactory.getClassMetadata(getEntityClass());
-				String[] allProps = classMetadata.getPropertyNames();
-				ArrayList<String> searchFields = new ArrayList<String>();
-
-				for (int i = 0; i < allProps.length; i++) {
-					Type t = classMetadata.getPropertyType(allProps[i]);
-
-					if (t.getReturnedClass() == java.lang.String.class) {
-						searchFields.add(allProps[i]);
-					}
-				}
-
-				defaultSearchFields = searchFields.toArray(new String[searchFields.size()]);
+				defaultSearchFields = generateSearchFields();
 			}
 		}
 
 		return defaultSearchFields;
 	}
 
+	private String[] generateSearchFields() {
+		Class<T> entityClass = getEntityClass();
+		if (entityClass != null) {
+			ClassMetadata classMetadata = sessionFactory.getClassMetadata(getEntityClass());
+			String[] allProps = classMetadata.getPropertyNames();
+			ArrayList<String> searchFields = new ArrayList<String>();
+
+			for (int i = 0; i < allProps.length; i++) {
+				Type t = classMetadata.getPropertyType(allProps[i]);
+
+				if (t.getReturnedClass() == java.lang.String.class) {
+					searchFields.add(allProps[i]);
+				}
+			}
+
+			return searchFields.toArray(new String[searchFields.size()]);
+		}
+		return null;
+	}
 	@Transactional
 	public int count(Class<T> c) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(c);
@@ -817,6 +832,25 @@ public abstract class AbstractCrudDAO<T> {
 	public void initialize(Object object){
 		if(object != null && !Hibernate.isInitialized(object)){
 			Hibernate.initialize(object);
+		}
+	}
+	
+	@Transactional
+	public List<T> query(String value) {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND LOWER(nome) LIKE :q";
+			sql = sql.replace("#", getEntityClass().getName());
+
+			value = "%" + value.toLowerCase() + "%";
+
+			Query query = getSession().createQuery(sql);
+			query.setParameter("q", value);
+			List<T> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
 	}
 

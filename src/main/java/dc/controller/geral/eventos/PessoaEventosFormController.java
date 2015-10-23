@@ -49,9 +49,9 @@ import dc.model.business.geral.pessoal.EstadoCivilBusiness;
 import dc.model.business.geral.pessoal.PessoaBusiness;
 import dc.model.business.geral.pessoal.PessoaContatoBusiness;
 import dc.model.business.geral.pessoal.PessoaEnderecoBusiness;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
+import dc.servicos.dao.contabilidade.IContabilContaDAO;
 import dc.servicos.dao.contabilidade.PlanoContaDAO;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.geral.NivelFormacaoDAO;
 import dc.servicos.dao.geral.PessoaContatoDAO;
@@ -147,10 +147,10 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 	private PlanoContaDAO planoContaDAO;
 
 	@Autowired
-	private ContaCaixaDAO contaCaixaDAO;
+	private IContaCaixaDAO contaCaixaDAO;
 	
 	@Autowired
-	private ContabilContaDAO contabilContaDAO;
+	private IContabilContaDAO contabilContaDAO;
 	
 	@Autowired
 	private PessoaEnderecoDAO pessoaEnderecoDAO;
@@ -921,7 +921,7 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 	}
 	
 	public List<PessoaEnderecoEntity> getPessoaEndereco() {
-		return pessoaEnderecoDAO.listaTodos();
+		return pessoaEnderecoDAO.getAll();
 	}
 
 }

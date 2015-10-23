@@ -18,7 +18,7 @@ public class NFEmitenteDAO extends AbstractCrudDAO<NotaFiscalEmitente> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		// TODO Auto-generated method stub
 		return null;
 	}

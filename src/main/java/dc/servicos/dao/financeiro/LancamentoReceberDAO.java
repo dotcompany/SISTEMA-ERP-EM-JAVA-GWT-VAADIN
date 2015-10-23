@@ -28,7 +28,7 @@ public class LancamentoReceberDAO extends AbstractCrudDAO<LancamentoReceber> {
 		return getSession().createQuery("from LancamentoReceber").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "documentoOrigem", "cliente", "valorTotal", "valorAReceber", "dataLancamento" };
 	}
 	

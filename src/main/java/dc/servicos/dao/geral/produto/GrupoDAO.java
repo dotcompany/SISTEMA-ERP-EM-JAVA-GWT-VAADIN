@@ -28,7 +28,7 @@ public class GrupoDAO extends AbstractCrudDAO<GrupoEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome", "descricao" };
 	}
 	

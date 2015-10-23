@@ -55,12 +55,6 @@ InformacaoGeralDAO<InformacaoGeralEntity> {
 		return new String[] { "descricao" };
 	}
 
-	@Override
-	public List<InformacaoGeralEntity> procuraNomeContendo(String query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public InformacaoGeralEntity findByOrdemServico(OrdemServicoEntity ordemServico) {
 		try {
 

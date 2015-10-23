@@ -21,8 +21,8 @@ import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
-import dc.servicos.dao.framework.geral.FmMenuDAO;
-import dc.servicos.dao.sistema.PapelDAO;
+import dc.servicos.dao.framework.geral.IFmMenuDAO;
+import dc.servicos.dao.sistema.IPapelDAO;
 import dc.visao.framework.FmMenuListController;
 import dc.visao.framework.FmModuloListController;
 import dc.visao.framework.geral.Controller;
@@ -39,10 +39,10 @@ public class MenuBuilder implements Serializable {
 	public static final String MODULE_MENU_BAR = "module-menubar";
 
 	@Autowired
-	private FmMenuDAO dao;
+	private IFmMenuDAO dao;
 
 	@Autowired
-	private PapelDAO daoPapel;
+	private IPapelDAO daoPapel;
 
 	private Logger logger = Logger.getLogger(MenuBuilder.class);
 

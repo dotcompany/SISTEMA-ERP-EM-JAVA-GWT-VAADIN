@@ -40,7 +40,7 @@ public class OperadoraCartaoDAO extends AbstractCrudDAO<OperadoraCartaoEntity>{
 		return getSession().createQuery("from OperadoraCartao where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"nome", "bandeira"};
 	}
 }

@@ -25,7 +25,7 @@ public class CotacaoDAO extends AbstractCrudDAO<CotacaoEntity> {
 		return cotacao;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "descricao", "nome" };
 	}
 

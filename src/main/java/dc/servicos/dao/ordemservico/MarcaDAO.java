@@ -17,7 +17,7 @@ public class MarcaDAO extends AbstractCrudDAO<MarcaOsEntity>{
 		return MarcaOsEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"nome"};
 	}
 	

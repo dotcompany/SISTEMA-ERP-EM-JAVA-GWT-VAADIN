@@ -126,7 +126,7 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Número do item", "Código do produto", "GTIN" };
 	}
 	

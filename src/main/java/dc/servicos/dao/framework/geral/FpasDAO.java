@@ -27,7 +27,7 @@ public class FpasDAO extends AbstractCrudDAO<Fpas> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "cnae", "descricao" };
 	}
 

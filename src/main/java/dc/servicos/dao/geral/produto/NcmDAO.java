@@ -28,7 +28,7 @@ public class NcmDAO extends AbstractCrudDAO<NcmEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "descricao","observacao" };
 	}
 	

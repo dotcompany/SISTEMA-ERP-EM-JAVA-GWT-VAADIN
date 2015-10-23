@@ -16,7 +16,7 @@ public class VendaDAO extends AbstractCrudDAO<Venda> {
 		return Venda.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "numeroFatura","dataVenda" };
 	}
 

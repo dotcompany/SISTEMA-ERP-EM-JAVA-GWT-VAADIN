@@ -114,7 +114,7 @@ public class ChequeBusinessImpl implements Serializable, ChequeBusiness<Cheque> 
 
 			@Override
 			public List<Cheque> findAll() throws Exception {
-				return dao.listaTodos();
+				return dao.getAll();
 			}
 
 			@Override

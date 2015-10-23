@@ -26,9 +26,9 @@ import dc.entidade.financeiro.ParcelaRecebimento;
 import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.financeiro.TipoRecebimento;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.servicos.dao.financeiro.IStatusParcelaDAO;
 import dc.servicos.dao.financeiro.ParcelaReceberDAO;
 import dc.servicos.dao.financeiro.ParcelaRecebimentoDAO;
-import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.financeiro.TipoRecebimentoDAO;
 import dc.visao.financeiro.ParcelaRecebimentoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -50,7 +50,7 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 	@Autowired
 	private ParcelaRecebimentoDAO parcelaRecebimentoDAO;
 	@Autowired
-	private StatusParcelaDAO statusParcelaDAO;
+	private IStatusParcelaDAO statusParcelaDAO;
 	@Autowired
 	private TipoRecebimentoDAO tipoRecebimentoDAO;
 	@Autowired

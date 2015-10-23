@@ -495,15 +495,15 @@ public class ConfiguracaoTributariaFormController extends CRUDFormController<Con
 	}
 
 	public List<GrupoTributarioEntity> trazerGrupos() {
-		return grupoTributarioDAO.listaTodos();
+		return grupoTributarioDAO.getAll();
 	}
 
 	public List<OperacaoFiscalEntity> trazerOperacoes() {
-		return operacaoFiscalDAO.listaTodos();
+		return operacaoFiscalDAO.getAll();
 	}
 
 	public List<UfEntity> listarUfs() {
-		return ufDAO.listaTodos();
+		return ufDAO.getAll();
 	}
 
 	public IcmsConfiguracaoTributariaEntity novoIcms() {

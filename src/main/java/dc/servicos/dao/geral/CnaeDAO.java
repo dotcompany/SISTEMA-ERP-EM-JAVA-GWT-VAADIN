@@ -31,7 +31,7 @@ public class CnaeDAO extends AbstractCrudDAO<CnaeEntity> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -27,7 +27,7 @@ public class FeriadoDAO extends AbstractCrudDAO<FeriadoEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "ano", "nome" };
 	}
 

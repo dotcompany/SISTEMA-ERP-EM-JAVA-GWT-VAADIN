@@ -20,7 +20,7 @@ public class ParametroOsDAO extends AbstractCrudDAO<ParametroOsEntity>{
 		return ParametroOsEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"id"};
 	}
 	

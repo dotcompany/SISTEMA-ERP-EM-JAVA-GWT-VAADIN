@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmMenu;
-import dc.model.dao.administrativo.seguranca.UsuarioDAO;
+import dc.model.dao.administrativo.seguranca.IUsuarioDAO;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class UsuarioBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(UsuarioBusinessImpl.class);
 
 	@Autowired
-	private UsuarioDAO<UsuarioEntity> dao;
+	private IUsuarioDAO dao;
 
 	/**
 	 * **********************************************
@@ -98,7 +98,7 @@ public class UsuarioBusinessImpl implements Serializable,
 	public List<UsuarioEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<UsuarioEntity> auxLista = this.dao.listaTodos();
+			List<UsuarioEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

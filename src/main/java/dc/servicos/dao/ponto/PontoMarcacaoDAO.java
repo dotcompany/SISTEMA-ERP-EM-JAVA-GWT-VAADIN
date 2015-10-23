@@ -32,7 +32,7 @@ public class PontoMarcacaoDAO extends AbstractCrudDAO<PontoMarcacao> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 
 		return new String[] { "" };
 	}

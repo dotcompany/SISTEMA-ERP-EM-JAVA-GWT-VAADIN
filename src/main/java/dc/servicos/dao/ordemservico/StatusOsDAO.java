@@ -17,7 +17,7 @@ public class StatusOsDAO extends AbstractCrudDAO<StatusOsEntity>{
 		return StatusOsEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"descricao"};
 	}
 	

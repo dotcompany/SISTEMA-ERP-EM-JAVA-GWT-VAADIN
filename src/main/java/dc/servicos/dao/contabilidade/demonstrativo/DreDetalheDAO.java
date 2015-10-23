@@ -52,7 +52,7 @@ public class DreDetalheDAO extends AbstractCrudDAO<DreDetalheEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Classificação", "Descrição", "Forma do cálculo",
 				"Sinal" };
 	}

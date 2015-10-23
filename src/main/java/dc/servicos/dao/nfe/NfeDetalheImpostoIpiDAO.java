@@ -100,7 +100,7 @@ public class NfeDetalheImpostoIpiDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Enquadramento do IPI" };
 	}
 

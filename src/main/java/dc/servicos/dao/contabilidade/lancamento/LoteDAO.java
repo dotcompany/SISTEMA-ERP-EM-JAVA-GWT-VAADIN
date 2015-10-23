@@ -51,7 +51,7 @@ public class LoteDAO extends AbstractCrudDAO<LoteEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Descrição", "Data da inclusão",
 				"Data da liberacao" };
 	}

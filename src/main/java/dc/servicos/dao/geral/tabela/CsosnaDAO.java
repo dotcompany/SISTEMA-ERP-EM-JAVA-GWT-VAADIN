@@ -27,7 +27,7 @@ public class CsosnaDAO extends AbstractCrudDAO<CsosnaEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "descricao", "observacao" };
 	}
 

@@ -78,7 +78,7 @@ public class NfeDeclaracaoImportacaoDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Número do documento" };
 	}
 

@@ -67,7 +67,7 @@ public class FreteListController extends CRUDListController<Frete> {
 	@Override
 	protected List<Frete> pesquisaDefault() {
 		try {
-			List<Frete> auxLista = this.dao.listaTodos();
+			List<Frete> auxLista = this.dao.getAll();
 			
 
 			return auxLista;

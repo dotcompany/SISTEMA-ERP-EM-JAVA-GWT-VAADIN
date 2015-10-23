@@ -107,7 +107,7 @@ MaterialServicoBusiness<MaterialServicoEntity> {
 	public List<MaterialServicoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<MaterialServicoEntity> auxLista = this.dao.listaTodos();
+			List<MaterialServicoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

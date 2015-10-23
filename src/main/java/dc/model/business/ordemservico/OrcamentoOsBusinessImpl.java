@@ -98,7 +98,7 @@ public class OrcamentoOsBusinessImpl implements Serializable,
 	public List<OrcamentoOsEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<OrcamentoOsEntity> auxLista = this.dao.listaTodos();
+			List<OrcamentoOsEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

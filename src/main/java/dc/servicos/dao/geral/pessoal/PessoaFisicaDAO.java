@@ -54,7 +54,7 @@ public class PessoaFisicaDAO extends AbstractCrudDAO<PessoaFisicaEntity> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {};
 	}
 

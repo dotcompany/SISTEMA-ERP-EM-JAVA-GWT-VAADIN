@@ -17,7 +17,7 @@ public class DefeitoDAO extends AbstractCrudDAO<DefeitoEntity>{
 		return DefeitoEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"nome"};
 	}
 	

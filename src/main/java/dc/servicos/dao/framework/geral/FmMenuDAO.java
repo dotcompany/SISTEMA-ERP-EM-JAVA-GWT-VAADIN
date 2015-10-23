@@ -18,7 +18,7 @@ import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 
 @Repository
-public class FmMenuDAO extends AbstractCrudDAO<FmMenu> {
+public class FmMenuDAO extends AbstractCrudDAO<FmMenu> implements IFmMenuDAO {
 
 	@Override
 	public Class<FmMenu> getEntityClass() {
@@ -30,7 +30,7 @@ public class FmMenuDAO extends AbstractCrudDAO<FmMenu> {
 		return getSession().createQuery("from FmMenu").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "caption", "urlId" };
 	}
 

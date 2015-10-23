@@ -92,7 +92,7 @@ public class AcessorioOsBusinessImpl implements Serializable,
 	@Override
 	public List<AcessorioOsEntity> findAll() throws Exception {
 		try {
-			List<AcessorioOsEntity> auxLista = this.dao.listaTodos();
+			List<AcessorioOsEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

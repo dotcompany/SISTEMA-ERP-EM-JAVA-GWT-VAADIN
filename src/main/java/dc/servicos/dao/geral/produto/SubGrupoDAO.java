@@ -28,7 +28,7 @@ public class SubGrupoDAO extends AbstractCrudDAO<SubGrupoEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"grupo", "nome", "descricao" };
 	}
 

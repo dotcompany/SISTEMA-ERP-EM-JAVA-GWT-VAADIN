@@ -59,7 +59,7 @@ public class TipoAquisicaoDAO extends AbstractCrudDAO<TipoAquisicaoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Tipo", "Nome", "Descrição" };
 	}
 

@@ -123,7 +123,7 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 	}
 
 	public List<GrupoTributarioEntity> trazerTodos() {
-		return dao.listaTodos();
+		return dao.getAll();
 	}
 
 	@Override

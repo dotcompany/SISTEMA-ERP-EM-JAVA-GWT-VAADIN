@@ -52,7 +52,7 @@ public class LancamentoDAO extends AbstractCrudDAO<LancamentoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Número", "Bem", "Seguradora" };
 	}
 

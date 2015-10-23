@@ -56,7 +56,7 @@ public class HistoricoDAO extends AbstractCrudDAO<HistoricoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Descrição", "Histórico", "Pede complemento" };
 	}
 

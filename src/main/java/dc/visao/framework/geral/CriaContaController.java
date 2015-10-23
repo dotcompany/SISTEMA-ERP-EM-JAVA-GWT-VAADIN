@@ -16,10 +16,9 @@ import dc.entidade.administrativo.seguranca.PapelEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.framework.mail.MailSender;
-import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
-import dc.servicos.dao.sistema.ContaEmpresaDAO;
-import dc.servicos.dao.sistema.PapelDAO;
-import dc.servicos.dao.sistema.UsuarioDAO;
+import dc.model.dao.administrativo.seguranca.IUsuarioDAO;
+import dc.servicos.dao.administrativo.empresa.IEmpresaDAO;
+import dc.servicos.dao.sistema.IContaEmpresaDAO;
 
 @Component
 @Scope("prototype")
@@ -33,13 +32,13 @@ public class CriaContaController implements Serializable, ViewController {
 	private CriaContaEmpresaView view;
 
 	@Autowired
-	transient ContaEmpresaDAO dao;
+	transient IContaEmpresaDAO dao;
 
 	@Autowired
-	transient UsuarioDAO usuarioDao;
+	transient IUsuarioDAO usuarioDao;
 
 	@Autowired
-	transient EmpresaDAO empresaDao;
+	transient IEmpresaDAO empresaDao;
 	
 	private ContaEmpresa currentBean;
 

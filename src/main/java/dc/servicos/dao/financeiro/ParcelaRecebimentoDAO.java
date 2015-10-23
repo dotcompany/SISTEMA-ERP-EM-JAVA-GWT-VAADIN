@@ -38,7 +38,7 @@ public class ParcelaRecebimentoDAO extends AbstractCrudDAO<ParcelaRecebimento> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 
 		return new String[] { "" };
 	}

@@ -18,7 +18,7 @@ public class PlanoContaRefSpedDAO extends AbstractCrudDAO<PlanoContaRefSped> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "descricao" };
 	}
 

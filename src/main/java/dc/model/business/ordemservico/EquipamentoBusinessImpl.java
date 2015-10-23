@@ -98,7 +98,7 @@ public class EquipamentoBusinessImpl implements Serializable,
 	public List<EquipamentoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<EquipamentoEntity> auxLista = this.dao.listaTodos();
+			List<EquipamentoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

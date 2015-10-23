@@ -17,7 +17,7 @@ public class CarroDAO extends AbstractCrudDAO<CarroEntity>{
 		return CarroEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"placa"};
 	}
 	

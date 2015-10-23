@@ -13,7 +13,7 @@ public class TipoRequisicaoDAO extends AbstractCrudDAO<TipoRequisicaoEntity> {
 		return TipoRequisicaoEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "descricao", "nome" };
 	}
 

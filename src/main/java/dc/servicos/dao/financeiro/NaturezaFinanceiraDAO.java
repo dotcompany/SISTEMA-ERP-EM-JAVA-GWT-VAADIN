@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class NaturezaFinanceiraDAO extends AbstractCrudDAO<NaturezaFinanceira>{
+public class NaturezaFinanceiraDAO extends AbstractCrudDAO<NaturezaFinanceira> implements INaturezaFinanceiraDAO{
 
 	@Override
 	public Class<NaturezaFinanceira> getEntityClass() {
@@ -34,7 +34,7 @@ public class NaturezaFinanceiraDAO extends AbstractCrudDAO<NaturezaFinanceira>{
 		return getSession().createQuery("from NaturezaFinanceira where descricao like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"tipo", "descricao","contas_receber","contas_pagar"};
 	}
 
@@ -49,6 +49,10 @@ public class NaturezaFinanceiraDAO extends AbstractCrudDAO<NaturezaFinanceira>{
 			throw e;
 		}
 	}
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.INaturezaFinanceiraDAO#findByNatureza(dc.entidade.financeiro.LancamentoPagarEntity)
+	 */
+	@Override
 	@Transactional
 	public List<NaturezaFinanceira> findByNatureza(LancamentoPagarEntity currentBean) {
 
@@ -66,6 +70,10 @@ public class NaturezaFinanceiraDAO extends AbstractCrudDAO<NaturezaFinanceira>{
 			return lista;
 	}	
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.INaturezaFinanceiraDAO#findByNaturezaReceber(dc.entidade.financeiro.LancamentoReceber)
+	 */
+	@Override
 	@Transactional
 	public List<NaturezaFinanceira> findByNaturezaReceber(LancamentoReceber currentBean) {
 
@@ -83,6 +91,10 @@ public class NaturezaFinanceiraDAO extends AbstractCrudDAO<NaturezaFinanceira>{
 			return lista;
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.INaturezaFinanceiraDAO#findByNatureza(dc.entidade.financeiro.FluxoCaixaEntity)
+	 */
+	@Override
 	@Transactional
 	public List<FluxoCaixaDetalheEntity> findByNatureza(FluxoCaixaEntity currentBean) {
 

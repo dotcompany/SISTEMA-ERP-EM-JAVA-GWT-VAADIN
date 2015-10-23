@@ -40,7 +40,7 @@ public class GrupoTributarioDAO extends AbstractCrudDAO<GrupoTributarioEntity>{
 		return getSession().createQuery("from GrupoTributario where descricao like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"descricao", "observacao", "origemMercadoria"};
 	}
 	

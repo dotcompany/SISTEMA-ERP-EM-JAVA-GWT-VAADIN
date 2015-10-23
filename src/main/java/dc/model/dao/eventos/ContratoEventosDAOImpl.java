@@ -11,7 +11,7 @@ import dc.entidade.geral.eventos.ContratoEventosEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ContratoEventosDAOImpl extends AbstractCrudDAO<ContratoEventosEntity> implements ContratoEventosDAO<ContratoEventosEntity> {
+public class ContratoEventosDAOImpl extends AbstractCrudDAO<ContratoEventosEntity> implements IContratoEventosDAO<ContratoEventosEntity> {
 	
 			private static Logger logger = Logger.getLogger(ContratoEventosDAOImpl.class);
 

@@ -20,7 +20,7 @@ public class IcmsConfiguracaoTributariaDAO extends AbstractCrudDAO<IcmsConfigura
 		return IcmsConfiguracaoTributariaEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"empresa"};
 	}
 	

@@ -151,7 +151,7 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Código numérico", "Natureza da operação",
 				"Indicador da forma de pagamento" };
 	}

@@ -99,7 +99,7 @@ ParametroOsBusiness<ParametroOsEntity> {
 	public List<ParametroOsEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<ParametroOsEntity> auxLista = this.dao.listaTodos();
+			List<ParametroOsEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

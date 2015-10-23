@@ -103,7 +103,7 @@ public class UnidadeProdutoBusinessImpl implements Serializable,
 	public List<UnidadeProdutoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<UnidadeProdutoEntity> auxLista = this.dao.listaTodos();
+			List<UnidadeProdutoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

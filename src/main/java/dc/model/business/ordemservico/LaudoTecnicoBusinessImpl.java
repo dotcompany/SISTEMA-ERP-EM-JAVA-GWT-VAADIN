@@ -107,7 +107,7 @@ LaudoTecnicoBusiness<LaudoTecnicoEntity> {
 	public List<LaudoTecnicoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<LaudoTecnicoEntity> auxLista = this.dao.listaTodos();
+			List<LaudoTecnicoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

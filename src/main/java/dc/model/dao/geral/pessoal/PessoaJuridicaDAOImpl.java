@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 public class PessoaJuridicaDAOImpl extends
 		AbstractCrudDAO<PessoaJuridicaEntity> implements
-		PessoaJuridicaDAO<PessoaJuridicaEntity> {
+		IPessoaJuridicaDAO<PessoaJuridicaEntity> {
 
 	private static Logger logger = Logger
 			.getLogger(PessoaJuridicaDAOImpl.class);

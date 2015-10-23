@@ -16,7 +16,7 @@ import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
 import dc.model.business.administrativo.seguranca.PapelBusiness;
-import dc.servicos.dao.framework.geral.FmMenuDAO;
+import dc.servicos.dao.framework.geral.IFmMenuDAO;
 import dc.servicos.dao.sistema.PapelDAO;
 import dc.visao.administrativo.seguranca.PapelFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -54,7 +54,7 @@ public class PapelFormController extends CRUDFormController<PapelEntity> {
 	private PapelDAO papelDAO;
 
 	@Autowired
-	private FmMenuDAO menuDAO;
+	private IFmMenuDAO menuDAO;
 
 	/**
 	 * CONSTRUTOR

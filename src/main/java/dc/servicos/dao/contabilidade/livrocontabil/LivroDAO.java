@@ -51,7 +51,7 @@ public class LivroDAO extends AbstractCrudDAO<LivroEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Descrição", "Competência",
 				"Forma de escrituração" };
 	}

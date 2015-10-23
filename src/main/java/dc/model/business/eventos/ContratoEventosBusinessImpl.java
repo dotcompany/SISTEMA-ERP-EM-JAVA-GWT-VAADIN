@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.eventos.ContratoEventosEntity;
-import dc.model.dao.eventos.ContratoEventosDAO;
+import dc.model.dao.eventos.IContratoEventosDAO;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,7 +23,7 @@ public class ContratoEventosBusinessImpl implements ContratoEventosBusiness<Cont
 		private static Logger logger = Logger.getLogger(ContratoEventosBusinessImpl.class);
 		
 		@Autowired
-		private ContratoEventosDAO<ContratoEventosEntity> dao;
+		private IContratoEventosDAO<ContratoEventosEntity> dao;
 
 		@Override
 		public Class<ContratoEventosEntity> getEntityClass() {
@@ -82,7 +82,7 @@ public class ContratoEventosBusinessImpl implements ContratoEventosBusiness<Cont
 		public List<ContratoEventosEntity> findAll() throws Exception {
 			
 			try {
-				List<ContratoEventosEntity> auxLista = this.dao.listaTodos();
+				List<ContratoEventosEntity> auxLista = this.dao.getAll();
 
 				return auxLista;
 			} catch (Exception e) {

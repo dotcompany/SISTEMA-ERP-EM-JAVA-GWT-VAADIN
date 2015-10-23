@@ -16,7 +16,7 @@ import org.apache.poi.ss.usermodel.Row;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 
-import dc.servicos.dao.framework.geral.GenericListDAO;
+import dc.servicos.dao.framework.geral.IListDAO;
 import dc.visao.framework.geral.CRUDListController;
 
 public class ExcelImporter extends Importer {
@@ -31,7 +31,7 @@ public class ExcelImporter extends Importer {
 
 	public void processarArquivo(File value) {
 		try {
-			GenericListDAO genericDAO = controller.getGenericDAO();
+			IListDAO genericDAO = controller.getGenericDAO();
 
 			FileInputStream fileInputStream = new FileInputStream(value);
 			HSSFWorkbook xls = new HSSFWorkbook(fileInputStream);

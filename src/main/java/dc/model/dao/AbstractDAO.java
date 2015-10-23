@@ -18,6 +18,8 @@ public interface AbstractDAO<T> {
 	public void deleteAll(List<Serializable> objs);
 
 	public T find(Serializable id);
+	
+	public T findInitialized(Serializable id);
 
 	public List<T> fullTextSearch(String valor);
 
@@ -27,6 +29,8 @@ public interface AbstractDAO<T> {
 
 	public List<T> fullTextSearch(String valor, String[] sortingFields,
 			boolean[] states, List<Filter> filters);
+
+	public List<T> getAll();
 
 	public <E> List<E> getAll(final Class<E> type);
 
@@ -50,9 +54,9 @@ public interface AbstractDAO<T> {
 
 	public boolean isMultiEmpresa(@SuppressWarnings("rawtypes") Class c);
 
-	public List<T> listaTodos();
+//	public List<T> listaTodos();
 
-	public List<T> procuraNomeContendo(String query);
+	//public List<T> procuraNomeContendo(String query);
 
 	public List<T> query(String q);
 
@@ -61,5 +65,9 @@ public interface AbstractDAO<T> {
 	public <E> void saveOrUpdate(final E o);
 
 	public Session getSession();
+	
+	public FmMenu getMenu(String nomeClasse);
+
+	public List<T> comboFilteredSearch(String q, FmMenu menu, Boolean getAll, List<Filter> filters);
 	
 }

@@ -54,7 +54,7 @@ public class TaxaDepreciacaoDAO extends AbstractCrudDAO<TaxaDepreciacaoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Tipo", "Nome", "Descrição" };
 	}
 

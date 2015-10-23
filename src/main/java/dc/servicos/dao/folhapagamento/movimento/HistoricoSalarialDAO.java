@@ -53,7 +53,7 @@ public class HistoricoSalarialDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "competencia", "salarioAtual",
 				"percentualAumento", "salarioNovo", "colaborador" };
 	}

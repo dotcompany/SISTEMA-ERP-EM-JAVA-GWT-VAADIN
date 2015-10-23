@@ -100,7 +100,7 @@ public class NfeDetalheImpostoIiDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Valor (BC)" };
 	}
 

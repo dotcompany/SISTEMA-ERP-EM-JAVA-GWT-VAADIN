@@ -24,7 +24,7 @@ public class TipoPagamentoDAO extends AbstractCrudDAO<TipoPagamento>{
 		return getSession().createQuery("from TipoPagamento").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"descricao"};
 	}
 	

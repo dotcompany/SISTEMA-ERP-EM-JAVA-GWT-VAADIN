@@ -19,7 +19,7 @@ public class ParticipacaoSocietariaDAO extends AbstractCrudDAO<ParticipacaoSocie
 		return ParticipacaoSocietariaEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"cnpj"};
 	}
 	

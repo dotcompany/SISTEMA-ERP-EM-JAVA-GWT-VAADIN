@@ -28,7 +28,7 @@ public class UnidadeProdutoDAO extends AbstractCrudDAO<UnidadeProdutoEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "sigla", "descricao", "podeFracionar" };
 	}
 

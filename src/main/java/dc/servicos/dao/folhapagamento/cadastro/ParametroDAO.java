@@ -52,7 +52,7 @@ public class ParametroDAO extends AbstractCrudDAO<ParametroEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Competência", "Contribui PIS",
 				"Percentual do adiantamento 13" };
 	}

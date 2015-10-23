@@ -98,7 +98,7 @@ public class MarcaOsBusinessImpl implements Serializable,
 	public List<MarcaOsEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<MarcaOsEntity> auxLista = this.dao.listaTodos();
+			List<MarcaOsEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

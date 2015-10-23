@@ -23,19 +23,18 @@ import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.geral.pessoal.PessoaContatoEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
-import dc.entidade.geral.pessoal.PessoaFisicaEntity;
 import dc.entidade.geral.pessoal.PessoaJuridicaEntity;
 import dc.entidade.geral.pessoal.TransportadoraEntity;
 import dc.model.dao.geral.pessoal.ClienteDAO;
 import dc.model.dao.geral.pessoal.ColaboradorDAO;
 import dc.model.dao.geral.pessoal.EstadoCivilDAO;
 import dc.model.dao.geral.pessoal.FornecedorDAO;
-import dc.model.dao.geral.pessoal.PessoaContatoDAO;
-import dc.model.dao.geral.pessoal.PessoaDAO;
-import dc.model.dao.geral.pessoal.PessoaEnderecoDAO;
-import dc.model.dao.geral.pessoal.PessoaFisicaDAO;
-import dc.model.dao.geral.pessoal.PessoaJuridicaDAO;
+import dc.model.dao.geral.pessoal.IPessoaContatoDAO;
+import dc.model.dao.geral.pessoal.IPessoaFisicaDAO;
+import dc.model.dao.geral.pessoal.IPessoaJuridicaDAO;
+import dc.model.dao.geral.pessoal.IPessoaDAO;
 import dc.model.dao.geral.pessoal.TransportadoraDAO;
+import dc.servicos.dao.geral.IPessoaEnderecoDAO;
 
 /**
  * 
@@ -55,19 +54,19 @@ public class PessoaBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(PessoaBusinessImpl.class);
 
 	@Autowired
-	private PessoaDAO<PessoaEntity> dao;
+	private IPessoaDAO dao;
 
 	@Autowired
-	private PessoaFisicaDAO<PessoaFisicaEntity> pessoaFisicaDAO;
+	private IPessoaFisicaDAO pessoaFisicaDAO;
 
 	@Autowired
-	private PessoaJuridicaDAO<PessoaJuridicaEntity> pessoaJuridicaDAO;
+	private IPessoaJuridicaDAO<PessoaJuridicaEntity> pessoaJuridicaDAO;
 
 	@Autowired
-	private PessoaContatoDAO<PessoaContatoEntity> pessoaContatoDAO;
+	private IPessoaContatoDAO<PessoaContatoEntity> pessoaContatoDAO;
 
 	@Autowired
-	private PessoaEnderecoDAO<PessoaEnderecoEntity> pessoaEnderecoDAO;
+	private IPessoaEnderecoDAO pessoaEnderecoDAO;
 
 	@Autowired
 	private EstadoCivilDAO<EstadoCivilEntity> estadoCivilDAO;

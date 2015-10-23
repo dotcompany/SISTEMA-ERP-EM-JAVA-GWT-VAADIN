@@ -58,7 +58,7 @@ public class IndiceEconomicoDAO extends AbstractCrudDAO<IndiceEconomicoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Nome", "Sigla" };
 	}
 

@@ -96,7 +96,7 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 	@Override
 	public List<PaisEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
-		return dao.listaTodos();
+		return dao.getAll();
 	}
 
 	@Override

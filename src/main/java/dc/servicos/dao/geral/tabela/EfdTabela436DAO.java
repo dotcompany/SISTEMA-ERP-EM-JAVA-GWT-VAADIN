@@ -28,7 +28,7 @@ public class EfdTabela436DAO extends AbstractCrudDAO<EfdTabela436Entity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "descricao" };
 	}
 

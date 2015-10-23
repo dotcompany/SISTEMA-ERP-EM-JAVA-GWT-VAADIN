@@ -104,7 +104,7 @@ public class PontoConsultaFormController extends BlankFormController {
 
 					// Empresa empresa = empresaDAO.find(1);
 					is = geraArquivo.geraArquivoACJEF(subView.getDtDataInicial().getValue(), subView.getDtDataFinal().getValue(),
-							pontoHorarioDAO.listaTodos(), subView.getPontoFechamentoSubForm().getDados(), empresa);
+							pontoHorarioDAO.getAll(), subView.getPontoFechamentoSubForm().getDados(), empresa);
 				} catch (Exception e) {
 
 					e.printStackTrace();

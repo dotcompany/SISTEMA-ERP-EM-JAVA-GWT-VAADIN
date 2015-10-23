@@ -28,30 +28,13 @@ import dc.entidade.framework.FmModulo;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class FmModuloDAO extends AbstractCrudDAO<FmModulo> {
+public class FmModuloDAO extends AbstractCrudDAO<FmModulo> implements IFmModuloDAO {
 
 	@Value("${modules.id.adm}")
-	public Integer ID_MODULO_ADM_OBRIGATORIO;
-
-	public Integer getID_MODULO_ADM_OBRIGATORIO() {
-		return ID_MODULO_ADM_OBRIGATORIO;
-	}
-
-	public void setID_MODULO_ADM_OBRIGATORIO(Integer iD_MODULO_ADM_OBRIGATORIO) {
-		ID_MODULO_ADM_OBRIGATORIO = iD_MODULO_ADM_OBRIGATORIO;
-	}
-
-	public Integer getID_MODULO_SISTEMA_OBRIGATORIO() {
-		return ID_MODULO_SISTEMA_OBRIGATORIO;
-	}
-
-	public void setID_MODULO_SISTEMA_OBRIGATORIO(
-			Integer iD_MODULO_SISTEMA_OBRIGATORIO) {
-		ID_MODULO_SISTEMA_OBRIGATORIO = iD_MODULO_SISTEMA_OBRIGATORIO;
-	}
+	public Integer idModuloAdmObrigatorio;
 
 	@Value("${modules.id.sistema}")
-	public Integer ID_MODULO_SISTEMA_OBRIGATORIO;
+	public Integer idModuloSistemaObrigatorio;
 
 	public static Logger logger = Logger.getLogger(FmModuloDAO.class.getName());
 
@@ -60,10 +43,14 @@ public class FmModuloDAO extends AbstractCrudDAO<FmModulo> {
 		return FmModulo.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "caption", "urlID" };
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.IFmModuloDAO#getAllOrderedByCaption()
+	 */
+	@Override
 	@Transactional
 	public List<FmModulo> getAllOrderedByCaption() {
 		return getSession().createCriteria(FmModulo.class)
@@ -71,6 +58,10 @@ public class FmModuloDAO extends AbstractCrudDAO<FmModulo> {
 				.addOrder(Order.asc("caption")).list();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.IFmModuloDAO#getAllByUserIdOrderedByCaption(int)
+	 */
+	@Override
 	@Transactional
 	public List<FmModulo> getAllByUserIdOrderedByCaption(int user_id) {
 		String q = "select distinct modulo.* from fm_modulo modulo "
@@ -83,26 +74,38 @@ public class FmModuloDAO extends AbstractCrudDAO<FmModulo> {
 				.setInteger("user_id", user_id).list();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.IFmModuloDAO#getModulosSelecionaveis()
+	 */
+	@Override
 	@Transactional
 	public List<FmModulo> getModulosSelecionaveis() {
-		logger.info("Modulo adm: " + this.ID_MODULO_ADM_OBRIGATORIO);
-		logger.info("Modulo sistema: " + this.ID_MODULO_SISTEMA_OBRIGATORIO);
+		logger.info("Modulo adm: " + this.idModuloAdmObrigatorio);
+		logger.info("Modulo sistema: " + this.idModuloSistemaObrigatorio);
 		Criteria c = getSession().createCriteria(FmModulo.class);
 		c.add(Restrictions.not(Restrictions.in("id", new Integer[] {
-				this.ID_MODULO_ADM_OBRIGATORIO,
-				this.ID_MODULO_SISTEMA_OBRIGATORIO })));
+				this.idModuloAdmObrigatorio,
+				this.idModuloSistemaObrigatorio })));
 		return c.addOrder(Order.asc("caption")).list();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.IFmModuloDAO#getModulosObrigatorios()
+	 */
+	@Override
 	@Transactional
 	public List<FmModulo> getModulosObrigatorios() {
 		Criteria c = getSession().createCriteria(FmModulo.class);
 		c.add(Restrictions.in("id", new Integer[] {
-				this.ID_MODULO_ADM_OBRIGATORIO,
-				this.ID_MODULO_SISTEMA_OBRIGATORIO }));
+				this.idModuloAdmObrigatorio,
+				this.idModuloSistemaObrigatorio }));
 		return c.addOrder(Order.asc("caption")).list();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.IFmModuloDAO#getModuloLista(dc.entidade.administrativo.seguranca.UsuarioEntity)
+	 */
+	@Override
 	@Transactional
 	public List<FmModulo> getModuloLista(UsuarioEntity usuario) {
 		try {
@@ -119,6 +122,38 @@ public class FmModuloDAO extends AbstractCrudDAO<FmModulo> {
 		} catch (Exception e) {
 			return new ArrayList<FmModulo>();
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.IFmModuloDAO#getIdModuloAdmObrigatorio()
+	 */
+	@Override
+	public Integer getIdModuloAdmObrigatorio() {
+		return idModuloAdmObrigatorio;
+	}
+
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.IFmModuloDAO#setIdModuloAdmObrigatorio(java.lang.Integer)
+	 */
+	@Override
+	public void setIdModuloAdmObrigatorio(Integer idModuloAdmObrigatorio) {
+		this.idModuloAdmObrigatorio = idModuloAdmObrigatorio;
+	}
+
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.IFmModuloDAO#getIdModuloSistemaObrigatorio()
+	 */
+	@Override
+	public Integer getIdModuloSistemaObrigatorio() {
+		return idModuloSistemaObrigatorio;
+	}
+
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.IFmModuloDAO#setIdModuloSistemaObrigatorio(java.lang.Integer)
+	 */
+	@Override
+	public void setIdModuloSistemaObrigatorio(Integer idModuloSistemaObrigatorio) {
+		this.idModuloSistemaObrigatorio = idModuloSistemaObrigatorio;
 	}
 
 }

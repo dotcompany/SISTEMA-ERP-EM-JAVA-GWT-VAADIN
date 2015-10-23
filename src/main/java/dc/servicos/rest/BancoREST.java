@@ -26,7 +26,7 @@ public class BancoREST {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<BancoEntity> hello(@QueryParam("q") String query) {
 		if (query == null) {
-			return bancoDAO.listaTodos();
+			return bancoDAO.getAll();
 		} else {
 			return bancoDAO.procuraNomeContendo(query);
 		}

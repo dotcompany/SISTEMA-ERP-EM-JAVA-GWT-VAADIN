@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.administrativo.seguranca.PapelEntity;
 import dc.entidade.framework.FmMenu;
-import dc.model.dao.administrativo.seguranca.PapelDAO;
+import dc.servicos.dao.sistema.IPapelDAO;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class PapelBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(PapelBusinessImpl.class);
 
 	@Autowired
-	private PapelDAO<PapelEntity> dao;
+	private IPapelDAO dao;
 
 	/**
 	 * **********************************************
@@ -98,7 +98,7 @@ public class PapelBusinessImpl implements Serializable,
 	public List<PapelEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<PapelEntity> auxLista = this.dao.listaTodos();
+			List<PapelEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

@@ -16,7 +16,7 @@ import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
 import dc.entidade.framework.SeguimentoEntity;
 import dc.model.business.sistema.SeguimentoBusiness;
-import dc.servicos.dao.framework.geral.FmMenuDAO;
+import dc.servicos.dao.framework.geral.IFmMenuDAO;
 import dc.servicos.dao.framework.geral.SeguimentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.sistema.SeguimentoFormView;
@@ -55,7 +55,7 @@ public class SeguimentoFormController extends
 	private SeguimentoDAO seguimentoDAO;
 
 	@Autowired
-	private FmMenuDAO menuDAO;
+	private IFmMenuDAO menuDAO;
 
 	/**
 	 * CONSTRUTOR

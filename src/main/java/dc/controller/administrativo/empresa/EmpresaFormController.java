@@ -34,8 +34,8 @@ import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.servicos.dao.administrativo.empresa.EmpresaCnaeDAO;
 import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
-import dc.servicos.dao.framework.geral.EmpresaSeguimentoDAO;
 import dc.servicos.dao.framework.geral.FpasDAO;
+import dc.servicos.dao.framework.geral.IEmpresaSeguimentoDAO;
 import dc.servicos.dao.framework.geral.SeguimentoDAO;
 import dc.servicos.dao.geral.PessoaEnderecoDAO;
 import dc.servicos.dao.geral.pessoal.ContadorDAO;
@@ -82,7 +82,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	private SeguimentoDAO seguimentoDAO;
 
 	@Autowired
-	private EmpresaSeguimentoDAO empresaSeguimentoDAO;
+	private IEmpresaSeguimentoDAO empresaSeguimentoDAO;
 
 	private List<PessoaEnderecoEntity> pessoaEnderecoList;
 
@@ -652,7 +652,7 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	 */
 
 	public void carregarContador() {
-		List<ContadorEntity> auxLista = this.contadorDAO.listaTodos();
+		List<ContadorEntity> auxLista = this.contadorDAO.getAll();
 
 		BeanItemContainer<ContadorEntity> bic = new BeanItemContainer<ContadorEntity>(
 				ContadorEntity.class, auxLista);

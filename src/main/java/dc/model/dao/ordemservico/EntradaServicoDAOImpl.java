@@ -55,12 +55,6 @@ EntradaServicoDAO<EntradaServicoEntity> {
 		return new String[] { "descricao" };
 	}
 
-	@Override
-	public List<EntradaServicoEntity> procuraNomeContendo(String query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public List<EntradaServicoEntity> findByOrdemServico(OrdemServicoEntity ordemServico) {
 		try {
 			String sql = "SELECT ent FROM EntradaServicoEntity ent INNER JOIN FETCH ent.ordemServico os LEFT JOIN FETCH ent.vendedor ve "+

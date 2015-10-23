@@ -122,7 +122,7 @@ public class FornecedorBusinessImpl implements Serializable, FornecedorBusiness<
 
 		@Override
 		public List<FornecedorEntity> findAll() throws Exception {
-			return dao.listaTodos();
+			return dao.getAll();
 		}
 
 		@Override

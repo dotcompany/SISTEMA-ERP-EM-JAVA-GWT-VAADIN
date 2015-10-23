@@ -58,7 +58,7 @@ public class FeriasPeriodoAquisitivoDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Data início", "Data término" };
 	}
 

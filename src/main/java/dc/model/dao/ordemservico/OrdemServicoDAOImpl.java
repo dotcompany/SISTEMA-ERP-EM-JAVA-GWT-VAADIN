@@ -66,11 +66,4 @@ OrdemServicoDAO<OrdemServicoEntity> {
 	public String[] getDefaultSearchFields() {
 		return new String[] { "nome" };
 	}
-
-	@Override
-	public List<OrdemServicoEntity> procuraNomeContendo(String query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

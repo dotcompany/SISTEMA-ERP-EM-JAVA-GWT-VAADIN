@@ -32,15 +32,15 @@ import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
 import dc.model.business.financeiro.LancamentoPagarBusiness;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
-import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
-import dc.servicos.dao.financeiro.LctoPagarNtFinanceiraDAO;
-import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
-import dc.servicos.dao.financeiro.ParcelaPagarDAO;
-import dc.servicos.dao.financeiro.StatusParcelaDAO;
-import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.dao.geral.pessoal.PessoaDAO;
+import dc.model.dao.geral.pessoal.IPessoaDAO;
+import dc.servicos.dao.contabilidade.IContabilContaDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
+import dc.servicos.dao.financeiro.IDocumentoOrigemDAO;
+import dc.servicos.dao.financeiro.ILctoPagarNtFinanceiroDAO;
+import dc.servicos.dao.financeiro.INaturezaFinanceiraDAO;
+import dc.servicos.dao.financeiro.IParcelaPagarDAO;
+import dc.servicos.dao.financeiro.IStatusParcelaDAO;
+import dc.servicos.dao.geral.IFornecedorDAO;
 import dc.visao.financeiro.LancamentoPagarFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -82,34 +82,34 @@ public class LancamentoPagarFormController extends
 	//private LancamentoPagarDAO lancamentoPagarDAO;
 
 	@Autowired
-	private ParcelaPagarDAO parcelaPagarDAO;
+	private IParcelaPagarDAO parcelaPagarDAO;
 
 	private LancamentoPagarEntity currentBean;
 	private ParcelaPagar parcelaPagar;
 	
 	@Autowired
-	private PessoaDAO pessoaDAO;
+	private IPessoaDAO pessoaDAO;
 
 	@Autowired
-	private ContabilContaDAO contabilcontaDAO;
+	private IContabilContaDAO contabilcontaDAO;
 
 	@Autowired
-	private ContaCaixaDAO contaCaixaDAO;
+	private IContaCaixaDAO contaCaixaDAO; 
 
 	@Autowired
-	private FornecedorDAO fornecedorDAO;
+	private IFornecedorDAO fornecedorDAO;
 
 	@Autowired
-	private LctoPagarNtFinanceiraDAO naturezaFinanceiraDAO;
+	private ILctoPagarNtFinanceiroDAO naturezaFinanceiraDAO;
 	
 	@Autowired
-	private NaturezaFinanceiraDAO naturezaFinanDAO;
+	private INaturezaFinanceiraDAO naturezaFinanDAO;
 
 	@Autowired
-	private DocumentoOrigemDAO documentoOrigemDAO;
+	private IDocumentoOrigemDAO documentoOrigemDAO;
 
 	@Autowired
-	private StatusParcelaDAO statusParcelaDAO;
+	private IStatusParcelaDAO statusParcelaDAO;
 
 	public LancamentoPagarBusiness<LancamentoPagarEntity> getBusiness() {
 	 return business;

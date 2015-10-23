@@ -80,7 +80,7 @@ public class FornecedorListController extends CRUDListController<FornecedorEntit
 	protected List<FornecedorEntity> pesquisaDefault() {
 		try {
 			
-			List<FornecedorEntity> auxLista = this.dao.listaTodos();
+			List<FornecedorEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

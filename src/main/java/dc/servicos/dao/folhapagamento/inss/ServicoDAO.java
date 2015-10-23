@@ -51,7 +51,7 @@ public class ServicoDAO extends AbstractCrudDAO<ServicoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Código", "Nome" };
 	}
 

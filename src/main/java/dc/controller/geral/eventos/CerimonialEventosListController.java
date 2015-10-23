@@ -88,7 +88,7 @@ public class CerimonialEventosListController extends CRUDListController<Cerimoni
 			//List<CerimonialEventosEntity> auxLista = (List<CerimonialEventosEntity>) this.cerimonialEventosFormController
 					//.getBusiness().getAll(getEntityClass());
 			
-			List<CerimonialEventosEntity> auxLista = this.dao.listaTodos();
+			List<CerimonialEventosEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

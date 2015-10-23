@@ -99,7 +99,7 @@ public class GrupoTributarioBusinessImpl implements Serializable,
 	public List<GrupoTributarioEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<GrupoTributarioEntity> auxLista = this.dao.listaTodos();
+			List<GrupoTributarioEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

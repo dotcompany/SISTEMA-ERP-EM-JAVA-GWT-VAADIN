@@ -107,7 +107,7 @@ EntradaServicoBusiness<EntradaServicoEntity> {
 	public List<EntradaServicoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<EntradaServicoEntity> auxLista = this.dao.listaTodos();
+			List<EntradaServicoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

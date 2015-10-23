@@ -14,7 +14,7 @@ public class RequisicaoDetalheDAO extends
 		return RequisicaoDetalheEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "produto.descricao" };
 	}
 

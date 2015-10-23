@@ -13,8 +13,8 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.ponto.PontoMarcacao;
+import dc.model.dao.administrativo.seguranca.IUsuarioDAO;
 import dc.servicos.dao.ponto.PontoMarcacaoDAO;
-import dc.servicos.dao.sistema.UsuarioDAO;
 import dc.visao.framework.geral.BlankFormController;
 import dc.visao.ponto.PontoMarcacaoFormView;
 import dc.visao.spring.SecuritySessionProvider;
@@ -33,7 +33,7 @@ public class PontoMarcacaoFormController extends BlankFormController {
 	@Autowired
 	PontoMarcacaoDAO pontoMarcacaoDAO;
 	@Autowired
-	UsuarioDAO usuarioDAO;
+	private IUsuarioDAO usuarioDAO;
 
 	@Override
 	protected Component getSubView() {

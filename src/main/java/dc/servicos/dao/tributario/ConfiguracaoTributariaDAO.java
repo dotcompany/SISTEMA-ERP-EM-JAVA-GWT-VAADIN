@@ -13,7 +13,7 @@ public class ConfiguracaoTributariaDAO extends AbstractCrudDAO<ConfiguracaoTribu
 		return ConfiguracaoTributariaEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"empresa"};
 	}
 

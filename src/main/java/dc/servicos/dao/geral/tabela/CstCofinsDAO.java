@@ -44,7 +44,7 @@ public class CstCofinsDAO extends AbstractCrudDAO<CstCofinsEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "descricao", "observacao" };
 	}
 

@@ -56,11 +56,12 @@ import dc.entidade.framework.PapelMenu;
 import dc.entidade.relatorio.Relatorio;
 import dc.entidade.relatorio.TipoRelatorio;
 import dc.framework.DcConstants;
-import dc.servicos.dao.framework.geral.AbstractCrudDAO;
-import dc.servicos.dao.framework.geral.FmMenuDAO;
-import dc.servicos.dao.framework.geral.FmModuloDAO;
+import dc.model.dao.AbstractDAO;
 import dc.servicos.dao.framework.geral.GenericListDAO;
-import dc.servicos.dao.relatorio.RelatorioDAO;
+import dc.servicos.dao.framework.geral.IFmMenuDAO;
+import dc.servicos.dao.framework.geral.IFmModuloDAO;
+import dc.servicos.dao.framework.geral.IListDAO;
+import dc.servicos.dao.relatorio.IRelatorioDAO;
 import dc.visao.framework.DCFilterDecorator;
 import dc.visao.framework.DCFilterGenerator;
 import dc.visao.framework.component.CompanyFileHandler;
@@ -96,16 +97,16 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 	private TaskContentManager task;
 
 	@Autowired
-	private GenericListDAO genericDAO;
+	private IListDAO genericDAO;
 
 	@Autowired
 	private CompanyFileHandler fileUtils;
 
 	@Autowired
-	private FmMenuDAO fmMenuDAO;
+	private IFmMenuDAO fmMenuDAO;
 
 	@Autowired
-	private RelatorioDAO relatorioDAO;
+	private IRelatorioDAO relatorioDAO;
 
 	private PapelMenu papelMenu;
 	private boolean acessoLiberado = false;
@@ -675,7 +676,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 						.getConsultaMultiempresa().equals(0);
 	}
 
-	protected AbstractCrudDAO getMainDao() {
+	protected AbstractDAO getMainDao() {
 		return genericDAO;
 	}
 
@@ -861,10 +862,10 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 	/** VERIFICAR PERMISSÃO PARA SALVAR, CRIAR, REMOVER E EDITAR */
 
 	@Autowired
-	private FmMenuDAO meDAO;
+	private IFmMenuDAO meDAO;
 
 	@Autowired
-	private FmModuloDAO mDAO;
+	private IFmModuloDAO mDAO;
 
 	private FmMenu menu;
 
@@ -898,7 +899,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 		return this.meDAO.getMenu(this.getClass().getName());
 	}
 
-	public GenericListDAO getGenericDAO() {
+	public IListDAO getGenericDAO() {
 		return genericDAO;
 	}
 

@@ -27,7 +27,7 @@ public class TipoAdmissaoDAO extends AbstractCrudDAO<TipoAdmissaoEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "nome", "descricao" };
 	}
 

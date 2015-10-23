@@ -82,7 +82,7 @@ public class NfeDestinatarioDAO extends AbstractCrudDAO<NfeDestinatarioEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "INSS", "Serviço", "Valor mensal", "Valor 13" };
 	}
 

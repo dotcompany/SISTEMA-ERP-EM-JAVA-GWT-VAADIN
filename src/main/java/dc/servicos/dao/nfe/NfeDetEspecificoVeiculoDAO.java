@@ -76,7 +76,7 @@ public class NfeDetEspecificoVeiculoDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "CST PIS" };
 	}
 

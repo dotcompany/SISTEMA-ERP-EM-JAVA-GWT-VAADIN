@@ -52,7 +52,7 @@ public class PlanoSaudeDAO extends AbstractCrudDAO<PlanoSaudeEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Colaborador", "Beneficiário", "Data início" };
 	}
 

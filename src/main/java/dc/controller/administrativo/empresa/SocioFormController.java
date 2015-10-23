@@ -203,14 +203,14 @@ protected boolean validaSalvar() {
 
 	public List<TipoRelacionamentoEntity> carregarTipoRelacionamento() {
 		List<TipoRelacionamentoEntity> lista = new ArrayList<TipoRelacionamentoEntity>();
-		for (TipoRelacionamentoEntity tipo : tipoRelacionamentoDAO.listaTodos()) {
+		for (TipoRelacionamentoEntity tipo : tipoRelacionamentoDAO.getAll()) {
 			lista.add(tipo);
 		}
 		return lista;
 	}
 
 	public List<QuadroSocietarioEntity> listarQuadros() {
-		return quadroSocietarioDAO.listaTodos();
+		return quadroSocietarioDAO.getAll();
 	}
 
 	public BeanItemContainer<QuadroSocietarioEntity> carregarQuadros() {
@@ -269,7 +269,7 @@ protected boolean validaSalvar() {
 	
 	public void carregarUf() {
 		try {
-			List<UfEntity> auxLista = this.ufDAO.listaTodos();
+			List<UfEntity> auxLista = this.ufDAO.getAll();
 
 			BeanItemContainer<UfEntity> bic = new BeanItemContainer<UfEntity>(
 					UfEntity.class, auxLista);

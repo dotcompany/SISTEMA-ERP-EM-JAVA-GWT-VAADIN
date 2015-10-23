@@ -28,7 +28,7 @@ public class CargoDAO extends AbstractCrudDAO<CargoEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome", "descricao","salario","cbo1994" ,"cbo2002"};
 	}
 

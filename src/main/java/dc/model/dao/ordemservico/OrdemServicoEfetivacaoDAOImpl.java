@@ -53,12 +53,6 @@ OrdemServicoEfetivacaoDAO<OrdemServicoEfetivacaoEntity> {
 		return new String[] { "descricao" };
 	}
 
-	@Override
-	public List<OrdemServicoEfetivacaoEntity> procuraNomeContendo(String query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public OrdemServicoEfetivacaoEntity findByOrdemServico(OrdemServicoEntity ordemServico) {
 		try {
 			String sql = "FROM # ent WHERE (1 = 1) AND ent.ordemServico.id = :id";

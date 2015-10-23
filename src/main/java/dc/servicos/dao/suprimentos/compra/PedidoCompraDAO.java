@@ -15,7 +15,7 @@ public class PedidoCompraDAO extends AbstractCrudDAO<PedidoEntity> {
 		return PedidoEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"fornecedor","tipoPedido", "baseCalculoIcms", "baseCalculoIcmsSt", "contato","dataPedido","dataPrevisaoPagamento" };
 	}
 

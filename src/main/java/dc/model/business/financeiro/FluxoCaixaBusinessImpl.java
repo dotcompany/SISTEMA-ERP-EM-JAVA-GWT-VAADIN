@@ -82,7 +82,7 @@ public class FluxoCaixaBusinessImpl implements FluxoCaixaBusiness<FluxoCaixaEnti
 		public List<FluxoCaixaEntity> findAll() throws Exception {
 			
 			try {
-				List<FluxoCaixaEntity> auxLista = this.dao.listaTodos();
+				List<FluxoCaixaEntity> auxLista = this.dao.getAll();
 
 				return auxLista;
 			} catch (Exception e) {

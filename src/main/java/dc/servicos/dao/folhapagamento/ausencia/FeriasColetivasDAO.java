@@ -52,7 +52,7 @@ public class FeriasColetivasDAO extends AbstractCrudDAO<FeriasColetivasEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Data início", "Data término",
 				"Data do pagamento" };
 	}

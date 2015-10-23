@@ -19,7 +19,7 @@ public class OrdemServicoDAO extends AbstractCrudDAO<OrdemServicoEntity>{
 		return OrdemServicoEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"id"};
 	}
 	

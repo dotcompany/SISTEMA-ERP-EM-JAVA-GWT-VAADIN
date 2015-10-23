@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ParcelaPagarDAO extends AbstractCrudDAO<ParcelaPagar>{
+public class ParcelaPagarDAO extends AbstractCrudDAO<ParcelaPagar> implements IParcelaPagarDAO{
 
 	@Override
 	public Class<ParcelaPagar> getEntityClass() {
@@ -27,11 +27,15 @@ public class ParcelaPagarDAO extends AbstractCrudDAO<ParcelaPagar>{
 		return getSession().createQuery("from ParcelaPagar").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"lancamentoPagar.fornecedor", "contaCaixa", "numeroParcela", "valor", "dataEmissao", "dataVencimento", "descontoAte", "sofreRetencao",
 				"valorFaltante", "taxaJuro", "valorJuro", "taxaMulta", "valorMulta", "taxaDesconto", "valorDesconto"};
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.IParcelaPagar#buscaPorParcelaPagar(dc.entidade.financeiro.ParcelaPagar)
+	 */
+	@Override
 	@Transactional
 	public List<ParcelaPagar> buscaPorParcelaPagar(ParcelaPagar parcelaPagar){
 		 Session session = getSession();

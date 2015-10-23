@@ -55,7 +55,7 @@ public class InformacaoGeralDAO extends AbstractCrudDAO<InformacaoGeralEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Colaborador", "Dias afastado", "Data início",
 				"Data término" };
 	}

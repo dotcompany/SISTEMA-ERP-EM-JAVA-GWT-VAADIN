@@ -52,7 +52,7 @@ public class TipoAfastamentoDAO extends AbstractCrudDAO<TipoAfastamentoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Código", "Nome", "Descrição" };
 	}
 

@@ -34,7 +34,7 @@ public List<ChequeEmitido> buscaPorParcelaPagar(ChequeEmitido chequeEmitido){
         return chequesEmitido;
 }
 @Override
-protected String[] getDefaultSearchFields() {
+public String[] getDefaultSearchFields() {
 		return new String[] { ""  };
  }
 

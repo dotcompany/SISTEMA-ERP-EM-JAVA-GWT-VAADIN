@@ -10,14 +10,14 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class FornecedorDAO extends AbstractCrudDAO<FornecedorEntity> {
+public class FornecedorDAO extends AbstractCrudDAO<FornecedorEntity> implements IFornecedorDAO {
 
 	@Override
 	public Class<FornecedorEntity> getEntityClass() {
 		return FornecedorEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "pessoa","situacaoForCli","atividadeForCli","desde", "contaRemetente","geraFaturamento",
 				"optanteSimplesNacional", "localizacao","sofreRetencao","numDiasPrimeiroVencimento", "numDiasIntervalo","chequeNominalA",
 				"prazoMedioEntrega","quantidadeParcelas","observacao" };

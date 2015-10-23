@@ -103,7 +103,7 @@ public class SubGrupoBusinessImpl implements Serializable,
 	public List<SubGrupoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<SubGrupoEntity> auxLista = this.dao.listaTodos();
+			List<SubGrupoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

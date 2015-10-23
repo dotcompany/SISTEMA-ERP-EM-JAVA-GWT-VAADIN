@@ -28,7 +28,7 @@ public class PontoFechamentoDAO extends AbstractCrudDAO<PontoFechamentoJornada> 
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 
 		return new String[] { "" };
 	}

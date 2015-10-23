@@ -22,7 +22,7 @@ public class TipoRecebimentoDAO extends AbstractCrudDAO<TipoRecebimento> {
 		return getSession().createQuery("from TipoRecebimento").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "descricao" };
 	}
 

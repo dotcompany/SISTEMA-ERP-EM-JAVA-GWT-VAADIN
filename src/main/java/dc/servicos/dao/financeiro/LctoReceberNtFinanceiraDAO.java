@@ -27,7 +27,7 @@ public class LctoReceberNtFinanceiraDAO extends
 		return getSession().createQuery("from LctoReceberNtFinanceiraEntity").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "valor", "dataInclusao" };
 	}
 

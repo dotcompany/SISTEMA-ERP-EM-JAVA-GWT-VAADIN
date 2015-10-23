@@ -29,7 +29,7 @@ public class SindicatoDAO extends AbstractCrudDAO<SindicatoEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome", "logradouro","bairro","email" };
 	}
 

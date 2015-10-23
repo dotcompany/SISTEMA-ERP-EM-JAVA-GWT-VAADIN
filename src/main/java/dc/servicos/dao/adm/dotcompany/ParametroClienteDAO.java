@@ -18,7 +18,7 @@ public class ParametroClienteDAO extends AbstractCrudDAO<ParametroCliente> {
 		return ParametroCliente.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"empresa","valorEntrada","valorMensalidade", "dataEntrada","nomeResponsavel","emailPrincipal"};
 	}
 	

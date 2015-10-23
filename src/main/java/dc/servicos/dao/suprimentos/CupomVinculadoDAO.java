@@ -21,7 +21,7 @@ public class CupomVinculadoDAO extends AbstractCrudDAO<CupomFiscalReferenciadoEn
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -91,7 +91,7 @@ public class AcessorioBusinessImpl implements Serializable,
 	@Override
 	public List<AcessorioEntity> findAll() throws Exception {
 		try {
-			List<AcessorioEntity> auxLista = this.dao.listaTodos();
+			List<AcessorioEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

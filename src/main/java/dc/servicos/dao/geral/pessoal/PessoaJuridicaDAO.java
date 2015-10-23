@@ -56,7 +56,7 @@ public class PessoaJuridicaDAO extends AbstractCrudDAO<PessoaJuridicaEntity> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {};
 	}
 

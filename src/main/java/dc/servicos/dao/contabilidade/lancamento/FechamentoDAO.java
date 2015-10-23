@@ -52,7 +52,7 @@ public class FechamentoDAO extends AbstractCrudDAO<FechamentoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Data de início", "Data de término",
 				"Critério de lançamento" };
 	}

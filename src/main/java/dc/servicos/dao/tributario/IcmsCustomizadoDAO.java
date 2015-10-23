@@ -22,7 +22,7 @@ public class IcmsCustomizadoDAO extends AbstractCrudDAO<IcmsCustomizadoCabecalho
 //		return contagemEstoque;
 //	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"descricao","origemMercadoria"};
 	}
 

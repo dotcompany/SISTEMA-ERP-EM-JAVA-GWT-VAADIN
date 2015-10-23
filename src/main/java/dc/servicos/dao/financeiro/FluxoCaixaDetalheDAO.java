@@ -25,7 +25,7 @@ public class FluxoCaixaDetalheDAO extends AbstractCrudDAO<FluxoCaixaDetalheEntit
 			return getSession().createQuery("from FluxoCaixaDetalhe").list();
 		}
 
-		protected String[] getDefaultSearchFields() {
+		public String[] getDefaultSearchFields() {
 			return new String[] { "valor","dataInclusao" };
 		}
 		

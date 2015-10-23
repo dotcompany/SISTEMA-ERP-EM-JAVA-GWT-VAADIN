@@ -40,7 +40,7 @@ public class AdiantamentoDAO extends AbstractCrudDAO<Adiantamento>{
 		return getSession().createQuery("from Adiantamento where valor like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"idLancamentoPagar","dataAdiantamento", "valor", "observacoes"};
 	}
 	

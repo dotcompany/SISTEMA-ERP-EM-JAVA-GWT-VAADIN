@@ -28,12 +28,12 @@ import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.relatorio.Relatorio;
-import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
-import dc.servicos.dao.framework.geral.FmMenuDAO;
-import dc.servicos.dao.framework.geral.SeguimentoDAO;
-import dc.servicos.dao.relatorio.RelatorioDAO;
-import dc.servicos.dao.sistema.PapelDAO;
-import dc.servicos.dao.sistema.UsuarioDAO;
+import dc.model.dao.administrativo.seguranca.IUsuarioDAO;
+import dc.servicos.dao.administrativo.empresa.IEmpresaDAO;
+import dc.servicos.dao.framework.geral.IFmMenuDAO;
+import dc.servicos.dao.framework.geral.ISeguimentoDAO;
+import dc.servicos.dao.relatorio.IRelatorioDAO;
+import dc.servicos.dao.sistema.IPapelDAO;
 import dc.servicos.util.Util;
 import dc.servicos.util.Validator;
 import dc.visao.framework.FmMenuListController;
@@ -53,21 +53,21 @@ public class RelatorioFormController extends CRUDFormController<Relatorio> {
 	private RelatorioFormView subView;
 
 	@Autowired
-	private RelatorioDAO relatorioDAO;
+	private IRelatorioDAO relatorioDAO;
 
 	private Relatorio currentBean;
 
 	@Autowired
-	private FmMenuDAO fmMenuDAO;
+	private IFmMenuDAO fmMenuDAO;
 
 	@Autowired
-	private SeguimentoDAO seguimentoDAO;
+	private ISeguimentoDAO seguimentoDAO;
 	@Autowired
-	private PapelDAO papelDAO;
+	private IPapelDAO papelDAO;
 	@Autowired
-	private UsuarioDAO usuarioDAO;
+	private IUsuarioDAO usuarioDAO;
 	@Autowired
-	private EmpresaDAO empresaDAO;
+	private IEmpresaDAO empresaDAO;
 
 	@Override
 	protected String getNome() {

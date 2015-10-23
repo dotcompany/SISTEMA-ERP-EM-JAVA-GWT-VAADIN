@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.sistema.ContaEmpresa;
-import dc.servicos.dao.sistema.ContaEmpresaDAO;
+import dc.servicos.dao.sistema.IContaEmpresaDAO;
 
 @Component
 @Scope("prototype")
@@ -16,7 +16,7 @@ public class AlterarSenhaController  implements Serializable, ViewController {
 	private static final long serialVersionUID = -3471150902570201915L;
 
 	@Autowired
-	private transient ContaEmpresaDAO dao;
+	private IContaEmpresaDAO dao;
 	
 	private AlterarSenhaView view;
 	

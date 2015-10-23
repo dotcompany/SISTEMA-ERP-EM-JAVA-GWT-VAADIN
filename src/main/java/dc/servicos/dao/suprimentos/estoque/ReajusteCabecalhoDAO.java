@@ -15,7 +15,7 @@ public class ReajusteCabecalhoDAO extends
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "data" };
 	}
 

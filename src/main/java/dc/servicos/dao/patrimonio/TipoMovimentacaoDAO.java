@@ -55,7 +55,7 @@ public class TipoMovimentacaoDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Tipo", "Nome", "Descrição" };
 	}
 

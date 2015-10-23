@@ -52,7 +52,7 @@ public class GuiaAcumuladaDAO extends AbstractCrudDAO<GuiaAcumuladaEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Gps tipo", "Gps competência",
 				"IRRF competência", "PIS competência" };
 	}

@@ -37,7 +37,7 @@ public class CodigoGpsDAO extends AbstractCrudDAO<CodigoGpsEntity> {
 		return cod;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "descricao" };
 	}
 

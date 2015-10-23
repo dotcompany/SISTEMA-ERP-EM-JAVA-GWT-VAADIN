@@ -212,7 +212,7 @@ protected boolean validaSalvar() {
 	public BeanItemContainer<ClienteEntity> carregarClientes() {
 		BeanItemContainer<ClienteEntity> container = new BeanItemContainer<>(
 				ClienteEntity.class);
-		for (ClienteEntity c : clienteDAO.listaTodos()) {
+		for (ClienteEntity c : clienteDAO.getAll()) {
 			container.addBean(c);
 		}
 		return container;
@@ -253,7 +253,7 @@ protected boolean validaSalvar() {
 	public BeanItemContainer<Orcamento> carregarOrcamentos() {
 		BeanItemContainer<Orcamento> container = new BeanItemContainer<>(
 				Orcamento.class);
-		for (Orcamento p : orcamentoDAO.listaTodos()) {
+		for (Orcamento p : orcamentoDAO.getAll()) {
 			container.addBean(p);
 		}
 		return container;

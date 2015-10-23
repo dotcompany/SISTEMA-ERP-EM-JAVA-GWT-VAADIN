@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ehcache.hibernate.HibernateUtil;
-
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,29 +12,31 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.EmpresaSeguimento;
-import dc.entidade.geral.pessoal.CargoEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
-import dc.entidade.sistema.ContaEmpresa;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
-import dc.servicos.dao.framework.geral.EmpresaSeguimentoDAO;
-import dc.servicos.dao.geral.PessoaEnderecoDAO;
+import dc.servicos.dao.framework.geral.IEmpresaSeguimentoDAO;
+import dc.servicos.dao.geral.IPessoaEnderecoDAO;
 
 @Repository
-public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
+public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> implements IEmpresaDAO {
 
 	private static String MATRIZ = "1";
 
 	@Autowired
-	private PessoaEnderecoDAO pessoaEnderecoDAO;
+	private IPessoaEnderecoDAO pessoaEnderecoDAO;
 
 	@Autowired
-	private EmpresaSeguimentoDAO empresaSeguimentoDAO;
+	private IEmpresaSeguimentoDAO empresaSeguimentoDAO;
 
 	@Override
 	public Class<EmpresaEntity> getEntityClass() {
 		return EmpresaEntity.class;
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.administrativo.empresa.IEmpresaDAO#listaTodos()
+	 */
+	@Override
 	@Transactional
 	public List<EmpresaEntity> listaTodos() {
 		try {
@@ -52,6 +52,10 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.administrativo.empresa.IEmpresaDAO#procuraNomeContendo(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public List<EmpresaEntity> procuraNomeContendo(String query) {
 		try {
@@ -70,12 +74,12 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nomeFantasia", "razaoSocial" };
 	}
 
 	@Transactional
-	public List<CargoEntity> query(String q) {
+	public List<EmpresaEntity> query(String q) {
 		try {
 			String sql = "SELECT new EmpresaEntity(ent.id, ent.nomeFantasia)"
 					+ " FROM EmpresaEntity WHERE lower(nomeFantasia) LIKE :q";
@@ -90,10 +94,11 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 		}
 	}
 
-	/**
-	 * *******************************************************
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.administrativo.empresa.IEmpresaDAO#getListEmpresa()
 	 */
 
+	@Override
 	@Transactional
 	public List<EmpresaEntity> getListEmpresa() {
 		try {
@@ -109,6 +114,10 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.administrativo.empresa.IEmpresaDAO#findEmpresa(java.lang.Integer)
+	 */
+	@Override
 	@Transactional
 	public EmpresaEntity findEmpresa(Integer id) {
 		try {
@@ -126,6 +135,10 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.administrativo.empresa.IEmpresaDAO#findByCNPJ(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public EmpresaEntity findByCNPJ(String cnpj) {
 		try {
@@ -145,6 +158,10 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.administrativo.empresa.IEmpresaDAO#getEmpresaMatrizList()
+	 */
+	@Override
 	@Transactional
 	public List<EmpresaEntity> getEmpresaMatrizList() {
 		try {
@@ -164,6 +181,10 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.administrativo.empresa.IEmpresaDAO#findEmpresaByContaEmpresa(java.lang.Integer)
+	 */
+	@Override
 	@Transactional
 	public EmpresaEntity findEmpresaByContaEmpresa(Integer contaEmpresaId) {
 		try {
@@ -183,6 +204,7 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 	}
 
 	@Transactional
+	@Override
 	public void saveOrUpdateEmpresa(EmpresaEntity empresa) throws Exception {
 		try {
 			
@@ -212,6 +234,10 @@ public class EmpresaDAO extends AbstractCrudDAO<EmpresaEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.administrativo.empresa.IEmpresaDAO#deleteEmpresaList(java.util.List)
+	 */
+	@Override
 	@Transactional
 	public void deleteEmpresaList(List<Serializable> auxLista) {
 		try {

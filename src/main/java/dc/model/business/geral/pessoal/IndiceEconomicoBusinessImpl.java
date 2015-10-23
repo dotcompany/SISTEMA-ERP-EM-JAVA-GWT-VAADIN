@@ -82,7 +82,7 @@ public class IndiceEconomicoBusinessImpl implements IndiceEconomicoBusiness<Indi
 		public List<IndiceEconomicoEntity> findAll() throws Exception {
 			
 			try {
-				List<IndiceEconomicoEntity> auxLista = this.dao.listaTodos();
+				List<IndiceEconomicoEntity> auxLista = this.dao.getAll();
 
 				return auxLista;
 			} catch (Exception e) {

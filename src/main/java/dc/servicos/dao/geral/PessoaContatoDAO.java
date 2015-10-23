@@ -26,7 +26,7 @@ public class PessoaContatoDAO extends AbstractCrudDAO<PessoaContatoEntity> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome", "email" };
 	}
 

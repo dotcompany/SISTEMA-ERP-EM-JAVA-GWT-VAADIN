@@ -17,7 +17,7 @@ public class SituacaoServicoDAO extends AbstractCrudDAO<SituacaoServicoEntity>{
 		return SituacaoServicoEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"descricao"};
 	}
 	

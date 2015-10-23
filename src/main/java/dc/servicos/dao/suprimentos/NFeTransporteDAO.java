@@ -18,7 +18,7 @@ public class NFeTransporteDAO extends AbstractCrudDAO<NFeTransporte> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		// TODO Auto-generated method stub
 		return null;
 	}

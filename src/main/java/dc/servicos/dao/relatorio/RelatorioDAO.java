@@ -22,18 +22,28 @@ import dc.entidade.relatorio.TipoRelatorio;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
+public class RelatorioDAO extends AbstractCrudDAO<Relatorio> implements IRelatorioDAO{
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.relatorio.IRelatorioDAO#getEntityClass()
+	 */
 	@Override
 	public Class<Relatorio> getEntityClass() {
 		return Relatorio.class;
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.relatorio.IRelatorioDAO#getDefaultSearchFields()
+	 */
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome", "descricao" };
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.relatorio.IRelatorioDAO#findRelatoriosByMenuAndUserAndType(dc.entidade.framework.FmMenu, dc.entidade.administrativo.seguranca.UsuarioEntity, dc.entidade.relatorio.TipoRelatorio)
+	 */
+	@Override
 	@Transactional
 	public List<Relatorio> findRelatoriosByMenuAndUserAndType(FmMenu menu, UsuarioEntity usuario, TipoRelatorio tipoRelatorio) {
 
@@ -86,6 +96,9 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 		return new Integer[] {};
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.relatorio.IRelatorioDAO#find(java.io.Serializable)
+	 */
 	@Override
 	@Transactional
 	public Relatorio find(Serializable id) {
@@ -98,6 +111,10 @@ public class RelatorioDAO extends AbstractCrudDAO<Relatorio> {
 		return relatorio;
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.relatorio.IRelatorioDAO#salvar(dc.entidade.relatorio.Relatorio, java.util.List, java.util.List, java.util.List, java.util.List)
+	 */
+	@Override
 	@Transactional
 	public void salvar(Relatorio relatorio, List<UsuarioEntity> usuariosView, List<SeguimentoEntity> seguimentosView, List<PapelEntity> papeisView,
 			List<EmpresaEntity> empresasView) {

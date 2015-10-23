@@ -115,7 +115,7 @@ public class NotaFiscalTipoBusinessImpl implements NotaFiscalTipoBusiness<NotaFi
 
 			@Override
 			public List<NotaFiscalTipo> findAll() throws Exception {
-				return dao.listaTodos();
+				return dao.getAll();
 			}
 
 			@Override

@@ -102,7 +102,7 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 	public List<UfEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<UfEntity> auxLista = this.dao.listaTodos();
+			List<UfEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

@@ -54,7 +54,7 @@ public class EmpresaCnaeDAO extends AbstractCrudDAO<EmpresaCnaeEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "dataRegistro" };
 	}
 

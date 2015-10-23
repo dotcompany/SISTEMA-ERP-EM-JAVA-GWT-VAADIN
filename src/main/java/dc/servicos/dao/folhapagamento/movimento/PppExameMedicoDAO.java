@@ -52,7 +52,7 @@ public class PppExameMedicoDAO extends AbstractCrudDAO<PppExameMedicoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "dataUltimo", "tipo", "natureza", "ppp" };
 	}
 

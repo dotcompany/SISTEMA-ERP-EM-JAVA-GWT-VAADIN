@@ -41,7 +41,7 @@ public class ConvenioDAO extends AbstractCrudDAO<ConvenioEntity>{
 		return getSession().createQuery("from Convenio where logradouro like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"pessoa","nome", "logradouro","numero", "bairro","dataVencimento","dataCadastro","email","telefone","contato",
 				"cnpj","cep","site","descricao" };
 	}

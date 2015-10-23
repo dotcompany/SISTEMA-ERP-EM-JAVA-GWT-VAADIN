@@ -21,7 +21,7 @@ public class DuplicataDAO extends AbstractCrudDAO<NfeDuplicata> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		// TODO Auto-generated method stub
 		return null;
 	}

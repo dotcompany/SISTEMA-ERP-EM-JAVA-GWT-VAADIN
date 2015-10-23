@@ -18,7 +18,7 @@ public class NFeFaturaDAO extends AbstractCrudDAO<NfeFatura> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -18,7 +18,7 @@ public class PisConfiguracaoTributariaDAO extends AbstractCrudDAO<PisConfiguraca
 		return PisConfiguracaoTributariaEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"empresa"};
 	}
 	

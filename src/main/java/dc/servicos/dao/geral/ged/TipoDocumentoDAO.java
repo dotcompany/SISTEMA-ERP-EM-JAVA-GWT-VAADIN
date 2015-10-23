@@ -23,7 +23,7 @@ public class TipoDocumentoDAO extends AbstractCrudDAO<TipoDocumento>{
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 
 		return new String[]{"nome", "tamanhoMaximo"};
 	}

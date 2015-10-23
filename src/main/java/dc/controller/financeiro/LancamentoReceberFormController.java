@@ -56,17 +56,17 @@ import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.model.business.financeiro.LancamentoReceberBusiness;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
+import dc.servicos.dao.contabilidade.IContabilContaDAO;
 import dc.servicos.dao.financeiro.BancoDAO;
 import dc.servicos.dao.financeiro.ConfiguracaoBoletoDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
+import dc.servicos.dao.financeiro.IStatusParcelaDAO;
 import dc.servicos.dao.financeiro.LctoReceberNtFinanceiraDAO;
 import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
 import dc.servicos.dao.financeiro.ParcelaReceberDAO;
-import dc.servicos.dao.financeiro.StatusParcelaDAO;
-import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.dao.geral.PessoaEnderecoDAO;
+import dc.servicos.dao.geral.IFornecedorDAO;
+import dc.servicos.dao.geral.IPessoaEnderecoDAO;
 import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.visao.financeiro.LancamentoReceberFormView;
@@ -131,13 +131,13 @@ public class LancamentoReceberFormController extends
 	private LancamentoReceber currentBean;
 
 	@Autowired
-	private ContabilContaDAO contabilcontaDAO;
+	private IContabilContaDAO contabilcontaDAO;
 
 	@Autowired
 	private ContaCaixaDAO contaCaixaDAO;
 
 	@Autowired
-	private FornecedorDAO fornecedorDAO;
+	private IFornecedorDAO fornecedorDAO;
 
 	@Autowired
 	private ClienteDAO clienteDAO;
@@ -152,7 +152,7 @@ public class LancamentoReceberFormController extends
 	private DocumentoOrigemDAO documentoOrigemDAO;
 
 	@Autowired
-	private StatusParcelaDAO statusParcelaDAO;
+	private IStatusParcelaDAO statusParcelaDAO;
 
 	@Autowired
 	private ConfiguracaoBoletoDAO configuracaoBoletoDAO;
@@ -161,7 +161,7 @@ public class LancamentoReceberFormController extends
 	private PessoaDAO pessoaDAO;
 
 	@Autowired
-	private PessoaEnderecoDAO enderecoDAO;
+	private IPessoaEnderecoDAO enderecoDAO;
 
 	@Autowired
 	private BancoDAO bancoDAO;
@@ -675,7 +675,7 @@ public List<LctoReceberNtFinanceiraEntity> getNaturezasFinan() {
 	}
 	
 	public List<NaturezaFinanceira> getNaturezasFinanceiras() {
-		return naturezaFinanceiraDAO.listaTodos();
+		return naturezaFinanceiraDAO.getAll();
 	}
 
 	private void calculaValorComissao() {

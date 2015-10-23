@@ -99,7 +99,7 @@ public class SindicatoBusinessImpl implements Serializable,
 	public List<SindicatoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<SindicatoEntity> auxLista = this.dao.listaTodos();
+			List<SindicatoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

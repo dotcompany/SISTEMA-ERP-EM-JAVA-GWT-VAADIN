@@ -52,7 +52,7 @@ public class ValeTransporteDAO extends AbstractCrudDAO<ValeTransporteEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Quantidade", "Colaborador" };
 	}
 

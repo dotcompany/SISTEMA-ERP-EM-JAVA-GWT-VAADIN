@@ -53,7 +53,7 @@ public class BemDAO extends AbstractCrudDAO<BemEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Tipo", "Nome", "Descrição" };
 	}
 

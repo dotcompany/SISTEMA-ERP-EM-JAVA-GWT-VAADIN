@@ -25,7 +25,7 @@ public class PontoParametroDAO extends AbstractCrudDAO<PontoParametro> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 
 		return new String[] { "" };
 	}

@@ -98,7 +98,7 @@ public class TipoServicoOsBusinessImpl implements Serializable,
 	public List<TipoServicoOsEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<TipoServicoOsEntity> auxLista = this.dao.listaTodos();
+			List<TipoServicoOsEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

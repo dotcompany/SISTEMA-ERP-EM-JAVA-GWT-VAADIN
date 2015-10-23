@@ -17,7 +17,7 @@ public class TipoColaboradorOsDAO extends AbstractCrudDAO<TipoColaboradorOsEntit
 		return TipoColaboradorOsEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"descricao"};
 	}
 	

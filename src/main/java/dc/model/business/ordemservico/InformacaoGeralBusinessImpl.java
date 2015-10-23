@@ -107,7 +107,7 @@ InformacaoGeralBusiness<InformacaoGeralEntity> {
 	public List<InformacaoGeralEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<InformacaoGeralEntity> auxLista = this.dao.listaTodos();
+			List<InformacaoGeralEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

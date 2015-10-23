@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.sun.istack.logging.Logger;
 import com.vaadin.event.ShortcutAction.KeyCode;
@@ -27,8 +25,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.framework.DcConstants;
-import dc.servicos.dao.sistema.PapelDAO;
-import dc.servicos.dao.sistema.UsuarioDAO;
+import dc.model.dao.administrativo.seguranca.IUsuarioDAO;
 import dc.visao.spring.SecuritySessionProvider;
 
 @org.springframework.stereotype.Component
@@ -47,7 +44,7 @@ public class ConfirmacaoContaView extends VerticalLayout implements View {
     CssLayout root = new CssLayout();
     
     @Autowired
-    UsuarioDAO dao; 
+    private IUsuarioDAO dao; 
 
 	private boolean showed;
 

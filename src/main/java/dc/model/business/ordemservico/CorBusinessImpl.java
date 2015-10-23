@@ -99,7 +99,7 @@ public class CorBusinessImpl implements Serializable,
 	public List<CorEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<CorEntity> auxLista = this.dao.listaTodos();
+			List<CorEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

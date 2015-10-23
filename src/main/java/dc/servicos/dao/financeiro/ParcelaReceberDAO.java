@@ -22,7 +22,7 @@ public class ParcelaReceberDAO extends AbstractCrudDAO<ParcelaReceber> {
 		return getSession().createQuery("from ParcelaReceber").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"contaCaixa", "numeroParcela", "dataEmissao", "dataVencimento", "descontoAte", "valor", "valorFaltante", "taxaJuro",
 				"valorJuro", "taxaMulta", "valorMulta", "taxaDesconto", "valorDesconto", "emitiuBoleto", "boletoNossoNumero"};
 	}

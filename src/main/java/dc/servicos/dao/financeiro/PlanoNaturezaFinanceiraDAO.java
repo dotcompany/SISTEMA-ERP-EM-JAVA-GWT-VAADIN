@@ -47,7 +47,7 @@ public class PlanoNaturezaFinanceiraDAO extends AbstractCrudDAO<PlanoNaturezaFin
 		return getSession().createQuery("from PlanoNaturezaFinanceira where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"nome", "mascara","niveis","dataInclusao"};
 	}
 }

@@ -11,7 +11,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class DocumentoOrigemDAO extends AbstractCrudDAO<DocumentoOrigem>{
+public class DocumentoOrigemDAO extends AbstractCrudDAO<DocumentoOrigem> implements IDocumentoOrigemDAO{
 
 	@Override
 	public Class<DocumentoOrigem> getEntityClass() {
@@ -19,6 +19,10 @@ public class DocumentoOrigemDAO extends AbstractCrudDAO<DocumentoOrigem>{
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.IDocumentoOrigem#listLancamentos(dc.entidade.financeiro.DocumentoOrigem)
+	 */
+	@Override
 	@Transactional
 	public List<LancamentoPagarEntity> listLancamentos(DocumentoOrigem documento) {
 		return getSession().createQuery("from LancamentoPagarEntity where documento.id = :bid").setParameter("bid", documento.getId()).list();
@@ -35,7 +39,7 @@ public class DocumentoOrigemDAO extends AbstractCrudDAO<DocumentoOrigem>{
 		return getSession().createQuery("from DocumentoOrigem where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"codigo","siglaDocumento","descricao"};
 	}
 	

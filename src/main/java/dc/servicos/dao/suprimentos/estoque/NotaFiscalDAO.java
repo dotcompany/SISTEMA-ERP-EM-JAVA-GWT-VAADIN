@@ -24,7 +24,7 @@ public class NotaFiscalDAO extends AbstractCrudDAO<NotaFiscal> {
 		return nfe;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "id" };
 	}
 

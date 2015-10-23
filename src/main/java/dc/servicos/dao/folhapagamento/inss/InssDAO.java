@@ -51,7 +51,7 @@ public class InssDAO extends AbstractCrudDAO<InssEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "competência" };
 	}
 

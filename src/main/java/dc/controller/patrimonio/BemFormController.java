@@ -837,7 +837,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 	public List<FornecedorEntity> fornecedorListarTodos() {
 		List<FornecedorEntity> auxLista = new ArrayList<FornecedorEntity>();
 
-		auxLista = this.fDAO.listaTodos();
+		auxLista = this.fDAO.getAll();
 
 		return auxLista;
 	}
@@ -845,7 +845,7 @@ public class BemFormController extends CRUDFormController<BemEntity> {
 	public List<ColaboradorEntity> colaboradorListarTodos() {
 		List<ColaboradorEntity> auxLista = new ArrayList<ColaboradorEntity>();
 
-		auxLista = this.cDAO.listaTodos();
+		auxLista = this.cDAO.getAll();
 
 		return auxLista;
 	}

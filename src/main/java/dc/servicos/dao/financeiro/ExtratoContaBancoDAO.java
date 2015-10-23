@@ -23,7 +23,7 @@ public class ExtratoContaBancoDAO extends AbstractCrudDAO<ExtratoContaBancoEntit
 		return getSession().createQuery("from ExtratoContaBanco").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "mes","ano","dataMovimento","valor","observacoes" };
 	}
 	

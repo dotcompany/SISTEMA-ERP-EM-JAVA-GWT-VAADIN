@@ -41,7 +41,7 @@ public class CepDAO extends AbstractCrudDAO<CepEntity>{
 		return getSession().createQuery("from Cep where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"cep", "logradouro"};
 	}
 

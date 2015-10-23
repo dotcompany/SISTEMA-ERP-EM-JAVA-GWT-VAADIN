@@ -93,7 +93,7 @@ return null;
 public List<CboEntity> findAll() throws Exception {
 // TODO Auto-generated method stub
 try {
-	List<CboEntity> auxLista = this.dao.listaTodos();
+	List<CboEntity> auxLista = this.dao.getAll();
 
 	return auxLista;
 } catch (Exception e) {

@@ -53,13 +53,7 @@ VendaPecaDAO<VendaPecaEntity> {
 	public String[] getDefaultSearchFields() {
 		return new String[] { "descricao" };
 	}
-
-	@Override
-	public List<VendaPecaEntity> procuraNomeContendo(String query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	public List<VendaPecaEntity> findByOrdemServico(OrdemServicoEntity ordemServico) {
 		try {
 			String sql = "SELECT ent FROM VendaPecaEntity ent INNER JOIN FETCH ent.ordemServico os LEFT JOIN FETCH ent.vendedor ve "+

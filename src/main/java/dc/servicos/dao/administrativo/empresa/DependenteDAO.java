@@ -18,7 +18,7 @@ public class DependenteDAO extends AbstractCrudDAO<DependenteEntity> {
 		return DependenteEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"numero"};
 	}
 

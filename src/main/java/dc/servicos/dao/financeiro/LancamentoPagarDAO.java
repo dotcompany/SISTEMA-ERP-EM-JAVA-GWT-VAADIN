@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class LancamentoPagarDAO extends AbstractCrudDAO<LancamentoPagarEntity> {
+public class LancamentoPagarDAO extends AbstractCrudDAO<LancamentoPagarEntity> implements ILancamentoPagarDAO {
 
 	@Override
 	public Class<LancamentoPagarEntity> getEntityClass() {
@@ -24,11 +24,15 @@ public class LancamentoPagarDAO extends AbstractCrudDAO<LancamentoPagarEntity> {
 		return getSession().createQuery("from LancamentoPagar").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"fornecedor", "documentoOrigem","dataLancamento","pagamentoCompartilhado","valorTotal","valorAPagar" ,
 				"quantidadeParcela","numeroDocumento","primeiroVencimento"};
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.ILancamentoPagarDAO#buscar(dc.entidade.geral.pessoal.FornecedorEntity)
+	 */
+	@Override
 	@Transactional
 	public List<LancamentoPagarEntity> buscar(FornecedorEntity fornecedor){
 
@@ -46,6 +50,10 @@ public class LancamentoPagarDAO extends AbstractCrudDAO<LancamentoPagarEntity> {
 		return lista;
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.ILancamentoPagarDAO#procuraNomeContendo(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public List<LancamentoPagarEntity> procuraNomeContendo(String query) {
 		return getSession().createQuery("from LancamentoPagar where valorTotal like :q")

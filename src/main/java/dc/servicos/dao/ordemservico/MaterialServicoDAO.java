@@ -19,7 +19,7 @@ public class MaterialServicoDAO extends AbstractCrudDAO<MaterialServicoEntity>{
 		return MaterialServicoEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"id"};
 	}
 	

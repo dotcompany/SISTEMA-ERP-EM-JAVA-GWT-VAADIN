@@ -14,7 +14,7 @@ import com.sun.istack.logging.Logger;
 public class DCWebApplicationListener implements ApplicationListener<ContextRefreshedEvent>{
 	
 	@Autowired
-	SearchIndexerDAO dao;
+	ISearchIndexer dao;
 	
 	@Autowired
 	SecuritySessionProvider secureSession;

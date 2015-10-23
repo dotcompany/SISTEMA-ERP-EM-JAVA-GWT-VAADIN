@@ -16,18 +16,26 @@ import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
+public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> implements IPessoaEnderecoDAO {
 
 	@Override
 	public Class<PessoaEnderecoEntity> getEntityClass() {
 		return PessoaEnderecoEntity.class;
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.IPessoaEnderecoDAO#listaTodos()
+	 */
+	@Override
 	@Transactional
 	public List<PessoaEnderecoEntity> listaTodos() {
 		return getSession().createQuery("from PessoaEnderecoEntity").list();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.IPessoaEnderecoDAO#listaPorEmpresa(dc.entidade.administrativo.empresa.EmpresaEntity)
+	 */
+	@Override
 	@Transactional
 	public List<PessoaEnderecoEntity> listaPorEmpresa(EmpresaEntity empresa) {
 		return getSession()
@@ -36,6 +44,10 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 				.setParameter("emp", empresa).list();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.IPessoaEnderecoDAO#listaPorPessoa(dc.entidade.geral.pessoal.PessoaEntity)
+	 */
+	@Override
 	@Transactional
 	public List<PessoaEnderecoEntity> listaPorPessoa(PessoaEntity pessoa) {
 		// TODO Verificar pq só funciona na segunda vez
@@ -55,10 +67,14 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome", "email" };
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.IPessoaEnderecoDAO#deletePessoaEnderecoList(java.util.List)
+	 */
+	@Override
 	@Transactional
 	public void deletePessoaEnderecoList(List<Serializable> auxLista) {
 		try {
@@ -76,6 +92,10 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.IPessoaEnderecoDAO#getPessoaEnderecoList(dc.entidade.administrativo.empresa.EmpresaEntity)
+	 */
+	@Override
 	@Transactional
 	public List<PessoaEnderecoEntity> getPessoaEnderecoList(EmpresaEntity entity) {
 		try {
@@ -99,6 +119,10 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.IPessoaEnderecoDAO#getPessoaEnderecoList(dc.entidade.geral.pessoal.PessoaEntity)
+	 */
+	@Override
 	@Transactional
 	public List<PessoaEnderecoEntity> getPessoaEnderecoList(PessoaEntity entity) {
 		try {
@@ -118,6 +142,10 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.IPessoaEnderecoDAO#saveOrUpdatePessoaEnderecoList(java.util.List, dc.entidade.administrativo.empresa.EmpresaEntity)
+	 */
+	@Override
 	@Transactional
 	public void saveOrUpdatePessoaEnderecoList(
 			List<PessoaEnderecoEntity> auxLista, EmpresaEntity empresa) {
@@ -154,6 +182,10 @@ public class PessoaEnderecoDAO extends AbstractCrudDAO<PessoaEnderecoEntity> {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.IPessoaEnderecoDAO#findByPessoaEndereco(dc.entidade.geral.pessoal.PessoaEntity)
+	 */
+	@Override
 	@Transactional
 	public List<PessoaEnderecoEntity> findByPessoaEndereco(PessoaEntity pessoa){
 

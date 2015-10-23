@@ -52,7 +52,7 @@ public class InformativoGuiaDAO extends AbstractCrudDAO<InformativoGuiaEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Número", "Bem", "Seguradora" };
 	}
 

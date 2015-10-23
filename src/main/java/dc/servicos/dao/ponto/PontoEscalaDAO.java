@@ -23,7 +23,7 @@ public class PontoEscalaDAO extends AbstractCrudDAO<PontoEscala> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 
 		return new String[] { "" };
 	}

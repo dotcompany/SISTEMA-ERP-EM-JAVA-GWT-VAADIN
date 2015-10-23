@@ -17,7 +17,7 @@ public class CorDAO extends AbstractCrudDAO<CorEntity>{
 		return CorEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"nome"};
 	} 
 	

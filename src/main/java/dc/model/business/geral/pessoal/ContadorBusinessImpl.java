@@ -115,7 +115,7 @@ public class ContadorBusinessImpl implements Serializable, ContadorBusiness<Cont
 
 		@Override
 		public List<ContadorEntity> findAll() throws Exception {
-			return dao.listaTodos();
+			return dao.getAll();
 		}
 
 		@Override

@@ -11,7 +11,7 @@ import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.EmpresaSeguimento;
 
 @Repository
-public class EmpresaSeguimentoDAO extends AbstractCrudDAO<EmpresaSeguimento> {
+public class EmpresaSeguimentoDAO extends AbstractCrudDAO<EmpresaSeguimento> implements IEmpresaSeguimentoDAO {
 
 	@Override
 	public Class<EmpresaSeguimento> getEntityClass() {
@@ -19,10 +19,14 @@ public class EmpresaSeguimentoDAO extends AbstractCrudDAO<EmpresaSeguimento> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome", "descricao" };
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.IEmpresaSeguimentoDAO#listaPorEmpresa(dc.entidade.administrativo.empresa.EmpresaEntity)
+	 */
+	@Override
 	@Transactional
 	public List<EmpresaSeguimento> listaPorEmpresa(EmpresaEntity empresa) {
 		return getSession()
@@ -30,6 +34,10 @@ public class EmpresaSeguimentoDAO extends AbstractCrudDAO<EmpresaSeguimento> {
 				.setParameter("emp", empresa).list();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.IEmpresaSeguimentoDAO#getEmpresaSeguimentoList(dc.entidade.administrativo.empresa.EmpresaEntity)
+	 */
+	@Override
 	@Transactional
 	public List<EmpresaSeguimento> getEmpresaSeguimentoList(
 			EmpresaEntity empresa) {
@@ -54,6 +62,10 @@ public class EmpresaSeguimentoDAO extends AbstractCrudDAO<EmpresaSeguimento> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.framework.geral.IEmpresaSeguimentoDAO#saveOrUpdateEmpresaSeguimentoList(java.util.List)
+	 */
+	@Override
 	@Transactional
 	public void saveOrUpdateEmpresaSeguimentoList(
 			List<EmpresaSeguimento> auxLista) {

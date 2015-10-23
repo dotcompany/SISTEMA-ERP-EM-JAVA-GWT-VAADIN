@@ -183,7 +183,7 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOsEnt
 	}
 
 	public List<OrcamentoOsEntity> getOrcamentoOsItens() {
-		return orcamentoOsDAO.listaTodos();
+		return orcamentoOsDAO.getAll();
 	}
 
 	@Override

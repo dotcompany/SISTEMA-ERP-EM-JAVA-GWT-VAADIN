@@ -103,7 +103,7 @@ public class GrupoBusinessImpl implements Serializable,
 	public List<GrupoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<GrupoEntity> auxLista = this.dao.listaTodos();
+			List<GrupoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

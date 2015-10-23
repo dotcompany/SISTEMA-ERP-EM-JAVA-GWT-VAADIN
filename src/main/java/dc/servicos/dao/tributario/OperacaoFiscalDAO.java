@@ -25,7 +25,7 @@ public class OperacaoFiscalDAO extends AbstractCrudDAO<OperacaoFiscalEntity> {
 //		return contagemEstoque;
 //	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"cfop", "descricao","descricaoNaNf","observacao"};
 	}
 	

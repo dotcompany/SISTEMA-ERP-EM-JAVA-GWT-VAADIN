@@ -14,7 +14,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 @SuppressWarnings("unchecked")
 public class LctoPagarNtFinanceiraDAO extends
-		AbstractCrudDAO<LctoPagarNtFinanceira> {
+		AbstractCrudDAO<LctoPagarNtFinanceira> implements ILctoPagarNtFinanceiroDAO {
 
 	@Override
 	public Class<LctoPagarNtFinanceira> getEntityClass() {
@@ -26,10 +26,14 @@ public class LctoPagarNtFinanceiraDAO extends
 		return getSession().createQuery("from LctoPagarNtFinanceira").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "valor","dataInclusao" };
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.ILctoPagarNtFinanceiroDAO#findByNatureza(dc.entidade.financeiro.LancamentoPagarEntity)
+	 */
+	@Override
 	@Transactional
 	public List<LctoPagarNtFinanceira> findByNatureza(LancamentoPagarEntity currentBean) {
 
@@ -47,6 +51,10 @@ public class LctoPagarNtFinanceiraDAO extends
 			return lista;
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.ILctoPagarNtFinanceiroDAO#findByNaturezaFin(dc.entidade.financeiro.LancamentoPagarEntity)
+	 */
+	@Override
 	@Transactional
 	public List<NaturezaFinanceira> findByNaturezaFin(LancamentoPagarEntity currentBean) {
 

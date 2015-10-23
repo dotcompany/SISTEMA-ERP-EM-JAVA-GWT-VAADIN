@@ -53,7 +53,7 @@ public class LancamentoOrcadoDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Ano", "Janeiro", "Fevereiro", "Março" };
 	}
 

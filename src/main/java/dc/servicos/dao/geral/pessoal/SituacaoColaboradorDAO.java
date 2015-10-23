@@ -29,7 +29,7 @@ public class SituacaoColaboradorDAO extends
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "nome", "descricao" };
 	}
 

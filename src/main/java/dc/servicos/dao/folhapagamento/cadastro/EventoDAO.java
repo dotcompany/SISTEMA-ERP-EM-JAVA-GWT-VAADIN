@@ -51,7 +51,7 @@ public class EventoDAO extends AbstractCrudDAO<EventoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Nome", "Código", "Tipo", "Unidade", "Taxa" };
 	}
 

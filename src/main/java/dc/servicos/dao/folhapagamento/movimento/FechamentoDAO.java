@@ -52,7 +52,7 @@ public class FechamentoDAO extends AbstractCrudDAO<FechamentoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Fechamento atual", "Próximo fechamento" };
 	}
 

@@ -48,7 +48,7 @@ public class PlanoCentroResultadoDAO extends AbstractCrudDAO<PlanoCentroResultad
 		return getSession().createQuery("from PlanoCentroResultado where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"nome", "mascara","niveis","dataInclusao"};
 	}
 

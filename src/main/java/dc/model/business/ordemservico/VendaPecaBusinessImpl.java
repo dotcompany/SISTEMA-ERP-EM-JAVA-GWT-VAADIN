@@ -102,7 +102,7 @@ VendaPecaBusiness<VendaPecaEntity> {
 	@Override
 	public List<VendaPecaEntity> findAll() throws Exception {
 		try {
-			List<VendaPecaEntity> auxLista = this.dao.listaTodos();
+			List<VendaPecaEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

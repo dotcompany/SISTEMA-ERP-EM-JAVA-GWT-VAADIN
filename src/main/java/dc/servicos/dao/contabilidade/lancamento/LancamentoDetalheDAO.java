@@ -53,7 +53,7 @@ public class LancamentoDetalheDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Histórico", "Valor", "Tipo" };
 	}
 

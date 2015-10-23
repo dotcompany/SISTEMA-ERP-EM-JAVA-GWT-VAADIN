@@ -17,7 +17,7 @@ public class CombustivelDAO extends AbstractCrudDAO<CombustivelEntity>{
 		return CombustivelEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"nome"};
 	} 
 	

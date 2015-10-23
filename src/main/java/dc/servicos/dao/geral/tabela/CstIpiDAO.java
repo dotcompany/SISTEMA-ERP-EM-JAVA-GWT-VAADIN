@@ -43,7 +43,7 @@ public class CstIpiDAO extends AbstractCrudDAO<CstIpiEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "descricao", "observacao" };
 	}
 

@@ -25,7 +25,7 @@ public class TalonarioChequeDAO extends AbstractCrudDAO<TalonarioCheque> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 
 		return new String[] { "contaCaixa","talao","statusTalao","numero" };
 	}

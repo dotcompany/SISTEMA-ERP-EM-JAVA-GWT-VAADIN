@@ -10,14 +10,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
+import dc.model.dao.administrativo.seguranca.IUsuarioDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 
 @Repository
-public class UsuarioDAO extends AbstractCrudDAO<UsuarioEntity>{
+public class UsuarioDAOImpl extends AbstractCrudDAO<UsuarioEntity> implements IUsuarioDAO {
 
 
-	Logger log = LoggerFactory.getLogger(UsuarioDAO.class);
+	Logger log = LoggerFactory.getLogger(UsuarioDAOImpl.class);
 	
 	@Override
 	public Class<UsuarioEntity> getEntityClass() {
@@ -32,6 +33,7 @@ public class UsuarioDAO extends AbstractCrudDAO<UsuarioEntity>{
 		
 		log.debug("Procurando Usuário: {}", login);
 		try {
+			@SuppressWarnings("unchecked")
 			List<UsuarioEntity> usuarios = s.createCriteria(UsuarioEntity.class).add(Restrictions.eq("login", login)).list();
 			log.debug("Encontrado {} usuarios", usuarios.size());
 			if(usuarios.size() > 0){
@@ -48,7 +50,7 @@ public class UsuarioDAO extends AbstractCrudDAO<UsuarioEntity>{
 	
 	
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"login"};
 	}
 

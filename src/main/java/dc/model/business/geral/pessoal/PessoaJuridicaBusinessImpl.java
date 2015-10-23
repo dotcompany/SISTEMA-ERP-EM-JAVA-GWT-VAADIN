@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.pessoal.PessoaJuridicaEntity;
-import dc.model.dao.geral.pessoal.PessoaJuridicaDAO;
+import dc.model.dao.geral.pessoal.IPessoaJuridicaDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class PessoaJuridicaBusinessImpl implements Serializable,
 			.getLogger(PessoaJuridicaBusinessImpl.class);
 
 	@Autowired
-	private PessoaJuridicaDAO<PessoaJuridicaEntity> dao;
+	private IPessoaJuridicaDAO<PessoaJuridicaEntity> dao;
 
 	/**
 	 * **********************************************

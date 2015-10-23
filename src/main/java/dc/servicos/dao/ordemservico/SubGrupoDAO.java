@@ -17,7 +17,7 @@ public class SubGrupoDAO extends AbstractCrudDAO<SubGrupoOsEntity>{
 		return SubGrupoOsEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"nome"};
 	}
 	

@@ -98,7 +98,7 @@ GrupoOsBusiness<GrupoOsEntity> {
 	public List<GrupoOsEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<GrupoOsEntity> auxLista = this.dao.listaTodos();
+			List<GrupoOsEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

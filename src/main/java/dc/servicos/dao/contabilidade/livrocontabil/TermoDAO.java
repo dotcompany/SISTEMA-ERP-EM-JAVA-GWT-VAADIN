@@ -51,7 +51,7 @@ public class TermoDAO extends AbstractCrudDAO<TermoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Abertura encerramento", "Número",
 				"Número do registro" };
 	}

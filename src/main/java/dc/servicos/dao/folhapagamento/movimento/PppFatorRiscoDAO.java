@@ -52,7 +52,7 @@ public class PppFatorRiscoDAO extends AbstractCrudDAO<PppFatorRiscoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Data do ínicio", "Data do término", "Tipo" };
 	}
 

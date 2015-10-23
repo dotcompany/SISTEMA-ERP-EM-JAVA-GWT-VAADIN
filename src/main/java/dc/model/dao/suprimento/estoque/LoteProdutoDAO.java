@@ -22,7 +22,7 @@ public class LoteProdutoDAO extends AbstractCrudDAO<LoteProdutoEntity> {
 		return getSession().createQuery("from LoteProduto").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome" };
 	}
 	

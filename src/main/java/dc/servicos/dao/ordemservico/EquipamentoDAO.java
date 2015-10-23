@@ -17,7 +17,7 @@ public class EquipamentoDAO extends AbstractCrudDAO<EquipamentoEntity>{
 		return EquipamentoEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"nome"};
 	} 
 	

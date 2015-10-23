@@ -99,7 +99,7 @@ public class CombustivelBusinessImpl implements Serializable,
 	public List<CombustivelEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<CombustivelEntity> auxLista = this.dao.listaTodos();
+			List<CombustivelEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

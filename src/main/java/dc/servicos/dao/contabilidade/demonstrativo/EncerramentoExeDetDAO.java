@@ -53,7 +53,7 @@ public class EncerramentoExeDetDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Saldo anterior", "Valor do débito",
 				"Valor do crédito", "Saldo" };
 	}

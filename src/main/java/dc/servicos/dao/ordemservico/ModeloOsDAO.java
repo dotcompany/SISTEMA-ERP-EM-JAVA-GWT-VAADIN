@@ -17,7 +17,7 @@ public class ModeloOsDAO extends AbstractCrudDAO<ModeloOsEntity> {
 			return ModeloOsEntity.class;
 		}
 
-		protected String[] getDefaultSearchFields() {
+		public String[] getDefaultSearchFields() {
 			return new String[] {"nome"};
 		}
 		

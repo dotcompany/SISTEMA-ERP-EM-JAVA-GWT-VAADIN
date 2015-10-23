@@ -98,7 +98,7 @@ public class CarroBusinessImpl implements Serializable,	CarroBusiness<CarroEntit
 	public List<CarroEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<CarroEntity> auxLista = this.dao.listaTodos();
+			List<CarroEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

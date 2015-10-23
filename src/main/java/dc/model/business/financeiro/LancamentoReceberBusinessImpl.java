@@ -81,7 +81,7 @@ public class LancamentoReceberBusinessImpl implements Serializable, LancamentoRe
 		public List<LancamentoReceber> findAll() throws Exception {
 			
 			try {
-				List<LancamentoReceber> auxLista = this.dao.listaTodos();
+				List<LancamentoReceber> auxLista = this.dao.getAll();
 
 				return auxLista;
 			} catch (Exception e) {

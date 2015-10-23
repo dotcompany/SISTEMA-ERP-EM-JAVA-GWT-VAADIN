@@ -56,7 +56,7 @@ public class IndiceValorDAO extends AbstractCrudDAO<IndiceValorEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Data do índice", "Valor" };
 	}
 

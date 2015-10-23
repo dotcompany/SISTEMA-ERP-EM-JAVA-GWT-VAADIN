@@ -16,7 +16,7 @@ public class IpiConfiguracaoTributariaDAO extends AbstractCrudDAO<IpiConfiguraca
 		return IpiConfiguracaoTributariaEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"empresa"};
 	}
 	

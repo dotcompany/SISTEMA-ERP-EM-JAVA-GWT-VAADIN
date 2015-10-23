@@ -55,7 +55,7 @@ public class FapDAO extends AbstractCrudDAO<FapEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Fap", "Data inicial", "Data término" };
 	}
 

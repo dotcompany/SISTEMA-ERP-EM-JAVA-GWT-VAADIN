@@ -210,7 +210,7 @@ public ItemOrcamento adicionarItem() {
 		BeanItemContainer<Frete> container = new BeanItemContainer<>(
 				Frete.class);
 
-		for (Frete f : freteDAO.listaTodos()) {
+		for (Frete f : freteDAO.getAll()) {
 			container.addBean(f);
 		}
 

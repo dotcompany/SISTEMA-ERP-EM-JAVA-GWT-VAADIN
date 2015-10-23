@@ -123,7 +123,7 @@ public class ProdutoBusinessImpl implements Serializable,
 	public List<ProdutoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<ProdutoEntity> auxLista = this.dao.listaTodos();
+			List<ProdutoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

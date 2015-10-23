@@ -115,7 +115,7 @@ public class ObservacaoBusinessImpl implements Serializable,
 	public List<ObservacaoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<ObservacaoEntity> auxLista = this.dao.listaTodos();
+			List<ObservacaoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

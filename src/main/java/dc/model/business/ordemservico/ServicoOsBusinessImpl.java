@@ -98,7 +98,7 @@ public class ServicoOsBusinessImpl implements Serializable,
 	public List<ServicoOsEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<ServicoOsEntity> auxLista = this.dao.listaTodos();
+			List<ServicoOsEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

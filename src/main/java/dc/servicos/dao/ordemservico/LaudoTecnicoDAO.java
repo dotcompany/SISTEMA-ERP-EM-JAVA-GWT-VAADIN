@@ -20,7 +20,7 @@ public class LaudoTecnicoDAO extends AbstractCrudDAO<LaudoTecnicoEntity>{
 		return LaudoTecnicoEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"id"};
 	}
 	

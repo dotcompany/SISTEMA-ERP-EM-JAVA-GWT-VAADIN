@@ -102,7 +102,7 @@ public class MarcaBusinessImpl implements Serializable,
 	public List<MarcaEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<MarcaEntity> auxLista = this.dao.listaTodos();
+			List<MarcaEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

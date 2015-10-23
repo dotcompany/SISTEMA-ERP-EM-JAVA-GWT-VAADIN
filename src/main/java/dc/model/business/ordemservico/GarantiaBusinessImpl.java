@@ -98,7 +98,7 @@ public class GarantiaBusinessImpl implements Serializable,
 	public List<GarantiaEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<GarantiaEntity> auxLista = this.dao.listaTodos();
+			List<GarantiaEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

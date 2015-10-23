@@ -98,7 +98,7 @@ public class OrdemServicoBusinessImpl implements Serializable,
 	public List<OrdemServicoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<OrdemServicoEntity> auxLista = this.dao.listaTodos();
+			List<OrdemServicoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

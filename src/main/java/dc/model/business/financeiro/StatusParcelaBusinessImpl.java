@@ -93,7 +93,7 @@ public class StatusParcelaBusinessImpl implements Serializable, StatusParcelaBus
 	public List<StatusParcela> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<StatusParcela> auxLista = this.dao.listaTodos();
+			List<StatusParcela> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

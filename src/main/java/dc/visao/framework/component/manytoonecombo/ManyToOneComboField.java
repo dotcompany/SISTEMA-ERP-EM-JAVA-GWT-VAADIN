@@ -1,9 +1,9 @@
 package dc.visao.framework.component.manytoonecombo;
 
-import com.vaadin.data.Property;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
-import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+
+import dc.model.dao.AbstractDAO;
 import dc.visao.framework.geral.MainController;
 
 /**
@@ -22,7 +22,7 @@ public class ManyToOneComboField<T> extends CustomField<T> {
 
     public void configuraCombo(String captionProperty,
                                Class crudListControllerClass,
-                               AbstractCrudDAO<T> crudDAO,
+                               AbstractDAO<T> crudDAO,
                                MainController mainController) {
 
         DefaultManyToOneComboModel<T> model = new DefaultManyToOneComboModel<T>(crudListControllerClass, crudDAO, mainController);

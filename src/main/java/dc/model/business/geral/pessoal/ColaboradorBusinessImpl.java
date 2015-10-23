@@ -115,7 +115,7 @@ public class ColaboradorBusinessImpl implements Serializable, ColaboradorBusines
 		public List<ColaboradorEntity> findAll() throws Exception {
 			// TODO Auto-generated method stub
 			try {
-				List<ColaboradorEntity> auxLista = this.dao.listaTodos();
+				List<ColaboradorEntity> auxLista = this.dao.getAll();
 
 				return auxLista;
 			} catch (Exception e) {

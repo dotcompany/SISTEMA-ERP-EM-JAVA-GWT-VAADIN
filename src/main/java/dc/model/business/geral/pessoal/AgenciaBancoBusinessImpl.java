@@ -83,7 +83,7 @@ private static final long serialVersionUID = 1L;
 	public List<AgenciaBancoEntity> findAll() throws Exception {
 		
 		try {
-			List<AgenciaBancoEntity> auxLista = this.dao.listaTodos();
+			List<AgenciaBancoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

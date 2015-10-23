@@ -99,7 +99,7 @@ public class OrcamentoItemOsBusinessImpl implements Serializable,
 	public List<OrcamentoOsItemEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<OrcamentoOsItemEntity> auxLista = this.dao.listaTodos();
+			List<OrcamentoOsItemEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

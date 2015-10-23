@@ -27,7 +27,7 @@ public class testeDAO extends AbstractCrudDAO<Teste>{
 		return getSession().createQuery("from Teste where nome like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"nome", "descricao"};
 	}
 

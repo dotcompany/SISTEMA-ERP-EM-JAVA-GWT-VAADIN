@@ -27,7 +27,7 @@ public class ConfiguracaoBoletoDAO extends AbstractCrudDAO<ConfiguracaoBoleto> {
 		return getSession().createQuery("from ConfiguracaoBoleto").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"contaCaixa", "instrucao01", "instrucao02", "mensagem", "localPagamento", "aceite", "layoutRemessa", "especie",
 				"carteira", "codigoConvenio", "codigoCedente", "taxaMulta"};
 	}

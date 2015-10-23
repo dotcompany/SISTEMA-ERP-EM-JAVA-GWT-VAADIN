@@ -22,7 +22,7 @@ public class FluxoCaixaDAO extends AbstractCrudDAO<FluxoCaixaEntity> {
 			return getSession().createQuery("from FluxoCaixa").list();
 		}
 
-		protected String[] getDefaultSearchFields() {
+		public String[] getDefaultSearchFields() {
 			return new String[] {"fluxoCaixaPeriodo","nome","dataInicial","dataBase","numeroPeriodos","descricao"};
 		}
 		

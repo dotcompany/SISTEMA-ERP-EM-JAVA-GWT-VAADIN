@@ -23,7 +23,7 @@ public class DocumentoDAO extends AbstractCrudDAO<Documento>{
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[]{"nome", "descricao", "palavraChave"};
 	}
 

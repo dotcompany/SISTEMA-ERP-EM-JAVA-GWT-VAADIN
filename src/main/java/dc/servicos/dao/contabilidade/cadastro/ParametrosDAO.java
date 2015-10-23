@@ -56,7 +56,7 @@ public class ParametrosDAO extends AbstractCrudDAO<ParametrosEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Máscara", "Níveis" };
 	}
 

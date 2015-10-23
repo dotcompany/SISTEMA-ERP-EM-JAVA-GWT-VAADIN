@@ -23,7 +23,7 @@ public class CidadeDAO extends AbstractCrudDAO<CidadeEntity>{
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 
 		return new String[]{"nome"};
 	}

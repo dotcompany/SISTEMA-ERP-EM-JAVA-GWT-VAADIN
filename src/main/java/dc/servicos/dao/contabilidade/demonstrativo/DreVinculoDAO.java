@@ -52,7 +52,7 @@ public class DreVinculoDAO extends AbstractCrudDAO<DreVinculoEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "DRE detalhe", "Conta" };
 	}
 

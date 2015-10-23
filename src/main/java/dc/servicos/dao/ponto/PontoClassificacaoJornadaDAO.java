@@ -27,7 +27,7 @@ public class PontoClassificacaoJornadaDAO extends AbstractCrudDAO<PontoClassific
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 
 		return new String[] { "" };
 	}

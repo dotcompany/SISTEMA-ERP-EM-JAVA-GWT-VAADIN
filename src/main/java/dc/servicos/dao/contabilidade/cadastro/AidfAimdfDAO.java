@@ -56,7 +56,7 @@ public class AidfAimdfDAO extends AbstractCrudDAO<AidfAimdfEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Número da autorização", "Formulário disponível" };
 	}
 

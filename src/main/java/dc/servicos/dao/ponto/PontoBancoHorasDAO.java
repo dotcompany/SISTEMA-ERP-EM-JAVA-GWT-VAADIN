@@ -23,7 +23,7 @@ public class PontoBancoHorasDAO extends AbstractCrudDAO<PontoBancoHoras> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 
 		return new String[] { "" };
 	}

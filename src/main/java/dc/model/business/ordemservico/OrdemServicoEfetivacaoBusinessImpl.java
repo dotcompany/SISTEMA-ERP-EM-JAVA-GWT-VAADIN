@@ -107,7 +107,7 @@ OrdemServicoEfetivacaoBusiness<OrdemServicoEfetivacaoEntity> {
 	public List<OrdemServicoEfetivacaoEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<OrdemServicoEfetivacaoEntity> auxLista = this.dao.listaTodos();
+			List<OrdemServicoEfetivacaoEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

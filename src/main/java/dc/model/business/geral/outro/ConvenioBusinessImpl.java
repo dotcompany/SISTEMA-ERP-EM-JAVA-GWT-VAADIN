@@ -98,7 +98,7 @@ public class ConvenioBusinessImpl implements Serializable,
 	public List<ConvenioEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<ConvenioEntity> auxLista = this.dao.listaTodos();
+			List<ConvenioEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

@@ -13,7 +13,7 @@ import com.vaadin.data.Container.Filter;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
-import dc.model.dao.geral.pessoal.PessoaEnderecoDAO;
+import dc.servicos.dao.geral.IPessoaEnderecoDAO;
 
 /**
  * 
@@ -34,7 +34,7 @@ public class PessoaEnderecoBusinessImpl implements Serializable,
 			.getLogger(PessoaEnderecoBusinessImpl.class);
 
 	@Autowired
-	private PessoaEnderecoDAO<PessoaEnderecoEntity> dao;
+	private IPessoaEnderecoDAO dao;
 
 	/**
 	 * **********************************************
@@ -190,7 +190,7 @@ public class PessoaEnderecoBusinessImpl implements Serializable,
 	public List<PessoaEnderecoEntity> list(PessoaEntity entity) {
 		// TODO Auto-generated method stub
 		try {
-			List<PessoaEnderecoEntity> auxLista = this.dao.list(entity);
+			List<PessoaEnderecoEntity> auxLista = this.dao.listaTodos();
 
 			return auxLista;
 		} catch (Exception e) {

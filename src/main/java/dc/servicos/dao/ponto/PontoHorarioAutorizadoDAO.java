@@ -23,7 +23,7 @@ public class PontoHorarioAutorizadoDAO extends AbstractCrudDAO<PontoHorarioAutor
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 
 		return new String[] { "" };
 	}

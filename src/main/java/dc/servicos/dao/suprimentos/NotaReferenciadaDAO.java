@@ -21,7 +21,7 @@ public class NotaReferenciadaDAO extends AbstractCrudDAO<NotaReferenciada> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		// TODO Auto-generated method stub
 		return null;
 	}

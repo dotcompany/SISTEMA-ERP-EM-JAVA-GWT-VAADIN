@@ -2,10 +2,8 @@ package dc.visao.framework.geral;
 
 import java.io.Serializable;
 import java.net.URI;
-import java.security.MessageDigest;
 
 import javax.annotation.PostConstruct;
-import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.joda.time.DateTime;
@@ -19,10 +17,8 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.server.Page;
 
 import dc.entidade.sistema.ContaEmpresa;
-import dc.framework.DcConstants;
 import dc.framework.mail.MailSender;
-import dc.servicos.dao.sistema.ContaEmpresaDAO;
-import dc.servicos.dao.sistema.UsuarioDAO;
+import dc.servicos.dao.sistema.IContaEmpresaDAO;
 
 @Component
 @Scope("prototype")
@@ -33,7 +29,7 @@ public class EsqueciMinhaSenhaController implements Serializable, ViewController
 	EsqueciMinhaSenhaView view;
 	
 	@Autowired
-	private transient ContaEmpresaDAO dao;
+	private transient IContaEmpresaDAO dao;
 	
 	public static Logger logger = Logger.getLogger(EsqueciMinhaSenhaController.class);
 	

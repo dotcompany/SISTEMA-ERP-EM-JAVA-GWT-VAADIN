@@ -53,7 +53,7 @@ public class PlanoContaRefSpedDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Descrição", "Orientações", "Início da validade",
 				"Término da validade" };
 	}

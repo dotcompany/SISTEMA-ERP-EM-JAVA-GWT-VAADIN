@@ -114,7 +114,7 @@ public class LoteProdutoBusinessImpl implements Serializable, LoteProdutoBusines
 
 			@Override
 			public List<LoteProdutoEntity> findAll() throws Exception {
-				return dao.listaTodos();
+				return dao.getAll();
 			}
 
 			@Override

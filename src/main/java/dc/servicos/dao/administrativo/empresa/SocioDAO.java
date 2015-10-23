@@ -14,7 +14,7 @@ public class SocioDAO extends AbstractCrudDAO<SocioEntity> {
 		return SocioEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"quadroSocietario", "nome", "cpf", "logradouro", "complemento"};
 	}
 	

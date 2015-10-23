@@ -28,7 +28,7 @@ public class EfdTabela4313DAO extends AbstractCrudDAO<EfdTabela4313Entity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "descricao", "observacao",
 				"inicioVigencia", "fimVigencia" };
 	}

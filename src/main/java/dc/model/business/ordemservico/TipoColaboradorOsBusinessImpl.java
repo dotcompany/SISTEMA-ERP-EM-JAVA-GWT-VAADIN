@@ -98,7 +98,7 @@ public class TipoColaboradorOsBusinessImpl implements Serializable,
 	public List<TipoColaboradorOsEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<TipoColaboradorOsEntity> auxLista = this.dao.listaTodos();
+			List<TipoColaboradorOsEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

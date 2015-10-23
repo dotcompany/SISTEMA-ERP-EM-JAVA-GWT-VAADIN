@@ -53,7 +53,7 @@ public class LancamentoProgramadoCabDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Data de inclusão", "Tipo", "Liberado" };
 	}
 

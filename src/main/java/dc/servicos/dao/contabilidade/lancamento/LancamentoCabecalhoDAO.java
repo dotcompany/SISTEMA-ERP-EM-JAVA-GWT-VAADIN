@@ -53,7 +53,7 @@ public class LancamentoCabecalhoDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Data do lançamento", "Data da inclusão", "Liberado", "Valor" };
 	}
 

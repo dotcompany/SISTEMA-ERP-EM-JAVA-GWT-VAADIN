@@ -30,7 +30,7 @@ public class EfdTabela435DAO extends AbstractCrudDAO<EfdTabela435Entity> {
 		return cod;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "codigo", "descricao" };
 	}
 

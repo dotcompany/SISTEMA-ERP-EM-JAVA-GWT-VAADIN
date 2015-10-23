@@ -12,7 +12,7 @@ import dc.entidade.sistema.ContaEmpresa;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa> {
+public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa> implements IContaEmpresaDAO {
 
 	@Override
 	public Class<ContaEmpresa> getEntityClass() {
@@ -21,11 +21,15 @@ public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.sistema.IContaEmpresaDAO#findConfiguracaoByIdConta(java.lang.Integer)
+	 */
+	@Override
 	@Transactional
 	public ConfiguracaoContaEmpresa findConfiguracaoByIdConta(Integer contaId) {
 		Criteria criteria = getSession().createCriteria(
@@ -35,12 +39,20 @@ public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa> {
 		return (ConfiguracaoContaEmpresa) criteria.uniqueResult();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.sistema.IContaEmpresaDAO#findByEmail(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public ContaEmpresa findByEmail(String email) {
 		return (ContaEmpresa) getSession().createCriteria(ContaEmpresa.class)
 				.add(Restrictions.eq("email", email)).uniqueResult();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.sistema.IContaEmpresaDAO#findConfiguracaoByIdContaWithModules(java.lang.Integer)
+	 */
+	@Override
 	@Transactional
 	public ConfiguracaoContaEmpresa findConfiguracaoByIdContaWithModules(
 			Integer contaId) {
@@ -57,6 +69,9 @@ public class ContaEmpresaDAO extends AbstractCrudDAO<ContaEmpresa> {
 		return (ConfiguracaoContaEmpresa) criteria.uniqueResult();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.sistema.IContaEmpresaDAO#save(dc.entidade.sistema.ContaEmpresa)
+	 */
 	@Override
 	@Transactional
 	public void save(ContaEmpresa currentBean) {

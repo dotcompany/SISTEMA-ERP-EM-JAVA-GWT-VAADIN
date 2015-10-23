@@ -28,7 +28,7 @@ public class SalarioMinimoDAO extends AbstractCrudDAO<SalarioMinimoEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "vigencia", "valorMensal", "valorDiario",
 				"valorHora" };
 	}

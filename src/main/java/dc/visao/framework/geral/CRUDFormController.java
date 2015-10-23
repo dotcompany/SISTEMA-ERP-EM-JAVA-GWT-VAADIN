@@ -1,33 +1,43 @@
 package dc.visao.framework.geral;
 
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.data.fieldgroup.BeanFieldGroup;
-import com.vaadin.navigator.View;
-import com.vaadin.server.Page;
-import com.vaadin.server.UserError;
-import com.vaadin.ui.*;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
-import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.entidade.framework.AbstractModel;
-import dc.entidade.relatorio.Relatorio;
-import dc.entidade.relatorio.TipoRelatorio;
-import dc.framework.DcConstants;
-import dc.servicos.dao.framework.geral.FmMenuDAO;
-import dc.servicos.dao.relatorio.RelatorioDAO;
-import dc.visao.framework.DCFieldGroup;
-import dc.visao.spring.SecuritySessionProvider;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.vaadin.dialogs.ConfirmDialog;
-
-import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.vaadin.dialogs.ConfirmDialog;
+
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.navigator.View;
+import com.vaadin.server.Page;
+import com.vaadin.server.UserError;
+import com.vaadin.ui.AbstractComponent;
+import com.vaadin.ui.AbstractField;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.HasComponents;
+import com.vaadin.ui.Layout;
+import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextField;
+
+import dc.entidade.administrativo.empresa.EmpresaEntity;
+import dc.entidade.framework.AbstractModel;
+import dc.entidade.relatorio.Relatorio;
+import dc.entidade.relatorio.TipoRelatorio;
+import dc.framework.DcConstants;
+import dc.servicos.dao.framework.geral.IFmMenuDAO;
+import dc.servicos.dao.relatorio.IRelatorioDAO;
+import dc.visao.framework.DCFieldGroup;
+import dc.visao.spring.SecuritySessionProvider;
 
 /**
  * @author Wesley Jr /* Nessa classe temos a configuração da Tela, todos os
@@ -56,20 +66,14 @@ public abstract class CRUDFormController<E extends AbstractModel> extends
 
     private boolean novo;
 
-    private boolean active;
-
-
-
-    private String id;
-
     private boolean newAttemptOpen;
     private boolean changed = false;
     private ChangeListener changeListener = new ChangeListener();
 
     @Autowired
-    private RelatorioDAO relatorioDAO;
+    private IRelatorioDAO relatorioDAO;
     @Autowired
-    private FmMenuDAO fmMenuDAO;
+    private IFmMenuDAO fmMenuDAO;
 
     @Autowired(required = true)
     private transient ApplicationContext applicationContext;

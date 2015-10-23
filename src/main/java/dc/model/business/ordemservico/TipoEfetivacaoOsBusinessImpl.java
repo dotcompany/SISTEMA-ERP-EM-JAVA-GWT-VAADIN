@@ -98,7 +98,7 @@ TipoEfetivacaoOsBusiness<TipoEfetivacaoOsEntity> {
 	public List<TipoEfetivacaoOsEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<TipoEfetivacaoOsEntity> auxLista = this.dao.listaTodos();
+			List<TipoEfetivacaoOsEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

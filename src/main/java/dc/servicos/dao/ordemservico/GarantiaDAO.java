@@ -19,7 +19,7 @@ public class GarantiaDAO extends AbstractCrudDAO<GarantiaEntity>{
 		return GarantiaEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"id"};
 	}
 	

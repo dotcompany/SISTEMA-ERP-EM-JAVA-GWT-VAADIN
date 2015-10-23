@@ -23,7 +23,7 @@ public class PontoAbonoDAO extends AbstractCrudDAO<PontoAbono> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 
 		return new String[] { "" };
 	}

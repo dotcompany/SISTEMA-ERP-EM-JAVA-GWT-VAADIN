@@ -6,14 +6,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import dc.servicos.dao.sistema.UsuarioDAO;
+import dc.model.dao.administrativo.seguranca.IUsuarioDAO;
 
 @Service("dcUserDetailsService")
 public class DcUserDetailsService implements UserDetailsService{
 
 	
 	@Autowired
-	UsuarioDAO usuarioDao;
+	private IUsuarioDAO usuarioDao;
 
 	@Override
 	public UserDetails loadUserByUsername(String login)

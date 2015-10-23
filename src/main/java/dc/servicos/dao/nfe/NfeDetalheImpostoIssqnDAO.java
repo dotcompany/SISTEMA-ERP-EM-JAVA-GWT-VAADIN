@@ -100,7 +100,7 @@ public class NfeDetalheImpostoIssqnDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Base do cálculo do ISSQN" };
 	}
 

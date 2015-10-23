@@ -12,7 +12,7 @@ import dc.entidade.framework.PapelMenu;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class PapelDAO extends AbstractCrudDAO<PapelEntity> {
+public class PapelDAO extends AbstractCrudDAO<PapelEntity> implements IPapelDAO{
 
 	public static Logger logger = Logger.getLogger(PapelDAO.class);
 
@@ -21,10 +21,14 @@ public class PapelDAO extends AbstractCrudDAO<PapelEntity> {
 		return PapelEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome" };
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.sistema.IPapelDAO#getPapelMenuByPapelAndMenuID(java.lang.Integer, java.lang.Integer)
+	 */
+	@Override
 	@Transactional
 	public dc.entidade.framework.PapelMenu getPapelMenuByPapelAndMenuID(
 			Integer idPapel, Integer idMenu) {
@@ -38,6 +42,10 @@ public class PapelDAO extends AbstractCrudDAO<PapelEntity> {
 				.uniqueResult();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.sistema.IPapelDAO#getPapelMenuByPapelAndMenuControllerClass(java.lang.Integer, java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public dc.entidade.framework.PapelMenu getPapelMenuByPapelAndMenuControllerClass(
 			Integer idPapel, String controllerClass) {
@@ -51,6 +59,10 @@ public class PapelDAO extends AbstractCrudDAO<PapelEntity> {
 				.setString("controllerClass", controllerClass).uniqueResult();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.sistema.IPapelDAO#getPapelMenusOrdered(dc.entidade.administrativo.seguranca.PapelEntity)
+	 */
+	@Override
 	@Transactional
 	public List<PapelMenu> getPapelMenusOrdered(PapelEntity p) {
 		String hQ = "select pm from PapelMenu as pm "

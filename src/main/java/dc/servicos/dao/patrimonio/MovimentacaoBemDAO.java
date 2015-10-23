@@ -47,7 +47,7 @@ public class MovimentacaoBemDAO extends AbstractCrudDAO<MovimentacaoBemEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Tipo", "Nome", "Descrição" };
 	}
 

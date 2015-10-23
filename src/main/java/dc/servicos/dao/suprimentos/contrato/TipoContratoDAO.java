@@ -14,7 +14,7 @@ public class TipoContratoDAO extends AbstractCrudDAO<TipoContratoEntity> {
 	}
 
 	@Override
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "nome", "descricao" };
 	}
 

@@ -22,7 +22,7 @@ public class ContagemEstoqueDAO extends
 	// return contagemEstoque;
 	// }
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "data" };
 	}
 

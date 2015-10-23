@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.eventos.ContratoEventosEntity;
-import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
@@ -30,7 +29,7 @@ public class ContratoEventosDAO extends AbstractCrudDAO<ContratoEventosEntity> {
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "unidade", "curso", "dataContrato", "dataPrimeiroEvento" };
 	}
 	

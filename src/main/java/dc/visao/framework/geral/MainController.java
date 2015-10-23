@@ -28,7 +28,7 @@ import dc.framework.MenuBuilder;
 import dc.framework.ModuleLoader;
 import dc.framework.ModuleView;
 import dc.framework.RoutesBuilder;
-import dc.servicos.dao.sistema.PapelDAO;
+import dc.servicos.dao.sistema.IPapelDAO;
 import dc.visao.framework.geral.fake.DashboardView;
 import dc.visao.framework.geral.fake.TransactionsView;
 import dc.visao.spring.SecuritySessionProvider;
@@ -72,7 +72,7 @@ public class MainController implements ViewDisplay,Serializable {
 	private List<FmModulo> modules = new ArrayList<FmModulo>();
 	
 	@Autowired
-	private PapelDAO papelDAO;
+	private IPapelDAO papelDAO;
 
 	@PostConstruct
 	protected void init() {
@@ -268,7 +268,7 @@ public class MainController implements ViewDisplay,Serializable {
 		navigator.navigateTo(p);
 	}
 
-	public PapelDAO getDaoPapel() {
+	public IPapelDAO getDaoPapel() {
 		return papelDAO;
 	}
 	

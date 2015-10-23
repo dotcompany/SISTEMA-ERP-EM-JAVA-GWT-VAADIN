@@ -53,12 +53,6 @@ MaterialServicoDAO<MaterialServicoEntity> {
 		return new String[] { "descricao" };
 	}
 
-	@Override
-	public List<MaterialServicoEntity> procuraNomeContendo(String query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public List<MaterialServicoEntity> findByOrdemServico(OrdemServicoEntity ordemServico) {
 		try {
 			String sql = "SELECT ent FROM MaterialServicoEntity ent INNER JOIN FETCH ent.ordemServico os LEFT JOIN FETCH ent.tecnico te "+

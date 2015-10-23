@@ -19,7 +19,7 @@ public class VendaPecaDAO extends AbstractCrudDAO<VendaPecaEntity>{
 		return VendaPecaEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"id"};
 	}
 	

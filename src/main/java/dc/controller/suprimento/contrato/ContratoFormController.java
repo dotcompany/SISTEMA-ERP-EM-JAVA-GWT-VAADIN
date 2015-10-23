@@ -62,7 +62,7 @@ import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.model.business.ged.DocumentoBusiness;
 import dc.model.business.ged.DocumentoBusinessImpl;
 import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
-import dc.servicos.dao.geral.PessoaEnderecoDAO;
+import dc.servicos.dao.geral.IPessoaEnderecoDAO;
 import dc.servicos.dao.geral.UfDAO;
 import dc.servicos.dao.geral.ged.DocumentoDAO;
 import dc.servicos.dao.geral.pessoal.PessoaDAO;
@@ -123,7 +123,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	private EmpresaDAO empresaDAO;
 
 	@Autowired
-	private PessoaEnderecoDAO pessoaEnderecoDAO;
+	private IPessoaEnderecoDAO pessoaEnderecoDAO;
 
 	private ContratoEntity currentBean;
 
@@ -884,7 +884,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	}
 
 	public List<ProdutoEntity> getProdutos() {
-		return produtoDAO.listaTodos();
+		return produtoDAO.getAll();
 	}
 
 	@Override

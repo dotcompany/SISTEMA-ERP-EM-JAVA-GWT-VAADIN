@@ -27,9 +27,9 @@ import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.financeiro.TipoPagamento;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.servicos.dao.financeiro.IStatusParcelaDAO;
 import dc.servicos.dao.financeiro.ParcelaPagamentoDAO;
 import dc.servicos.dao.financeiro.ParcelaPagarDAO;
-import dc.servicos.dao.financeiro.StatusParcelaDAO;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.visao.financeiro.ParcelaPagamentoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -51,7 +51,7 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	@Autowired
 	private ParcelaPagamentoDAO parcelaPagamentoDAO;
 	@Autowired
-	private StatusParcelaDAO statusParcelaDAO;
+	private IStatusParcelaDAO statusParcelaDAO;
 	@Autowired
 	private TipoPagamentoDAO tipoPagamentoDAO;
 	@Autowired

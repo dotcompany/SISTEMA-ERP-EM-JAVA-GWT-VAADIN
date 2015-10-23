@@ -102,7 +102,7 @@ public class IcmsCustomizadoBusinessImpl implements Serializable,
 		// TODO Auto-generated method stub
 		try {
 			List<IcmsCustomizadoCabecalhoEntity> auxLista = this.dao
-					.listaTodos();
+					.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

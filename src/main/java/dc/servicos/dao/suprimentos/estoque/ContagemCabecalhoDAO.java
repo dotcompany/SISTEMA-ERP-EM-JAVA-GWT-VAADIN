@@ -55,7 +55,7 @@ public class ContagemCabecalhoDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "estoque_atualizado" };
 	}
 

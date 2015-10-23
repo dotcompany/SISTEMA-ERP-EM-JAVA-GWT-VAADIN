@@ -101,7 +101,7 @@ public class NcmBusinessImpl implements Serializable, NcmBusiness<NcmEntity> {
 	public List<NcmEntity> findAll() throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			List<NcmEntity> auxLista = this.dao.listaTodos();
+			List<NcmEntity> auxLista = this.dao.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

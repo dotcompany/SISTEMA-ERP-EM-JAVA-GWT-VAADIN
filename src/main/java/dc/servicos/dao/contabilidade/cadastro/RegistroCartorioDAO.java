@@ -57,7 +57,7 @@ public class RegistroCartorioDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Nome do cartório", "Data de registro", "Nire" };
 	}
 

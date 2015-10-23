@@ -53,7 +53,7 @@ public class BalancoPatrimonialDAO extends
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Competência" };
 	}
 

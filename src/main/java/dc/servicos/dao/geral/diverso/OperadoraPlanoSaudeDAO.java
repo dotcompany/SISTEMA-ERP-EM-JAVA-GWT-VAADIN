@@ -35,7 +35,7 @@ public class OperadoraPlanoSaudeDAO extends	AbstractCrudDAO<OperadoraPlanoSaudeE
 				.setParameter("q", "%" + query + "%").list();
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "registroAns", "nome" };
 	}
 

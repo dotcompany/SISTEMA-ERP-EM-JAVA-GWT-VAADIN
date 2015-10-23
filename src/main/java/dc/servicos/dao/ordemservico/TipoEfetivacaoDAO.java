@@ -19,7 +19,7 @@ public class TipoEfetivacaoDAO extends AbstractCrudDAO<TipoEfetivacaoEntity>{
 		return TipoEfetivacaoEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"descricao"};
 	} 
 	

@@ -40,7 +40,7 @@ public class ChequeDAO extends AbstractCrudDAO<Cheque>{
 		return getSession().createQuery("from Cheque where statusCheque like :q").setParameter("q", "%" + query + "%").list();
 	}
 	
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"idTalonarioCheque","statusCheque", "numero", "dataStatus"};
 	}
 

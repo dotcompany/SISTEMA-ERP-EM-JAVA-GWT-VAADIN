@@ -21,7 +21,7 @@ public class ObservacaoDAO extends AbstractCrudDAO<ObservacaoEntity>{
 		return ObservacaoEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"ordemServico.id"};
 	} 
 	

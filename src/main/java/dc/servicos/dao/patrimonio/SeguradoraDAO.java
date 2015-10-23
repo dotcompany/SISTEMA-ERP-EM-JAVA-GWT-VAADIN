@@ -54,7 +54,7 @@ public class SeguradoraDAO extends AbstractCrudDAO<SeguradoraEntity> {
 		}
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] { "Tipo", "Nome", "Descrição" };
 	}
 

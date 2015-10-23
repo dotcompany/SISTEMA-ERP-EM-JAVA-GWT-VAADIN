@@ -19,7 +19,7 @@ public class EntradaServicoDAO extends AbstractCrudDAO<EntradaServicoEntity>{
 		return EntradaServicoEntity.class;
 	}
 
-	protected String[] getDefaultSearchFields() {
+	public String[] getDefaultSearchFields() {
 		return new String[] {"id"};
 	}
 	
