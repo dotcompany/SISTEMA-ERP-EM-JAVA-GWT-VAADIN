@@ -96,10 +96,11 @@
                 
                 <!--  LUCENE_INDEXES2 PARA TESTE -->
 
-                <prop key="hibernate.search.default.indexBase">c:/teste/lucene_indexes2</prop>
+                <prop key="hibernate.search.default.indexBase">c:/lucene/indexes2</prop>
 
                 <!--  <prop key="hibernate.search.default.indexBase">c:/lucene_indexes2</prop> -->
                 <prop key="hibernate.search.default.directory_provider">filesystem</prop> 
+                <prop key="hibernate.search.lucene_version">LUCENE_4_3</prop>
                 <prop key="lucene.indexer.cacheEnabled">true</prop>
                 <prop key="lucene.indexer.maxLinkAspectCacheSize">10000</prop>
                 <prop key="lucene.indexer.maxParentCacheSize">10000</prop>
