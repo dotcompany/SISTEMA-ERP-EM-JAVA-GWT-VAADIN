@@ -47,8 +47,8 @@ public class OperadoraPlanoSaudeBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(OperadoraPlanoSaudeEntity t) throws Exception {
-		// TODO Auto-generated method stub
 
+		dao.delete(t);
 	}
 
 	@Transactional(readOnly = false)

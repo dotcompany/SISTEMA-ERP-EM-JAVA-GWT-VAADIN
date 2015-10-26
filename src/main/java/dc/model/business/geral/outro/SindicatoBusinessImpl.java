@@ -47,7 +47,9 @@ public class SindicatoBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(SindicatoEntity t) throws Exception {
-		// TODO Auto-generated method stub
+		
+		
+		dao.delete(t);
 
 	}
 

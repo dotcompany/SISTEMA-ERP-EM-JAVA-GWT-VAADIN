@@ -46,7 +46,9 @@ public class SetorBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(SetorEntity t) throws Exception {
-		// TODO Auto-generated method stub
+		
+		
+		dao.delete(t);
 
 	}
 

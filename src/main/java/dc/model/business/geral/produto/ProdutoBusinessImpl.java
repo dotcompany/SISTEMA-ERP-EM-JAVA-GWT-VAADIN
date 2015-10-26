@@ -150,7 +150,7 @@ public class ProdutoBusinessImpl implements Serializable,
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProdutoEntity> fullTextSearch(String valor) {
+	public List<ProdutoEntity> fullTextSearch(String valor) throws Exception {
 		
 		/*QueryBuilder builder =  fullTextEntityManager
 				.getSearchFactory()

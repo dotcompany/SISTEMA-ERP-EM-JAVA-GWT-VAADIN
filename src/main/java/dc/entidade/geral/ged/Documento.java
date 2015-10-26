@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,12 +23,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.suprimentos.contrato.ContratoEntity;
 
 @Entity
 @Table(name = "GED_DOCUMENTO")
@@ -102,6 +106,10 @@ public class Documento extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_DOCUMENTO")
 	@Cascade({ CascadeType.ALL })
 	private List<DocumentoArquivo> documentos;
+	
+	@OneToMany(mappedBy = "documento", orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ContratoEntity> contratoList = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -189,6 +197,14 @@ public class Documento extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setDocumentos(List<DocumentoArquivo> documentos) {
 		this.documentos = documentos;
+	}
+	
+	public List<ContratoEntity> getContratoList() {
+		return contratoList;
+	}
+
+	public void setContratoList(List<ContratoEntity> contratoList) {
+		this.contratoList = contratoList;
 	}
 
 	@Override

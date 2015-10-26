@@ -60,7 +60,7 @@ public class ConvenioListController extends CRUDListController<ConvenioEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

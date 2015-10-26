@@ -59,7 +59,7 @@ public class SetorListController extends CRUDListController<SetorEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

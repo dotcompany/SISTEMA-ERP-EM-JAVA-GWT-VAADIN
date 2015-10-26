@@ -207,13 +207,18 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		try {
+			for (Serializable id : ids) {
+				OperadoraCartaoEntity operadoraCartao = (OperadoraCartaoEntity) id;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
+				try {
+					business.delete(operadoraCartao);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 	}
 
 }

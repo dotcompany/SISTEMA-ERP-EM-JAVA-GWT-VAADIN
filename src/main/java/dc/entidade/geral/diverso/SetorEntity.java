@@ -51,7 +51,7 @@ public class SetorEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "setor_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "setor_id_seq")
 	@SequenceGenerator(name = "setor_id_seq", sequenceName = "setor_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

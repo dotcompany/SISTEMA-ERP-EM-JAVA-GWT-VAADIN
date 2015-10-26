@@ -1,9 +1,11 @@
 package dc.entidade.geral.diverso;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +21,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -44,7 +48,7 @@ public class OperadoraPlanoSaudeEntity extends
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "operadora_plano_saude_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "operadora_plano_saude_id_seq")
 	@SequenceGenerator(name = "operadora_plano_saude_id_seq", sequenceName = "operadora_plano_saude_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -91,8 +95,9 @@ public class OperadoraPlanoSaudeEntity extends
 	 * @module FOLHAPAGAMENTO
 	 */
 
-	@OneToMany(mappedBy = "operadoraPlanoSaude", fetch = FetchType.LAZY)
-	private List<PlanoSaudeEntity> planoSaudeList;
+	@OneToMany(mappedBy = "operadoraPlanoSaude", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<PlanoSaudeEntity> planoSaudeList = new ArrayList<PlanoSaudeEntity>();
 
 	/**
 	 * ********************************************************

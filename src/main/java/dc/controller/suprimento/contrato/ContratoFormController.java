@@ -165,6 +165,13 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			adicionarErroDeValidacao(subView.getCbmPessoa(), "Não pode ficar em branco");
 			valido = false;
 		}
+		
+		SolicitacaoServicoEntity solicitacao = (SolicitacaoServicoEntity) subView.getCmbSolicitacaoServico().getValue();
+
+		if (!Validator.validateObject(solicitacao)) {
+			adicionarErroDeValidacao(subView.getCmbSolicitacaoServico(), "Não pode ficar em branco");
+			valido = false;
+		}
 
 		TipoContratoEntity tipoContrato = (TipoContratoEntity) subView.getCbmTipoContrato().getValue();
 		if (!Validator.validateObject(tipoContrato)) {
@@ -208,7 +215,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxaDescricao().getValue())) {
+		/*if (!Validator.validateString(subView.getTxaDescricao().getValue())) {
 			adicionarErroDeValidacao(subView.getTxaDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
@@ -216,7 +223,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		if (!Validator.validateString(subView.getTxaObservacoes().getValue())) {
 			adicionarErroDeValidacao(subView.getTxaObservacoes(), "Não pode ficar em branco");
 			valido = false;
-		}
+		}*/
 
 		/*
 		 * if (!Validator.validateString(subView.getTxaTemplate().getValue())) {

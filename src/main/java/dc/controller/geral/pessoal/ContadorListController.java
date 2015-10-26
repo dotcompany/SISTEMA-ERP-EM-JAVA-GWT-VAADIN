@@ -66,7 +66,7 @@ public class ContadorListController extends CRUDListController<ContadorEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

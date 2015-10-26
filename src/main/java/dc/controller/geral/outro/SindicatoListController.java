@@ -61,7 +61,7 @@ public class SindicatoListController extends
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

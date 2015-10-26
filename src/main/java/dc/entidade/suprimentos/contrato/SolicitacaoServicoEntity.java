@@ -1,15 +1,20 @@
 package dc.entidade.suprimentos.contrato;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,6 +22,8 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -109,6 +116,10 @@ public class SolicitacaoServicoEntity extends
 	@JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")
 	@ManyToOne
 	private FornecedorEntity fornecedor;
+	
+	@OneToMany(mappedBy = "contratoSolicitacaoServico", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ContratoEntity> contratoList = new ArrayList<>();
 
 	public SolicitacaoServicoEntity() {
 
@@ -200,6 +211,14 @@ public class SolicitacaoServicoEntity extends
 
 	public void setFornecedor(FornecedorEntity fornecedor) {
 		this.fornecedor = fornecedor;
+	}
+	
+	public List<ContratoEntity> getContratoList() {
+		return contratoList;
+	}
+
+	public void setContratoList(List<ContratoEntity> contratoList) {
+		this.contratoList = contratoList;
 	}
 
 	/**

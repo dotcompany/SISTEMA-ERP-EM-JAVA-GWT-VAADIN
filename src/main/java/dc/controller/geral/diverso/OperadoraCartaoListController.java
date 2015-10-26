@@ -61,7 +61,7 @@ public class OperadoraCartaoListController extends
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

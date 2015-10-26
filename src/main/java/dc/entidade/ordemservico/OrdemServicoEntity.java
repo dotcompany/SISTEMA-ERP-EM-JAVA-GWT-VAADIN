@@ -54,7 +54,7 @@ public class OrdemServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 	private Integer id;
 
 	@Caption(value = "Cliente")
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
 	private ClienteEntity cliente;
 
@@ -203,23 +203,23 @@ public class OrdemServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "os_efetivada")
 	private Boolean efetivada;
 	
-	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<EntradaServicoEntity> itensEntradaServico = new ArrayList<EntradaServicoEntity>();
 	
-	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<VendaPecaEntity> itensVendaPeca = new ArrayList<VendaPecaEntity>();
 
-	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<MaterialServicoEntity> itensMaterialServico = new ArrayList<MaterialServicoEntity>();
 	
-	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<AcessorioOsEntity> itensAcessorioOs = new ArrayList<AcessorioOsEntity>();
 
-	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<OrdemServicoEfetivacaoEntity> itensOrdemServicoEfetivacao = new ArrayList<OrdemServicoEfetivacaoEntity>();
 

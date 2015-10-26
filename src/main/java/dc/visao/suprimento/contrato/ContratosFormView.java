@@ -534,7 +534,7 @@ public class ContratosFormView extends CustomComponent {
 		// gridLayout_2.addComponent(dtPrimeiroVencimento, 4, 0);
 
 		// txtValor
-		txtValor = ComponentUtil.buildCurrencyField("Valor");
+		txtValor = ComponentUtil.buildCurrencysField("Valor");
 		txtValor.setRequired(true);
 		gridLayout_2.addComponent(txtValor, 0, 1);
 
@@ -563,7 +563,7 @@ public class ContratosFormView extends CustomComponent {
 		txaObservacoes = ComponentUtil.buildTextArea("Observações");
 		gridLayout_2.addComponent(txaObservacoes, 1, 2);
 
-		txtValorTarifa = ComponentUtil.buildCurrencyField("Valor tarifa de transportes");
+		txtValorTarifa = ComponentUtil.buildCurrencysField("Valor tarifa de transportes");
 		gridLayout_2.addComponent(txtValorTarifa, 2, 2);
 
 		return gridLayout_2;
@@ -644,7 +644,7 @@ public class ContratosFormView extends CustomComponent {
 							 * textField.setConverter(new
 							 * StringToBigDecimalConverter());
 							 */
-							return ComponentUtil.buildCurrencyField(null);
+							return ComponentUtil.buildCurrencysField(null);
 						} else if ("valorAtual".equals(propertyId)) {
 							/*
 							 * TextField textField = new TextField();
@@ -652,7 +652,7 @@ public class ContratosFormView extends CustomComponent {
 							 * textField.setConverter(new
 							 * StringToBigDecimalConverter());
 							 */
-							return ComponentUtil.buildCurrencyField(null);
+							return ComponentUtil.buildCurrencysField(null);
 						} else if ("observacao".equals(propertyId)) {
 							/*
 							 * TextField textField = new TextField();
@@ -892,7 +892,7 @@ public class ContratosFormView extends CustomComponent {
 							 * textField.setConverter(new
 							 * StringToBigDecimalConverter());
 							 */
-							return ComponentUtil.buildCurrencyField(null);
+							return ComponentUtil.buildCurrencysField(null);
 						} else {
 							return ComponentUtil.buildTextField(null);
 						}

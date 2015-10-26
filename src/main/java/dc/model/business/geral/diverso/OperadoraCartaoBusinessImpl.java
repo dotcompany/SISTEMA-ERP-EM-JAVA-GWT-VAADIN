@@ -47,7 +47,8 @@ public class OperadoraCartaoBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(OperadoraCartaoEntity t) throws Exception {
-		// TODO Auto-generated method stub
+		
+		dao.delete(t);
 
 	}
 

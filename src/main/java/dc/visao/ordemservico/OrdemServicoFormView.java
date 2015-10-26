@@ -249,12 +249,12 @@ public class OrdemServicoFormView extends CustomComponent {
 	
 	public OrdemServicoFormView(OrdemServicoFormController controller) {
 		this.controller = controller;
-//		if(SecuritySessionProvider.getUsuario().getConta().getEmpresa()!=null){
-//			this.parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
-//		}
+		/*if(SecuritySessionProvider.getUsuario().getConta().getEmpresa()!=null){
+			this.parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+		}*/
 
-		this.parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
-		this.parametroOs = this.controller.getParametroOs();
+		//this.parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+	    this.parametroOs = this.controller.getParametroOs();
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 	}

@@ -101,6 +101,7 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(mappedBy="uf",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<AgenciaBancoEntity> agenciaBancoList = new ArrayList<AgenciaBancoEntity>();
+	
 
 	/**
 	 * TRANSIENT
@@ -190,7 +191,7 @@ public class UfEntity extends AbstractMultiEmpresaModel<Integer> implements
 	public void setAgenciaBancoList(List<AgenciaBancoEntity> agenciaBancoList) {
 		this.agenciaBancoList = agenciaBancoList;
 	}
-
+	
 	@Override
     public boolean equals(Object obj) {
         if (this == obj) {

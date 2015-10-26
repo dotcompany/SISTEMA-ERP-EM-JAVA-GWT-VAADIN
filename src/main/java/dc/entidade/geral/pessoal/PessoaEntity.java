@@ -34,6 +34,7 @@ import dc.control.enums.TipoPessoaEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.outro.ConvenioEntity;
 
 @Entity
 @Table(name = "pessoa")
@@ -150,6 +151,10 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<PessoaEnderecoEntity> pessoaEnderecoList = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ConvenioEntity> convenioList = new ArrayList<>();
 
 	// @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
 	// private List<ClienteEntity> clienteList;
@@ -358,13 +363,19 @@ public class PessoaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	// this.clienteList = clienteList;
 	// }
 
-	
-
 	@Override
 	public String toString() {
 		return nome;
 	}
 	
+	public List<ConvenioEntity> getConvenioList() {
+		return convenioList;
+	}
+
+	public void setConvenioList(List<ConvenioEntity> convenioList) {
+		this.convenioList = convenioList;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 	    if (this == obj) {

@@ -114,6 +114,7 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption("Gera financeiro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	
 	private SimNaoEn gerarFinanceiro;
 
 	@Enumerated(EnumType.STRING)

@@ -59,7 +59,7 @@ public class CepListController extends CRUDListController<CepEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

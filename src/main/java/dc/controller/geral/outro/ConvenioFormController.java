@@ -194,13 +194,18 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		try {
+			for (Serializable id : ids) {
+				ConvenioEntity convenio = (ConvenioEntity) id;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
+				try {
+					business.delete(convenio);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 	}
 
 	/**
