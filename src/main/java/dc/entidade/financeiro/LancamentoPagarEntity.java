@@ -86,8 +86,7 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 
 	@Field
 	@Column(name = "VALOR_A_PAGAR", precision = 18, scale = 6)
-	@Caption(
-			"Valor à Pagar")
+	@Caption("Valor à Pagar")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	@NumberFormat(style=Style.CURRENCY)
@@ -114,14 +113,14 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@ManyToOne(optional = false)
 	@Caption("Documento Origem")
 	@NotNull(message = "Documento Origem é Obrigatório")
-	@IndexedEmbedded(includePaths={"descricao"})
+	//@IndexedEmbedded(includePaths={"descricao"})
 	private DocumentoOrigem documentoOrigem;
 
 	@JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption("Fornecedor")
 	@NotNull(message = "Fornecedor é Obrigatório")
-	@IndexedEmbedded(depth=3, includePaths={"pessoa.nome"})
+	//@IndexedEmbedded(depth=3, includePaths={"pessoa.nome"})
 	private FornecedorEntity fornecedor;
 
 	@Field

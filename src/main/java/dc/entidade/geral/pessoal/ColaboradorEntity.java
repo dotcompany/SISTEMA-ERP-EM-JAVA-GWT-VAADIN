@@ -478,8 +478,10 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	//@NotNull(message = "Pessoa é Obrigatório!")
 	
 	@Caption("Pessoa")
-	@ManyToOne()
-	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
+	//@ManyToOne()
+	//@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
+	@JoinColumn(name = "id_pessoa", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
 	@NotNull(message = "Pessoa é Obrigatório!")
 	private PessoaEntity pessoa;
 

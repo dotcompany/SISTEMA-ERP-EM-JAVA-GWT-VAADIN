@@ -2188,6 +2188,7 @@ public class PessoaFormView extends CustomComponent {
 		mocColaboradorTipoColaborador.setCaption("Tipo do colaborador");
 		mocColaboradorTipoColaborador.setImmediate(false);
 		mocColaboradorTipoColaborador.setWidth("90%");
+		mocColaboradorTipoColaborador.setRequired(true);
 		mocColaboradorTipoColaborador.setHeight("-1px");
 		hlRow1.addComponent(mocColaboradorTipoColaborador);
 
@@ -2196,6 +2197,7 @@ public class PessoaFormView extends CustomComponent {
 		mocColaboradorSituacaoColaborador.setCaption("Situação do colaborador");
 		mocColaboradorSituacaoColaborador.setImmediate(false);
 		mocColaboradorSituacaoColaborador.setWidth("90%");
+		mocColaboradorSituacaoColaborador.setRequired(true);
 		mocColaboradorSituacaoColaborador.setHeight("-1px");
 		hlRow1.addComponent(mocColaboradorSituacaoColaborador);
 
@@ -2221,6 +2223,7 @@ public class PessoaFormView extends CustomComponent {
 		mocColaboradorNivelFormacao.setCaption("Nível de formação");
 		mocColaboradorNivelFormacao.setImmediate(false);
 		mocColaboradorNivelFormacao.setWidth("-1px");
+		mocColaboradorNivelFormacao.setRequired(true);
 		mocColaboradorNivelFormacao.setHeight("-1px");
 		hlRow2.addComponent(mocColaboradorNivelFormacao);
 
@@ -2229,6 +2232,7 @@ public class PessoaFormView extends CustomComponent {
 		mocColaboradorCargo.setCaption("Cargo");
 		mocColaboradorCargo.setImmediate(false);
 		mocColaboradorCargo.setWidth("-1px");
+		mocColaboradorCargo.setRequired(true);
 		mocColaboradorCargo.setHeight("-1px");
 		hlRow2.addComponent(mocColaboradorCargo);
 
@@ -2246,6 +2250,7 @@ public class PessoaFormView extends CustomComponent {
 		mocColaboradorSetor.setCaption("Setor");
 		mocColaboradorSetor.setImmediate(false);
 		mocColaboradorSetor.setWidth("176px");
+		mocColaboradorSetor.setRequired(true);
 		mocColaboradorSetor.setHeight("-1px");
 		hlRow2.addComponent(mocColaboradorSetor);
 
@@ -2263,6 +2268,7 @@ public class PessoaFormView extends CustomComponent {
 		tfColaboradorMatricula.setCaption("Matrícula");
 		tfColaboradorMatricula.setNullRepresentation("");
 		tfColaboradorMatricula.setImmediate(false);
+		tfColaboradorMatricula.setRequired(true);
 		tfColaboradorMatricula.setWidth("100px");
 		tfColaboradorMatricula.setHeight("-1px");
 		hlRow3.addComponent(tfColaboradorMatricula);
@@ -2272,6 +2278,7 @@ public class PessoaFormView extends CustomComponent {
 		pdfColaboradorDataCadastro.setCaption("Data de cadastro");
 		pdfColaboradorDataCadastro.setImmediate(false);
 		pdfColaboradorDataCadastro.setWidth("130px");
+		pdfColaboradorDataCadastro.setRequired(true);
 		pdfColaboradorDataCadastro.setHeight("-1px");
 		hlRow3.addComponent(pdfColaboradorDataCadastro);
 

@@ -139,7 +139,7 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 
 	@JoinColumn(name = "id_lancamento_pagar", referencedColumnName = "id")
 	//@ManyToOne(optional = false)
-	@ManyToOne(optional = false,fetch = FetchType.EAGER)
+	@ManyToOne(optional = false,fetch = FetchType.LAZY)
 	@Caption("Fornecedor")
 	private LancamentoPagarEntity lancamentoPagar;
 

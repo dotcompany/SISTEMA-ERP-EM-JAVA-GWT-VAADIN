@@ -14,7 +14,6 @@ import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
 import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.AnalyzerDef;
-import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
@@ -23,7 +22,6 @@ import dc.entidade.administrativo.empresa.EmpresaEntity;
 
 @SuppressWarnings("serial")
 @MappedSuperclass
-@Indexed
 @AnalyzerDef(name = "id_empresa_analyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class) })
