@@ -40,7 +40,6 @@ public class ProdutoBusinessImpl implements Serializable,
 	private ProdutoDAO<ProdutoEntity> dao;
 	
 	//@Inject
-	//@FullTextSearch
 	//private FullTextEntityManager fullTextEntityManager;
 
 	/*@Autowired
@@ -171,6 +170,7 @@ public class ProdutoBusinessImpl implements Serializable,
          return jpaQuery.getResultList();*/
 		
 		return null;
+		
 	}
 
 	@Override

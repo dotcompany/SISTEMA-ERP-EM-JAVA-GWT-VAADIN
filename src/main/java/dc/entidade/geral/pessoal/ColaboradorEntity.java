@@ -20,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -132,7 +133,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@Column(name = "DATA_TRANSFERENCIA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "Data de Transferência é Obrigatório!")
+	//@NotNull(message = "Data de Transferência é Obrigatório!")
 	private Date dataTransferencia;
 
 	@Temporal(TemporalType.DATE)
@@ -474,7 +475,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@Caption("Conta da caixa")
 	@ManyToOne()
 	@JoinColumn(name = "id_conta_caixa")
-	@NotNull(message = "Conta Caixa é Obrigatório!")
+	//@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;
 
 	@Caption("Tipo de admissão")
@@ -483,7 +484,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	private TipoAdmissaoEntity tipoAdmissao;
 
 	@Caption("Pessoa")
-	@ManyToOne()
+	@OneToOne()
 	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	@NotNull(message = "Pessoa é Obrigatório!")
 	private PessoaEntity pessoa;
