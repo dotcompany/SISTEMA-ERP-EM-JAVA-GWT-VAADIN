@@ -2304,6 +2304,7 @@ public class PessoaFormView extends CustomComponent {
 		pdfColaboradorDataTransferencia.setCaption("Data da transferência");
 		pdfColaboradorDataTransferencia.setImmediate(false);
 		pdfColaboradorDataTransferencia.setWidth("130px");
+		pdfColaboradorDataTransferencia.setRequired(true);
 		pdfColaboradorDataTransferencia.setHeight("-1px");
 		hlRow3.addComponent(pdfColaboradorDataTransferencia);
 
@@ -2784,6 +2785,7 @@ public class PessoaFormView extends CustomComponent {
 		mocColaboradorContaCaixa.setCaption("Conta da caixa");
 		mocColaboradorContaCaixa.setImmediate(false);
 		mocColaboradorContaCaixa.setWidth("-1px");
+		mocColaboradorContaCaixa.setRequired(true);
 		mocColaboradorContaCaixa.setHeight("-1px");
 		hlRow5.addComponent(mocColaboradorContaCaixa);
 
