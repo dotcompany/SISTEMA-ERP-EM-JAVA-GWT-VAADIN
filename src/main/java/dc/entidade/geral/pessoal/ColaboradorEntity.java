@@ -43,12 +43,22 @@ import dc.control.enums.SimNaoEn;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.financeiro.ContaCaixa;
+import dc.entidade.folhapagamento.VendedorEntity;
+import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
+import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
+import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
+import dc.entidade.folhapagamento.movimento.HistoricoSalarialEntity;
+import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
+import dc.entidade.folhapagamento.movimento.PppEntity;
+import dc.entidade.folhapagamento.movimento.RescisaoEntity;
+import dc.entidade.folhapagamento.movimento.ValeTransporteEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.ged.VersaoDocumento;
 import dc.entidade.geral.outro.SindicatoEntity;
+import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 
 @Entity
@@ -122,7 +132,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@Column(name = "DATA_TRANSFERENCIA")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Data de Transferência é Obrigatório!")
+	@NotNull(message = "Data de Transferência é Obrigatório!")
 	private Date dataTransferencia;
 
 	@Temporal(TemporalType.DATE)
@@ -464,7 +474,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@Caption("Conta da caixa")
 	@ManyToOne()
 	@JoinColumn(name = "id_conta_caixa")
-	//@NotNull(message = "Conta Caixa é Obrigatório!")
+	@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;
 
 	@Caption("Tipo de admissão")
@@ -472,91 +482,82 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@JoinColumn(name = "id_tipo_admissao")
 	private TipoAdmissaoEntity tipoAdmissao;
 
-	//@Caption("Pessoa")
-	//@ManyToOne()
-	//@JoinColumn(name = "id_pessoa", nullable = false)
-	//@NotNull(message = "Pessoa é Obrigatório!")
-	
 	@Caption("Pessoa")
-	//@ManyToOne()
-	//@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
-	@JoinColumn(name = "id_pessoa", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+	@ManyToOne()
+	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	@NotNull(message = "Pessoa é Obrigatório!")
 	private PessoaEntity pessoa;
 
 	/**
 	 * REFERENCIA - LIST
 	 */
+	
+	@OneToMany(mappedBy = "colaborador", orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<SolicitacaoServicoEntity> solicitacaoList = new ArrayList<SolicitacaoServicoEntity>();
+	
+	@OneToMany(mappedBy = "colaborador", orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<UsuarioEntity> usuarioList = new ArrayList<UsuarioEntity>();
+	
+	@OneToMany(mappedBy = "colaborador", orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<VersaoDocumento> versaoList = new ArrayList<VersaoDocumento>();
 
 	/**
 	 * ********************************************************
 	 */
-	
-	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	@Fetch(FetchMode.SUBSELECT)
-	private List<SolicitacaoServicoEntity> solicitacaoList = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	@Fetch(FetchMode.SUBSELECT)
-	private List<UsuarioEntity> usuarioList = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	@Fetch(FetchMode.SUBSELECT)
-	private List<VersaoDocumento> versaoList = new ArrayList<>();
-
 
 	/**
 	 * 
 	 * @module PATRIMONIO
 	 */
 
-	/*@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<BemEntity> bemList = new ArrayList<BemEntity>();
 	
 	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<VendedorEntity> vendedorList = new ArrayList<VendedorEntity>();*/
+	private List<VendedorEntity> vendedorList = new ArrayList<VendedorEntity>();
 
 	/**
 	 * ********************************************************
 	 */
-	
+
 	/**
 	 * 
 	 * @module FOLHAPAGAMENTO
 	 */
 
-	/*@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<AfastamentoEntity> afastamentoList = new ArrayList<AfastamentoEntity>();
-
+	
 	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<PlanoSaudeEntity> planoSaudeList = new ArrayList<PlanoSaudeEntity>();
-
+	
 	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<PppEntity> pppList = new ArrayList<PppEntity>();
-
+	
 	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<RescisaoEntity> rescisaoList = new ArrayList<RescisaoEntity>();
-
+	
 	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ValeTransporteEntity> valeTransporteList = new ArrayList<ValeTransporteEntity>();
-
+	
 	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<HistoricoSalarialEntity> historicoSalarialList = new ArrayList<HistoricoSalarialEntity>();
-
+	
 	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList = new ArrayList<LancamentoCabecalhoEntity>();
-
-
+	
 	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<FeriasPeriodoAquisitivoEntity> feriasPeriodoAquisitivoEntityList = new ArrayList<FeriasPeriodoAquisitivoEntity>();
@@ -1090,7 +1091,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 		this.pessoa = pessoa;
 	}
 
-	/*public List<BemEntity> getBemList() {
+	public List<BemEntity> getBemList() {
 		return bemList;
 	}
 
@@ -1173,7 +1174,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	public void setSolicitacaoList(List<SolicitacaoServicoEntity> solicitacaoList) {
 		this.solicitacaoList = solicitacaoList;
 	}
-	
+
 	public List<UsuarioEntity> getUsuarioList() {
 		return usuarioList;
 	}
@@ -1181,7 +1182,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	public void setUsuarioList(List<UsuarioEntity> usuarioList) {
 		this.usuarioList = usuarioList;
 	}
-	
+
 	public List<VersaoDocumento> getVersaoList() {
 		return versaoList;
 	}
@@ -1189,14 +1190,16 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	public void setVersaoList(List<VersaoDocumento> versaoList) {
 		this.versaoList = versaoList;
 	}
-
+	
 	public List<VendedorEntity> getVendedorList() {
 		return vendedorList;
 	}
 
 	public void setVendedorList(List<VendedorEntity> vendedorList) {
 		this.vendedorList = vendedorList;
-	}*/
+	}
+	
+	
 
 	@Override
 	public String toString() {

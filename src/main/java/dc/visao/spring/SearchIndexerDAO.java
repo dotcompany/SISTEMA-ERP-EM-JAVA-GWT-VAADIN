@@ -30,34 +30,34 @@ public class SearchIndexerDAO extends AbstractCrudDAO<Serializable> {
 	public void loadIndex() {
 		logger.info("loading index");
 		
-		try {
-			getFullTextSession().createIndexer().startAndWait();
+		Map<String, ClassMetadata> meta = getSessionFactory().getAllClassMetadata();
+		java.util.Iterator<ClassMetadata> it = meta.values().iterator();
+		ArrayList<Class> classes = new ArrayList<Class>();
+		while (it.hasNext()) {
+			ClassMetadata data = it.next();
+			Class c = data.getMappedClass();
+			Annotation a = c.getAnnotation(Indexed.class);
+			if (a != null && c != Teste.class) {
+				classes.add(c);
+			}
+		}
+	try {
+			doIndex(classes.toArray(new Class[classes.size()]));
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		logger.info("call to index loading finished");
 		
-//		Map<String, ClassMetadata> meta = getSessionFactory().getAllClassMetadata();
-//		java.util.Iterator<ClassMetadata> it = meta.values().iterator();
-//		ArrayList<Class> classes = new ArrayList<Class>();
-//		while (it.hasNext()) {
-//			ClassMetadata data = it.next();
-//			Class c = data.getMappedClass();
-//			Annotation a = c.getAnnotation(Indexed.class);
-//			if (a != null && c != Teste.class) {
-//				classes.add(c);
-//			}
-//		}
-//		try {
-//			doIndex(classes.toArray(new Class[classes.size()]));
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		logger.info("call to index loading finished");
+		try {
+			doIndex(classes.toArray(new Class[classes.size()]));
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info("call to index loading finished");
+		
 	}
-
 	private void doIndex(Class[] classes) throws InterruptedException {
 		logger.info("indexing: " + classes);
 		logger.info("indexing how many classes: " + classes.length);
