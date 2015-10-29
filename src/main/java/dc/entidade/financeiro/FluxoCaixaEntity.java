@@ -84,7 +84,7 @@ public class FluxoCaixaEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	    @NotNull(message = "Fluxo Caixa Período é Obrigatório")
 	    private FluxoCaixaPeriodoEntity fluxoCaixaPeriodo;
 	    
-	    @OneToMany(mappedBy = "fluxoCaixa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	    @OneToMany(mappedBy = "fluxoCaixa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 		@Fetch(FetchMode.SUBSELECT)
 		private List<FluxoCaixaDetalheEntity> fluxoCaixas = new ArrayList<>();
 

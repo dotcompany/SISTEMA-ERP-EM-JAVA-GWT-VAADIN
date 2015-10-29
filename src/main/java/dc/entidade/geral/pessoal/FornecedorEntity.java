@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -36,7 +37,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.control.enums.LocalizacaoEn;
@@ -205,7 +205,7 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	//@ManyToOne()
 	//@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	@JoinColumn(name = "id_pessoa", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+	@OneToOne(optional = false)
 	@NotNull(message = "Pessoa é Obrigatório!")
 	//@IndexedEmbedded(depth=2, includePaths={"nome"})
 	private PessoaEntity pessoa;

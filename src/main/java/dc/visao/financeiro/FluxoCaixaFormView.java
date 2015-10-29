@@ -172,13 +172,17 @@ public class FluxoCaixaFormView extends CustomComponent {
 								return f;
 							} */
 						    if ("valorOrcado".equals(propertyId)) {
-								return ComponentUtil.buildCurrencyField(null);
+								return ComponentUtil.buildCurrencysField(null);
 							} else if ("valorRealizado".equals(propertyId)) {
-								return ComponentUtil.buildCurrencyField(null);
+								return ComponentUtil.buildCurrencysField(null);
 							} else if ("valorVariacao".equals(propertyId)) {
-								return ComponentUtil.buildCurrencyField(null);
+								TextField tx = ComponentUtil.buildCurrencyField(null);
+								tx.setEnabled(false);
+								return tx;
 							} else if ("taxaVariacao".equals(propertyId)) {
-								return ComponentUtil.buildPercentageField(null);
+								TextField tx = ComponentUtil.buildPercentageField(null);
+								tx.setEnabled(false);
+								return tx;
 							} else if ("naturezaFinanceira".equals(propertyId)) {
 								ComboBox comboBox = ComponentUtil.buildComboBox(null);
 								BeanItemContainer<NaturezaFinanceira> naturezaContainer = new BeanItemContainer<>(NaturezaFinanceira.class,

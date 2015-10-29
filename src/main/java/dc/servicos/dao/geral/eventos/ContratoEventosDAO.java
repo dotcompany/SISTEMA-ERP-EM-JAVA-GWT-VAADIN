@@ -31,7 +31,7 @@ public class ContratoEventosDAO extends AbstractCrudDAO<ContratoEventosEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] { "unidade", "curso", "dataContrato", "dataPrimeiroEvento" };
+		return new String[] { "curso","unidade","nomeCerimonial","dataContrato","dataPrimeiroEvento","quantidadeFormandos","anoFormatura" };
 	}
 	
 	@Transactional

@@ -107,7 +107,7 @@ public class ContratoEventosEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Caption("Nome Cerimonial")
 	@JoinColumn(name = "id_nome_cerimonial", referencedColumnName = "id")
 	//@ManyToOne(optional = false)
-	@ManyToOne(optional = false,fetch = FetchType.EAGER)
+	@ManyToOne(optional = false,fetch = FetchType.LAZY)
 	private CerimonialEventosEntity nomeCerimonial;
 	
 	@Enumerated(EnumType.STRING)

@@ -2862,6 +2862,7 @@ public class PessoaFormView extends CustomComponent {
 		mocFornecedorSituacaoForCli = new ManyToOneComboField<>(SituacaoForCliEntity.class);
 		mocFornecedorSituacaoForCli.setCaption("Situação");
 		mocFornecedorSituacaoForCli.setImmediate(false);
+		mocFornecedorSituacaoForCli.setRequired(true);
 		mocFornecedorSituacaoForCli.setHeight("-1px");
 		hlRow1.addComponent(mocFornecedorSituacaoForCli);
 
@@ -2869,6 +2870,7 @@ public class PessoaFormView extends CustomComponent {
 		mocFornecedorAtividadeForCli = new ManyToOneComboField<>(AtividadeForCliEntity.class);
 		mocFornecedorAtividadeForCli.setCaption("Atividade");
 		mocFornecedorAtividadeForCli.setImmediate(false);
+		mocFornecedorAtividadeForCli.setRequired(true);
 		mocFornecedorAtividadeForCli.setHeight("-1px");
 		hlRow1.addComponent(mocFornecedorAtividadeForCli);
 

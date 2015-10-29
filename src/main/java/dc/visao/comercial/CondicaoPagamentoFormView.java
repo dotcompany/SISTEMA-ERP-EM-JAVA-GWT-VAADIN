@@ -96,18 +96,17 @@ public class CondicaoPagamentoFormView extends CustomComponent {
 		fields.setSpacing(true);
 
 		txtNome = ComponentUtil.buildTextField("Nome");
-		txtNome.setRequired(true);
 		fields.addComponent(txtNome, 0, 0, 5, 0);
 
 		txtDescricao = ComponentUtil.buildTextArea("Descrição");
 		fields.addComponent(txtDescricao, 0, 1, 5, 1);
 
 		txtFaturamentoMinimo = ComponentUtil
-				.buildCurrencyField("Faturamento Minimo");
+				.buildCurrencysField("Faturamento Minimo");
 		fields.addComponent(txtFaturamentoMinimo, 0, 2);
 
 		txtFaturamentoMaximo = ComponentUtil
-				.buildCurrencyField("Faturamento Máximo");
+				.buildCurrencysField("Faturamento Máximo");
 		fields.addComponent(txtFaturamentoMaximo, 1, 2);
 
 		txtIndiceCorrecao = ComponentUtil
@@ -119,7 +118,7 @@ public class CondicaoPagamentoFormView extends CustomComponent {
 		fields.addComponent(txtDiasTolerancia, 3, 2);
 
 		txtValorTolerancia = ComponentUtil
-				.buildCurrencyField("Valor da Tolerância");
+				.buildCurrencysField("Valor da Tolerância");
 		fields.addComponent(txtValorTolerancia, 4, 2);
 
 		txtPrazoMedio = ComponentUtil.buildNumericField("Prazo Médio");

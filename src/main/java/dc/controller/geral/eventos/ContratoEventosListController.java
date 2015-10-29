@@ -29,7 +29,7 @@ public class ContratoEventosListController extends CRUDListController<ContratoEv
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "curso","unidade" };
+		return new String[] { "curso","unidade","nomeCerimonial","dataContrato","dataPrimeiroEvento","quantidadeFormandos","anoFormatura" };
 	}
 
 	@Override

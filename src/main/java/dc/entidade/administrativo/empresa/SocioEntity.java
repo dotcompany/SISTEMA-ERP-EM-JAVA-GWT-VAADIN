@@ -133,11 +133,11 @@ public class SocioEntity extends AbstractMultiEmpresaModel<Integer> {
 //	@JoinColumn(name = "ID_EMPRESA", nullable = false)
 //	private Empresa empresa;
 
-	@OneToMany(mappedBy = "socio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "socio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<DependenteEntity> dependentes = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "socio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "socio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ParticipacaoSocietariaEntity> participacoes = new ArrayList<>();
 
