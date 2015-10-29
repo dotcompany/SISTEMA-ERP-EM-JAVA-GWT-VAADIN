@@ -387,13 +387,15 @@ public class MainView extends CssLayout implements View {
 				return modulo.getMenus() != null;
 			}
 		};
-		for (FmModulo fmModulo : Collections2.filter(modules, predicate)) {
-			container.addAll(fmModulo.getMenus());
-			// for (FmMenu fmMenu : menus) {
-			// container.addAll(fmMenu.getMenusFilho());
-			// }
+		if (modules != null) {
+			for (FmModulo fmModulo : Collections2.filter(modules, predicate)) {
+				container.addAll(fmModulo.getMenus());
+				// for (FmMenu fmMenu : menus) {
+				// container.addAll(fmMenu.getMenusFilho());
+				// }
+			}
 		}
-
+		
 		final ComboBox menuFilter = new ComboBox("", container);
 		menuFilter.setWidth("100%");
 		menuFilter.setItemCaptionMode(ItemCaptionMode.PROPERTY);
