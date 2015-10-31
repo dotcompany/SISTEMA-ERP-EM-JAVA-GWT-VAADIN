@@ -119,7 +119,7 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - FK
 	 */
 
-	@OneToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
 	private ColaboradorEntity colaborador;
 

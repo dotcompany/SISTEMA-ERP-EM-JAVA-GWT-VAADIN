@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Component;
 
@@ -74,13 +75,26 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 
 	@Override
 	protected boolean validaSalvar() {
-		// TODO Auto-generated method stub
-		return true;
+        try {
+			
+            fieldGroup.commit();
+            return true;
+
+		}catch (FieldGroup.CommitException ce) {
+			return false;
+		}
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new Orcamento();
+		try {
+			currentBean = new Orcamento();
+			
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -92,8 +106,8 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 		
 			
 			//fieldGroup.bind(this.subView.getTxtResponsavel(), "responsavel");
-			//fieldGroup.bind(this.subView.getTxtPlaca(), "placa");
-			//fieldGroup.bind(this.subView.getCmbVenda(), "vendaCabecalho");
+			fieldGroup.bind(this.subView.getCmbVendedor(), "vendedor");
+			fieldGroup.bind(this.subView.getCmbCondicaoPagamento(), "condicaoPagamento");
 			
 			 this.subView.getCmbVendedor().configuraCombo(
 						"colaborador", VendedorListController.class, this.vendedorDAO, this.getMainController());
@@ -111,12 +125,22 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = dao.find(id);
 
-		List<ItemOrcamento> itens = itemOrcamentoDAO
-				.findByOrcamento(currentBean);
+		
+		try {
+			this.currentBean = this.dao.find(id);
+			
+			List<ItemOrcamento> itens = itemOrcamentoDAO.findByOrcamento(currentBean);
 
-		subView.preencheSubForm(itens);
+			subView.preencheSubForm(itens);
+
+			// Atribui a entidade carregada como origem de dados dos campos do formulario
+            // no FieldGroup
+            fieldGroup.setItemDataSource(this.currentBean);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -126,6 +150,7 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 			notifiyFrameworkSaveOK(currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 	}
 
@@ -162,7 +187,18 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
-		// TODO Auto-generated method stub
+		for (Serializable id : objetos) {
+			Orcamento orc = (Orcamento) id;
+
+			try {
+				dao.delete(orc);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 
 	}
 

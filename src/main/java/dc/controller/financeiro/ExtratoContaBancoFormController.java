@@ -152,6 +152,7 @@ public class ExtratoContaBancoFormController extends CRUDFormController<ExtratoC
 				            listaExtrato.get(i).setContaCaixa(contaCaixa);
 
 				            subView.getExtratoContaBancoSubForm().fillWith(listaExtrato);
+				            subView.getExtratoContaBancoSubForm().getDados();
 				            //subView.preencheSubForm(listaExtrato);
 				            //subView.getExtratoContaBancoSubForm().getDados().add(listaExtrato.get(i));
 				            //subView.getExtratoContaBancoSubForm().markAsDirtyRecursive();
