@@ -19,8 +19,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -63,6 +66,7 @@ public class SolicitacaoServicoEntity extends
 	@Column(name = "DATA_SOLICITACAO")
 	@Field
 	@Caption("Data da Solicitação")
+	@NotNull(message = "Data Solicitação é Obrigatório!")
 	private Date dataSolicitacao;
 
 	@Field
@@ -95,16 +99,19 @@ public class SolicitacaoServicoEntity extends
 	@Caption("Contrato Tipo serviço")
 	@JoinColumn(name = "ID_CONTRATO_TIPO_SERVICO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
+	@NotNull(message = "Tipo Serviço é Obrigatório!")
 	private TipoServicoEntity contratoTipoServico;
 
 	@JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption("Colaborador")
+	@NotNull(message = "Colaborador é Obrigatório!")
 	private ColaboradorEntity colaborador;
 
 	@JoinColumn(name = "ID_SETOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption("Setor")
+	@NotNull(message = "Setor é Obrigatório!")
 	private SetorEntity setor;
 
 	@Caption("Cliente")
@@ -229,5 +236,32 @@ public class SolicitacaoServicoEntity extends
 	public String toString() {
 		return descricao;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof SolicitacaoServicoEntity)) {
+            return false;
+        }
+
+        SolicitacaoServicoEntity that = (SolicitacaoServicoEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }
