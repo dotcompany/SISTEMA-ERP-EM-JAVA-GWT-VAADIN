@@ -136,7 +136,7 @@ public class FornecedorBusinessImpl implements Serializable, FornecedorBusiness<
 		public List<FornecedorEntity> fullTextSearch(String valor)
 				throws Exception {
 			// TODO Auto-generated method stub
-			return null;
+			return dao.fullTextSearch(valor);
 		}
 
 		@Override

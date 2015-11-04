@@ -65,8 +65,7 @@ public class FornecedorListController extends CRUDListController<FornecedorEntit
 	@Override
 	protected List<FornecedorEntity> pesquisa(String valor) {
 		try {
-			
-			List<FornecedorEntity> auxLista = this.dao.procuraNomeContendo(valor);
+			List<FornecedorEntity> auxLista = (List<FornecedorEntity>) this.fornecedorFormController.getBusiness().fullTextSearch(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -74,13 +73,13 @@ public class FornecedorListController extends CRUDListController<FornecedorEntit
 
 			return null;
 		}
+		
 	}
 
 	@Override
 	protected List<FornecedorEntity> pesquisaDefault() {
 		try {
-			
-			List<FornecedorEntity> auxLista = this.dao.listaTodos();
+			List<FornecedorEntity> auxLista = (List<FornecedorEntity>) this.fornecedorFormController.getBusiness().getAll(getEntityClass());
 
 			return auxLista;
 		} catch (Exception e) {

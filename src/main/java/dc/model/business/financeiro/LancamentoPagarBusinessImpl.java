@@ -109,7 +109,7 @@ public class LancamentoPagarBusinessImpl implements LancamentoPagarBusiness<Lanc
 	
 	@Override
 	public List<LancamentoPagarEntity> fullTextSearch(String valor) throws Exception {
-		return fullTextSearch(valor);
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

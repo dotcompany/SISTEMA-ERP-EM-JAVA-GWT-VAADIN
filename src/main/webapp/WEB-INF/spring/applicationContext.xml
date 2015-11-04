@@ -26,6 +26,7 @@
         annotation. DefaultAnnotationHandlerMapping is driven by these annotations
         and is enabled by default with Java 5+: -->
     <context:component-scan base-package="dc.*" />
+    <context:component-scan base-package="dc.anotacoes" />
 
     <bean id="validator"
           class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>

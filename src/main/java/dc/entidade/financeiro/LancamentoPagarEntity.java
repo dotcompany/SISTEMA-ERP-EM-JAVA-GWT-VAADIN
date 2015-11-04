@@ -114,6 +114,7 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Caption("Documento Origem")
 	@NotNull(message = "Documento Origem é Obrigatório")
 	@IndexedEmbedded(includePaths={"descricao"})
+	//@IndexedEmbedded(depth = 1, prefix = "descricao", includePaths={"descricao"})
 	private DocumentoOrigem documentoOrigem;
 
 	@JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")

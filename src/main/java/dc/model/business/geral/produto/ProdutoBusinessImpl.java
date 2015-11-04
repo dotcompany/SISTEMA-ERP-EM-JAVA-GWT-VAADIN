@@ -3,10 +3,6 @@ package dc.model.business.geral.produto;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
-import dc.anotacoes.FullTextSearch;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.model.dao.geral.produto.ProdutoDAO;
@@ -40,6 +35,7 @@ public class ProdutoBusinessImpl implements Serializable,
 	private ProdutoDAO<ProdutoEntity> dao;
 	
 	//@Inject
+	//@FullTextSearch
 	//private FullTextEntityManager fullTextEntityManager;
 
 	/*@Autowired
@@ -147,8 +143,8 @@ public class ProdutoBusinessImpl implements Serializable,
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public List<ProdutoEntity> fullTextSearch(String valor) throws Exception {
 		
 		/*QueryBuilder builder =  fullTextEntityManager
@@ -159,9 +155,8 @@ public class ProdutoBusinessImpl implements Serializable,
 
          org.apache.lucene.search.Query luceneQuery =  builder
 									.keyword()
-									.onFields("subGrupo.nome","unidadeProduto.descricao","marca.nome","almoxarifado.nome","grupo.nome","grupoTributario.nome", "codigoInterno", 
-											"nome", "descricao","ncm.descricao","gtin","inativo","classe","descricaoPdv","valorCompra","valorVenda","precoVendaMinimo",
-											"precoSugerido","custoMedioLiquido","precoLucroZero","precoLucroMinimo","precoLucroMaximo","markup","quantidadeEstoque")
+									.onFields("subGrupo.nome","unidadeProduto.descricao","marca.nome","almoxarifado.nome","grupo.nome","grupoTributario.nome", "nome",
+											"ncm.descricao")
 									.matching(valor)
 									.createQuery();
 
@@ -169,7 +164,10 @@ public class ProdutoBusinessImpl implements Serializable,
          
          return jpaQuery.getResultList();*/
 		
-		return null;
+		
+		
+		return dao.fullTextSearch(valor);
+		
 		
 	}
 

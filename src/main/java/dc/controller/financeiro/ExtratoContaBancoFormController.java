@@ -1,6 +1,7 @@
 package dc.controller.financeiro;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -113,51 +114,31 @@ public class ExtratoContaBancoFormController extends CRUDFormController<ExtratoC
 				final List<ExtratoContaBancoEntity> extrato = new ArrayList<ExtratoContaBancoEntity>();
 				List<ExtratoContaBancoEntity> dados = subView.getExtratoContaBancoSubForm().getDados();
 				public void valueChange(ValueChangeEvent event) {
-					UploadField upload = (UploadField) event.getProperty();
+					// UploadField upload = (UploadField) event.getProperty();
 					//importaOFX((File) upload.getValue());
 					importaOFX();
 					atualizaSaldos(extrato);
 				}
 				
 				public void importaOFX() {
-				    FileFilter filter = new FileFilter() {
+					InputStream is = subView.getBtnImportar().getContentAsStream();
 
-				        @Override
-				        public boolean accept(File f) {
-				            String arquivo = f.getName().toLowerCase();
-				            return f.isDirectory() || arquivo.endsWith(".ofx");
-				        }
-
-				        @Override
-				        public String getDescription() {
-				            return "*.ofx";
-				        }
-				    };
-
-				    
-				    JFileChooser fileChooser = new JFileChooser();
-				    fileChooser.setFileFilter(filter);
-				    fileChooser.showOpenDialog(fileChooser);
-				    File file = fileChooser.getSelectedFile();
-				    //File file = (File) subView.getBtnImportar().getValue();
-
-				    if (file != null) {
+				    if (is != null) {
 				        ImportaOFX importa = new ImportaOFX();
-				        List<ExtratoContaBancoEntity> listaExtrato = importa.importaArquivoOFX(file);
+				        List<ExtratoContaBancoEntity> listaExtrato = importa.importaArquivoOFX(is);
 				        //subView.getSubForms().setSelectedTab(1);
 				        //seta os dados do extrato
 				        for (int i = 0; i < listaExtrato.size(); i++) {
 				            listaExtrato.get(i).setAno(ano);
 				            listaExtrato.get(i).setMes(mes);
 				            listaExtrato.get(i).setContaCaixa(contaCaixa);
-
-				            subView.getExtratoContaBancoSubForm().fillWith(listaExtrato);
-				            subView.getExtratoContaBancoSubForm().getDados();
 				            //subView.preencheSubForm(listaExtrato);
 				            //subView.getExtratoContaBancoSubForm().getDados().add(listaExtrato.get(i));
 				            //subView.getExtratoContaBancoSubForm().markAsDirtyRecursive();
-				            
 				        }
+				        subView.preencheSubForm(listaExtrato);
+			            dados = subView.getExtratoContaBancoSubForm().getDados();
+			            
 				        try {
 				        	ConfirmDialog
 							.show(MainUI.getCurrent(),

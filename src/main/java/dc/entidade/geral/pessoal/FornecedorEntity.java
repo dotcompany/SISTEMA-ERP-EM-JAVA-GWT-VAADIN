@@ -215,14 +215,14 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	@ManyToOne
 	@JoinColumn(name = "id_situacao_for_cli", referencedColumnName = "id")
 	@NotNull(message = "Situação fornecedor é Obrigatório!")
-	//@IndexedEmbedded(includePaths={"nome"})
+	@IndexedEmbedded(includePaths={"nome"})
 	private SituacaoForCliEntity situacaoForCli;
 
 	@Caption("Atividade fornecedor / cliente")
 	@ManyToOne()
 	@JoinColumn(name = "id_atividade_for_cli", referencedColumnName = "id")
 	@NotNull(message = "Atividade fornecedor é Obrigatório!")
-	//@IndexedEmbedded(includePaths={"nome"})
+	@IndexedEmbedded(includePaths={"nome"})
 	private AtividadeForCliEntity atividadeForCli;
 
 	/**

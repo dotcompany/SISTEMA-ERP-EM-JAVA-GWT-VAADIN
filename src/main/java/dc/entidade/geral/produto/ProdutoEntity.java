@@ -354,9 +354,6 @@ public class ProdutoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - FK
 	 */
 	
-	//@ManyToOne(fetch = FetchType.EAGER)
-	//@JoinColumn(name = "id_cliente", referencedColumnName = "id")
-
 	@Caption("Subgrupo")
 	@ManyToOne()
 	@JoinColumn(name = "id_sub_grupo", referencedColumnName = "id", nullable = false)

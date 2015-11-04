@@ -54,6 +54,7 @@ import com.vaadin.data.util.filter.Compare.Operation;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 
 import dc.anotacoes.AnotacoesUtil;
+import dc.anotacoes.FullTextSearch;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -310,6 +311,7 @@ public abstract class AbstractCrudDAO<T> {
 	}
 
 	@Transactional
+	//@FullTextSearch
 	public List<T> fullTextSearch(String valor) {
 		return fullTextSearch(valor, getSearchFields(), FIRST_ROW, DEFAULT_PAGE_SIZE, new String[0], new boolean[0], null, null);
 	}
