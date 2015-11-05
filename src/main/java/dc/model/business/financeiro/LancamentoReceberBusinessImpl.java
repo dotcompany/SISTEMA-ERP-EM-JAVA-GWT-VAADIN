@@ -98,7 +98,8 @@ public class LancamentoReceberBusinessImpl implements Serializable, LancamentoRe
 
 		@Override
 		public List<LancamentoReceber> fullTextSearch(String valor) throws Exception {
-			return null;
+			
+			return dao.fullTextSearch(valor);
 		}
 
 		@Override

@@ -120,10 +120,10 @@ public class ExtratoContaBancoEntity extends AbstractMultiEmpresaModel<Integer> 
     private String observacoes;
     
     @Caption("Conta Caixa")
-    //@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
-    @JoinColumn(name = "ID_CONTA_CAIXA", nullable = true)
-	@ManyToOne()
-    //@ManyToOne(optional = false)
+    @JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
+    //@JoinColumn(name = "ID_CONTA_CAIXA", nullable = true)
+	//@ManyToOne()
+    @ManyToOne(optional = false)
     private ContaCaixa contaCaixa;
     
     

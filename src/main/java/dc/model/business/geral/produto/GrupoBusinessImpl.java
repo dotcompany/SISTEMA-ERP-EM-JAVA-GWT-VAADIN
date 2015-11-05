@@ -121,8 +121,8 @@ public class GrupoBusinessImpl implements Serializable,
 
 	@Override
 	public List<GrupoEntity> fullTextSearch(String valor) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

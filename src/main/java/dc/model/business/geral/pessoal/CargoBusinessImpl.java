@@ -109,8 +109,8 @@ public class CargoBusinessImpl implements Serializable,
 
 	@Override
 	public List<CargoEntity> fullTextSearch(String valor) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

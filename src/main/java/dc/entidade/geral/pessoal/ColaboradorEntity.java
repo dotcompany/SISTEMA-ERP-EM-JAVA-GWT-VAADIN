@@ -37,6 +37,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.control.enums.FormaPagamentoEn;
@@ -436,30 +437,35 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@ManyToOne()
 	@JoinColumn(name = "id_setor", nullable = false)
 	@NotNull(message = "Setor é Obrigatório!")
+	@IndexedEmbedded( includePaths={"nome"})
 	private SetorEntity setor;
 
 	@Caption("Cargo")
 	@ManyToOne()
 	@JoinColumn(name = "id_cargo")
 	@NotNull(message = "Cargo é Obrigatório!")
+	@IndexedEmbedded(includePaths={"nome"})
 	private CargoEntity cargo;
 
 	@Caption("Tipo do colaborador")
 	@ManyToOne()
 	@JoinColumn(name = "id_tipo_colaborador", nullable = false)
 	@NotNull(message = "Tipo Colaborador é Obrigatório!")
+	@IndexedEmbedded(includePaths={"nome"})
 	private TipoColaboradorEntity tipoColaborador;
 
 	@Caption("Situação do colaborador")
 	@ManyToOne()
 	@JoinColumn(name = "id_situacao_colaborador", nullable = false)
 	@NotNull(message = "Situação do Colaborador é Obrigatório!")
+	@IndexedEmbedded(includePaths={"nome"})
 	private SituacaoColaboradorEntity situacaoColaborador;
 
 	@Caption("Nível de formação")
 	@ManyToOne()
 	@JoinColumn(name = "id_nivel_formacao", nullable = false)
 	@NotNull(message = "Nível de Formação é Obrigatório!")
+	@IndexedEmbedded(includePaths={"nome"})
 	private NivelFormacaoEntity nivelFormacao;
 
 	@Caption("Sindicato")
@@ -487,6 +493,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@OneToOne()
 	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
 	@NotNull(message = "Pessoa é Obrigatório!")
+	@IndexedEmbedded(depth=2, includePaths={"nome"})
 	private PessoaEntity pessoa;
 
 	/**

@@ -109,10 +109,8 @@ public class NivelFormacaoBusinessImpl implements Serializable,
 	}
 
 	@Override
-	public List<NivelFormacaoEntity> fullTextSearch(String valor)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<NivelFormacaoEntity> fullTextSearch(String valor) throws Exception {
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

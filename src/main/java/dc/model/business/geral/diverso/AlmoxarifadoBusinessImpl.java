@@ -111,10 +111,9 @@ public class AlmoxarifadoBusinessImpl implements Serializable,
 	}
 
 	@Override
-	public List<AlmoxarifadoEntity> fullTextSearch(String valor)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<AlmoxarifadoEntity> fullTextSearch(String valor) throws Exception {
+		
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

@@ -110,8 +110,8 @@ public class SetorBusinessImpl implements Serializable,
 
 	@Override
 	public List<SetorEntity> fullTextSearch(String valor) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

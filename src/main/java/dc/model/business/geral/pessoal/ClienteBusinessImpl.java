@@ -117,7 +117,8 @@ public class ClienteBusinessImpl implements Serializable,
 
 	@Override
 	public List<ClienteEntity> fullTextSearch(String valor) throws Exception {
-		return null;
+		
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

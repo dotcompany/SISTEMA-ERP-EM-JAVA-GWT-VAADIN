@@ -120,8 +120,8 @@ public class MarcaBusinessImpl implements Serializable,
 
 	@Override
 	public List<MarcaEntity> fullTextSearch(String valor) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override
