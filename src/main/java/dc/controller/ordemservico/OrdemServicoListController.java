@@ -61,7 +61,7 @@ public class OrdemServicoListController extends CRUDListController<OrdemServicoE
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

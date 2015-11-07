@@ -29,6 +29,8 @@ import org.hibernate.annotations.GenerationTime;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -58,128 +60,186 @@ public class OrdemServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
 	private ClienteEntity cliente;
 
+	@Field
 	@Caption(value = "Valor Serviço")
 	@Column(name = "valor_servico")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorServico;
 
+	@Field
 	@Caption(value = "Valor Peça")
 	@Column(name = "valor_peca")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorPeca;
 
+	@Field
 	@Caption(value = "Valor Frete")
 	@Column(name = "valor_frete")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorFrete;	
 
+	@Field
 	@Caption(value = "Valor Outros")
 	@Column(name = "valor_outros")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorOutros;	
 
+	@Field
 	@Caption(value = "Valor Desconto")
 	@Column(name = "valor_desconto")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorDesconto;	
 
+	@Field
 	@Caption(value = "Valor Total")
 	@Column(name = "valor_total_os")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorTotalOs;	
 
+	@Field
 	@Caption(value = "Valor Serviço")
 	@Column(name = "valor_total_servico")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorTotalServico;	
 
+	@Field
 	@Caption(value = "Valor Lucro Serviço")
 	@Column(name = "valor_lucro_servico")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorLucroServico;	
 
+	@Field
 	@Caption(value = "Valor Comissão Técnico")
 	@Column(name = "valor_comissao_tecnico")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorComissaoTecnico;	
 
+	@Field
 	@Caption(value = "Valor Comissão Vendedor")
 	@Column(name = "valor_comissao_vendedor")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorComissaoVendedor;	
 
+	@Field
 	@Caption(value = "Valor Comissão Atendente")
 	@Column(name = "valor_comissao_atendente")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorComissaoAtendente;	
 
+	@Field
 	@Caption(value = "Valor Lucro Parcial")
 	@Column(name = "valor_lucro_parcial")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorLucroParcial;
 
+	@Field
 	@Caption(value = "Valor Lucro Peça")
 	@Column(name = "valor_lucro_peca")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorLucroPeca;
 
+	@Field
 	@Caption(value = "Quantidade parcelas")
 	@Column(name = "qtd_parcela_cheque")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer quantidadeParcelaCheque;
 	
+	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "primeiro_vencimento_cheque")
 	@Caption(value = "Primeiro Vencimento")
 	private Date primeiroVencimentoCheque;
 
+	@Field
 	@Caption(value = "Quantidade parcelas")
 	@Column(name = "qtd_parcela_carne")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer quantidadeParcelaCarne;
 	
+	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "primeiro_vencimento_carne")
 	@Caption(value = "Primeiro Vencimento")
 	private Date primeiroVencimentoCarne;
 
+	@Field
 	@Caption(value = "Quantidade parcelas")
 	@Column(name = "qtd_parcela_cartao")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer quantidadeParcelaCartao;
 	
+	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "primeiro_vencimento_cartao")
 	@Caption(value = "Primeiro Vencimento")
 	private Date primeiroVencimentoCartao;
 	
+	@Field
 	@Caption(value = "Quantidade parcelas")
 	@Column(name = "qtd_parcela_boleto")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer quantidadeParcelaBoleto;
 	
+	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "primeiro_vencimento_boleto")
 	@Caption(value = "Primeiro Vencimento")
 	private Date primeiroVencimentoBoleto;
 
+	@Field
 	@Caption(value = "Quantidade parcelas")
 	@Column(name = "qtd_parcela_duplicata")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer quantidadeParcelaDuplicata;
 	
+	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "primeiro_vencimento_duplicata")
 	@Caption(value = "Primeiro Vencimento")
 	private Date primeiroVencimentoDuplicata;
 	
+	@Field
 	@Caption(value = "Quantidade parcelas")
 	@Column(name = "qtd_parcela_vale")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer quantidadeParcelaVale;
 	
+	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "primeiro_vencimento_vale")
 	@Caption(value = "Primeiro Vencimento")
 	private Date primeiroVencimentoVale;
 
+	@Field
 	@Caption(value = "Quantidade parcelas")
 	@Column(name = "qtd_parcela_cobranca_bancaria")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer quantidadeParcelaCobrancaBancaria;
 
+	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "primeiro_vencimento_cobranca_bancaria")
 	@Caption(value = "Primeiro Vencimento")
 	private Date primeiroVencimentoCobrancaBancaria;
 
+	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "primeiro_vencimento_cobranca_carteira")
 	@Caption(value = "Primeiro Vencimento")
 	private Date primeiroVencimentoCobrancaCarteira;
 
+	@Field
 	@Caption(value = "Quantidade parcelas")
 	@Column(name = "qtd_parcela_cobranca_carteira")
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer quantidadeParcelaCobrancaCarteira;
 	
 
@@ -192,16 +252,33 @@ public class OrdemServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 	
+	@Field
 	@Caption(value = "Data Exclusão")
 	@Column(name = "data_exclusao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataExclusao;
 
-	
+	@Field
 	@Caption(value = "O.S Efetivada")
 	@Column(name = "os_efetivada")
 	private Boolean efetivada;
+	
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<FinanceiroOsEntity> itensFinanceiroOs = new ArrayList<FinanceiroOsEntity>();
+	
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<InformacaoGeralEntity> itensInformacaoGeral = new ArrayList<InformacaoGeralEntity>();
+	
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<LaudoTecnicoEntity> itensLaudoTecnico = new ArrayList<LaudoTecnicoEntity>();
+	
+	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ObservacaoEntity> itensObservacao = new ArrayList<ObservacaoEntity>();
 	
 	@OneToMany(mappedBy="ordemServico",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
@@ -611,4 +688,37 @@ public class OrdemServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 		value.setOrdemServico(null);
 	}
 
+	public List<FinanceiroOsEntity> getItensFinanceiroOs() {
+		return itensFinanceiroOs;
+	}
+
+	public void setItensFinanceiroOs(List<FinanceiroOsEntity> itensFinanceiroOs) {
+		this.itensFinanceiroOs = itensFinanceiroOs;
+	}
+
+	public List<InformacaoGeralEntity> getItensInformacaoGeral() {
+		return itensInformacaoGeral;
+	}
+
+	public void setItensInformacaoGeral(
+			List<InformacaoGeralEntity> itensInformacaoGeral) {
+		this.itensInformacaoGeral = itensInformacaoGeral;
+	}
+
+	public List<LaudoTecnicoEntity> getItensLaudoTecnico() {
+		return itensLaudoTecnico;
+	}
+
+	public void setItensLaudoTecnico(List<LaudoTecnicoEntity> itensLaudoTecnico) {
+		this.itensLaudoTecnico = itensLaudoTecnico;
+	}
+
+	public List<ObservacaoEntity> getItensObservacao() {
+		return itensObservacao;
+	}
+
+	public void setItensObservacao(List<ObservacaoEntity> itensObservacao) {
+		this.itensObservacao = itensObservacao;
+	}
+	
 }

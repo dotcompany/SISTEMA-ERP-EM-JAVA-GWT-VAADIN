@@ -46,14 +46,14 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOsEnt
 			boolean valido = validaSalvar();
 
 			if (valido) {
-				//currentBean.setLimparBdAut(Boolean.valueOf(subView.getCbLimparBD().getValue().toString()));
-				//currentBean.setVendedorProduto(Boolean.valueOf(subView.getCbVendedorProduto().getValue().toString()));
+				currentBean.setLimparBdAut(subView.getCbLimparBD().getValue());
+				currentBean.setVendedorProduto(subView.getCbVendedorProduto().getValue());
+				currentBean.setDescontoGeral(subView.getCbDesconto().getValue());
+				currentBean.setTecnicoProduto(subView.getCbTecnicoProduto().getValue());
+				currentBean.setVendedorAtendente(subView.getCbVendedorAtendente().getValue());
+				currentBean.setQtdDiasRevisao(subView.getCbProximaRevisao().getValue());
 				currentBean.setValorPagoPeca(Boolean.valueOf(subView.getCbValorPagoPeca().getValue().toString()));
-				//currentBean.setDescontoGeral(Boolean.valueOf(subView.getCbDesconto().getValue().toString()));
-				//currentBean.setTecnicoProduto(Boolean.valueOf(subView.getCbTecnicoProduto().getValue().toString()));
-				//currentBean.setVendedorAtendente(Boolean.valueOf(subView.getCbVendedorAtendente().getValue().toString()));
 				currentBean.setVendedorServico(Boolean.valueOf(subView.getCbVendedorServico().getValue().toString()));
-				//currentBean.setQtdDiasRevisao(Boolean.valueOf(subView.getCbProximaRevisao().getValue().toString()));
 				currentBean.setQtdDiasPadrao(Integer.valueOf(subView.getTfDiasPadrao().getValue()));
 				currentBean.setObsDefeitoPadrao(subView.getTaDefeitoApresentado().getValue());
 				currentBean.setObsPadraoOsSimples(subView.getTaObsPadraoSimpes().getValue());
@@ -77,7 +77,6 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOsEnt
 		subView.getCbVendedorProduto().setValue(currentBean.getVendedorProduto());
 		subView.getCbValorPagoPeca().setValue(currentBean.getValorPagoPeca());
 		subView.getCbDesconto().setValue(currentBean.getDescontoGeral());
-		;
 		subView.getCbTecnicoProduto().setValue(currentBean.getTecnicoProduto());
 		subView.getCbVendedorAtendente().setValue(currentBean.getVendedorAtendente());
 		subView.getCbVendedorServico().setValue(currentBean.getVendedorServico());

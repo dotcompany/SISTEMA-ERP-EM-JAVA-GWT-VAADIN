@@ -1,27 +1,23 @@
 package dc.controller.financeiro;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.vaadin.dialogs.ConfirmDialog;
-import org.vaadin.easyuploads.UploadField;
 
 import com.sun.mail.iap.Response;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
@@ -31,7 +27,6 @@ import dc.entidade.financeiro.ImportaOFX;
 import dc.servicos.dao.financeiro.ExtratoContaBancoDAO;
 import dc.visao.financeiro.ExtratoContaBancoFormView;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.framework.geral.MainUI;
 
 @Controller
 @Scope("prototype")
@@ -111,13 +106,8 @@ public class ExtratoContaBancoFormController extends CRUDFormController<ExtratoC
 				 */
 				private static final long serialVersionUID = 1L;
 
-				final List<ExtratoContaBancoEntity> extrato = new ArrayList<ExtratoContaBancoEntity>();
-				List<ExtratoContaBancoEntity> dados = subView.getExtratoContaBancoSubForm().getDados();
 				public void valueChange(ValueChangeEvent event) {
-					// UploadField upload = (UploadField) event.getProperty();
-					//importaOFX((File) upload.getValue());
 					importaOFX();
-					atualizaSaldos(extrato);
 				}
 				
 				public void importaOFX() {
@@ -132,42 +122,76 @@ public class ExtratoContaBancoFormController extends CRUDFormController<ExtratoC
 				            listaExtrato.get(i).setAno(ano);
 				            listaExtrato.get(i).setMes(mes);
 				            listaExtrato.get(i).setContaCaixa(contaCaixa);
-				            //subView.preencheSubForm(listaExtrato);
-				            //subView.getExtratoContaBancoSubForm().getDados().add(listaExtrato.get(i));
-				            //subView.getExtratoContaBancoSubForm().markAsDirtyRecursive();
-				        }
-				        subView.preencheSubForm(listaExtrato);
-			            dados = subView.getExtratoContaBancoSubForm().getDados();
-			            
-				        try {
-				        	ConfirmDialog
-							.show(MainUI.getCurrent(),
-									"Erro!", new ConfirmDialog.Listener() {
-
-										private static final long serialVersionUID = 1L;
-
-										public void onClose(ConfirmDialog dialog) {
-											
-											if (dados != null) {
-												extrato.addAll(subView.getExtratoContaBancoSubForm().getDados());
-											}
-				                             if (dialog.isConfirmed()) {
-				            	                   adicionarErroDeValidacao(subView.getExtratoContaBancoSubForm(),"Erro ao salvar os dados! ");
-				                                   mensagemErro("Erro ao salvar os dados! ");
-				                             } else {
-				            	                  subView.getExtratoContaBancoSubForm().getDados();
-				                            }
-				                             
-										}
-										
-							});
-				        	
-				        } catch (Exception e) {
-				            e.printStackTrace();
 				        }
 				        
-				        subView.getExtratoContaBancoSubForm().fillWith(listaExtrato);
+				        atualizaSaldos(listaExtrato);
+			            
+//				        try {
+//				        	ConfirmDialog
+//							.show(MainUI.getCurrent(),
+//									"Erro!", new ConfirmDialog.Listener() {
+//
+//										private static final long serialVersionUID = 1L;
+//
+//										public void onClose(ConfirmDialog dialog) {
+//											
+//											if (dados != null) {
+//												extrato.addAll(subView.getExtratoContaBancoSubForm().getDados());
+//											}
+//				                             if (dialog.isConfirmed()) {
+//				            	                   adicionarErroDeValidacao(subView.getExtratoContaBancoSubForm(),"Erro ao salvar os dados! ");
+//				                                   mensagemErro("Erro ao salvar os dados! ");
+//				                             } else {
+//				            	                  subView.getExtratoContaBancoSubForm().getDados();
+//				                            }
+//				                             
+//										}
+//										
+//							});
+//				        	
+//				        } catch (Exception e) {
+//				            e.printStackTrace();
+//				        }
+				        
 				    }
+				}
+			});
+			
+			subView.getBtnEfeutaConciliacaoCheque().addClickListener(new ClickListener() {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void buttonClick(ClickEvent event) {
+					try {
+						efetuaConciliacao("cheque");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						mensagemErro(e.getMessage());
+					}
+
+				}
+			});
+			
+			subView.getBtnEfeutaConciliacaoLancamento().addClickListener(new ClickListener() {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void buttonClick(ClickEvent event) {
+					try {
+						efetuaConciliacao("lancamentos");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						mensagemErro(e.getMessage());
+					}
+
 				}
 			});
 
@@ -267,16 +291,17 @@ public void removerExtratoContaBancoItem(List<ExtratoContaBancoEntity> extratoIt
 
 @Transactional
 private void atualizaSaldos(List<ExtratoContaBancoEntity> extrato) {
-    List<ExtratoContaBancoEntity> listaExtrato = subView.getExtratoContaBancoSubForm().getDados();
+	subView.getExtratoContaBancoSubForm().fillWith(extrato);
+	
     BigDecimal creditos = BigDecimal.ZERO;
     BigDecimal debitos = BigDecimal.ZERO;
     BigDecimal saldo = BigDecimal.ZERO;
     
-    for (int i = 0; i < listaExtrato.size(); i++) {
-        if (listaExtrato.get(i).getValor().compareTo(BigDecimal.ZERO) == -1) {
-            debitos = debitos.add(listaExtrato.get(i).getValor());
+    for (int i = 0; i < extrato.size(); i++) {
+        if (extrato.get(i).getValor().compareTo(BigDecimal.ZERO) == -1) {
+            debitos = debitos.add(extrato.get(i).getValor());
         } else {
-            creditos = creditos.add(listaExtrato.get(i).getValor());
+            creditos = creditos.add(extrato.get(i).getValor());
         }
     }
     saldo = creditos.add(debitos);
@@ -288,8 +313,6 @@ private void atualizaSaldos(List<ExtratoContaBancoEntity> extrato) {
     subView.setDebito(subView.getDebito());
     subView.getSaldo().setConvertedValue(saldo);
     subView.setSaldo(subView.getSaldo());
-    
-    subView.getExtratoContaBancoSubForm().fillWith(extrato);
 }
 
 
