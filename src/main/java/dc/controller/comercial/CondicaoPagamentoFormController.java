@@ -13,6 +13,7 @@ import com.vaadin.ui.Component;
 import dc.entidade.comercial.CondicaoPagamento;
 import dc.entidade.comercial.ParcelaCondicaoPagamento;
 import dc.servicos.dao.comercial.ICondicaoPagamentoDAO;
+import dc.servicos.dao.comercial.IParcelaCondicaoPagamentoDAO;
 import dc.visao.comercial.CondicaoPagamentoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -34,7 +35,7 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 	private ICondicaoPagamentoDAO dao;
 
 	@Autowired
-	private ParcelaDAO parcelaDAO;
+	private IParcelaCondicaoPagamentoDAO parcelaDAO;
 
 	@Override
 	public String getViewIdentifier() {

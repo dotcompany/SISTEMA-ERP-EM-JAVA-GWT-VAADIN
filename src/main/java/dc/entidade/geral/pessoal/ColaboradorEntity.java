@@ -562,9 +562,9 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@Fetch(FetchMode.SUBSELECT)
 	private List<HistoricoSalarialEntity> historicoSalarialList = new ArrayList<HistoricoSalarialEntity>();
 	
-	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	@Fetch(FetchMode.SUBSELECT)
-	private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList = new ArrayList<LancamentoCabecalhoEntity>();
+	//@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	//@Fetch(FetchMode.SUBSELECT)
+	//private List<LancamentoCabecalhoEntity> lancamentoCabecalhoList = new ArrayList<LancamentoCabecalhoEntity>();
 	
 	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
@@ -1157,14 +1157,14 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 		this.historicoSalarialList = historicoSalarialList;
 	}
 
-	public List<LancamentoCabecalhoEntity> getLancamentoCabecalhoList() {
+	/*public List<LancamentoCabecalhoEntity> getLancamentoCabecalhoList() {
 		return lancamentoCabecalhoList;
 	}
 
 	public void setLancamentoCabecalhoList(
 			List<LancamentoCabecalhoEntity> lancamentoCabecalhoList) {
 		this.lancamentoCabecalhoList = lancamentoCabecalhoList;
-	}
+	}*/
 
 	public List<FeriasPeriodoAquisitivoEntity> getFeriasPeriodoAquisitivoEntityList() {
 		return feriasPeriodoAquisitivoEntityList;
