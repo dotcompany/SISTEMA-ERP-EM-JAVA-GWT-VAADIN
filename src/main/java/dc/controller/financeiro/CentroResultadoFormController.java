@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.CentroResultado;
-import dc.servicos.dao.financeiro.CentroResultadoDAO;
-import dc.servicos.dao.financeiro.PlanoCentroResultadoDAO;
+import dc.servicos.dao.financeiro.ICentroResultadoDAO;
+import dc.servicos.dao.financeiro.IPlanoCentroResultadoDAO;
 import dc.visao.financeiro.CentroResultadoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -36,12 +36,12 @@ public class CentroResultadoFormController extends CRUDFormController<CentroResu
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private CentroResultadoDAO centroresultadoDAO;
+	private ICentroResultadoDAO centroresultadoDAO;
 
 	private CentroResultado currentBean;
 
 	@Autowired
-	private PlanoCentroResultadoDAO planoresultadoDAO;
+	private IPlanoCentroResultadoDAO planoresultadoDAO;
 
 	private CentroResultadoFormView subView;
 

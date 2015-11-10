@@ -6,7 +6,7 @@ import dc.entidade.administrativo.empresa.SocioEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class SocioDAO extends AbstractCrudDAO<SocioEntity> {
+public class SocioDAO extends AbstractCrudDAO<SocioEntity> implements ISocioDAO {
 
 
 	@Override

@@ -13,7 +13,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.produto.UnidadeProdutoEntity;
-import dc.model.dao.geral.produto.UnidadeProdutoDAO;
+import dc.model.dao.geral.produto.IUnidadeProdutoDAO;
 
 /**
  * 
@@ -34,7 +34,7 @@ public class UnidadeProdutoBusinessImpl implements Serializable,
 			.getLogger(UnidadeProdutoBusinessImpl.class);
 
 	@Autowired
-	private UnidadeProdutoDAO<UnidadeProdutoEntity> dao;
+	private IUnidadeProdutoDAO dao;
 
 	/**
 	 * **********************************************

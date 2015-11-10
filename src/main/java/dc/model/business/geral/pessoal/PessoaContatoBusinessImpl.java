@@ -34,7 +34,7 @@ public class PessoaContatoBusinessImpl implements Serializable,
 			.getLogger(PessoaContatoBusinessImpl.class);
 
 	@Autowired
-	private IPessoaContatoDAO<PessoaContatoEntity> dao;
+	private IPessoaContatoDAO dao;
 
 	/**
 	 * **********************************************

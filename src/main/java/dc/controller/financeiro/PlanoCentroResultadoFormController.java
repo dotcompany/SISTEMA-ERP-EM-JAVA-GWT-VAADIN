@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.PlanoCentroResultado;
-import dc.servicos.dao.financeiro.PlanoCentroResultadoDAO;
+import dc.servicos.dao.financeiro.IPlanoCentroResultadoDAO;
 import dc.visao.financeiro.PlanoCentroResultadoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -29,7 +29,7 @@ public class PlanoCentroResultadoFormController extends CRUDFormController<Plano
 	private PlanoCentroResultadoFormView subView;
 
 	@Autowired
-	private PlanoCentroResultadoDAO planocentroresultadoDAO;
+	private IPlanoCentroResultadoDAO planocentroresultadoDAO;
 
 	private PlanoCentroResultado currentBean;
 

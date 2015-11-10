@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.nfe.NfeDetEspecificoArmamentoEntity;
-import dc.servicos.dao.nfe.NfeDetEspecificoArmamentoDAO;
+import dc.servicos.dao.nfe.INfeDetEspecificoArmamentoDAO;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class NfeDetEspecificoArmamentoBusinessImpl implements Serializable,
 	private static final long serialVersionUID = 1L;
 
 	@Resource
-	private NfeDetEspecificoArmamentoDAO mainDao;
+	private INfeDetEspecificoArmamentoDAO mainDao;
 
 	@Override
 	public void delete(NfeDetEspecificoArmamentoEntity t) throws Exception {

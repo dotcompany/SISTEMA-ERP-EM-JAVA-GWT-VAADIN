@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.cadastro.IndiceValorEntity;
-import dc.servicos.dao.contabilidade.cadastro.IndiceValorDAO;
+import dc.servicos.dao.contabilidade.cadastro.IIndiceValorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class IndiceValorListController extends
 	 */
 
 	@Autowired
-	private IndiceValorDAO pDAO;
+	private IIndiceValorDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -90,7 +90,7 @@ public class IndiceValorListController extends
 	@Override
 	protected List<IndiceValorEntity> pesquisaDefault() {
 		try {
-			List<IndiceValorEntity> auxLista = this.pDAO.listarTodos();
+			List<IndiceValorEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

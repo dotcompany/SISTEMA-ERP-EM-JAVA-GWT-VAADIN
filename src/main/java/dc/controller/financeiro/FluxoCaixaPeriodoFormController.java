@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.FluxoCaixaPeriodoEntity;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
-import dc.servicos.dao.financeiro.FluxoCaixaPeriodoDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
+import dc.servicos.dao.financeiro.IFluxoCaixaPeriodoDAO;
 import dc.visao.financeiro.FluxoCaixaPeriodoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -32,10 +32,10 @@ public class FluxoCaixaPeriodoFormController extends CRUDFormController<FluxoCai
 			private FluxoCaixaPeriodoEntity currentBean;
 			
 			@Autowired
-			private FluxoCaixaPeriodoDAO dao;
+			private IFluxoCaixaPeriodoDAO dao;
 			
 			@Autowired
-			private ContaCaixaDAO contaCaixaDAO;
+			private IContaCaixaDAO contaCaixaDAO;
 			
 			@Override
 			protected String getNome() {

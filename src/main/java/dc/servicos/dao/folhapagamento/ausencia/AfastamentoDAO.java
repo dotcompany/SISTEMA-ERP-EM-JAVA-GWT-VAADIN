@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class AfastamentoDAO extends AbstractCrudDAO<AfastamentoEntity> {
+public class AfastamentoDAO extends AbstractCrudDAO<AfastamentoEntity> implements IAfastamentoDAO {
 
 	@Override
 	public Class<AfastamentoEntity> getEntityClass() {

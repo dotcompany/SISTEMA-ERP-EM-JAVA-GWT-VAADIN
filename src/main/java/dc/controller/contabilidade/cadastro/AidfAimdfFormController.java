@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.AidfAimdfEntity;
-import dc.servicos.dao.contabilidade.cadastro.AidfAimdfDAO;
+import dc.servicos.dao.contabilidade.cadastro.IAidfAimdfDAO;
 import dc.visao.contabilidade.cadastro.AidfAimdfFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -32,7 +32,7 @@ public class AidfAimdfFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private AidfAimdfDAO pDAO;
+	private IAidfAimdfDAO pDAO;
 
 	/** ENTITIES */
 

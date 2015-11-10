@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.TipoPagamento;
-import dc.servicos.dao.financeiro.TipoPagamentoDAO;
+import dc.servicos.dao.financeiro.ITipoPagamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class TipoPagamentoListController extends CRUDListController<TipoPagament
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private TipoPagamentoDAO dao;
+	private ITipoPagamentoDAO dao;
 
 	@Autowired
 	private TipoPagamentoFormController tipoPagamentoFormController;

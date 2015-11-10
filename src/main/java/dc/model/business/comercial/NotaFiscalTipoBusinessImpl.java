@@ -11,7 +11,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.comercial.NotaFiscalTipo;
 import dc.entidade.framework.FmMenu;
-import dc.model.dao.geral.pessoal.NotaFiscalTipoDAO;
+import dc.model.dao.geral.pessoal.INotaFiscalTipoDAO;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,7 +21,7 @@ public class NotaFiscalTipoBusinessImpl implements NotaFiscalTipoBusiness<NotaFi
 			private static final long serialVersionUID = 1L;
 
 			@Autowired
-			private NotaFiscalTipoDAO<NotaFiscalTipo> dao;
+			private INotaFiscalTipoDAO dao;
 
 			/**
 			 * **********************************************

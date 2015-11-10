@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.diverso.SetorEntity;
-import dc.model.dao.geral.diverso.SetorDAO;
+import dc.model.dao.geral.diverso.ISetorDAO;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class SetorBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(SetorBusinessImpl.class);
 
 	@Autowired
-	private SetorDAO<SetorEntity> dao;
+	private ISetorDAO dao;
 
 	/**
 	 * **********************************************

@@ -12,15 +12,15 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
-import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
-import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
+import dc.entidade.contabilidade.PlanoContaRefSped;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaRefSpedDAO;
 import dc.visao.contabilidade.planoconta.PlanoContaRefSpedFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller(value = "contabilidadePlanoContaRefSpedFormController")
 @Scope("prototype")
 public class PlanoContaRefSpedFormController extends
-		CRUDFormController<PlanoContaRefSpedEntity> {
+		CRUDFormController<PlanoContaRefSped> {
 
 	/**
 	 * 
@@ -32,17 +32,17 @@ public class PlanoContaRefSpedFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private PlanoContaRefSpedDAO pDAO;
+	private IPlanoContaRefSpedDAO pDAO;
 
 	/** ENTITIES */
 
-	private PlanoContaRefSpedEntity pEntity;
+	private PlanoContaRefSped pEntity;
 
 	/** CONSTRUTOR */
 
 	public PlanoContaRefSpedFormController() {
 		if (this.pEntity == null) {
-			this.pEntity = new PlanoContaRefSpedEntity();
+			this.pEntity = new PlanoContaRefSped();
 		}
 	}
 
@@ -191,7 +191,7 @@ public class PlanoContaRefSpedFormController extends
 	private void novoObjeto(Serializable id) {
 		try {
 			if (id.equals(0) || id == null) {
-				this.pEntity = new PlanoContaRefSpedEntity();
+				this.pEntity = new PlanoContaRefSped();
 			} else {
 				this.pEntity = this.pDAO.find(id);
 			}
@@ -211,7 +211,7 @@ public class PlanoContaRefSpedFormController extends
 	}
 
 	@Override
-	public PlanoContaRefSpedEntity getModelBean() {
+	public PlanoContaRefSped getModelBean() {
 		// TODO Auto-generated method stub
 		return pEntity;
 	}

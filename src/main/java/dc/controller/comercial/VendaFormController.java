@@ -19,16 +19,16 @@ import dc.entidade.comercial.Orcamento;
 import dc.entidade.comercial.Venda;
 import dc.entidade.comercial.VendaDetalhe;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
-import dc.servicos.dao.comercial.ItemOrcamentoDAO;
-import dc.servicos.dao.comercial.NotaFiscalTipoDAO;
-import dc.servicos.dao.comercial.OrcamentoDAO;
-import dc.servicos.dao.comercial.VendaDAO;
-import dc.servicos.dao.comercial.VendaDetalheDAO;
-import dc.servicos.dao.folhapagamento.VendedorDAO;
-import dc.servicos.dao.geral.pessoal.ClienteDAO;
-import dc.servicos.dao.geral.pessoal.TransportadoraDAO;
-import dc.servicos.dao.geral.produto.ProdutoDAO;
+import dc.model.dao.geral.pessoal.IClienteDAO;
+import dc.model.dao.geral.pessoal.INotaFiscalTipoDAO;
+import dc.model.dao.geral.pessoal.ITransportadoraDAO;
+import dc.model.dao.geral.produto.IProdutoDAO;
+import dc.servicos.dao.comercial.ICondicaoPagamentoDAO;
+import dc.servicos.dao.comercial.IItemOrcamentoDAO;
+import dc.servicos.dao.comercial.IOrcamentoDAO;
+import dc.servicos.dao.comercial.IVendaDAO;
+import dc.servicos.dao.comercial.IVendaDetalheDAO;
+import dc.servicos.dao.folhapagamento.IVendedorDAO;
 import dc.visao.comercial.VendaFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -42,39 +42,39 @@ public class VendaFormController extends CRUDFormController<Venda> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	Venda currentBean;
+	private Venda currentBean;
 
-	VendaFormView subView;
+	private VendaFormView subView;
 
 	@Autowired
-	VendaDAO dao;
+	private IVendaDAO dao;
 	
 	@Autowired
-	TransportadoraDAO transportadoraDAO;
+	private ITransportadoraDAO transportadoraDAO;
 
 	@Autowired
-	VendaDetalheDAO detalheDAO;
+	private IVendaDetalheDAO detalheDAO;
 
 	@Autowired
-	VendedorDAO vendedorDAO;
+	private IVendedorDAO vendedorDAO;
 
 	@Autowired
-	ClienteDAO clienteDAO;
+	private IClienteDAO clienteDAO;
 
 	@Autowired
-	CondicaoPagamentoDAO condicaoPagamentoDAO;
+	private ICondicaoPagamentoDAO condicaoPagamentoDAO;
 
 	@Autowired
-	NotaFiscalTipoDAO notaFiscalTipoDAO;
+	private INotaFiscalTipoDAO notaFiscalTipoDAO;
 
 	@Autowired
-	ProdutoDAO produtoDAO;
+	private IProdutoDAO produtoDAO;
 
 	@Autowired
-	OrcamentoDAO orcamentoDAO;
+	private IOrcamentoDAO orcamentoDAO;
 
 	@Autowired
-	ItemOrcamentoDAO itemOrcamentoDAO;
+	private IItemOrcamentoDAO itemOrcamentoDAO;
 
 	@Override
 	public String getViewIdentifier() {

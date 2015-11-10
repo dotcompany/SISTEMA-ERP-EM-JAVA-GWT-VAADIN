@@ -14,7 +14,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
 
 	@Autowired
-	private BancoDAO bancoDAO;
+	private IBancoDAO bancoDAO;
 	
 	@Override
 	public Class<AgenciaBancoEntity> getEntityClass() {

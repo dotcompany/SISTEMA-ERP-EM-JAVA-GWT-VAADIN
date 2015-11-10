@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.DreVinculoEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DreVinculoDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IDreVinculoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class DreVinculoListController extends
 	 */
 
 	@Autowired
-	private DreVinculoDAO pDAO;
+	private IDreVinculoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -90,7 +90,7 @@ public class DreVinculoListController extends
 	@Override
 	protected List<DreVinculoEntity> pesquisaDefault() {
 		try {
-			List<DreVinculoEntity> auxLista = this.pDAO.listarTodos();
+			List<DreVinculoEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

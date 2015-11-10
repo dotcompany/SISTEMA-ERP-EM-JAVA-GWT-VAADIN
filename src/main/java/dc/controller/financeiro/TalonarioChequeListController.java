@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.TalonarioCheque;
-import dc.servicos.dao.financeiro.TalonarioChequeDAO;
+import dc.servicos.dao.financeiro.ITalonarioChequeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -19,10 +19,10 @@ public class TalonarioChequeListController extends CRUDListController<TalonarioC
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	TalonarioChequeDAO dao;
+	private ITalonarioChequeDAO dao;
 
 	@Autowired
-	TalonarioChequeFormController talonarioChequeFormController;
+	private TalonarioChequeFormController talonarioChequeFormController;
 
 	@Override
 	public String[] getColunas() {

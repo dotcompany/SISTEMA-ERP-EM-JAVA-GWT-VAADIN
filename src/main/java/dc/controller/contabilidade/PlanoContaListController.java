@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import dc.entidade.contabilidade.PlanoConta;
-import dc.servicos.dao.contabilidade.PlanoContaDAO;
+import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Controller
 @Scope("prototype")
-public class PlanoContaListController extends CRUDListController<PlanoConta> {
+public class PlanoContaListController extends CRUDListController<PlanoContaEntity> {
 
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class PlanoContaListController extends CRUDListController<PlanoConta> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private PlanoContaDAO dao;
+	private IPlanoContaDAO dao;
 
 	@Autowired
 	private PlanoContaFormController planoContaFormController;
@@ -32,8 +32,8 @@ public class PlanoContaListController extends CRUDListController<PlanoConta> {
 	}
 
 	@Override
-	public Class<? super PlanoConta> getEntityClass() {
-		return PlanoConta.class;
+	public Class<? super PlanoContaEntity> getEntityClass() {
+		return PlanoContaEntity.class;
 	}
 
 	@Override
@@ -42,12 +42,12 @@ public class PlanoContaListController extends CRUDListController<PlanoConta> {
 	}
 
 	@Override
-	protected List<PlanoConta> pesquisa(String valor) {
+	protected List<PlanoContaEntity> pesquisa(String valor) {
 		return dao.fullTextSearch(valor);
 	}
 
 	@Override
-	protected CRUDFormController<PlanoConta> getFormController() {
+	protected CRUDFormController<PlanoContaEntity> getFormController() {
 		return planoContaFormController;
 	}
 
@@ -66,8 +66,8 @@ public class PlanoContaListController extends CRUDListController<PlanoConta> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected List<PlanoConta> pesquisaDefault() {
-		return (List<PlanoConta>) dao.getAll(getEntityClass());
+	protected List<PlanoContaEntity> pesquisaDefault() {
+		return (List<PlanoContaEntity>) dao.getAll(getEntityClass());
 	}
 
 }

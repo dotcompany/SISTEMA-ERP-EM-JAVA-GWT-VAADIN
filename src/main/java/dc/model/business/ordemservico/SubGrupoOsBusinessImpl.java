@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.ordemservico.SubGrupoOsEntity;
-import dc.model.dao.ordemservico.SubGrupoOsDAO;
+import dc.model.dao.ordemservico.ISubGrupoOsDAO;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class SubGrupoOsBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(SubGrupoOsBusinessImpl.class);
 
 	@Autowired
-	private SubGrupoOsDAO<SubGrupoOsEntity> dao;
+	private ISubGrupoOsDAO dao;
 
 	/**
 	 * **********************************************

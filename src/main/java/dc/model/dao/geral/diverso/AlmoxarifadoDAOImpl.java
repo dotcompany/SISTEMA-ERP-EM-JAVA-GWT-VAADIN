@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 public class AlmoxarifadoDAOImpl extends AbstractCrudDAO<AlmoxarifadoEntity>
-		implements AlmoxarifadoDAO<AlmoxarifadoEntity> {
+		implements IAlmoxarifadoDAO {
 
 	private static Logger logger = Logger.getLogger(AlmoxarifadoDAOImpl.class);
 

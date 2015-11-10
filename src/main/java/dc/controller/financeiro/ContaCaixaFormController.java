@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.servicos.dao.financeiro.AgenciaBancoDAO;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.model.dao.geral.pessoal.IAgenciaBancoDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
 import dc.visao.financeiro.ContaCaixaFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -33,10 +33,10 @@ public class ContaCaixaFormController extends CRUDFormController<ContaCaixa> {
 	private ContaCaixaFormView subView;
 
 	@Autowired
-	private ContaCaixaDAO contaCaixaDAO;
+	private IContaCaixaDAO contaCaixaDAO;
 
 	@Autowired
-	private AgenciaBancoDAO agenciaDAO;
+	private IAgenciaBancoDAO agenciaDAO;
 
 	private ContaCaixa currentBean;
 

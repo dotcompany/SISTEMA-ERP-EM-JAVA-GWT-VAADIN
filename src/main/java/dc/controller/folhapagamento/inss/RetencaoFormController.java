@@ -15,9 +15,9 @@ import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.inss.InssEntity;
 import dc.entidade.folhapagamento.inss.RetencaoEntity;
 import dc.entidade.folhapagamento.inss.ServicoEntity;
-import dc.servicos.dao.folhapagamento.inss.InssDAO;
-import dc.servicos.dao.folhapagamento.inss.RetencaoDAO;
-import dc.servicos.dao.folhapagamento.inss.ServicoDAO;
+import dc.servicos.dao.folhapagamento.inss.IInssDAO;
+import dc.servicos.dao.folhapagamento.inss.IRetencaoDAO;
+import dc.servicos.dao.folhapagamento.inss.IServicoDAO;
 import dc.visao.folhapagamento.inss.RetencaoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -36,13 +36,13 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 	/** DAO'S */
 
 	@Autowired
-	private RetencaoDAO pDAO;
+	private IRetencaoDAO pDAO;
 
 	@Autowired
-	private InssDAO iDAO;
+	private IInssDAO iDAO;
 
 	@Autowired
-	private ServicoDAO sDAO;
+	private IServicoDAO sDAO;
 
 	/** ENTITIES */
 
@@ -160,7 +160,7 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 	public List<InssEntity> inssListarTodos() {
 		List<InssEntity> auxLista = new ArrayList<InssEntity>();
 
-		auxLista = this.iDAO.listarTodos();
+		auxLista = this.iDAO.getAll();
 
 		return auxLista;
 	}
@@ -168,7 +168,7 @@ public class RetencaoFormController extends CRUDFormController<RetencaoEntity> {
 	public List<ServicoEntity> servicoListarTodos() {
 		List<ServicoEntity> auxLista = new ArrayList<ServicoEntity>();
 
-		auxLista = this.sDAO.listarTodos();
+		auxLista = this.sDAO.getAll();
 
 		return auxLista;
 	}

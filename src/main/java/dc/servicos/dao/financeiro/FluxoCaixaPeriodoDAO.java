@@ -9,7 +9,7 @@ import dc.entidade.financeiro.FluxoCaixaPeriodoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 @SuppressWarnings("unchecked")
-public class FluxoCaixaPeriodoDAO extends AbstractCrudDAO<FluxoCaixaPeriodoEntity> {
+public class FluxoCaixaPeriodoDAO extends AbstractCrudDAO<FluxoCaixaPeriodoEntity> implements IFluxoCaixaPeriodoDAO {
 	
 			@Override
 			public Class<FluxoCaixaPeriodoEntity> getEntityClass() {

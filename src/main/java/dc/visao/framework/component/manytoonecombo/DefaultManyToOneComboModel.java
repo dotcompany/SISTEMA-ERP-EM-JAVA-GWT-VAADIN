@@ -73,6 +73,11 @@ public class DefaultManyToOneComboModel<T> implements ManyToOneComboModel<T> {
 		this.filters = filters;
 	}
 
+	public DefaultManyToOneComboModel(Class controllerClass, AbstractDAO<T> dao, MainController mainController, List<Filter> filters2) {
+		this(controllerClass, dao, mainController, false, null);
+		this.filters = filters;
+    }
+
 	public void setModalSize(int modalSizeType) {
 		this.modalSize = modalSizeType;
 	}

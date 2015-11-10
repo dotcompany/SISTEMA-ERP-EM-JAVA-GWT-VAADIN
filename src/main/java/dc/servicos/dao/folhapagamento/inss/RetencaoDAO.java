@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class RetencaoDAO extends AbstractCrudDAO<RetencaoEntity> {
+public class RetencaoDAO extends AbstractCrudDAO<RetencaoEntity> implements IRetencaoDAO {
 
 	@Override
 	public Class<RetencaoEntity> getEntityClass() {
@@ -37,6 +37,10 @@ public class RetencaoDAO extends AbstractCrudDAO<RetencaoEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.folhapagamento.inss.IRetencaoDAO#procuraNomeContendo(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public List<RetencaoEntity> procuraNomeContendo(String query) {
 		try {

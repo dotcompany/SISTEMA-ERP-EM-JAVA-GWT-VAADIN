@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeDetEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeDetDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IEncerramentoExeDetDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class EncerramentoExeDetListController extends
 	 */
 
 	@Autowired
-	private EncerramentoExeDetDAO pDAO;
+	private IEncerramentoExeDetDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -91,7 +91,7 @@ public class EncerramentoExeDetListController extends
 	@Override
 	protected List<EncerramentoExeDetEntity> pesquisaDefault() {
 		try {
-			List<EncerramentoExeDetEntity> auxLista = this.pDAO.listarTodos();
+			List<EncerramentoExeDetEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

@@ -23,7 +23,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ChequeDAO extends AbstractCrudDAO<Cheque>{
+public class ChequeDAO extends AbstractCrudDAO<Cheque> implements IChequeDAO{
 
 	@Override
 	public Class<Cheque> getEntityClass() {

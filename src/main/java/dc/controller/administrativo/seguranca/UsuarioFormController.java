@@ -21,9 +21,9 @@ import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.PessoaFisicaEntity;
 import dc.entidade.sistema.ContaEmpresa;
 import dc.model.business.administrativo.seguranca.UsuarioBusiness;
-import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
-import dc.servicos.dao.geral.pessoal.PessoaDAO;
-import dc.servicos.dao.sistema.PapelDAO;
+import dc.model.dao.geral.pessoal.IColaboradorDAO;
+import dc.model.dao.geral.pessoal.IPessoaDAO;
+import dc.servicos.dao.sistema.IPapelDAO;
 import dc.visao.administrativo.seguranca.UsuarioFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneComboModel;
@@ -59,13 +59,13 @@ public class UsuarioFormController extends CRUDFormController<UsuarioEntity> {
 	 */
 
 	@Autowired
-	private ColaboradorDAO colaboradorDAO;
+	private IColaboradorDAO colaboradorDAO;
 
 	@Autowired
-	private PessoaDAO pessoaDAO;
+	private IPessoaDAO pessoaDAO;
 
 	@Autowired
-	private PapelDAO papelDAO;
+	private IPapelDAO papelDAO;
 
 	/**
 	 * CONSTRUTOR

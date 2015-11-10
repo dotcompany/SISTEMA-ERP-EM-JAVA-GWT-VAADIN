@@ -18,13 +18,14 @@ import dc.entidade.comercial.Frete;
 import dc.entidade.comercial.ItemOrcamento;
 import dc.entidade.comercial.Orcamento;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
+import dc.model.dao.geral.pessoal.IClienteDAO;
+import dc.model.dao.geral.pessoal.ITransportadoraDAO;
+import dc.model.dao.geral.produto.IProdutoDAO;
 import dc.servicos.dao.comercial.FreteDAO;
-import dc.servicos.dao.comercial.ItemOrcamentoDAO;
-import dc.servicos.dao.comercial.OrcamentoDAO;
-import dc.servicos.dao.folhapagamento.VendedorDAO;
-import dc.servicos.dao.geral.pessoal.ClienteDAO;
-import dc.servicos.dao.geral.pessoal.TransportadoraDAO;
+import dc.servicos.dao.comercial.ICondicaoPagamentoDAO;
+import dc.servicos.dao.comercial.IItemOrcamentoDAO;
+import dc.servicos.dao.comercial.IOrcamentoDAO;
+import dc.servicos.dao.folhapagamento.IVendedorDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.visao.comercial.OrcamentoFormView;
 import dc.visao.framework.DCFieldGroup;
@@ -39,30 +40,30 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	Orcamento currentBean;
+	private Orcamento currentBean;
 
-	OrcamentoFormView subView;
-
-	@Autowired
-	OrcamentoDAO dao;
+	private OrcamentoFormView subView;
 
 	@Autowired
-	CondicaoPagamentoDAO condicaoPagamentoDAO;
+	private IOrcamentoDAO dao;
 
 	@Autowired
-	ClienteDAO clienteDAO;
+	private ICondicaoPagamentoDAO condicaoPagamentoDAO;
 
 	@Autowired
-	TransportadoraDAO transportadoraDAO;
+	private IClienteDAO clienteDAO;
 
 	@Autowired
-	VendedorDAO vendedorDAO;
+	private ITransportadoraDAO transportadoraDAO;
 
 	@Autowired
-	ItemOrcamentoDAO itemOrcamentoDAO;
+	private  IVendedorDAO vendedorDAO;
 
 	@Autowired
-	ProdutoDAO produtoDAO;
+	private IItemOrcamentoDAO itemOrcamentoDAO;
+
+	@Autowired
+	private IProdutoDAO produtoDAO;
 
 	@Autowired
 	FreteDAO freteDAO;
@@ -225,7 +226,7 @@ public ItemOrcamento adicionarItem() {
 		return new BigDecimal(format);
 	}
 
-	public ProdutoDAO getProdutoDAO() {
+	public IProdutoDAO getProdutoDAO() {
 		return produtoDAO;
 	}
 

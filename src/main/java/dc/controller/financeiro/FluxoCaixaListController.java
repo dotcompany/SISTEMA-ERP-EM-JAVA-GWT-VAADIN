@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.FluxoCaixaEntity;
-import dc.servicos.dao.financeiro.FluxoCaixaDAO;
+import dc.model.dao.geral.pessoal.IFluxoCaixaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class FluxoCaixaListController extends CRUDListController<FluxoCaixaEntit
 		private static final long serialVersionUID = 1L;
 
 		@Autowired
-		FluxoCaixaDAO dao;
+		private IFluxoCaixaDAO dao;
 
 		@Autowired
 		private FluxoCaixaFormController fluxoCaixaFormController;

@@ -9,7 +9,7 @@ import org.vaadin.addons.lazyquerycontainer.QueryDefinition;
 import com.sun.istack.logging.Logger;
 
 import dc.entidade.framework.FmMenu;
-import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+import dc.servicos.dao.framework.geral.IListDAO;
 
 public class DCBeanQueryMultiEmpresa extends AbstractDCBeanQuery {
 
@@ -24,11 +24,12 @@ public class DCBeanQueryMultiEmpresa extends AbstractDCBeanQuery {
 		logger.info("loading beans from " + arg0);
 		logger.info("loading beans page size" + arg1);
 
-		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get("dao");
+		IListDAO dao = (IListDAO) getQueryConfiguration().get("dao");
 		String searchTerm = (String) getQueryConfiguration().get("search");
 		Class pojoClass = (Class) getQueryConfiguration().get("pojoClass");
 		Integer idEmpresa = (Integer) getQueryConfiguration().get("id_empresa");
 		FmMenu menu = (FmMenu) getQueryConfiguration().get("menu");
+		
 
 		return dao.fullTextSearch(searchTerm, arg0, arg1, this.sortingFields, this.sortingStates, menu, filters);
 //		if (isSeach(searchTerm)) {
@@ -42,7 +43,7 @@ public class DCBeanQueryMultiEmpresa extends AbstractDCBeanQuery {
 
 	@Override
 	public int size() {
-		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get("dao");
+		IListDAO dao = (IListDAO) getQueryConfiguration().get("dao");
 		String searchTerm = (String) getQueryConfiguration().get("search");
 		Class pojoClass = (Class) getQueryConfiguration().get("pojoClass");
 		Integer idEmpresa = (Integer) getQueryConfiguration().get("id_empresa");

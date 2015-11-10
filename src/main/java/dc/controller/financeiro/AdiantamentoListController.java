@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.Adiantamento;
-import dc.servicos.dao.financeiro.AdiantamentoDAO;
+import dc.servicos.dao.financeiro.IAdiantamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -29,10 +29,10 @@ public class AdiantamentoListController extends CRUDListController<Adiantamento>
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	AdiantamentoDAO dao;
+	private IAdiantamentoDAO dao;
 
 	@Autowired
-	AdiantamentoFormController adiantamentoFormController;
+	private AdiantamentoFormController adiantamentoFormController;
 
 	@Override
 	public String[] getColunas() {

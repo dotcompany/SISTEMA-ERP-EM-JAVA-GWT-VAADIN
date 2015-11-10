@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.tributario.GrupoTributarioEntity;
-import dc.model.dao.tributario.GrupoTributarioDAO;
+import dc.model.dao.tributario.IGrupoTributarioDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class GrupoTributarioBusinessImpl implements Serializable,
 			.getLogger(GrupoTributarioBusinessImpl.class);
 
 	@Autowired
-	private GrupoTributarioDAO<GrupoTributarioEntity> dao;
+	private IGrupoTributarioDAO dao;
 
 	/**
 	 * **********************************************

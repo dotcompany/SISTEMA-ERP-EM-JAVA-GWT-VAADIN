@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.BalancoPatrimonialEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.BalancoPatrimonialDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IBalancoPatrimonialDAO;
 import dc.visao.contabilidade.demonstrativo.BalancoPatrimonialFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -31,7 +31,7 @@ public class BalancoPatrimonialFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private BalancoPatrimonialDAO pDAO;
+	private IBalancoPatrimonialDAO pDAO;
 
 	/** ENTITIES */
 

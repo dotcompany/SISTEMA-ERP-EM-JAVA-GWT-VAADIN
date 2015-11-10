@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
-import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
+import dc.entidade.contabilidade.PlanoContaRefSped;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaRefSpedDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,7 +21,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Controller(value = "contabilidadePlanoContaRefSpedListController")
 @Scope("prototype")
 public class PlanoContaRefSpedListController extends
-		CRUDListController<PlanoContaRefSpedEntity> {
+		CRUDListController<PlanoContaRefSped> {
 
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class PlanoContaRefSpedListController extends
 	 */
 
 	@Autowired
-	private PlanoContaRefSpedDAO pDAO;
+	private IPlanoContaRefSpedDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -49,8 +49,8 @@ public class PlanoContaRefSpedListController extends
 	}
 
 	@Override
-	public Class<? super PlanoContaRefSpedEntity> getEntityClass() {
-		return PlanoContaRefSpedEntity.class;
+	public Class<? super PlanoContaRefSped> getEntityClass() {
+		return PlanoContaRefSped.class;
 	}
 
 	@Override
@@ -59,21 +59,21 @@ public class PlanoContaRefSpedListController extends
 	}
 
 	@Override
-	protected List<PlanoContaRefSpedEntity> pesquisa(String valor) {
+	protected List<PlanoContaRefSped> pesquisa(String valor) {
 		try {
-			List<PlanoContaRefSpedEntity> auxLista = this.pDAO
+			List<PlanoContaRefSped> auxLista = this.pDAO
 					.procuraNomeContendo(valor);
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<PlanoContaRefSpedEntity>();
+			return new ArrayList<PlanoContaRefSped>();
 		}
 	}
 
 	@Override
-	protected CRUDFormController<PlanoContaRefSpedEntity> getFormController() {
+	protected CRUDFormController<PlanoContaRefSped> getFormController() {
 		return this.pController;
 	}
 
@@ -89,15 +89,15 @@ public class PlanoContaRefSpedListController extends
 	}
 
 	@Override
-	protected List<PlanoContaRefSpedEntity> pesquisaDefault() {
+	protected List<PlanoContaRefSped> pesquisaDefault() {
 		try {
-			List<PlanoContaRefSpedEntity> auxLista = this.pDAO.listarTodos();
+			List<PlanoContaRefSped> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<PlanoContaRefSpedEntity>();
+			return new ArrayList<PlanoContaRefSped>();
 		}
 	}
 

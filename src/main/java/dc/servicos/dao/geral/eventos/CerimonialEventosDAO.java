@@ -10,7 +10,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @SuppressWarnings("unchecked")
 @Repository("cerimonialEventosDAO")
-public class CerimonialEventosDAO extends AbstractCrudDAO<CerimonialEventosEntity> {
+public class CerimonialEventosDAO extends AbstractCrudDAO<CerimonialEventosEntity> implements ICerimonialEventosDAO {
 
 	@Override
 	public Class<CerimonialEventosEntity> getEntityClass() {

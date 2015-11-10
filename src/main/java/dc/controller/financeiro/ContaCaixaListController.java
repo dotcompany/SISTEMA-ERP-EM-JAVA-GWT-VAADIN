@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,10 +23,10 @@ public class ContaCaixaListController extends CRUDListController<ContaCaixa> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ContaCaixaDAO dao;
+	private IContaCaixaDAO dao;
 
 	@Autowired
-	ContaCaixaFormController contaCaixaFormController;
+	private ContaCaixaFormController contaCaixaFormController;
 
 	@Override
 	protected CRUDFormController<ContaCaixa> getFormController() {

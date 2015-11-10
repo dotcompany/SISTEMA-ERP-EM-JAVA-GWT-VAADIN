@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dc.controller.folhapagamento.ausencia.IFeriasPeriodoAquisitivoDAO;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
@@ -17,7 +18,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 @SuppressWarnings("unchecked")
 public class FeriasPeriodoAquisitivoDAO extends
-		AbstractCrudDAO<FeriasPeriodoAquisitivoEntity> {
+		AbstractCrudDAO<FeriasPeriodoAquisitivoEntity> implements IFeriasPeriodoAquisitivoDAO {
 
 	@Override
 	public Class<FeriasPeriodoAquisitivoEntity> getEntityClass() {

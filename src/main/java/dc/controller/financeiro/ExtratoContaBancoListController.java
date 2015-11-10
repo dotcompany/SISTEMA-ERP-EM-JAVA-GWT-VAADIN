@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ExtratoContaBancoEntity;
-import dc.servicos.dao.financeiro.ExtratoContaBancoDAO;
+import dc.servicos.dao.financeiro.IExtratoContaBancoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class ExtratoContaBancoListController extends CRUDListController<ExtratoC
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	ExtratoContaBancoDAO dao;
+	private IExtratoContaBancoDAO dao;
 	
 	@Autowired
 	private ExtratoContaBancoFormController controller;

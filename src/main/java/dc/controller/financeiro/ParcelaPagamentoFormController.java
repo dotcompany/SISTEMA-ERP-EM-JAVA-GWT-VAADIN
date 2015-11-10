@@ -26,11 +26,11 @@ import dc.entidade.financeiro.ParcelaPagamento;
 import dc.entidade.financeiro.ParcelaPagar;
 import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.financeiro.TipoPagamento;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
+import dc.servicos.dao.financeiro.IParcelaPagamentoDAO;
+import dc.servicos.dao.financeiro.IParcelaPagarDAO;
 import dc.servicos.dao.financeiro.IStatusParcelaDAO;
-import dc.servicos.dao.financeiro.ParcelaPagamentoDAO;
-import dc.servicos.dao.financeiro.ParcelaPagarDAO;
-import dc.servicos.dao.financeiro.TipoPagamentoDAO;
+import dc.servicos.dao.financeiro.ITipoPagamentoDAO;
 import dc.visao.financeiro.ParcelaPagamentoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -47,15 +47,15 @@ public class ParcelaPagamentoFormController extends CRUDFormController<ParcelaPa
 	private ParcelaPagamentoFormView subView;
 
 	@Autowired
-	private ParcelaPagarDAO parcelaPagarDAO;
+	private IParcelaPagarDAO parcelaPagarDAO;
 	@Autowired
-	private ParcelaPagamentoDAO parcelaPagamentoDAO;
+	private IParcelaPagamentoDAO parcelaPagamentoDAO;
 	@Autowired
 	private IStatusParcelaDAO statusParcelaDAO;
 	@Autowired
-	private TipoPagamentoDAO tipoPagamentoDAO;
+	private ITipoPagamentoDAO tipoPagamentoDAO;
 	@Autowired
-	private ContaCaixaDAO contaCaixaDAO;
+	private IContaCaixaDAO contaCaixaDAO;
 
 	private ParcelaPagamento currentBean;
 

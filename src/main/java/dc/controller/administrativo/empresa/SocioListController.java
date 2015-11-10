@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.SocioEntity;
-import dc.servicos.dao.administrativo.empresa.SocioDAO;
+import dc.servicos.dao.administrativo.empresa.ISocioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -25,7 +25,7 @@ public class SocioListController extends CRUDListController<SocioEntity> {
 	private SocioFormController socioFormController;
 
 	@Autowired
-	private SocioDAO dao;
+	private ISocioDAO dao;
 
 	/**
 	 * CONSTRUTOR
@@ -92,5 +92,4 @@ public class SocioListController extends CRUDListController<SocioEntity> {
 			return null;
 		}
 	}
-
 }

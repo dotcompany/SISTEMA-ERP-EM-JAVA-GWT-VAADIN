@@ -8,7 +8,7 @@ import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("suprimentosCompraCotacaoDAO")
-public class CotacaoDAO extends AbstractCrudDAO<CotacaoEntity> {
+public class CotacaoDAO extends AbstractCrudDAO<CotacaoEntity> implements ICotacaoDAO {
 
 	@Override
 	public Class<CotacaoEntity> getEntityClass() {

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.ponto.PontoAbono;
-import dc.servicos.dao.ponto.PontoAbonoDAO;
+import dc.servicos.dao.ponto.IPontoAbonoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,10 +22,10 @@ public class PontoAbonoListController extends CRUDListController<PontoAbono> {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	PontoAbonoDAO dao;
+	private IPontoAbonoDAO dao;
 
 	@Autowired
-	PontoAbonoFormController pontoAbonoFormController;
+	private PontoAbonoFormController pontoAbonoFormController;
 
 	@Override
 	public String[] getColunas() {

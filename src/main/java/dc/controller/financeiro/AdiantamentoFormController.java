@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.Adiantamento;
-import dc.servicos.dao.financeiro.AdiantamentoDAO;
-import dc.servicos.dao.financeiro.LancamentoPagarDAO;
+import dc.servicos.dao.financeiro.IAdiantamentoDAO;
+import dc.servicos.dao.financeiro.ILancamentoPagarDAO;
 import dc.visao.financeiro.AdiantamentoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -38,10 +38,10 @@ public class AdiantamentoFormController extends CRUDFormController<Adiantamento>
 	private AdiantamentoFormView subView;
 
 	@Autowired
-	private AdiantamentoDAO adiantamentoDAO;
+	private IAdiantamentoDAO adiantamentoDAO;
 
 	@Autowired
-	private LancamentoPagarDAO lancamentoPagarDAO;
+	private ILancamentoPagarDAO lancamentoPagarDAO;
 
 	private Adiantamento currentBean;
 

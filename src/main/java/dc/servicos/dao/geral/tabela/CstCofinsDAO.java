@@ -11,7 +11,7 @@ import dc.entidade.geral.tabela.CstCofinsEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class CstCofinsDAO extends AbstractCrudDAO<CstCofinsEntity> {
+public class CstCofinsDAO extends AbstractCrudDAO<CstCofinsEntity> implements ICstCofinsDAO {
 
 	@Override
 	public Class<CstCofinsEntity> getEntityClass() {
@@ -23,6 +23,10 @@ public class CstCofinsDAO extends AbstractCrudDAO<CstCofinsEntity> {
 		return getSession().createQuery("from CstCofins").list();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.tabela.ICstCofinsDAO#procuraPorCodigo(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public CstCofinsEntity procuraPorCodigo(String codigo) {
 		CstCofinsEntity cst = null;

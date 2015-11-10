@@ -11,7 +11,7 @@ import dc.entidade.geral.CnaeEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class EmpresaCnaeDAO extends AbstractCrudDAO<EmpresaCnaeEntity> {
+public class EmpresaCnaeDAO extends AbstractCrudDAO<EmpresaCnaeEntity> implements IEmpresaCnaeDAO {
 
 	@Override
 	public Class<EmpresaCnaeEntity> getEntityClass() {
@@ -36,6 +36,10 @@ public class EmpresaCnaeDAO extends AbstractCrudDAO<EmpresaCnaeEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.administrativo.empresa.IEmpresaCnaeDAO#getCnaePrincipalList()
+	 */
+	@Override
 	@Transactional
 	public List<EmpresaCnaeEntity> getCnaePrincipalList() {
 		try {

@@ -26,6 +26,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
@@ -147,7 +148,7 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ID_PLANO_CONTA", nullable = false)
-	private PlanoConta planoConta;
+	private PlanoContaEntity planoConta;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ID_CONTABIL_CONTA", nullable = true)
@@ -316,11 +317,11 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 		this.planoContaRefSped = planoContaRefSped;
 	}
 
-	public PlanoConta getPlanoConta() {
+	public PlanoContaEntity getPlanoConta() {
 		return planoConta;
 	}
 
-	public void setPlanoConta(PlanoConta planoConta) {
+	public void setPlanoConta(PlanoContaEntity planoConta) {
 		this.planoConta = planoConta;
 	}
 

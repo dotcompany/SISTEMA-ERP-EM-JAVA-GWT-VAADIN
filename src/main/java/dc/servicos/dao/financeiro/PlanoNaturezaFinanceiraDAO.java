@@ -23,7 +23,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class PlanoNaturezaFinanceiraDAO extends AbstractCrudDAO<PlanoNaturezaFinanceira> {
+public class PlanoNaturezaFinanceiraDAO extends AbstractCrudDAO<PlanoNaturezaFinanceira> implements IPlanoNaturezaFinanceiraDAO {
 	
 	@Override
 	public Class<PlanoNaturezaFinanceira> getEntityClass() {
@@ -31,6 +31,10 @@ public class PlanoNaturezaFinanceiraDAO extends AbstractCrudDAO<PlanoNaturezaFin
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.IPlanoNaturezaFinanceiraDAO#listCentros(dc.entidade.financeiro.PlanoNaturezaFinanceira)
+	 */
+	@Override
 	@Transactional
 	public List<NaturezaFinanceira> listCentros(PlanoNaturezaFinanceira planoNatureza) {
 		return getSession().createQuery("from NaturezaFinanceira where planoNatureza.id = :bid").setParameter("bid", planoNatureza.getId()).list();

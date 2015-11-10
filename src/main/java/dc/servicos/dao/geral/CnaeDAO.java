@@ -9,7 +9,7 @@ import dc.entidade.geral.CnaeEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class CnaeDAO extends AbstractCrudDAO<CnaeEntity> {
+public class CnaeDAO extends AbstractCrudDAO<CnaeEntity> implements ICnaeDAO {
 
 	@Override
 	public Class<CnaeEntity> getEntityClass() {

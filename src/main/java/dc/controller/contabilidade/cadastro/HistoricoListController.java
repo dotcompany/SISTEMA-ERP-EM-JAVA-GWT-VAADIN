@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.cadastro.HistoricoEntity;
-import dc.servicos.dao.contabilidade.cadastro.HistoricoDAO;
+import dc.servicos.dao.contabilidade.cadastro.IHistoricoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class HistoricoListController extends
 	 */
 
 	@Autowired
-	private HistoricoDAO pDAO;
+	private IHistoricoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -90,7 +90,7 @@ public class HistoricoListController extends
 	@Override
 	protected List<HistoricoEntity> pesquisaDefault() {
 		try {
-			List<HistoricoEntity> auxLista = this.pDAO.listarTodos();
+			List<HistoricoEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

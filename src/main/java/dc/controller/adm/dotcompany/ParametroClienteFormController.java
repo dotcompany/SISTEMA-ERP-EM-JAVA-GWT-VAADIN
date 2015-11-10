@@ -15,8 +15,8 @@ import dc.controller.administrativo.empresa.EmpresaListController;
 import dc.entidade.adm.dotcompany.ParametroCliente;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.framework.exception.ErroValidacaoException;
-import dc.servicos.dao.adm.dotcompany.ParametroClienteDAO;
-import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
+import dc.servicos.dao.adm.dotcompany.IParametroClienteDAO;
+import dc.servicos.dao.administrativo.empresa.IEmpresaDAO;
 import dc.servicos.dao.financeiro.IParcelaPagarDAO;
 import dc.servicos.util.Validator;
 import dc.visao.adm.dotcompany.ParametroClienteFormView;
@@ -41,10 +41,10 @@ public class ParametroClienteFormController extends
 	ParametroClienteFormView subView;
 
 	@Autowired
-	private ParametroClienteDAO parametroClienteDAO;
+	private IParametroClienteDAO parametroClienteDAO;
 
 	@Autowired
-	private EmpresaDAO empresaDAO;
+	private IEmpresaDAO empresaDAO;
 
 	@Autowired
 	private IParcelaPagarDAO parcelaPagarDAO;

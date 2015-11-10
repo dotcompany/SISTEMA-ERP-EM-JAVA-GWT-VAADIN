@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class TipoAfastamentoDAO extends AbstractCrudDAO<TipoAfastamentoEntity> {
+public class TipoAfastamentoDAO extends AbstractCrudDAO<TipoAfastamentoEntity> implements ITipoAfastamentoDAO {
 
 	@Override
 	public Class<TipoAfastamentoEntity> getEntityClass() {
@@ -56,6 +56,10 @@ public class TipoAfastamentoDAO extends AbstractCrudDAO<TipoAfastamentoEntity> {
 		return new String[] { "Código", "Nome", "Descrição" };
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.folhapagamento.ausencia.ITipoAfastamentoDAO#tipoAfastamentoLista()
+	 */
+	@Override
 	@Transactional
 	public List<TipoAfastamentoEntity> tipoAfastamentoLista() {
 		try {

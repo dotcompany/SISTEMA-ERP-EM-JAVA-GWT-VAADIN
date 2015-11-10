@@ -6,10 +6,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.pessoal.TransportadoraEntity;
+import dc.model.dao.geral.pessoal.ITransportadoraDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-@Repository("pessoalTransportadoraDAO")
-public class TransportadoraDAO extends AbstractCrudDAO<TransportadoraEntity> {
+@Repository(/*"pessoalTransportadoraDAO"*/)
+public class TransportadoraDAO extends AbstractCrudDAO<TransportadoraEntity> implements ITransportadoraDAO{
 
 	@Override
 	public Class<TransportadoraEntity> getEntityClass() {

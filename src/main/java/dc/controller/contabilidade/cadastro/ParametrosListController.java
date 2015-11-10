@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.cadastro.ParametrosEntity;
-import dc.servicos.dao.contabilidade.cadastro.ParametrosDAO;
+import dc.servicos.dao.contabilidade.cadastro.IParametrosDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class ParametrosListController extends
 	 */
 
 	@Autowired
-	private ParametrosDAO pDAO;
+	private IParametrosDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -90,7 +90,7 @@ public class ParametrosListController extends
 	@Override
 	protected List<ParametrosEntity> pesquisaDefault() {
 		try {
-			List<ParametrosEntity> auxLista = this.pDAO.listarTodos();
+			List<ParametrosEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

@@ -25,11 +25,11 @@ import dc.entidade.financeiro.ParcelaReceber;
 import dc.entidade.financeiro.ParcelaRecebimento;
 import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.financeiro.TipoRecebimento;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
+import dc.servicos.dao.financeiro.IParcelaReceberDAO;
+import dc.servicos.dao.financeiro.IParcelaRecebimentoDAO;
 import dc.servicos.dao.financeiro.IStatusParcelaDAO;
-import dc.servicos.dao.financeiro.ParcelaReceberDAO;
-import dc.servicos.dao.financeiro.ParcelaRecebimentoDAO;
-import dc.servicos.dao.financeiro.TipoRecebimentoDAO;
+import dc.servicos.dao.financeiro.ITipoRecebimentoDAO;
 import dc.visao.financeiro.ParcelaRecebimentoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -46,15 +46,15 @@ public class ParcelaRecebimentoFormController extends CRUDFormController<Parcela
 	private ParcelaRecebimentoFormView subView;
 
 	@Autowired
-	private ParcelaReceberDAO parcelaReceberDAO;
+	private IParcelaReceberDAO parcelaReceberDAO;
 	@Autowired
-	private ParcelaRecebimentoDAO parcelaRecebimentoDAO;
+	private IParcelaRecebimentoDAO parcelaRecebimentoDAO;
 	@Autowired
 	private IStatusParcelaDAO statusParcelaDAO;
 	@Autowired
-	private TipoRecebimentoDAO tipoRecebimentoDAO;
+	private ITipoRecebimentoDAO tipoRecebimentoDAO;
 	@Autowired
-	private ContaCaixaDAO contaCaixaDAO;
+	private IContaCaixaDAO contaCaixaDAO;
 
 	private ParcelaRecebimento currentBean;
 

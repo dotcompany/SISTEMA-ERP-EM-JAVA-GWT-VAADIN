@@ -14,8 +14,8 @@ import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaCnaeEntity;
 import dc.entidade.geral.CnaeEntity;
-import dc.servicos.dao.administrativo.empresa.EmpresaCnaeDAO;
-import dc.servicos.dao.geral.CnaeDAO;
+import dc.servicos.dao.administrativo.empresa.IEmpresaCnaeDAO;
+import dc.servicos.dao.geral.ICnaeDAO;
 import dc.servicos.util.Validator;
 import dc.visao.administrativo.empresa.EmpresaCnaeFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -34,10 +34,10 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEnt
 	private EmpresaCnaeEntity currentBean;
 
 	@Autowired
-	private EmpresaCnaeDAO dao;
+	private IEmpresaCnaeDAO dao;
 
 	@Autowired
-	private CnaeDAO cnaeDAO;
+	private ICnaeDAO cnaeDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -184,7 +184,7 @@ public class EmpresaCnaeFormController extends CRUDFormController<EmpresaCnaeEnt
 	}
 
 	public List<CnaeEntity> trazerListaCnae() {
-		List<CnaeEntity> lista = cnaeDAO.listarTodos();
+		List<CnaeEntity> lista = cnaeDAO.getAll();
 
 		return lista;
 	}

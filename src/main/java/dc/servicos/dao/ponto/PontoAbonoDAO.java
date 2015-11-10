@@ -10,7 +10,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class PontoAbonoDAO extends AbstractCrudDAO<PontoAbono> {
+public class PontoAbonoDAO extends AbstractCrudDAO<PontoAbono> implements IPontoAbonoDAO {
 
 	@Override
 	public Class<PontoAbono> getEntityClass() {

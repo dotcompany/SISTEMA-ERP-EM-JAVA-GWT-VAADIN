@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.DfcEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DfcDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IDfcDAO;
 import dc.visao.contabilidade.demonstrativo.DfcFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -30,7 +30,7 @@ public class DfcFormController extends CRUDFormController<DfcEntity> {
 	/** DAO'S */
 
 	@Autowired
-	private DfcDAO pDAO;
+	private IDfcDAO pDAO;
 
 	/** ENTITIES */
 

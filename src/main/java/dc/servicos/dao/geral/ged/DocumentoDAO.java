@@ -15,23 +15,37 @@ import dc.entidade.geral.ged.VersaoDocumento;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class DocumentoDAO extends AbstractCrudDAO<Documento>{
+public class DocumentoDAO extends AbstractCrudDAO<Documento> implements IDocumentoDAO{
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.ged.IDocumentoDAO#getEntityClass()
+	 */
 	@Override
 	public Class<Documento> getEntityClass() {
 		return Documento.class;
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.ged.IDocumentoDAO#getDefaultSearchFields()
+	 */
 	@Override
 	public String[] getDefaultSearchFields() {
 		return new String[]{"nome", "descricao", "palavraChave"};
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.ged.IDocumentoDAO#saveOrUpdate(dc.entidade.geral.ged.VersaoDocumento)
+	 */
+	@Override
 	@Transactional
 	public  void saveOrUpdate(VersaoDocumento versao) {
 		sessionFactory.getCurrentSession().saveOrUpdate(versao);
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.ged.IDocumentoDAO#nextVersionNumber(dc.entidade.geral.ged.Documento)
+	 */
+	@Override
 	@Transactional
 	public Integer nextVersionNumber(Documento documento)
 	{
@@ -44,6 +58,10 @@ public class DocumentoDAO extends AbstractCrudDAO<Documento>{
 		return ++maxVersao;	
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.ged.IDocumentoDAO#deleteDocumentoArquivo(dc.entidade.geral.ged.DocumentoArquivo)
+	 */
+	@Override
 	@Transactional
 	public void deleteDocumentoArquivo(DocumentoArquivo documentoArquivo)
 	{
@@ -51,8 +69,11 @@ public class DocumentoDAO extends AbstractCrudDAO<Documento>{
 		
 	}
 	
-	@SuppressWarnings({ "hiding", "unchecked" })
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.ged.IDocumentoDAO#getAll(java.lang.Class)
+	 */
 	@Override
+	@SuppressWarnings({ "hiding", "unchecked" })
 	@Transactional
 	public <Documento> List<Documento> getAll(Class<Documento> type) {
 		final Session session = sessionFactory.getCurrentSession();

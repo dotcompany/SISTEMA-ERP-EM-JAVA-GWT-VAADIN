@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.cadastro.AidfAimdfEntity;
-import dc.servicos.dao.contabilidade.cadastro.AidfAimdfDAO;
+import dc.servicos.dao.contabilidade.cadastro.IAidfAimdfDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class AidfAimdfListController extends
 	 */
 
 	@Autowired
-	private AidfAimdfDAO pDAO;
+	private IAidfAimdfDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -90,7 +90,7 @@ public class AidfAimdfListController extends
 	@Override
 	protected List<AidfAimdfEntity> pesquisaDefault() {
 		try {
-			List<AidfAimdfEntity> auxLista = this.pDAO.listarTodos();
+			List<AidfAimdfEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

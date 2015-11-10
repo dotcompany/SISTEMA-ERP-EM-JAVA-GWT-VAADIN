@@ -18,7 +18,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class NfeDestinatarioDAO extends AbstractCrudDAO<NfeDestinatarioEntity> {
+public class NfeDestinatarioDAO extends AbstractCrudDAO<NfeDestinatarioEntity> implements INfeDestinatarioDAO {
 
 	@Override
 	public Class<NfeDestinatarioEntity> getEntityClass() {
@@ -60,6 +60,10 @@ public class NfeDestinatarioDAO extends AbstractCrudDAO<NfeDestinatarioEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.nfe.I#getEntidade(dc.entidade.nfe.NfeCabecalhoEntity)
+	 */
+	@Override
 	@Transactional
 	public NfeDestinatarioEntity getEntidade(NfeCabecalhoEntity ent) {
 		try {

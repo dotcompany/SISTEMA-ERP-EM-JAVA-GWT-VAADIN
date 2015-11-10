@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class FeriasColetivasDAO extends AbstractCrudDAO<FeriasColetivasEntity> {
+public class FeriasColetivasDAO extends AbstractCrudDAO<FeriasColetivasEntity> implements IFeriasColetivasDAO {
 
 	@Override
 	public Class<FeriasColetivasEntity> getEntityClass() {

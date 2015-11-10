@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 @SuppressWarnings("unchecked")
 public class RegistroCartorioDAO extends
-		AbstractCrudDAO<RegistroCartorioEntity> {
+		AbstractCrudDAO<RegistroCartorioEntity> implements IRegistroCartorioDAO {
 
 	@Override
 	public Class<RegistroCartorioEntity> getEntityClass() {

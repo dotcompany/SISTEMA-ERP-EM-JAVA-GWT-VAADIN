@@ -14,8 +14,8 @@ import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.demonstrativo.DreCabecalhoEntity;
 import dc.entidade.contabilidade.demonstrativo.DreDetalheEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DreCabecalhoDAO;
-import dc.servicos.dao.contabilidade.demonstrativo.DreDetalheDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IDreCabecalhoDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IDreDetalheDAO;
 import dc.visao.contabilidade.demonstrativo.DreDetalheFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -35,10 +35,10 @@ public class DreDetalheFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private DreDetalheDAO pDAO;
+	private IDreDetalheDAO pDAO;
 
 	@Autowired
-	private DreCabecalhoDAO dcDAO;
+	private IDreCabecalhoDAO dcDAO;
 
 	/** ENTITIES */
 

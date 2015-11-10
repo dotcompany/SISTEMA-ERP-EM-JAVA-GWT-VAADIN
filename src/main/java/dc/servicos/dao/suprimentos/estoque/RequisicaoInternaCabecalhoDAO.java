@@ -7,7 +7,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("suprimentosEstoqueRequisicaoInternaCabecalhoDAO")
 public class RequisicaoInternaCabecalhoDAO extends
-		AbstractCrudDAO<RequisicaoInternaCabecalhoEntity> {
+		AbstractCrudDAO<RequisicaoInternaCabecalhoEntity> implements IRequisicaoInternaCabecalhoDAO {
 
 	@Override
 	public Class<RequisicaoInternaCabecalhoEntity> getEntityClass() {

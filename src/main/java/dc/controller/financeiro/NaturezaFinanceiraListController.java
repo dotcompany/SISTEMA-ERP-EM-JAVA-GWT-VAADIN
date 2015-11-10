@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.NaturezaFinanceira;
-import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
+import dc.servicos.dao.financeiro.INaturezaFinanceiraDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,10 +22,10 @@ public class NaturezaFinanceiraListController extends CRUDListController<Naturez
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	NaturezaFinanceiraDAO dao;
+	private INaturezaFinanceiraDAO dao;
 
 	@Autowired
-	NaturezaFinanceiraFormController naturezafinanceiraFormController;
+	private NaturezaFinanceiraFormController naturezafinanceiraFormController;
 
 	@Override
 	public String[] getColunas() {

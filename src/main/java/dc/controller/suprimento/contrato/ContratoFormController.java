@@ -61,15 +61,15 @@ import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
 import dc.model.business.ged.DocumentoBusiness;
 import dc.model.business.ged.DocumentoBusinessImpl;
-import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
+import dc.model.dao.geral.pessoal.IPessoaDAO;
+import dc.model.dao.geral.produto.IProdutoDAO;
+import dc.servicos.dao.administrativo.empresa.IEmpresaDAO;
 import dc.servicos.dao.geral.IPessoaEnderecoDAO;
-import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.geral.ged.DocumentoDAO;
-import dc.servicos.dao.geral.pessoal.PessoaDAO;
-import dc.servicos.dao.geral.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.contrato.ContratoDAO;
-import dc.servicos.dao.suprimentos.contrato.SolicitacaoServicoDAO;
-import dc.servicos.dao.suprimentos.contrato.TipoContratoDAO;
+import dc.servicos.dao.geral.IUfDAO;
+import dc.servicos.dao.geral.ged.IDocumentoDAO;
+import dc.servicos.dao.suprimentos.contrato.IContratoDAO;
+import dc.servicos.dao.suprimentos.contrato.ISolicitacaoServicoDAO;
+import dc.servicos.dao.suprimentos.contrato.ITipoContratoDAO;
 import dc.servicos.util.Util;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -90,7 +90,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	private ContratosFormView subView;
 
 	@Autowired
-	private ContratoDAO contratoDAO;
+	private IContratoDAO contratoDAO;
 
 	@Autowired
 	private DocumentoBusiness documentoBusiness;
@@ -99,28 +99,28 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 	// private MainController mainController;
 
 	@Autowired
-	private TipoContratoDAO tipoContratoDAO;
+	private ITipoContratoDAO tipoContratoDAO;
 
 	@Autowired
-	private DocumentoDAO documentoDAO;
+	private IDocumentoDAO documentoDAO;
 
 	@Autowired
-	private PessoaDAO pessoaDAO;
+	private IPessoaDAO pessoaDAO;
 
 	@Autowired
 	protected SessionFactory sessionFactory;
 
 	@Autowired
-	private SolicitacaoServicoDAO solicitacaoServicoDAO;
+	private ISolicitacaoServicoDAO solicitacaoServicoDAO;
 
 	@Autowired
-	private ProdutoDAO produtoDAO;
+	private IProdutoDAO produtoDAO;
 
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	@Autowired
-	private EmpresaDAO empresaDAO;
+	private IEmpresaDAO empresaDAO;
 
 	@Autowired
 	private IPessoaEnderecoDAO pessoaEnderecoDAO;
@@ -347,7 +347,8 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		Compare compareFilter = new Compare.Equal("templateContrato", true);
 		filters.add(compareFilter);
 
-		DefaultManyToOneComboModel<Documento> templateModel = new DefaultManyToOneComboModel<Documento>(DocumentoListController.class, this.documentoDAO, super.getMainController(), filters);
+		DefaultManyToOneComboModel<Documento> templateModel 
+		= new DefaultManyToOneComboModel<Documento>(DocumentoListController.class, this.documentoDAO, super.getMainController(), filters);
 
 		/**
 		 * Ajustes para receber os dados de Solicitação de Serviço pegando os

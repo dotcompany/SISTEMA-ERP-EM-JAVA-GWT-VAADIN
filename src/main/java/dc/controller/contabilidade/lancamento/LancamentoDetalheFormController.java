@@ -17,10 +17,10 @@ import dc.entidade.contabilidade.cadastro.HistoricoEntity;
 import dc.entidade.contabilidade.lancamento.LancamentoCabecalhoEntity;
 import dc.entidade.contabilidade.lancamento.LancamentoDetalheEntity;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
-import dc.servicos.dao.contabilidade.cadastro.HistoricoDAO;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoCabecalhoDAO;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoDetalheDAO;
-import dc.servicos.dao.contabilidade.planoconta.ContaDAO;
+import dc.servicos.dao.contabilidade.cadastro.IHistoricoDAO;
+import dc.servicos.dao.contabilidade.lancamento.ILancamentoCabecalhoDAO;
+import dc.servicos.dao.contabilidade.lancamento.ILancamentoDetalheDAO;
+import dc.servicos.dao.contabilidade.planoconta.IContaDAO;
 import dc.visao.contabilidade.lancamento.LancamentoDetalheFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -40,16 +40,16 @@ public class LancamentoDetalheFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private LancamentoDetalheDAO pDAO;
+	private ILancamentoDetalheDAO pDAO;
 
 	@Autowired
-	private ContaDAO cDAO;
+	private IContaDAO cDAO;
 
 	@Autowired
-	private HistoricoDAO hDAO;
+	private IHistoricoDAO hDAO;
 
 	@Autowired
-	private LancamentoCabecalhoDAO lcDAO;
+	private ILancamentoCabecalhoDAO lcDAO;
 
 	/** ENTITIES */
 

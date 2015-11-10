@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.TipoPagamento;
-import dc.servicos.dao.financeiro.TipoPagamentoDAO;
+import dc.servicos.dao.financeiro.ITipoPagamentoDAO;
 import dc.visao.financeiro.TipoPagamentoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -29,7 +29,7 @@ public class TipoPagamentoFormController extends CRUDFormController<TipoPagament
 	private TipoPagamentoFormView subView;
 
 	@Autowired
-	private TipoPagamentoDAO tipoPagamentoDAO;
+	private ITipoPagamentoDAO tipoPagamentoDAO;
 
 	private TipoPagamento currentBean;
 

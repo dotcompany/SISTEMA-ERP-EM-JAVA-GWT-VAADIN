@@ -27,7 +27,7 @@ import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.financeiro.ExtratoContaBancoEntity;
 import dc.entidade.financeiro.ImportaOFX;
-import dc.servicos.dao.financeiro.ExtratoContaBancoDAO;
+import dc.servicos.dao.financeiro.IExtratoContaBancoDAO;
 import dc.visao.financeiro.ExtratoContaBancoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
@@ -46,7 +46,7 @@ public class ExtratoContaBancoFormController extends CRUDFormController<ExtratoC
 	private ExtratoContaBancoFormView subView;
 	
 	@Autowired
-	private ExtratoContaBancoDAO extratoContaBancoDAO;
+	private IExtratoContaBancoDAO extratoContaBancoDAO;
 	
 	private ContaCaixa contaCaixa;
     private String mes;

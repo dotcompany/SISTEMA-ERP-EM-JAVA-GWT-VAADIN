@@ -11,10 +11,9 @@ import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
-import dc.entidade.geral.diverso.PaisEntity;
 import dc.entidade.geral.diverso.UfEntity;
-import dc.model.dao.geral.diverso.PaisDAO;
-import dc.model.dao.geral.diverso.UfDAO;
+import dc.servicos.dao.geral.IUfDAO;
+import dc.servicos.dao.geral.diverso.IPaisDAO;
 
 /**
  * 
@@ -33,10 +32,10 @@ public class UfBusinessImpl implements Serializable, UfBusiness<UfEntity> {
 	private static Logger logger = Logger.getLogger(UfBusinessImpl.class);
 
 	@Autowired
-	private UfDAO<UfEntity> dao;
+	private IUfDAO dao;
 
 	@Autowired
-	private PaisDAO<PaisEntity> paisDAO;
+	private IPaisDAO paisDAO;
 
 	/**
 	 * **********************************************

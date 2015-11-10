@@ -10,7 +10,7 @@ import dc.entidade.geral.diverso.PaisEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class PaisDAO extends AbstractCrudDAO<PaisEntity> {
+public class PaisDAO extends AbstractCrudDAO<PaisEntity> implements IPaisDAO {
 
 	@Override
 	public Class<PaisEntity> getEntityClass() {

@@ -9,7 +9,7 @@ import dc.entidade.financeiro.BancoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class BancoDAO extends AbstractCrudDAO<BancoEntity> {
+public class BancoDAO extends AbstractCrudDAO<BancoEntity> implements IBancoDAO {
 
 	@Override
 	public Class<BancoEntity> getEntityClass() {

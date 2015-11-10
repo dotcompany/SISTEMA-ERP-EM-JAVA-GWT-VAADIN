@@ -26,6 +26,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
+import dc.entidade.contabilidade.PlanoContaRefSped;
 import dc.entidade.contabilidade.demonstrativo.DreVinculoEntity;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeDetEntity;
 import dc.entidade.contabilidade.lancamento.LancamentoDetalheEntity;
@@ -166,7 +167,7 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@JoinColumn(name = "id_plano_conta_ref_sped", nullable = false)
 	@Caption("Plano de conta ref sped")
 	@javax.validation.constraints.NotNull(message = "Não pode estar vazio.")
-	private PlanoContaRefSpedEntity planoContaRefSped;
+	private PlanoContaRefSped planoContaRefSped;
 
 	// id_empresa integer,
 
@@ -344,11 +345,11 @@ public class ContaEntity extends AbstractMultiEmpresaModel<Integer> implements
 		this.planoConta = planoConta;
 	}
 
-	public PlanoContaRefSpedEntity getPlanoContaRefSped() {
+	public PlanoContaRefSped getPlanoContaRefSped() {
 		return planoContaRefSped;
 	}
 
-	public void setPlanoContaRefSped(PlanoContaRefSpedEntity planoContaRefSped) {
+	public void setPlanoContaRefSped(PlanoContaRefSped planoContaRefSped) {
 		this.planoContaRefSped = planoContaRefSped;
 	}
 

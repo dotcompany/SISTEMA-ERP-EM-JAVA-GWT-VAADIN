@@ -13,7 +13,7 @@ import com.vaadin.data.Container.Filter;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.ordemservico.InformacaoGeralEntity;
 import dc.entidade.ordemservico.OrdemServicoEntity;
-import dc.model.dao.ordemservico.InformacaoGeralDAO;
+import dc.model.dao.ordemservico.IInformacaoGeralDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ InformacaoGeralBusiness<InformacaoGeralEntity> {
 	private static Logger logger = Logger.getLogger(InformacaoGeralBusinessImpl.class);
 
 	@Autowired
-	private InformacaoGeralDAO<InformacaoGeralEntity> dao;
+	private IInformacaoGeralDAO dao;
 
 	/**
 	 * **********************************************

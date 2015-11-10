@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository(value = "contabilidadePlanoContaDAO")
 @SuppressWarnings("unchecked")
-public class PlanoContaDAO extends AbstractCrudDAO<PlanoContaEntity> {
+public class PlanoContaDAO extends AbstractCrudDAO<PlanoContaEntity> implements IPlanoContaDAO {
 
 	@Override
 	public Class<PlanoContaEntity> getEntityClass() {

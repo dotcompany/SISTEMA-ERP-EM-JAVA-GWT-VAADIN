@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.DocumentoOrigem;
-import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
+import dc.servicos.dao.financeiro.IDocumentoOrigemDAO;
 import dc.visao.financeiro.DocumentoOrigemFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -30,7 +30,7 @@ public class DocumentoOrigemFormController extends CRUDFormController<DocumentoO
 	private DocumentoOrigemFormView subView;
 
 	@Autowired
-	private DocumentoOrigemDAO documentoorigemDAO;
+	private IDocumentoOrigemDAO documentoorigemDAO;
 
 	private DocumentoOrigem currentBean;
 

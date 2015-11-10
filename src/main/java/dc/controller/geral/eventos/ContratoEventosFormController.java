@@ -14,7 +14,7 @@ import dc.control.enums.TipoSemestre;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.eventos.ContratoEventosEntity;
 import dc.model.business.eventos.ContratoEventosBusiness;
-import dc.servicos.dao.geral.eventos.CerimonialEventosDAO;
+import dc.servicos.dao.geral.eventos.ICerimonialEventosDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.eventos.ContratoEventosFormView;
@@ -31,7 +31,7 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 	private ContratoEventosBusiness<ContratoEventosEntity> business;
 
 	@Autowired
-	private CerimonialEventosDAO cerimonialEventosDAO;
+	private ICerimonialEventosDAO cerimonialEventosDAO;
 
 	private ContratoEventosEntity entity;
 

@@ -13,7 +13,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.produto.MarcaEntity;
-import dc.model.dao.geral.produto.MarcaDAO;
+import dc.model.dao.geral.produto.IMarcaDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class MarcaBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(MarcaBusinessImpl.class);
 
 	@Autowired
-	private MarcaDAO<MarcaEntity> dao;
+	private IMarcaDAO dao;
 
 	/**
 	 * **********************************************

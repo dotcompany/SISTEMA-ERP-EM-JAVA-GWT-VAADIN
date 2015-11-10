@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.lancamento.LancamentoProgramadoCabEntity;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoProgramadoCabDAO;
+import dc.servicos.dao.contabilidade.lancamento.ILancamentoProgramadoCabDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class LancamentoProgramadoCabListController extends
 	 */
 
 	@Autowired
-	private LancamentoProgramadoCabDAO pDAO;
+	private ILancamentoProgramadoCabDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -91,7 +91,7 @@ public class LancamentoProgramadoCabListController extends
 	protected List<LancamentoProgramadoCabEntity> pesquisaDefault() {
 		try {
 			List<LancamentoProgramadoCabEntity> auxLista = this.pDAO
-					.listarTodos();
+					.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

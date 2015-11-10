@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.lancamento.FechamentoEntity;
-import dc.servicos.dao.contabilidade.lancamento.FechamentoDAO;
+import dc.servicos.dao.contabilidade.lancamento.IFechamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class FechamentoListController extends
 	 */
 
 	@Autowired
-	private FechamentoDAO pDAO;
+	private IFechamentoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -90,7 +90,7 @@ public class FechamentoListController extends
 	@Override
 	protected List<FechamentoEntity> pesquisaDefault() {
 		try {
-			List<FechamentoEntity> auxLista = this.pDAO.listarTodos();
+			List<FechamentoEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

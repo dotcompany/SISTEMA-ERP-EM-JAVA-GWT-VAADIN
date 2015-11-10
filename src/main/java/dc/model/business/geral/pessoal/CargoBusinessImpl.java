@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.pessoal.CargoEntity;
-import dc.model.dao.geral.pessoal.CargoDAO;
+import dc.model.dao.geral.pessoal.ICargoDAO;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class CargoBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(CargoBusinessImpl.class);
 
 	@Autowired
-	private CargoDAO<CargoEntity> dao;
+	private ICargoDAO dao;
 
 	/**
 	 * **********************************************

@@ -16,6 +16,7 @@ import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.patrimonio.DepreciacaoBemEntity;
 import dc.servicos.dao.patrimonio.BemDAO;
 import dc.servicos.dao.patrimonio.DepreciacaoBemDAO;
+import dc.servicos.dao.patrimonio.IBemDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.DepreciacaoBemFormView;
 
@@ -36,7 +37,7 @@ public class DepreciacaoBemFormController extends CRUDFormController<Depreciacao
 	private DepreciacaoBemDAO pDAO;
 
 	@Autowired
-	private BemDAO bDAO;
+	private IBemDAO bDAO;
 
 	/** ENTITIES */
 

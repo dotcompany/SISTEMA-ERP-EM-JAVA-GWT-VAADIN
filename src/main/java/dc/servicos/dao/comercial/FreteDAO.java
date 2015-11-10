@@ -9,7 +9,7 @@ import dc.entidade.comercial.Frete;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class FreteDAO extends AbstractCrudDAO<Frete> {
+public class FreteDAO extends AbstractCrudDAO<Frete> implements IFreteDAO {
 
 	@Override
 	public Class<Frete> getEntityClass() {

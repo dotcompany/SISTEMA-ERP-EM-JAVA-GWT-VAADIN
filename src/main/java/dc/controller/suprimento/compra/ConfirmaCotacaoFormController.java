@@ -17,9 +17,9 @@ import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
-import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
-import dc.servicos.dao.suprimentos.compra.RequisicaoDetalheDAO;
+import dc.servicos.dao.geral.IFornecedorDAO;
+import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
+import dc.servicos.dao.suprimentos.compra.IRequisicaoDetalheDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.compra.ConfirmaCotacaoFormView;
@@ -37,13 +37,13 @@ public class ConfirmaCotacaoFormController extends
 	private ConfirmaCotacaoFormView subView;
 
 	@Autowired
-	private CotacaoDAO cotacaoDao;
+	private ICotacaoDAO cotacaoDao;
 
 	@Autowired
-	private FornecedorDAO fornecedorDao;
+	private IFornecedorDAO fornecedorDao;
 
 	@Autowired
-	private RequisicaoDetalheDAO requisicaoDetalheDao;
+	private IRequisicaoDetalheDAO requisicaoDetalheDao;
 
 	private CotacaoEntity currentBean;
 

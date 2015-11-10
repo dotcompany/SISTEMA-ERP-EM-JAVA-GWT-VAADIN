@@ -16,8 +16,8 @@ import dc.controller.contabilidade.planoconta.ContaListController;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeCabEntity;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeDetEntity;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeCabDAO;
-import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeDetDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IEncerramentoExeCabDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IEncerramentoExeDetDAO;
 import dc.servicos.dao.contabilidade.planoconta.ContaDAO;
 import dc.visao.contabilidade.demonstrativo.EncerramentoExeDetFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -38,10 +38,10 @@ public class EncerramentoExeDetFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private EncerramentoExeDetDAO pDAO;
+	private IEncerramentoExeDetDAO pDAO;
 
 	@Autowired
-	private EncerramentoExeCabDAO eecDAO;
+	private IEncerramentoExeCabDAO eecDAO;
 
 	@Autowired
 	private ContaDAO cDAO;

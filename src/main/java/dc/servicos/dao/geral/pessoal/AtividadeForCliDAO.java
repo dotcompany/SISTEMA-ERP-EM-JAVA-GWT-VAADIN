@@ -9,7 +9,7 @@ import dc.entidade.geral.pessoal.AtividadeForCliEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("pessoalAtividadeForCliDAO")
-public class AtividadeForCliDAO extends AbstractCrudDAO<AtividadeForCliEntity> {
+public class AtividadeForCliDAO extends AbstractCrudDAO<AtividadeForCliEntity> implements IAtividadeForCliDAO {
 
 	@Override
 	public Class<AtividadeForCliEntity> getEntityClass() {

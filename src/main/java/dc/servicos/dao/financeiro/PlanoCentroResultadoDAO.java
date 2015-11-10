@@ -24,7 +24,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class PlanoCentroResultadoDAO extends AbstractCrudDAO<PlanoCentroResultado> {
+public class PlanoCentroResultadoDAO extends AbstractCrudDAO<PlanoCentroResultado> implements IPlanoCentroResultadoDAO {
 	
 	@Override
 	public Class<PlanoCentroResultado> getEntityClass() {

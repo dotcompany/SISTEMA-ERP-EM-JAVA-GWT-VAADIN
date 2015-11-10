@@ -13,8 +13,8 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.planoconta.ContaListController;
 import dc.entidade.contabilidade.lancamento.LancamentoOrcadoEntity;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoOrcadoDAO;
-import dc.servicos.dao.contabilidade.planoconta.ContaDAO;
+import dc.servicos.dao.contabilidade.lancamento.ILancamentoOrcadoDAO;
+import dc.servicos.dao.contabilidade.planoconta.IContaDAO;
 import dc.visao.contabilidade.lancamento.LancamentoOrcadoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -34,10 +34,10 @@ public class LancamentoOrcadoFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private LancamentoOrcadoDAO pDAO;
+	private ILancamentoOrcadoDAO pDAO;
 
 	@Autowired
-	private ContaDAO cDAO;
+	private IContaDAO cDAO;
 
 	/** ENTITIES */
 

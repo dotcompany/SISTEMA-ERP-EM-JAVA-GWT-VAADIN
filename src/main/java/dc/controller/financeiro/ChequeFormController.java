@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.Cheque;
-import dc.servicos.dao.financeiro.ChequeDAO;
-import dc.servicos.dao.financeiro.TalonarioChequeDAO;
+import dc.servicos.dao.financeiro.IChequeDAO;
+import dc.servicos.dao.financeiro.ITalonarioChequeDAO;
 import dc.visao.financeiro.ChequeFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -35,10 +35,10 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	ChequeFormView subView;
+	private ChequeFormView subView;
 
 	@Autowired
-	ChequeDAO chequeDAO;
+	private IChequeDAO chequeDAO;
 	
 	/**
 	 * BUSINESS
@@ -48,7 +48,7 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 	//private ChequeBusiness<Cheque> business;
 
 	@Autowired
-	private TalonarioChequeDAO talonarioChequeDAO;
+	private ITalonarioChequeDAO talonarioChequeDAO;
 
 	private Cheque currentBean;
 	

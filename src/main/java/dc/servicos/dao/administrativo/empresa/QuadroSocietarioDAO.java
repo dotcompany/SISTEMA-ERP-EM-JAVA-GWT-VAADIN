@@ -10,7 +10,7 @@ import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class QuadroSocietarioDAO extends AbstractCrudDAO<QuadroSocietarioEntity> {
+public class QuadroSocietarioDAO extends AbstractCrudDAO<QuadroSocietarioEntity> implements IQuadroSocietarioDAO {
 
 	
 

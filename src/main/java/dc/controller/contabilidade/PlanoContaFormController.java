@@ -10,15 +10,15 @@ import org.springframework.stereotype.Controller;
 
 import com.vaadin.ui.Component;
 
-import dc.entidade.contabilidade.PlanoConta;
-import dc.servicos.dao.contabilidade.PlanoContaDAO;
+import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaDAO;
 import dc.visao.contabilidade.PlanoContaFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
 @Controller
 @Scope("prototype")
-public class PlanoContaFormController extends CRUDFormController<PlanoConta> {
+public class PlanoContaFormController extends CRUDFormController<PlanoContaEntity> {
 
 	/**
 	 * 
@@ -28,9 +28,9 @@ public class PlanoContaFormController extends CRUDFormController<PlanoConta> {
 	private PlanoContaFormView subView;
 
 	@Autowired
-	private PlanoContaDAO planoContaDAO;
+	private IPlanoContaDAO planoContaDAO;
 
-	private PlanoConta currentBean;
+	private PlanoContaEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -82,7 +82,7 @@ public class PlanoContaFormController extends CRUDFormController<PlanoConta> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new PlanoConta();
+		currentBean = new PlanoContaEntity();
 	}
 
 	@Override
@@ -105,12 +105,11 @@ public class PlanoContaFormController extends CRUDFormController<PlanoConta> {
 
 	@Override
 	public String getViewIdentifier() {
-		// TODO Auto-generated method stub
 		return "planoContaForm";
 	}
 
 	@Override
-	public PlanoConta getModelBean() {
+	public PlanoContaEntity getModelBean() {
 		return currentBean;
 	}
 }

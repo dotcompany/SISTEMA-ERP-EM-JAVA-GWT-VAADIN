@@ -11,8 +11,8 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.financeiro.ConfiguracaoBoleto;
-import dc.servicos.dao.financeiro.ConfiguracaoBoletoDAO;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.servicos.dao.financeiro.IConfiguracaoBoletoDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
 import dc.visao.financeiro.ConfiguracaoBoletoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -29,12 +29,12 @@ public class ConfiguracaoBoletoFormController extends CRUDFormController<Configu
 	private ConfiguracaoBoletoFormView subView;
 
 	@Autowired
-	private ConfiguracaoBoletoDAO configuracaoBoletoDAO;
+	private IConfiguracaoBoletoDAO configuracaoBoletoDAO;
 
 	private ConfiguracaoBoleto currentBean;
 
 	@Autowired
-	private ContaCaixaDAO contaCaixaDAO;
+	private IContaCaixaDAO contaCaixaDAO;
 
 	@Override
 	protected String getNome() {

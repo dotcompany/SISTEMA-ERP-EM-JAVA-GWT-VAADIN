@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.financeiro.ConfiguracaoBoleto;
-import dc.servicos.dao.financeiro.ConfiguracaoBoletoDAO;
+import dc.servicos.dao.financeiro.IConfiguracaoBoletoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,7 +21,7 @@ public class ConfiguracaoBoletoListController extends CRUDListController<Configu
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ConfiguracaoBoletoDAO dao;
+	private IConfiguracaoBoletoDAO dao;
 
 	@Autowired
 	private ConfiguracaoBoletoFormController configuracaoBoletoFormController;

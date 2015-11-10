@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.produto.SubGrupoEntity;
 import dc.model.business.geral.produto.SubGrupoBusiness;
-import dc.servicos.dao.geral.produto.GrupoDAO;
+import dc.model.dao.geral.produto.IGrupoDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.SubGrupoFormView;
@@ -47,7 +47,7 @@ public class SubGrupoFormController extends CRUDFormController<SubGrupoEntity> {
 	 */
 
 	@Autowired
-	private GrupoDAO grupoDAO;
+	private IGrupoDAO grupoDAO;
 
 	/**
 	 * CONSTRUTOR

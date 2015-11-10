@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.demonstrativo.EncerramentoExeCabEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.EncerramentoExeCabDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IEncerramentoExeCabDAO;
 import dc.visao.contabilidade.demonstrativo.EncerramentoExeCabFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -32,7 +32,7 @@ public class EncerramentoExeCabFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private EncerramentoExeCabDAO pDAO;
+	private IEncerramentoExeCabDAO pDAO;
 
 	/** ENTITIES */
 

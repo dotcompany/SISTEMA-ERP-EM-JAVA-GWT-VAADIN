@@ -6,10 +6,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.comercial.NotaFiscalTipo;
+import dc.model.dao.geral.pessoal.INotaFiscalTipoDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class NotaFiscalTipoDAO extends AbstractCrudDAO<NotaFiscalTipo> {
+public class NotaFiscalTipoDAO extends AbstractCrudDAO<NotaFiscalTipo> implements INotaFiscalTipoDAO{
 
 	@Override
 	public Class<NotaFiscalTipo> getEntityClass() {

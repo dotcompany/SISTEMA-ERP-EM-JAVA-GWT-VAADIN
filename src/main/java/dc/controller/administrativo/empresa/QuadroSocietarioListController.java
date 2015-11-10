@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.QuadroSocietarioEntity;
-import dc.servicos.dao.administrativo.empresa.QuadroSocietarioDAO;
+import dc.servicos.dao.administrativo.empresa.IQuadroSocietarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -26,7 +26,7 @@ public class QuadroSocietarioListController extends
 	private QuadroSocietarioFormController quadroSocietarioFormController;
 
 	@Autowired
-	private QuadroSocietarioDAO dao;
+	private IQuadroSocietarioDAO dao;
 
 	/**
 	 * CONSTRUTOR
@@ -95,5 +95,4 @@ public class QuadroSocietarioListController extends
 			return null;
 		}
 	}
-
 }

@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 @SuppressWarnings("unchecked")
 public class EncerramentoExeCabDAO extends
-		AbstractCrudDAO<EncerramentoExeCabEntity> {
+		AbstractCrudDAO<EncerramentoExeCabEntity> implements IEncerramentoExeCabDAO {
 
 	@Override
 	public Class<EncerramentoExeCabEntity> getEntityClass() {

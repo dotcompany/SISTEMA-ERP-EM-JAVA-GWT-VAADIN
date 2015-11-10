@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository(value = "contabilidadeLancamentoCabecalhoDAO")
 @SuppressWarnings("unchecked")
 public class LancamentoCabecalhoDAO extends
-		AbstractCrudDAO<LancamentoCabecalhoEntity> {
+		AbstractCrudDAO<LancamentoCabecalhoEntity> implements ILancamentoCabecalhoDAO {
 
 	@Override
 	public Class<LancamentoCabecalhoEntity> getEntityClass() {

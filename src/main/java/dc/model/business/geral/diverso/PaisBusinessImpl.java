@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.diverso.PaisEntity;
-import dc.model.dao.geral.diverso.PaisDAO;
+import dc.servicos.dao.geral.diverso.IPaisDAO;
 
 /**
  * 
@@ -31,7 +31,7 @@ public class PaisBusinessImpl implements Serializable, PaisBusiness<PaisEntity> 
 	private static Logger logger = Logger.getLogger(PaisBusinessImpl.class);
 
 	@Autowired
-	private PaisDAO<PaisEntity> dao;
+	private IPaisDAO dao;
 
 	/**
 	 * **********************************************

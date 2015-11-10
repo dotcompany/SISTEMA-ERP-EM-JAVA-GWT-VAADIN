@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.diverso.OperadoraCartaoEntity;
-import dc.model.dao.geral.diverso.OperadoraCartaoDAO;
+import dc.model.dao.geral.diverso.IOperadoraCartaoDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class OperadoraCartaoBusinessImpl implements Serializable,
 			.getLogger(OperadoraCartaoBusinessImpl.class);
 
 	@Autowired
-	private OperadoraCartaoDAO<OperadoraCartaoEntity> dao;
+	private IOperadoraCartaoDAO dao;
 
 	/**
 	 * **********************************************

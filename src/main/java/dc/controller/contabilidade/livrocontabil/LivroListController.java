@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.livrocontabil.LivroEntity;
-import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
+import dc.servicos.dao.contabilidade.livrocontabil.ILivroDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -32,7 +32,7 @@ public class LivroListController extends CRUDListController<LivroEntity> {
 	 */
 
 	@Autowired
-	private LivroDAO pDAO;
+	private ILivroDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -88,7 +88,7 @@ public class LivroListController extends CRUDListController<LivroEntity> {
 	@Override
 	protected List<LivroEntity> pesquisaDefault() {
 		try {
-			List<LivroEntity> auxLista = this.pDAO.listarTodos();
+			List<LivroEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

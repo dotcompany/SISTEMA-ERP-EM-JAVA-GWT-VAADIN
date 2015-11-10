@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.cadastro.HistoricoEntity;
-import dc.servicos.dao.contabilidade.cadastro.HistoricoDAO;
+import dc.servicos.dao.contabilidade.cadastro.IHistoricoDAO;
 import dc.visao.contabilidade.cadastro.HistoricoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -31,7 +31,7 @@ public class HistoricoFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private HistoricoDAO pDAO;
+	private IHistoricoDAO pDAO;
 
 	/** ENTITIES */
 

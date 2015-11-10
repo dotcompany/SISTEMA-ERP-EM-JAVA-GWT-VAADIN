@@ -11,7 +11,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class SeguradoraDAO extends AbstractCrudDAO<SeguradoraEntity> {
+public class SeguradoraDAO extends AbstractCrudDAO<SeguradoraEntity> implements ISeguradoraDAO {
 
 	@Override
 	public Class<SeguradoraEntity> getEntityClass() {
@@ -58,6 +58,10 @@ public class SeguradoraDAO extends AbstractCrudDAO<SeguradoraEntity> {
 		return new String[] { "Tipo", "Nome", "Descrição" };
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.patrimonio.ISeguradoraDAO#seguradoraLista()
+	 */
+	@Override
 	@Transactional
 	public List<SeguradoraEntity> seguradoraLista() {
 		try {

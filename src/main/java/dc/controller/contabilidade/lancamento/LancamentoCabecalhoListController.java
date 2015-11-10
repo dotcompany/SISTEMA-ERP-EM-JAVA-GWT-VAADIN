@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.lancamento.LancamentoCabecalhoEntity;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoCabecalhoDAO;
+import dc.servicos.dao.contabilidade.lancamento.ILancamentoCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class LancamentoCabecalhoListController extends
 	 */
 
 	@Autowired
-	private LancamentoCabecalhoDAO pDAO;
+	private ILancamentoCabecalhoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -90,7 +90,7 @@ public class LancamentoCabecalhoListController extends
 	@Override
 	protected List<LancamentoCabecalhoEntity> pesquisaDefault() {
 		try {
-			List<LancamentoCabecalhoEntity> auxLista = this.pDAO.listarTodos();
+			List<LancamentoCabecalhoEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

@@ -11,7 +11,7 @@ import dc.entidade.geral.tabela.CstPisEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class CstPisDAO extends AbstractCrudDAO<CstPisEntity> {
+public class CstPisDAO extends AbstractCrudDAO<CstPisEntity> implements ICstPisDAO {
 
 	@Override
 	public Class<CstPisEntity> getEntityClass() {
@@ -23,6 +23,10 @@ public class CstPisDAO extends AbstractCrudDAO<CstPisEntity> {
 		return getSession().createQuery("from CstPis").list();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.tabela.ICstPisDAO#procuraPorCodigo(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public CstPisEntity procuraPorCodigo(String codigo) {
 		CstPisEntity cst = null;

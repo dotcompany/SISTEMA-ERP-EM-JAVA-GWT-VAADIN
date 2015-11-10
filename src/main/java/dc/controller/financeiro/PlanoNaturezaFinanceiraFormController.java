@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.PlanoNaturezaFinanceira;
-import dc.servicos.dao.financeiro.PlanoNaturezaFinanceiraDAO;
+import dc.servicos.dao.financeiro.IPlanoNaturezaFinanceiraDAO;
 import dc.visao.financeiro.PlanoNaturezaFinanceiraFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -37,7 +37,7 @@ public class PlanoNaturezaFinanceiraFormController extends CRUDFormController<Pl
 	private PlanoNaturezaFinanceiraFormView subView;
 
 	@Autowired
-	private PlanoNaturezaFinanceiraDAO planoDAO;
+	private IPlanoNaturezaFinanceiraDAO planoDAO;
 
 	private PlanoNaturezaFinanceira currentBean;
 

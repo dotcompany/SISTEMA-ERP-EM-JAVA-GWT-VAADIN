@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.pessoal.FornecedorEntity;
-import dc.model.dao.geral.pessoal.FornecedorDAO;
+import dc.servicos.dao.geral.IFornecedorDAO;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,7 +22,7 @@ public class FornecedorBusinessImpl implements Serializable, FornecedorBusiness<
 		private static final long serialVersionUID = 1L;
 
 		@Autowired
-		private FornecedorDAO<FornecedorEntity> dao;
+		private IFornecedorDAO dao;
 
 		/**
 		 * **********************************************

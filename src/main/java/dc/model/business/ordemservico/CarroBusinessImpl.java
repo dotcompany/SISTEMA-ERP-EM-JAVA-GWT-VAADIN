@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.ordemservico.CarroEntity;
-import dc.model.dao.ordemservico.CarroDAO;
+import dc.model.dao.ordemservico.ICarroDAO;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class CarroBusinessImpl implements Serializable,	CarroBusiness<CarroEntit
 	private static Logger logger = Logger.getLogger(CarroBusinessImpl.class);
 
 	@Autowired
-	private CarroDAO<CarroEntity> dao;
+	private ICarroDAO dao;
 
 	/**
 	 * **********************************************

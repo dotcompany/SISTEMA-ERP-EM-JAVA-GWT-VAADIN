@@ -20,11 +20,11 @@ import dc.entidade.administrativo.empresa.SocioEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
 import dc.servicos.dao.administrativo.empresa.DependenteDAO;
-import dc.servicos.dao.administrativo.empresa.ParticipacaoSocietariaDAO;
-import dc.servicos.dao.administrativo.empresa.QuadroSocietarioDAO;
-import dc.servicos.dao.administrativo.empresa.SocioDAO;
+import dc.servicos.dao.administrativo.empresa.IParticipacaoSocietariaDAO;
+import dc.servicos.dao.administrativo.empresa.IQuadroSocietarioDAO;
+import dc.servicos.dao.administrativo.empresa.ISocioDAO;
 import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.geral.pessoal.TipoRelacionamentoDAO;
+import dc.servicos.dao.geral.pessoal.ITipoRelacionamentoDAO;
 import dc.visao.administrativo.empresa.SocioFormView;
 import dc.visao.administrativo.empresa.SocioFormView.DIRIGENTE;
 import dc.visao.framework.DCFieldGroup;
@@ -36,21 +36,21 @@ import dc.visao.spring.SecuritySessionProvider;
 @SuppressWarnings("serial")
 public class SocioFormController extends CRUDFormController<SocioEntity> {
 
-	SocioFormView subView;
+	private SocioFormView subView;
 
 	@Autowired
-	SocioDAO dao;
+	private ISocioDAO dao;
 
-	SocioEntity currentBean;
-
-	@Autowired
-	TipoRelacionamentoDAO tipoRelacionamentoDAO;
+	private SocioEntity currentBean;
 
 	@Autowired
-	QuadroSocietarioDAO quadroSocietarioDAO;
+	private ITipoRelacionamentoDAO tipoRelacionamentoDAO;
 
 	@Autowired
-	ParticipacaoSocietariaDAO participacaoSocietariaDAO;
+	private  IQuadroSocietarioDAO quadroSocietarioDAO;
+
+	@Autowired
+	private IParticipacaoSocietariaDAO participacaoSocietariaDAO;
 
 	@Autowired
 	UfDAO ufDAO;

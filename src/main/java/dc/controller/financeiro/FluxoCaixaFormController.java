@@ -18,8 +18,8 @@ import dc.entidade.financeiro.FluxoCaixaDetalheEntity;
 import dc.entidade.financeiro.FluxoCaixaEntity;
 import dc.entidade.financeiro.NaturezaFinanceira;
 import dc.model.business.financeiro.FluxoCaixaBusiness;
-import dc.servicos.dao.financeiro.FluxoCaixaPeriodoDAO;
-import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
+import dc.servicos.dao.financeiro.IFluxoCaixaPeriodoDAO;
+import dc.servicos.dao.financeiro.INaturezaFinanceiraDAO;
 import dc.visao.financeiro.FluxoCaixaFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -39,15 +39,15 @@ public class FluxoCaixaFormController extends CRUDFormController<FluxoCaixaEntit
 		@Autowired
 		private FluxoCaixaBusiness<FluxoCaixaEntity> business;
 
-		FluxoCaixaFormView subView;
+		private FluxoCaixaFormView subView;
 
 		private FluxoCaixaEntity currentBean;
 		
 		@Autowired
-		private NaturezaFinanceiraDAO naturezaFinanceiraDAO;
+		private INaturezaFinanceiraDAO naturezaFinanceiraDAO;
 		
 		@Autowired
-		private FluxoCaixaPeriodoDAO fluxoCaixaPeriodoDAO;
+		private IFluxoCaixaPeriodoDAO fluxoCaixaPeriodoDAO;
 
 		public FluxoCaixaBusiness<FluxoCaixaEntity> getBusiness() {
 		 return business;

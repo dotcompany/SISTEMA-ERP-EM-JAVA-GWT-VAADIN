@@ -9,7 +9,7 @@ import dc.entidade.comercial.Venda;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class VendaDAO extends AbstractCrudDAO<Venda> {
+public class VendaDAO extends AbstractCrudDAO<Venda> implements IVendaDAO {
 
 	@Override
 	public Class<Venda> getEntityClass() {

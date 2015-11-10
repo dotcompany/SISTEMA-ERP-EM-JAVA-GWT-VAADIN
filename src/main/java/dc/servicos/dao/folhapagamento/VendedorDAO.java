@@ -7,7 +7,7 @@ import dc.entidade.folhapagamento.VendedorEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class VendedorDAO extends AbstractCrudDAO<VendedorEntity> {
+public class VendedorDAO extends AbstractCrudDAO<VendedorEntity> implements IVendedorDAO {
 
 	@Override
 	public Class<VendedorEntity> getEntityClass() {

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.financeiro.IndiceEconomicoEntity;
-import dc.servicos.dao.financeiro.IndiceEconomicoDAO;
+import dc.servicos.dao.financeiro.IIndiceEconomicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -32,7 +32,7 @@ public class IndiceEconomicoListController extends CRUDListController<IndiceEcon
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private IndiceEconomicoDAO pDAO;
+	private IIndiceEconomicoDAO pDAO;
 
 	@Autowired
 	private IndiceEconomicoFormController indiceFormController;
@@ -86,7 +86,7 @@ public class IndiceEconomicoListController extends CRUDListController<IndiceEcon
 	@Override
 	protected List<IndiceEconomicoEntity> pesquisaDefault() {
 		try {
-			List<IndiceEconomicoEntity> auxLista = this.pDAO.listarTodos();
+			List<IndiceEconomicoEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

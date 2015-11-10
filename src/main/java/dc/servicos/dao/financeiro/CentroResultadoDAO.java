@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class CentroResultadoDAO extends AbstractCrudDAO<CentroResultado>{
+public class CentroResultadoDAO extends AbstractCrudDAO<CentroResultado> implements ICentroResultadoDAO{
 
 	@Override
 	public Class<CentroResultado> getEntityClass() {

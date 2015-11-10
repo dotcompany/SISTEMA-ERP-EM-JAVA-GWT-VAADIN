@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
-import dc.servicos.dao.contabilidade.planoconta.ContaDAO;
+import dc.servicos.dao.contabilidade.planoconta.IContaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -32,7 +32,7 @@ public class ContaListController extends CRUDListController<ContaEntity> {
 	 */
 
 	@Autowired
-	private ContaDAO pDAO;
+	private IContaDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -87,7 +87,7 @@ public class ContaListController extends CRUDListController<ContaEntity> {
 	@Override
 	protected List<ContaEntity> pesquisaDefault() {
 		try {
-			List<ContaEntity> auxLista = this.pDAO.listarTodos();
+			List<ContaEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

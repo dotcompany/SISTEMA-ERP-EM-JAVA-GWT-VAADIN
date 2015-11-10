@@ -11,7 +11,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.pessoal.ContadorEntity;
-import dc.model.dao.geral.pessoal.ContadorDAO;
+import dc.model.dao.geral.pessoal.IContadorDAO;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,7 +21,7 @@ public class ContadorBusinessImpl implements Serializable, ContadorBusiness<Cont
 		private static final long serialVersionUID = 1L;
 
 		@Autowired
-		private ContadorDAO<ContadorEntity> dao;
+		private IContadorDAO dao;
 
 		/**
 		 * **********************************************

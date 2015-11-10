@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.lancamento.LoteEntity;
-import dc.servicos.dao.contabilidade.lancamento.LoteDAO;
+import dc.servicos.dao.contabilidade.lancamento.ILoteDAO;
 import dc.visao.contabilidade.lancamento.LoteFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -31,7 +31,7 @@ public class LoteFormController extends CRUDFormController<LoteEntity> {
 	/** DAO'S */
 
 	@Autowired
-	private LoteDAO pDAO;
+	private ILoteDAO pDAO;
 
 	/** ENTITIES */
 

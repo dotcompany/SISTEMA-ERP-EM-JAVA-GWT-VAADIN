@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.tributario.OperacaoFiscalEntity;
-import dc.servicos.dao.tributario.OperacaoFiscalDAO;
+import dc.servicos.dao.tributario.IOperacaoFiscalDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 public class OperacaoFiscalListController extends CRUDListController<OperacaoFiscalEntity> {
 
 	@Autowired
-	OperacaoFiscalDAO dao;
+	IOperacaoFiscalDAO dao;
 
 	@Autowired
 	OperacaoFiscalFormController formController;

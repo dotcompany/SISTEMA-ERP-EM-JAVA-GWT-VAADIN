@@ -13,7 +13,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 public class OperadoraCartaoDAOImpl extends
 		AbstractCrudDAO<OperadoraCartaoEntity> implements
-		OperadoraCartaoDAO<OperadoraCartaoEntity> {
+		IOperadoraCartaoDAO {
 
 	private static Logger logger = Logger
 			.getLogger(OperadoraCartaoDAOImpl.class);

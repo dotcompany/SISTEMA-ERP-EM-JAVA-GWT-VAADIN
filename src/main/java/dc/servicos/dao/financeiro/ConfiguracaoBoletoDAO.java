@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ConfiguracaoBoletoDAO extends AbstractCrudDAO<ConfiguracaoBoleto> {
+public class ConfiguracaoBoletoDAO extends AbstractCrudDAO<ConfiguracaoBoleto> implements IConfiguracaoBoletoDAO {
 
 	@Override
 	public Class<ConfiguracaoBoleto> getEntityClass() {
@@ -32,6 +32,10 @@ public class ConfiguracaoBoletoDAO extends AbstractCrudDAO<ConfiguracaoBoleto> {
 				"carteira", "codigoConvenio", "codigoCedente", "taxaMulta"};
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.IConfiguracaoBoletoDAO#getConfiguracoesBoletoByContaCaixa(dc.entidade.financeiro.ContaCaixa)
+	 */
+	@Override
 	@Transactional
 	public List<ConfiguracaoBoleto> getConfiguracoesBoletoByContaCaixa(ContaCaixa contaCaixa) {
 		Session session = getSession();

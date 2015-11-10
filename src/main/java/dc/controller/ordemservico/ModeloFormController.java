@@ -11,8 +11,8 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.MarcaOsEntity;
 import dc.entidade.ordemservico.ModeloEntity;
-import dc.servicos.dao.ordemservico.MarcaDAO;
-import dc.servicos.dao.ordemservico.ModeloDAO;
+import dc.servicos.dao.ordemservico.IMarcaOsDAO;
+import dc.servicos.dao.ordemservico.IModeloDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -27,13 +27,13 @@ public class ModeloFormController extends CRUDFormController<ModeloEntity> {
 
 	private static final long serialVersionUID = 1L;
 
-	ModeloFormView subView;
+	private ModeloFormView subView;
 
 	@Autowired
-	ModeloDAO modeloDAO;
+	private IModeloDAO modeloDAO;
 
 	@Autowired
-	MarcaDAO marcaDAO;
+	private IMarcaOsDAO marcaDAO;
 
 	private ModeloEntity currentBean;
 

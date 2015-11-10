@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.TipoRecebimento;
-import dc.servicos.dao.financeiro.TipoRecebimentoDAO;
+import dc.servicos.dao.financeiro.ITipoRecebimentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class TipoRecebimentoListController extends CRUDListController<TipoRecebi
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private TipoRecebimentoDAO dao;
+	private ITipoRecebimentoDAO dao;
 
 	@Autowired
 	private TipoRecebimentoFormController tipoRecebimentoFormController;

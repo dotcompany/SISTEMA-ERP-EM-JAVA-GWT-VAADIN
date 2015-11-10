@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
+import dc.entidade.contabilidade.PlanoContaRefSped;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -17,39 +17,43 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository(value = "contabilidadePlanoContaRefSpedDAO")
 @SuppressWarnings("unchecked")
 public class PlanoContaRefSpedDAO extends
-		AbstractCrudDAO<PlanoContaRefSpedEntity> {
+		AbstractCrudDAO<PlanoContaRefSped> implements IPlanoContaRefSpedDAO {
 
 	@Override
-	public Class<PlanoContaRefSpedEntity> getEntityClass() {
-		return PlanoContaRefSpedEntity.class;
+	public Class<PlanoContaRefSped> getEntityClass() {
+		return PlanoContaRefSped.class;
 	}
 
 	@Transactional
-	public List<PlanoContaRefSpedEntity> listarTodos() {
+	public List<PlanoContaRefSped> listarTodos() {
 		try {
-			String sql = "FROM PlanoContaRefSpedEntity ent WHERE (1 = 1)";
+			String sql = "FROM PlanoContaRefSped ent WHERE (1 = 1)";
 
-			List<PlanoContaRefSpedEntity> auxLista = super.getSession()
+			List<PlanoContaRefSped> auxLista = super.getSession()
 					.createQuery(sql).list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<PlanoContaRefSpedEntity>();
+			return new ArrayList<PlanoContaRefSped>();
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.contabilidade.planoconta.IPlanoContaRefSpedDAO#procuraNomeContendo(java.lang.String)
+	 */
+	@Override
 	@Transactional
-	public List<PlanoContaRefSpedEntity> procuraNomeContendo(String query) {
+	public List<PlanoContaRefSped> procuraNomeContendo(String query) {
 		try {
-			String sql = "FROM PlanoContaRefSpedEntity ent WHERE (1 = 1) AND ent.descricao LIKE :q";
+			String sql = "FROM PlanoContaRefSped ent WHERE (1 = 1) AND ent.descricao LIKE :q";
 
-			List<PlanoContaRefSpedEntity> auxLista = super.getSession()
+			List<PlanoContaRefSped> auxLista = super.getSession()
 					.createQuery(sql).setParameter("q", "%" + query + "%")
 					.list();
 
 			return auxLista;
 		} catch (Exception e) {
-			return new ArrayList<PlanoContaRefSpedEntity>();
+			return new ArrayList<PlanoContaRefSped>();
 		}
 	}
 

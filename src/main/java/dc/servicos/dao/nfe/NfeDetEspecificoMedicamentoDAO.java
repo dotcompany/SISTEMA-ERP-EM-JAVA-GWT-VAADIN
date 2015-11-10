@@ -19,7 +19,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 @SuppressWarnings("unchecked")
 public class NfeDetEspecificoMedicamentoDAO extends
-		AbstractCrudDAO<NfeDetEspecificoMedicamentoEntity> {
+		AbstractCrudDAO<NfeDetEspecificoMedicamentoEntity> implements INfeDetEspecificoMedicamentoDAO {
 
 	@Override
 	public Class<NfeDetEspecificoMedicamentoEntity> getEntityClass() {

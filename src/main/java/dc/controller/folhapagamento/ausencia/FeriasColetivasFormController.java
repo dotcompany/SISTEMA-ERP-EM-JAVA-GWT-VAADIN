@@ -14,7 +14,7 @@ import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.folhapagamento.ausencia.FeriasColetivasEntity;
-import dc.servicos.dao.folhapagamento.ausencia.FeriasColetivasDAO;
+import dc.servicos.dao.folhapagamento.ausencia.IFeriasColetivasDAO;
 import dc.visao.folhapagamento.ausencia.FeriasColetivasFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
@@ -34,7 +34,7 @@ public class FeriasColetivasFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private FeriasColetivasDAO pDAO;
+	private IFeriasColetivasDAO pDAO;
 
 	/** ENTITIES */
 

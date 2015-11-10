@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.GrupoOsEntity;
-import dc.servicos.dao.ordemservico.GrupoDAO;
+import dc.servicos.dao.ordemservico.GrupoOsDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.GrupoFormView;
@@ -26,7 +26,7 @@ public class GrupoFormController extends CRUDFormController<GrupoOsEntity> {
 	GrupoFormView subView;
 
 	@Autowired
-	GrupoDAO grupoDAO;
+	GrupoOsDAO grupoDAO;
 
 	private GrupoOsEntity currentBean;
 

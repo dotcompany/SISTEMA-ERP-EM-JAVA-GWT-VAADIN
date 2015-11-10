@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.ordemservico.SubGrupoOsEntity;
-import dc.servicos.dao.ordemservico.SubGrupoDAO;
+import dc.servicos.dao.ordemservico.SubGrupoOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -19,7 +19,7 @@ public class SubGrupoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	SubGrupoDAO dao;
+	SubGrupoOsDAO dao;
 
 	@Autowired
 	SubGrupoFormController formController;

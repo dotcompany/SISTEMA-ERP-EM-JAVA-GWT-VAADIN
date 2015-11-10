@@ -6,7 +6,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 //@SuppressWarnings("unchecked")
-public class ConfiguracaoTributariaDAO extends AbstractCrudDAO<ConfiguracaoTributariaEntity> {
+public class ConfiguracaoTributariaDAO extends AbstractCrudDAO<ConfiguracaoTributariaEntity> implements IConfiguracaoTributariaDAO {
 
 	@Override
 	public Class<ConfiguracaoTributariaEntity> getEntityClass() {

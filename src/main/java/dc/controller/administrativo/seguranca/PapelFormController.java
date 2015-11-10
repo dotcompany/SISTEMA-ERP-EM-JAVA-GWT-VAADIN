@@ -17,7 +17,7 @@ import dc.entidade.framework.FmModulo;
 import dc.entidade.framework.PapelMenu;
 import dc.model.business.administrativo.seguranca.PapelBusiness;
 import dc.servicos.dao.framework.geral.IFmMenuDAO;
-import dc.servicos.dao.sistema.PapelDAO;
+import dc.servicos.dao.sistema.IPapelDAO;
 import dc.visao.administrativo.seguranca.PapelFormView;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
@@ -51,7 +51,7 @@ public class PapelFormController extends CRUDFormController<PapelEntity> {
 	 */
 
 	@Autowired
-	private PapelDAO papelDAO;
+	private IPapelDAO papelDAO;
 
 	@Autowired
 	private IFmMenuDAO menuDAO;

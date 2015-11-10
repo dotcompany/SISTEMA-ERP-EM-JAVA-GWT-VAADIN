@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.cadastro.FapEntity;
-import dc.servicos.dao.contabilidade.cadastro.FapDAO;
+import dc.servicos.dao.contabilidade.cadastro.IFapDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -32,7 +32,7 @@ public class FapListController extends CRUDListController<FapEntity> {
 	 */
 
 	@Autowired
-	private FapDAO pDAO;
+	private IFapDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -88,7 +88,7 @@ public class FapListController extends CRUDListController<FapEntity> {
 	@Override
 	protected List<FapEntity> pesquisaDefault() {
 		try {
-			List<FapEntity> auxLista = this.pDAO.listarTodos();
+			List<FapEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

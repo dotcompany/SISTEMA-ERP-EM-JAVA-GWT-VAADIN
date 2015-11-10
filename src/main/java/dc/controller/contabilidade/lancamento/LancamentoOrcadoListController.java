@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.lancamento.LancamentoOrcadoEntity;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoOrcadoDAO;
+import dc.servicos.dao.contabilidade.lancamento.ILancamentoOrcadoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class LancamentoOrcadoListController extends
 	 */
 
 	@Autowired
-	private LancamentoOrcadoDAO pDAO;
+	private ILancamentoOrcadoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -90,7 +90,7 @@ public class LancamentoOrcadoListController extends
 	@Override
 	protected List<LancamentoOrcadoEntity> pesquisaDefault() {
 		try {
-			List<LancamentoOrcadoEntity> auxLista = this.pDAO.listarTodos();
+			List<LancamentoOrcadoEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

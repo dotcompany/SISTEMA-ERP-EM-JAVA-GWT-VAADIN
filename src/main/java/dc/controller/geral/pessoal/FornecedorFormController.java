@@ -15,9 +15,9 @@ import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.model.business.geral.pessoal.FornecedorBusiness;
-import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
-import dc.servicos.dao.geral.pessoal.PessoaDAO;
-import dc.servicos.dao.geral.pessoal.SituacaoForCliDAO;
+import dc.model.dao.geral.pessoal.IPessoaDAO;
+import dc.servicos.dao.geral.pessoal.IAtividadeForCliDAO;
+import dc.servicos.dao.geral.pessoal.ISituacaoForCliDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.FornecedorFormView;
@@ -55,13 +55,13 @@ public class FornecedorFormController extends
 	//private FornecedorDAO dao;
 
 	@Autowired
-	private AtividadeForCliDAO atividadeForCliDAO;
+	private IAtividadeForCliDAO atividadeForCliDAO;
 
 	@Autowired
-	private SituacaoForCliDAO situacaoForCliDAO;
+	private ISituacaoForCliDAO situacaoForCliDAO;
 
 	@Autowired
-	private PessoaDAO pessoaDAO;
+	private IPessoaDAO pessoaDAO;
 
 	/**
 	 * CONSTRUTOR

@@ -20,12 +20,12 @@ import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 import dc.entidade.suprimentos.contrato.TipoServicoEntity;
-import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.dao.geral.diverso.SetorDAO;
-import dc.servicos.dao.geral.pessoal.ClienteDAO;
-import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
-import dc.servicos.dao.suprimentos.contrato.SolicitacaoServicoDAO;
-import dc.servicos.dao.suprimentos.contrato.TipoServicoDAO;
+import dc.model.dao.geral.diverso.ISetorDAO;
+import dc.model.dao.geral.pessoal.IClienteDAO;
+import dc.model.dao.geral.pessoal.IColaboradorDAO;
+import dc.servicos.dao.geral.IFornecedorDAO;
+import dc.servicos.dao.suprimentos.contrato.ISolicitacaoServicoDAO;
+import dc.servicos.dao.suprimentos.contrato.ITipoServicoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -46,18 +46,18 @@ public class ContratoSolicitacaoServicoFormController extends
 	private ContratoSolicitacaoServicoFormView subView;
 
 	@Autowired
-	private SolicitacaoServicoDAO contratoSolicitacaoServicoDAO;
+	private ISolicitacaoServicoDAO contratoSolicitacaoServicoDAO;
 
 	@Autowired
-	private FornecedorDAO fornecedorDAO;
+	private IFornecedorDAO fornecedorDAO;
 	@Autowired
-	private SetorDAO setorDAO;
+	private ISetorDAO setorDAO;
 	@Autowired
-	private TipoServicoDAO contratoTipoServicoDAO;
+	private ITipoServicoDAO contratoTipoServicoDAO;
 	@Autowired
-	private ColaboradorDAO colaboradorDAO;
+	private IColaboradorDAO colaboradorDAO;
 	@Autowired
-	private ClienteDAO clienteDAO;
+	private IClienteDAO clienteDAO;
 
 	private SolicitacaoServicoEntity currentBean;
 

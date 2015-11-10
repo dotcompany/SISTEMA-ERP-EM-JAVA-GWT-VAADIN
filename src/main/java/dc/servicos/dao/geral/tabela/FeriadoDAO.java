@@ -9,7 +9,7 @@ import dc.entidade.geral.tabela.FeriadoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class FeriadoDAO extends AbstractCrudDAO<FeriadoEntity> {
+public class FeriadoDAO extends AbstractCrudDAO<FeriadoEntity> implements IFeriadoDAO {
 
 	@Override
 	public Class<FeriadoEntity> getEntityClass() {

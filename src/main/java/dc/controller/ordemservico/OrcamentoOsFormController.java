@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 import dc.entidade.ordemservico.OrcamentoOsEntity;
 import dc.entidade.ordemservico.OrcamentoOsItemEntity;
 import dc.servicos.dao.ordemservico.CorDAO;
-import dc.servicos.dao.ordemservico.MarcaDAO;
-import dc.servicos.dao.ordemservico.ModeloDAO;
+import dc.servicos.dao.ordemservico.IMarcaOsDAO;
+import dc.servicos.dao.ordemservico.IModeloDAO;
 import dc.servicos.dao.ordemservico.OrcamentoItemOsDAO;
 import dc.servicos.dao.ordemservico.OrcamentoOsDAO;
 import dc.servicos.util.Validator;
@@ -29,13 +29,13 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOsEnt
 	private OrcamentoOsFormView subView;
 
 	@Autowired
-	MarcaDAO marcaDAO;
+	IMarcaOsDAO marcaDAO;
 
 	@Autowired
 	CorDAO corDAO;
 
 	@Autowired
-	ModeloDAO modeloDAO;
+	IModeloDAO modeloDAO;
 
 	@Autowired
 	private OrcamentoOsDAO orcamentoOsDAO;

@@ -10,7 +10,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class NcmDAO extends AbstractCrudDAO<NcmEntity> {
+public class NcmDAO extends AbstractCrudDAO<NcmEntity> implements INcmDAO {
 
 	@Override
 	public Class<NcmEntity> getEntityClass() {

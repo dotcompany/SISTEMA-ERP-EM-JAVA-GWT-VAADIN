@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.livrocontabil.LivroEntity;
-import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
+import dc.servicos.dao.contabilidade.livrocontabil.ILivroDAO;
 import dc.visao.contabilidade.livrocontabil.LivroFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -29,7 +29,7 @@ public class LivroFormController extends CRUDFormController<LivroEntity> {
 	/** DAO'S */
 
 	@Autowired
-	private LivroDAO pDAO;
+	private ILivroDAO pDAO;
 
 	/** ENTITIES */
 

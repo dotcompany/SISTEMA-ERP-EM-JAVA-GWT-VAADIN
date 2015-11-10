@@ -9,7 +9,7 @@ import org.vaadin.addons.lazyquerycontainer.QueryDefinition;
 import com.sun.istack.logging.Logger;
 
 import dc.entidade.framework.FmMenu;
-import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+import dc.servicos.dao.framework.geral.IListDAO;
 
 public class DCBeanQuery extends AbstractDCBeanQuery {
 
@@ -24,7 +24,7 @@ public class DCBeanQuery extends AbstractDCBeanQuery {
 	protected List<Serializable> loadBeans(int arg0, int arg1) {
 		logger.info("loading beans from " + arg0);
 		logger.info("loading beans page size" + arg1);
-		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get("dao");
+		IListDAO dao = (IListDAO) getQueryConfiguration().get("dao");
 		String searchTerm = (String) getQueryConfiguration().get("search");
 		Class pojoClass = (Class) getQueryConfiguration().get("pojoClass");
 		FmMenu menu = (FmMenu) getQueryConfiguration().get("menu");
@@ -40,7 +40,7 @@ public class DCBeanQuery extends AbstractDCBeanQuery {
 
 	@Override
 	public int size() {
-		AbstractCrudDAO dao = (AbstractCrudDAO) getQueryConfiguration().get("dao");
+		IListDAO dao = (IListDAO) getQueryConfiguration().get("dao");
 		String searchTerm = (String) getQueryConfiguration().get("search");
 		Class pojoClass = (Class) getQueryConfiguration().get("pojoClass");
 		FmMenu menu = (FmMenu) getQueryConfiguration().get("menu");

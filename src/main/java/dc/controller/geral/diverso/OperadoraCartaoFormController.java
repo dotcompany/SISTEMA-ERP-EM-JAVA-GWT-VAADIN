@@ -18,7 +18,7 @@ import dc.controller.financeiro.ContaCaixaListController;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.geral.diverso.OperadoraCartaoEntity;
 import dc.model.business.geral.diverso.OperadoraCartaoBusiness;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.OperadoraCartaoFormView;
@@ -52,7 +52,7 @@ public class OperadoraCartaoFormController extends CRUDFormController<OperadoraC
 	 */
 
 	@Autowired
-	private ContaCaixaDAO contaCaixaDAO;
+	private IContaCaixaDAO contaCaixaDAO;
 
 	/**
 	 * CONSTRUTOR

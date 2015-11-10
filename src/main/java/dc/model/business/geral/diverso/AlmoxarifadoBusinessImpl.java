@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.diverso.AlmoxarifadoEntity;
-import dc.model.dao.geral.diverso.AlmoxarifadoDAO;
+import dc.model.dao.geral.diverso.IAlmoxarifadoDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class AlmoxarifadoBusinessImpl implements Serializable,
 			.getLogger(AlmoxarifadoBusinessImpl.class);
 
 	@Autowired
-	private AlmoxarifadoDAO<AlmoxarifadoEntity> dao;
+	private IAlmoxarifadoDAO dao;
 
 	/**
 	 * **********************************************

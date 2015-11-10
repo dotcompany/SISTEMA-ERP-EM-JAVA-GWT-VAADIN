@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.tributario.OperacaoFiscalEntity;
-import dc.servicos.dao.geral.tabela.CfopDAO;
+import dc.servicos.dao.geral.tabela.ICfopDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -32,7 +32,7 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 	private OperacaoFiscalEntity currentBean;
 
 	@Autowired
-	private CfopDAO cfopDAO;
+	private ICfopDAO cfopDAO;
 
 	@Override
 	public String getViewIdentifier() {

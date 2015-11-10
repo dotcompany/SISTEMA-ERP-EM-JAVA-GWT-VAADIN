@@ -13,8 +13,8 @@ import dc.controller.geral.pessoal.ColaboradorListController;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.ponto.PontoAbono;
 import dc.entidade.ponto.PontoAbonoUtilizacao;
-import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
-import dc.servicos.dao.ponto.PontoAbonoDAO;
+import dc.model.dao.geral.pessoal.IColaboradorDAO;
+import dc.servicos.dao.ponto.IPontoAbonoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -32,9 +32,9 @@ public class PontoAbonoFormController extends CRUDFormController<PontoAbono> {
 	private PontoAbonoFormView subView;
 
 	@Autowired
-	private PontoAbonoDAO pontoAbonoDAO;
+	private IPontoAbonoDAO pontoAbonoDAO;
 	@Autowired
-	private ColaboradorDAO colaboradorDAO;
+	private IColaboradorDAO colaboradorDAO;
 
 	private PontoAbono currentBean;
 

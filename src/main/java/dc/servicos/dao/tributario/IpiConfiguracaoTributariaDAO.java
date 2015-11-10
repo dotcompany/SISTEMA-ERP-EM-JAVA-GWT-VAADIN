@@ -9,7 +9,7 @@ import dc.entidade.tributario.IpiConfiguracaoTributariaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class IpiConfiguracaoTributariaDAO extends AbstractCrudDAO<IpiConfiguracaoTributariaEntity> {
+public class IpiConfiguracaoTributariaDAO extends AbstractCrudDAO<IpiConfiguracaoTributariaEntity> implements IIpiConfiguracaoTributariaDAO {
 
 	@Override
 	public Class<IpiConfiguracaoTributariaEntity> getEntityClass() {
@@ -20,6 +20,10 @@ public class IpiConfiguracaoTributariaDAO extends AbstractCrudDAO<IpiConfiguraca
 		return new String[] {"empresa"};
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.tributario.IIpiConfiguracaoTributariaDAO#buscarPorConfiguracao(dc.entidade.tributario.ConfiguracaoTributariaEntity)
+	 */
+	@Override
 	@Transactional
 	public IpiConfiguracaoTributariaEntity buscarPorConfiguracao(ConfiguracaoTributariaEntity configuracao){
 		IpiConfiguracaoTributariaEntity ipi = null;

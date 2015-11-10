@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.diverso.SetorEntity;
+import dc.model.dao.geral.diverso.ISetorDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -22,7 +23,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class SetorDAO extends AbstractCrudDAO<SetorEntity> {
+public class SetorDAO extends AbstractCrudDAO<SetorEntity> implements ISetorDAO{
 
 	@Override
 	public Class<SetorEntity> getEntityClass() {
@@ -39,6 +40,7 @@ public class SetorDAO extends AbstractCrudDAO<SetorEntity> {
 		return getSession().createQuery("from Setor where nome like :q")
 				.setParameter("q", "%" + query + "%").list();
 	}
+	
 
 	public String[] getDefaultSearchFields() {
 		return new String[] { "nome", "descricao" };

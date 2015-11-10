@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class TalonarioChequeDAO extends AbstractCrudDAO<TalonarioCheque> {
+public class TalonarioChequeDAO extends AbstractCrudDAO<TalonarioCheque> implements ITalonarioChequeDAO {
 
 	@Override
 	public Class<TalonarioCheque> getEntityClass() {

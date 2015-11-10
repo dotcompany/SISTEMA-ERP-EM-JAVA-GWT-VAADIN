@@ -122,8 +122,9 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 		long inicio = System.currentTimeMillis();
 		getFormController().setListController(this);
 
-		genericDAO.setPojoClass(getEntityClass());
-		view = new CRUDListView(this);
+        genericDAO.setPojoClass(getEntityClass());
+        genericDAO.setColunas(getColunas());
+        view = new CRUDListView(this);
 		
 		this.menu = getMenu();
 
@@ -527,7 +528,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 			Integer idEmpresa = SecuritySessionProvider.getUsuario().getConta()
 					.getEmpresa().getId();
 			conf.put("search", valor);
-			genericDAO.setPojoClass(getEntityClass());
+			//genericDAO.setPojoClass(getEntityClass());
 			conf.put("dao", getMainDao());
 			conf.put("pojoClass", getEntityClass());
 			conf.put("id_empresa", idEmpresa);
@@ -679,7 +680,6 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 	protected AbstractDAO getMainDao() {
 		return genericDAO;
 	}
-
 	protected String getBeanIdProperty() {
 		return "id";
 	}

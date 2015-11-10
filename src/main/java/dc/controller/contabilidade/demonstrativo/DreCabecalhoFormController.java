@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.DreCabecalhoEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DreCabecalhoDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IDreCabecalhoDAO;
 import dc.visao.contabilidade.demonstrativo.DreCabecalhoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -30,7 +30,7 @@ public class DreCabecalhoFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private DreCabecalhoDAO pDAO;
+	private IDreCabecalhoDAO pDAO;
 
 	/** ENTITIES */
 

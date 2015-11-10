@@ -11,8 +11,8 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.GrupoOsEntity;
 import dc.entidade.ordemservico.SubGrupoOsEntity;
-import dc.servicos.dao.ordemservico.GrupoDAO;
-import dc.servicos.dao.ordemservico.SubGrupoDAO;
+import dc.model.dao.ordemservico.ISubGrupoOsDAO;
+import dc.servicos.dao.ordemservico.IGrupoOsDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -30,10 +30,10 @@ public class SubGrupoFormController extends
 	SubGrupoFormView subView;
 
 	@Autowired
-	SubGrupoDAO subGrupoDAO;
+	private ISubGrupoOsDAO subGrupoDAO;
 
 	@Autowired
-	GrupoDAO grupoDAO;
+	private IGrupoOsDAO grupoDAO;
 
 	private SubGrupoOsEntity currentBean;
 

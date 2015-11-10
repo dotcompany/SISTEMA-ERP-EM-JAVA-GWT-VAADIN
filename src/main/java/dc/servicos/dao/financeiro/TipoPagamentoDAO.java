@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class TipoPagamentoDAO extends AbstractCrudDAO<TipoPagamento>{
+public class TipoPagamentoDAO extends AbstractCrudDAO<TipoPagamento> implements ITipoPagamentoDAO{
 
 	@Override
 	public Class<TipoPagamento> getEntityClass() {

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.ordemservico.MarcaOsEntity;
-import dc.servicos.dao.ordemservico.MarcaDAO;
+import dc.servicos.dao.ordemservico.MarcaOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -18,7 +18,7 @@ public class MarcaListController extends CRUDListController<MarcaOsEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	MarcaDAO dao;
+	MarcaOsDAO dao;
 
 	@Autowired
 	MarcaFormController formController;

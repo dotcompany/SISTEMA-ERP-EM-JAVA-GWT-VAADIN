@@ -333,7 +333,7 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T>{
 	@Transactional
 	public int fullTextSearchCount(String searchValue, FmMenu menu, List<Filter> filters) {
 		FullTextSession fullTextSession = getFullTextSession();
-		
+				
 		org.apache.lucene.search.Query query = createQuery(searchValue, getSearchFields(), menu, filters, fullTextSession, null);		
 		
 		return fullTextSession.createFullTextQuery(query, getEntityClass()).getResultSize();
@@ -411,6 +411,7 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T>{
 		if (dc.control.validator.ObjectValidator.validateString(value)) {
 			QueryBuilder qb = getFullTextSession().getSearchFactory().buildQueryBuilder().forEntity(getEntityClass()).get();
 			
+			List<String> searchList = new ArrayList<String>();
 			for (int i = 0; i < searchFields.length; i++) {
 				String search = searchFields[i];
 
@@ -424,8 +425,16 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T>{
 							valor = method.invoke(anotacao, (Object[]) null);
 							if ("includePaths".equals(method.getName()) && valor instanceof String[]) {
 								String[] valores = (String[]) valor;
-								searchFields[i] = search + "." + valores[0];
+								searchList.add(search + "." + valores[0]);
 							}
+						}
+					}
+					else{
+						ClassMetadata classMetadata = sessionFactory.getClassMetadata(getEntityClass());
+						Type t = classMetadata.getPropertyType(search);
+
+						if (t.getReturnedClass() == java.lang.String.class) {
+							searchList.add(search);
 						}
 					}
 				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -433,10 +442,10 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T>{
 				}
 			}
 			
-			org.apache.lucene.search.Query query = qb.keyword().fuzzy().withEditDistanceUpTo(1).onFields(searchFields).matching(value).createQuery();
+			org.apache.lucene.search.Query query = qb.keyword().fuzzy().withEditDistanceUpTo(1).onFields(searchList.toArray(new String[0])).matching(value).createQuery();
 
 			booleanQuery.add(query, Occur.SHOULD);
-			for (String search : searchFields) {
+			for (String search : searchList) {
 	
 				query = qb.keyword().wildcard().onField(search).matching(value + "*").createQuery();
 
@@ -681,8 +690,8 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T>{
 	}
 
 	@Transactional
-	public List<T> fullTextSearch(String searchValue, int arg0, int arg1, String[] sortingFields, boolean[] sortStates, FmMenu menu, List<Filter> filters) {
-		return fullTextSearch(searchValue, getSearchFields(), arg0, arg1, sortingFields, sortStates, menu, filters);
+	public List<T> fullTextSearch(String searchValue, int first, int pageSize, String[] sortingFields, boolean[] sortStates, FmMenu menu, List<Filter> filters) {
+		return fullTextSearch(searchValue, getSearchFields(), first, pageSize, sortingFields, sortStates, menu, filters);
 	}
 
 	private String[] getSearchFields() {
@@ -716,6 +725,8 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T>{
 		}
 		return null;
 	}
+	
+	@Override
 	@Transactional
 	public int count(Class<T> c) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(c);
@@ -723,6 +734,8 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T>{
 
 		return Integer.valueOf(l.get(0).toString());
 	}
+
+	@Override
 
 	@Transactional
 	public List<T> getAllPaged(Class<T> clazz, int start, int pageSize, String[] sortingFields, boolean[] states, List<Filter> filters) {

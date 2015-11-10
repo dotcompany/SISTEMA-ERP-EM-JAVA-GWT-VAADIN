@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.DreDetalheEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DreDetalheDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IDreDetalheDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class DreDetalheListController extends
 	 */
 
 	@Autowired
-	private DreDetalheDAO pDAO;
+	private IDreDetalheDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -91,7 +91,7 @@ public class DreDetalheListController extends
 	@Override
 	protected List<DreDetalheEntity> pesquisaDefault() {
 		try {
-			List<DreDetalheEntity> auxLista = this.pDAO.listarTodos();
+			List<DreDetalheEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

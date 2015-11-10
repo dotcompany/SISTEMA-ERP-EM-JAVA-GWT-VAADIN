@@ -14,7 +14,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.FapEntity;
-import dc.servicos.dao.contabilidade.cadastro.FapDAO;
+import dc.servicos.dao.contabilidade.cadastro.IFapDAO;
 import dc.visao.contabilidade.cadastro.FapFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -33,7 +33,7 @@ public class FapFormController extends CRUDFormController<FapEntity> {
 	/** DAO'S */
 
 	@Autowired
-	private FapDAO pDAO;
+	private IFapDAO pDAO;
 
 	/** ENTITIES */
 

@@ -14,7 +14,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.geral.pessoal.TransportadoraListController;
 import dc.entidade.comercial.Frete;
-import dc.servicos.dao.comercial.FreteDAO;
+import dc.servicos.dao.comercial.IFreteDAO;
 import dc.servicos.dao.comercial.VendaDAO;
 import dc.servicos.dao.geral.pessoal.TransportadoraDAO;
 import dc.visao.comercial.FreteFormView;
@@ -27,18 +27,18 @@ public class FreteFormController extends CRUDFormController<Frete> {
 
 	private static final long serialVersionUID = 1L;
 	
-	Frete currentBean;
+	private Frete currentBean;
 
-	FreteFormView subView;
-
-	@Autowired
-	FreteDAO dao;
+	private FreteFormView subView;
 
 	@Autowired
-	TransportadoraDAO transportadoraDAO;
+	private IFreteDAO dao;
 
 	@Autowired
-	VendaDAO vendaDAO;
+	private TransportadoraDAO transportadoraDAO;
+
+	@Autowired
+	private VendaDAO vendaDAO;
 
 	@Override
 	public String getViewIdentifier() {

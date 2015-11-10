@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
-import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
+import dc.servicos.dao.administrativo.empresa.IEmpresaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class EmpresaListController extends CRUDListController<EmpresaEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private EmpresaDAO dao;
+	private IEmpresaDAO dao;
 
 	@Autowired
 	private EmpresaFormController empresaFormController;

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.geral.ged.Documento;
-import dc.servicos.dao.geral.ged.DocumentoDAO;
+import dc.servicos.dao.geral.ged.IDocumentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,10 +21,10 @@ public class DocumentoListController extends CRUDListController<Documento> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	DocumentoDAO dao;
+	private IDocumentoDAO dao;
 
 	@Autowired
-	DocumentoFormController documentoFormController;
+	private DocumentoFormController documentoFormController;
 
 	@Override
 	protected CRUDFormController<Documento> getFormController() {

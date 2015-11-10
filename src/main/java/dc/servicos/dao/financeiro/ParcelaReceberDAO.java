@@ -10,7 +10,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ParcelaReceberDAO extends AbstractCrudDAO<ParcelaReceber> {
+public class ParcelaReceberDAO extends AbstractCrudDAO<ParcelaReceber> implements IParcelaReceberDAO {
 
 	@Override
 	public Class<ParcelaReceber> getEntityClass() {

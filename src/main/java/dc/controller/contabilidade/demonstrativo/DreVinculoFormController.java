@@ -14,9 +14,9 @@ import dc.controller.contabilidade.planoconta.ContaListController;
 import dc.entidade.contabilidade.demonstrativo.DreDetalheEntity;
 import dc.entidade.contabilidade.demonstrativo.DreVinculoEntity;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DreDetalheDAO;
-import dc.servicos.dao.contabilidade.demonstrativo.DreVinculoDAO;
-import dc.servicos.dao.contabilidade.planoconta.ContaDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IDreDetalheDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IDreVinculoDAO;
+import dc.servicos.dao.contabilidade.planoconta.IContaDAO;
 import dc.visao.contabilidade.demonstrativo.DreVinculoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -36,13 +36,13 @@ public class DreVinculoFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private DreVinculoDAO pDAO;
+	private IDreVinculoDAO pDAO;
 
 	@Autowired
-	private DreDetalheDAO ddDAO;
+	private IDreDetalheDAO ddDAO;
 
 	@Autowired
-	private ContaDAO cDAO;
+	private IContaDAO cDAO;
 
 	/** ENTITIES */
 

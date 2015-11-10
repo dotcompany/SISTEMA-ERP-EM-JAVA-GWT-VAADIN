@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.controller.geral.diverso.UfListController;
 import dc.entidade.geral.tabela.FeriadoEntity;
-import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.geral.tabela.FeriadoDAO;
+import dc.servicos.dao.geral.IUfDAO;
+import dc.servicos.dao.geral.tabela.IFeriadoDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.FeriadosFormView;
@@ -32,10 +32,10 @@ public class FeriadosFormController extends CRUDFormController<FeriadoEntity> {
 	private FeriadosFormView subView;
 
 	@Autowired
-	private FeriadoDAO feriadosDAO;
+	private IFeriadoDAO feriadosDAO;
 
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	private FeriadoEntity currentBean;
 

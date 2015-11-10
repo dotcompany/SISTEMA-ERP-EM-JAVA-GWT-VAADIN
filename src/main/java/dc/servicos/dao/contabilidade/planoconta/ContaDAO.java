@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ContaDAO extends AbstractCrudDAO<ContaEntity> {
+public class ContaDAO extends AbstractCrudDAO<ContaEntity> implements IContaDAO {
 
 	@Override
 	public Class<ContaEntity> getEntityClass() {

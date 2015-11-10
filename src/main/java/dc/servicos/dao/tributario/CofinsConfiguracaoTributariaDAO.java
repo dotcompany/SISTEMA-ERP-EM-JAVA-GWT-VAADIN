@@ -10,7 +10,7 @@ import dc.entidade.tributario.PisConfiguracaoTributariaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class CofinsConfiguracaoTributariaDAO extends AbstractCrudDAO<CofinsConfiguracaoTributariaEntity> {
+public class CofinsConfiguracaoTributariaDAO extends AbstractCrudDAO<CofinsConfiguracaoTributariaEntity> implements ICofinsConfiguracaoTributariaDAO {
 
 	@Override
 	public Class<CofinsConfiguracaoTributariaEntity> getEntityClass() {
@@ -21,6 +21,10 @@ public class CofinsConfiguracaoTributariaDAO extends AbstractCrudDAO<CofinsConfi
 		return new String[] {"empresa"};
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.tributario.ICofinsConfiguracaoTributariaDAO#buscarPorConfiguracao(dc.entidade.tributario.ConfiguracaoTributariaEntity)
+	 */
+	@Override
 	@Transactional
 	public CofinsConfiguracaoTributariaEntity buscarPorConfiguracao(ConfiguracaoTributariaEntity configuracao){
 		CofinsConfiguracaoTributariaEntity cofins = null;

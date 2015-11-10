@@ -14,8 +14,8 @@ import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.livrocontabil.LivroEntity;
 import dc.entidade.contabilidade.livrocontabil.TermoEntity;
-import dc.servicos.dao.contabilidade.livrocontabil.LivroDAO;
-import dc.servicos.dao.contabilidade.livrocontabil.TermoDAO;
+import dc.servicos.dao.contabilidade.livrocontabil.ILivroDAO;
+import dc.servicos.dao.contabilidade.livrocontabil.ITermoDAO;
 import dc.visao.contabilidade.livrocontabil.TermoFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -34,10 +34,10 @@ public class TermoFormController extends CRUDFormController<TermoEntity> {
 	/** DAO'S */
 
 	@Autowired
-	private TermoDAO pDAO;
+	private ITermoDAO pDAO;
 
 	@Autowired
-	private LivroDAO lDAO;
+	private ILivroDAO lDAO;
 
 	/** ENTITIES */
 

@@ -28,22 +28,22 @@ import dc.entidade.tributario.IpiConfiguracaoTributariaEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.entidade.tributario.PisConfiguracaoTributariaEntity;
 import dc.framework.exception.ErroValidacaoException;
-import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.geral.tabela.CfopDAO;
-import dc.servicos.dao.geral.tabela.CsosnbDAO;
-import dc.servicos.dao.geral.tabela.CstCofinsDAO;
-import dc.servicos.dao.geral.tabela.CstIcmsbDAO;
-import dc.servicos.dao.geral.tabela.CstIpiDAO;
-import dc.servicos.dao.geral.tabela.CstPisDAO;
-import dc.servicos.dao.geral.tabela.EfdTabela435DAO;
-import dc.servicos.dao.geral.tabela.TipoReceitaDipiDAO;
-import dc.servicos.dao.tributario.CofinsConfiguracaoTributariaDAO;
-import dc.servicos.dao.tributario.ConfiguracaoTributariaDAO;
-import dc.servicos.dao.tributario.GrupoTributarioDAO;
-import dc.servicos.dao.tributario.IcmsConfiguracaoTributariaDAO;
-import dc.servicos.dao.tributario.IpiConfiguracaoTributariaDAO;
-import dc.servicos.dao.tributario.OperacaoFiscalDAO;
-import dc.servicos.dao.tributario.PisConfiguracaoTributariaDAO;
+import dc.model.dao.tributario.IGrupoTributarioDAO;
+import dc.servicos.dao.geral.IUfDAO;
+import dc.servicos.dao.geral.tabela.ICfopDAO;
+import dc.servicos.dao.geral.tabela.ICsosnbDAO;
+import dc.servicos.dao.geral.tabela.ICstCofinsDAO;
+import dc.servicos.dao.geral.tabela.ICstIcmsbDAO;
+import dc.servicos.dao.geral.tabela.ICstIpiDAO;
+import dc.servicos.dao.geral.tabela.ICstPisDAO;
+import dc.servicos.dao.geral.tabela.IEfdTabela435DAO;
+import dc.servicos.dao.geral.tabela.ITipoReceitaDipiDAO;
+import dc.servicos.dao.tributario.ICofinsConfiguracaoTributariaDAO;
+import dc.servicos.dao.tributario.IConfiguracaoTributariaDAO;
+import dc.servicos.dao.tributario.IIcmsConfiguracaoTributariaDAO;
+import dc.servicos.dao.tributario.IIpiConfiguracaoTributariaDAO;
+import dc.servicos.dao.tributario.IOperacaoFiscalDAO;
+import dc.servicos.dao.tributario.IPisConfiguracaoTributariaDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -57,62 +57,62 @@ import dc.visao.tributario.ConfiguracaoTributariaFormView.MODALIDADE_BC;
 @SuppressWarnings("serial")
 public class ConfiguracaoTributariaFormController extends CRUDFormController<ConfiguracaoTributariaEntity> {
 
-	ConfiguracaoTributariaFormView subView;
+	private ConfiguracaoTributariaFormView subView;
 
 	@Autowired
-	ConfiguracaoTributariaDAO dao;
+	private IConfiguracaoTributariaDAO dao;
 
 	@Autowired
-	GrupoTributarioDAO grupoTributarioDAO;
+	private IGrupoTributarioDAO grupoTributarioDAO;
 
 	@Autowired
-	OperacaoFiscalDAO operacaoFiscalDAO;
+	private IOperacaoFiscalDAO operacaoFiscalDAO;
 
 	@Autowired
-	UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
-	ConfiguracaoTributariaEntity currentBean;
+	private ConfiguracaoTributariaEntity currentBean;
 
-	String CAMPO_EM_BRANCO = "Não pode ficar em branco";
-
-	@Autowired
-	CstPisDAO cstPisDAO;
+	private String CAMPO_EM_BRANCO = "Não pode ficar em branco";
 
 	@Autowired
-	CstCofinsDAO cstCofinsDAO;
+	private ICstPisDAO cstPisDAO;
 
 	@Autowired
-	CstIpiDAO cstIpiDAO;
+	private ICstCofinsDAO cstCofinsDAO;
 
 	@Autowired
-	EfdTabela435DAO efdDAO;
+	private ICstIpiDAO cstIpiDAO;
 
 	@Autowired
-	TipoReceitaDipiDAO dipiDAO;
+	private IEfdTabela435DAO efdDAO;
 
 	@Autowired
-	PisConfiguracaoTributariaDAO pisDAO;
+	private ITipoReceitaDipiDAO dipiDAO;
 
 	@Autowired
-	CofinsConfiguracaoTributariaDAO cofinsDAO;
+	private IPisConfiguracaoTributariaDAO pisDAO;
 
 	@Autowired
-	IpiConfiguracaoTributariaDAO ipiDAO;
+	private ICofinsConfiguracaoTributariaDAO cofinsDAO;
 
 	@Autowired
-	CsosnbDAO csosnbDAO;
+	private IIpiConfiguracaoTributariaDAO ipiDAO;
 
 	@Autowired
-	CstIcmsbDAO cstbDAO;
+	private ICsosnbDAO csosnbDAO;
 
 	@Autowired
-	CfopDAO cfopDAO;
+	private ICstIcmsbDAO cstbDAO;
+
+	@Autowired
+	private ICfopDAO cfopDAO;
 
 	@Autowired
 	MainController mainController;
 
 	@Autowired
-	IcmsConfiguracaoTributariaDAO icmsDAO;
+	private IIcmsConfiguracaoTributariaDAO icmsDAO;
 
 	@Override
 	public String getViewIdentifier() {

@@ -5,13 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.administrativo.empresa.DependenteEntity;
 import dc.entidade.administrativo.empresa.ParticipacaoSocietariaEntity;
 import dc.entidade.administrativo.empresa.SocioEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ParticipacaoSocietariaDAO extends AbstractCrudDAO<ParticipacaoSocietariaEntity> {
+public class ParticipacaoSocietariaDAO extends AbstractCrudDAO<ParticipacaoSocietariaEntity> implements IParticipacaoSocietariaDAO {
 
 
 	@Override
@@ -23,6 +22,10 @@ public class ParticipacaoSocietariaDAO extends AbstractCrudDAO<ParticipacaoSocie
 		return new String[] {"cnpj"};
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.administrativo.empresa.IParticipacaoSocietariaDAO#findBySocio(dc.entidade.administrativo.empresa.SocioEntity)
+	 */
+	@Override
 	@Transactional
 	public List<ParticipacaoSocietariaEntity> findBySocio(SocioEntity socio){
 

@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.SetorEntity;
 import dc.model.business.geral.diverso.SetorBusiness;
-import dc.servicos.dao.geral.UfDAO;
+import dc.servicos.dao.geral.IUfDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.SetorFormView;
@@ -47,7 +47,7 @@ public class SetorFormController extends CRUDFormController<SetorEntity> {
 	 */
 
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	/**
 	 * CONSTRUTOR

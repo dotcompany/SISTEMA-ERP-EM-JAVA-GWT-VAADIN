@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.adm.dotcompany.ParametroCliente;
-import dc.servicos.dao.adm.dotcompany.ParametroClienteDAO;
+import dc.servicos.dao.adm.dotcompany.IParametroClienteDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class ParametroClienteListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ParametroClienteDAO dao;
+	private IParametroClienteDAO dao;
 
 	@Autowired
 	private ParametroClienteFormController parametroClienteFormController;

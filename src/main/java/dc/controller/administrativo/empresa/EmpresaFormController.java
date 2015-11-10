@@ -31,14 +31,14 @@ import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.geral.outro.SindicatoEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
+import dc.model.dao.geral.pessoal.IContadorDAO;
 import dc.servicos.dao.administrativo.empresa.EmpresaCnaeDAO;
-import dc.servicos.dao.administrativo.empresa.EmpresaDAO;
+import dc.servicos.dao.administrativo.empresa.IEmpresaDAO;
 import dc.servicos.dao.financeiro.SindicatoDAO;
 import dc.servicos.dao.framework.geral.FpasDAO;
 import dc.servicos.dao.framework.geral.IEmpresaSeguimentoDAO;
 import dc.servicos.dao.framework.geral.SeguimentoDAO;
 import dc.servicos.dao.geral.PessoaEnderecoDAO;
-import dc.servicos.dao.geral.pessoal.ContadorDAO;
 import dc.visao.administrativo.empresa.EmpresaFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -57,14 +57,14 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	private EmpresaEntity currentBean;
 
 	@Autowired
-	private EmpresaDAO empresaDAO;
+	private IEmpresaDAO empresaDAO;
 
 	/*
 	 * @Autowired private MatrizDAO matrizDAO;
 	 */
 
 	@Autowired
-	private ContadorDAO contadorDAO;
+	private IContadorDAO contadorDAO;
 
 	@Autowired
 	private SindicatoDAO sindicatoDAO;

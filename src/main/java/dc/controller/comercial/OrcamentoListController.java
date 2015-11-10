@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.comercial.Orcamento;
-import dc.servicos.dao.comercial.OrcamentoDAO;
+import dc.servicos.dao.comercial.IOrcamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,7 +21,7 @@ public class OrcamentoListController extends CRUDListController<Orcamento> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private OrcamentoDAO dao;
+	private IOrcamentoDAO dao;
 
 	@Autowired
 	private OrcamentoFormController formController;

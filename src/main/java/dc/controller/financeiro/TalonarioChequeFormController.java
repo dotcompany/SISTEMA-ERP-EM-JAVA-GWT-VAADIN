@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.TalonarioCheque;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
-import dc.servicos.dao.financeiro.TalonarioChequeDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
+import dc.servicos.dao.financeiro.ITalonarioChequeDAO;
 import dc.visao.financeiro.TalonarioChequeFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -30,10 +30,10 @@ public class TalonarioChequeFormController extends CRUDFormController<TalonarioC
 	private TalonarioChequeFormView subView;
 
 	@Autowired
-	private TalonarioChequeDAO talonarioChequeDAO;
+	private ITalonarioChequeDAO talonarioChequeDAO;
 
 	@Autowired
-	private ContaCaixaDAO contaCaixaDAO;
+	private IContaCaixaDAO contaCaixaDAO;
 
 	private TalonarioCheque currentBean;
 

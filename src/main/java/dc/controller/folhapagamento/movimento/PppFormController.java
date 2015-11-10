@@ -13,8 +13,8 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.geral.pessoal.ColaboradorListController;
 import dc.entidade.folhapagamento.movimento.PppEntity;
-import dc.servicos.dao.folhapagamento.movimento.PppDAO;
-import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
+import dc.model.dao.geral.pessoal.IColaboradorDAO;
+import dc.servicos.dao.folhapagamento.movimento.IPppDAO;
 import dc.visao.folhapagamento.movimento.PppFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -33,10 +33,10 @@ public class PppFormController extends CRUDFormController<PppEntity> {
 	/** DAO'S */
 
 	@Autowired
-	private PppDAO pDAO;
+	private IPppDAO pDAO;
 
 	@Autowired
-	private ColaboradorDAO cDAO;
+	private IColaboradorDAO cDAO;
 
 	/** ENTITIES */
 

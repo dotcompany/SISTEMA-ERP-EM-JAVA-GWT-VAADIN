@@ -9,7 +9,7 @@ import dc.entidade.geral.tabela.CfopEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class CfopDAO extends AbstractCrudDAO<CfopEntity> {
+public class CfopDAO extends AbstractCrudDAO<CfopEntity> implements ICfopDAO {
 
 	@Override
 	public Class<CfopEntity> getEntityClass() {

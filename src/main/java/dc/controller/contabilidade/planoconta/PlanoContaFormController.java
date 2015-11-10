@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
-import dc.servicos.dao.contabilidade.planoconta.PlanoContaDAO;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaDAO;
 import dc.visao.contabilidade.planoconta.PlanoContaFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -32,7 +32,7 @@ public class PlanoContaFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private PlanoContaDAO pDAO;
+	private IPlanoContaDAO pDAO;
 
 	/** ENTITIES */
 

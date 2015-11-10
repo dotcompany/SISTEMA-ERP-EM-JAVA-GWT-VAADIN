@@ -23,7 +23,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
+public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> implements INfeDetalheDAO {
 
 	/**
 	 * DAOS
@@ -77,6 +77,10 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.nfe.INfeDetalheDAO#getEntidade(java.io.Serializable)
+	 */
+	@Override
 	@Transactional
 	public NfeDetalheEntity getEntidade(Serializable itemId) {
 		try {
@@ -94,6 +98,10 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.nfe.INfeDetalheDAO#getLista(dc.entidade.nfe.NfeCabecalhoEntity)
+	 */
+	@Override
 	@Transactional
 	public List<NfeDetalheEntity> getLista(NfeCabecalhoEntity ent) {
 		try {
@@ -130,6 +138,10 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> {
 		return new String[] { "Número do item", "Código do produto", "GTIN" };
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.nfe.INfeDetalheDAO#findByNfeDetalhe(dc.entidade.suprimentos.estoque.LoteProdutoEntity)
+	 */
+	@Override
 	@Transactional
 	public List<NfeDetalheEntity> findByNfeDetalhe(LoteProdutoEntity loteProduto){
 

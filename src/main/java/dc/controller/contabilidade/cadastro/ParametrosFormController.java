@@ -13,7 +13,7 @@ import dc.control.enums.SimNaoEn;
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.ParametrosEntity;
-import dc.servicos.dao.contabilidade.cadastro.ParametrosDAO;
+import dc.servicos.dao.contabilidade.cadastro.IParametrosDAO;
 import dc.visao.contabilidade.cadastro.ParametrosFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -33,7 +33,7 @@ public class ParametrosFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private ParametrosDAO pDAO;
+	private IParametrosDAO pDAO;
 
 	/** ENTITIES */
 

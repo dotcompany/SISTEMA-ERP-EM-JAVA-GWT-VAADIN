@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.entidade.framework.FmMenu;
-import dc.model.dao.geral.pessoal.AgenciaBancoDAO;
+import dc.model.dao.geral.pessoal.IAgenciaBancoDAO;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,7 +24,7 @@ private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger(AgenciaBancoBusinessImpl.class);
 	
 	@Autowired
-	private AgenciaBancoDAO<AgenciaBancoEntity> dao;
+	private IAgenciaBancoDAO dao;
 
 	@Override
 	public Class<AgenciaBancoEntity> getEntityClass() {

@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class DreDetalheDAO extends AbstractCrudDAO<DreDetalheEntity> {
+public class DreDetalheDAO extends AbstractCrudDAO<DreDetalheEntity> implements IDreDetalheDAO {
 
 	@Override
 	public Class<DreDetalheEntity> getEntityClass() {
@@ -37,6 +37,10 @@ public class DreDetalheDAO extends AbstractCrudDAO<DreDetalheEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.contabilidade.demonstrativo.IDreDetalheDAO#procuraNomeContendo(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public List<DreDetalheEntity> procuraNomeContendo(String query) {
 		try {

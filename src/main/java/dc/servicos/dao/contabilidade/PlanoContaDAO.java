@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dc.entidade.contabilidade.PlanoConta;
+import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class PlanoContaDAO extends AbstractCrudDAO<PlanoConta> {
+public class PlanoContaDAO extends AbstractCrudDAO<PlanoContaEntity> {
 
 	@Override
-	public Class<PlanoConta> getEntityClass() {
+	public Class<PlanoContaEntity> getEntityClass() {
 		// TODO Auto-generated method stub
-		return PlanoConta.class;
+		return PlanoContaEntity.class;
 	}
 
 	@Override
@@ -23,8 +23,7 @@ public class PlanoContaDAO extends AbstractCrudDAO<PlanoConta> {
 	}
 
 	@Transactional
-	public List<PlanoConta> listaTodos() {
+	public List<PlanoContaEntity> listaTodos() {
 		return getSession().createQuery("from PlanoConta").list();
 	}
-
 }

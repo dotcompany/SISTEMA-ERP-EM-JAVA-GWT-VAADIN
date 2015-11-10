@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class LivroDAO extends AbstractCrudDAO<LivroEntity> {
+public class LivroDAO extends AbstractCrudDAO<LivroEntity> implements ILivroDAO {
 
 	@Override
 	public Class<LivroEntity> getEntityClass() {

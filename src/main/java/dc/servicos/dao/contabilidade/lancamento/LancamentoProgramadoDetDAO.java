@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 @SuppressWarnings("unchecked")
 public class LancamentoProgramadoDetDAO extends
-		AbstractCrudDAO<LancamentoProgramadoDetEntity> {
+		AbstractCrudDAO<LancamentoProgramadoDetEntity> implements ILancamentoProgramadoDetDAO {
 
 	@Override
 	public Class<LancamentoProgramadoDetEntity> getEntityClass() {
@@ -38,6 +38,10 @@ public class LancamentoProgramadoDetDAO extends
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.contabilidade.lancamento.ILancamentoProgramadoDetDAO#procuraNomeContendo(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public List<LancamentoProgramadoDetEntity> procuraNomeContendo(String query) {
 		try {

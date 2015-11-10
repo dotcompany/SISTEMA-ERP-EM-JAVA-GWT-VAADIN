@@ -11,7 +11,7 @@ import dc.entidade.financeiro.FluxoCaixaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class FluxoCaixaDAOImpl extends AbstractCrudDAO<FluxoCaixaEntity> implements FluxoCaixaDAO<FluxoCaixaEntity> {
+public class FluxoCaixaDAOImpl extends AbstractCrudDAO<FluxoCaixaEntity> implements IFluxoCaixaDAO {
 	
 			private static Logger logger = Logger.getLogger(FluxoCaixaDAOImpl.class);
 

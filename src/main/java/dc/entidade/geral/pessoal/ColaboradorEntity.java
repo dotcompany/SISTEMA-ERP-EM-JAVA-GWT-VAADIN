@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,7 +19,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -42,28 +40,14 @@ import dc.anotacoes.Caption;
 import dc.control.enums.FormaPagamentoEn;
 import dc.control.enums.SimNaoEn;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
-import dc.entidade.contabilidade.PlanoConta;
+import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
 import dc.entidade.financeiro.ContaCaixa;
-import dc.entidade.folhapagamento.VendedorEntity;
-import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
-import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
-import dc.entidade.folhapagamento.cadastro.PlanoSaudeEntity;
-import dc.entidade.folhapagamento.movimento.HistoricoSalarialEntity;
-import dc.entidade.folhapagamento.movimento.LancamentoCabecalhoEntity;
-import dc.entidade.folhapagamento.movimento.PppEntity;
-import dc.entidade.folhapagamento.movimento.RescisaoEntity;
-import dc.entidade.folhapagamento.movimento.ValeTransporteEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.diverso.SetorEntity;
 import dc.entidade.geral.ged.VersaoDocumento;
 import dc.entidade.geral.outro.SindicatoEntity;
-import dc.entidade.ordemservico.EntradaServicoEntity;
-import dc.entidade.ordemservico.InformacaoGeralEntity;
-import dc.entidade.ordemservico.MaterialServicoEntity;
-import dc.entidade.ordemservico.VendaPecaEntity;
-import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
 
 @Entity
@@ -474,7 +458,7 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 	@Caption("Plano de conta")
 	@ManyToOne()
 	@JoinColumn(name = "id_plano_conta")
-	private PlanoConta planoConta;
+	private PlanoContaEntity planoConta;
 
 	@Caption("Conta da caixa")
 	@ManyToOne()
@@ -1071,11 +1055,11 @@ public class ColaboradorEntity extends AbstractMultiEmpresaModel<Integer> implem
 		this.sindicato = sindicato;
 	}
 
-	public PlanoConta getPlanoConta() {
+	public PlanoContaEntity getPlanoConta() {
 		return planoConta;
 	}
 
-	public void setPlanoConta(PlanoConta planoConta) {
+	public void setPlanoConta(PlanoContaEntity planoConta) {
 		this.planoConta = planoConta;
 	}
 

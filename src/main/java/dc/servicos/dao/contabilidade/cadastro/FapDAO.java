@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class FapDAO extends AbstractCrudDAO<FapEntity> {
+public class FapDAO extends AbstractCrudDAO<FapEntity> implements IFapDAO {
 
 	@Override
 	public Class<FapEntity> getEntityClass() {

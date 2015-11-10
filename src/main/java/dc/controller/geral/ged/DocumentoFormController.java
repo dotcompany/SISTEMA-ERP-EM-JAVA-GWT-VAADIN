@@ -20,9 +20,9 @@ import dc.entidade.geral.ged.TipoDocumento;
 import dc.entidade.geral.ged.VersaoDocumento;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.model.business.ged.DocumentoBusiness;
-import dc.servicos.dao.geral.ged.DocumentoDAO;
-import dc.servicos.dao.geral.ged.TipoDocumentoDAO;
-import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
+import dc.model.dao.geral.pessoal.IColaboradorDAO;
+import dc.servicos.dao.geral.ged.IDocumentoDAO;
+import dc.servicos.dao.geral.ged.ITipoDocumentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.CompanyFileHandler;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
@@ -43,7 +43,7 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	private DocumentoFormView subView;
 
 	@Autowired
-	private DocumentoDAO documentoDAO;
+	private IDocumentoDAO documentoDAO;
 
 	@Autowired
 	private DocumentoBusiness documentoBusiness;
@@ -52,10 +52,10 @@ public class DocumentoFormController extends CRUDFormController<Documento> {
 	private MainController mainController;
 
 	@Autowired
-	private TipoDocumentoDAO tipoDocumentoDAO;
+	private ITipoDocumentoDAO tipoDocumentoDAO;
 
 	@Autowired
-	private ColaboradorDAO colaboradorDAO;
+	private IColaboradorDAO colaboradorDAO;
 
 	private Documento currentBean;
 

@@ -16,28 +16,31 @@ import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.PessoaFisicaEntity;
 import dc.entidade.geral.pessoal.PessoaJuridicaEntity;
+import dc.model.dao.geral.pessoal.IPessoaContatoDAO;
+import dc.model.dao.geral.pessoal.IPessoaDAO;
+import dc.model.dao.geral.pessoal.IPessoaFisicaDAO;
+import dc.model.dao.geral.pessoal.IPessoaJuridicaDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
-import dc.servicos.dao.geral.PessoaContatoDAO;
-import dc.servicos.dao.geral.PessoaEnderecoDAO;
+import dc.servicos.dao.geral.IPessoaEnderecoDAO;
 
 @Repository("pessoalPessoaDAO")
-public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> {
+public class PessoaDAO extends AbstractCrudDAO<PessoaEntity> implements IPessoaDAO {
 
 	/**
 	 * DAOS
 	 */
 
 	@Autowired
-	private PessoaFisicaDAO pessoaFisicaDAO;
+	private IPessoaFisicaDAO pessoaFisicaDAO;
 
 	@Autowired
-	private PessoaJuridicaDAO pessoaJuridicaDAO;
+	private IPessoaJuridicaDAO pessoaJuridicaDAO;
 
 	@Autowired
-	private PessoaContatoDAO pessoaContatoDAO;
+	private IPessoaContatoDAO pessoaContatoDAO;
 
 	@Autowired
-	private PessoaEnderecoDAO pessoaEnderecoDAO;
+	private IPessoaEnderecoDAO pessoaEnderecoDAO;
 
 	/**
 	 * 

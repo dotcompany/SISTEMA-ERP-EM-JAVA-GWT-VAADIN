@@ -23,7 +23,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class NivelFormacaoDAO extends AbstractCrudDAO<NivelFormacaoEntity>{
+public class NivelFormacaoDAO extends AbstractCrudDAO<NivelFormacaoEntity> implements INivelFormacaoDAO{
 
 	@Override
 	public Class<NivelFormacaoEntity> getEntityClass() {

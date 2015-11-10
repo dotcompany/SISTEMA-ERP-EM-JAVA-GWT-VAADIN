@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.control.util.ListUtils;
 import dc.entidade.geral.pessoal.PessoaContatoEntity;
 import dc.entidade.geral.pessoal.PessoaEntity;
+import dc.model.dao.geral.pessoal.IPessoaContatoDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class PessoaContatoDAO extends AbstractCrudDAO<PessoaContatoEntity> {
+public class PessoaContatoDAO extends AbstractCrudDAO<PessoaContatoEntity> implements IPessoaContatoDAO{
 
 	@Override
 	public Class<PessoaContatoEntity> getEntityClass() {
@@ -85,6 +86,26 @@ public class PessoaContatoDAO extends AbstractCrudDAO<PessoaContatoEntity> {
 			e.printStackTrace();
 		}
 		return lista;
+	}
+	
+	@Transactional
+	@Override
+	public List<PessoaContatoEntity> list(PessoaEntity entity) {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.pessoa.id = :id";
+			sql = sql.replace("#", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("id", entity.getId());
+
+			List<PessoaContatoEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
 	}
 
 }

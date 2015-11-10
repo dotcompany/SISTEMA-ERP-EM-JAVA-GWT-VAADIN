@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.DocumentoOrigem;
-import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
+import dc.servicos.dao.financeiro.IDocumentoOrigemDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class DocumentoOrigemListController extends CRUDListController<DocumentoO
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private DocumentoOrigemDAO dao;
+	private IDocumentoOrigemDAO dao;
 
 	@Autowired
 	private DocumentoOrigemFormController documentoorigemFormController;

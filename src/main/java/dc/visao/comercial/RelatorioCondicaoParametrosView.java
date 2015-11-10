@@ -15,7 +15,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.TextField;
 
 import dc.entidade.relatorio.RelatorioParameterView;
-import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
+import dc.servicos.dao.comercial.ICondicaoPagamentoDAO;
 import dc.visao.framework.util.ComponentUtil;
 
 @Controller
@@ -33,7 +33,7 @@ public class RelatorioCondicaoParametrosView extends CustomComponent implements
 	private Map<String, Object> params;
 
 	@Autowired(required = true)
-	private CondicaoPagamentoDAO dao;
+	private ICondicaoPagamentoDAO dao;
 
 	private TextField txNome;
 
@@ -76,11 +76,11 @@ public class RelatorioCondicaoParametrosView extends CustomComponent implements
 		return null;
 	}
 
-	public CondicaoPagamentoDAO getDao() {
+	public ICondicaoPagamentoDAO getDao() {
 		return dao;
 	}
 
-	public void setDao(CondicaoPagamentoDAO dao) {
+	public void setDao(ICondicaoPagamentoDAO dao) {
 		this.dao = dao;
 	}
 

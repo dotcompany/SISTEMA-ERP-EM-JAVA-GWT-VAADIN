@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.ausencia.FeriasPeriodoAquisitivoEntity;
-import dc.servicos.dao.folhapagamento.ausencia.FeriasPeriodoAquisitivoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -32,7 +31,7 @@ public class FeriasPeriodoAquisitivoListController extends
 	 */
 
 	@Autowired
-	private FeriasPeriodoAquisitivoDAO pDAO;
+	private IFeriasPeriodoAquisitivoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -83,7 +82,7 @@ public class FeriasPeriodoAquisitivoListController extends
 
 	@Override
 	protected List<FeriasPeriodoAquisitivoEntity> pesquisaDefault() {
-		List<FeriasPeriodoAquisitivoEntity> auxLista = this.pDAO.listarTodos();
+		List<FeriasPeriodoAquisitivoEntity> auxLista = this.pDAO.getAll();
 
 		return auxLista;
 	}

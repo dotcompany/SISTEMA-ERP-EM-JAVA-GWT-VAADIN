@@ -15,8 +15,8 @@ import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.AgenciaBancoEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.model.business.geral.pessoal.AgenciaBancoBusiness;
-import dc.servicos.dao.financeiro.BancoDAO;
-import dc.servicos.dao.geral.UfDAO;
+import dc.servicos.dao.financeiro.IBancoDAO;
+import dc.servicos.dao.geral.IUfDAO;
 import dc.visao.financeiro.AgenciaBancoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -45,10 +45,10 @@ public class AgenciaBancoFormController extends CRUDFormController<AgenciaBancoE
 	//public AgenciaBancoDAO dao;
 
 	@Autowired
-	private BancoDAO bancoDAO;
+	private IBancoDAO bancoDAO;
 
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 	
 	public AgenciaBancoBusiness<AgenciaBancoEntity> getBusiness() {
 		 return business;

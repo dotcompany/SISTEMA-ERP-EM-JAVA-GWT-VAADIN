@@ -15,6 +15,7 @@ import dc.control.enums.FilhoEn;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
 import dc.servicos.dao.framework.geral.FmMenuDAO;
+import dc.servicos.dao.framework.geral.IFmMenuDAO;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
@@ -31,7 +32,7 @@ public class FmMenuFormController extends CRUDFormController<FmMenu> {
 	/** DAO'S */
 
 	@Autowired
-	private FmMenuDAO pDAO;
+	private IFmMenuDAO pDAO;
 
 	/** ENTITIES */
 

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.comercial.Venda;
-import dc.servicos.dao.comercial.VendaDAO;
+import dc.servicos.dao.comercial.IVendaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,10 +21,10 @@ public class VendaListController extends CRUDListController<Venda> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	VendaDAO dao;
+	private IVendaDAO dao;
 
 	@Autowired
-	VendaFormController formController;
+	private VendaFormController formController;
 
 	@Override
 	public String[] getColunas() {
@@ -53,19 +53,16 @@ public class VendaListController extends CRUDListController<Venda> {
 
 	@Override
 	protected List<Venda> pesquisa(String valor) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected List<Venda> pesquisaDefault() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

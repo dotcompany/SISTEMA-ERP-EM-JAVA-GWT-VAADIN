@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.lancamento.LoteEntity;
-import dc.servicos.dao.contabilidade.lancamento.LoteDAO;
+import dc.servicos.dao.contabilidade.lancamento.ILoteDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -32,7 +32,7 @@ public class LoteListController extends CRUDListController<LoteEntity> {
 	 */
 
 	@Autowired
-	private LoteDAO pDAO;
+	private ILoteDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -88,7 +88,7 @@ public class LoteListController extends CRUDListController<LoteEntity> {
 	@Override
 	protected List<LoteEntity> pesquisaDefault() {
 		try {
-			List<LoteEntity> auxLista = this.pDAO.listarTodos();
+			List<LoteEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

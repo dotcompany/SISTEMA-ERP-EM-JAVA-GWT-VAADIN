@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
-import dc.servicos.dao.folhapagamento.ausencia.AfastamentoDAO;
+import dc.servicos.dao.folhapagamento.ausencia.IAfastamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -32,7 +32,7 @@ public class AfastamentoListController extends
 	 */
 
 	@Autowired
-	private AfastamentoDAO pDAO;
+	private IAfastamentoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -83,7 +83,7 @@ public class AfastamentoListController extends
 
 	@Override
 	protected List<AfastamentoEntity> pesquisaDefault() {
-		List<AfastamentoEntity> auxLista = this.pDAO.listarTodos();
+		List<AfastamentoEntity> auxLista = this.pDAO.getAll();
 
 		return auxLista;
 	}

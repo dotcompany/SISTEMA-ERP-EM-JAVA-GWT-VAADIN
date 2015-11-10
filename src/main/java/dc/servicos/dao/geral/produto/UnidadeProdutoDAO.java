@@ -9,7 +9,7 @@ import dc.entidade.geral.produto.UnidadeProdutoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class UnidadeProdutoDAO extends AbstractCrudDAO<UnidadeProdutoEntity> {
+public class UnidadeProdutoDAO extends AbstractCrudDAO<UnidadeProdutoEntity>{
 
 	@Override
 	public Class<UnidadeProdutoEntity> getEntityClass() {

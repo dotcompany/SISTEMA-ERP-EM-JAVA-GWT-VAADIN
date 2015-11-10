@@ -14,7 +14,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ParcelaPagamentoDAO extends AbstractCrudDAO<ParcelaPagamento> {
+public class ParcelaPagamentoDAO extends AbstractCrudDAO<ParcelaPagamento> implements IParcelaPagamentoDAO {
 
 	@Override
 	public Class<ParcelaPagamento> getEntityClass() {
@@ -26,6 +26,10 @@ public class ParcelaPagamentoDAO extends AbstractCrudDAO<ParcelaPagamento> {
 		return getSession().createQuery("from ParcelaPagamento").list();
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.IParcelaPagamentoDAO#buscaPorParcelaPagar(dc.entidade.financeiro.ParcelaPagar)
+	 */
+	@Override
 	@Transactional
 	public List<ParcelaPagamento> buscaPorParcelaPagar(ParcelaPagar parcelaPagar){
 		 Session session = getSession();

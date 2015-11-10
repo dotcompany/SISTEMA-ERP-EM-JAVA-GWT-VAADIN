@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.nfe.NfeDetalheImpostoIcmsEntity;
-import dc.servicos.dao.nfe.NfeDetalheImpostoIcmsDAO;
+import dc.servicos.dao.nfe.INfeDetalheImpostoIcmsDAO;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class NfeDetalheImpostoIcmsBusinessImpl implements Serializable,
 	private static final long serialVersionUID = 1L;
 
 	@Resource
-	private NfeDetalheImpostoIcmsDAO mainDao;
+	private INfeDetalheImpostoIcmsDAO mainDao;
 
 	@Override
 	public void delete(NfeDetalheImpostoIcmsEntity t) throws Exception {

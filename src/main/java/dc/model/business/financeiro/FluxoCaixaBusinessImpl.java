@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.financeiro.FluxoCaixaEntity;
 import dc.entidade.framework.FmMenu;
-import dc.model.dao.geral.pessoal.FluxoCaixaDAO;
+import dc.model.dao.geral.pessoal.IFluxoCaixaDAO;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,7 +23,7 @@ public class FluxoCaixaBusinessImpl implements FluxoCaixaBusiness<FluxoCaixaEnti
 		private static Logger logger = Logger.getLogger(FluxoCaixaBusinessImpl.class);
 		
 		@Autowired
-		private FluxoCaixaDAO<FluxoCaixaEntity> dao;
+		private IFluxoCaixaDAO dao;
 
 		@Override
 		public Class<FluxoCaixaEntity> getEntityClass() {

@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.lancamento.FechamentoEntity;
-import dc.servicos.dao.contabilidade.lancamento.FechamentoDAO;
+import dc.servicos.dao.contabilidade.lancamento.IFechamentoDAO;
 import dc.visao.contabilidade.lancamento.FechamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -32,7 +32,7 @@ public class FechamentoFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private FechamentoDAO pDAO;
+	private IFechamentoDAO pDAO;
 
 	/** ENTITIES */
 

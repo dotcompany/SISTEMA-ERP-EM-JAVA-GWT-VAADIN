@@ -44,17 +44,17 @@ import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.servicos.business.nfe.NfeCabecalhoBusiness;
 import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.geral.produto.ProdutoDAO;
-import dc.servicos.dao.nfe.NfeDeclaracaoImportacaoDAO;
-import dc.servicos.dao.nfe.NfeDestinatarioDAO;
-import dc.servicos.dao.nfe.NfeDetEspecificoArmamentoDAO;
-import dc.servicos.dao.nfe.NfeDetEspecificoMedicamentoDAO;
-import dc.servicos.dao.nfe.NfeDetalheDAO;
-import dc.servicos.dao.nfe.NfeDetalheImpostoCofinsDAO;
-import dc.servicos.dao.nfe.NfeDetalheImpostoIcmsDAO;
-import dc.servicos.dao.nfe.NfeDetalheImpostoIiDAO;
-import dc.servicos.dao.nfe.NfeDetalheImpostoIpiDAO;
-import dc.servicos.dao.nfe.NfeDetalheImpostoIssqnDAO;
-import dc.servicos.dao.nfe.NfeDetalheImpostoPisDAO;
+import dc.servicos.dao.nfe.INfeDeclaracaoImportacaoDAO;
+import dc.servicos.dao.nfe.INfeDestinatarioDAO;
+import dc.servicos.dao.nfe.INfeDetEspecificoArmamentoDAO;
+import dc.servicos.dao.nfe.INfeDetEspecificoMedicamentoDAO;
+import dc.servicos.dao.nfe.INfeDetalheDAO;
+import dc.servicos.dao.nfe.INfeDetalheImpostoCofinsDAO;
+import dc.servicos.dao.nfe.INfeDetalheImpostoIcmsDAO;
+import dc.servicos.dao.nfe.INfeDetalheImpostoIiDAO;
+import dc.servicos.dao.nfe.INfeDetalheImpostoIpiDAO;
+import dc.servicos.dao.nfe.INfeDetalheImpostoIssqnDAO;
+import dc.servicos.dao.nfe.INfeDetalheImpostoPisDAO;
 import dc.servicos.dao.tributario.OperacaoFiscalDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo.ItemValue;
@@ -82,37 +82,37 @@ public class ProdutoServicoFormController extends
 	// private NfeCabecalhoDAO nfeCabecalhoDAO;
 
 	@Autowired
-	private NfeDestinatarioDAO nfeDestinatarioDAO;
+	private INfeDestinatarioDAO nfeDestinatarioDAO;
 
 	@Autowired
-	private NfeDetalheDAO nfeDetalheDAO;
+	private INfeDetalheDAO nfeDetalheDAO;
 
 	@Autowired
-	private NfeDeclaracaoImportacaoDAO nfeDeclaracaoImportacaoDAO;
+	private INfeDeclaracaoImportacaoDAO nfeDeclaracaoImportacaoDAO;
 
 	@Autowired
-	private NfeDetalheImpostoCofinsDAO nfeDetalheImpostoCofinsDAO;
+	private INfeDetalheImpostoCofinsDAO nfeDetalheImpostoCofinsDAO;
 
 	@Autowired
-	private NfeDetalheImpostoIcmsDAO nfeDetalheImpostoIcmsDAO;
+	private INfeDetalheImpostoIcmsDAO nfeDetalheImpostoIcmsDAO;
 
 	@Autowired
-	private NfeDetalheImpostoIiDAO nfeDetalheImpostoIiDAO;
+	private INfeDetalheImpostoIiDAO nfeDetalheImpostoIiDAO;
 
 	@Autowired
-	private NfeDetalheImpostoIpiDAO nfeDetalheImpostoIpiDAO;
+	private INfeDetalheImpostoIpiDAO nfeDetalheImpostoIpiDAO;
 
 	@Autowired
-	private NfeDetalheImpostoIssqnDAO nfeDetalheImpostoIssqnDAO;
+	private INfeDetalheImpostoIssqnDAO nfeDetalheImpostoIssqnDAO;
 
 	@Autowired
-	private NfeDetalheImpostoPisDAO nfeDetalheImpostoPisDAO;
+	private INfeDetalheImpostoPisDAO nfeDetalheImpostoPisDAO;
 
 	@Autowired
-	private NfeDetEspecificoMedicamentoDAO ndeMedicamentoDAO;
+	private INfeDetEspecificoMedicamentoDAO ndeMedicamentoDAO;
 
 	@Autowired
-	private NfeDetEspecificoArmamentoDAO ndeArmamentoDAO;
+	private INfeDetEspecificoArmamentoDAO ndeArmamentoDAO;
 
 	/** ENTITIES */
 

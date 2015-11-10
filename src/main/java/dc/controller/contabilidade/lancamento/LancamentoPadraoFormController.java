@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.lancamento.LancamentoPadraoEntity;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoPadraoDAO;
+import dc.servicos.dao.contabilidade.lancamento.ILancamentoPadraoDAO;
 import dc.visao.contabilidade.lancamento.LancamentoPadraoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -30,7 +30,7 @@ public class LancamentoPadraoFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private LancamentoPadraoDAO pDAO;
+	private ILancamentoPadraoDAO pDAO;
 
 	/** ENTITIES */
 

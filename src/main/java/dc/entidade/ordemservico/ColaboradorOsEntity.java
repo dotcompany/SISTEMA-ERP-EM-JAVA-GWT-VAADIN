@@ -1,7 +1,7 @@
 package dc.entidade.ordemservico;
 
-import java.util.Date;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -23,7 +23,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
-import dc.entidade.contabilidade.PlanoConta;
+import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
@@ -154,7 +154,7 @@ public class ColaboradorOsEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "id_plano_conta", referencedColumnName = "id")
-	private PlanoConta planoConta;
+	private PlanoContaEntity planoConta;
 
 	@ManyToOne
 	@JoinColumn(name = "id_conta_caixa", referencedColumnName = "id")
@@ -392,11 +392,11 @@ public class ColaboradorOsEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.lctoComissao = lctoComissao;
 	}
 
-	public PlanoConta getPlanoConta() {
+	public PlanoContaEntity getPlanoConta() {
 		return planoConta;
 	}
 
-	public void setPlanoConta(PlanoConta planoConta) {
+	public void setPlanoConta(PlanoContaEntity planoConta) {
 		this.planoConta = planoConta;
 	}
 

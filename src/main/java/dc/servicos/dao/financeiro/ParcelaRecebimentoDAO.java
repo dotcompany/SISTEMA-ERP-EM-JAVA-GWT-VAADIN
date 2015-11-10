@@ -14,7 +14,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ParcelaRecebimentoDAO extends AbstractCrudDAO<ParcelaRecebimento> {
+public class ParcelaRecebimentoDAO extends AbstractCrudDAO<ParcelaRecebimento> implements IParcelaRecebimentoDAO {
 
 	@Override
 	public Class<ParcelaRecebimento> getEntityClass() {
@@ -26,6 +26,10 @@ public class ParcelaRecebimentoDAO extends AbstractCrudDAO<ParcelaRecebimento> {
 		return getSession().createQuery("from ParcelaRecebimento").list();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.IParcelaRecebimentoDAO#buscaPorParcelaReceber(dc.entidade.financeiro.ParcelaReceber)
+	 */
+	@Override
 	@Transactional
 	public List<ParcelaRecebimento> buscaPorParcelaReceber(ParcelaReceber parcelaReceber) {
 		Session session = getSession();

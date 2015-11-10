@@ -7,10 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.geral.pessoal.CargoEntity;
+import dc.model.dao.geral.pessoal.ICargoDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("pessoalCargoDAO")
-public class CargoDAO extends AbstractCrudDAO<CargoEntity> {
+public class CargoDAO extends AbstractCrudDAO<CargoEntity> implements ICargoDAO{
 
 	@Override
 	public Class<CargoEntity> getEntityClass() {

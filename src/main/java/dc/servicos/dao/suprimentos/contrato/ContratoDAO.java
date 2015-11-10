@@ -10,7 +10,7 @@ import dc.entidade.suprimentos.contrato.PrevFaturamentoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("suprimentosContratoContratoDAO")
-public class ContratoDAO extends AbstractCrudDAO<ContratoEntity> {
+public class ContratoDAO extends AbstractCrudDAO<ContratoEntity> implements IContratoDAO {
 
 	@Override
 	public Class<ContratoEntity> getEntityClass() {
@@ -35,6 +35,10 @@ public class ContratoDAO extends AbstractCrudDAO<ContratoEntity> {
 		return contrato;
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.suprimentos.contrato.IContratoDAO#delete(dc.entidade.suprimentos.contrato.PrevFaturamentoEntity)
+	 */
+	@Override
 	@Transactional
 	public void delete(PrevFaturamentoEntity contratoPrevFaturamento) {
 		getSession().delete(contratoPrevFaturamento);

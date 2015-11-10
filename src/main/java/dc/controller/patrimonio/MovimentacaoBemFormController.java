@@ -16,6 +16,7 @@ import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.patrimonio.MovimentacaoBemEntity;
 import dc.entidade.patrimonio.TipoMovimentacaoEntity;
 import dc.servicos.dao.patrimonio.BemDAO;
+import dc.servicos.dao.patrimonio.IBemDAO;
 import dc.servicos.dao.patrimonio.MovimentacaoBemDAO;
 import dc.servicos.dao.patrimonio.TipoMovimentacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -38,7 +39,7 @@ public class MovimentacaoBemFormController extends CRUDFormController<Movimentac
 	private MovimentacaoBemDAO pDAO;
 
 	@Autowired
-	private BemDAO bDAO;
+	private IBemDAO bDAO;
 
 	@Autowired
 	private TipoMovimentacaoDAO tmDAO;

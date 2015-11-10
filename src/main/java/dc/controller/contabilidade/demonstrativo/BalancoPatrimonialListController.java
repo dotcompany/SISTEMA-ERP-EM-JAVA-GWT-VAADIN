@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.BalancoPatrimonialEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.BalancoPatrimonialDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IBalancoPatrimonialDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class BalancoPatrimonialListController extends
 	 */
 
 	@Autowired
-	private BalancoPatrimonialDAO pDAO;
+	private IBalancoPatrimonialDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -90,7 +90,7 @@ public class BalancoPatrimonialListController extends
 	@Override
 	protected List<BalancoPatrimonialEntity> pesquisaDefault() {
 		try {
-			List<BalancoPatrimonialEntity> auxLista = this.pDAO.listarTodos();
+			List<BalancoPatrimonialEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

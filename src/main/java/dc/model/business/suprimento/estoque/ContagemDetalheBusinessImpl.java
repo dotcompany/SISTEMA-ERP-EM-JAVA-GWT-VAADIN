@@ -14,7 +14,7 @@ import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.estoque.ContagemCabecalhoEntity;
 import dc.entidade.suprimentos.estoque.ContagemDetalheEntity;
-import dc.model.dao.geral.produto.ProdutoDAO;
+import dc.model.dao.geral.produto.IProdutoDAO;
 import dc.model.dao.suprimento.estoque.ContagemDetalheDAO;
 
 /**
@@ -39,7 +39,7 @@ public class ContagemDetalheBusinessImpl implements Serializable,
 	private ContagemDetalheDAO<ContagemDetalheEntity> dao;
 
 	@Autowired
-	private ProdutoDAO<ProdutoEntity> produtoDAO;
+	private IProdutoDAO produtoDAO;
 
 	/**
 	 * **********************************************

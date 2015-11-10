@@ -11,11 +11,11 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.entidade.contabilidade.PlanoConta;
 import dc.entidade.contabilidade.PlanoContaRefSped;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
-import dc.servicos.dao.contabilidade.PlanoContaDAO;
-import dc.servicos.dao.contabilidade.PlanoContaRefSpedDAO;
+import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
+import dc.servicos.dao.contabilidade.IContabilContaDAO;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaDAO;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaRefSpedDAO;
 import dc.servicos.util.Validator;
 import dc.visao.contabilidade.ContabilContaFormView;
 import dc.visao.contabilidade.ContabilContaFormView.CodigoEFD;
@@ -41,13 +41,13 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 	private ContabilContaFormView subView;
 
 	@Autowired
-	private ContabilContaDAO contabilContaDAO;
+	private IContabilContaDAO contabilContaDAO;
 
 	@Autowired
-	private PlanoContaDAO planoContaDAO;
+	private IPlanoContaDAO planoContaDAO;
 
 	@Autowired
-	private PlanoContaRefSpedDAO planoContaRefSpedDAO;
+	private IPlanoContaRefSpedDAO planoContaRefSpedDAO;
 
 	private ContabilContaEntity currentBean;
 
@@ -110,7 +110,7 @@ public class ContabilContaFormController extends CRUDFormController<ContabilCont
 			}
 		};
 
-		DefaultManyToOneComboModel<PlanoConta> planoContaModel = new DefaultManyToOneComboModel<PlanoConta>(PlanoContaListController.class,
+		DefaultManyToOneComboModel<PlanoContaEntity> planoContaModel = new DefaultManyToOneComboModel<PlanoContaEntity>(PlanoContaListController.class,
 				this.planoContaDAO, super.getMainController());
 
 		DefaultManyToOneComboModel<PlanoContaRefSped> planoContaRefSpedModel = new DefaultManyToOneComboModel<PlanoContaRefSped>(

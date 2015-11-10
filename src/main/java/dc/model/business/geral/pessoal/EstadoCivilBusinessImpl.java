@@ -13,7 +13,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.pessoal.EstadoCivilEntity;
-import dc.model.dao.geral.pessoal.EstadoCivilDAO;
+import dc.model.dao.geral.pessoal.IEstadoCivilDAO;
 
 /**
  * 
@@ -34,7 +34,7 @@ public class EstadoCivilBusinessImpl implements Serializable,
 			.getLogger(EstadoCivilBusinessImpl.class);
 
 	@Autowired
-	private EstadoCivilDAO<EstadoCivilEntity> dao;
+	private IEstadoCivilDAO dao;
 
 	/**
 	 * **********************************************

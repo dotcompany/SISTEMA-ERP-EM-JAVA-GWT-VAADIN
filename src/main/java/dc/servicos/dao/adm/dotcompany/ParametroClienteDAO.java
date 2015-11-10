@@ -11,7 +11,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ParametroClienteDAO extends AbstractCrudDAO<ParametroCliente> {
+public class ParametroClienteDAO extends AbstractCrudDAO<ParametroCliente> implements IParametroClienteDAO {
 
 	@Override
 	public Class<ParametroCliente> getEntityClass() {
@@ -26,6 +26,10 @@ public class ParametroClienteDAO extends AbstractCrudDAO<ParametroCliente> {
 	public List<ParametroCliente> listaTodos() {
 		return getSession().createQuery("from ParametroCliente").list();
 	}
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.adm.dotcompany.IParametroClienteDAO#buscarOsParametro(dc.entidade.adm.dotcompany.ParametroCliente)
+	 */
+	@Override
 	@Transactional
 	public List<ParametroCliente> buscarOsParametro(ParametroCliente cliente){
 

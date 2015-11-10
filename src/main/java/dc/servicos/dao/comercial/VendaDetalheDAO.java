@@ -11,7 +11,7 @@ import dc.entidade.comercial.VendaDetalhe;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class VendaDetalheDAO extends AbstractCrudDAO<VendaDetalhe> {
+public class VendaDetalheDAO extends AbstractCrudDAO<VendaDetalhe> implements IVendaDetalheDAO {
 
 	@Override
 	public Class<VendaDetalhe> getEntityClass() {
@@ -22,6 +22,10 @@ public class VendaDetalheDAO extends AbstractCrudDAO<VendaDetalhe> {
 		return new String[] { "nome" };
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.comercial.IVendaDetalheDAO#detalhesPorVenda(dc.entidade.comercial.Venda)
+	 */
+	@Override
 	@Transactional
 	public List<VendaDetalhe> detalhesPorVenda(Venda venda) {
 		List<VendaDetalhe> lista = new ArrayList<>();

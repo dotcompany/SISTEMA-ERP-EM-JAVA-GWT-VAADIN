@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.pessoal.ClienteEntity;
-import dc.model.dao.geral.pessoal.ClienteDAO;
+import dc.model.dao.geral.pessoal.IClienteDAO;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class ClienteBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(ClienteBusinessImpl.class);
 
 	@Autowired
-	private ClienteDAO<ClienteEntity> dao;
+	private IClienteDAO dao;
 
 	/**
 	 * **********************************************

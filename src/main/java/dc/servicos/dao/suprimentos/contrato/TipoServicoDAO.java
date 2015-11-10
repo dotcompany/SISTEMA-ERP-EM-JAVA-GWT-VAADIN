@@ -6,7 +6,7 @@ import dc.entidade.suprimentos.contrato.TipoServicoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("suprimentosContratoTipoServicoDAO")
-public class TipoServicoDAO extends AbstractCrudDAO<TipoServicoEntity> {
+public class TipoServicoDAO extends AbstractCrudDAO<TipoServicoEntity> implements ITipoServicoDAO {
 
 	@Override
 	public Class<TipoServicoEntity> getEntityClass() {

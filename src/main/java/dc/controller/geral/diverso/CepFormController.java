@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.CepEntity;
 import dc.model.business.geral.diverso.CepBusiness;
-import dc.servicos.dao.geral.UfDAO;
+import dc.servicos.dao.geral.IUfDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.CepFormView;
@@ -47,7 +47,7 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 	 */
 
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	/**
 	 * CONSTRUTOR

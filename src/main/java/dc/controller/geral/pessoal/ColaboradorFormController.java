@@ -23,17 +23,17 @@ import dc.controller.geral.outro.SindicatoListController;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.model.business.geral.pessoal.ColaboradorBusiness;
-import dc.servicos.dao.contabilidade.PlanoContaDAO;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
-import dc.servicos.dao.financeiro.SindicatoDAO;
-import dc.servicos.dao.geral.NivelFormacaoDAO;
-import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.geral.diverso.SetorDAO;
-import dc.servicos.dao.geral.pessoal.CargoDAO;
-import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
-import dc.servicos.dao.geral.pessoal.PessoaDAO;
-import dc.servicos.dao.geral.pessoal.SituacaoColaboradorDAO;
-import dc.servicos.dao.geral.pessoal.TipoColaboradorDAO;
+import dc.model.dao.geral.diverso.ISetorDAO;
+import dc.model.dao.geral.outro.ISindicatoDAO;
+import dc.model.dao.geral.pessoal.ICargoDAO;
+import dc.model.dao.geral.pessoal.IColaboradorDAO;
+import dc.model.dao.geral.pessoal.IPessoaDAO;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
+import dc.servicos.dao.geral.INivelFormacaoDAO;
+import dc.servicos.dao.geral.IUfDAO;
+import dc.servicos.dao.geral.pessoal.ISituacaoColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ITipoColaboradorDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.ColaboradorFormView;
@@ -57,37 +57,37 @@ public class ColaboradorFormController extends
 	private ColaboradorEntity currentBean;
 
 	@Autowired
-	private ColaboradorDAO colaboradorDAO;
+	private IColaboradorDAO colaboradorDAO;
 
 	@Autowired
-	private PessoaDAO pessoaDAO;
+	private IPessoaDAO pessoaDAO;
 
 	@Autowired
-	private TipoColaboradorDAO tipoColaboradorDAO;
+	private ITipoColaboradorDAO tipoColaboradorDAO;
 
 	@Autowired
-	private SituacaoColaboradorDAO situacaoColaboradorDAO;
+	private ISituacaoColaboradorDAO situacaoColaboradorDAO;
 
 	@Autowired
-	private SindicatoDAO sindicatoDAO;
+	private ISindicatoDAO sindicatoDAO;
 
 	@Autowired
-	private NivelFormacaoDAO nivelFormacaoDAO;
+	private INivelFormacaoDAO nivelFormacaoDAO;
 
 	@Autowired
-	private CargoDAO cargoDAO;
+	private ICargoDAO cargoDAO;
 
 	@Autowired
-	private SetorDAO setorDAO;
+	private ISetorDAO setorDAO;
 
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	@Autowired
-	private PlanoContaDAO planoContaDAO;
+	private IPlanoContaDAO planoContaDAO;
 
 	@Autowired
-	private ContaCaixaDAO contaCaixaDAO;
+	private IContaCaixaDAO contaCaixaDAO;
 	
 	@Autowired
     private ColaboradorBusiness<ColaboradorEntity> business;

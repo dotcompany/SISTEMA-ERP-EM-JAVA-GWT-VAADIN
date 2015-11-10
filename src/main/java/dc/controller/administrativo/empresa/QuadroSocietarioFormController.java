@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.administrativo.empresa.QuadroSocietarioEntity;
-import dc.servicos.dao.administrativo.empresa.QuadroSocietarioDAO;
+import dc.servicos.dao.administrativo.empresa.IQuadroSocietarioDAO;
 import dc.visao.administrativo.empresa.QuadroSocietarioFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -24,12 +24,12 @@ import dc.visao.spring.SecuritySessionProvider;
 @SuppressWarnings("serial")
 public class QuadroSocietarioFormController extends CRUDFormController<QuadroSocietarioEntity> {
 
-	QuadroSocietarioFormView subView;
+	private QuadroSocietarioFormView subView;
 
 	@Autowired
-	QuadroSocietarioDAO dao;
+	private IQuadroSocietarioDAO dao;
 
-	QuadroSocietarioEntity currentBean;
+	private QuadroSocietarioEntity currentBean;
 
 	@Override
 	public String getViewIdentifier() {

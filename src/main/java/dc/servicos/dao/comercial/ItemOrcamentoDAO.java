@@ -13,7 +13,7 @@ import dc.entidade.comercial.Orcamento;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ItemOrcamentoDAO extends AbstractCrudDAO<ItemOrcamento> {
+public class ItemOrcamentoDAO extends AbstractCrudDAO<ItemOrcamento> implements IItemOrcamentoDAO {
 
 	@Override
 	public Class<ItemOrcamento> getEntityClass() {
@@ -24,6 +24,7 @@ public class ItemOrcamentoDAO extends AbstractCrudDAO<ItemOrcamento> {
 		return new String[] {"nome"};
 	}
 
+	@Override
 	@Transactional
 	public List<ItemOrcamento> findByOrcamento(Orcamento orcamento){
 

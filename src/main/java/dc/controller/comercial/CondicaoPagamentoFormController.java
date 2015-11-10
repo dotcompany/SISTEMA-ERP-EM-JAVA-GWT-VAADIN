@@ -13,8 +13,8 @@ import com.vaadin.ui.Component;
 import dc.entidade.comercial.CondicaoPagamento;
 import dc.entidade.comercial.ParcelaCondicaoPagamento;
 import dc.framework.exception.ErroValidacaoException;
-import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
-import dc.servicos.dao.comercial.ParcelaDAO;
+import dc.servicos.dao.comercial.ICondicaoPagamentoDAO;
+import dc.servicos.dao.comercial.IParcelaCondicaoPagamentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.comercial.CondicaoPagamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
@@ -28,15 +28,15 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 	 */
 	private static final long serialVersionUID = 1L;
 
-	CondicaoPagamento currentBean;
+	private CondicaoPagamento currentBean;
 
-	CondicaoPagamentoFormView subView;
-
-	@Autowired
-	CondicaoPagamentoDAO dao;
+	private CondicaoPagamentoFormView subView;
 
 	@Autowired
-	ParcelaDAO parcelaDAO;
+	private ICondicaoPagamentoDAO dao;
+
+	@Autowired
+	private IParcelaCondicaoPagamentoDAO parcelaDAO;
 
 	@Override
 	public String getViewIdentifier() {

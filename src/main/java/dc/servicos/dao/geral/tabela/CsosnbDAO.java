@@ -9,7 +9,7 @@ import dc.entidade.geral.tabela.CsosnbEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class CsosnbDAO extends AbstractCrudDAO<CsosnbEntity> {
+public class CsosnbDAO extends AbstractCrudDAO<CsosnbEntity> implements ICsosnbDAO {
 
 	@Override
 	public Class<CsosnbEntity> getEntityClass() {

@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.geral.ged.TipoDocumento;
-import dc.servicos.dao.geral.ged.TipoDocumentoDAO;
+import dc.servicos.dao.geral.ged.ITipoDocumentoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.ged.TipoDocumentoFormView;
@@ -32,7 +32,7 @@ public class TipoDocumentoFormController extends
 	TipoDocumentoFormView subView;
 
 	@Autowired
-	TipoDocumentoDAO tipoDocumentoDAO;
+	private ITipoDocumentoDAO tipoDocumentoDAO;
 
 	private TipoDocumento currentBean;
 

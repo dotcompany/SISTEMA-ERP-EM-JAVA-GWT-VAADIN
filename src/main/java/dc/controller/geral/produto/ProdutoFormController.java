@@ -18,15 +18,15 @@ import dc.controller.tributario.GrupoTributarioListController;
 import dc.controller.tributario.IcmsCustomizadoListController;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.model.business.geral.produto.ProdutoBusiness;
-import dc.servicos.dao.geral.diverso.AlmoxarifadoDAO;
-import dc.servicos.dao.geral.produto.GrupoDAO;
-import dc.servicos.dao.geral.produto.MarcaDAO;
-import dc.servicos.dao.geral.produto.NcmDAO;
-import dc.servicos.dao.geral.produto.ProdutoDAO;
-import dc.servicos.dao.geral.produto.SubGrupoDAO;
-import dc.servicos.dao.geral.produto.UnidadeProdutoDAO;
-import dc.servicos.dao.tributario.GrupoTributarioDAO;
-import dc.servicos.dao.tributario.IcmsCustomizadoDAO;
+import dc.model.dao.geral.diverso.IAlmoxarifadoDAO;
+import dc.model.dao.geral.produto.IGrupoDAO;
+import dc.model.dao.geral.produto.IMarcaDAO;
+import dc.model.dao.geral.produto.IProdutoDAO;
+import dc.model.dao.geral.produto.IUnidadeProdutoDAO;
+import dc.model.dao.tributario.IGrupoTributarioDAO;
+import dc.model.dao.tributario.IIcmsCustomizadoDAO;
+import dc.servicos.dao.geral.produto.INcmDAO;
+import dc.servicos.dao.geral.produto.ISubGrupoDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.produto.ProdutoFormView;
@@ -49,34 +49,34 @@ public class ProdutoFormController extends CRUDFormController<ProdutoEntity> {
      */
     
     @Autowired
-    private ProdutoDAO dao;
+    private IProdutoDAO dao;
 
     @Autowired
-    private SubGrupoDAO subGrupoDAO;
+    private ISubGrupoDAO subGrupoDAO;
 
     @Autowired
-    private AlmoxarifadoDAO almoxarifadoDAO;
+    private IAlmoxarifadoDAO almoxarifadoDAO;
 
     @Autowired
-    private MarcaDAO marcaDAO;
+    private IMarcaDAO marcaDAO;
 
     @Autowired
-    private IcmsCustomizadoDAO icmsCustomizadoDAO;
+    private IIcmsCustomizadoDAO icmsCustomizadoDAO;
 
     @Autowired
-    private GrupoTributarioDAO grupoTributarioDAO;
+    private IGrupoTributarioDAO grupoTributarioDAO;
 
     @Autowired
-    private GrupoDAO grupoDAO;
+    private IGrupoDAO grupoDAO;
 
     @Autowired
-    private NcmDAO ncmDAO;
+    private INcmDAO ncmDAO;
 
     @Autowired
-    private ProdutoDAO produtoDAO;
+    private IProdutoDAO produtoDAO;
 
     @Autowired
-    private UnidadeProdutoDAO unidadeProdutoDAO;
+    private IUnidadeProdutoDAO unidadeProdutoDAO;
 
     public ProdutoFormController() {
     }

@@ -22,7 +22,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
+public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> implements INfeCabecalhoDAO {
 
 	/**
 	 * DAOS
@@ -46,6 +46,10 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 		return NfeCabecalhoEntity.class;
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.nfe.INfeCabecalhoDAO#find(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public List<NfeCabecalhoEntity> find(String s) {
 		try {
@@ -118,6 +122,10 @@ public class NfeCabecalhoDAO extends AbstractCrudDAO<NfeCabecalhoEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.nfe.INfeCabecalhoDAO#saveOrUpdateNfeCabecalho(dc.entidade.nfe.NfeCabecalhoEntity)
+	 */
+	@Override
 	@Transactional
 	public void saveOrUpdateNfeCabecalho(NfeCabecalhoEntity nfeCabecalho)
 			throws Exception {

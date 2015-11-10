@@ -10,7 +10,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ColaboradorOsDAO extends AbstractCrudDAO<ColaboradorOsEntity> {
+public class ColaboradorOsDAO extends AbstractCrudDAO<ColaboradorOsEntity> implements IColaboradorOsDAO {
 
 
 	@Override

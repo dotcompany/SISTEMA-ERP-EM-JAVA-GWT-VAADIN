@@ -22,7 +22,7 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ILancamentoPagarDAO dao;
+	private ILancamentoPagarDAO dao;
 
 	@Autowired
 	private LancamentoPagarFormController lancamentoPagarFormController;

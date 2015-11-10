@@ -23,7 +23,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class AdiantamentoDAO extends AbstractCrudDAO<Adiantamento>{
+public class AdiantamentoDAO extends AbstractCrudDAO<Adiantamento> implements IAdiantamentoDAO{
 
 	@Override
 	public Class<Adiantamento> getEntityClass() {
@@ -35,6 +35,10 @@ public class AdiantamentoDAO extends AbstractCrudDAO<Adiantamento>{
 		return getSession().createQuery("from Adiantamento").list();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.IAdiantamentoDAO#procuraNomeContendo(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public List<Adiantamento> procuraNomeContendo(String query) {
 		return getSession().createQuery("from Adiantamento where valor like :q").setParameter("q", "%" + query + "%").list();

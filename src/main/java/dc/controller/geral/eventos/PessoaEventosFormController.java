@@ -49,22 +49,22 @@ import dc.model.business.geral.pessoal.EstadoCivilBusiness;
 import dc.model.business.geral.pessoal.PessoaBusiness;
 import dc.model.business.geral.pessoal.PessoaContatoBusiness;
 import dc.model.business.geral.pessoal.PessoaEnderecoBusiness;
+import dc.model.dao.geral.diverso.ISetorDAO;
+import dc.model.dao.geral.outro.ISindicatoDAO;
+import dc.model.dao.geral.pessoal.ICargoDAO;
+import dc.model.dao.geral.pessoal.IEstadoCivilDAO;
+import dc.model.dao.geral.pessoal.IPessoaContatoDAO;
 import dc.servicos.dao.contabilidade.IContabilContaDAO;
-import dc.servicos.dao.contabilidade.PlanoContaDAO;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaDAO;
 import dc.servicos.dao.financeiro.IContaCaixaDAO;
-import dc.servicos.dao.financeiro.SindicatoDAO;
-import dc.servicos.dao.geral.NivelFormacaoDAO;
-import dc.servicos.dao.geral.PessoaContatoDAO;
-import dc.servicos.dao.geral.PessoaEnderecoDAO;
-import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.geral.diverso.SetorDAO;
-import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
-import dc.servicos.dao.geral.pessoal.CargoDAO;
-import dc.servicos.dao.geral.pessoal.EstadoCivilDAO;
-import dc.servicos.dao.geral.pessoal.SituacaoColaboradorDAO;
-import dc.servicos.dao.geral.pessoal.SituacaoForCliDAO;
-import dc.servicos.dao.geral.pessoal.TipoColaboradorDAO;
-import dc.servicos.dao.tributario.OperacaoFiscalDAO;
+import dc.servicos.dao.geral.INivelFormacaoDAO;
+import dc.servicos.dao.geral.IPessoaEnderecoDAO;
+import dc.servicos.dao.geral.IUfDAO;
+import dc.servicos.dao.geral.pessoal.IAtividadeForCliDAO;
+import dc.servicos.dao.geral.pessoal.ISituacaoColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ISituacaoForCliDAO;
+import dc.servicos.dao.geral.pessoal.ITipoColaboradorDAO;
+import dc.servicos.dao.tributario.IOperacaoFiscalDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.eventos.PessoaEventosFormView;
@@ -111,40 +111,40 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 	private EstadoCivilBusiness<EstadoCivilEntity> estadoCivilBusiness;
 	
 	@Autowired
-	private EstadoCivilDAO estadoCivilDAO;
+	private IEstadoCivilDAO estadoCivilDAO;
 
 	@Autowired
-	private SituacaoForCliDAO situacaoForCliDAO;
+	private ISituacaoForCliDAO situacaoForCliDAO;
 
 	@Autowired
-	private AtividadeForCliDAO atividadeForCliDAO;
+	private IAtividadeForCliDAO atividadeForCliDAO;
 
 	@Autowired
-	private OperacaoFiscalDAO operacaoFiscalDAO;
+	private IOperacaoFiscalDAO operacaoFiscalDAO;
 
 	@Autowired
-	private TipoColaboradorDAO tipoColaboradorDAO;
+	private ITipoColaboradorDAO tipoColaboradorDAO;
 
 	@Autowired
-	private SituacaoColaboradorDAO situacaoColaboradorDAO;
+	private ISituacaoColaboradorDAO situacaoColaboradorDAO;
 
 	@Autowired
-	private SindicatoDAO sindicatoDAO;
+	private ISindicatoDAO sindicatoDAO;
 
 	@Autowired
-	private NivelFormacaoDAO nivelFormacaoDAO;
+	private INivelFormacaoDAO nivelFormacaoDAO;
 
 	@Autowired
-	private CargoDAO cargoDAO;
+	private ICargoDAO cargoDAO;
 
 	@Autowired
-	private SetorDAO setorDAO;
+	private ISetorDAO setorDAO;
 
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	@Autowired
-	private PlanoContaDAO planoContaDAO;
+	private IPlanoContaDAO planoContaDAO;
 
 	@Autowired
 	private IContaCaixaDAO contaCaixaDAO;
@@ -153,10 +153,10 @@ public class PessoaEventosFormController extends CRUDFormController<PessoaEntity
 	private IContabilContaDAO contabilContaDAO;
 	
 	@Autowired
-	private PessoaEnderecoDAO pessoaEnderecoDAO;
+	private IPessoaEnderecoDAO pessoaEnderecoDAO;
 	
 	@Autowired
-	private PessoaContatoDAO pessoaContatoDAO;
+	private IPessoaContatoDAO pessoaContatoDAO;
 
 	/**
 	 * CONSTRUTOR

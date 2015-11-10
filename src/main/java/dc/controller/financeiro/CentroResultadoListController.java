@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.CentroResultado;
-import dc.servicos.dao.financeiro.CentroResultadoDAO;
+import dc.servicos.dao.financeiro.ICentroResultadoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -32,10 +32,10 @@ public class CentroResultadoListController extends CRUDListController<CentroResu
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CentroResultadoDAO dao;
+	private ICentroResultadoDAO dao;
 
 	@Autowired
-	CentroResultadoFormController centroresultadoFormController;
+	private CentroResultadoFormController centroresultadoFormController;
 
 	@Override
 	public String[] getColunas() {

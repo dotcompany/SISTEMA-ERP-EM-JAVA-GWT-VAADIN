@@ -14,7 +14,7 @@ import dc.control.util.ClassUtils;
 import dc.controller.geral.tabela.CboListController;
 import dc.entidade.geral.pessoal.CargoEntity;
 import dc.model.business.geral.pessoal.CargoBusiness;
-import dc.servicos.dao.geral.tabela.CboDAO;
+import dc.servicos.dao.geral.tabela.ICboDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.CargoFormView;
@@ -48,7 +48,7 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 	 */
 
 	@Autowired
-	private CboDAO cboDAO;
+	private ICboDAO cboDAO;
 
 	/**
 	 * CONSTRUTOR

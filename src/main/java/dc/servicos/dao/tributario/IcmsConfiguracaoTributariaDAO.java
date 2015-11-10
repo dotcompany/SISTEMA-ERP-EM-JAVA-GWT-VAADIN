@@ -13,7 +13,7 @@ import dc.entidade.tributario.IcmsConfiguracaoTributariaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class IcmsConfiguracaoTributariaDAO extends AbstractCrudDAO<IcmsConfiguracaoTributariaEntity> {
+public class IcmsConfiguracaoTributariaDAO extends AbstractCrudDAO<IcmsConfiguracaoTributariaEntity> implements IIcmsConfiguracaoTributariaDAO {
 
 	@Override
 	public Class<IcmsConfiguracaoTributariaEntity> getEntityClass() {
@@ -24,6 +24,10 @@ public class IcmsConfiguracaoTributariaDAO extends AbstractCrudDAO<IcmsConfigura
 		return new String[] {"empresa"};
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.tributario.IIcmsConfiguracaoTributariaDAO#buscarPorConfiguracao(dc.entidade.tributario.ConfiguracaoTributariaEntity)
+	 */
+	@Override
 	@Transactional
 	public List<IcmsConfiguracaoTributariaEntity> buscarPorConfiguracao(ConfiguracaoTributariaEntity configuracao){
 		List<IcmsConfiguracaoTributariaEntity> lista = null;

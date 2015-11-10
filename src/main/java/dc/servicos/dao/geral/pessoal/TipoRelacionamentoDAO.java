@@ -10,13 +10,17 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("pessoalTipoRelacionamentoDAO")
 public class TipoRelacionamentoDAO extends
-		AbstractCrudDAO<TipoRelacionamentoEntity> {
+		AbstractCrudDAO<TipoRelacionamentoEntity> implements ITipoRelacionamentoDAO {
 
 	@Override
 	public Class<TipoRelacionamentoEntity> getEntityClass() {
 		return TipoRelacionamentoEntity.class;
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.pessoal.ITipoRelacionamentoDAO#listaTodos()
+	 */
+	@Override
 	@Transactional
 	public List<TipoRelacionamentoEntity> listaTodos() {
 		return getSession().createQuery("from TipoRelacionamento").list();

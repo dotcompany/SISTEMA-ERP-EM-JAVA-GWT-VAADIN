@@ -58,9 +58,9 @@ import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.model.business.financeiro.LancamentoReceberBusiness;
 import dc.servicos.dao.contabilidade.IContabilContaDAO;
 import dc.servicos.dao.financeiro.BancoDAO;
-import dc.servicos.dao.financeiro.ConfiguracaoBoletoDAO;
 import dc.servicos.dao.financeiro.ContaCaixaDAO;
 import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
+import dc.servicos.dao.financeiro.IConfiguracaoBoletoDAO;
 import dc.servicos.dao.financeiro.IStatusParcelaDAO;
 import dc.servicos.dao.financeiro.LctoReceberNtFinanceiraDAO;
 import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
@@ -155,7 +155,7 @@ public class LancamentoReceberFormController extends
 	private IStatusParcelaDAO statusParcelaDAO;
 
 	@Autowired
-	private ConfiguracaoBoletoDAO configuracaoBoletoDAO;
+	private IConfiguracaoBoletoDAO configuracaoBoletoDAO;
 
 	@Autowired
 	private PessoaDAO pessoaDAO;

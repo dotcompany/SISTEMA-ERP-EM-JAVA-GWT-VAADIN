@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository(value = "contabilidadeFechamentoDAO")
 @SuppressWarnings("unchecked")
-public class FechamentoDAO extends AbstractCrudDAO<FechamentoEntity> {
+public class FechamentoDAO extends AbstractCrudDAO<FechamentoEntity> implements IFechamentoDAO {
 
 	@Override
 	public Class<FechamentoEntity> getEntityClass() {

@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.BancoEntity;
-import dc.servicos.dao.financeiro.BancoDAO;
+import dc.servicos.dao.financeiro.IBancoDAO;
 import dc.visao.financeiro.BancoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -37,7 +37,7 @@ public class BancoFormController extends CRUDFormController<BancoEntity> {
 	private BancoFormView subView;
 
 	@Autowired
-	private BancoDAO bancoDAO;
+	private IBancoDAO bancoDAO;
 
 	private BancoEntity currentBean;
 

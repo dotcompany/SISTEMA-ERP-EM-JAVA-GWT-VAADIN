@@ -9,7 +9,7 @@ import dc.entidade.geral.tabela.CstIcmsbEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class CstIcmsbDAO extends AbstractCrudDAO<CstIcmsbEntity> {
+public class CstIcmsbDAO extends AbstractCrudDAO<CstIcmsbEntity> implements ICstIcmsbDAO {
 
 	@Override
 	public Class<CstIcmsbEntity> getEntityClass() {

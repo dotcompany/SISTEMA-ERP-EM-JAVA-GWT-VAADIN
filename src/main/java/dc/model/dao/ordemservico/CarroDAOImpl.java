@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  * 
  */
 @Repository
-public class CarroDAOImpl extends AbstractCrudDAO<CarroEntity> implements CarroDAO<CarroEntity> {
+public class CarroDAOImpl extends AbstractCrudDAO<CarroEntity> implements ICarroDAO {
 
 	private static Logger logger = Logger.getLogger(CarroDAOImpl.class);
 
@@ -66,7 +66,7 @@ public class CarroDAOImpl extends AbstractCrudDAO<CarroEntity> implements CarroD
 		}
 	}
 
-	@Override
+	
 	public List<CarroEntity> list() {
 		try {
 			String sql = "SELECT new - FROM # ent WHERE (1 = 1)";

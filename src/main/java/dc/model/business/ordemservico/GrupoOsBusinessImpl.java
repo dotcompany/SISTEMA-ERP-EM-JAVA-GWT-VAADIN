@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.ordemservico.GrupoOsEntity;
-import dc.model.dao.ordemservico.GrupoOsDAO;
+import dc.servicos.dao.ordemservico.IGrupoOsDAO;
 
 /**
  * 
@@ -32,7 +32,7 @@ GrupoOsBusiness<GrupoOsEntity> {
 	private static Logger logger = Logger.getLogger(GrupoOsBusinessImpl.class);
 
 	@Autowired
-	private GrupoOsDAO<GrupoOsEntity> dao;
+	private IGrupoOsDAO dao;
 
 	/**
 	 * **********************************************

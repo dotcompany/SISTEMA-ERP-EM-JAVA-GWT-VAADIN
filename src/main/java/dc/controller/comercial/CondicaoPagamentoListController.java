@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.comercial.CondicaoPagamento;
-import dc.servicos.dao.comercial.CondicaoPagamentoDAO;
+import dc.servicos.dao.comercial.ICondicaoPagamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,10 +21,10 @@ public class CondicaoPagamentoListController extends CRUDListController<Condicao
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CondicaoPagamentoDAO dao;
+	private ICondicaoPagamentoDAO dao;
 
 	@Autowired
-	CondicaoPagamentoFormController formController;
+	private CondicaoPagamentoFormController formController;
 
 	@Override
 	public String[] getColunas() {

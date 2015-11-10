@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.Cheque;
-import dc.servicos.dao.financeiro.ChequeDAO;
+import dc.servicos.dao.financeiro.IChequeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -29,10 +29,10 @@ public class ChequeListController extends CRUDListController<Cheque> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ChequeDAO dao;
+	private IChequeDAO dao;
 
 	@Autowired
-	ChequeFormController chequeFormController;
+	private ChequeFormController chequeFormController;
 
 	@Override
 	public String[] getColunas() {

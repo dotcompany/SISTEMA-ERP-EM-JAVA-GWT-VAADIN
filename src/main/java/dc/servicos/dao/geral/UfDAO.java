@@ -10,7 +10,7 @@ import dc.entidade.geral.diverso.UfEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class UfDAO extends AbstractCrudDAO<UfEntity> {
+public class UfDAO extends AbstractCrudDAO<UfEntity> implements IUfDAO {
 
 	@Override
 	public Class<UfEntity> getEntityClass() {
@@ -82,5 +82,24 @@ public class UfDAO extends AbstractCrudDAO<UfEntity> {
 			throw e;
 		}
 	}
+
+	@Override
+	@Transactional
+	public UfEntity getObject(String sigla) {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.sigla = :sigla";
+			sql = sql.replace("#", getEntityClass().getName());
+
+			Query query = super.getSession().createQuery(sql);
+			query.setParameter("sigla", sigla);
+
+			UfEntity entity = (UfEntity) query.uniqueResult();
+
+			return entity;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
 
 }

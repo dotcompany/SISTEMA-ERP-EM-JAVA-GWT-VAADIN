@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 @SuppressWarnings("unchecked")
 public class LancamentoProgramadoCabDAO extends
-		AbstractCrudDAO<LancamentoProgramadoCabEntity> {
+		AbstractCrudDAO<LancamentoProgramadoCabEntity> implements ILancamentoProgramadoCabDAO {
 
 	@Override
 	public Class<LancamentoProgramadoCabEntity> getEntityClass() {

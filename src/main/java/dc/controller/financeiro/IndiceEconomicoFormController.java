@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.controller.geral.diverso.PaisListController;
 import dc.entidade.financeiro.IndiceEconomicoEntity;
 import dc.model.business.geral.pessoal.IndiceEconomicoBusiness;
-import dc.servicos.dao.geral.diverso.PaisDAO;
+import dc.servicos.dao.geral.diverso.IPaisDAO;
 import dc.visao.financeiro.IndiceEconomicoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -48,7 +48,7 @@ public class IndiceEconomicoFormController extends CRUDFormController<IndiceEcon
 	private IndiceEconomicoBusiness<IndiceEconomicoEntity> business;
 	
 	@Autowired
-	private PaisDAO paisDAO;
+	private IPaisDAO paisDAO;
 
 	private IndiceEconomicoEntity currentBean;
 	

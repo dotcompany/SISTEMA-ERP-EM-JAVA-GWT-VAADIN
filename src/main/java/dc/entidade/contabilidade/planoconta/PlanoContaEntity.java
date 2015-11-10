@@ -1,10 +1,12 @@
 package dc.entidade.contabilidade.planoconta;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,6 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -28,6 +32,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 /**
  * 
@@ -96,6 +101,11 @@ public class PlanoContaEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@OneToMany(mappedBy = "planoConta", fetch = FetchType.LAZY)
 	private List<ContaEntity> contaList;
+
+	
+	@OneToMany(mappedBy = "planoConta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<ColaboradorEntity> colaboradorList = new ArrayList<ColaboradorEntity>();
 
 	/**
 	 * TRANSIENT
@@ -184,6 +194,14 @@ public class PlanoContaEntity extends AbstractMultiEmpresaModel<Integer>
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public List<ColaboradorEntity> getColaboradorList() {
+		return colaboradorList;
+	}
+
+	public void setColaboradorList(List<ColaboradorEntity> colaboradorList) {
+		this.colaboradorList = colaboradorList;
 	}
 
 }

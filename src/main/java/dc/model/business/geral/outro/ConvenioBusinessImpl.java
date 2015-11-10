@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.outro.ConvenioEntity;
-import dc.model.dao.geral.outro.ConvenioDAO;
+import dc.model.dao.geral.outro.IConvenioDAO;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class ConvenioBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(ConvenioBusinessImpl.class);
 
 	@Autowired
-	private ConvenioDAO<ConvenioEntity> dao;
+	private IConvenioDAO dao;
 
 	/**
 	 * **********************************************

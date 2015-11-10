@@ -17,9 +17,9 @@ import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.estoque.RequisicaoInternaCabecalhoEntity;
 import dc.entidade.suprimentos.estoque.RequisicaoInternaDetalheEntity;
-import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
-import dc.servicos.dao.geral.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.estoque.RequisicaoInternaCabecalhoDAO;
+import dc.model.dao.geral.pessoal.IColaboradorDAO;
+import dc.model.dao.geral.produto.IProdutoDAO;
+import dc.servicos.dao.suprimentos.estoque.IRequisicaoInternaCabecalhoDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
@@ -35,18 +35,18 @@ public class RequisicaoInternaFormController extends
 	 */
 	private static final long serialVersionUID = 1L;
 
-	RequisicaoInternaFormView subView;
+	private RequisicaoInternaFormView subView;
 
 	@Autowired
-	RequisicaoInternaCabecalhoDAO dao;
+	private IRequisicaoInternaCabecalhoDAO dao;
 	
 	@Autowired
-	ColaboradorDAO colaboradorDAO;
+	private IColaboradorDAO colaboradorDAO;
 
 	private RequisicaoInternaCabecalhoEntity currentBean;
 
 	@Autowired
-	ProdutoDAO produtoDAO;
+	private IProdutoDAO produtoDAO;
 
 	@Override
 	protected String getNome() {

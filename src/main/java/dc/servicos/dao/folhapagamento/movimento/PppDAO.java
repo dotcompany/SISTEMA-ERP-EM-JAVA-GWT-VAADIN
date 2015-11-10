@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class PppDAO extends AbstractCrudDAO<PppEntity> {
+public class PppDAO extends AbstractCrudDAO<PppEntity> implements IPppDAO {
 
 	@Override
 	public Class<PppEntity> getEntityClass() {

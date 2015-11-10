@@ -16,9 +16,9 @@ import dc.control.validator.ObjectValidator;
 import dc.entidade.folhapagamento.ausencia.AfastamentoEntity;
 import dc.entidade.folhapagamento.ausencia.TipoAfastamentoEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
-import dc.servicos.dao.folhapagamento.ausencia.AfastamentoDAO;
-import dc.servicos.dao.folhapagamento.ausencia.TipoAfastamentoDAO;
-import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
+import dc.model.dao.geral.pessoal.IColaboradorDAO;
+import dc.servicos.dao.folhapagamento.ausencia.IAfastamentoDAO;
+import dc.servicos.dao.folhapagamento.ausencia.ITipoAfastamentoDAO;
 import dc.visao.folhapagamento.ausencia.AfastamentoFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -37,13 +37,13 @@ public class AfastamentoFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private AfastamentoDAO pDAO;
+	private IAfastamentoDAO pDAO;
 
 	@Autowired
-	private ColaboradorDAO cDAO;
+	private IColaboradorDAO cDAO;
 
 	@Autowired
-	private TipoAfastamentoDAO taDAO;
+	private ITipoAfastamentoDAO taDAO;
 
 	/** ENTITIES */
 

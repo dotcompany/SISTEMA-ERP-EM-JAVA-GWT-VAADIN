@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaCnaeEntity;
-import dc.servicos.dao.administrativo.empresa.EmpresaCnaeDAO;
+import dc.servicos.dao.administrativo.empresa.IEmpresaCnaeDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -26,7 +26,7 @@ public class EmpresaCnaeListController extends
 	private EmpresaCnaeFormController empresaCnaeFormController;
 
 	@Autowired
-	private EmpresaCnaeDAO dao;
+	private IEmpresaCnaeDAO dao;
 
 	/**
 	 * CONSTRUTOR
@@ -95,5 +95,4 @@ public class EmpresaCnaeListController extends
 			return null;
 		}
 	}
-
 }

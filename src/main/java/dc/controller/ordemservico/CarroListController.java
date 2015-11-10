@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.ordemservico.CarroEntity;
-import dc.servicos.dao.ordemservico.CarroDAO;
+import dc.model.dao.ordemservico.ICarroDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -19,10 +19,10 @@ public class CarroListController extends CRUDListController<CarroEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CarroDAO dao;
+	private ICarroDAO dao;
 	
 	@Autowired
-	CarroFormController formController;
+	private CarroFormController formController;
 	
 
 	@Override

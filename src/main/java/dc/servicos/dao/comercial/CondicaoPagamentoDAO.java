@@ -9,7 +9,7 @@ import dc.entidade.comercial.CondicaoPagamento;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class CondicaoPagamentoDAO extends AbstractCrudDAO<CondicaoPagamento> {
+public class CondicaoPagamentoDAO extends AbstractCrudDAO<CondicaoPagamento> implements ICondicaoPagamentoDAO {
 
 	@Override
 	public Class<CondicaoPagamento> getEntityClass() {

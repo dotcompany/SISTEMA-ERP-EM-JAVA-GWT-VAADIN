@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.contabilidade.PlanoContaRefSped;
-import dc.servicos.dao.contabilidade.PlanoContaRefSpedDAO;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaRefSpedDAO;
 import dc.visao.contabilidade.PlanoContaRefSpedFormView;
 import dc.visao.contabilidade.PlanoContaRefSpedFormView.Tipo;
 import dc.visao.framework.geral.CRUDFormController;
@@ -28,7 +28,7 @@ public class PlanoContaRefSpedFormController extends CRUDFormController<PlanoCon
 	private PlanoContaRefSpedFormView subView;
 
 	@Autowired
-	private PlanoContaRefSpedDAO planoContaRefSpedDAO;
+	private IPlanoContaRefSpedDAO planoContaRefSpedDAO;
 
 	private PlanoContaRefSped currentBean;
 

@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.TipoRecebimento;
-import dc.servicos.dao.financeiro.TipoRecebimentoDAO;
+import dc.servicos.dao.financeiro.ITipoRecebimentoDAO;
 import dc.visao.financeiro.TipoRecebimentoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -30,7 +30,7 @@ public class TipoRecebimentoFormController extends CRUDFormController<TipoRecebi
 	private TipoRecebimentoFormView subView;
 
 	@Autowired
-	private TipoRecebimentoDAO tipoRecebimentoDAO;
+	private ITipoRecebimentoDAO tipoRecebimentoDAO;
 
 	private TipoRecebimento currentBean;
 

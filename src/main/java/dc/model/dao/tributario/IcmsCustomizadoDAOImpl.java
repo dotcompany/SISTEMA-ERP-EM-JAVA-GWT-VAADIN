@@ -13,7 +13,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 public class IcmsCustomizadoDAOImpl extends
 		AbstractCrudDAO<IcmsCustomizadoCabecalhoEntity> implements
-		IcmsCustomizadoDAO<IcmsCustomizadoCabecalhoEntity> {
+		IIcmsCustomizadoDAO {
 
 	private static Logger logger = Logger
 			.getLogger(IcmsCustomizadoDAOImpl.class);

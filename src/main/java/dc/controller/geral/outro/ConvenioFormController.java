@@ -17,8 +17,8 @@ import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.outro.ConvenioEntity;
 import dc.model.business.geral.diverso.UfBusiness;
 import dc.model.business.geral.outro.ConvenioBusiness;
-import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.geral.pessoal.PessoaDAO;
+import dc.model.dao.geral.pessoal.IPessoaDAO;
+import dc.servicos.dao.geral.IUfDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.outro.ConvenioFormView;
@@ -55,10 +55,10 @@ public class ConvenioFormController extends CRUDFormController<ConvenioEntity> {
 	 */
 
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	@Autowired
-	private PessoaDAO pessoaDAO;
+	private IPessoaDAO pessoaDAO;
 
 	/**
 	 * CONSTRUTOR

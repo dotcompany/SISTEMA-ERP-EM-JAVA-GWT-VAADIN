@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.pessoal.ColaboradorEntity;
+import dc.model.dao.geral.pessoal.IColaboradorDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-@Repository("pessoalColaboradorDAO")
-public class ColaboradorDAO extends AbstractCrudDAO<ColaboradorEntity> {
+//@Repository("pessoalColaboradorDAO")
+@Repository()
+public class ColaboradorDAO extends AbstractCrudDAO<ColaboradorEntity> implements IColaboradorDAO {
 
 	@Override
 	public Class<ColaboradorEntity> getEntityClass() {
@@ -79,6 +82,41 @@ public class ColaboradorDAO extends AbstractCrudDAO<ColaboradorEntity> {
 			return new ArrayList<ColaboradorEntity>();
 		}
 	}
+
+	@Override
+	public List<ColaboradorEntity> listaVendedores() {
+		try {
+			String sql = "SELECT c FROM ColaboradorEntity c INNER JOIN c.tipoColaborador t WHERE (1 = 1) AND t.id = 40 ";
+
+			Query query = super.getSession().createQuery(sql);
+
+			List<ColaboradorEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
+	@Override
+	public List<ColaboradorEntity> listaTecnicos() {
+		try {
+			String sql = "SELECT c FROM ColaboradorEntity c INNER JOIN c.tipoColaborador t WHERE (1 = 1) AND t.id = 41 ";
+
+			Query query = super.getSession().createQuery(sql);
+
+			List<ColaboradorEntity> auxLista = query.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+
 
 	/**
 	 * ********************************************************

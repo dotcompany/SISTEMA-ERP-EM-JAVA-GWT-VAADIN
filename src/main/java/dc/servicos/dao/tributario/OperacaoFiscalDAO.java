@@ -10,7 +10,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 //@SuppressWarnings("unchecked")
-public class OperacaoFiscalDAO extends AbstractCrudDAO<OperacaoFiscalEntity> {
+public class OperacaoFiscalDAO extends AbstractCrudDAO<OperacaoFiscalEntity> implements IOperacaoFiscalDAO {
 
 	@Override
 	public Class<OperacaoFiscalEntity> getEntityClass() {

@@ -15,6 +15,7 @@ import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.patrimonio.DocumentoBemEntity;
 import dc.servicos.dao.patrimonio.BemDAO;
 import dc.servicos.dao.patrimonio.DocumentoBemDAO;
+import dc.servicos.dao.patrimonio.IBemDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.patrimonio.DocumentoBemFormView;
 
@@ -35,7 +36,7 @@ public class DocumentoBemFormController extends CRUDFormController<DocumentoBemE
 	private DocumentoBemDAO pDAO;
 
 	@Autowired
-	private BemDAO bDAO;
+	private IBemDAO bDAO;
 
 	/** ENTITIES */
 

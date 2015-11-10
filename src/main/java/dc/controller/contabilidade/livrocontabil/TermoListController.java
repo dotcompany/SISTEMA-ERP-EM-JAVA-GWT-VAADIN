@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.livrocontabil.TermoEntity;
-import dc.servicos.dao.contabilidade.livrocontabil.TermoDAO;
+import dc.servicos.dao.contabilidade.livrocontabil.ITermoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -32,7 +32,7 @@ public class TermoListController extends CRUDListController<TermoEntity> {
 	 */
 
 	@Autowired
-	private TermoDAO pDAO;
+	private ITermoDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -89,7 +89,7 @@ public class TermoListController extends CRUDListController<TermoEntity> {
 	@Override
 	protected List<TermoEntity> pesquisaDefault() {
 		try {
-			List<TermoEntity> auxLista = this.pDAO.listarTodos();
+			List<TermoEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

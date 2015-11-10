@@ -11,7 +11,7 @@ import dc.entidade.tributario.PisConfiguracaoTributariaEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class PisConfiguracaoTributariaDAO extends AbstractCrudDAO<PisConfiguracaoTributariaEntity> {
+public class PisConfiguracaoTributariaDAO extends AbstractCrudDAO<PisConfiguracaoTributariaEntity> implements IPisConfiguracaoTributariaDAO {
 
 	@Override
 	public Class<PisConfiguracaoTributariaEntity> getEntityClass() {
@@ -22,6 +22,10 @@ public class PisConfiguracaoTributariaDAO extends AbstractCrudDAO<PisConfiguraca
 		return new String[] {"empresa"};
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.tributario.IPisConfiguracaoTributariaDAO#buscarPorConfiguracao(dc.entidade.tributario.ConfiguracaoTributariaEntity)
+	 */
+	@Override
 	@Transactional
 	public PisConfiguracaoTributariaEntity buscarPorConfiguracao(ConfiguracaoTributariaEntity configuracao){
 		PisConfiguracaoTributariaEntity pis = null;

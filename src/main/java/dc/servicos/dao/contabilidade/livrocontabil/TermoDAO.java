@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class TermoDAO extends AbstractCrudDAO<TermoEntity> {
+public class TermoDAO extends AbstractCrudDAO<TermoEntity> implements ITermoDAO {
 
 	@Override
 	public Class<TermoEntity> getEntityClass() {
@@ -37,6 +37,10 @@ public class TermoDAO extends AbstractCrudDAO<TermoEntity> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.contabilidade.livrocontabil.ITermoDAO#procuraNomeContendo(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public List<TermoEntity> procuraNomeContendo(String query) {
 		try {

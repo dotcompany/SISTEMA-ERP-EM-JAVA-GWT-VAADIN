@@ -14,8 +14,8 @@ import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.lancamento.LancamentoProgramadoCabEntity;
 import dc.entidade.contabilidade.lancamento.LoteEntity;
-import dc.servicos.dao.contabilidade.lancamento.LancamentoProgramadoCabDAO;
-import dc.servicos.dao.contabilidade.lancamento.LoteDAO;
+import dc.servicos.dao.contabilidade.lancamento.ILancamentoProgramadoCabDAO;
+import dc.servicos.dao.contabilidade.lancamento.ILoteDAO;
 import dc.visao.contabilidade.lancamento.LancamentoProgramadoCabFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -35,10 +35,10 @@ public class LancamentoProgramadoCabFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private LancamentoProgramadoCabDAO pDAO;
+	private ILancamentoProgramadoCabDAO pDAO;
 
 	@Autowired
-	private LoteDAO lDAO;
+	private ILoteDAO lDAO;
 
 	/** ENTITIES */
 

@@ -10,7 +10,7 @@ import dc.entidade.geral.tabela.CboEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class CboDAO extends AbstractCrudDAO<CboEntity> {
+public class CboDAO extends AbstractCrudDAO<CboEntity> implements ICboDAO {
 
 	@Override
 	public Class<CboEntity> getEntityClass() {

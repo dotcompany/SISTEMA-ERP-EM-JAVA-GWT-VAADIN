@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.cadastro.IndiceValorEntity;
-import dc.servicos.dao.contabilidade.cadastro.IndiceDAO;
-import dc.servicos.dao.contabilidade.cadastro.IndiceValorDAO;
+import dc.servicos.dao.contabilidade.cadastro.IIndiceDAO;
+import dc.servicos.dao.contabilidade.cadastro.IIndiceValorDAO;
 import dc.visao.contabilidade.cadastro.IndiceValorFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -34,10 +34,10 @@ public class IndiceValorFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private IndiceValorDAO pDAO;
+	private IIndiceValorDAO pDAO;
 
 	@Autowired
-	private IndiceDAO iDAO;
+	private IIndiceDAO iDAO;
 
 	/** ENTITIES */
 

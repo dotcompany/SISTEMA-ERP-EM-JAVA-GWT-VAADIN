@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 @SuppressWarnings("unchecked")
 public class BalancoPatrimonialDAO extends
-		AbstractCrudDAO<BalancoPatrimonialEntity> {
+		AbstractCrudDAO<BalancoPatrimonialEntity> implements IBalancoPatrimonialDAO {
 
 	@Override
 	public Class<BalancoPatrimonialEntity> getEntityClass() {

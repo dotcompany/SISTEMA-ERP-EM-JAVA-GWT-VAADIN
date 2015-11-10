@@ -18,11 +18,11 @@ import dc.control.util.ClassUtils;
 import dc.controller.tributario.OperacaoFiscalListController;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.model.business.geral.pessoal.ClienteBusiness;
-import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
-import dc.servicos.dao.geral.pessoal.ClienteDAO;
-import dc.servicos.dao.geral.pessoal.PessoaDAO;
-import dc.servicos.dao.geral.pessoal.SituacaoForCliDAO;
-import dc.servicos.dao.tributario.OperacaoFiscalDAO;
+import dc.model.dao.geral.pessoal.IClienteDAO;
+import dc.model.dao.geral.pessoal.IPessoaDAO;
+import dc.servicos.dao.geral.pessoal.IAtividadeForCliDAO;
+import dc.servicos.dao.geral.pessoal.ISituacaoForCliDAO;
+import dc.servicos.dao.tributario.IOperacaoFiscalDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.ClienteFormView;
@@ -39,19 +39,19 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 	private ClienteFormView subView;
 
 	@Autowired
-	private ClienteDAO clienteDAO;
+	private IClienteDAO clienteDAO;
 
 	@Autowired
-	private PessoaDAO pessoaDAO;
+	private IPessoaDAO pessoaDAO;
 
 	@Autowired
-	private SituacaoForCliDAO situacaoDAO;
+	private ISituacaoForCliDAO situacaoDAO;
 
 	@Autowired
-	private AtividadeForCliDAO atividadeDAO;
+	private IAtividadeForCliDAO atividadeDAO;
 
 	@Autowired
-	private OperacaoFiscalDAO operacaoDAO;
+	private IOperacaoFiscalDAO operacaoDAO;
 
 	private ClienteEntity currentBean;
 	

@@ -12,12 +12,12 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
+import dc.entidade.contabilidade.PlanoContaRefSped;
 import dc.entidade.contabilidade.planoconta.ContaEntity;
 import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
-import dc.entidade.contabilidade.planoconta.PlanoContaRefSpedEntity;
-import dc.servicos.dao.contabilidade.planoconta.ContaDAO;
-import dc.servicos.dao.contabilidade.planoconta.PlanoContaDAO;
-import dc.servicos.dao.contabilidade.planoconta.PlanoContaRefSpedDAO;
+import dc.servicos.dao.contabilidade.planoconta.IContaDAO;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaDAO;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaRefSpedDAO;
 import dc.visao.contabilidade.planoconta.ContaFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -36,13 +36,13 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 	/** DAO'S */
 
 	@Autowired
-	private ContaDAO pDAO;
+	private IContaDAO pDAO;
 
 	@Autowired
-	private PlanoContaDAO pcDAO;
+	private IPlanoContaDAO pcDAO;
 
 	@Autowired
-	private PlanoContaRefSpedDAO pcrsDAO;
+	private IPlanoContaRefSpedDAO pcrsDAO;
 
 	/** ENTITIES */
 
@@ -86,7 +86,7 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 			ContaEntity conta = this.subView.getCbConta().getValue();
 			PlanoContaEntity planoConta = this.subView.getCbPlanoConta()
 					.getValue();
-			PlanoContaRefSpedEntity planoContaRefSped = this.subView
+			PlanoContaRefSped planoContaRefSped = this.subView
 					.getCbPlanoContaRefSped().getValue();
 
 			this.pEntity.setClassificacao(classificacao);
@@ -205,7 +205,7 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 			return false;
 		}
 
-		PlanoContaRefSpedEntity planoContaRefSped = this.subView
+		PlanoContaRefSped planoContaRefSped = this.subView
 				.getCbPlanoContaRefSped().getValue();
 
 		if (!ObjectValidator.validateObject(planoContaRefSped)) {
@@ -249,7 +249,7 @@ public class ContaFormController extends CRUDFormController<ContaEntity> {
 
 			this.subView.getCbPlanoConta().setModel(model2);
 
-			DefaultManyToOneComboModel<PlanoContaRefSpedEntity> model3 = new DefaultManyToOneComboModel<PlanoContaRefSpedEntity>(
+			DefaultManyToOneComboModel<PlanoContaRefSped> model3 = new DefaultManyToOneComboModel<PlanoContaRefSped>(
 					PlanoContaRefSpedListController.class, this.pcrsDAO,
 					super.getMainController());
 

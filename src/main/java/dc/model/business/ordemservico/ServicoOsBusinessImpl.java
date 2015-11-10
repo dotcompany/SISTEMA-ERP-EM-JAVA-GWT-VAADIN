@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.ordemservico.ServicoOsEntity;
-import dc.model.dao.ordemservico.ServicoOsDAO;
+import dc.model.dao.ordemservico.IServicoOsDAO;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class ServicoOsBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(ServicoOsBusinessImpl.class);
 
 	@Autowired
-	private ServicoOsDAO<ServicoOsEntity> dao;
+	private IServicoOsDAO dao;
 
 	/**
 	 * **********************************************

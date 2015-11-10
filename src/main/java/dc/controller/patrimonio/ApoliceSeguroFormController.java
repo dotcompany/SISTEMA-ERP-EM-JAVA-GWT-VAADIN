@@ -15,8 +15,10 @@ import dc.control.validator.ObjectValidator;
 import dc.entidade.patrimonio.ApoliceSeguroEntity;
 import dc.entidade.patrimonio.BemEntity;
 import dc.entidade.patrimonio.SeguradoraEntity;
-import dc.servicos.dao.patrimonio.ApoliceSeguroDAO;
 import dc.servicos.dao.patrimonio.BemDAO;
+import dc.servicos.dao.patrimonio.IApoliceSeguroDAO;
+import dc.servicos.dao.patrimonio.IBemDAO;
+import dc.servicos.dao.patrimonio.ISeguradoraDAO;
 import dc.servicos.dao.patrimonio.SeguradoraDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -36,13 +38,13 @@ public class ApoliceSeguroFormController extends CRUDFormController<ApoliceSegur
 	/** DAO'S */
 
 	@Autowired
-	private ApoliceSeguroDAO pDAO;
+	private IApoliceSeguroDAO pDAO;
 
 	@Autowired
-	private BemDAO bDAO;
+	private IBemDAO bDAO;
 
 	@Autowired
-	private SeguradoraDAO sDAO;
+	private ISeguradoraDAO sDAO;
 
 	/** ENTITIES */
 

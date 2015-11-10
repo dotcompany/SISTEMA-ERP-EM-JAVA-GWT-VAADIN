@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import dc.control.util.ClassUtils;
 import dc.entidade.nfe.NfeCabecalhoEntity;
 import dc.servicos.business.nfe.NfeCabecalhoBusiness;
-import dc.servicos.dao.nfe.NfeDestinatarioDAO;
+import dc.servicos.dao.nfe.INfeDestinatarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -37,7 +37,7 @@ public class DadoNfeListController extends
 	private NfeCabecalhoBusiness<NfeCabecalhoEntity> pBusiness;
 
 	@Autowired
-	private NfeDestinatarioDAO nfeDestinatarioDAO;
+	private INfeDestinatarioDAO nfeDestinatarioDAO;
 
 	/**
 	 * CONTROLLER'S

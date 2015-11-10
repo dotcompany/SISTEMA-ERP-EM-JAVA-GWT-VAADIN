@@ -13,8 +13,8 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.ordemservico.ServicoOsEntity;
 import dc.model.business.ordemservico.ServicoOsBusiness;
-import dc.servicos.dao.ordemservico.GrupoDAO;
-import dc.servicos.dao.ordemservico.SubGrupoDAO;
+import dc.model.dao.ordemservico.ISubGrupoOsDAO;
+import dc.servicos.dao.ordemservico.IGrupoOsDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.ServicoOsFormView;
@@ -27,15 +27,15 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOsEntity>
 
 	private static final long serialVersionUID = 1L;
 
-	ServicoOsFormView subView;
+	private ServicoOsFormView subView;
 
 	private ServicoOsEntity currentBean;
 	
 	@Autowired
-	private GrupoDAO grupoOsDAO;
+	private IGrupoOsDAO grupoOsDAO;
 	
 	@Autowired
-	private SubGrupoDAO subGrupoOsDAO;
+	private ISubGrupoOsDAO subGrupoOsDAO;
 
 	/**
 	 * BUSINESS

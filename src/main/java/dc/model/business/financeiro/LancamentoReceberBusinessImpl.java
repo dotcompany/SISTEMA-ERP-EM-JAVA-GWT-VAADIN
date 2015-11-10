@@ -11,7 +11,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.financeiro.LancamentoReceber;
 import dc.entidade.framework.FmMenu;
-import dc.servicos.dao.financeiro.LancamentoReceberDAOf;
+import dc.servicos.dao.financeiro.ILancamentoReceberDAO;
 
 
 @Service
@@ -22,7 +22,7 @@ public class LancamentoReceberBusinessImpl implements Serializable, LancamentoRe
 		private static final long serialVersionUID = 1L;
 		
 		@Autowired
-		private LancamentoReceberDAOf<LancamentoReceber> dao;
+		private ILancamentoReceberDAO dao;
 
 		@Override
 		public Class<LancamentoReceber> getEntityClass() {

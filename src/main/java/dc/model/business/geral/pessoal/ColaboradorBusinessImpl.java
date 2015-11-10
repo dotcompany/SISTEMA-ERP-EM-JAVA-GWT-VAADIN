@@ -13,7 +13,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
-import dc.model.dao.geral.pessoal.ColaboradorDAO;
+import dc.model.dao.geral.pessoal.IColaboradorDAO;
 
 @Service
 @Transactional(readOnly = true)
@@ -27,7 +27,7 @@ public class ColaboradorBusinessImpl implements Serializable, ColaboradorBusines
 		private static Logger logger = Logger.getLogger(ColaboradorBusinessImpl.class);
 
 		@Autowired
-		private ColaboradorDAO<ColaboradorEntity> dao;
+		private IColaboradorDAO dao;
 
 		/**
 		 * **********************************************

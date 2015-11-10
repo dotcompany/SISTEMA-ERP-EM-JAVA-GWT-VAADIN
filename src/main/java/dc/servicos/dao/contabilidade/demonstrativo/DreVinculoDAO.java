@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class DreVinculoDAO extends AbstractCrudDAO<DreVinculoEntity> {
+public class DreVinculoDAO extends AbstractCrudDAO<DreVinculoEntity> implements IDreVinculoDAO {
 
 	@Override
 	public Class<DreVinculoEntity> getEntityClass() {

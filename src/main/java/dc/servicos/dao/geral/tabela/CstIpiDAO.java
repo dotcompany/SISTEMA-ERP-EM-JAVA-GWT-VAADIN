@@ -11,7 +11,7 @@ import dc.entidade.geral.tabela.CstIpiEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class CstIpiDAO extends AbstractCrudDAO<CstIpiEntity> {
+public class CstIpiDAO extends AbstractCrudDAO<CstIpiEntity> implements ICstIpiDAO {
 
 	@Override
 	public Class<CstIpiEntity> getEntityClass() {
@@ -23,6 +23,10 @@ public class CstIpiDAO extends AbstractCrudDAO<CstIpiEntity> {
 		return getSession().createQuery("from CstIpi").list();
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.geral.tabela.ICstIpiDAO#procuraPorCodigo(java.lang.String)
+	 */
+	@Override
 	@Transactional
 	public CstIpiEntity procuraPorCodigo(String codigo) {
 		CstIpiEntity cst = null;

@@ -12,7 +12,7 @@ import dc.entidade.geral.tabela.TipoReceitaDipiEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class TipoReceitaDipiDAO extends AbstractCrudDAO<TipoReceitaDipiEntity> {
+public class TipoReceitaDipiDAO extends AbstractCrudDAO<TipoReceitaDipiEntity> implements ITipoReceitaDipiDAO {
 
 	@Override
 	public Class<TipoReceitaDipiEntity> getEntityClass() {

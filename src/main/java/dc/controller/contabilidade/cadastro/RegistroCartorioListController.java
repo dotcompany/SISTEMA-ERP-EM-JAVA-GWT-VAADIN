@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.cadastro.RegistroCartorioEntity;
-import dc.servicos.dao.contabilidade.cadastro.RegistroCartorioDAO;
+import dc.servicos.dao.contabilidade.cadastro.IRegistroCartorioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -33,7 +33,7 @@ public class RegistroCartorioListController extends
 	 */
 
 	@Autowired
-	private RegistroCartorioDAO pDAO;
+	private IRegistroCartorioDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -90,7 +90,7 @@ public class RegistroCartorioListController extends
 	@Override
 	protected List<RegistroCartorioEntity> pesquisaDefault() {
 		try {
-			List<RegistroCartorioEntity> auxLista = this.pDAO.listarTodos();
+			List<RegistroCartorioEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

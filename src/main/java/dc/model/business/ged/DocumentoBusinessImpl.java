@@ -17,8 +17,8 @@ import dc.entidade.geral.ged.DocumentoArquivo;
 import dc.entidade.geral.ged.TipoDocumento;
 import dc.entidade.geral.ged.VersaoDocumento;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
-import dc.servicos.dao.geral.ged.DocumentoDAO;
-import dc.servicos.dao.geral.ged.TipoDocumentoDAO;
+import dc.servicos.dao.geral.ged.IDocumentoDAO;
+import dc.servicos.dao.geral.ged.ITipoDocumentoDAO;
 import dc.servicos.util.Util;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -27,9 +27,9 @@ import dc.visao.spring.SecuritySessionProvider;
 public class DocumentoBusinessImpl implements DocumentoBusiness {
 
 	@Autowired
-	private DocumentoDAO documentoDAO;
+	private IDocumentoDAO documentoDAO;
 	@Autowired
-	private TipoDocumentoDAO tipoDocumentoDAO;
+	private ITipoDocumentoDAO tipoDocumentoDAO;
 	
 	private String homePath = System.getProperty("user.home");
 	private String customCompanyBaseFolder = "dc-erp";

@@ -10,8 +10,9 @@ import dc.entidade.geral.pessoal.EstadoCivilEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
+//@Repository("pessoalEstadoCivilDAO")
 public class EstadoCivilDAOImpl extends AbstractCrudDAO<EstadoCivilEntity>
-		implements EstadoCivilDAO<EstadoCivilEntity> {
+		implements IEstadoCivilDAO {
 
 	private static Logger logger = Logger.getLogger(EstadoCivilDAOImpl.class);
 

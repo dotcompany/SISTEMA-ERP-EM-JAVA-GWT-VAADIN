@@ -10,7 +10,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ModeloDAO extends AbstractCrudDAO<ModeloEntity>{
+public class ModeloDAO extends AbstractCrudDAO<ModeloEntity> implements IModeloDAO{
 
 	@Override
 	public Class<ModeloEntity> getEntityClass() {

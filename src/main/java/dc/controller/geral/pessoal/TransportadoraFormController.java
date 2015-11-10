@@ -12,8 +12,8 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.TransportadoraEntity;
-import dc.servicos.dao.geral.pessoal.PessoaDAO;
-import dc.servicos.dao.geral.pessoal.TransportadoraDAO;
+import dc.model.dao.geral.pessoal.IPessoaDAO;
+import dc.model.dao.geral.pessoal.ITransportadoraDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.TransportadoraFormView;
@@ -44,10 +44,10 @@ public class TransportadoraFormController extends CRUDFormController<Transportad
 	 */
 
 	@Autowired
-	private TransportadoraDAO dao;
+	private ITransportadoraDAO dao;
 
 	@Autowired
-	private PessoaDAO pessoaDAO;
+	private IPessoaDAO pessoaDAO;
 
 	/**
 	 * CONSTRUTOR

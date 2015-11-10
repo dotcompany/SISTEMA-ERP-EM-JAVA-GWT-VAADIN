@@ -11,7 +11,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class BemDAO extends AbstractCrudDAO<BemEntity> {
+public class BemDAO extends AbstractCrudDAO<BemEntity> implements IBemDAO {
 
 	@Override
 	public Class<BemEntity> getEntityClass() {
@@ -57,6 +57,10 @@ public class BemDAO extends AbstractCrudDAO<BemEntity> {
 		return new String[] { "Tipo", "Nome", "Descrição" };
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.patrimonio.IBemDAO#bemLista()
+	 */
+	@Override
 	@Transactional
 	public List<BemEntity> bemLista() {
 		try {

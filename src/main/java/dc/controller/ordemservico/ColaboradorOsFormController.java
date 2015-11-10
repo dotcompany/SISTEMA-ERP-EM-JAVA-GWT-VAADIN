@@ -12,14 +12,14 @@ import com.vaadin.ui.Component;
 
 import dc.controller.contabilidade.planoconta.PlanoContaListController;
 import dc.controller.financeiro.ContaCaixaListController;
-import dc.entidade.contabilidade.PlanoConta;
+import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
 import dc.entidade.financeiro.ContaCaixa;
 import dc.entidade.ordemservico.ColaboradorOsEntity;
 import dc.entidade.ordemservico.TipoColaboradorOsEntity;
-import dc.servicos.dao.contabilidade.PlanoContaDAO;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
-import dc.servicos.dao.ordemservico.ColaboradorOsDAO;
-import dc.servicos.dao.ordemservico.TipoColaboradorOsDAO;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
+import dc.servicos.dao.ordemservico.IColaboradorOsDAO;
+import dc.servicos.dao.ordemservico.ITipoColaboradorOsDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -33,19 +33,19 @@ public class ColaboradorOsFormController extends CRUDFormController<ColaboradorO
 
 	private static final long serialVersionUID = 1L;
 
-	ColaboradorOsFormView subView;
+	private ColaboradorOsFormView subView;
 
 	@Autowired
-	ColaboradorOsDAO colaboradorOsDAO;
+	private IColaboradorOsDAO colaboradorOsDAO;
 
 	@Autowired
-	TipoColaboradorOsDAO tipoColaboradorOsDAO;
+	private ITipoColaboradorOsDAO tipoColaboradorOsDAO;
 
 	@Autowired
-	PlanoContaDAO planoContaDAO;
+	private IPlanoContaDAO planoContaDAO;
 
 	@Autowired
-	ContaCaixaDAO contaCaixaDAO;
+	private IContaCaixaDAO contaCaixaDAO;
 
 	private ColaboradorOsEntity currentBean;
 
@@ -213,7 +213,7 @@ public class ColaboradorOsFormController extends CRUDFormController<ColaboradorO
 		};
 		this.subView.getCbTipoColaborador().setModel(tipo);
 
-		DefaultManyToOneComboModel<PlanoConta> planoConta = new DefaultManyToOneComboModel<PlanoConta>(PlanoContaListController.class,
+		DefaultManyToOneComboModel<PlanoContaEntity> planoConta = new DefaultManyToOneComboModel<PlanoContaEntity>(PlanoContaListController.class,
 				this.planoContaDAO, super.getMainController());
 
 		this.subView.getCbPlanoConta().setModel(planoConta);

@@ -33,7 +33,7 @@ public class PessoaJuridicaBusinessImpl implements Serializable,
 			.getLogger(PessoaJuridicaBusinessImpl.class);
 
 	@Autowired
-	private IPessoaJuridicaDAO<PessoaJuridicaEntity> dao;
+	private IPessoaJuridicaDAO dao;
 
 	/**
 	 * **********************************************

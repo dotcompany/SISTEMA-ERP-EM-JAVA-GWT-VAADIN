@@ -19,7 +19,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 @SuppressWarnings("unchecked")
 public class NfeDetalheImpostoIssqnDAO extends
-		AbstractCrudDAO<NfeDetalheImpostoIssqnEntity> {
+		AbstractCrudDAO<NfeDetalheImpostoIssqnEntity> implements INfeDetalheImpostoIssqnDAO {
 
 	@Override
 	public Class<NfeDetalheImpostoIssqnEntity> getEntityClass() {

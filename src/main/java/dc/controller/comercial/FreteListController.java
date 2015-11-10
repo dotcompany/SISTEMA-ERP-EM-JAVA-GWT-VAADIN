@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.comercial.Frete;
-import dc.servicos.dao.comercial.FreteDAO;
+import dc.servicos.dao.comercial.IFreteDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -19,7 +19,7 @@ public class FreteListController extends CRUDListController<Frete> {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	FreteDAO dao;
+	private IFreteDAO dao;
 
 	@Autowired
 	FreteFormController formController;

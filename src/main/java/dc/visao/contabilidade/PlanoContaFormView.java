@@ -6,7 +6,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextField;
 
-import dc.entidade.contabilidade.PlanoConta;
+import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
 import dc.visao.framework.component.IntegerConverter;
 import dc.visao.framework.util.ComponentUtil;
 
@@ -61,7 +61,7 @@ public class PlanoContaFormView extends CustomComponent {
 		return mainLayout;
 	}
 
-	public void preencheBean(PlanoConta currentBean) {
+	public void preencheBean(PlanoContaEntity currentBean) {
 		currentBean.setDataInclusao(dtDataInclusao.getValue());
 		currentBean.setMascara(txMascara.getValue());
 		currentBean.setNiveis((Integer) txNiveisField.getConvertedValue());
@@ -69,7 +69,7 @@ public class PlanoContaFormView extends CustomComponent {
 
 	}
 
-	public void preencheForm(PlanoConta currentBean) {
+	public void preencheForm(PlanoContaEntity currentBean) {
 		dtDataInclusao.setValue(currentBean.getDataInclusao());
 		txMascara.setValue(currentBean.getMascara());
 		txNiveisField.setConvertedValue(currentBean.getNiveis());

@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.outro.SindicatoEntity;
-import dc.model.dao.geral.outro.SindicatoDAO;
+import dc.model.dao.geral.outro.ISindicatoDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class SindicatoBusinessImpl implements Serializable,
 			.getLogger(SindicatoBusinessImpl.class);
 
 	@Autowired
-	private SindicatoDAO<SindicatoEntity> dao;
+	private ISindicatoDAO dao;
 
 	/**
 	 * **********************************************

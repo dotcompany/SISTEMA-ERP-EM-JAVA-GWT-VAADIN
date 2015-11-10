@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.contabilidade.demonstrativo.DfcEntity;
-import dc.servicos.dao.contabilidade.demonstrativo.DfcDAO;
+import dc.servicos.dao.contabilidade.demonstrativo.IDfcDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -32,7 +32,7 @@ public class DfcListController extends CRUDListController<DfcEntity> {
 	 */
 
 	@Autowired
-	private DfcDAO pDAO;
+	private IDfcDAO pDAO;
 
 	/**
 	 * CONTROLLER'S
@@ -88,7 +88,7 @@ public class DfcListController extends CRUDListController<DfcEntity> {
 	@Override
 	protected List<DfcEntity> pesquisaDefault() {
 		try {
-			List<DfcEntity> auxLista = this.pDAO.listarTodos();
+			List<DfcEntity> auxLista = this.pDAO.getAll();
 
 			return auxLista;
 		} catch (Exception e) {

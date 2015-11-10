@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.ordemservico.GrupoOsEntity;
-import dc.servicos.dao.ordemservico.GrupoDAO;
+import dc.servicos.dao.ordemservico.GrupoOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -18,7 +18,7 @@ public class GrupoListController extends CRUDListController<GrupoOsEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	GrupoDAO dao;
+	GrupoOsDAO dao;
 
 	@Autowired
 	GrupoFormController formController;

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.nfe.NfeDestinatarioEntity;
-import dc.servicos.dao.nfe.NfeDestinatarioDAO;
+import dc.servicos.dao.nfe.INfeDestinatarioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.NfeDestinatarioFormView;
 
@@ -38,7 +38,7 @@ public class NfeDestinatarioFormController extends CRUDFormController<NfeDestina
 	/** DAO'S */
 
 	@Autowired
-	private NfeDestinatarioDAO nfeDestinatarioDAO;
+	private INfeDestinatarioDAO nfeDestinatarioDAO;
 
 	/** ENTITIES */
 

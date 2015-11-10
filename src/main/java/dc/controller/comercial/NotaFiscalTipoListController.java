@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.comercial.NotaFiscalTipo;
-import dc.servicos.dao.comercial.NotaFiscalTipoDAO;
+import dc.model.dao.geral.pessoal.INotaFiscalTipoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,10 +21,10 @@ public class NotaFiscalTipoListController extends CRUDListController<NotaFiscalT
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	NotaFiscalTipoDAO dao;
+	private INotaFiscalTipoDAO dao;
 
 	@Autowired
-	NotaFiscalTipoFormController formController;
+	private NotaFiscalTipoFormController formController;
 
 	@Override
 	public String[] getColunas() {

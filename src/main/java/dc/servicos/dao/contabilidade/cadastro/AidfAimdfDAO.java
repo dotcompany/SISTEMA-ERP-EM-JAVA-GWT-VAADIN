@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class AidfAimdfDAO extends AbstractCrudDAO<AidfAimdfEntity> {
+public class AidfAimdfDAO extends AbstractCrudDAO<AidfAimdfEntity> implements IAidfAimdfDAO {
 
 	@Override
 	public Class<AidfAimdfEntity> getEntityClass() {
@@ -39,6 +39,7 @@ public class AidfAimdfDAO extends AbstractCrudDAO<AidfAimdfEntity> {
 		}
 	}
 
+	@Override
 	@Transactional
 	public List<AidfAimdfEntity> procuraNomeContendo(String query) {
 		try {

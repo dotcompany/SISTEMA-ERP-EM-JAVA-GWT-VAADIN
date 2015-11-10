@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.ParcelaPagar;
-import dc.servicos.dao.financeiro.ParcelaPagarDAO;
+import dc.servicos.dao.financeiro.IParcelaPagarDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ParcelaPagarDAO dao;
+	private IParcelaPagarDAO dao;
 
 	@Autowired
 	private ParcelaPagamentoFormController parcelaPagamentoFormController;

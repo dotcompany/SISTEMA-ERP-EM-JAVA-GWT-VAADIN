@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
-import dc.model.dao.tributario.IcmsCustomizadoDAO;
+import dc.model.dao.tributario.IIcmsCustomizadoDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class IcmsCustomizadoBusinessImpl implements Serializable,
 			.getLogger(IcmsCustomizadoBusinessImpl.class);
 
 	@Autowired
-	private IcmsCustomizadoDAO<IcmsCustomizadoCabecalhoEntity> dao;
+	private IIcmsCustomizadoDAO dao;
 
 	/**
 	 * **********************************************

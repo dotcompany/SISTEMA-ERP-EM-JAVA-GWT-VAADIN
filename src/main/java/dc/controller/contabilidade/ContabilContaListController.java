@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.contabilidade.ContabilContaEntity;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
+import dc.servicos.dao.contabilidade.IContabilContaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,7 +21,7 @@ public class ContabilContaListController extends CRUDListController<ContabilCont
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ContabilContaDAO dao;
+	private IContabilContaDAO dao;
 
 	@Autowired
 	private ContabilContaFormController contabilContaFormController;

@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.control.validator.ObjectValidator;
 import dc.entidade.contabilidade.cadastro.RegistroCartorioEntity;
-import dc.servicos.dao.contabilidade.cadastro.RegistroCartorioDAO;
+import dc.servicos.dao.contabilidade.cadastro.IRegistroCartorioDAO;
 import dc.visao.contabilidade.cadastro.RegistroCartorioFormView;
 import dc.visao.framework.geral.CRUDFormController;
 
@@ -33,7 +33,7 @@ public class RegistroCartorioFormController extends
 	/** DAO'S */
 
 	@Autowired
-	private RegistroCartorioDAO pDAO;
+	private IRegistroCartorioDAO pDAO;
 
 	/** ENTITIES */
 

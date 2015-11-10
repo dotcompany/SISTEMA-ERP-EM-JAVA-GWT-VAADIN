@@ -9,7 +9,7 @@ import dc.entidade.comercial.Orcamento;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class OrcamentoDAO extends AbstractCrudDAO<Orcamento> {
+public class OrcamentoDAO extends AbstractCrudDAO<Orcamento> implements IOrcamentoDAO {
 
 	@Override
 	public Class<Orcamento> getEntityClass() {

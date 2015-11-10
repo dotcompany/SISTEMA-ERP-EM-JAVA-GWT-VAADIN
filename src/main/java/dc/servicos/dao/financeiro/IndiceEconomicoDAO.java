@@ -22,7 +22,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class IndiceEconomicoDAO extends AbstractCrudDAO<IndiceEconomicoEntity> {
+public class IndiceEconomicoDAO extends AbstractCrudDAO<IndiceEconomicoEntity> implements IIndiceEconomicoDAO {
 
 	@Override
 	public Class<IndiceEconomicoEntity> getEntityClass() {

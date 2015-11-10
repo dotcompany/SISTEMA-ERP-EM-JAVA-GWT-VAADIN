@@ -11,7 +11,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ExtratoContaBancoDAO extends AbstractCrudDAO<ExtratoContaBancoEntity> {
+public class ExtratoContaBancoDAO extends AbstractCrudDAO<ExtratoContaBancoEntity> implements IExtratoContaBancoDAO {
 	
 	@Override
 	public Class<ExtratoContaBancoEntity> getEntityClass() {
@@ -27,6 +27,10 @@ public class ExtratoContaBancoDAO extends AbstractCrudDAO<ExtratoContaBancoEntit
 		return new String[] { "mes","ano","dataMovimento","valor","observacoes" };
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.IExtratoContaBancoDAO#findByExtratoContaBanco(dc.entidade.financeiro.ExtratoContaBancoEntity)
+	 */
+	@Override
 	@Transactional
 	public List<ExtratoContaBancoEntity> findByExtratoContaBanco(ExtratoContaBancoEntity extrato){
 

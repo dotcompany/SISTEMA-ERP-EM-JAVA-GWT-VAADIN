@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vaadin.data.Container.Filter;
 
 import dc.entidade.nfe.NfeCabecalhoEntity;
-import dc.servicos.dao.nfe.NfeCabecalhoDAO;
+import dc.servicos.dao.nfe.INfeCabecalhoDAO;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class NfeCabecalhoBusinessImpl implements Serializable,
 	private static final long serialVersionUID = 1L;
 
 	@Resource
-	private NfeCabecalhoDAO mainDAO;
+	private INfeCabecalhoDAO mainDAO;
 
 	@Override
 	public void delete(NfeCabecalhoEntity t) throws Exception {

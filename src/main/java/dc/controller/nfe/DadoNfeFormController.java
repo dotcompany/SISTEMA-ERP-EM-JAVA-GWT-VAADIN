@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.nfe.NfeCabecalhoEntity;
-import dc.servicos.dao.nfe.NfeCabecalhoDAO;
+import dc.servicos.dao.nfe.INfeCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.nfe.DadoNfeFormView;
 
@@ -28,7 +28,7 @@ public class DadoNfeFormController extends CRUDFormController<NfeCabecalhoEntity
 	/** DAO'S */
 
 	@Autowired
-	private NfeCabecalhoDAO nfeCabecalhoDAO;
+	private INfeCabecalhoDAO nfeCabecalhoDAO;
 
 	/** ENTITIES */
 

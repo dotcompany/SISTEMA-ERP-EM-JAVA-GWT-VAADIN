@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.contabilidade.PlanoContaRefSped;
-import dc.servicos.dao.contabilidade.PlanoContaRefSpedDAO;
+import dc.servicos.dao.contabilidade.planoconta.IPlanoContaRefSpedDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,7 +21,7 @@ public class PlanoContaRefSpedListController extends CRUDListController<PlanoCon
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private PlanoContaRefSpedDAO dao;
+	private IPlanoContaRefSpedDAO dao;
 
 	@Autowired
 	private PlanoContaRefSpedFormController planoContaRefSpedFormController;

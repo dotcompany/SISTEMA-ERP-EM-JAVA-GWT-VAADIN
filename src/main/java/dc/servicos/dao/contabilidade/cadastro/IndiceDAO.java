@@ -16,7 +16,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class IndiceDAO extends AbstractCrudDAO<IndiceEntity> {
+public class IndiceDAO extends AbstractCrudDAO<IndiceEntity> implements IIndiceDAO {
 
 	@Override
 	public Class<IndiceEntity> getEntityClass() {

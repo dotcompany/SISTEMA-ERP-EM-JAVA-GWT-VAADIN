@@ -13,9 +13,9 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.contabilidade.ContabilContaListController;
 import dc.entidade.financeiro.NaturezaFinanceira;
-import dc.servicos.dao.contabilidade.ContabilContaDAO;
-import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
-import dc.servicos.dao.financeiro.PlanoNaturezaFinanceiraDAO;
+import dc.servicos.dao.contabilidade.IContabilContaDAO;
+import dc.servicos.dao.financeiro.INaturezaFinanceiraDAO;
+import dc.servicos.dao.financeiro.IPlanoNaturezaFinanceiraDAO;
 import dc.visao.financeiro.NaturezaFinanceiraFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -33,15 +33,15 @@ public class NaturezaFinanceiraFormController extends CRUDFormController<Naturez
 	private NaturezaFinanceiraFormView subView;
 
 	@Autowired
-	private NaturezaFinanceiraDAO naturezafinanceiraDAO;
+	private INaturezaFinanceiraDAO naturezafinanceiraDAO;
 
 	private NaturezaFinanceira currentBean;
 
 	@Autowired
-	private PlanoNaturezaFinanceiraDAO planonaturezafinanceiraDAO;
+	private IPlanoNaturezaFinanceiraDAO planonaturezafinanceiraDAO;
 
 	@Autowired
-	private ContabilContaDAO contabilcontaDAO;
+	private IContabilContaDAO contabilcontaDAO;
 
 	@Autowired
 	private MainController mainController;

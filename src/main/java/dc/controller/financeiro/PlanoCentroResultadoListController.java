@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.financeiro.PlanoCentroResultado;
-import dc.servicos.dao.financeiro.PlanoCentroResultadoDAO;
+import dc.servicos.dao.financeiro.IPlanoCentroResultadoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class PlanoCentroResultadoListController extends CRUDListController<Plano
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	PlanoCentroResultadoDAO dao;
+	private IPlanoCentroResultadoDAO dao;
 
 	@Autowired
 	PlanoCentroResultadoFormController planocentroresultadoFormController;
