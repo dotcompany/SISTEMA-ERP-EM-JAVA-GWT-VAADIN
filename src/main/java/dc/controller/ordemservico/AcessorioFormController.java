@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.AcessorioEntity;
 import dc.servicos.dao.ordemservico.AcessorioDAO;
-import dc.servicos.util.Validator;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.AcessorioFormView;
 
@@ -40,7 +41,6 @@ public class AcessorioFormController extends CRUDFormController<AcessorioEntity>
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
 		try {
 			acessorioDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -51,52 +51,91 @@ public class AcessorioFormController extends CRUDFormController<AcessorioEntity>
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = acessorioDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());
+		try {
+			        this.currentBean = this.acessorioDAO.find(id);
+			
+			        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+			        fieldGroup.setItemDataSource(this.currentBean);
+			
+			    } catch (Exception e) {
+			        e.printStackTrace();
+			    }
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new AcessorioFormView();
+		try {
+			        this.subView = new AcessorioFormView(this);
+			
+			        // Cria o DCFieldGroup
+			        this.fieldGroup = new DCFieldGroup<>(AcessorioEntity.class);
+			
+			        // Mapeia os campos
+			        fieldGroup.bind(this.subView.getTxtNome(),"nome");
+			
+			    } catch (Exception e) {
+			        e.printStackTrace();
+			    }
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new AcessorioEntity();
+		 try {
+			         this.currentBean = new AcessorioEntity();
+			 
+			         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+			         fieldGroup.setItemDataSource(this.currentBean);
+			 
+			     } catch (Exception e) {
+			         e.printStackTrace();
+			         mensagemErro(e.getMessage());
+			     }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		acessorioDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.acessorioDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
+		try {
+			        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			        fieldGroup.commit();
+			        return true;
+			    } catch (FieldGroup.CommitException ce) {
+			        return false;
+			    }
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			AcessorioEntity acessorio = (AcessorioEntity) id;
+
+			try {
+				acessorioDAO.delete(acessorio);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override
 	public String getViewIdentifier() {
 		return "acessorioForm";
-	}
-
-	@Override
-	protected void quandoNovo() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

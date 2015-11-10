@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.ordemservico.ServicoOsEntity;
-import dc.servicos.dao.ordemservico.ServicoOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -18,14 +17,12 @@ public class ServicoOsListController extends CRUDListController<ServicoOsEntity>
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ServicoOsDAO dao;
-	
-	@Autowired
 	ServicoOsFormController formController;
 	
 	@Override
 	public String[] getColunas() {
-		return new String[] {"nome","grupo","subGrupo"};
+		return new String[] {"nome","grupo","subGrupo","aliquotaIssqn","valorComissaoTecnico","valorComissaoVendedor","valorServico","valorMinimoServico",
+				"dataCadastro","observacao"};
 	}
 
 	@Override
@@ -35,7 +32,16 @@ public class ServicoOsListController extends CRUDListController<ServicoOsEntity>
 
 	@Override
 	protected List<ServicoOsEntity> pesquisa(String valor) {
-		return dao.fullTextSearch(valor);
+		try {
+			List<ServicoOsEntity> auxLista = (List<ServicoOsEntity>) this.formController.getBusiness().fullTextSearch(valor);
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
+		
 	}
 	
 	@Override
@@ -55,11 +61,19 @@ public class ServicoOsListController extends CRUDListController<ServicoOsEntity>
 
 	@Override
 	protected List<ServicoOsEntity> pesquisaDefault() {
-		return dao.getAll(ServicoOsEntity.class);
+		try {
+			List<ServicoOsEntity> auxLista = (List<ServicoOsEntity>) this.formController.getBusiness().getAll(getEntityClass());
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

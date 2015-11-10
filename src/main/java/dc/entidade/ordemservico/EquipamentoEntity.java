@@ -13,7 +13,10 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -47,6 +50,7 @@ public class EquipamentoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "filial")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Filial é Obrigatório!")
 	private Integer filial;
 
 	@Field
@@ -54,6 +58,7 @@ public class EquipamentoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "equipamento")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Equipamento é Orbigatório")
 	private String equipamento;
 	
 	@Field
@@ -125,5 +130,38 @@ public class EquipamentoEntity extends AbstractMultiEmpresaModel<Integer> {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof EquipamentoEntity)) {
+            return false;
+        }
+
+        EquipamentoEntity that = (EquipamentoEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
+    
+    @Override
+    public String toString() {
+    	
+    	return equipamento;
+    }
 
 }

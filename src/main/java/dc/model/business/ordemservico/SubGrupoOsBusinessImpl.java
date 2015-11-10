@@ -46,7 +46,8 @@ public class SubGrupoOsBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(SubGrupoOsEntity t) throws Exception {
-		// TODO Auto-generated method stub
+		
+		dao.delete(t);
 
 	}
 
@@ -116,8 +117,8 @@ public class SubGrupoOsBusinessImpl implements Serializable,
 
 	@Override
 	public List<SubGrupoOsEntity> fullTextSearch(String valor) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

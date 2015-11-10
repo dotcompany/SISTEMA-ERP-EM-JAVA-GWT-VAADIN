@@ -146,19 +146,33 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOsEnt
 	}
 
 	@Override
-	protected void quandoNovo() {
-	}
-
-	@Override
 	protected void remover(List<Serializable> ids) {
-		// TODO Auto-generated method stub
+		try {
+			this.dao.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 
 	}
 
 	@Override
-	protected void removerEmCascata(List<Serializable> objetos) {
-		// TODO Auto-generated method stub
+	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			ParametroOsEntity parametroos = (ParametroOsEntity) id;
 
+			try {
+				dao.delete(parametroos);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

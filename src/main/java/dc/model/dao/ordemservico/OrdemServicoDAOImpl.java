@@ -12,7 +12,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
  * 
- * @author Paulo Sérgio Ferreira
+ * @author Wesley Jr
  * 
  */
 @Repository
@@ -64,7 +64,8 @@ OrdemServicoDAO<OrdemServicoEntity> {
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] { "nome" };
+		return new String[] { "cliente","dataCadastr","valorServico","valorPeca","valorFrete","valorTotalOs","valorTotalServico","valorLucroServico","quantidadeParcelaCheque","primeiroVencimentoCheque",
+				"quantidadeParcelaCarne","primeiroVencimentoCarne","quantidadeParcelaCartao","primeiroVencimentoCartao","quantidadeParcelaBoleto","primeiroVencimentoBoleto","dataExclusao","efetivada" };
 	}
 
 	@Override

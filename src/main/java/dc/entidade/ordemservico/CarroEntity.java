@@ -81,11 +81,12 @@ public class CarroEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@Caption("Ano")
 	@Column(name = "ano")
+	@NotNull(message = "Ano é Obrigatório!")
 	private Integer ano;
 
 	@Caption("Cliente")
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@NotNull(message = "Cliente é Obrigatório!")
 	private ClienteEntity cliente;
 

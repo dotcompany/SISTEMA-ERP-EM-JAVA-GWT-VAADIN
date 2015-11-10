@@ -7,6 +7,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import dc.controller.ordemservico.GrupoOsFormController;
+import dc.visao.framework.util.ComponentUtil;
 
 public class GrupoOsFormView extends CustomComponent {
 
@@ -57,11 +58,8 @@ public class GrupoOsFormView extends CustomComponent {
 		verticalLayout_1.setMargin(false);
 		verticalLayout_1.setSpacing(true);
 		
-		// txtObservacao
-		txtNome = new TextField();
-		txtNome.setCaption("Nome");
+		txtNome = ComponentUtil.buildTextField("Nome");
 		txtNome.setImmediate(false);
-		txtNome.setRequired(true);
 		txtNome.setWidth("640px");
 		txtNome.setHeight("-1px");
 		verticalLayout_1.addComponent(txtNome);

@@ -91,6 +91,8 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOsEntity>
 			this.fieldGroup = new DCFieldGroup<>(ServicoOsEntity.class);
 
         fieldGroup.bind(this.subView.getTfNome(), "nome");
+        fieldGroup.bind(this.subView.getOptTipoComissaoVendedor(), "tipoComissaoVendedor");
+        fieldGroup.bind(this.subView.getOptTipoComissaoTecnico(), "tipoComissaoTecnico");
         fieldGroup.bind(this.subView.getCbGrupo(), "grupo");
         fieldGroup.bind(this.subView.getCbSubGrupo(), "subGrupo");
 
@@ -196,13 +198,18 @@ public class ServicoOsFormController extends CRUDFormController<ServicoOsEntity>
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (Serializable id : ids) {
+			ServicoOsEntity servicoOs = (ServicoOsEntity) id;
 
-			mensagemErro(e.getMessage());
+			try {
+				business.delete(servicoOs);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
 		}
+		
+		mensagemRemovidoOK();
 	}
 
 	/*public String formataMoeda(String valor) {

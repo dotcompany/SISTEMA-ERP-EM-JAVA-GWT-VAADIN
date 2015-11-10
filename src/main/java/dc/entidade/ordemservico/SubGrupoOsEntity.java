@@ -15,13 +15,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -49,6 +53,7 @@ public class SubGrupoOsEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "nome")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome;
 
 	@Field
@@ -62,7 +67,9 @@ public class SubGrupoOsEntity extends AbstractMultiEmpresaModel<Integer> {
 	 
 	@Caption("Grupo")
 	@JoinColumn(name = "id_grupo", referencedColumnName = "id")
-	@ManyToOne(fetch = FetchType.EAGER,optional = false)
+	@ManyToOne(fetch = FetchType.LAZY,optional = false)
+	@IndexedEmbedded(includePaths={"nome"})
+	@NotNull(message = "Grupo é Obrigatório!")
 	private GrupoOsEntity grupo;
 	 
 	public Integer getId() {
@@ -100,5 +107,32 @@ public class SubGrupoOsEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Override
 	public String toString() {
 		return nome;
-	}	
+	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof SubGrupoOsEntity)) {
+            return false;
+        }
+
+        SubGrupoOsEntity that = (SubGrupoOsEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }	
 }

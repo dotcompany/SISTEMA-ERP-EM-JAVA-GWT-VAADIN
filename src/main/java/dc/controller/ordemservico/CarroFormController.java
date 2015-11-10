@@ -135,6 +135,7 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 	        fieldGroup.bind(this.subView.getCbMarca(), "marca");
 			fieldGroup.bind(this.subView.getCbModelo(), "modelo");
 			fieldGroup.bind(this.subView.getCbCor(), "cor");
+			fieldGroup.bind(this.subView.getTfAno(), "ano");
 			fieldGroup.bind(this.subView.getCbCombustivel(), "combustivel");
 			
 			        // Configura os ManyToOneComboFields

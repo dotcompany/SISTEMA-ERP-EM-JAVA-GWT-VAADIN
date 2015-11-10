@@ -60,6 +60,6 @@ public class SituacaoServicoListController extends CRUDListController<SituacaoSe
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

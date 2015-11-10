@@ -398,7 +398,7 @@ public class OrdemServicoFormView extends CustomComponent {
 				if(carro.getModelo()!=null){
 					tfModelo.setValue(carro.getModelo().getNome());
 				}
-				//tfAno.setValue(carro.getAno().toString());
+				tfAno.setValue(carro.getAno().toString());
 				tfMotorizacao.setValue(carro.getMotorizacao());
 				if(carro.getCombustivel()!=null){
 					tfCombustivel.setValue(carro.getCombustivel().getNome());

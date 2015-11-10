@@ -62,6 +62,6 @@ public class ModeloListController extends CRUDListController<ModeloEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

@@ -10,29 +10,29 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.CombustivelEntity;
-import dc.servicos.dao.ordemservico.CombustivelDAO;
+import dc.entidade.ordemservico.MarcaOsEntity;
+import dc.servicos.dao.ordemservico.MarcaDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.ordemservico.CombustivelFormView;
+import dc.visao.ordemservico.MarcaFormView;
 
 
 @Controller
 @Scope("prototype")
-public class CombustivelFormController extends CRUDFormController<CombustivelEntity> {
+public class MarcaOsFormController extends CRUDFormController<MarcaOsEntity> {
 
 	private static final long serialVersionUID = 1L;
 
-	CombustivelFormView subView;
+	MarcaFormView subView;
 
 	@Autowired
-	CombustivelDAO combustivelDAO;
+	MarcaDAO marcaDAO;
 
-	private CombustivelEntity currentBean;
+	private MarcaOsEntity currentBean;
 
 	@Override
 	protected String getNome() {
-		return "Combustível";
+		return "Marca";
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class CombustivelFormController extends CRUDFormController<CombustivelEnt
 	@Override
 	protected void actionSalvar() {
 		try {
-			combustivelDAO.saveOrUpdate(currentBean);
+			marcaDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,7 +53,7 @@ public class CombustivelFormController extends CRUDFormController<CombustivelEnt
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-	        this.currentBean = this.combustivelDAO.find(id);
+	        this.currentBean = this.marcaDAO.find(id);
 	
 	        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
 	        fieldGroup.setItemDataSource(this.currentBean);
@@ -63,14 +63,13 @@ public class CombustivelFormController extends CRUDFormController<CombustivelEnt
 	    }
 	}
 
-
 	@Override
 	protected void initSubView() {
 		try {
-	        this.subView = new CombustivelFormView(this);
+	        this.subView = new MarcaFormView(this);
 	
 	        // Cria o DCFieldGroup
-	        this.fieldGroup = new DCFieldGroup<>(CombustivelEntity.class);
+	        this.fieldGroup = new DCFieldGroup<>(MarcaOsEntity.class);
 	
 	        // Mapeia os campos
 	        fieldGroup.bind(this.subView.getTxtNome(),"nome");
@@ -87,7 +86,7 @@ public class CombustivelFormController extends CRUDFormController<CombustivelEnt
 	@Override
 	protected void criarNovoBean() {
 		try {
-	         this.currentBean = new CombustivelEntity();
+	         this.currentBean = new MarcaOsEntity();
 	 
 	         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
 	         fieldGroup.setItemDataSource(this.currentBean);
@@ -101,7 +100,7 @@ public class CombustivelFormController extends CRUDFormController<CombustivelEnt
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.combustivelDAO.deleteAll(ids);
+			this.marcaDAO.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -127,10 +126,10 @@ public class CombustivelFormController extends CRUDFormController<CombustivelEnt
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 		for (Serializable id : ids) {
-			CombustivelEntity combustivel = (CombustivelEntity) id;
+			MarcaOsEntity marcaOs = (MarcaOsEntity) id;
 
 			try {
-				combustivelDAO.delete(combustivel);
+				marcaDAO.delete(marcaOs);
 			} catch (Exception e) {
 				e.printStackTrace();
 				mensagemErro(e.getMessage());
@@ -142,12 +141,13 @@ public class CombustivelFormController extends CRUDFormController<CombustivelEnt
 
 	@Override
 	public String getViewIdentifier() {
-		return "combustivelForm";
+		return "marcaForm";
 	}
 
 	@Override
-	public CombustivelEntity getModelBean() {
+	public MarcaOsEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}
+
 }

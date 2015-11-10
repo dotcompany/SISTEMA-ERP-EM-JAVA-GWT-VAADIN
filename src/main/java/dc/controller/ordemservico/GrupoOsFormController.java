@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.ordemservico.GrupoUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.ordemservico.GrupoOsEntity;
 import dc.model.business.ordemservico.GrupoOsBusiness;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.GrupoOsFormView;
 
@@ -73,29 +73,32 @@ public class GrupoOsFormController extends CRUDFormController<GrupoOsEntity> {
 	@Override
 	protected void initSubView() {
 		try {
-			this.subView = new GrupoOsFormView(this);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	        this.subView = new GrupoOsFormView(this);
+	
+	        // Cria o DCFieldGroup
+	        this.fieldGroup = new DCFieldGroup<>(GrupoOsEntity.class);
+	
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTxtNome(),"nome");
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			GrupoUtils.validateRequiredFields(this.subView);
-
-			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
-			return false;
-		}
+	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
+	    }
 	}
 
 	@Override
 	protected void actionSalvar() {
-		this.currentBean.setNome(subView.getTxtNome().getValue());
 		try {
 			this.business.saveOrUpdate(this.currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -108,22 +111,14 @@ public class GrupoOsFormController extends CRUDFormController<GrupoOsEntity> {
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.business.find(id);
-
-			subView.getTxtNome().setValue(currentBean.getNome());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
-	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
-	 * padrÃ£o
-	 */
-	@Override
-	protected void quandoNovo() {
-
+	        this.currentBean = this.business.find(id);
+	
+	        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/*
@@ -132,7 +127,16 @@ public class GrupoOsFormController extends CRUDFormController<GrupoOsEntity> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new GrupoOsEntity();
+		try {
+	         this.currentBean = new GrupoOsEntity();
+	 
+	         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	         fieldGroup.setItemDataSource(this.currentBean);
+	 
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         mensagemErro(e.getMessage());
+	     }
 	}
 	@Override
 	protected void remover(List<Serializable> ids) {
@@ -149,5 +153,17 @@ public class GrupoOsFormController extends CRUDFormController<GrupoOsEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			GrupoOsEntity grupoOs = (GrupoOsEntity) id;
+
+			try {
+				business.delete(grupoOs);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 }

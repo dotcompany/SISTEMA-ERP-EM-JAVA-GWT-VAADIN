@@ -61,7 +61,7 @@ public class SubGrupoListController extends
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 }

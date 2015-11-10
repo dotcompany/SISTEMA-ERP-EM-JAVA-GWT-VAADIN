@@ -26,7 +26,8 @@ public class OrdemServicoListController extends CRUDListController<OrdemServicoE
 
 	@Override
 	public String[] getColunas() {
-		return new String[] {"dataCadastro","cliente","valorTotalOs"};
+		return new String[] {"cliente","dataCadastro","valorServico","valorPeca","valorFrete","valorTotalOs","valorTotalServico","valorLucroServico","quantidadeParcelaCheque","primeiroVencimentoCheque",
+				"quantidadeParcelaCarne","primeiroVencimentoCarne","quantidadeParcelaCartao","primeiroVencimentoCartao","quantidadeParcelaBoleto","primeiroVencimentoBoleto","dataExclusao","efetivada"};
 	}
 
 	@Override

@@ -60,6 +60,6 @@ public class TipoServicoListController extends CRUDListController<TipoServicoOsE
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

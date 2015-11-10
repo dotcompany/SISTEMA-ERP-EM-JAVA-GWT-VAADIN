@@ -73,6 +73,7 @@ import dc.model.business.ordemservico.StatusOsBusiness;
 import dc.model.business.ordemservico.TipoEfetivacaoOsBusiness;
 import dc.model.business.ordemservico.TipoServicoOsBusiness;
 import dc.model.business.ordemservico.VendaPecaBusiness;
+import dc.model.dao.ordemservico.OrdemServicoDAO;
 import dc.servicos.dao.financeiro.TipoPagamentoDAO;
 import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
@@ -122,9 +123,12 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 	
 	@Autowired
 	private MarcaDAO marcaDAO;
-	
+
 	@Autowired
 	private ModeloOsDAO modeloDAO;
+
+	@Autowired
+	private OrdemServicoDAO<OrdemServicoEntity> ordemServicoDAO;
 	
 	@Autowired
 	private CorDAO corDAO;
@@ -1708,8 +1712,16 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 	}
 
 	@Override
-	protected void removerEmCascata(List<Serializable> ids) {
-		remover(ids);
+	protected void removerEmCascata(List<Serializable> objetos) {
+		try {
+			this.ordemServicoDAO.deleteAll(objetos);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	public void removerMaterialServico(List<MaterialServicoEntity> values) {

@@ -7,16 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
-import dc.control.util.ClassUtils;
-import dc.control.util.classes.ordemservico.SubGrupoOsUtils;
-import dc.control.validator.DotErpException;
-import dc.entidade.ordemservico.SubGrupoOsEntity;
 import dc.entidade.ordemservico.GrupoOsEntity;
+import dc.entidade.ordemservico.SubGrupoOsEntity;
 import dc.model.business.ordemservico.GrupoOsBusiness;
 import dc.model.business.ordemservico.SubGrupoOsBusiness;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.servicos.dao.ordemservico.GrupoDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.SubGrupoOsFormView;
 
@@ -41,6 +40,9 @@ public class SubGrupoOsFormController extends
 
 	@Autowired
 	private GrupoOsBusiness<GrupoOsEntity> businessGrupoOs;
+	
+	@Autowired
+	GrupoDAO grupoDAO;
 
 	/**
 	 * CONSTRUTOR
@@ -63,78 +65,48 @@ public class SubGrupoOsFormController extends
 	}
 
 	@Override
-	public String getViewIdentifier() {
-		return ClassUtils.getUrl(this);
-	}
-	
-	@Override
-	public boolean isFullSized() {
-		return true;
-	}
-	
-	@Override
-	public SubGrupoOsEntity getModelBean() {
-		return currentBean;
-	}
-	
-	@Override
-	protected void initSubView() {
-		try {
-			this.subView = new SubGrupoOsFormView(this);
-
-			preencheCombos();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	protected boolean validaSalvar() {
-		try {
-			SubGrupoOsUtils.validateRequiredFields(this.subView);
-
-			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
-
-			return false;
-		}
-	}
-	
-	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setGrupo(subView.getCbGrupo().getValue());
 		try {
-			this.business.saveOrUpdate(this.currentBean);
+			business.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();
-			mensagemErro(e.getMessage());
 		}
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
 		try {
-			this.currentBean = this.business.find(id);
-
-			subView.getTxtNome().setValue(currentBean.getNome());
-			subView.getCbGrupo().setValue(currentBean.getGrupo());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	        this.currentBean = this.business.find(id);
+	
+	        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
-	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
-	 * padrÃ£o
-	 */
-	@Override
-	protected void quandoNovo() {
 
+	@Override
+	protected void initSubView() {
+
+		try {
+	        this.subView = new SubGrupoOsFormView(this);
+	
+	        // Cria o DCFieldGroup
+	        this.fieldGroup = new DCFieldGroup<>(SubGrupoOsEntity.class);
+	
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTxtNome(),"nome");
+	        fieldGroup.bind(this.subView.getCbGrupo(),"grupo");
+	        
+	        this.subView.getCbGrupo().configuraCombo(
+	        		"nome", GrupoListController.class, this.grupoDAO, this.getMainController());
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/*
@@ -143,16 +115,18 @@ public class SubGrupoOsFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SubGrupoOsEntity();
+		try {
+	         this.currentBean = new SubGrupoOsEntity();
+	 
+	         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	         fieldGroup.setItemDataSource(this.currentBean);
+	 
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         mensagemErro(e.getMessage());
+	     }
 	}
 
-	private void preencheCombos() {
-
-		DefaultManyToOneComboModel<GrupoOsEntity> grupo = new DefaultManyToOneComboModel<GrupoOsEntity>(
-				GrupoOsListController.class, super.getMainController(), false, this.businessGrupoOs);
-
-		this.subView.getCbGrupo().setModel(grupo);
-	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
@@ -167,9 +141,44 @@ public class SubGrupoOsFormController extends
 		}
 	}
 
+	/* Implementar validacao de campos antes de salvar. */
+	@Override
+	protected boolean validaSalvar() {
+
+		try {
+	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
+	    }
+	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			SubGrupoOsEntity sub = (SubGrupoOsEntity) id;
+
+			try {
+				business.delete(sub);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
+	}
+
+	@Override
+	public String getViewIdentifier() {
+		return "subGrupoForm";
+	}
+
+	@Override
+	public SubGrupoOsEntity getModelBean() {
+		// TODO Auto-generated method stub
+		return currentBean;
 	}
 
 }

@@ -29,6 +29,7 @@ import org.hibernate.annotations.GenerationTime;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
@@ -58,6 +59,7 @@ public class OrdemServicoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Cliente")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
+	@IndexedEmbedded(depth=3, includePaths={"pessoa.nome"})
 	private ClienteEntity cliente;
 
 	@Field

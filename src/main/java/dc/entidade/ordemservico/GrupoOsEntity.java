@@ -1,14 +1,25 @@
 package dc.entidade.ordemservico;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -40,7 +51,13 @@ public class GrupoOsEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "nome")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome;
+	
+	@OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<SubGrupoOsEntity> subGrupo = new ArrayList<>();
+	
 
 	public Integer getId() {
 		return id;
@@ -59,7 +76,45 @@ public class GrupoOsEntity extends AbstractMultiEmpresaModel<Integer> {
 	}
 	
 	@Override
-	public String toString() {
-		return nome;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof GrupoOsEntity)) {
+            return false;
+        }
+
+        GrupoOsEntity that = (GrupoOsEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
+    
+    @Override
+    public String toString() {
+    	
+    	return nome;
+    }
+
+	public List<SubGrupoOsEntity> getSubGrupo() {
+		return subGrupo;
+	}
+
+	public void setSubGrupo(List<SubGrupoOsEntity> subGrupo) {
+		this.subGrupo = subGrupo;
 	}	
+    
+    
 }

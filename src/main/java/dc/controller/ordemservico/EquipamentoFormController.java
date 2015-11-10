@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.EquipamentoEntity;
 import dc.servicos.dao.ordemservico.EquipamentoDAO;
-import dc.servicos.util.Validator;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.EquipamentoFormView;
 
@@ -42,10 +43,6 @@ public class EquipamentoFormController extends CRUDFormController<EquipamentoEnt
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setFilial(Integer.parseInt(subView.getTfFilial().getValue()));
-		currentBean.setEquipamento(subView.getTfEquipamento().getValue());
-		currentBean.setDescricao(subView.getTfDescricao().getValue());
-		currentBean.setObservacao(subView.getTaObservacao().getValue());
 		try {
 			equipamentoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -56,23 +53,33 @@ public class EquipamentoFormController extends CRUDFormController<EquipamentoEnt
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = equipamentoDAO.find(id);
-		subView.getTfFilial().setValue(currentBean.getFilial().toString());
-		subView.getTfEquipamento().setValue(currentBean.getEquipamento());
-		subView.getTfDescricao().setValue(currentBean.getEquipamento());
-		subView.getTaObservacao().setValue(currentBean.getObservacao());
-	}
-
-	@Override
-	protected void quandoNovo() {
-
+		try {
+	        this.currentBean = this.equipamentoDAO.find(id);
+	
+	        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new EquipamentoFormView();
 
-		// preencheCombos();
+		try {
+	        this.subView = new EquipamentoFormView(this);
+	
+	        // Cria o DCFieldGroup
+	        this.fieldGroup = new DCFieldGroup<>(EquipamentoEntity.class);
+	
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTfFilial(),"filial");
+	        fieldGroup.bind(this.subView.getTfEquipamento(),"equipamento");
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/*
@@ -81,39 +88,57 @@ public class EquipamentoFormController extends CRUDFormController<EquipamentoEnt
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new EquipamentoEntity();
+		try {
+	         this.currentBean = new EquipamentoEntity();
+	 
+	         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	         fieldGroup.setItemDataSource(this.currentBean);
+	 
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         mensagemErro(e.getMessage());
+	     }
 	}
-
 	@Override
 	protected void remover(List<Serializable> ids) {
-		equipamentoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.equipamentoDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = true;
-		if (!Validator.validateString(subView.getTfFilial().getValue())) {
-			adicionarErroDeValidacao(subView.getTfFilial(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTfEquipamento().getValue())) {
-			adicionarErroDeValidacao(subView.getTfEquipamento(), "Não pode ficar em branco");
-			valido = false;
-		}
-		if (!Validator.validateString(subView.getTfDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTfDescricao(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
+		try {
+	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
+	    }
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			EquipamentoEntity equi = (EquipamentoEntity) id;
+
+			try {
+				equipamentoDAO.delete(equi);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

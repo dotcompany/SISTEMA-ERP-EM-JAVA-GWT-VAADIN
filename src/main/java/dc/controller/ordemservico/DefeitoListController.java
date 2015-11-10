@@ -62,6 +62,6 @@ public class DefeitoListController extends CRUDListController<DefeitoEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

@@ -60,6 +60,6 @@ public class StatusOsListController extends CRUDListController<StatusOsEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

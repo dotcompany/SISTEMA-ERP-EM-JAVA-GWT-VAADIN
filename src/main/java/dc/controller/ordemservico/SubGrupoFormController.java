@@ -7,14 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.GrupoOsEntity;
 import dc.entidade.ordemservico.SubGrupoOsEntity;
 import dc.servicos.dao.ordemservico.GrupoDAO;
 import dc.servicos.dao.ordemservico.SubGrupoDAO;
-import dc.servicos.util.Validator;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.SubGrupoFormView;
 
@@ -49,8 +48,6 @@ public class SubGrupoFormController extends
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
-		currentBean.setGrupo(subView.getCbGrupo().getValue());
 		try {
 			subGrupoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -61,26 +58,37 @@ public class SubGrupoFormController extends
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = subGrupoDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getCbGrupo().setValue(currentBean.getGrupo());
+		try {
+	        this.currentBean = this.subGrupoDAO.find(id);
+	
+	        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
-	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
-	 * padrÃ£o
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
 
 	@Override
 	protected void initSubView() {
-		subView = new SubGrupoFormView();
 
-		preencheCombos();
+		try {
+	        this.subView = new SubGrupoFormView(this);
+	
+	        // Cria o DCFieldGroup
+	        this.fieldGroup = new DCFieldGroup<>(SubGrupoOsEntity.class);
+	
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTxtNome(),"nome");
+	        fieldGroup.bind(this.subView.getCbGrupo(),"grupo");
+	        
+	        this.subView.getCbGrupo().configuraCombo(
+	        		"nome", GrupoListController.class, this.grupoDAO, this.getMainController());
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/*
@@ -89,41 +97,59 @@ public class SubGrupoFormController extends
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SubGrupoOsEntity();
+		try {
+	         this.currentBean = new SubGrupoOsEntity();
+	 
+	         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	         fieldGroup.setItemDataSource(this.currentBean);
+	 
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         mensagemErro(e.getMessage());
+	     }
 	}
 
-	private void preencheCombos() {
-
-		DefaultManyToOneComboModel<GrupoOsEntity> grupo = new DefaultManyToOneComboModel<GrupoOsEntity>(
-				GrupoListController.class, this.grupoDAO,
-				super.getMainController());
-
-		this.subView.getCbGrupo().setModel(grupo);
-	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		subGrupoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.subGrupoDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
+		try {
+	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
+	    }
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			SubGrupoOsEntity sub = (SubGrupoOsEntity) id;
+
+			try {
+				subGrupoDAO.delete(sub);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

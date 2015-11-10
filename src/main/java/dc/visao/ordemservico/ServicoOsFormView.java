@@ -140,13 +140,13 @@ public class ServicoOsFormView extends CustomComponent {
 		tfHoraGasta = ComponentUtil.buildNumberField("Hora Gasta");
 		fields.addComponent(tfHoraGasta, 1,2);
 		
-		tfValorServico = ComponentUtil.buildCurrencyField("Valor do serviço");
+		tfValorServico = ComponentUtil.buildCurrencysField("Valor do serviço");
 		fields.addComponent(tfValorServico,2,2);
 
-		tfValorMinimoServico = ComponentUtil.buildCurrencyField("Valor mínimo do serviço");
+		tfValorMinimoServico = ComponentUtil.buildCurrencysField("Valor mínimo do serviço");
 		fields.addComponent(tfValorMinimoServico,3,2);
 
-		tfValorComissaoTecnico = ComponentUtil.buildNumberField("Valor Comissão Técnico");
+		tfValorComissaoTecnico = ComponentUtil.buildCurrencysField("Valor Comissão Técnico");
 		fields.addComponent(tfValorComissaoTecnico,0,3);
 		
 		// tipo de comissão do técnico
@@ -162,7 +162,7 @@ public class ServicoOsFormView extends CustomComponent {
 		optTipoComissaoTecnico.setItemCaption("P", "Porcentagem");
 		fields.addComponent(optTipoComissaoTecnico,1,3);
 
-		tfValorComissaoVendedor = ComponentUtil.buildNumberField("Valor Comissão Vendedor");
+		tfValorComissaoVendedor = ComponentUtil.buildCurrencysField("Valor Comissão Vendedor");
 		fields.addComponent(tfValorComissaoVendedor,0,4);
 
 		// tipo de comissão do vendedor
@@ -188,7 +188,7 @@ public class ServicoOsFormView extends CustomComponent {
 //		tfAtiva.setCaption("Ativa");
 //		horizontalLayout_7.addComponent(tfAtiva);
 
-		tfValorPromocional = ComponentUtil.buildCurrencyField("Valor promocional");
+		tfValorPromocional = ComponentUtil.buildCurrencysField("Valor promocional");
 		fields.addComponent(tfValorPromocional,0,6);
 
 		dtVencimentoPromocao = ComponentUtil.buildPopupDateField("Vencimento promoção");;

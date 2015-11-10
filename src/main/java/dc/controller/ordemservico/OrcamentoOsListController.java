@@ -62,7 +62,7 @@ public class OrcamentoOsListController extends CRUDListController<OrcamentoOsEnt
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 }

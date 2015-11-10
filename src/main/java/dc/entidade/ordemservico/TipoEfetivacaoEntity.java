@@ -7,7 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -40,6 +43,7 @@ public class TipoEfetivacaoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "codigo")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Código é Obrigatório!")
 	private Integer codigo;
 
 	@Field
@@ -47,6 +51,7 @@ public class TipoEfetivacaoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao;
 
 	public Integer getId() {
@@ -72,5 +77,37 @@ public class TipoEfetivacaoEntity extends AbstractMultiEmpresaModel<Integer> {
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
+	
+	@Override
+	public String toString() {
+		return descricao;
+	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof TipoEfetivacaoEntity)) {
+            return false;
+        }
+
+        TipoEfetivacaoEntity that = (TipoEfetivacaoEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }	
 
 }

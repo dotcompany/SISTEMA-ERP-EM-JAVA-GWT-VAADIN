@@ -20,7 +20,8 @@ public class OrdemServicoDAO extends AbstractCrudDAO<OrdemServicoEntity>{
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"id"};
+		return new String[] {"cliente","dataCadastr","valorServico","valorPeca","valorFrete","valorTotalOs","valorTotalServico","valorLucroServico","quantidadeParcelaCheque","primeiroVencimentoCheque",
+				"quantidadeParcelaCarne","primeiroVencimentoCarne","quantidadeParcelaCartao","primeiroVencimentoCartao","quantidadeParcelaBoleto","primeiroVencimentoBoleto","dataExclusao","efetivada"};
 	}
 	
 	@Transactional

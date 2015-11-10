@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.DefeitoEntity;
 import dc.servicos.dao.ordemservico.DefeitoDAO;
-import dc.servicos.util.Validator;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.DefeitoFormView;
 
-/** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
@@ -42,7 +42,6 @@ public class DefeitoFormController extends CRUDFormController<DefeitoEntity> {
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
 		try {
 			defeitoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -53,23 +52,31 @@ public class DefeitoFormController extends CRUDFormController<DefeitoEntity> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = defeitoDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
-	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
-	 * padrÃ£o
-	 */
-	@Override
-	protected void quandoNovo() {
-
+		try {
+	        this.currentBean = this.defeitoDAO.find(id);
+	
+	        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new DefeitoFormView();
+		try {
+	        this.subView = new DefeitoFormView(this);
+	
+	        // Cria o DCFieldGroup
+	        this.fieldGroup = new DCFieldGroup<>(DefeitoEntity.class);
+	
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTxtNome(),"nome");
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/*
@@ -78,31 +85,57 @@ public class DefeitoFormController extends CRUDFormController<DefeitoEntity> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new DefeitoEntity();
+		try {
+	         this.currentBean = new DefeitoEntity();
+	 
+	         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	         fieldGroup.setItemDataSource(this.currentBean);
+	 
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         mensagemErro(e.getMessage());
+	     }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		defeitoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.defeitoDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
-	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
+		try {
+			        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			        fieldGroup.commit();
+			        return true;
+			    } catch (FieldGroup.CommitException ce) {
+			        return false;
+			    }
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			DefeitoEntity defeito = (DefeitoEntity) id;
+
+			try {
+				defeitoDAO.delete(defeito);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

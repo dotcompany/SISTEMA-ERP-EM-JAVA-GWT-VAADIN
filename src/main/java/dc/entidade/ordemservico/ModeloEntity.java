@@ -15,7 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -49,6 +52,7 @@ public class ModeloEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "nome")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatorio!")
 	private String nome;
 
 	@Field
@@ -62,7 +66,8 @@ public class ModeloEntity extends AbstractMultiEmpresaModel<Integer> {
 	
 	@Caption("Marca")
 	@JoinColumn(name = "id_marca", referencedColumnName = "id")
-	@ManyToOne(cascade=CascadeType.ALL, optional = false)
+	@ManyToOne(optional = false)
+	@NotNull(message = "Marca é Obrigatorio!")
 	private MarcaOsEntity marca;
 	
 	
@@ -100,7 +105,34 @@ public class ModeloEntity extends AbstractMultiEmpresaModel<Integer> {
 	
 	@Override
 	public String toString() {
-		return marca.getNome();
+		return nome;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ModeloEntity)) {
+            return false;
+        }
+
+        ModeloEntity that = (ModeloEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 	
 }

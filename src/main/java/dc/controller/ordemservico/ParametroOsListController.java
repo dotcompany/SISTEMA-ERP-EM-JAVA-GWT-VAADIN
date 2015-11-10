@@ -62,6 +62,6 @@ public class ParametroOsListController extends CRUDListController<ParametroOsEnt
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

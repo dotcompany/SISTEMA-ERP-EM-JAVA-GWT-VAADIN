@@ -62,6 +62,6 @@ public class CorListController extends CRUDListController<CorEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

@@ -19,7 +19,8 @@ public class ServicoOsDAO extends AbstractCrudDAO<ServicoOsEntity> {
 	}
 
 	protected String[] getDefaultSearchFields() {
-		return new String[] {"descricao"};
+		return new String[] {"nome","grupo","subGrupo","aliquotaIssqn","valorComissaoTecnico","valorComissaoVendedor","valorServico","valorMinimoServico",
+				"dataCadastro","observacao"};
 	}
 	
 	@Transactional

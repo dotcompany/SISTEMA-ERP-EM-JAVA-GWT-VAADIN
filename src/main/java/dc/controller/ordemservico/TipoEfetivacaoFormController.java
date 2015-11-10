@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.TipoEfetivacaoEntity;
 import dc.servicos.dao.ordemservico.TipoEfetivacaoDAO;
-import dc.servicos.util.Validator;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.TipoEfetivacaoFormView;
 
@@ -32,7 +33,7 @@ public class TipoEfetivacaoFormController extends CRUDFormController<TipoEfetiva
 
 	@Override
 	protected String getNome() {
-		return "TipoEfetivacao";
+		return "Tipo Efetivação";
 	}
 
 	@Override
@@ -42,8 +43,6 @@ public class TipoEfetivacaoFormController extends CRUDFormController<TipoEfetiva
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setCodigo(Integer.parseInt(subView.getTxtCodigo().getValue()));
-		currentBean.setDescricao(subView.getTxtDescricao().getValue());
 		try {
 			tipoEfetivacaoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -54,24 +53,33 @@ public class TipoEfetivacaoFormController extends CRUDFormController<TipoEfetiva
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = tipoEfetivacaoDAO.find(id);
-		subView.getTxtCodigo().setValue(currentBean.getCodigo().toString());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
+		try {
+	        this.currentBean = this.tipoEfetivacaoDAO.find(id);
+	
+	        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
-	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
-	 * padrÃ£o
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
 
 	@Override
 	protected void initSubView() {
-		subView = new TipoEfetivacaoFormView();
+		try {
+	        this.subView = new TipoEfetivacaoFormView(this);
+	
+	        // Cria o DCFieldGroup
+	        this.fieldGroup = new DCFieldGroup<>(TipoEfetivacaoEntity.class);
+	
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTxtCodigo(),"codigo");
+	        fieldGroup.bind(this.subView.getTxtDescricao(),"descricao");
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/*
@@ -80,31 +88,58 @@ public class TipoEfetivacaoFormController extends CRUDFormController<TipoEfetiva
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoEfetivacaoEntity();
+		try {
+	         this.currentBean = new TipoEfetivacaoEntity();
+	 
+	         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	         fieldGroup.setItemDataSource(this.currentBean);
+	 
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         mensagemErro(e.getMessage());
+	     }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		tipoEfetivacaoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.tipoEfetivacaoDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtDescricao(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
+		try {
+	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
+	    }
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			TipoEfetivacaoEntity tip = (TipoEfetivacaoEntity) id;
+
+			try {
+				tipoEfetivacaoDAO.delete(tip);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

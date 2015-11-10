@@ -22,6 +22,9 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -54,50 +57,112 @@ public class ServicoOsEntity extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne
 	@JoinColumn(name = "id_grupo", referencedColumnName = "id")
 	@NotNull(message = "Grupo é Obrigatório!")
+	@IndexedEmbedded(includePaths={"nome"})
 	private GrupoOsEntity grupo;
 
 	@Caption("Subgrupo")
 	@ManyToOne
 	@JoinColumn(name = "id_sub_grupo", referencedColumnName = "id")
 	@NotNull(message = "Sub Grupo é Obrigatório!")
+	@IndexedEmbedded(includePaths={"nome"})
 	private SubGrupoOsEntity subGrupo;
 	
+	@Field
+	@Caption("Aliquota ISSQN")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "aliquota_issqn")
 	private BigDecimal aliquotaIssqn;
 
+	@Field
+	@Caption("Valor Comissão Técnico")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "valor_comissao_tecnico")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorComissaoTecnico;
 
+	@Field
+	@Caption("Valor Comissão Vendedor")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "valor_comissao_vendedor")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorComissaoVendedor;
 
+	@Field
+	@Caption("Tipo Comissão Técnico")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "tipo_comissao_tecnico")
+	@NotNull(message = "Tipo Comissão Técnico é Obrigatório!")
 	private String tipoComissaoTecnico;
 
+	@Field
+	@Caption("Tipo Comissão Vendedor")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "tipo_comissao_vendedor")
+	@NotNull(message = "Tipo Comissão Vendedor é Obrigatório!")
 	private String tipoComissaoVendedor;
 
+	@Field
+	@Caption("Valor Serviço")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "valor_servico")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorServico;
 
+	@Field
+	@Caption("Valor Mínimo Serviço")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "valor_minimo_servico")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorMinimoServico;
 
+	@Field
+	@Caption("Garantia Dia")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "garantia_dia")
 	private Integer garantiaDia;
 
+	@Field
+	@Caption("Retorno")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "retorno")
 	private Integer retorno;
 
+	@Field
+	@Caption("Hora Gasta")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "hora_gasta")
 	private BigDecimal horaGasta;
 
+	@Field
+	@Caption("Ativa")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "ativa")
 	private Boolean ativa;
 
+	@Field
+	@Caption("Valor Promocional")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "valor_promocional")
+	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorPromocional;
 
+	@Field
+	@Caption("Vencimento Promoção")
+	@ComboValue
+	@Temporal(TemporalType.DATE)
+	@Analyzer(definition = "dc_combo_analyzer")
 	@Column(name = "vencimento_promocao")
 	private Date vencimentoPromocao;
 	
@@ -108,6 +173,8 @@ public class ServicoOsEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Type(type = "text")
 	private String observacao;
 	
+	@Field
+	@Caption("Data Cadastro")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_cadastro")
 	@ComboValue
