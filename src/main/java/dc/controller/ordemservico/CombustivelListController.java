@@ -61,6 +61,6 @@ public class CombustivelListController extends CRUDListController<CombustivelEnt
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.CorEntity;
-import dc.servicos.dao.ordemservico.CorDAO;
-import dc.servicos.util.Validator;
+import dc.model.dao.ordemservico.ICorDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.CorFormView;
 
-/** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
@@ -26,7 +26,7 @@ public class CorFormController extends CRUDFormController<CorEntity> {
 	CorFormView subView;
 
 	@Autowired
-	CorDAO corDAO;
+	private ICorDAO corDAO;
 
 	private CorEntity currentBean;
 
@@ -42,7 +42,6 @@ public class CorFormController extends CRUDFormController<CorEntity> {
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
 		try {
 			corDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -53,23 +52,32 @@ public class CorFormController extends CRUDFormController<CorEntity> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = corDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());
+		try {
+	        this.currentBean = this.corDAO.find(id);
+	
+	        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
-	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
-	 * padrÃ£o
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
 
 	@Override
 	protected void initSubView() {
-		subView = new CorFormView();
+		try {
+	        this.subView = new CorFormView(this);
+	
+	        // Cria o DCFieldGroup
+	        this.fieldGroup = new DCFieldGroup<>(CorEntity.class);
+	
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTxtNome(),"nome");
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/*
@@ -78,31 +86,58 @@ public class CorFormController extends CRUDFormController<CorEntity> {
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CorEntity();
+		try {
+	         this.currentBean = new CorEntity();
+	 
+	         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	         fieldGroup.setItemDataSource(this.currentBean);
+	 
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         mensagemErro(e.getMessage());
+	     }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		corDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.corDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
+		try {
+	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
+	    }
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			CorEntity cor = (CorEntity) id;
+
+			try {
+				corDAO.delete(cor);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

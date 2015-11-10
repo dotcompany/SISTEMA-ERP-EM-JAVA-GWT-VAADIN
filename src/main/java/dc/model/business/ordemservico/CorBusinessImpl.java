@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.ordemservico.CorEntity;
-import dc.model.dao.ordemservico.CorDAO;
+import dc.model.dao.ordemservico.ICorDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class CorBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(CorBusinessImpl.class);
 
 	@Autowired
-	private CorDAO<CorEntity> dao;
+	private ICorDAO dao;
 
 	/**
 	 * **********************************************

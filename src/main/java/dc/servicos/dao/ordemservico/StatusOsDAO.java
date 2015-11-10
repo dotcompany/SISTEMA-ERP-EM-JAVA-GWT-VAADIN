@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.ordemservico.StatusOsEntity;
+import dc.model.dao.ordemservico.IStatusOsDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class StatusOsDAO extends AbstractCrudDAO<StatusOsEntity>{
+public class StatusOsDAO extends AbstractCrudDAO<StatusOsEntity> implements IStatusOsDAO {
 
 	@Override
 	public Class<StatusOsEntity> getEntityClass() {

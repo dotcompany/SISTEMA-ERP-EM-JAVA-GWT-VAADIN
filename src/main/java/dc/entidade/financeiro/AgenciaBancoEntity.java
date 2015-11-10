@@ -165,7 +165,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Caption("Banco")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) 
+	@ManyToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name = "id_banco", referencedColumnName = "id")
 	@NotNull(message = "Banco é Obrigatório!")
 	private BancoEntity banco;
@@ -186,7 +186,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="agenciaBanco",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="agenciaBanco",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<ContaCaixa> contaCaixaList = new ArrayList<ContaCaixa>();
 
 	/**

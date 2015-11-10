@@ -53,7 +53,7 @@ public class GrupoOsListController extends CRUDListController<GrupoOsEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.ordemservico.SituacaoServicoEntity;
-import dc.servicos.dao.ordemservico.SituacaoServicoDAO;
+import dc.model.dao.ordemservico.ISituacaoServicoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -18,7 +18,7 @@ public class SituacaoServicoListController extends CRUDListController<SituacaoSe
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	SituacaoServicoDAO dao;
+	private ISituacaoServicoDAO dao;
 	
 	@Autowired
 	SituacaoServicoFormController formController;
@@ -60,6 +60,6 @@ public class SituacaoServicoListController extends CRUDListController<SituacaoSe
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

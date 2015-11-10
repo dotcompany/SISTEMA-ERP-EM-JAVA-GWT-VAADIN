@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.StatusOsEntity;
 import dc.servicos.dao.ordemservico.StatusOsDAO;
-import dc.servicos.util.Validator;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.StatusOsFormView;
 
@@ -41,7 +42,6 @@ public class StatusOsFormController extends CRUDFormController<StatusOsEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setDescricao(subView.getTfDescricao().getValue());
 			statusOsDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -51,48 +51,91 @@ public class StatusOsFormController extends CRUDFormController<StatusOsEntity> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = statusOsDAO.find(id);
 
-		subView.getTfDescricao().setValue(currentBean.getDescricao());
+		try {
+	        this.currentBean = this.statusOsDAO.find(id);
+	
+	        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
-	@Override
-	protected void quandoNovo() {
-
-	}
 
 	@Override
 	protected void initSubView() {
-		subView = new StatusOsFormView();
+		try {
+	        this.subView = new StatusOsFormView(this);
+	
+	        // Cria o DCFieldGroup
+	        this.fieldGroup = new DCFieldGroup<>(StatusOsEntity.class);
+	
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTfDescricao(),"descricao");
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new StatusOsEntity();
+		try {
+	         this.currentBean = new StatusOsEntity();
+	 
+	         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	         fieldGroup.setItemDataSource(this.currentBean);
+	 
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         mensagemErro(e.getMessage());
+	     }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		statusOsDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.statusOsDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
+		
+		try {
+	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
+	    }
 
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTfDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTfDescricao(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		
+		for (Serializable id : ids) {
+			StatusOsEntity statusOs = (StatusOsEntity) id;
+
+			try {
+				statusOsDAO.delete(statusOs);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

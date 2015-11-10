@@ -46,7 +46,8 @@ public class ServicoOsBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(ServicoOsEntity t) throws Exception {
-		// TODO Auto-generated method stub
+	
+		dao.delete(t);
 
 	}
 
@@ -116,8 +117,8 @@ public class ServicoOsBusinessImpl implements Serializable,
 
 	@Override
 	public List<ServicoOsEntity> fullTextSearch(String valor) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

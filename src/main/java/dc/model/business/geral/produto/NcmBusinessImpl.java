@@ -119,8 +119,8 @@ public class NcmBusinessImpl implements Serializable, NcmBusiness<NcmEntity> {
 
 	@Override
 	public List<NcmEntity> fullTextSearch(String valor) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

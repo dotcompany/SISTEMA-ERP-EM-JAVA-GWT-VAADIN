@@ -30,6 +30,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -85,6 +86,7 @@ public class SubGrupoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne()
 	@JoinColumn(name = "id_grupo", nullable = false)
 	@NotNull(message = "Grupo de Produto é obrigatório")
+	@IndexedEmbedded(includePaths={"nome"})
 	private GrupoEntity grupo;
 
 	/**

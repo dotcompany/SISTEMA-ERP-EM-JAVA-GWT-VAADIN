@@ -45,7 +45,8 @@ public class CepBusinessImpl implements Serializable, CepBusiness<CepEntity> {
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(CepEntity t) throws Exception {
-		// TODO Auto-generated method stub
+		
+		dao.delete(t);
 
 	}
 

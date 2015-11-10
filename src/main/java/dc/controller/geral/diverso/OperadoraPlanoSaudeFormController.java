@@ -162,13 +162,17 @@ public class OperadoraPlanoSaudeFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+			for (Serializable id : ids) {
+				OperadoraPlanoSaudeEntity operadoraPlanoSaude = (OperadoraPlanoSaudeEntity) id;
 
-		try {
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
+				try {
+					business.delete(operadoraPlanoSaude);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 	}
 }

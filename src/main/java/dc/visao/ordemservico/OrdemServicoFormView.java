@@ -86,9 +86,8 @@ import dc.entidade.ordemservico.VendaPecaEntity;
 import dc.model.business.ordemservico.ParametroOsBusiness;
 import dc.servicos.util.Util;
 import dc.visao.framework.component.SubFormComponent;
-import dc.visao.framework.component.manytoonecombo.ManyToOneCombo;
+import dc.visao.framework.component.manytoonecombo.ManyToOneComboField;
 import dc.visao.framework.util.ComponentUtil;
-import dc.visao.spring.SecuritySessionProvider;
 
 public class OrdemServicoFormView extends CustomComponent {
 
@@ -203,22 +202,22 @@ public class OrdemServicoFormView extends CustomComponent {
 					  tfQtParcelaDuplicata, tfQtParcelaCarne, tfQtParcelaVale, tfQtParcelaCobrancaBancaria, 
 					  tfQtParcelaCobrancaCarteira, tfTroco, tfTotalRestante;
 	private CheckBox chbPgtoUnico;
-	private ManyToOneCombo<ClienteEntity> cbCliente;
-	private ManyToOneCombo<CarroEntity> cbPlaca;
-	private ManyToOneCombo<RevendaEntity> cbRevenda;
-	private ManyToOneCombo<EquipamentoEntity> cbEquipamento;
-	private ManyToOneCombo<EquipamentoEntity> cbEquipamentoGarantia;
-	private ManyToOneCombo<MarcaOsEntity> cbMarca;
-	private ManyToOneCombo<MarcaOsEntity> cbMarcaGarantia;
-	private ManyToOneCombo<ModeloOsEntity> cbModelo;
-	private ManyToOneCombo<CorEntity> cbCor;
-	private ManyToOneCombo<ModeloOsEntity> cbModeloGarantia;
-	private ManyToOneCombo<CorEntity> cbCorGarantia;
-	private ManyToOneCombo<StatusOsEntity> cbStatus;
-	private ManyToOneCombo<SituacaoServicoEntity> cbSituacaoServico;
-	private ManyToOneCombo<ColaboradorEntity> cbAtendente;
-	private ManyToOneCombo<TipoServicoOsEntity> cbTipoServico;
-	private ManyToOneCombo<TipoPagamento> cbFormaPagamento;
+	private ManyToOneComboField<ClienteEntity> cbCliente;
+	private ManyToOneComboField<CarroEntity> cbPlaca;
+	private ManyToOneComboField<RevendaEntity> cbRevenda;
+	private ManyToOneComboField<EquipamentoEntity> cbEquipamento;
+	private ManyToOneComboField<EquipamentoEntity> cbEquipamentoGarantia;
+	private ManyToOneComboField<MarcaOsEntity> cbMarca;
+	private ManyToOneComboField<MarcaOsEntity> cbMarcaGarantia;
+	private ManyToOneComboField<ModeloOsEntity> cbModelo;
+	private ManyToOneComboField<CorEntity> cbCor;
+	private ManyToOneComboField<ModeloOsEntity> cbModeloGarantia;
+	private ManyToOneComboField<CorEntity> cbCorGarantia;
+	private ManyToOneComboField<StatusOsEntity> cbStatus;
+	private ManyToOneComboField<SituacaoServicoEntity> cbSituacaoServico;
+	private ManyToOneComboField<ColaboradorEntity> cbAtendente;
+	private ManyToOneComboField<TipoServicoOsEntity> cbTipoServico;
+	private ManyToOneComboField<TipoPagamento> cbFormaPagamento;
 	private BigDecimal troco = BigDecimal.ZERO;
 	private BigDecimal totalGeral = BigDecimal.ZERO;
 	private BigDecimal totalRestante = BigDecimal.ZERO;
@@ -249,12 +248,12 @@ public class OrdemServicoFormView extends CustomComponent {
 	
 	public OrdemServicoFormView(OrdemServicoFormController controller) {
 		this.controller = controller;
-//		if(SecuritySessionProvider.getUsuario().getConta().getEmpresa()!=null){
-//			this.parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
-//		}
+		/*if(SecuritySessionProvider.getUsuario().getConta().getEmpresa()!=null){
+			this.parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+		}*/
 
-		this.parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
-		this.parametroOs = this.controller.getParametroOs();
+		//this.parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
+	    this.parametroOs = this.controller.getParametroOs();
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 	}
@@ -304,7 +303,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		gridLayout_1.setColumns(7);
 
 
-		cbCliente = new ManyToOneCombo<ClienteEntity>();
+		cbCliente = new ManyToOneComboField<>(ClienteEntity.class);
 		cbCliente.setCaption("Cliente");
 		cbCliente.addValueChangeListener(new ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
@@ -316,7 +315,7 @@ public class OrdemServicoFormView extends CustomComponent {
 				
 				if(cli!=null){
 					tfRazao.setValue(cli.getPessoa().getNome());
-					controller.getCarro("cliente", cbCliente.getValue().getId());
+					//controller.getCarro("cliente", cbCliente.getValue().getId());
 					
 					if(cli.getPessoa()!=null){
 					    if(cli.getPessoa().getPessoaEnderecoList().size()>0){
@@ -346,7 +345,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		tfUf = ComponentUtil.buildTextField("Uf");
 		gridLayout_1.addComponent(tfUf,6,1,6,1);
 
-		cbAtendente = new ManyToOneCombo<ColaboradorEntity>();
+		cbAtendente = new ManyToOneComboField<>(ColaboradorEntity.class);
 		cbAtendente.setCaption("Atendente");
 
 		// Data de entrada
@@ -370,12 +369,12 @@ public class OrdemServicoFormView extends CustomComponent {
 
 		
 		// status
-		cbStatus = new ManyToOneCombo<StatusOsEntity>();
+		cbStatus = new ManyToOneComboField<>(StatusOsEntity.class);
 		cbStatus.setCaption("Status");
 		gridLayout_1.addComponent(cbStatus,0,3,1,3);
 
 		// Situação do serviço
-		cbSituacaoServico = new ManyToOneCombo<SituacaoServicoEntity>();
+		cbSituacaoServico = new ManyToOneComboField<>(SituacaoServicoEntity.class);
 		cbSituacaoServico.setCaption("Situação do serviço");
 		gridLayout_1.addComponent(cbSituacaoServico,2,3,3,3);
 		
@@ -384,7 +383,7 @@ public class OrdemServicoFormView extends CustomComponent {
 
 		 
 		// Placa do veículo
-		cbPlaca = new ManyToOneCombo<CarroEntity>();
+		cbPlaca = new ManyToOneComboField<>(CarroEntity.class);
 		cbPlaca.setCaption("Placa");
 		cbPlaca.addValueChangeListener(new ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
@@ -419,7 +418,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		// Data próxima revisão
 		pdfProximaRevisao = ComponentUtil.buildPopupDateField("Próx. revisão");
 
-		cbTipoServico = new ManyToOneCombo<TipoServicoOsEntity>();
+		cbTipoServico = new ManyToOneComboField<>(TipoServicoOsEntity.class);
 		cbTipoServico.setCaption("Tipo de Serviço");
 
 		if(this.parametroOs.getQtdDiasRevisao()){
@@ -454,7 +453,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		taObservacaoDefeito = ComponentUtil.buildTextArea("Observação do defeito apresentado");
 		gridLayout_1.addComponent(taObservacaoDefeito, 0, 6, 2, 6);
 
-		cbFormaPagamento = new ManyToOneCombo<>();
+		cbFormaPagamento = new ManyToOneComboField<>(TipoPagamento.class);
 		cbFormaPagamento.setCaption("Forma Pagamento");
 		gridLayout_1.addComponent(cbFormaPagamento,3,6,4,6);
 		
@@ -594,32 +593,34 @@ public class OrdemServicoFormView extends CustomComponent {
 							Object itemId, Object propertyId,
 							Component uiContext) {
 						if ("vendedor".equals(propertyId)) {
-							ComboBox combobox = ComponentUtil.buildComboBox(null);
-							combobox.removeAllItems();
-
-							List<ColaboradorEntity> vendedores = controller.getVendedores();
-
-							for (ColaboradorEntity vd : vendedores) {
-								combobox.addItem(vd);
-							}
-							return combobox;
+							
+							ComboBox comboBox = ComponentUtil.buildComboBox(null);
+							BeanItemContainer<ColaboradorEntity> naturezaContainer = new BeanItemContainer<>(ColaboradorEntity.class,
+									controller.getVendedores());
+							naturezaContainer.addNestedContainerProperty("pessoa.nome");
+							comboBox.setContainerDataSource(naturezaContainer);
+							comboBox.setItemCaptionPropertyId("pessoa.nome");
+							return comboBox;
+							
 						}else if ("tecnico".equals(propertyId)) {
-							ComboBox combobox = ComponentUtil.buildComboBox(null);
-							combobox.removeAllItems();
 
-							List<ColaboradorEntity> tecnicos = controller.getTecnicos();
-							for (ColaboradorEntity tc : tecnicos) {
-								combobox.addItem(tc);
-							}
-
-							return combobox;
+							
+							ComboBox comboBox = ComponentUtil.buildComboBox(null);
+							BeanItemContainer<ColaboradorEntity> naturezaContainer = new BeanItemContainer<>(ColaboradorEntity.class,
+									controller.getTecnicos());
+							naturezaContainer.addNestedContainerProperty("pessoa.nome");
+							comboBox.setContainerDataSource(naturezaContainer);
+							comboBox.setItemCaptionPropertyId("pessoa.nome");
+							return comboBox;
+							
 						}else if ("servico".equals(propertyId)) {
-							ComboBox combobox = ComponentUtil.buildComboBox(null);
-							BeanItemContainer<ServicoOsEntity> servicoContainer = new BeanItemContainer<>(ServicoOsEntity.class,controller.buscarServicoOs());
-
-							combobox.setContainerDataSource(servicoContainer);
-							combobox.setItemCaptionPropertyId("nome");
-							return combobox;
+							ComboBox comboBox = ComponentUtil.buildComboBox(null);
+							BeanItemContainer<ServicoOsEntity> naturezaContainer = new BeanItemContainer<>(ServicoOsEntity.class,
+									controller.buscarServicoOs());
+							naturezaContainer.addNestedContainerProperty("nome");
+							comboBox.setContainerDataSource(naturezaContainer);
+							comboBox.setItemCaptionPropertyId("nome");
+							return comboBox;
 							 
 						} else if ("horaTrabalhada".equals(propertyId)) {
 							TextField textField = ComponentUtil.buildNumberField(null);
@@ -634,7 +635,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							textField.setEnabled(false);
 							return textField;
 						} else if ("valorCobrado".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							textField.addBlurListener(getBlurListener(container, itemId, propertyId));
 							return textField;
 						} else if ("valorSubtotal".equals(propertyId)) {
@@ -921,7 +922,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							textField.addBlurListener(getBlurListener(container, itemId, propertyId));
 							return textField;
 						}else if ("valorUnitarioPago".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							textField.addBlurListener(getBlurListener(container, itemId, propertyId));
 							return textField;
 						} else if ("valorSubtotal".equals(propertyId)) {
@@ -933,7 +934,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							textField.addBlurListener(getBlurListener(container, itemId, propertyId));
 							return textField;
 						}else if ("valorDesconto".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							textField.addBlurListener(getBlurListener(container, itemId, propertyId));
 							return textField;
 						}else if ("valorTotal".equals(propertyId)) {
@@ -1218,19 +1219,19 @@ public class OrdemServicoFormView extends CustomComponent {
 		pdfDataNotaFiscal = ComponentUtil.buildPopupDateField("Data nota fiscal");
 		gridLayout_1.addComponent(pdfDataNotaFiscal,2,1);
 
-		cbEquipamentoGarantia = new ManyToOneCombo<>();
+		cbEquipamentoGarantia = new ManyToOneComboField<>(EquipamentoEntity.class);
 		cbEquipamentoGarantia.setCaption("Equipamento");
 		gridLayout_1.addComponent(cbEquipamentoGarantia, 0, 2, 1, 2);
 
-		cbMarcaGarantia = new ManyToOneCombo<MarcaOsEntity>();
+		cbMarcaGarantia = new ManyToOneComboField<>(MarcaOsEntity.class);
 		cbMarcaGarantia.setCaption("Marca");
 		gridLayout_1.addComponent(cbMarcaGarantia, 2, 2, 3, 2);
 
-		cbModeloGarantia = new ManyToOneCombo<ModeloOsEntity>();
+		cbModeloGarantia = new ManyToOneComboField<>(ModeloOsEntity.class);
 		cbModeloGarantia.setCaption("Modelo");
 		gridLayout_1.addComponent(cbModeloGarantia, 4, 2, 5, 2);
 
-		cbCorGarantia = new ManyToOneCombo<CorEntity>();
+		cbCorGarantia = new ManyToOneComboField<>(CorEntity.class);
 		cbCorGarantia.setCaption("Cor");
 		gridLayout_1.addComponent(cbCorGarantia, 6, 2, 7, 2);
 
@@ -1852,15 +1853,15 @@ public class OrdemServicoFormView extends CustomComponent {
 							textField.setReadOnly(true);
 							return textField;
 						}else if ("valorUnitario".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							textField.setReadOnly(true);
 							return textField;
 						}else if ("valorUnitarioPago".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							textField.setReadOnly(true);
 							return textField;
 						} else if ("valorSubtotal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							textField.setReadOnly(true);
 							return textField;
 						}else if ("percentualDesconto".equals(propertyId)) {
@@ -1868,11 +1869,11 @@ public class OrdemServicoFormView extends CustomComponent {
 							textField.setReadOnly(true);
 							return textField;
 						}else if ("valorDesconto".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							textField.setReadOnly(true);
 							return textField;
 						}else if ("valorTotal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							textField.setReadOnly(true);
 							return textField;
 						}
@@ -2350,7 +2351,6 @@ public class OrdemServicoFormView extends CustomComponent {
 		lblTroco.setHeight("-1px");
 		gridLayout_1.addComponent(lblTroco, 0, 12,0,12);
 
-		// valor total
 		tfTroco = ComponentUtil.buildNumberField(null);
 //		tfTroco.setEnabled(false);btnEfe
 		
@@ -2507,7 +2507,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
 							return popupDateField;
 						}else if ("valorTotal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							return textField;
 						}
 						return null;
@@ -2571,7 +2571,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
 							return popupDateField;
 						}else if ("valorTotal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							return textField;
 						}else if ("comprovanteVenda".equals(propertyId)) {
 							TextField textField = ComponentUtil.buildTextField(null);
@@ -2631,7 +2631,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
 							return popupDateField;
 						}else if ("valorTotal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							return textField;
 						}
 
@@ -2689,7 +2689,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
 							return popupDateField;
 						}else if ("valorTotal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							return textField;
 						}
 						return null;
@@ -2746,7 +2746,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
 							return popupDateField;
 						}else if ("valorTotal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							return textField;
 						}
 						return null;
@@ -2807,7 +2807,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
 							return popupDateField;
 						}else if ("valorTotal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							return textField;
 						}
 						return null;
@@ -2869,7 +2869,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
 							return popupDateField;
 						}else if ("valorTotal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							return textField;
 						}
 						return null;
@@ -2929,7 +2929,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
 							return popupDateField;
 						}else if ("valorTotal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							return textField;
 						}
 						return null;
@@ -2982,7 +2982,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							TextField textField = ComponentUtil.buildNumberField(null);
 							return textField;
 						}else if ("valorTotal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							return textField;
 						}
 						return null;
@@ -3039,7 +3039,7 @@ public class OrdemServicoFormView extends CustomComponent {
 							PopupDateField popupDateField = ComponentUtil.buildPopupDateField(null);
 							return popupDateField;
 						}else if ("valorTotal".equals(propertyId)) {
-							TextField textField = ComponentUtil.buildCurrencyField(null);
+							TextField textField = ComponentUtil.buildCurrencysField(null);
 							return textField;
 						}else if ("bandeira".equals(propertyId)) {
 							TextField textField = ComponentUtil.buildTextField(null);
@@ -3486,52 +3486,52 @@ public class OrdemServicoFormView extends CustomComponent {
 		this.pdfDataEfetiv = pdfDataEfetiv;
 	}
 
-	public void setCbCliente(ManyToOneCombo<ClienteEntity> cbCliente) {
+	public void setCbCliente(ManyToOneComboField<ClienteEntity> cbCliente) {
 		this.cbCliente = cbCliente;
 	}
 
-	public void setCbPlaca(ManyToOneCombo<CarroEntity> cbPlaca) {
+	public void setCbPlaca(ManyToOneComboField<CarroEntity> cbPlaca) {
 		this.cbPlaca = cbPlaca;
 	}
 
-	public void setCbRevenda(ManyToOneCombo<RevendaEntity> cbRevenda) {
+	public void setCbRevenda(ManyToOneComboField<RevendaEntity> cbRevenda) {
 		this.cbRevenda = cbRevenda;
 	}
 
-	public void setCbEquipamento(ManyToOneCombo<EquipamentoEntity> cbEquipamento) {
+	public void setCbEquipamento(ManyToOneComboField<EquipamentoEntity> cbEquipamento) {
 		this.cbEquipamento = cbEquipamento;
 	}
 
-	public void setCbMarca(ManyToOneCombo<MarcaOsEntity> cbMarca) {
+	public void setCbMarca(ManyToOneComboField<MarcaOsEntity> cbMarca) {
 		this.cbMarca = cbMarca;
 	}
 
-	public void setCbModelo(ManyToOneCombo<ModeloOsEntity> cbModelo) {
+	public void setCbModelo(ManyToOneComboField<ModeloOsEntity> cbModelo) {
 		this.cbModelo = cbModelo;
 	}
 
-	public void setCbCor(ManyToOneCombo<CorEntity> cbCor) {
+	public void setCbCor(ManyToOneComboField<CorEntity> cbCor) {
 		this.cbCor = cbCor;
 	}
 
-	public void setCbStatus(ManyToOneCombo<StatusOsEntity> cbStatus) {
+	public void setCbStatus(ManyToOneComboField<StatusOsEntity> cbStatus) {
 		this.cbStatus = cbStatus;
 	}
 
 	public void setCbSituacaoServico(
-			ManyToOneCombo<SituacaoServicoEntity> cbSituacaoServico) {
+			ManyToOneComboField<SituacaoServicoEntity> cbSituacaoServico) {
 		this.cbSituacaoServico = cbSituacaoServico;
 	}
 
-	public void setCbAtendente(ManyToOneCombo<ColaboradorEntity> cbAtendente) {
+	public void setCbAtendente(ManyToOneComboField<ColaboradorEntity> cbAtendente) {
 		this.cbAtendente = cbAtendente;
 	}
 
-	public void setCbTipoServico(ManyToOneCombo<TipoServicoOsEntity> cbTipoServico) {
+	public void setCbTipoServico(ManyToOneComboField<TipoServicoOsEntity> cbTipoServico) {
 		this.cbTipoServico = cbTipoServico;
 	}
 
-	public void setCbFormaPagamento(ManyToOneCombo<TipoPagamento> cbFormaPagamento) {
+	public void setCbFormaPagamento(ManyToOneComboField<TipoPagamento> cbFormaPagamento) {
 		this.cbFormaPagamento = cbFormaPagamento;
 	}
 
@@ -3591,23 +3591,23 @@ public class OrdemServicoFormView extends CustomComponent {
 		this.tfSerial = tfSerial;
 	}
 	
-	public ManyToOneCombo<RevendaEntity> getCbRevenda() {
+	public ManyToOneComboField<RevendaEntity> getCbRevenda() {
 		return cbRevenda;
 	}
 
-	public ManyToOneCombo<EquipamentoEntity> getCbEquipamento() {
+	public ManyToOneComboField<EquipamentoEntity> getCbEquipamento() {
 		return cbEquipamento;
 	}
 
-	public ManyToOneCombo<MarcaOsEntity> getCbMarca() {
+	public ManyToOneComboField<MarcaOsEntity> getCbMarca() {
 		return cbMarca;
 	}
 
-	public ManyToOneCombo<ModeloOsEntity> getCbModelo() {
+	public ManyToOneComboField<ModeloOsEntity> getCbModelo() {
 		return cbModelo;
 	}
 
-	public ManyToOneCombo<CorEntity> getCbCor() {
+	public ManyToOneComboField<CorEntity> getCbCor() {
 		return cbCor;
 	}
 
@@ -3716,7 +3716,7 @@ public class OrdemServicoFormView extends CustomComponent {
 		this.taObservacaoOS = taObservacaoOS;
 	}
 
-	public ManyToOneCombo<ClienteEntity> getCbCliente() {
+	public ManyToOneComboField<ClienteEntity> getCbCliente() {
 		return cbCliente;
 	}
 
@@ -3904,27 +3904,27 @@ public class OrdemServicoFormView extends CustomComponent {
 		this.taObservacaoDefeito = taObservacaoDefeito;
 	}
 	
-	public ManyToOneCombo<CarroEntity> getCbPlaca() {
+	public ManyToOneComboField<CarroEntity> getCbPlaca() {
 		return cbPlaca;
 	}
 
-	public ManyToOneCombo<StatusOsEntity> getCbStatus() {
+	public ManyToOneComboField<StatusOsEntity> getCbStatus() {
 		return cbStatus;
 	}
 
-	public ManyToOneCombo<SituacaoServicoEntity> getCbSituacaoServico() {
+	public ManyToOneComboField<SituacaoServicoEntity> getCbSituacaoServico() {
 		return cbSituacaoServico;
 	}
 
-	public ManyToOneCombo<ColaboradorEntity> getCbAtendente() {
+	public ManyToOneComboField<ColaboradorEntity> getCbAtendente() {
 		return cbAtendente;
 	}
 
-	public ManyToOneCombo<TipoServicoOsEntity> getCbTipoServico() {
+	public ManyToOneComboField<TipoServicoOsEntity> getCbTipoServico() {
 		return cbTipoServico;
 	}
 
-	public ManyToOneCombo<TipoPagamento> getCbFormaPagamento() {
+	public ManyToOneComboField<TipoPagamento> getCbFormaPagamento() {
 		return cbFormaPagamento;
 	}
 	
@@ -3944,35 +3944,35 @@ public class OrdemServicoFormView extends CustomComponent {
 		this.pdfDataNotaFiscal = pdfDataNotaFiscal;
 	}
 
-	public ManyToOneCombo<EquipamentoEntity> getCbEquipamentoGarantia() {
+	public ManyToOneComboField<EquipamentoEntity> getCbEquipamentoGarantia() {
 		return cbEquipamentoGarantia;
 	}
 
-	public void setCbEquipamentoGarantia(ManyToOneCombo<EquipamentoEntity> cbEquipamentoGarantia) {
+	public void setCbEquipamentoGarantia(ManyToOneComboField<EquipamentoEntity> cbEquipamentoGarantia) {
 		this.cbEquipamentoGarantia = cbEquipamentoGarantia;
 	}
 
-	public ManyToOneCombo<MarcaOsEntity> getCbMarcaGarantia() {
+	public ManyToOneComboField<MarcaOsEntity> getCbMarcaGarantia() {
 		return cbMarcaGarantia;
 	}
 
-	public void setCbMarcaGarantia(ManyToOneCombo<MarcaOsEntity> cbMarcaGarantia) {
+	public void setCbMarcaGarantia(ManyToOneComboField<MarcaOsEntity> cbMarcaGarantia) {
 		this.cbMarcaGarantia = cbMarcaGarantia;
 	}
 
-	public ManyToOneCombo<ModeloOsEntity> getCbModeloGarantia() {
+	public ManyToOneComboField<ModeloOsEntity> getCbModeloGarantia() {
 		return cbModeloGarantia;
 	}
 
-	public void setCbModeloGarantia(ManyToOneCombo<ModeloOsEntity> cbModeloGarantia) {
+	public void setCbModeloGarantia(ManyToOneComboField<ModeloOsEntity> cbModeloGarantia) {
 		this.cbModeloGarantia = cbModeloGarantia;
 	}
 
-	public ManyToOneCombo<CorEntity> getCbCorGarantia() {
+	public ManyToOneComboField<CorEntity> getCbCorGarantia() {
 		return cbCorGarantia;
 	}
 
-	public void setCbCorGarantia(ManyToOneCombo<CorEntity> cbCorGarantia) {
+	public void setCbCorGarantia(ManyToOneComboField<CorEntity> cbCorGarantia) {
 		this.cbCorGarantia = cbCorGarantia;
 	}
 

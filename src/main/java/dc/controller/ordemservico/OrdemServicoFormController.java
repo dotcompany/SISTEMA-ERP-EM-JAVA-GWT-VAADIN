@@ -30,7 +30,6 @@ import dc.control.validator.DotErpException;
 import dc.controller.financeiro.TipoPagamentoListController;
 import dc.controller.geral.pessoal.ClienteListController;
 import dc.controller.geral.pessoal.ColaboradorListController;
-import dc.entidade.financeiro.TipoPagamento;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
@@ -74,10 +73,19 @@ import dc.model.business.ordemservico.StatusOsBusiness;
 import dc.model.business.ordemservico.TipoEfetivacaoOsBusiness;
 import dc.model.business.ordemservico.TipoServicoOsBusiness;
 import dc.model.business.ordemservico.VendaPecaBusiness;
+import dc.model.dao.geral.pessoal.IClienteDAO;
+import dc.model.dao.geral.pessoal.IColaboradorDAO;
+import dc.model.dao.ordemservico.ICarroDAO;
+import dc.model.dao.ordemservico.ICorDAO;
+import dc.model.dao.ordemservico.IEquipamentoDAO;
+import dc.model.dao.ordemservico.IModeloOsDAO;
+import dc.model.dao.ordemservico.IOrdemServicoDAO;
+import dc.model.dao.ordemservico.ISituacaoServicoDAO;
+import dc.model.dao.ordemservico.IStatusOsDAO;
+import dc.model.dao.ordemservico.ITipoServicoOsDAO;
 import dc.servicos.dao.financeiro.ITipoPagamentoDAO;
+import dc.servicos.dao.ordemservico.IMarcaOsDAO;
 import dc.servicos.util.Validator;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModelSelect;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.MainUI;
 import dc.visao.ordemservico.OrdemServicoFormView;
@@ -91,6 +99,39 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 
 	@Autowired
 	private ITipoPagamentoDAO tipoPagamentoDAO;
+	
+	@Autowired
+	private IClienteDAO daoCliente;
+	
+	@Autowired
+	private IColaboradorDAO daoColaborador;
+	
+	@Autowired
+	private IStatusOsDAO daoStatus;
+	
+	@Autowired
+	private ITipoServicoOsDAO daoTipoServico;
+	
+	@Autowired
+	private ISituacaoServicoDAO daoSituacaoServico;
+	
+	@Autowired
+	private ICarroDAO daoCarro;
+	
+	@Autowired
+	private IEquipamentoDAO equipamentoDAO;
+	
+	@Autowired
+	private IMarcaOsDAO marcaDAO;
+
+	@Autowired
+	private IModeloOsDAO modeloDAO;
+
+	@Autowired
+	private IOrdemServicoDAO ordemServicoDAO;
+	
+	@Autowired
+	private ICorDAO corDAO;
 
 	private OrdemServicoEntity currentBean;
 	private ParametroOsEntity parametroOs;
@@ -521,62 +562,41 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 	}
 
 	private void preencheCombos() {
-		DefaultManyToOneComboModel<ClienteEntity> cliente = new DefaultManyToOneComboModel<ClienteEntity>(ClienteListController.class,
-				super.getMainController(), false, this.businessCliente) {
-			@Override
-			public String getCaptionProperty() {
-				return "pessoa.nome";
-			}
-		};
-		this.subView.getCbCliente().setModel(cliente);
+		
+		this.subView.getCbCliente().configuraCombo(
+				"pessoa.nome", ClienteListController.class, this.daoCliente, this.getMainController());
+		
+		this.subView.getCbAtendente().configuraCombo(
+				"pessoa.nome", ColaboradorListController.class, this.daoColaborador, this.getMainController());
+		
+		this.subView.getCbStatus().configuraCombo(
+				"descricao", StatusOsListController.class, this.daoStatus, this.getMainController());
+		
+		this.subView.getCbTipoServico().configuraCombo(
+				"descricao", TipoServicoListController.class, this.daoTipoServico, this.getMainController());
+		
+		this.subView.getCbSituacaoServico().configuraCombo(
+				"descricao", SituacaoServicoListController.class, this.daoSituacaoServico, this.getMainController());
+		
+		this.subView.getCbFormaPagamento().configuraCombo(
+				"descricao", TipoPagamentoListController.class, this.tipoPagamentoDAO, this.getMainController());
+		
+		this.subView.getCbPlaca().configuraCombo(
+				"placa", CarroListController.class, this.daoCarro, this.getMainController());
+		
+		this.subView.getCbEquipamentoGarantia().configuraCombo(
+				"descricao", EquipamentoListController.class, this.equipamentoDAO, this.getMainController());
+		
+		this.subView.getCbMarcaGarantia().configuraCombo(
+				"nome", MarcaListController.class, this.marcaDAO, this.getMainController());
+		
+		this.subView.getCbModeloGarantia().configuraCombo(
+				"nome", ModeloListController.class, this.modeloDAO, this.getMainController());
+		
+		this.subView.getCbCorGarantia().configuraCombo(
+				"nome", CorListController.class, this.corDAO, this.getMainController());
+		
 
-		DefaultManyToOneComboModel<ColaboradorEntity> atendente = new DefaultManyToOneComboModel<ColaboradorEntity>(ColaboradorListController.class, 
-				super.getMainController(), false, this.businessColaborador) {
-			@Override
-			public String getCaptionProperty() {
-				return "pessoa.nome";
-			}
-		};
-
-		this.subView.getCbAtendente().setModel(atendente);
-
-		DefaultManyToOneComboModel<StatusOsEntity> statusOs = new DefaultManyToOneComboModel<StatusOsEntity>(StatusOsListController.class,
-				super.getMainController(), false, this.businessStatusOs) {
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-		};
-		this.subView.getCbStatus().setModel(statusOs);
-
-		DefaultManyToOneComboModel<TipoServicoOsEntity> tipoServico = new DefaultManyToOneComboModel<TipoServicoOsEntity>(TipoServicoListController.class,
-				super.getMainController(), false, this.businessTipoServicoOs) {
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-		};
-
-		this.subView.getCbTipoServico().setModel(tipoServico);
-
-		DefaultManyToOneComboModel<SituacaoServicoEntity> situacaoServico = new DefaultManyToOneComboModel<SituacaoServicoEntity>(SituacaoServicoListController.class,
-				super.getMainController(), false, this.businessSituacaoServico) {
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-		};
-		this.subView.getCbSituacaoServico().setModel(situacaoServico);
-
-		DefaultManyToOneComboModel<TipoPagamento> tipoPagamento = new DefaultManyToOneComboModel<TipoPagamento>(TipoPagamentoListController.class,
-				this.tipoPagamentoDAO, super.getMainController()) {
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-		};
-
-		this.subView.getCbFormaPagamento().setModel(tipoPagamento);
 
 //		DefaultManyToOneComboModel<Equipamento> equipamento = new DefaultManyToOneComboModel<Equipamento>(EquipamentoListController.class,
 //				this.equipamentoDAO, super.getMainController()) {
@@ -1692,8 +1712,16 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 	}
 
 	@Override
-	protected void removerEmCascata(List<Serializable> ids) {
-		remover(ids);
+	protected void removerEmCascata(List<Serializable> objetos) {
+		try {
+			this.ordemServicoDAO.deleteAll(objetos);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	public void removerMaterialServico(List<MaterialServicoEntity> values) {
@@ -1954,17 +1982,7 @@ public class OrdemServicoFormController extends CRUDFormController<OrdemServicoE
 		return listGeral;
 	}
 	
-	public void getCarro(String classePesquisa, Integer idSelecionado){
-		DefaultManyToOneComboModelSelect<CarroEntity> carro = new DefaultManyToOneComboModelSelect<CarroEntity>(CarroListController.class, this.businessCarro,
-		super.getMainController(), classePesquisa, idSelecionado, false) {
-			@Override
-			public String getCaptionProperty() {
-				return "placa";
-			} 
-		};
-		this.subView.getCbPlaca().setModel(carro);
-	}
-
+	
 	public ParametroOsEntity getParametroOs() {
 		if(SecuritySessionProvider.getUsuario().getConta().getEmpresa()!=null){
 			parametroOs = this.businessParametroOs.buscaParametroOs(SecuritySessionProvider.getUsuario().getConta().getEmpresa());

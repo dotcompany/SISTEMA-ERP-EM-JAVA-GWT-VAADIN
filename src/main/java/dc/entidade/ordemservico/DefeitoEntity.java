@@ -7,7 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -40,6 +43,7 @@ public class DefeitoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "nome")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome;
 
 	public Integer getId() {
@@ -57,4 +61,37 @@ public class DefeitoEntity extends AbstractMultiEmpresaModel<Integer> {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof DefeitoEntity)) {
+            return false;
+        }
+
+        DefeitoEntity that = (DefeitoEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
+    
+    @Override
+    public String toString() {
+    	
+    	return nome;
+    }
 }

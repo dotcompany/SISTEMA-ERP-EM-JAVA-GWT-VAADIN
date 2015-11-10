@@ -17,12 +17,21 @@ public class OrcamentoOsDAO extends AbstractCrudDAO<OrcamentoOsEntity>{
 		return OrcamentoOsEntity.class;
 	}
 
+
 	public String[] getDefaultSearchFields() {
-		return new String[] {"id"};
+		return new String[] {"nomeVendedor","formaPagamento","nome","endereco","fone", "placa","marca","modelo","cor",
+				"ano","motor","motorizacao"};
 	}
 	
 	@Transactional
 	public List<OrcamentoOsEntity> listaTodos() {
-		return getSession().createQuery("from OrcamentoOsEntity").list();
+		return getSession().createQuery("from OrcamentoOs").list();
+	}
+	
+	@Transactional
+	public List<OrcamentoOsEntity> procuraNomeContendo(String query) {
+		return getSession()
+				.createQuery("from OrcamentoOs where nome like :q")
+				.setParameter("q", "%" + query + "%").list();
 	}
 }

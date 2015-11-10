@@ -62,6 +62,6 @@ public class AcessorioListController extends CRUDListController<AcessorioEntity>
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

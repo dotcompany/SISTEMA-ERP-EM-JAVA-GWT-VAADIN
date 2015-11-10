@@ -13,13 +13,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
@@ -35,39 +38,50 @@ public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer> {
 	
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venda_condicoes_pagamento_id_seq")
-	@SequenceGenerator(name = "venda_condicoes_pagamento_id_seq", sequenceName = "venda_condicoes_pagamento_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
+	@Field
 	@Caption("Nome")
+	@Column(name="nome")
+	@NotNull(message = "Nome é Obrigatório!")
 	String nome;
 
+	@Field
+	@Column(name="descricao")
 	@Caption("Descrição")
 	String descricao;
 	
+	@Field
 	@Column(name="faturamento_minimo")
 	BigDecimal faturamentoMinimo;
 	
+	@Field
 	@Column(name="faturamento_maximo")
 	BigDecimal faturamentoMaximo;
 	
+	@Field
 	@Column(name="indice_correcao")
 	BigDecimal indiceCorrecao;
 	
+	@Field
 	@Column(name="dias_tolerancia")
 	Integer diasTolerancia;
 	
+	@Field
 	@Column(name="valor_tolerancia")
 	BigDecimal valorTolerancia;
 	
+	@Field
 	@Column(name="prazo_medio")
 	Integer prazoMedio;
 	
-	@OneToMany(mappedBy="condicaoPagamento",cascade=CascadeType.ALL,fetch= FetchType.EAGER)
-	List<ParcelaCondicaoPagamento> parcelas;
+	@OneToMany(mappedBy="condicaoPagamento",cascade=CascadeType.ALL,fetch= FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	List<ParcelaCondicaoPagamento> parcelas = new ArrayList<ParcelaCondicaoPagamento>();
 
 	public Integer getId() {
 		return id;

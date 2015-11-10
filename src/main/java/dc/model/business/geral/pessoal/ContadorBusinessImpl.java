@@ -35,6 +35,9 @@ public class ContadorBusinessImpl implements Serializable, ContadorBusiness<Cont
 		@Transactional(readOnly = false)
 		@Override
 		public void delete(ContadorEntity t) throws Exception {
+			
+			dao.delete(t);
+			
 		}
 
 		@Transactional(readOnly = false)

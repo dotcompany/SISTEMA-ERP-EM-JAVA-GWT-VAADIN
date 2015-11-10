@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.CombustivelEntity;
 import dc.servicos.dao.ordemservico.CombustivelDAO;
-import dc.servicos.util.Validator;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.CombustivelFormView;
 
-/** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
@@ -42,7 +42,6 @@ public class CombustivelFormController extends CRUDFormController<CombustivelEnt
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
 		try {
 			combustivelDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -53,23 +52,32 @@ public class CombustivelFormController extends CRUDFormController<CombustivelEnt
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = combustivelDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());
+		try {
+	        this.currentBean = this.combustivelDAO.find(id);
+	
+	        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
-	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
-	 * padrÃ£o
-	 */
-	@Override
-	protected void quandoNovo() {
-
-	}
 
 	@Override
 	protected void initSubView() {
-		subView = new CombustivelFormView();
+		try {
+	        this.subView = new CombustivelFormView(this);
+	
+	        // Cria o DCFieldGroup
+	        this.fieldGroup = new DCFieldGroup<>(CombustivelEntity.class);
+	
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTxtNome(),"nome");
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/*
@@ -78,31 +86,58 @@ public class CombustivelFormController extends CRUDFormController<CombustivelEnt
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CombustivelEntity();
+		try {
+	         this.currentBean = new CombustivelEntity();
+	 
+	         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	         fieldGroup.setItemDataSource(this.currentBean);
+	 
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         mensagemErro(e.getMessage());
+	     }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		combustivelDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.combustivelDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
+		try {
+	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
+	    }
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			CombustivelEntity combustivel = (CombustivelEntity) id;
+
+			try {
+				combustivelDAO.delete(combustivel);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

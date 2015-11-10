@@ -8,11 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.ordemservico.OrdemServicoEntity;
+import dc.model.dao.ordemservico.IOrdemServicoDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class OrdemServicoDAO extends AbstractCrudDAO<OrdemServicoEntity>{
+public class OrdemServicoDAO extends AbstractCrudDAO<OrdemServicoEntity> implements IOrdemServicoDAO{
 
 	@Override
 	public Class<OrdemServicoEntity> getEntityClass() {
@@ -20,7 +21,8 @@ public class OrdemServicoDAO extends AbstractCrudDAO<OrdemServicoEntity>{
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] {"id"};
+		return new String[] {"cliente","dataCadastr","valorServico","valorPeca","valorFrete","valorTotalOs","valorTotalServico","valorLucroServico","quantidadeParcelaCheque","primeiroVencimentoCheque",
+				"quantidadeParcelaCarne","primeiroVencimentoCarne","quantidadeParcelaCartao","primeiroVencimentoCartao","quantidadeParcelaBoleto","primeiroVencimentoBoleto","dataExclusao","efetivada"};
 	}
 	
 	@Transactional

@@ -16,9 +16,9 @@ import dc.entidade.ordemservico.CarroEntity;
 import dc.entidade.ordemservico.ModeloOsEntity;
 import dc.model.business.ordemservico.CarroBusiness;
 import dc.model.business.ordemservico.ModeloOsBusiness;
+import dc.model.dao.ordemservico.ICorDAO;
 import dc.servicos.dao.geral.pessoal.ClienteDAO;
 import dc.servicos.dao.ordemservico.CombustivelDAO;
-import dc.servicos.dao.ordemservico.CorDAO;
 import dc.servicos.dao.ordemservico.MarcaOsDAO;
 import dc.servicos.dao.ordemservico.ModeloOsDAO;
 import dc.visao.framework.DCFieldGroup;
@@ -59,7 +59,7 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 	private ModeloOsBusiness<ModeloOsEntity> businessModeloOs;
 	
 	@Autowired
-	private CorDAO corDAO;
+	private ICorDAO corDAO;
 	
 	@Autowired
 	private CombustivelDAO combustivelDAO;
@@ -135,6 +135,7 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 	        fieldGroup.bind(this.subView.getCbMarca(), "marca");
 			fieldGroup.bind(this.subView.getCbModelo(), "modelo");
 			fieldGroup.bind(this.subView.getCbCor(), "cor");
+			fieldGroup.bind(this.subView.getTfAno(), "ano");
 			fieldGroup.bind(this.subView.getCbCombustivel(), "combustivel");
 			
 			        // Configura os ManyToOneComboFields

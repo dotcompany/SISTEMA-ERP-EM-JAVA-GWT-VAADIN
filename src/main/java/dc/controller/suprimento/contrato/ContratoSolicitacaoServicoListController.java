@@ -62,7 +62,7 @@ public class ContratoSolicitacaoServicoListController extends
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

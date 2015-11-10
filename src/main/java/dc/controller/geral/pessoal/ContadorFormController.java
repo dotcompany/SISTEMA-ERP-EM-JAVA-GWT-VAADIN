@@ -141,12 +141,18 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			for (Serializable id : ids) {
+				ContadorEntity contador = (ContadorEntity) id;
 
+				try {
+					business.delete(contador);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 	}
 
 	@Override

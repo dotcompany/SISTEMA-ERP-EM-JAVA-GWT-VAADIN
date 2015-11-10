@@ -46,7 +46,8 @@ GrupoOsBusiness<GrupoOsEntity> {
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(GrupoOsEntity t) throws Exception {
-		// TODO Auto-generated method stub
+		
+		dao.delete(t);
 
 	}
 
@@ -116,8 +117,8 @@ GrupoOsBusiness<GrupoOsEntity> {
 
 	@Override
 	public List<GrupoOsEntity> fullTextSearch(String valor) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

@@ -46,12 +46,10 @@ public class VendaPecaEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_vendedor", referencedColumnName = "id", nullable = true)
-	@Analyzer(definition = "dc_combo_analyzer")
 	private ColaboradorEntity vendedor;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_tecnico", referencedColumnName = "id", nullable = true)
-	@Analyzer(definition = "dc_combo_analyzer")
 	private ColaboradorEntity tecnico;
 
 	@ManyToOne

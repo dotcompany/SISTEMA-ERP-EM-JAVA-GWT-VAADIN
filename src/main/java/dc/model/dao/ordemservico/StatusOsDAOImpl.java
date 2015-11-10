@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  */
 @Repository
 public class StatusOsDAOImpl extends AbstractCrudDAO<StatusOsEntity> implements
-		StatusOsDAO<StatusOsEntity> {
+		IStatusOsDAO {
 
 	private static Logger logger = Logger.getLogger(StatusOsDAOImpl.class);
 

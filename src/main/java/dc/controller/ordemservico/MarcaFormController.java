@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.MarcaOsEntity;
-import dc.servicos.dao.ordemservico.MarcaOsDAO;
+import dc.servicos.dao.ordemservico.IMarcaOsDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.MarcaFormView;
@@ -26,7 +26,7 @@ public class MarcaFormController extends CRUDFormController<MarcaOsEntity> {
 	MarcaFormView subView;
 
 	@Autowired
-	MarcaOsDAO marcaDAO;
+	private IMarcaOsDAO marcaDAO;
 
 	private MarcaOsEntity currentBean;
 

@@ -1,13 +1,18 @@
 package dc.entidade.geral.eventos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -17,6 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -58,7 +65,7 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@Column(name = "CNPJ")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	@NotNull(message = "CNPJ é Obrigatório!")
+	//@NotNull(message = "CNPJ é Obrigatório!")
 	private String cnpj = "";
 	
 	@Field
@@ -144,9 +151,9 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 	@NotNull(message = "Email é Obrigatório!")
 	private String email;
 	
-	/*@OneToMany(mappedBy = "cerimonialEventos", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "nomeCerimonial", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<ContratoEventosEntity> contratoEventosList = new ArrayList<>();*/
+	private List<ContratoEventosEntity> contratoEventosList = new ArrayList<>();
 	
 	@Transient
 	private UfEntity uf;
@@ -280,14 +287,14 @@ public class CerimonialEventosEntity extends AbstractMultiEmpresaModel<Integer> 
 		this.uf = uf;
 	}
 
-	/*public List<ContratoEventosEntity> getContratoEventosList() {
+	public List<ContratoEventosEntity> getContratoEventosList() {
 		return contratoEventosList;
 	}
 
 	public void setContratoEventosList(
 			List<ContratoEventosEntity> contratoEventosList) {
 		this.contratoEventosList = contratoEventosList;
-	}*/
+	}
 	
 	@Override
 	public String toString() {

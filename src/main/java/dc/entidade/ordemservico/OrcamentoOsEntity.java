@@ -45,61 +45,85 @@ public class OrcamentoOsEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@Caption("Nome")
 	@Column(name = "nome")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nome;
 
 	@Field
 	@Caption("Nome vendedor")
 	@Column(name = "nome_vendedor")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String nomeVendedor;
 
 	@Field
 	@Caption("Forma pagamento")
 	@Column(name = "forma_pagamento")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String formaPagamento;
 
 	@Field
 	@Caption("Endereço")
 	@Column(name = "endereco")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String endereco;
   
 	@Field
 	@Caption("Fone")
 	@Column(name = "fone")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String fone;
 
 	@Field
 	@Caption("Placa")
 	@Column(name = "placa")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String placa;
 
 	@Field
 	@Caption("Marca")
 	@Column(name = "marca")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String marca;
 
 	@Field
 	@Caption("Modelo")
 	@Column(name = "modelo")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String modelo;
 
 	@Field
 	@Caption("Cor")
 	@Column(name = "cor")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String cor;
 
 	@Field
 	@Caption("Ano")
 	@Column(name = "ano")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer ano;
 
 	@Field
 	@Caption("Motor")
 	@Column(name = "motor")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String motor;
 
 	@Field
 	@Caption("Motorização")
 	@Column(name = "motorizacao")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
 	private String motorizacao;
 
 	@Column(name = "valor_mao_obra")

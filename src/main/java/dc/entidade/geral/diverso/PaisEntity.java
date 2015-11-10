@@ -104,7 +104,7 @@ public class PaisEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 */
 
 	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="pais",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="pais",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<UfEntity> ufList = new ArrayList<UfEntity>();
 	
 	@Fetch(FetchMode.SUBSELECT)

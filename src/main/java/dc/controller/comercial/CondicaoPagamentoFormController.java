@@ -1,22 +1,20 @@
 package dc.controller.comercial;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.comercial.CondicaoPagamento;
 import dc.entidade.comercial.ParcelaCondicaoPagamento;
-import dc.framework.exception.ErroValidacaoException;
 import dc.servicos.dao.comercial.ICondicaoPagamentoDAO;
-import dc.servicos.dao.comercial.IParcelaCondicaoPagamentoDAO;
-import dc.servicos.util.Validator;
 import dc.visao.comercial.CondicaoPagamentoFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
@@ -36,7 +34,7 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 	private ICondicaoPagamentoDAO dao;
 
 	@Autowired
-	private IParcelaCondicaoPagamentoDAO parcelaDAO;
+	private ParcelaDAO parcelaDAO;
 
 	@Override
 	public String getViewIdentifier() {
@@ -45,117 +43,55 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 
 	@Override
 	protected boolean validaSalvar() {
-		// TODO Auto-generated method stub
-		return true;
+      try {
+			
+            fieldGroup.commit();
+            return true;
+
+		}catch (FieldGroup.CommitException ce) {
+			return false;
+		}
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CondicaoPagamento();
+		try {
+			currentBean = new CondicaoPagamento();
+			
+			fieldGroup.setItemDataSource(this.currentBean);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new CondicaoPagamentoFormView(this);
+		
+		try {
+			this.subView = new CondicaoPagamentoFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(CondicaoPagamento.class);
+            fieldGroup.bind(this.subView.getTxtNome(),"nome");
+
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = dao.find(id);
-		BigDecimal faturamentoMinimo = currentBean.getFaturamentoMinimo();
-		BigDecimal faturamentoMaximo = currentBean.getFaturamentoMaximo();
-		BigDecimal indiceCorrecao = currentBean.getIndiceCorrecao();
-		Integer diasTolerancia = currentBean.getDiasTolerancia();
-		BigDecimal valorTolerancia = currentBean.getValorTolerancia();
-		Integer prazoMedio = currentBean.getPrazoMedio();
-
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
-
-		if (faturamentoMinimo != null) {
-			subView.getTxtFaturamentoMinimo().setValue(faturamentoMinimo.toString());
-		}
-
-		if (faturamentoMaximo != null) {
-			subView.getTxtFaturamentoMaximo().setValue(faturamentoMaximo.toString());
-		}
-
-		if (indiceCorrecao != null) {
-			subView.getTxtIndiceCorrecao().setValue(indiceCorrecao.toString());
-		}
-
-		if (diasTolerancia != null) {
-			subView.getTxtDiasTolerancia().setValue(diasTolerancia.toString());
-		}
-
-		if (valorTolerancia != null) {
-			subView.getTxtValorTolerancia().setValue(valorTolerancia.toString());
-		}
-
-		if (prazoMedio != null) {
-			subView.getTxtPrazoMedio().setValue(prazoMedio.toString());
-		}
-
-		List<ParcelaCondicaoPagamento> parcelas = currentBean.getParcelas();
-		if (parcelas != null) {
-			subView.preencherSubForm(parcelas);
-		}
-
-	}
-
-	@Override
-	protected void actionSalvar() {
-
-		String nome = subView.getTxtNome().getValue();
-		String descricao = subView.getTxtDescricao().getValue();
-		String faturamentoMinimo = subView.getTxtFaturamentoMinimo().getValue();
-		String faturamentoMaximo = subView.getTxtFaturamentoMaximo().getValue();
-		String indiceCorrecao = subView.getTxtIndiceCorrecao().getValue();
-		String diasTolerancia = subView.getTxtDiasTolerancia().getValue();
-		String valorTolerancia = subView.getTxtValorTolerancia().getValue();
-		String prazoMedio = subView.getTxtPrazoMedio().getValue();
-
+		
 		try {
-
-			if (!Validator.validateString(nome)) {
-				throw new ErroValidacaoException("Informe o Nome!");
+			currentBean = dao.find(id);
+			List<ParcelaCondicaoPagamento> parcelas = currentBean.getParcelas();
+			if (parcelas != null) {
+				subView.preencherSubForm(parcelas);
 			}
+            fieldGroup.setItemDataSource(this.currentBean);
 
-			currentBean.setNome(nome);
-			currentBean.setDescricao(descricao);
-
-			if (Validator.validateString(faturamentoMinimo)) {
-				currentBean.setFaturamentoMinimo(new BigDecimal(formataValor(faturamentoMinimo)));
-			}
-
-			if (Validator.validateString(faturamentoMaximo)) {
-				currentBean.setFaturamentoMaximo(new BigDecimal(formataValor(faturamentoMaximo)));
-			}
-
-			if (Validator.validateString(indiceCorrecao)) {
-				indiceCorrecao = indiceCorrecao.replace(",", ".");
-				currentBean.setIndiceCorrecao(new BigDecimal(indiceCorrecao));
-			}
-
-			if (Validator.validateString(diasTolerancia)) {
-				currentBean.setDiasTolerancia(new Integer(diasTolerancia));
-			}
-
-			if (Validator.validateString(valorTolerancia)) {
-				currentBean.setValorTolerancia(new BigDecimal(formataValor(valorTolerancia)));
-			}
-
-			if (Validator.validateString(prazoMedio)) {
-				currentBean.setPrazoMedio(new Integer(prazoMedio));
-			}
-
-			dao.saveOrUpdate(currentBean);
-			notifiyFrameworkSaveOK(currentBean);
-
-		} catch (ErroValidacaoException e) {
-			mensagemErro(e.montaMensagemErro());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -163,8 +99,16 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 	}
 
 	@Override
-	protected void quandoNovo() {
-		// TODO Auto-generated method stub
+	protected void actionSalvar() {
+
+		try {
+
+			dao.saveOrUpdate(currentBean);
+			notifiyFrameworkSaveOK(currentBean);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -199,9 +143,19 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 	}
 
 	@Override
-	protected void removerEmCascata(List<Serializable> objetos) {
-		// TODO Auto-generated method stub
+	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			CondicaoPagamento cp = (CondicaoPagamento) id;
 
+			try {
+				dao.delete(cp);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.OrcamentoOsEntity;
 import dc.entidade.ordemservico.OrcamentoOsItemEntity;
-import dc.servicos.dao.ordemservico.CorDAO;
+import dc.model.dao.ordemservico.ICorDAO;
 import dc.servicos.dao.ordemservico.IMarcaOsDAO;
 import dc.servicos.dao.ordemservico.IModeloDAO;
 import dc.servicos.dao.ordemservico.OrcamentoItemOsDAO;
@@ -32,7 +32,7 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOsEnt
 	IMarcaOsDAO marcaDAO;
 
 	@Autowired
-	CorDAO corDAO;
+	private ICorDAO corDAO;
 
 	@Autowired
 	IModeloDAO modeloDAO;
@@ -150,13 +150,19 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOsEnt
 	}
 
 	@Override
-	protected void quandoNovo() {
-//		subView.preencheSubForm(currentBean.getItens());
-	}
-
-	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		remover(ids);
+		for (Serializable id : ids) {
+			OrcamentoOsEntity orcamento = (OrcamentoOsEntity) id;
+
+			try {
+				orcamentoOsDAO.delete(orcamento);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	public OrcamentoOsItemEntity novoOrcamentoOsItem() {

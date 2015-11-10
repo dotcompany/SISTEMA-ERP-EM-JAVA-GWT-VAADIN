@@ -117,10 +117,9 @@ public class GrupoTributarioBusinessImpl implements Serializable,
 	}
 
 	@Override
-	public List<GrupoTributarioEntity> fullTextSearch(String valor)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<GrupoTributarioEntity> fullTextSearch(String valor) throws Exception {
+		
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

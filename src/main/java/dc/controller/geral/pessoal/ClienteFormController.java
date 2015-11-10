@@ -106,7 +106,7 @@ public class ClienteFormController extends CRUDFormController<ClienteEntity> {
 			this.subView.getMocAtividade().configuraCombo(
 					"nome", AtividadeForCliListController.class, this.atividadeDAO, this.getMainController());
 			this.subView.getMocOperacaoFiscal().configuraCombo(
-					"nome", OperacaoFiscalListController.class, this.operacaoDAO, this.getMainController());
+					"descricao", OperacaoFiscalListController.class, this.operacaoDAO, this.getMainController());
 			
 			comboGerarFinanceiro();
 			comboFormaDesconto();

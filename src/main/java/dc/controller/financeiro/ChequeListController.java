@@ -72,7 +72,7 @@ public class ChequeListController extends CRUDListController<Cheque> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

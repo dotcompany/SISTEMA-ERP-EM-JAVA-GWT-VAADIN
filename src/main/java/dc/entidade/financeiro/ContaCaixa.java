@@ -37,6 +37,7 @@ import dc.control.enums.ContaCaixaTipoEnum;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.entidade.geral.diverso.OperadoraCartaoEntity;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 
 @Entity
@@ -124,7 +125,15 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@OneToMany(mappedBy = "contaCaixa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ColaboradorEntity> colaboradorList = new ArrayList<ColaboradorEntity>();
-
+	
+	@OneToMany(mappedBy = "contaCaixa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<TalonarioCheque> talonarioList = new ArrayList<TalonarioCheque>();
+	
+	@OneToMany(mappedBy = "contaCaixa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<OperadoraCartaoEntity> operadoraCartaoList = new ArrayList<OperadoraCartaoEntity>();
+	
 	/**
 	 * TRANSIENT
 	 */
@@ -218,6 +227,24 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setColaboradorList(List<ColaboradorEntity> colaboradorList) {
 		this.colaboradorList = colaboradorList;
+	}
+	
+	public List<TalonarioCheque> getTalonarioList() {
+		return talonarioList;
+	}
+
+	public void setTalonarioList(List<TalonarioCheque> talonarioList) {
+		this.talonarioList = talonarioList;
+	}
+	
+	
+	public List<OperadoraCartaoEntity> getOperadoraCartaoList() {
+		return operadoraCartaoList;
+	}
+
+	public void setOperadoraCartaoList(
+			List<OperadoraCartaoEntity> operadoraCartaoList) {
+		this.operadoraCartaoList = operadoraCartaoList;
 	}
 
 	/**

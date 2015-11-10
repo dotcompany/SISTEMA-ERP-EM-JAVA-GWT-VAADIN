@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.FornecedorEntity;
-import dc.servicos.dao.geral.FornecedorDAO;
+import dc.servicos.dao.geral.IFornecedorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class FornecedorListController extends CRUDListController<FornecedorEntit
 	private FornecedorFormController fornecedorFormController;
 	
 	@Autowired
-	private FornecedorDAO dao;
+	private IFornecedorDAO dao;
 
 	@Override
 	public String getViewIdentifier() {
@@ -65,8 +65,7 @@ public class FornecedorListController extends CRUDListController<FornecedorEntit
 	@Override
 	protected List<FornecedorEntity> pesquisa(String valor) {
 		try {
-			
-			List<FornecedorEntity> auxLista = this.dao.procuraNomeContendo(valor);
+			List<FornecedorEntity> auxLista = (List<FornecedorEntity>) this.fornecedorFormController.getBusiness().fullTextSearch(valor);
 
 			return auxLista;
 		} catch (Exception e) {
@@ -74,13 +73,13 @@ public class FornecedorListController extends CRUDListController<FornecedorEntit
 
 			return null;
 		}
+		
 	}
 
 	@Override
 	protected List<FornecedorEntity> pesquisaDefault() {
 		try {
-			
-			List<FornecedorEntity> auxLista = this.dao.getAll();
+			List<FornecedorEntity> auxLista = (List<FornecedorEntity>) this.fornecedorFormController.getBusiness().getAll(getEntityClass());
 
 			return auxLista;
 		} catch (Exception e) {

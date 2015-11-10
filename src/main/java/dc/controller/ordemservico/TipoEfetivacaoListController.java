@@ -31,7 +31,7 @@ public class TipoEfetivacaoListController extends CRUDListController<TipoEfetiva
 
 	@Override
 	protected String getTitulo() {
-		return "Descrição";
+		return "Tipo Efetivação";
 	}
 
 	@Override
@@ -61,6 +61,6 @@ public class TipoEfetivacaoListController extends CRUDListController<TipoEfetiva
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

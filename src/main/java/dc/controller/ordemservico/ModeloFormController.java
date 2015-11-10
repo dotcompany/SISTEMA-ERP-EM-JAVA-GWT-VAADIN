@@ -7,19 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
-import dc.entidade.ordemservico.MarcaOsEntity;
 import dc.entidade.ordemservico.ModeloEntity;
 import dc.servicos.dao.ordemservico.IMarcaOsDAO;
 import dc.servicos.dao.ordemservico.IModeloDAO;
-import dc.servicos.util.Validator;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.ModeloFormView;
-import dc.visao.spring.SecuritySessionProvider;
 
-/** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
@@ -49,11 +46,6 @@ public class ModeloFormController extends CRUDFormController<ModeloEntity> {
 
 	@Override
 	protected void actionSalvar() {
-		currentBean.setNome(subView.getTxtNome().getValue());
-		
-		MarcaOsEntity marca = (MarcaOsEntity) subView.getCbMarca().getValue();
-		currentBean.setMarca(marca); 
-		currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta().getEmpresa());
 		try {
 			modeloDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -64,67 +56,91 @@ public class ModeloFormController extends CRUDFormController<ModeloEntity> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = modeloDAO.find(id);
-		subView.getTxtNome().setValue(currentBean.getNome());
-		subView.getCbMarca().setValue(currentBean.getMarca());
-	}
-
-	/*
-	 * Callback para quando novo foi acionado. Colocar ProgramaÃ§Ã£o customizada
-	 * para essa aÃ§Ã£o aqui. Ou entÃ£o deixar em branco, para comportamento
-	 * padrÃ£o
-	 */
-	@Override
-	protected void quandoNovo() {
-
+		try {
+	        this.currentBean = this.modeloDAO.find(id);
+	
+	        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new ModeloFormView();
-
-		preencheCombos();
+		try {
+	        this.subView = new ModeloFormView(this);
+	
+	        // Cria o DCFieldGroup
+	        this.fieldGroup = new DCFieldGroup<>(ModeloEntity.class);
+	
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTxtNome(),"nome");
+	        fieldGroup.bind(this.subView.getCbMarca(),"marca");
+	        
+	        this.subView.getCbMarca().configuraCombo(
+	        		"nome", MarcaListController.class, this.marcaDAO, this.getMainController());
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
-	/*
-	 * Deve sempre atribuir a current Bean uma nova instancia do bean do
-	 * formulario.
-	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new ModeloEntity();
-	}
-
-	private void preencheCombos() {
-
-		DefaultManyToOneComboModel<MarcaOsEntity> marca = new DefaultManyToOneComboModel<MarcaOsEntity>(MarcaListController.class, this.marcaDAO,
-				super.getMainController());
-
-		this.subView.getCbMarca().setModel(marca);
+		try {
+	         this.currentBean = new ModeloEntity();
+	 
+	         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	         fieldGroup.setItemDataSource(this.currentBean);
+	 
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         mensagemErro(e.getMessage());
+	     }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		modeloDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.modeloDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	/* Implementar validacao de campos antes de salvar. */
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTxtNome().getValue())) {
-			adicionarErroDeValidacao(subView.getTxtNome(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
+		try {
+	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
+	    }
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			ModeloEntity modeloOs = (ModeloEntity) id;
+
+			try {
+				modeloDAO.delete(modeloOs);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

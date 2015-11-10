@@ -2,6 +2,8 @@ package dc.controller.geral.produto;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -71,6 +73,7 @@ public class ProdutoListController extends CRUDListController<ProdutoEntity> {
 	}
 
 	@Override
+	@Transactional
 	protected List<ProdutoEntity> pesquisa(String valor) {
 		try {
 			List<ProdutoEntity> auxLista = (List<ProdutoEntity>) this.produtoFormController.getBusiness().fullTextSearch(valor);

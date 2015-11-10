@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.sun.istack.logging.Logger;
 
 import dc.entidade.ordemservico.ModeloOsEntity;
-import dc.entidade.ordemservico.SubGrupoOsEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -18,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  */
 @Repository
 public class ModeloOsDAOImpl extends AbstractCrudDAO<ModeloOsEntity> implements
-ModeloOsDAO<ModeloOsEntity> {
+IModeloOsDAO {
 
 	private static Logger logger = Logger.getLogger(ModeloOsDAOImpl.class);
 

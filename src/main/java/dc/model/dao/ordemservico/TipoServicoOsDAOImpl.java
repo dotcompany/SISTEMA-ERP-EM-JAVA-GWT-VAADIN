@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  */
 @Repository
 public class TipoServicoOsDAOImpl extends AbstractCrudDAO<TipoServicoOsEntity> implements
-		TipoServicoOsDAO<TipoServicoOsEntity> {
+		ITipoServicoOsDAO {
 
 	private static Logger logger = Logger.getLogger(TipoServicoOsDAOImpl.class);
 

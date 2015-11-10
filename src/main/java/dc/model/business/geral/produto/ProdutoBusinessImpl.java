@@ -33,6 +33,9 @@ public class ProdutoBusinessImpl implements Serializable,
 
 	@Autowired
 	private IProdutoDAO dao;
+	//@Inject
+	//@FullTextSearch
+	//private FullTextEntityManager fullTextEntityManager;
 
 	/*@Autowired
 	private UnidadeProdutoDAO<UnidadeProdutoEntity> unidadeProdutoDAO;
@@ -140,9 +143,31 @@ public class ProdutoBusinessImpl implements Serializable,
 	}
 
 	@Override
+	@Transactional
 	public List<ProdutoEntity> fullTextSearch(String valor) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		/*QueryBuilder builder =  fullTextEntityManager
+				.getSearchFactory()
+				.buildQueryBuilder()
+				.forEntity(ProdutoEntity.class)
+				.get();
+
+         org.apache.lucene.search.Query luceneQuery =  builder
+									.keyword()
+									.onFields("subGrupo.nome","unidadeProduto.descricao","marca.nome","almoxarifado.nome","grupo.nome","grupoTributario.nome", "nome",
+											"ncm.descricao")
+									.matching(valor)
+									.createQuery();
+
+         javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, ProdutoEntity.class);
+         
+         return jpaQuery.getResultList();*/
+		
+		
+		
+		return dao.fullTextSearch(valor);
+		
+		
 	}
 
 	@Override

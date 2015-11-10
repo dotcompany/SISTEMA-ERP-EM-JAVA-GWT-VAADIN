@@ -153,14 +153,18 @@ public class ChequeFormController extends CRUDFormController<Cheque> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (Serializable id : ids) {
+			Cheque cheque = (Cheque) id;
 
-			mensagemErro(e.getMessage());
+			try {
+				chequeDAO.delete(cheque);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
 		}
-
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

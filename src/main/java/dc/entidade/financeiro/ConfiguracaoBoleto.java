@@ -123,7 +123,7 @@ public class ConfiguracaoBoleto extends AbstractMultiEmpresaModel<Integer> imple
 	private BigDecimal taxaMulta;
 
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@Caption(value = "Conta Caixa")
 	@NotNull(message = "Conta Caixa é Obrigatório!")
 	private ContaCaixa contaCaixa;

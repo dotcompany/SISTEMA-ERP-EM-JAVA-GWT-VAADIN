@@ -2,6 +2,7 @@ package dc.entidade.financeiro;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +21,11 @@ public class ImportaOFX {
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ExtratoContaBancoEntity> importaArquivoOFX(File arquivo) {
+	public List<ExtratoContaBancoEntity> importaArquivoOFX(InputStream is) {
 	       try {
 	           
 				AggregateUnmarshaller a = new AggregateUnmarshaller(ResponseEnvelope.class);
-	            ResponseEnvelope re = (ResponseEnvelope) a.unmarshal(new FileInputStream(arquivo));
+	            ResponseEnvelope re = (ResponseEnvelope) a.unmarshal(is);
 
 	            //define o tipo de mensagem
 	            MessageSetType type = MessageSetType.banking;

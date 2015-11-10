@@ -33,7 +33,7 @@ public class ParcelaPagarListController extends CRUDListController<ParcelaPagar>
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "lancamentoPagar.fornecedor", "contaCaixa", "numeroParcela", "valor", "dataEmissao", "dataVencimento", "descontoAte", "sofreRetencao",
+		return new String[] { "lancamentoPagar.fornecedor ", "contaCaixa", "numeroParcela", "valor", "dataEmissao", "dataVencimento", "descontoAte", "sofreRetencao",
 				"valorFaltante", "taxaJuro", "valorJuro", "taxaMulta", "valorMulta", "taxaDesconto", "valorDesconto" };
 	}
 

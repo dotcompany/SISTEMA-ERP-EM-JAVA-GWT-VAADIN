@@ -13,6 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.geral.tabela.CboListController;
 import dc.entidade.geral.pessoal.CargoEntity;
+import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.model.business.geral.pessoal.CargoBusiness;
 import dc.servicos.dao.geral.tabela.ICboDAO;
 import dc.visao.framework.DCFieldGroup;
@@ -98,7 +99,7 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 			// Mapeia os campos
 			
 			fieldGroup.bind(this.subView.getTfNome(),"nome");
-			fieldGroup.bind(this.subView.getTfSalario(),"salario");
+			//fieldGroup.bind(this.subView.getTfSalario(),"salario");
 			
 			this.subView.getMocCbo1994().configuraCombo(
 					"nome", CboListController.class, this.cboDAO, this.getMainController());
@@ -168,13 +169,20 @@ public class CargoFormController extends CRUDFormController<CargoEntity> {
 		}
 	}
 
-	@Override
-	protected void removerEmCascata(List<Serializable> ids) {
-		try {
+		@Override
+		protected void removerEmCascata(List<Serializable> objetos) {
+			for (Serializable id : objetos) {
+				CargoEntity cargo = (CargoEntity) id;
 
-		} catch (Exception e) {
-			e.printStackTrace();
+				try {
+					business.delete(cargo);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 		}
-	}
-
 }

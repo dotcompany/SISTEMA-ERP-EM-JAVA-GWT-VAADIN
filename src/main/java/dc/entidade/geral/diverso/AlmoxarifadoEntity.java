@@ -48,7 +48,7 @@ public class AlmoxarifadoEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "almoxarifado_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "almoxarifado_id_seq")
 	@SequenceGenerator(name = "almoxarifado_id_seq", sequenceName = "almoxarifado_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

@@ -114,6 +114,7 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption("Gera financeiro")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	
 	private SimNaoEn gerarFinanceiro;
 
 	@Enumerated(EnumType.STRING)
@@ -162,17 +163,20 @@ public class ClienteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@ManyToOne
 	@JoinColumn(name = "id_situacao_for_cli", nullable = true)
 	@NotNull(message = "Situação é Obrigatório!")
+	@IndexedEmbedded(includePaths={"nome"})
 	private SituacaoForCliEntity situacaoForCli;
 
 	@Caption("Atividade fornecedor / cliente")
 	@ManyToOne
 	@JoinColumn(name = "id_atividade_for_cli", nullable = true)
 	@NotNull(message = "Atividade é Obrigatório!")
+	@IndexedEmbedded(includePaths={"nome"})
 	private AtividadeForCliEntity atividadeForCli;
 
 	@Caption("Operação fiscal")
 	@ManyToOne
 	@JoinColumn(name = "id_operacao_fiscal", nullable = true)
+	@IndexedEmbedded(includePaths={"descricao"})
 	private OperacaoFiscalEntity operacaoFiscal;
 	
 	/**

@@ -59,7 +59,7 @@ public class CargoListController extends CRUDListController<CargoEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

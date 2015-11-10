@@ -21,8 +21,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
@@ -148,6 +151,7 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 
     @JoinColumn(name = "id_venda_condicoes_pagamento", referencedColumnName = "ID")
     @ManyToOne(optional = false)
+    @NotNull(message = "Condição Pagamento é Obrigatório!")
     private CondicaoPagamento condicaoPagamento;
     
     @JoinColumn(name = "ID_TRANSPORTADORA", referencedColumnName = "ID")
@@ -160,6 +164,7 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
     
     @JoinColumn(name = "ID_VENDEDOR", referencedColumnName = "ID")
     @ManyToOne(optional = false)
+    @NotNull(message = "Vendedor é Obrigatório!")
     private VendedorEntity vendedor;
 
 
@@ -335,6 +340,33 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 
 		return lctoPagarNtFinanceira;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Orcamento)) {
+            return false;
+        }
+
+        Orcamento that = (Orcamento) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 	
 	
 

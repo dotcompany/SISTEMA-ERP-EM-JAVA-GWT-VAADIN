@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -202,8 +203,10 @@ public class FornecedorEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	//private PessoaEntity pessoa;
 	
 	@Caption("Pessoa")
-	@ManyToOne()
-	@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
+	//@ManyToOne()
+	//@JoinColumn(name = "id_pessoa", insertable = true, updatable = true)
+	@JoinColumn(name = "id_pessoa", referencedColumnName = "ID")
+	@OneToOne(optional = false)
 	@NotNull(message = "Pessoa é Obrigatório!")
 	@IndexedEmbedded(depth=2, includePaths={"nome"})
 	private PessoaEntity pessoa;

@@ -6,8 +6,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +24,6 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
-import dc.visao.ordemservico.SimNaoEn;
 
 @Entity
 @Table(name = "os_parametros")
@@ -46,11 +43,10 @@ public class ParametroOsEntity extends AbstractMultiEmpresaModel<Integer> implem
 
 	@Caption("Limpar BD")
 	@Column(name = "limpar_bd")
-	@Enumerated(EnumType.STRING)
 	@Field
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private SimNaoEn limparBdAut;
+	private Boolean limparBdAut;
 
 	
 	@Caption("Usar vendedor\\atendente")
@@ -79,11 +75,10 @@ public class ParametroOsEntity extends AbstractMultiEmpresaModel<Integer> implem
 
 	@Caption("Usar desconto geral")
 	@Column(name = "desconto_geral")
-	@Enumerated(EnumType.STRING)
 	@Field
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private SimNaoEn descontoGeral;
+	private Boolean descontoGeral;
 
 	@Caption("Usar técnico lançam. produto")
 	@Column(name = "tecnico_produto")
@@ -150,11 +145,11 @@ public class ParametroOsEntity extends AbstractMultiEmpresaModel<Integer> implem
 		this.id = id;
 	}
 
-	public SimNaoEn getLimparBdAut() {
+	public Boolean getLimparBdAut() {
 		return limparBdAut;
 	}
 
-	public void setLimparBdAut(SimNaoEn limparBdAut) {
+	public void setLimparBdAut(Boolean limparBdAut) {
 		this.limparBdAut = limparBdAut;
 	}
 
@@ -182,11 +177,11 @@ public class ParametroOsEntity extends AbstractMultiEmpresaModel<Integer> implem
 		this.valorPagoPeca = valorPagoPeca;
 	}
 
-	public SimNaoEn getDescontoGeral() {
+	public Boolean getDescontoGeral() {
 		return descontoGeral;
 	}
 
-	public void setDescontoGeral(SimNaoEn descontoGeral) {
+	public void setDescontoGeral(Boolean descontoGeral) {
 		this.descontoGeral = descontoGeral;
 	}
 

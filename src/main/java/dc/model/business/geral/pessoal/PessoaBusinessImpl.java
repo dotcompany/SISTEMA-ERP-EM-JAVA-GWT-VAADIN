@@ -120,16 +120,6 @@ public class PessoaBusinessImpl implements Serializable,
 
 			PessoaEntity ent = this.dao.find(id);
 			
-			Hibernate.initialize(ent.getEmpresa());
-			Hibernate.initialize(ent.getPessoaFisica());
-			Hibernate.initialize(ent.getPessoaJuridica());
-			Hibernate.initialize(ent.getCliente());
-			Hibernate.initialize(ent.getColaborador());
-			Hibernate.initialize(ent.getFornecedor());
-			Hibernate.initialize(ent.getTransportadora());
-			Hibernate.initialize(ent.getPessoaContatoList());
-			Hibernate.initialize(ent.getPessoaEnderecoList());
-			
 			return ent;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,5 +1,6 @@
 package dc.model.dao.ordemservico;
 
+import dc.entidade.ordemservico.ModeloOsEntity;
 import dc.model.dao.AbstractDAO;
 
 /**
@@ -7,6 +8,6 @@ import dc.model.dao.AbstractDAO;
  * @author Paulo Sérgio Ferreira
  * 
  */
-public interface SituacaoServicoDAO<T> extends AbstractDAO<T> {
+public interface IModeloOsDAO extends AbstractDAO<ModeloOsEntity> {
 
 }

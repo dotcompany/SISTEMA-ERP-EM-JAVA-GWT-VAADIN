@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
@@ -14,24 +15,16 @@ import dc.controller.geral.diverso.SetorListController;
 import dc.controller.geral.pessoal.ClienteListController;
 import dc.controller.geral.pessoal.ColaboradorListController;
 import dc.controller.geral.pessoal.FornecedorListController;
-import dc.entidade.geral.diverso.SetorEntity;
-import dc.entidade.geral.pessoal.ClienteEntity;
-import dc.entidade.geral.pessoal.ColaboradorEntity;
-import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.suprimentos.contrato.SolicitacaoServicoEntity;
-import dc.entidade.suprimentos.contrato.TipoServicoEntity;
 import dc.model.dao.geral.diverso.ISetorDAO;
 import dc.model.dao.geral.pessoal.IClienteDAO;
 import dc.model.dao.geral.pessoal.IColaboradorDAO;
 import dc.servicos.dao.geral.IFornecedorDAO;
 import dc.servicos.dao.suprimentos.contrato.ISolicitacaoServicoDAO;
 import dc.servicos.dao.suprimentos.contrato.ITipoServicoDAO;
-import dc.servicos.util.Validator;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
-import dc.visao.spring.SecuritySessionProvider;
 import dc.visao.suprimento.contrato.ContratoSolicitacaoServicoFormView;
-import dc.visao.suprimento.contrato.ContratoSolicitacaoServicoFormView.ResponsavelEnum;
 
 @Controller
 @Scope("prototype")
@@ -63,9 +56,15 @@ public class ContratoSolicitacaoServicoFormController extends
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean valido = true;
-
-		if(subView.getGrpTipo().getValue().equals(ResponsavelEnum.FORNECEDOR)) {
+		
+		try {
+			// Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			fieldGroup.commit();
+		    return true;
+		} catch (FieldGroup.CommitException ce) {
+		    return false;
+		}
+		/*if(subView.getGrpTipo().getValue().equals(ResponsavelEnum.FORNECEDOR)) {
 			if (!Validator.validateObject(subView.getCbFornecedor().getValue())) {
 				adicionarErroDeValidacao(subView.getCbFornecedor(),
 						"Não pode ficar em branco");
@@ -78,135 +77,85 @@ public class ContratoSolicitacaoServicoFormController extends
 						"Não pode ficar em branco");
 				valido = false;
 			}
-		}
+		}*/
 		
-
-		if (!Validator.validateObject(subView.getCbSetor().getValue())) {
-			adicionarErroDeValidacao(subView.getCbSetor(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getCbColaborador().getValue())) {
-			adicionarErroDeValidacao(subView.getCbColaborador(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getCbTipoServico().getValue())) {
-			adicionarErroDeValidacao(subView.getCbTipoServico(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getDtSolicitacao().getValue())) {
-			adicionarErroDeValidacao(subView.getDtSolicitacao(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getDtDesejadaInicio().getValue())) {
-			adicionarErroDeValidacao(subView.getDtDesejadaInicio(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateObject(subView.getCmbUrgente().getValue())) {
-			adicionarErroDeValidacao(subView.getCmbUrgente(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		if (!Validator.validateString(subView.getTxaDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTxaDescricao(),
-					"Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new SolicitacaoServicoEntity();
-	}
-
-	private void carregarCombosView() {
-		DefaultManyToOneComboModel<FornecedorEntity> fornecedorModel = new DefaultManyToOneComboModel<FornecedorEntity>(
-				FornecedorListController.class, this.fornecedorDAO,
-				super.getMainController()) {
-
-			@Override
-			public String getCaptionProperty() {
-				return "pessoa.nome";
-			}
-
-		};
-
-		DefaultManyToOneComboModel<TipoServicoEntity> contratoTipoServicoModel = new DefaultManyToOneComboModel<TipoServicoEntity>(
-				ContratoTipoServicoListController.class,
-				this.contratoTipoServicoDAO, super.getMainController());
-
-		DefaultManyToOneComboModel<ColaboradorEntity> colaboradorModel = new DefaultManyToOneComboModel<ColaboradorEntity>(
-				ColaboradorListController.class, this.colaboradorDAO,
-				super.getMainController()) {
-
-			@Override
-			public String getCaptionProperty() {
-				return "pessoa.nome";
-			}
-
-		};
-
-		DefaultManyToOneComboModel<SetorEntity> setorModel = new DefaultManyToOneComboModel<SetorEntity>(
-				SetorListController.class, this.setorDAO,
-				super.getMainController());
-
-		DefaultManyToOneComboModel<ClienteEntity> clienteModel = new DefaultManyToOneComboModel<ClienteEntity>(
-				ClienteListController.class, this.clienteDAO,
-				super.getMainController()) {
-
-			@Override
-			public String getCaptionProperty() {
-				return "pessoa.nome";
-			}
-
-		};
-
-		subView.getCbFornecedor().setModel(fornecedorModel);
-		subView.getCbCliente().setModel(clienteModel);
-		subView.getCbColaborador().setModel(colaboradorModel);
-		subView.getCbSetor().setModel(setorModel);
-		subView.getCbTipoServico().setModel(contratoTipoServicoModel);
-
-		subView.carregarStatusSituacao();
-		subView.carregarUrgente();
+		try {
+			currentBean = new SolicitacaoServicoEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch (Exception e) {
+		    e.printStackTrace();
+		    mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new ContratoSolicitacaoServicoFormView();
-		carregarCombosView();
+		
+		try {
+			subView = new ContratoSolicitacaoServicoFormView(this);
+
+			this.fieldGroup = new DCFieldGroup<>(SolicitacaoServicoEntity.class);
+			
+			// Mapeia os campos
+			fieldGroup.bind(this.subView.getDtSolicitacao(),"dataSolicitacao");
+			
+			fieldGroup.bind(this.subView.getCbColaborador(),"colaborador");
+			fieldGroup.bind(this.subView.getCbSetor(),"setor");
+			fieldGroup.bind(this.subView.getCbTipoServico(),"contratoTipoServico");
+			
+			this.subView.getCbFornecedor().configuraCombo(
+					"pessoa.nome", FornecedorListController.class, this.fornecedorDAO, this.getMainController());
+			this.subView.getCbCliente().configuraCombo(
+					"pessoa.nome", ClienteListController.class, this.clienteDAO, this.getMainController());
+			this.subView.getCbTipoServico().configuraCombo(
+					"nome", ContratoTipoServicoListController.class, this.contratoTipoServicoDAO, this.getMainController());
+			this.subView.getCbColaborador().configuraCombo(
+					"pessoa.nome", ColaboradorListController.class, this.colaboradorDAO, this.getMainController());
+			this.subView.getCbSetor().configuraCombo(
+					"nome", SetorListController.class, this.setorDAO, this.getMainController());
+			
+			subView.carregarStatusSituacao();
+			subView.carregarUrgente();
+			
+		}catch (Exception e) {
+	       e.printStackTrace();
+	    }
 	}
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = contratoSolicitacaoServicoDAO.find(id);
-		subView.carregarView(currentBean);
+		
+		try {
+			this.currentBean = this.contratoSolicitacaoServicoDAO.find(id);
+			subView.carregarView(currentBean);
+			
+			fieldGroup.setItemDataSource(this.currentBean);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void actionSalvar() {
-		subView.preencherObjeto(currentBean);
-		currentBean.setEmpresa(SecuritySessionProvider.getUsuario().getConta()
-				.getEmpresa());
-		contratoSolicitacaoServicoDAO.saveOrUpdate(currentBean);
+		
+		
+		try {
+			this.contratoSolicitacaoServicoDAO.saveOrUpdate(this.currentBean);
 
-		notifiyFrameworkSaveOK(this.currentBean);
-	}
+			subView.preencherObjeto(currentBean);
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	@Override
-	protected void quandoNovo() {
+			mensagemErro(e.getMessage());
+		}
 
 	}
 

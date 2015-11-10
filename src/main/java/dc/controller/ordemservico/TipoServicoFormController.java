@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.TipoServicoOsEntity;
 import dc.servicos.dao.ordemservico.TipoServicoOsDAO;
-import dc.servicos.util.Validator;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.TipoServicoFormView;
 
@@ -41,7 +42,6 @@ public class TipoServicoFormController extends CRUDFormController<TipoServicoOsE
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setDescricao(subView.getTfDescricao().getValue());
 			tipoServicoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -51,19 +51,32 @@ public class TipoServicoFormController extends CRUDFormController<TipoServicoOsE
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = tipoServicoDAO.find(id);
 
-		subView.getTfDescricao().setValue(currentBean.getDescricao());
-	}
-
-	@Override
-	protected void quandoNovo() {
-
+		try {
+	        this.currentBean = this.tipoServicoDAO.find(id);
+	
+	        // Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
+	        fieldGroup.setItemDataSource(this.currentBean);
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new TipoServicoFormView();
+		try {
+	        this.subView = new TipoServicoFormView(this);
+	
+	        // Cria o DCFieldGroup
+	        this.fieldGroup = new DCFieldGroup<>(TipoServicoOsEntity.class);
+	
+	        // Mapeia os campos
+	        fieldGroup.bind(this.subView.getTfDescricao(),"descricao");
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/*
@@ -72,30 +85,57 @@ public class TipoServicoFormController extends CRUDFormController<TipoServicoOsE
 	 */
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new TipoServicoOsEntity();
+		try {
+	         this.currentBean = new TipoServicoOsEntity();
+	 
+	         // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
+	         fieldGroup.setItemDataSource(this.currentBean);
+	 
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         mensagemErro(e.getMessage());
+	     }
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		tipoServicoDAO.deleteAllByIds(ids);
-		mensagemRemovidoOK();
+		try {
+			this.tipoServicoDAO.deleteAll(ids);
+
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
 
-		boolean valido = true;
-
-		if (!Validator.validateString(subView.getTfDescricao().getValue())) {
-			adicionarErroDeValidacao(subView.getTfDescricao(), "Não pode ficar em branco");
-			valido = false;
-		}
-
-		return valido;
+		try {
+	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
+	    }
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			TipoServicoOsEntity tip = (TipoServicoOsEntity) id;
+
+			try {
+				tipoServicoDAO.delete(tip);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

@@ -166,14 +166,18 @@ public class AlmoxarifadoFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		try {
+		for (Serializable id : ids) {
+			AlmoxarifadoEntity a = (AlmoxarifadoEntity) id;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-
+			try {
+				business.delete(a);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
 		}
+		
+		mensagemRemovidoOK();
 	}
 
 }

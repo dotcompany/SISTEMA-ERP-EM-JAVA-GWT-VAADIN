@@ -46,7 +46,8 @@ public class CargoBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(CargoEntity t) throws Exception {
-		// TODO Auto-generated method stub
+		
+		dao.delete(t);
 
 	}
 
@@ -108,8 +109,8 @@ public class CargoBusinessImpl implements Serializable,
 
 	@Override
 	public List<CargoEntity> fullTextSearch(String valor) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

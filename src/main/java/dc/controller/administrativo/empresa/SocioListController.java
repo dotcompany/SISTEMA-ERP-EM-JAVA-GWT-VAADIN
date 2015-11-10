@@ -63,7 +63,7 @@ public class SocioListController extends CRUDListController<SocioEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

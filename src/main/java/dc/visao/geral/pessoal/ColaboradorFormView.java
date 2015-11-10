@@ -738,7 +738,7 @@ public class ColaboradorFormView extends CustomComponent {
 		gridLayout_1.addComponent(cbLctoComissao, 2, 3, 2, 3);
 
 		mocContaCaixa = new ManyToOneComboField<>(ContaCaixa.class);
-		mocContaCaixa.setCaption("Nr. conta");
+		mocContaCaixa.setCaption("Conta Caixa");
 		gridLayout_1.addComponent(mocContaCaixa, 0, 4, 1, 4);
 
 		mocPlanoConta = new ManyToOneComboField<>(PlanoContaEntity.class);

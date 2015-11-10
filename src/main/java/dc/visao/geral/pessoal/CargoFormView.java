@@ -137,7 +137,7 @@ public class CargoFormView extends CustomComponent {
 		fields.addComponent(tfDescricao, 0,1, 1,1);
 
 		// tfSalario
-		tfSalario = ComponentUtil.buildTextField("Salário");
+		tfSalario = ComponentUtil.buildCurrencysField("Salário");
 		tfSalario.setImmediate(false);
 		fields.addComponent(tfSalario, 0,2);
 

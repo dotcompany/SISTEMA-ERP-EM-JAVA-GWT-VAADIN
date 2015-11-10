@@ -104,7 +104,7 @@ public class CerimonialEventosFormController extends
 			// Mapeia os campos
 
 			fieldGroup.bind(this.subView.getTxtNome(), "nome");
-			fieldGroup.bind(this.subView.getTxtCnpj(), "cnpj");
+			//fieldGroup.bind(this.subView.getTxtCnpj(), "cnpj");
 			fieldGroup.bind(this.subView.getTfEndereco(), "endereco");
 			fieldGroup.bind(this.subView.getTfBairro(), "bairro");
 			fieldGroup.bind(this.subView.getTxtComplemento(), "complemento");
@@ -188,14 +188,19 @@ public class CerimonialEventosFormController extends
 	}
 
 	@Override
-	protected void removerEmCascata(List<Serializable> objetos) {
-		try {
+	protected void removerEmCascata(List<Serializable> ids) {
+			for (Serializable id : ids) {
+				CerimonialEventosEntity cerimonial = (CerimonialEventosEntity) id;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
+				try {
+					cerimonialEventosDAO.delete(cerimonial);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 	}
 
 	public void carregarUf() {

@@ -36,6 +36,7 @@ public class SearchIndexerDAO extends AbstractCrudDAO<Serializable> implements I
 	@Transactional
 	public void loadIndex() {
 		logger.info("loading index");
+		
 		Map<String, ClassMetadata> meta = getSessionFactory().getAllClassMetadata();
 		java.util.Iterator<ClassMetadata> it = meta.values().iterator();
 		ArrayList<Class> classes = new ArrayList<Class>();
@@ -47,6 +48,14 @@ public class SearchIndexerDAO extends AbstractCrudDAO<Serializable> implements I
 				classes.add(c);
 			}
 		}
+	try {
+			doIndex(classes.toArray(new Class[classes.size()]));
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info("call to index loading finished");
+		
 		try {
 			doIndex(classes.toArray(new Class[classes.size()]));
 		} catch (InterruptedException e) {
@@ -54,8 +63,8 @@ public class SearchIndexerDAO extends AbstractCrudDAO<Serializable> implements I
 			e.printStackTrace();
 		}
 		logger.info("call to index loading finished");
+		
 	}
-
 	private void doIndex(Class[] classes) throws InterruptedException {
 		logger.info("indexing: " + classes);
 		logger.info("indexing how many classes: " + classes.length);

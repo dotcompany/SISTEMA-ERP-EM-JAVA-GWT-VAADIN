@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  */
 @Repository
 public class EquipamentoDAOImpl extends AbstractCrudDAO<EquipamentoEntity> implements
-		EquipamentoDAO<EquipamentoEntity> {
+		IEquipamentoDAO {
 
 	private static Logger logger = Logger.getLogger(EquipamentoDAOImpl.class);
 

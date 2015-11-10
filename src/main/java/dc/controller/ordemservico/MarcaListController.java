@@ -21,7 +21,7 @@ public class MarcaListController extends CRUDListController<MarcaOsEntity> {
 	MarcaOsDAO dao;
 
 	@Autowired
-	MarcaFormController formController;
+	MarcaOsFormController formController;
 
 	@Override
 	public String[] getColunas() {
@@ -60,7 +60,7 @@ public class MarcaListController extends CRUDListController<MarcaOsEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 }

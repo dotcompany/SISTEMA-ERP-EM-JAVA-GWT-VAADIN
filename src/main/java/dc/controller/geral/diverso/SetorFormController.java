@@ -165,14 +165,17 @@ public class SetorFormController extends CRUDFormController<SetorEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
+			for (Serializable id : ids) {
+				SetorEntity setor = (SetorEntity) id;
 
-		
-		try {
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
+				try {
+					business.delete(setor);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 	}
 }

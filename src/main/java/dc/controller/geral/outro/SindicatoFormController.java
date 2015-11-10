@@ -187,13 +187,18 @@ public class SindicatoFormController extends CRUDFormController<SindicatoEntity>
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		try {
+			for (Serializable id : ids) {
+				SindicatoEntity sindicato = (SindicatoEntity) id;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
+				try {
+					business.delete(sindicato);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 	}
 
 	/**

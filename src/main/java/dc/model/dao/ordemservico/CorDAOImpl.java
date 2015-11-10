@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  */
 @Repository
 public class CorDAOImpl extends AbstractCrudDAO<CorEntity> implements
-		CorDAO<CorEntity> {
+		ICorDAO {
 
 	private static Logger logger = Logger.getLogger(CorDAOImpl.class);
 

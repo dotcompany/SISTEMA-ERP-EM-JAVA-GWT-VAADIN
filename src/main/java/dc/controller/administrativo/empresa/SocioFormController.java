@@ -186,9 +186,19 @@ protected boolean validaSalvar() {
 	}
 
 	@Override
-	protected void removerEmCascata(List<Serializable> objetos) {
-		System.out.println("");
+	protected void removerEmCascata(List<Serializable> ids) {
+		for (Serializable id : ids) {
+			SocioEntity socio = (SocioEntity) id;
 
+			try {
+				dao.delete(socio);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	@Override

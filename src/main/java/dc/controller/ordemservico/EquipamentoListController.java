@@ -61,6 +61,6 @@ public class EquipamentoListController extends CRUDListController<EquipamentoEnt
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 }

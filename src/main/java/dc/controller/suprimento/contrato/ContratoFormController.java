@@ -165,6 +165,13 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			adicionarErroDeValidacao(subView.getCbmPessoa(), "Não pode ficar em branco");
 			valido = false;
 		}
+		
+		SolicitacaoServicoEntity solicitacao = (SolicitacaoServicoEntity) subView.getCmbSolicitacaoServico().getValue();
+
+		if (!Validator.validateObject(solicitacao)) {
+			adicionarErroDeValidacao(subView.getCmbSolicitacaoServico(), "Não pode ficar em branco");
+			valido = false;
+		}
 
 		TipoContratoEntity tipoContrato = (TipoContratoEntity) subView.getCbmTipoContrato().getValue();
 		if (!Validator.validateObject(tipoContrato)) {
@@ -193,10 +200,10 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			valido = false;
 		}
 
-		if (!Validator.validateNumber(subView.getTxtValor().getConvertedValue().toString())) {
+		/*if (!Validator.validateNumber(subView.getTxtValor().getConvertedValue().toString())) {
 			adicionarErroDeValidacao(subView.getTxtValor(), "Número inválido");
 			valido = false;
-		}
+		}*/
 
 		if (!Validator.validateNumber(subView.getTxtQuantidadeParcelas().getValue())) {
 			adicionarErroDeValidacao(subView.getTxtQuantidadeParcelas(), "Número inválido");
@@ -208,7 +215,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 			valido = false;
 		}
 
-		if (!Validator.validateString(subView.getTxaDescricao().getValue())) {
+		/*if (!Validator.validateString(subView.getTxaDescricao().getValue())) {
 			adicionarErroDeValidacao(subView.getTxaDescricao(), "Não pode ficar em branco");
 			valido = false;
 		}
@@ -216,7 +223,7 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		if (!Validator.validateString(subView.getTxaObservacoes().getValue())) {
 			adicionarErroDeValidacao(subView.getTxaObservacoes(), "Não pode ficar em branco");
 			valido = false;
-		}
+		}*/
 
 		/*
 		 * if (!Validator.validateString(subView.getTxaTemplate().getValue())) {
@@ -355,15 +362,8 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		 * StatusSolicitação para aparecer no ComboBox
 		 */
 
-		DefaultManyToOneComboModel<SolicitacaoServicoEntity> contratoSolicitacaoServicoModel = new DefaultManyToOneComboModel<SolicitacaoServicoEntity>(ContratoSolicitacaoServicoListController.class,
-				this.solicitacaoServicoDAO, super.getMainController()) {
-
-			@Override
-			public String getCaptionProperty() {
-				return "descricao";
-			}
-
-		};
+		this.subView.getCmbSolicitacaoServico().configuraCombo(
+				"contratoTipoServico.nome", ContratoSolicitacaoServicoListController.class, this.solicitacaoServicoDAO, this.getMainController());
 
 		subView.getCbmPessoa().setModel(pessoaModel);
 		subView.getCbmTipoContrato().setModel(tipoContratoModel);
@@ -374,8 +374,6 @@ public class ContratoFormController extends CRUDFormController<ContratoEntity> {
 		 * 
 		 * for (UfEntity uf : ufs) { subView.getCmbEstadoObjeto().addItem(uf); }
 		 */
-
-		subView.getCmbSolicitacaoServico().setModel(contratoSolicitacaoServicoModel);
 
 		subView.getTxtValor().addBlurListener(new BlurListener() {
 

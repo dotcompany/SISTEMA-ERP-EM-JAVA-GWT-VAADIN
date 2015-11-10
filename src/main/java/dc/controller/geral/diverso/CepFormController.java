@@ -176,14 +176,18 @@ public class CepFormController extends CRUDFormController<CepEntity> {
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
+			for (Serializable id : ids) {
+				CepEntity cep = (CepEntity) id;
 
-			mensagemErro(e.getMessage());
-		}
-
+				try {
+					business.delete(cep);
+				} catch (Exception e) {
+					e.printStackTrace();
+					mensagemErro(e.getMessage());
+				}
+			}
+			
+			mensagemRemovidoOK();
 	}
 
 }
