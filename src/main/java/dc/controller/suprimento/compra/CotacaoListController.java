@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.compra.CotacaoEntity;
-import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
+import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -25,7 +25,7 @@ public class CotacaoListController extends CRUDListController<CotacaoEntity> {
 	private CotacaoFormController cotacaoFormController;
 
 	@Autowired
-	private CotacaoDAO dao;
+	private ICotacaoDAO dao;
 
 	/**
 	 * CONSTRUTOR
@@ -42,7 +42,7 @@ public class CotacaoListController extends CRUDListController<CotacaoEntity> {
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "dataCotacao", "descricao"};
+		return new String[] {  "dataCotacao", "descricao", "situacao"};
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class CotacaoListController extends CRUDListController<CotacaoEntity> {
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

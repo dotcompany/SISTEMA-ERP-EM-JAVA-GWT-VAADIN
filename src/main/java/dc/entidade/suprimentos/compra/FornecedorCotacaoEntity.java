@@ -14,8 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -46,8 +46,7 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_fornecedor_cotacao_id_seq")
-	@SequenceGenerator(name = "compra_fornecedor_cotacao_id_seq", sequenceName = "compra_fornecedor_cotacao_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -99,13 +98,15 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 	 * REFERENCIA - FK
 	 */
 
-	@ManyToOne
-	@JoinColumn(name = "id_fornecedor")
-	private FornecedorEntity fornecedor;
-
-	@ManyToOne
-	@JoinColumn(name = "id_compra_cotacao")
-	private CotacaoEntity cotacao;
+	
+	@JoinColumn(name = "ID_COMPRA_COTACAO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private CotacaoEntity cotacao;
+	
+    @JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    @NotNull(message = "Fornecedor é Obrigatório!")
+    private FornecedorEntity fornecedor;
 
 	/**
 	 * REFERENCIA - LIST

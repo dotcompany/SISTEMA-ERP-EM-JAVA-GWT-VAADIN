@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
@@ -15,9 +16,10 @@ import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
-import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
-import dc.servicos.dao.suprimentos.compra.RequisicaoDetalheDAO;
+import dc.servicos.dao.geral.IFornecedorDAO;
+import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
+import dc.servicos.dao.suprimentos.compra.IRequisicaoDetalheDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.compra.CotacaoFormView;
 
@@ -33,13 +35,13 @@ public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
 	private CotacaoFormView subView;
 
 	@Autowired
-	private CotacaoDAO cotacaoDao;
+	private ICotacaoDAO cotacaoDao;
 
 	@Autowired
-	private FornecedorDAO fornecedorDao;
+	private IFornecedorDAO fornecedorDao;
 
 	@Autowired
-	private RequisicaoDetalheDAO requisicaoDetalheDao;
+	private IRequisicaoDetalheDAO requisicaoDetalheDao;
 
 	private CotacaoEntity currentBean;
 
@@ -56,9 +58,6 @@ public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setDescricao(subView.getTxtDescricao().getValue());
-			currentBean.setDataCotacao(subView.getCalDataCotacao().getValue());
-			currentBean.setSituacao("A");
 			cotacaoDao.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -70,50 +69,81 @@ public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = cotacaoDao.find(id);
-		subView.getLblId().setValue(String.valueOf(currentBean.getId()));
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
-		subView.getCalDataCotacao().setValue(currentBean.getDataCotacao());
-
-		subView.fillCompraFornecedorCotacoesSubForm(currentBean
-				.getCompraFornecedorCotacaos());
-		subView.fillReqCotacaoDetalhesSubForm(currentBean
-				.getCompraReqCotacaoDetalhes());
+		
+		try {
+			this.currentBean = this.cotacaoDao.find(id);
+			
+			subView.fillCompraFornecedorCotacoesSubForm(currentBean.getCompraFornecedorCotacaos());
+			subView.fillReqCotacaoDetalhesSubForm(currentBean.getCompraReqCotacaoDetalhes());
+			fieldGroup.setItemDataSource(this.currentBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new CotacaoFormView(this);
+		try {
+			subView = new CotacaoFormView(this);
+			this.fieldGroup = new DCFieldGroup<>(CotacaoEntity.class);
+		
+     	    fieldGroup.bind(this.subView.getCalDataCotacao(), "dataCotacao");
+     	   fieldGroup.bind(this.subView.getTxtDescricao(), "descricao");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CotacaoEntity();
+		try {
+			currentBean = new CotacaoEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch(Exception e) {
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		cotacaoDao.deleteAllByIds(ids);
+		try {
+			this.cotacaoDao.deleteAll(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		return true;
-	}
+		try {
+			fieldGroup.commit();
+			return true;
+		} catch (FieldGroup.CommitException ce) {
 
-	@Override
-	protected void quandoNovo() {
-		subView.fillCompraFornecedorCotacoesSubForm(currentBean
-				.getCompraFornecedorCotacaos());
-		subView.fillReqCotacaoDetalhesSubForm(currentBean
-				.getCompraReqCotacaoDetalhes());
+			return false;
+		}
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		remover(ids);
+		for (Serializable id : ids) {
+			CotacaoEntity cotacao = (CotacaoEntity) id;
+
+			try {
+				cotacaoDao.delete(cotacao);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	public List<RequisicaoDetalheEntity> buscarRequisicaoProdutos() {

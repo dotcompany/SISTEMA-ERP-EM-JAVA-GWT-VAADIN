@@ -26,7 +26,7 @@ public class CotacaoDAO extends AbstractCrudDAO<CotacaoEntity> implements ICotac
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] { "codigo", "descricao", "nome" };
+		return new String[] { "dataCotacao", "descricao", "situacao" };
 	}
 
 }

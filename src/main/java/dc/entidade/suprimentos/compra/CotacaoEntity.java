@@ -9,14 +9,15 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -45,28 +46,29 @@ public class CotacaoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_cotacao_id_seq")
-	@SequenceGenerator(name = "compra_cotacao_id_seq", sequenceName = "compra_cotacao_id_seq", allocationSize = 1, initialValue = 0)
-	@Basic(optional = false)
-	@ComboCode
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer id;
-
-	@Temporal(TemporalType.DATE)
+    private Integer id;
+    
+    @Temporal(TemporalType.DATE)
 	@Field
 	@Caption("Data da cotação")
 	@Column(name = "data_cotacao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Date dataCotacao;
-
+    @NotNull(message = "Data Cotação é Obrigatório!")
+    private Date dataCotacao;
+    
 	@Field
 	@Caption("Descrição")
 	@Column(name = "descricao")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao = "";
 
 	@Field
@@ -84,11 +86,11 @@ public class CotacaoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "cotacao", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cotacao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<FornecedorCotacaoEntity> compraFornecedorCotacaos = new ArrayList<>();
-
-	@OneToMany(mappedBy = "cotacao", cascade = CascadeType.ALL, orphanRemoval = true)
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cotacao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ReqCotacaoDetalheEntity> compraReqCotacaoDetalhes = new ArrayList<>();
 

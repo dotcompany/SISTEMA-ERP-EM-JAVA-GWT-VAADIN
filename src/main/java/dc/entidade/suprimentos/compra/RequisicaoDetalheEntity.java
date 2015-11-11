@@ -10,17 +10,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
+import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.produto.ProdutoEntity;
 
 /**
@@ -41,28 +42,33 @@ public class RequisicaoDetalheEntity extends AbstractMultiEmpresaModel<Integer> 
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_requisicao_detalhe_id_seq")
-	@SequenceGenerator(name = "compra_requisicao_detalhe_id_seq", sequenceName = "compra_requisicao_detalhe_id_seq", allocationSize = 1, initialValue = 0)
-	@Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
-	private Integer id;
-
-	@ManyToOne
-	@JoinColumn(name = "id_produto")
-	private ProdutoEntity produto;
-
-	@Column(name = "item_cotado")
-	private String itemCotado;
-
-	private BigDecimal quantidade;
-
-	@Column(name = "quantidade_cotada")
-	private BigDecimal quantidadeCotada;
-
-	@ManyToOne
-	@JoinColumn(name = "id_compra_requisicao")
-	private RequisicaoEntity requisicao;
+    private Integer id;
+	
+	@Column(name = "QUANTIDADE")
+    private BigDecimal quantidade;
+	
+    @Column(name = "QUANTIDADE_COTADA")
+    private BigDecimal quantidadeCotada;
+    
+    @Field
+	@Caption("Item Cotado")
+	@ComboValue
+	@Analyzer(definition = "dc_combo_analyzer")
+    @Column(name = "ITEM_COTADO")
+    private String itemCotado;
+    
+    @JoinColumn(name = "ID_COMPRA_REQUISICAO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private RequisicaoEntity requisicao;
+    
+    @JoinColumn(name = "ID_PRODUTO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private ProdutoEntity produto;
+	
 
 	public RequisicaoDetalheEntity() {
 	}
@@ -121,7 +127,7 @@ public class RequisicaoDetalheEntity extends AbstractMultiEmpresaModel<Integer> 
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return itemCotado;
 	}
 
 }
