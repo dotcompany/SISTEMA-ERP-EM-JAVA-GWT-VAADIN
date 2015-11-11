@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.ordemservico.CombustivelEntity;
-import dc.servicos.dao.ordemservico.CombustivelDAO;
+import dc.model.dao.ordemservico.ICombustivelDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -18,7 +18,7 @@ public class CombustivelListController extends CRUDListController<CombustivelEnt
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CombustivelDAO dao;
+	private ICombustivelDAO dao;
 	
 	@Autowired
 	CombustivelFormController formController;

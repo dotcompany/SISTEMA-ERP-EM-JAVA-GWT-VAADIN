@@ -9,10 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.PessoaFisicaEntity;
+import dc.model.dao.geral.pessoal.IPessoaFisicaDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("pessoalPessoaFisicaDAO")
-public class PessoaFisicaDAO extends AbstractCrudDAO<PessoaFisicaEntity> {
+public class PessoaFisicaDAO extends AbstractCrudDAO<PessoaFisicaEntity> implements IPessoaFisicaDAO {
 
 	@Override
 	public Class<PessoaFisicaEntity> getEntityClass() {

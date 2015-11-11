@@ -15,7 +15,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 @Repository
 @SuppressWarnings("unchecked")
 public class LctoReceberNtFinanceiraDAO extends
-		AbstractCrudDAO<LctoReceberNtFinanceiraEntity> {
+		AbstractCrudDAO<LctoReceberNtFinanceiraEntity> implements ILctoReceberNtFinanceiraDAO {
 
 	@Override
 	public Class<LctoReceberNtFinanceiraEntity> getEntityClass() {
@@ -31,6 +31,10 @@ public class LctoReceberNtFinanceiraDAO extends
 		return new String[] { "valor", "dataInclusao" };
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.ILctoReceberNtFinanceiraDAO#findByNatureza(dc.entidade.financeiro.LancamentoReceber)
+	 */
+	@Override
 	@Transactional
 	public List<LctoReceberNtFinanceiraEntity> findByNatureza(
 			LancamentoReceber currentBean) {
@@ -50,6 +54,10 @@ public class LctoReceberNtFinanceiraDAO extends
 		return lista;
 	}
 
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.ILctoReceberNtFinanceiraDAO#findByNaturezaFin(dc.entidade.financeiro.LancamentoReceber)
+	 */
+	@Override
 	@Transactional
 	public List<NaturezaFinanceira> findByNaturezaFin(
 			LancamentoReceber currentBean) {
@@ -69,6 +77,10 @@ public class LctoReceberNtFinanceiraDAO extends
 		return lista;
 	}
 	
+	/* (non-Javadoc)
+	 * @see dc.servicos.dao.financeiro.ILctoReceberNtFinanceiraDAO#findByNaturezaReceber(dc.entidade.financeiro.LancamentoReceber)
+	 */
+	@Override
 	@Transactional
 	public List<LctoReceberNtFinanceiraEntity> findByNaturezaReceber(LancamentoReceber currentBean) {
 

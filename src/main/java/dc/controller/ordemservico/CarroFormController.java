@@ -16,11 +16,11 @@ import dc.entidade.ordemservico.CarroEntity;
 import dc.entidade.ordemservico.ModeloOsEntity;
 import dc.model.business.ordemservico.CarroBusiness;
 import dc.model.business.ordemservico.ModeloOsBusiness;
+import dc.model.dao.geral.pessoal.IClienteDAO;
+import dc.model.dao.ordemservico.ICombustivelDAO;
 import dc.model.dao.ordemservico.ICorDAO;
-import dc.servicos.dao.geral.pessoal.ClienteDAO;
-import dc.servicos.dao.ordemservico.CombustivelDAO;
-import dc.servicos.dao.ordemservico.MarcaOsDAO;
-import dc.servicos.dao.ordemservico.ModeloOsDAO;
+import dc.model.dao.ordemservico.IModeloOsDAO;
+import dc.servicos.dao.ordemservico.IMarcaOsDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.CarroFormView;
@@ -62,16 +62,16 @@ public class CarroFormController extends CRUDFormController<CarroEntity> {
 	private ICorDAO corDAO;
 	
 	@Autowired
-	private CombustivelDAO combustivelDAO;
+	private ICombustivelDAO combustivelDAO;
 	
 	@Autowired
-	private MarcaOsDAO marcaDAO;
+	private IMarcaOsDAO marcaDAO;
 	
 	@Autowired
-	private ModeloOsDAO modeloDAO;
+	private IModeloOsDAO modeloDAO;
 	
 	@Autowired
-	private ClienteDAO clienteDAO;
+	private IClienteDAO clienteDAO;
 	
 	
 

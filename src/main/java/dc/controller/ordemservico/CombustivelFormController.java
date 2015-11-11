@@ -11,7 +11,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.CombustivelEntity;
-import dc.servicos.dao.ordemservico.CombustivelDAO;
+import dc.model.dao.ordemservico.ICombustivelDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.CombustivelFormView;
@@ -26,7 +26,7 @@ public class CombustivelFormController extends CRUDFormController<CombustivelEnt
 	CombustivelFormView subView;
 
 	@Autowired
-	CombustivelDAO combustivelDAO;
+	private ICombustivelDAO combustivelDAO;
 
 	private CombustivelEntity currentBean;
 
