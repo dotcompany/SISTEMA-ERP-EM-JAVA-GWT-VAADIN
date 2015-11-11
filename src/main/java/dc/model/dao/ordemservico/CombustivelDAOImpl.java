@@ -17,7 +17,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
  */
 @Repository
 public class CombustivelDAOImpl extends AbstractCrudDAO<CombustivelEntity> implements
-		CombustivelDAO<CombustivelEntity> {
+		ICombustivelDAO {
 
 	private static Logger logger = Logger.getLogger(CombustivelDAOImpl.class);
 

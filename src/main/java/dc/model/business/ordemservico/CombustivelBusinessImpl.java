@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.ordemservico.CombustivelEntity;
-import dc.model.dao.ordemservico.CombustivelDAO;
+import dc.model.dao.ordemservico.ICombustivelDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class CombustivelBusinessImpl implements Serializable,
 	private static Logger logger = Logger.getLogger(CombustivelBusinessImpl.class);
 
 	@Autowired
-	private CombustivelDAO<CombustivelEntity> dao;
+	private ICombustivelDAO dao;
 
 	/**
 	 * **********************************************

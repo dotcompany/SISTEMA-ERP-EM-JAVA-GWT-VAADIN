@@ -9,10 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.pessoal.PessoaEntity;
 import dc.entidade.geral.pessoal.PessoaFisicaEntity;
+import dc.model.dao.geral.pessoal.IPessoaFisicaDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("pessoalPessoaFisicaDAO")
-public class PessoaFisicaDAO extends AbstractCrudDAO<PessoaFisicaEntity> {
+public class PessoaFisicaDAO extends AbstractCrudDAO<PessoaFisicaEntity> implements IPessoaFisicaDAO {
 
 	@Override
 	public Class<PessoaFisicaEntity> getEntityClass() {
@@ -53,6 +54,23 @@ public class PessoaFisicaDAO extends AbstractCrudDAO<PessoaFisicaEntity> {
 				.add(Restrictions.eq("pessoa.id", idPessoa)).list().get(0);
 	}
 
+	public List<PessoaFisicaEntity> procuraNomeContendo(String query) {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			sql = sql.replace("#", this.getEntityClass().getName());
+
+			List<PessoaFisicaEntity> auxLista = super.getSession()
+					.createQuery(sql).setParameter("q", "%" + query + "%")
+					.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+	
 	@Override
 	public String[] getDefaultSearchFields() {
 		return new String[] {};

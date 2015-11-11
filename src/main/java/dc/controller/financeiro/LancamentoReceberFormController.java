@@ -56,19 +56,19 @@ import dc.entidade.financeiro.StatusParcela;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.model.business.financeiro.LancamentoReceberBusiness;
+import dc.model.dao.geral.pessoal.IClienteDAO;
+import dc.model.dao.geral.pessoal.IPessoaDAO;
 import dc.servicos.dao.contabilidade.IContabilContaDAO;
-import dc.servicos.dao.financeiro.BancoDAO;
-import dc.servicos.dao.financeiro.ContaCaixaDAO;
-import dc.servicos.dao.financeiro.DocumentoOrigemDAO;
+import dc.servicos.dao.financeiro.IBancoDAO;
 import dc.servicos.dao.financeiro.IConfiguracaoBoletoDAO;
+import dc.servicos.dao.financeiro.IContaCaixaDAO;
+import dc.servicos.dao.financeiro.IDocumentoOrigemDAO;
+import dc.servicos.dao.financeiro.ILctoReceberNtFinanceiraDAO;
+import dc.servicos.dao.financeiro.INaturezaFinanceiraDAO;
+import dc.servicos.dao.financeiro.IParcelaReceberDAO;
 import dc.servicos.dao.financeiro.IStatusParcelaDAO;
-import dc.servicos.dao.financeiro.LctoReceberNtFinanceiraDAO;
-import dc.servicos.dao.financeiro.NaturezaFinanceiraDAO;
-import dc.servicos.dao.financeiro.ParcelaReceberDAO;
 import dc.servicos.dao.geral.IFornecedorDAO;
 import dc.servicos.dao.geral.IPessoaEnderecoDAO;
-import dc.servicos.dao.geral.pessoal.ClienteDAO;
-import dc.servicos.dao.geral.pessoal.PessoaDAO;
 import dc.visao.financeiro.LancamentoReceberFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -126,7 +126,7 @@ public class LancamentoReceberFormController extends
 	//private LancamentoReceberDAO lancamentoReceberDAO;
 
 	@Autowired
-	private ParcelaReceberDAO parcelaReceberDAO;
+	private IParcelaReceberDAO parcelaReceberDAO;
 
 	private LancamentoReceber currentBean;
 
@@ -134,22 +134,22 @@ public class LancamentoReceberFormController extends
 	private IContabilContaDAO contabilcontaDAO;
 
 	@Autowired
-	private ContaCaixaDAO contaCaixaDAO;
+	private IContaCaixaDAO contaCaixaDAO;
 
 	@Autowired
 	private IFornecedorDAO fornecedorDAO;
 
 	@Autowired
-	private ClienteDAO clienteDAO;
+	private IClienteDAO clienteDAO;
 	
 	@Autowired
-	private LctoReceberNtFinanceiraDAO lctoFinanceiraDAO;
+	private ILctoReceberNtFinanceiraDAO lctoFinanceiraDAO;
 
 	@Autowired
-	private NaturezaFinanceiraDAO naturezaFinanceiraDAO;
+	private INaturezaFinanceiraDAO naturezaFinanceiraDAO;
 
 	@Autowired
-	private DocumentoOrigemDAO documentoOrigemDAO;
+	private IDocumentoOrigemDAO documentoOrigemDAO;
 
 	@Autowired
 	private IStatusParcelaDAO statusParcelaDAO;
@@ -158,13 +158,13 @@ public class LancamentoReceberFormController extends
 	private IConfiguracaoBoletoDAO configuracaoBoletoDAO;
 
 	@Autowired
-	private PessoaDAO pessoaDAO;
+	private IPessoaDAO pessoaDAO;
 
 	@Autowired
 	private IPessoaEnderecoDAO enderecoDAO;
 
 	@Autowired
-	private BancoDAO bancoDAO;
+	private IBancoDAO bancoDAO;
 
 	@Override
 	protected String getNome() {

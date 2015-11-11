@@ -2,7 +2,9 @@ package dc.model.dao.geral.pessoal;
 
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.istack.logging.Logger;
 
@@ -67,6 +69,14 @@ public class PessoaJuridicaDAOImpl extends AbstractCrudDAO<PessoaJuridicaEntity>
 
 			throw e;
 		}
+	}
+
+
+	@Transactional
+	public PessoaJuridicaEntity getPessoaJuridica(int idPessoa) {
+		return (PessoaJuridicaEntity) getSession()
+				.createCriteria(PessoaJuridicaEntity.class)
+				.add(Restrictions.eq("pessoa.id", idPessoa)).list().get(0);
 	}
 
 	public String[] getDefaultSearchFields() {
