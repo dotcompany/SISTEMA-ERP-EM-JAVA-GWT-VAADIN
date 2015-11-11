@@ -54,6 +54,23 @@ public class PessoaFisicaDAO extends AbstractCrudDAO<PessoaFisicaEntity> impleme
 				.add(Restrictions.eq("pessoa.id", idPessoa)).list().get(0);
 	}
 
+	public List<PessoaFisicaEntity> procuraNomeContendo(String query) {
+		try {
+			String sql = "FROM # ent WHERE (1 = 1) AND ent.nome LIKE :q";
+			sql = sql.replace("#", this.getEntityClass().getName());
+
+			List<PessoaFisicaEntity> auxLista = super.getSession()
+					.createQuery(sql).setParameter("q", "%" + query + "%")
+					.list();
+
+			return auxLista;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw e;
+		}
+	}
+	
 	@Override
 	public String[] getDefaultSearchFields() {
 		return new String[] {};

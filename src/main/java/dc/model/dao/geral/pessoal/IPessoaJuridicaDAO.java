@@ -5,4 +5,5 @@ import dc.model.dao.AbstractDAO;
 
 public interface IPessoaJuridicaDAO extends AbstractDAO<PessoaJuridicaEntity> {
 
+	public PessoaJuridicaEntity getPessoaJuridica(int idPessoa);
 }
