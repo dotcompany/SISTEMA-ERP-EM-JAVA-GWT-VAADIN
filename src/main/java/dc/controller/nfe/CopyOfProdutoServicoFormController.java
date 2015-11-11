@@ -37,8 +37,8 @@ import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
-import dc.servicos.dao.geral.pessoal.ClienteDAO;
-import dc.servicos.dao.geral.produto.ProdutoDAO;
+import dc.model.dao.geral.pessoal.IClienteDAO;
+import dc.model.dao.geral.produto.IProdutoDAO;
 import dc.servicos.dao.nfe.INfeCabecalhoDAO;
 import dc.servicos.dao.nfe.INfeDeclaracaoImportacaoDAO;
 import dc.servicos.dao.nfe.INfeDestinatarioDAO;
@@ -2522,10 +2522,10 @@ public class CopyOfProdutoServicoFormController extends
 	/** COMBOS */
 
 	@Autowired
-	private ClienteDAO clienteDAO;
+	private IClienteDAO clienteDAO;
 
 	@Autowired
-	private ProdutoDAO produtoDAO;
+	private IProdutoDAO produtoDAO;
 
 	@Autowired
 	private OperacaoFiscalDAO operacaoFiscalDAO;

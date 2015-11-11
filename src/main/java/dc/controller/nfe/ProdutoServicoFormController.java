@@ -41,9 +41,9 @@ import dc.entidade.nfe.NfeDetalheImpostoIiEntity;
 import dc.entidade.nfe.NfeDetalheImpostoIssqnEntity;
 import dc.entidade.nfe.NfeDetalheImpostoPisEntity;
 import dc.entidade.tributario.OperacaoFiscalEntity;
+import dc.model.dao.geral.pessoal.IClienteDAO;
+import dc.model.dao.geral.produto.IProdutoDAO;
 import dc.servicos.business.nfe.NfeCabecalhoBusiness;
-import dc.servicos.dao.geral.pessoal.ClienteDAO;
-import dc.servicos.dao.geral.produto.ProdutoDAO;
 import dc.servicos.dao.nfe.INfeDeclaracaoImportacaoDAO;
 import dc.servicos.dao.nfe.INfeDestinatarioDAO;
 import dc.servicos.dao.nfe.INfeDetEspecificoArmamentoDAO;
@@ -55,7 +55,7 @@ import dc.servicos.dao.nfe.INfeDetalheImpostoIiDAO;
 import dc.servicos.dao.nfe.INfeDetalheImpostoIpiDAO;
 import dc.servicos.dao.nfe.INfeDetalheImpostoIssqnDAO;
 import dc.servicos.dao.nfe.INfeDetalheImpostoPisDAO;
-import dc.servicos.dao.tributario.OperacaoFiscalDAO;
+import dc.servicos.dao.tributario.IOperacaoFiscalDAO;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.component.manytoonecombo.ManyToOneCombo.ItemValue;
 import dc.visao.framework.geral.CRUDFormController;
@@ -1448,13 +1448,13 @@ public class ProdutoServicoFormController extends
 	/** COMBOS */
 
 	@Autowired
-	private ClienteDAO clienteDAO;
+	private IClienteDAO clienteDAO;
 
 	@Autowired
-	private ProdutoDAO produtoDAO;
+	private IProdutoDAO produtoDAO;
 
 	@Autowired
-	private OperacaoFiscalDAO operacaoFiscalDAO;
+	private IOperacaoFiscalDAO operacaoFiscalDAO;
 
 	private void popularCombo() {
 		try {

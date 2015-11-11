@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.TransportadoraEntity;
-import dc.servicos.dao.geral.pessoal.TransportadoraDAO;
+import dc.model.dao.geral.pessoal.ITransportadoraDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class TransportadoraListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	TransportadoraDAO dao;
+	ITransportadoraDAO dao;
 
 	@Autowired
 	TransportadoraFormController transportadoraFormController;

@@ -11,11 +11,6 @@ import com.sun.istack.logging.Logger;
 import dc.entidade.ordemservico.CarroEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-/**
- * 
- * @author Paulo Sérgio Ferreira
- * 
- */
 @Repository
 public class CarroDAOImpl extends AbstractCrudDAO<CarroEntity> implements ICarroDAO {
 
