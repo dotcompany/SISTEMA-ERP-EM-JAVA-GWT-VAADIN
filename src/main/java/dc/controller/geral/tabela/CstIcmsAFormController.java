@@ -11,7 +11,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.CstIcmsaEntity;
-import dc.servicos.dao.geral.tabela.CstIcmsaDAO;
+import dc.servicos.dao.geral.tabela.ICstIcmsaDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CstIcmsAFormView;
@@ -30,7 +30,7 @@ public class CstIcmsAFormController extends CRUDFormController<CstIcmsaEntity> {
 	CstIcmsAFormView subView;
 
 	@Autowired
-	CstIcmsaDAO cstIcmsADAO;
+	private ICstIcmsaDAO cstIcmsADAO;
 
 	private CstIcmsaEntity currentBean;
 

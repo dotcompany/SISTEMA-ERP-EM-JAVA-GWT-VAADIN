@@ -14,7 +14,7 @@ import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.suprimentos.contrato.TemplateEntity;
-import dc.servicos.dao.suprimentos.contrato.TemplateDAO;
+import dc.servicos.dao.suprimentos.contrato.ITemplateDAO;
 import dc.servicos.util.Util;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
@@ -35,7 +35,7 @@ public class TemplateFormController extends CRUDFormController<TemplateEntity> {
 	private TemplateEntity currentBean;
 
 	@Autowired
-	private TemplateDAO templateDAO;
+	private ITemplateDAO templateDAO;
 
 	private String homePath = System.getProperty("user.home");
 	private String customCompanyBaseFolder = "dc-erp";

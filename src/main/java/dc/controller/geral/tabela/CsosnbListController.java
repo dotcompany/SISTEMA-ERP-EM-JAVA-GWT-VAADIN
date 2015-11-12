@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CsosnbEntity;
-import dc.servicos.dao.geral.tabela.CsosnbDAO;
+import dc.servicos.dao.geral.tabela.ICsosnbDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -28,7 +28,7 @@ public class CsosnbListController extends CRUDListController<CsosnbEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CsosnbDAO dao;
+	private ICsosnbDAO dao;
 
 	@Autowired
 	CsosnbFormController pController;

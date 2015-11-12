@@ -13,7 +13,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ParametroOsDAO extends AbstractCrudDAO<ParametroOsEntity>{
+public class ParametroOsDAO extends AbstractCrudDAO<ParametroOsEntity> implements IParametroOsDAO{
 
 	@Override
 	public Class<ParametroOsEntity> getEntityClass() {
@@ -21,7 +21,8 @@ public class ParametroOsDAO extends AbstractCrudDAO<ParametroOsEntity>{
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] {"id"};
+		return new String[] {"limparBdAut","vendedorAtendente","vendedorProduto","vendedorServico","valorPagoPeca","descontoGeral",
+				"qtdDiasRevisao","qtdDiasPadrao","obsDefeitoPadrao","obsPadrao","obsPadraoOsSimples"};
 	}
 	
 	@Transactional

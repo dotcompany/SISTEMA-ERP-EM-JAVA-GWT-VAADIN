@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.ParametroOsEntity;
-import dc.servicos.dao.ordemservico.ParametroOsDAO;
+import dc.servicos.dao.ordemservico.IParametroOsDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.ParametroOsFormView;
@@ -23,7 +23,7 @@ public class ParametroOsFormController extends CRUDFormController<ParametroOsEnt
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ParametroOsDAO dao;
+	private IParametroOsDAO dao;
 
 	private ParametroOsEntity currentBean;
 

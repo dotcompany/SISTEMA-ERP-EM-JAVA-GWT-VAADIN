@@ -12,10 +12,10 @@ import com.vaadin.ui.Component;
 import dc.entidade.ordemservico.OrcamentoOsEntity;
 import dc.entidade.ordemservico.OrcamentoOsItemEntity;
 import dc.model.dao.ordemservico.ICorDAO;
+import dc.model.dao.ordemservico.IOrcamentoItemOsDAO;
+import dc.model.dao.ordemservico.IOrcamentoOsDAO;
 import dc.servicos.dao.ordemservico.IMarcaOsDAO;
 import dc.servicos.dao.ordemservico.IModeloDAO;
-import dc.servicos.dao.ordemservico.OrcamentoItemOsDAO;
-import dc.servicos.dao.ordemservico.OrcamentoOsDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.OrcamentoOsFormView;
@@ -29,19 +29,19 @@ public class OrcamentoOsFormController extends CRUDFormController<OrcamentoOsEnt
 	private OrcamentoOsFormView subView;
 
 	@Autowired
-	IMarcaOsDAO marcaDAO;
+	private IMarcaOsDAO marcaDAO;
 
 	@Autowired
 	private ICorDAO corDAO;
 
 	@Autowired
-	IModeloDAO modeloDAO;
+	private IModeloDAO modeloDAO;
 
 	@Autowired
-	private OrcamentoOsDAO orcamentoOsDAO;
+	private IOrcamentoOsDAO orcamentoOsDAO;
 
 	@Autowired
-	private OrcamentoItemOsDAO orcamentoItemOsDAO;
+	private IOrcamentoItemOsDAO orcamentoItemOsDAO;
 
 	private OrcamentoOsEntity currentBean;
 

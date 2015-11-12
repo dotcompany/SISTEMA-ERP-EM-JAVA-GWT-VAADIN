@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.SituacaoColaboradorEntity;
-import dc.servicos.dao.geral.pessoal.SituacaoColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ISituacaoColaboradorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class SituacaoColaboradorListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private SituacaoColaboradorDAO dao;
+	private ISituacaoColaboradorDAO dao;
 
 	@Autowired
 	private SituacaoColaboradorFormController situacaoColaboradorFormController;

@@ -13,7 +13,7 @@ import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.administrativo.seguranca.UsuarioEntity;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
-import dc.servicos.dao.suprimentos.contrato.TipoContratoDAO;
+import dc.servicos.dao.suprimentos.contrato.ITipoContratoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
@@ -32,7 +32,7 @@ public class TipoContratoFormController extends
 	private TipoContratoFormView subView;
 
 	@Autowired
-	private TipoContratoDAO tipoContratoDAO;
+	private ITipoContratoDAO tipoContratoDAO;
 
 	private TipoContratoEntity currentBean;
 

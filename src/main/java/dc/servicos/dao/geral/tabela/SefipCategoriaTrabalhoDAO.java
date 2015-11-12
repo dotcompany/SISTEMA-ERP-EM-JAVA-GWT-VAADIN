@@ -10,7 +10,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 public class SefipCategoriaTrabalhoDAO extends
-		AbstractCrudDAO<SefipCategoriaTrabalhoEntity> {
+		AbstractCrudDAO<SefipCategoriaTrabalhoEntity> implements ISefipCategoriaTrabalhoDAO {
 
 	@Override
 	public Class<SefipCategoriaTrabalhoEntity> getEntityClass() {

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CfopEntity;
-import dc.servicos.dao.geral.tabela.CfopDAO;
+import dc.servicos.dao.geral.tabela.ICfopDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -27,7 +27,7 @@ public class CfopListController extends CRUDListController<CfopEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CfopDAO dao;
+	private ICfopDAO dao;
 
 	@Autowired
 	CfopFormController pController;

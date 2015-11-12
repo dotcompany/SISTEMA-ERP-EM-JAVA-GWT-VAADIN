@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.controller.ordemservico.DefeitoFormController;
 import dc.entidade.ordemservico.DefeitoEntity;
-import dc.servicos.dao.ordemservico.DefeitoDAO;
+import dc.model.dao.ordemservico.IDefeitoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -19,7 +18,7 @@ public class DefeitoListController extends CRUDListController<DefeitoEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	DefeitoDAO dao;
+	private IDefeitoDAO dao;
 	
 	@Autowired
 	DefeitoFormController formController;

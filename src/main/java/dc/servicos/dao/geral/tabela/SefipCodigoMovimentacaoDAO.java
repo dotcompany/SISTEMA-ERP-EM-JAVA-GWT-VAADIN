@@ -10,7 +10,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 public class SefipCodigoMovimentacaoDAO extends
-		AbstractCrudDAO<SefipCodigoMovimentacaoEntity> {
+		AbstractCrudDAO<SefipCodigoMovimentacaoEntity> implements ISefipCodigoMovimentacaoDAO {
 
 	@Override
 	public Class<SefipCodigoMovimentacaoEntity> getEntityClass() {

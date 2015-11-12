@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.geral.tabela.SefipCategoriaTrabalhoEntity;
-import dc.servicos.dao.geral.tabela.SefipCategoriaTrabalhoDAO;
+import dc.servicos.dao.geral.tabela.ISefipCategoriaTrabalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -26,7 +26,7 @@ public class SefipCategoriaTrabalhoListController extends CRUDListController<Sef
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	SefipCategoriaTrabalhoDAO dao;
+	private ISefipCategoriaTrabalhoDAO dao;
 
 	@Autowired
 	SefipCategoriaTrabalhoFormController pController;

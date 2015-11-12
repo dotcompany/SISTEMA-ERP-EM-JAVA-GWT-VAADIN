@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.TipoAdmissaoEntity;
-import dc.servicos.dao.geral.pessoal.TipoAdmissaoDAO;
+import dc.servicos.dao.geral.pessoal.ITipoAdmissaoDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.TipoAdmissaoFormView;
@@ -30,7 +30,7 @@ public class TipoAdmissaoFormController extends
 	private TipoAdmissaoFormView subView;
 
 	@Autowired
-	private TipoAdmissaoDAO tipoAdmissaoDAO;
+	private ITipoAdmissaoDAO tipoAdmissaoDAO;
 
 	private TipoAdmissaoEntity currentBean;
 

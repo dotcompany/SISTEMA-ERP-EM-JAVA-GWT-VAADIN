@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.ordemservico.ParametroOsEntity;
-import dc.servicos.dao.ordemservico.ParametroOsDAO;
+import dc.servicos.dao.ordemservico.IParametroOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -18,7 +18,7 @@ public class ParametroOsListController extends CRUDListController<ParametroOsEnt
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ParametroOsDAO dao; 
+	private IParametroOsDAO dao; 
 	
 	@Autowired
 	private ParametroOsFormController formController;

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.geral.tabela.CstPisEntity;
-import dc.servicos.dao.geral.tabela.CstPisDAO;
+import dc.servicos.dao.geral.tabela.ICstPisDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -26,7 +26,7 @@ public class CstPisListController extends CRUDListController<CstPisEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CstPisDAO dao;
+	private ICstPisDAO dao;
 
 	@Autowired
 	CstPisFormController pController;

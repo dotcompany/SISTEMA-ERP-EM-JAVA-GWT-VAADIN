@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CsosnaEntity;
-import dc.servicos.dao.geral.tabela.CsosnaDAO;
+import dc.servicos.dao.geral.tabela.ICsosnaDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CsosnaFormView;
@@ -31,7 +31,7 @@ public class CsosnaFormController extends CRUDFormController<CsosnaEntity> {
 	CsosnaFormView subView;
 
 	@Autowired
-	CsosnaDAO csosnaDAO;
+	private ICsosnaDAO csosnaDAO;
 
 	private CsosnaEntity currentBean;
 

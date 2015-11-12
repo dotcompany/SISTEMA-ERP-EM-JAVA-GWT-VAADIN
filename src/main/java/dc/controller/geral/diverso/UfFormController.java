@@ -16,7 +16,7 @@ import dc.entidade.geral.diverso.PaisEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.model.business.geral.diverso.PaisBusiness;
 import dc.model.business.geral.diverso.UfBusiness;
-import dc.servicos.dao.geral.diverso.PaisDAO;
+import dc.servicos.dao.geral.diverso.IPaisDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.UfFormView;
@@ -55,7 +55,7 @@ public class UfFormController extends CRUDFormController<UfEntity> {
 	 */
 
 	@Autowired
-	private PaisDAO paisDAO;
+	private IPaisDAO paisDAO;
 
 	/**
 	 * CONSTRUTOR

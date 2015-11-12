@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.geral.tabela.TipoItemSpedEntity;
-import dc.servicos.dao.geral.tabela.TipoItemSpedDAO;
+import dc.servicos.dao.geral.tabela.ITipoItemSpedDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -26,7 +26,7 @@ public class TipoItemSpedListController extends CRUDListController<TipoItemSpedE
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	TipoItemSpedDAO dao;
+	private ITipoItemSpedDAO dao;
 
 	@Autowired
 	TipoItemSpedFormController pController;

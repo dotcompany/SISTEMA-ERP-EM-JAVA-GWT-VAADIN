@@ -11,9 +11,7 @@ import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class IcmsCustomizadoDAOImpl extends
-		AbstractCrudDAO<IcmsCustomizadoCabecalhoEntity> implements
-		IIcmsCustomizadoDAO {
+public class IcmsCustomizadoDAOImpl extends AbstractCrudDAO<IcmsCustomizadoCabecalhoEntity> implements IIcmsCustomizadoDAO {
 
 	private static Logger logger = Logger
 			.getLogger(IcmsCustomizadoDAOImpl.class);
@@ -73,7 +71,7 @@ public class IcmsCustomizadoDAOImpl extends
 	}
 
 	public String[] getDefaultSearchFields() {
-		return new String[] { "nome" };
+		return new String[] { "descricao","origemMercadoria" };
 	}
 
 	@Override

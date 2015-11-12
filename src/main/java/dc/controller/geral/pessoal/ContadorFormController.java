@@ -15,7 +15,7 @@ import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
 import dc.model.business.geral.pessoal.ContadorBusiness;
-import dc.servicos.dao.geral.UfDAO;
+import dc.servicos.dao.geral.IUfDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.ContadorFormView;
@@ -35,7 +35,7 @@ public class ContadorFormController extends CRUDFormController<ContadorEntity> {
 	//private ContadorDAO contadorDAO;
 
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	private ContadorEntity currentBean;
 	

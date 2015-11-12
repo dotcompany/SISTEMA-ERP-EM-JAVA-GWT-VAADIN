@@ -10,14 +10,8 @@ import com.sun.istack.logging.Logger;
 import dc.entidade.ordemservico.DefeitoOsEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-/**
- * 
- * @author Paulo Sérgio Ferreira
- * 
- */
 @Repository
-public class DefeitoOsDAOImpl extends AbstractCrudDAO<DefeitoOsEntity> implements
-	DefeitoOsDAO<DefeitoOsEntity> {
+public class DefeitoOsDAOImpl extends AbstractCrudDAO<DefeitoOsEntity>  {
 
 	private static Logger logger = Logger.getLogger(DefeitoOsDAOImpl.class);
 

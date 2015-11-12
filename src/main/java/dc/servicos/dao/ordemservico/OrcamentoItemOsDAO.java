@@ -8,11 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.ordemservico.OrcamentoOsEntity;
 import dc.entidade.ordemservico.OrcamentoOsItemEntity;
+import dc.model.dao.ordemservico.IOrcamentoItemOsDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class OrcamentoItemOsDAO extends AbstractCrudDAO<OrcamentoOsItemEntity>{
+public class OrcamentoItemOsDAO extends AbstractCrudDAO<OrcamentoOsItemEntity> implements IOrcamentoItemOsDAO {
 
 	@Override
 	public Class<OrcamentoOsItemEntity> getEntityClass() {

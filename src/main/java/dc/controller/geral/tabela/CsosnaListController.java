@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CsosnaEntity;
-import dc.servicos.dao.geral.tabela.CsosnaDAO;
+import dc.servicos.dao.geral.tabela.ICsosnaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -28,7 +28,7 @@ public class CsosnaListController extends CRUDListController<CsosnaEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CsosnaDAO dao;
+	private ICsosnaDAO dao;
 
 	@Autowired
 	CsosnaFormController pController;

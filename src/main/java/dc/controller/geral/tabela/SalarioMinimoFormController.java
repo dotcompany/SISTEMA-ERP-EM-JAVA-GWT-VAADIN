@@ -11,7 +11,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.SalarioMinimoEntity;
-import dc.servicos.dao.geral.tabela.SalarioMinimoDAO;
+import dc.servicos.dao.geral.tabela.ISalarioMinimoDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.SalarioMinimoFormView;
@@ -31,7 +31,7 @@ public class SalarioMinimoFormController extends
 	private SalarioMinimoFormView subView;
 
 	@Autowired
-	private SalarioMinimoDAO salarioMinimoDAO;
+	private ISalarioMinimoDAO salarioMinimoDAO;
 
 	private SalarioMinimoEntity currentBean;
 

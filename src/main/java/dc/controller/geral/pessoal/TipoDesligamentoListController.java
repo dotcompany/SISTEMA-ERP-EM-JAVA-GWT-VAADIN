@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.TipoDesligamentoEntity;
-import dc.servicos.dao.geral.pessoal.TipoDesligamentoDAO;
+import dc.servicos.dao.geral.pessoal.ITipoDesligamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class TipoDesligamentoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	TipoDesligamentoDAO dao;
+	private ITipoDesligamentoDAO dao;
 
 	@Autowired
 	TipoDesligamentoFormController tipoDesligamentoFormController;

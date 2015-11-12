@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
-import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
+import dc.servicos.dao.geral.pessoal.IAtividadeForCliDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class AtividadeForCliListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	AtividadeForCliDAO dao;
+	private IAtividadeForCliDAO dao;
 
 	@Autowired
 	AtividadeForCliFormController atividadeForCliFormController;

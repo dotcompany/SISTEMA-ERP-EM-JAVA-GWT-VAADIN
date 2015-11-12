@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.geral.tabela.SefipCodigoRecolhimentoEntity;
-import dc.servicos.dao.geral.tabela.SefipCodigoRecolhimentoDAO;
+import dc.servicos.dao.geral.tabela.ISefipCodigoRecolhimentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -26,7 +26,7 @@ public class SefipCodigoRecolhimentoListController extends CRUDListController<Se
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	SefipCodigoRecolhimentoDAO dao;
+	private ISefipCodigoRecolhimentoDAO dao;
 
 	@Autowired
 	SefipCodigoRecolhimentoFormController pController;

@@ -11,7 +11,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.AcessorioEntity;
-import dc.servicos.dao.ordemservico.AcessorioDAO;
+import dc.model.dao.ordemservico.IAcessorioDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.AcessorioFormView;
@@ -25,7 +25,7 @@ public class AcessorioFormController extends CRUDFormController<AcessorioEntity>
 	AcessorioFormView subView;
 
 	@Autowired
-	AcessorioDAO acessorioDAO;
+	private IAcessorioDAO acessorioDAO;
 
 	private AcessorioEntity currentBean;
 

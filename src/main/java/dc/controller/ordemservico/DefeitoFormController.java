@@ -11,7 +11,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.DefeitoEntity;
-import dc.servicos.dao.ordemservico.DefeitoDAO;
+import dc.model.dao.ordemservico.IDefeitoDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.DefeitoFormView;
@@ -26,7 +26,7 @@ public class DefeitoFormController extends CRUDFormController<DefeitoEntity> {
 	DefeitoFormView subView;
 
 	@Autowired
-	DefeitoDAO defeitoDAO;
+	private IDefeitoDAO defeitoDAO;
 
 	private DefeitoEntity currentBean;
 

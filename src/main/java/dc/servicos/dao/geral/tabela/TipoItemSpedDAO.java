@@ -9,7 +9,7 @@ import dc.entidade.geral.tabela.TipoItemSpedEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class TipoItemSpedDAO extends AbstractCrudDAO<TipoItemSpedEntity> {
+public class TipoItemSpedDAO extends AbstractCrudDAO<TipoItemSpedEntity> implements ITipoItemSpedDAO {
 
 	@Override
 	public Class<TipoItemSpedEntity> getEntityClass() {

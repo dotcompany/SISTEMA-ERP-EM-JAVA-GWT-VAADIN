@@ -18,7 +18,7 @@ import dc.visao.framework.geral.CRUDListController;
 public class OperacaoFiscalListController extends CRUDListController<OperacaoFiscalEntity> {
 
 	@Autowired
-	IOperacaoFiscalDAO dao;
+	private IOperacaoFiscalDAO dao;
 
 	@Autowired
 	OperacaoFiscalFormController formController;

@@ -18,10 +18,10 @@ import dc.entidade.geral.tabela.CstIcmsbEntity;
 import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
 import dc.entidade.tributario.IcmsCustomizadoDetalheEntity;
 import dc.model.business.tributario.IcmsCustomizadoBusiness;
-import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.geral.tabela.CfopDAO;
-import dc.servicos.dao.geral.tabela.CsosnbDAO;
-import dc.servicos.dao.geral.tabela.CstIcmsbDAO;
+import dc.servicos.dao.geral.IUfDAO;
+import dc.servicos.dao.geral.tabela.ICfopDAO;
+import dc.servicos.dao.geral.tabela.ICsosnbDAO;
+import dc.servicos.dao.geral.tabela.ICstIcmsbDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tributario.ICMSCustomizadoFormView;
@@ -44,15 +44,15 @@ public class IcmsCustomizadoFormController extends CRUDFormController<IcmsCustom
 	 */
 	
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 	@Autowired
-	private CfopDAO cfopDAO;
+	private ICfopDAO cfopDAO;
 
 	@Autowired
-	private CsosnbDAO csosnbDAO;
+	private ICsosnbDAO csosnbDAO;
 
 	@Autowired
-	private CstIcmsbDAO cstbDAO;
+	private ICstIcmsbDAO cstbDAO;
 
 
 	public IcmsCustomizadoFormController() {

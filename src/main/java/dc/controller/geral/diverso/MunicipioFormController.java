@@ -15,7 +15,7 @@ import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.MunicipioEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.model.business.geral.diverso.MunicipioBusiness;
-import dc.servicos.dao.geral.UfDAO;
+import dc.servicos.dao.geral.IUfDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.diverso.MunicipioFormView;
@@ -50,7 +50,7 @@ public class MunicipioFormController extends
 	 */
 
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	/**
 	 * CONSTRUTOR

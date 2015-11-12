@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.SituacaoForCliEntity;
-import dc.servicos.dao.geral.pessoal.SituacaoForCliDAO;
+import dc.servicos.dao.geral.pessoal.ISituacaoForCliDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class SituacaoForCliListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	SituacaoForCliDAO dao;
+	private ISituacaoForCliDAO dao;
 
 	@Autowired
 	SituacaoForCliFormController situacaoForCliFormController;

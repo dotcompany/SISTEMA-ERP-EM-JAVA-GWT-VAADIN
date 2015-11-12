@@ -9,7 +9,7 @@ import dc.entidade.geral.tabela.EfdTabela4310Entity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class EfdTabela4310DAO extends AbstractCrudDAO<EfdTabela4310Entity> {
+public class EfdTabela4310DAO extends AbstractCrudDAO<EfdTabela4310Entity> implements IEfdTabela4310DAO {
 
 	@Override
 	public Class<EfdTabela4310Entity> getEntityClass() {

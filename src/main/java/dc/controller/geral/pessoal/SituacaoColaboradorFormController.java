@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.SituacaoColaboradorEntity;
-import dc.servicos.dao.geral.pessoal.SituacaoColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ISituacaoColaboradorDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.SituacaoColaboradorFormView;
@@ -30,7 +30,7 @@ public class SituacaoColaboradorFormController extends
 	private SituacaoColaboradorFormView subView;
 
 	@Autowired
-	private SituacaoColaboradorDAO situacaoColaboradorDAO;
+	private ISituacaoColaboradorDAO situacaoColaboradorDAO;
 
 	private SituacaoColaboradorEntity currentBean;
 

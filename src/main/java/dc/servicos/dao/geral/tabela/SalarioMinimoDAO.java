@@ -9,7 +9,7 @@ import dc.entidade.geral.tabela.SalarioMinimoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class SalarioMinimoDAO extends AbstractCrudDAO<SalarioMinimoEntity> {
+public class SalarioMinimoDAO extends AbstractCrudDAO<SalarioMinimoEntity> implements ISalarioMinimoDAO {
 
 	@Override
 	public Class<SalarioMinimoEntity> getEntityClass() {

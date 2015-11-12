@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
-import dc.servicos.dao.geral.pessoal.TipoRelacionamentoDAO;
+import dc.servicos.dao.geral.pessoal.ITipoRelacionamentoDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.TipoRelacionamentoFormView;
@@ -30,7 +30,7 @@ public class TipoRelacionamentoFormController extends
 	private TipoRelacionamentoFormView subView;
 
 	@Autowired
-	private TipoRelacionamentoDAO tipoRelacionamentoDAO;
+	private ITipoRelacionamentoDAO tipoRelacionamentoDAO;
 
 	private TipoRelacionamentoEntity currentBean;
 

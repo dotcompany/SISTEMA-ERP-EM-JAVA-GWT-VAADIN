@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.contrato.ContratoEntity;
-import dc.servicos.dao.suprimentos.contrato.ContratoDAO;
+import dc.servicos.dao.suprimentos.contrato.IContratoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class ContratoListController extends CRUDListController<ContratoEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ContratoDAO dao;
+	private IContratoDAO dao;
 
 	@Autowired
 	ContratoFormController contratoFormController;

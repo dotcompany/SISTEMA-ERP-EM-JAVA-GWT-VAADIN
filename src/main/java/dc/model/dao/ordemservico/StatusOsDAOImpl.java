@@ -10,14 +10,8 @@ import com.sun.istack.logging.Logger;
 import dc.entidade.ordemservico.StatusOsEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-/**
- * 
- * @author Paulo Sérgio Ferreira
- * 
- */
 @Repository
-public class StatusOsDAOImpl extends AbstractCrudDAO<StatusOsEntity> implements
-		IStatusOsDAO {
+public class StatusOsDAOImpl extends AbstractCrudDAO<StatusOsEntity>  {
 
 	private static Logger logger = Logger.getLogger(StatusOsDAOImpl.class);
 

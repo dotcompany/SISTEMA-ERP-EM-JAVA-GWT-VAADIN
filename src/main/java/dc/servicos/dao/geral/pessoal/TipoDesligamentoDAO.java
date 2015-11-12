@@ -9,8 +9,7 @@ import dc.entidade.geral.pessoal.TipoDesligamentoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("pessoalTipoDesligamentoDAO")
-public class TipoDesligamentoDAO extends
-		AbstractCrudDAO<TipoDesligamentoEntity> {
+public class TipoDesligamentoDAO extends AbstractCrudDAO<TipoDesligamentoEntity> implements ITipoDesligamentoDAO {
 
 	@Override
 	public Class<TipoDesligamentoEntity> getEntityClass() {

@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.TipoDesligamentoEntity;
-import dc.servicos.dao.geral.pessoal.TipoDesligamentoDAO;
+import dc.servicos.dao.geral.pessoal.ITipoDesligamentoDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.TipoDesligamentoFormView;
@@ -30,7 +30,7 @@ public class TipoDesligamentoFormController extends
 	private TipoDesligamentoFormView subView;
 
 	@Autowired
-	private TipoDesligamentoDAO tipoDesligamentoDAO;
+	private ITipoDesligamentoDAO tipoDesligamentoDAO;
 
 	private TipoDesligamentoEntity currentBean;
 

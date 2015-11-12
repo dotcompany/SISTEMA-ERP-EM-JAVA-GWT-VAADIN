@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CstCofinsEntity;
-import dc.servicos.dao.geral.tabela.CstCofinsDAO;
+import dc.servicos.dao.geral.tabela.ICstCofinsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -27,7 +27,7 @@ public class CstCofinsListController extends CRUDListController<CstCofinsEntity>
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CstCofinsDAO dao;
+	private ICstCofinsDAO dao;
 
 	@Autowired
 	CstCofinsFormController pController;

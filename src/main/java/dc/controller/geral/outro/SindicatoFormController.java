@@ -17,7 +17,7 @@ import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.outro.SindicatoEntity;
 import dc.model.business.geral.diverso.UfBusiness;
 import dc.model.business.geral.outro.SindicatoBusiness;
-import dc.servicos.dao.geral.UfDAO;
+import dc.servicos.dao.geral.IUfDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.outro.SindicatoFormView;
@@ -54,7 +54,7 @@ public class SindicatoFormController extends CRUDFormController<SindicatoEntity>
 	 */
 
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	/**
 	 * CONSTRUTOR

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.contrato.TipoContratoEntity;
-import dc.servicos.dao.suprimentos.contrato.TipoContratoDAO;
+import dc.servicos.dao.suprimentos.contrato.ITipoContratoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class TipoContratoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	TipoContratoDAO dao;
+	private ITipoContratoDAO dao;
 
 	@Autowired
 	TipoContratoFormController tipoContratoFormController;

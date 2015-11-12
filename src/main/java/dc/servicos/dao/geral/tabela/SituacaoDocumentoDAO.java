@@ -10,7 +10,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 public class SituacaoDocumentoDAO extends
-		AbstractCrudDAO<SituacaoDocumentoEntity> {
+		AbstractCrudDAO<SituacaoDocumentoEntity> implements ISituacaoDocumentoDAO {
 
 	@Override
 	public Class<SituacaoDocumentoEntity> getEntityClass() {

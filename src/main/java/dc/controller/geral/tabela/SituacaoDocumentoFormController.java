@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.SituacaoDocumentoEntity;
-import dc.servicos.dao.geral.tabela.SituacaoDocumentoDAO;
+import dc.servicos.dao.geral.tabela.ISituacaoDocumentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.SituacaoDocumentoFormView;
 
@@ -29,7 +29,7 @@ public class SituacaoDocumentoFormController extends
 	SituacaoDocumentoFormView subView;
 
 	@Autowired
-	SituacaoDocumentoDAO situacaoDocumentoDAO;
+	private ISituacaoDocumentoDAO situacaoDocumentoDAO;
 
 	private SituacaoDocumentoEntity currentBean;
 

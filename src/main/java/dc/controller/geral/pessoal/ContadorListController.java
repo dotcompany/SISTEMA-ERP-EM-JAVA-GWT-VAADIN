@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.ContadorEntity;
-import dc.servicos.dao.geral.pessoal.ContadorDAO;
+import dc.model.dao.geral.pessoal.IContadorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class ContadorListController extends CRUDListController<ContadorEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ContadorDAO dao;
+	private IContadorDAO dao;
 
 	@Autowired
 	ContadorFormController contadorFormController;

@@ -8,10 +8,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.financeiro.AgenciaBancoEntity;
+import dc.model.dao.geral.pessoal.IAgenciaBancoDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> {
+public class AgenciaBancoDAO extends AbstractCrudDAO<AgenciaBancoEntity> implements IAgenciaBancoDAO {
 
 	@Autowired
 	private IBancoDAO bancoDAO;

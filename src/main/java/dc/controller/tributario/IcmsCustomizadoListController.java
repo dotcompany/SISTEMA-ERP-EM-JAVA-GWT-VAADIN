@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.tributario.IcmsCustomizadoCabecalhoEntity;
-import dc.servicos.dao.tributario.IcmsCustomizadoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -19,8 +18,6 @@ public class IcmsCustomizadoListController extends
 	
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private IcmsCustomizadoDAO dao;
 
 	@Autowired
 	private IcmsCustomizadoFormController formController;

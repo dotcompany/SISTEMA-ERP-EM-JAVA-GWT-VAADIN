@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.tributario.GrupoTributarioEntity;
+import dc.model.dao.tributario.IGrupoTributarioDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 /**
@@ -23,7 +24,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class GrupoTributarioDAO extends AbstractCrudDAO<GrupoTributarioEntity>{
+public class GrupoTributarioDAO extends AbstractCrudDAO<GrupoTributarioEntity> implements IGrupoTributarioDAO {
 
 	@Override
 	public Class<GrupoTributarioEntity> getEntityClass() {

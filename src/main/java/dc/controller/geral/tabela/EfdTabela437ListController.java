@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.geral.tabela.EfdTabela437Entity;
-import dc.servicos.dao.geral.tabela.EfdTabela437DAO;
+import dc.servicos.dao.geral.tabela.IEfdTabela437DAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -26,7 +26,7 @@ public class EfdTabela437ListController extends CRUDListController<EfdTabela437E
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	EfdTabela437DAO dao;
+	private IEfdTabela437DAO dao;
 
 	@Autowired
 	EfdTabela437FormController pController;

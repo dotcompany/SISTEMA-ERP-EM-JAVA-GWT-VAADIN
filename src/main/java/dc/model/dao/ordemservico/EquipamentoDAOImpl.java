@@ -10,14 +10,8 @@ import com.sun.istack.logging.Logger;
 import dc.entidade.ordemservico.EquipamentoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-/**
- * 
- * @author Paulo Sérgio Ferreira
- * 
- */
 @Repository
-public class EquipamentoDAOImpl extends AbstractCrudDAO<EquipamentoEntity> implements
-		IEquipamentoDAO {
+public class EquipamentoDAOImpl extends AbstractCrudDAO<EquipamentoEntity> {
 
 	private static Logger logger = Logger.getLogger(EquipamentoDAOImpl.class);
 

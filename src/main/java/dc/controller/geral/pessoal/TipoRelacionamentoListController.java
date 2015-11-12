@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
-import dc.servicos.dao.geral.pessoal.TipoRelacionamentoDAO;
+import dc.servicos.dao.geral.pessoal.ITipoRelacionamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class TipoRelacionamentoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	TipoRelacionamentoDAO dao;
+	private ITipoRelacionamentoDAO dao;
 
 	@Autowired
 	TipoRelacionamentoFormController tipoRelacionamentoFormController;

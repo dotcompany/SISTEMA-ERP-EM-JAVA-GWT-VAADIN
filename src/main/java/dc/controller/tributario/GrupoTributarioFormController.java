@@ -13,7 +13,7 @@ import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.tributario.GrupoTributarioEntity;
 import dc.framework.exception.ErroValidacaoException;
-import dc.servicos.dao.tributario.GrupoTributarioDAO;
+import dc.model.dao.tributario.IGrupoTributarioDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
@@ -29,7 +29,7 @@ public class GrupoTributarioFormController extends CRUDFormController<GrupoTribu
 	GrupoTributarioFormView subView;
 
 	@Autowired
-	GrupoTributarioDAO dao;
+	private IGrupoTributarioDAO dao;
 
 	GrupoTributarioEntity currentBean;
 

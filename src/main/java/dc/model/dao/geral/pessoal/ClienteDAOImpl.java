@@ -12,7 +12,7 @@ import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class ClienteDAOImpl extends AbstractCrudDAO<ClienteEntity> implements IClienteDAO {
+public class ClienteDAOImpl extends AbstractCrudDAO<ClienteEntity>  {
 	
 			private static Logger logger = Logger.getLogger(ClienteDAOImpl.class);
 
@@ -113,25 +113,6 @@ public class ClienteDAOImpl extends AbstractCrudDAO<ClienteEntity> implements IC
 					List<ClienteEntity> auxLista = query.list();
 
 					return auxLista;
-				} catch (Exception e) {
-					e.printStackTrace();
-
-					throw e;
-				}
-			}
-
-			@Override
-			public ClienteEntity findById(ClienteEntity t) {
-				try {
-					String sql = "FROM # ent WHERE (1 = 1) AND ent.id = :id";
-					sql = sql.replace("#", this.getEntityClass().getName());
-
-					Query query = super.getSession().createQuery(sql);
-					query.setParameter("id", t.getId());
-
-					ClienteEntity ent = (ClienteEntity) query.uniqueResult();
-
-					return ent;
 				} catch (Exception e) {
 					e.printStackTrace();
 

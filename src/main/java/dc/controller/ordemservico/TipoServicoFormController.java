@@ -11,7 +11,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.TipoServicoOsEntity;
-import dc.servicos.dao.ordemservico.TipoServicoOsDAO;
+import dc.model.dao.ordemservico.ITipoServicoOsDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.TipoServicoFormView;
@@ -25,7 +25,7 @@ public class TipoServicoFormController extends CRUDFormController<TipoServicoOsE
 	TipoServicoFormView subView;
 
 	@Autowired
-	TipoServicoOsDAO tipoServicoDAO;
+	private ITipoServicoOsDAO tipoServicoDAO;
 
 	private TipoServicoOsEntity currentBean;
 

@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CfopEntity;
-import dc.servicos.dao.geral.tabela.CfopDAO;
+import dc.servicos.dao.geral.tabela.ICfopDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CfopFormView;
@@ -31,7 +31,7 @@ public class CfopFormController extends CRUDFormController<CfopEntity> {
 	CfopFormView subView;
 
 	@Autowired
-	CfopDAO cfopDAO;
+	private ICfopDAO cfopDAO;
 
 	private CfopEntity currentBean;
 

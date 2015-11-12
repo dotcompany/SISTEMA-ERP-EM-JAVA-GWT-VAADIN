@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.SefipCodigoMovimentacaoEntity;
-import dc.servicos.dao.geral.tabela.SefipCodigoMovimentacaoDAO;
+import dc.servicos.dao.geral.tabela.ISefipCodigoMovimentacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.SefipCodigoMovimentacaoFormView;
 
@@ -29,7 +29,7 @@ public class SefipCodigoMovimentacaoFormController extends
 	SefipCodigoMovimentacaoFormView subView;
 
 	@Autowired
-	SefipCodigoMovimentacaoDAO sefipCodigoMovimentacaoDAO;
+	private ISefipCodigoMovimentacaoDAO sefipCodigoMovimentacaoDAO;
 
 	private SefipCodigoMovimentacaoEntity currentBean;
 

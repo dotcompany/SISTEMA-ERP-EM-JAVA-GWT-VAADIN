@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.geral.tabela.CstIpiEntity;
-import dc.servicos.dao.geral.tabela.CstIpiDAO;
+import dc.servicos.dao.geral.tabela.ICstIpiDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -26,7 +26,7 @@ public class CstIpiListController extends CRUDListController<CstIpiEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	CstIpiDAO dao;
+	private ICstIpiDAO dao;
 
 	@Autowired
 	CstIpiFormController pController;

@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.AtividadeForCliEntity;
-import dc.servicos.dao.geral.pessoal.AtividadeForCliDAO;
+import dc.servicos.dao.geral.pessoal.IAtividadeForCliDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.pessoal.AtividadeForCliFormView;
@@ -32,7 +32,7 @@ public class AtividadeForCliFormController extends
 	private AtividadeForCliEntity currentBean;
 
 	@Autowired
-	private AtividadeForCliDAO atividadeForCliDAO;
+	private IAtividadeForCliDAO atividadeForCliDAO;
 
 	@Override
 	protected boolean validaSalvar() {

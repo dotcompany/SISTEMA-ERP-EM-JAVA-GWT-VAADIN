@@ -11,12 +11,11 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.EquipamentoEntity;
-import dc.servicos.dao.ordemservico.EquipamentoDAO;
+import dc.model.dao.ordemservico.IEquipamentoDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.EquipamentoFormView;
 
-/** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
@@ -27,7 +26,7 @@ public class EquipamentoFormController extends CRUDFormController<EquipamentoEnt
 	EquipamentoFormView subView;
 
 	@Autowired
-	EquipamentoDAO equipamentoDAO;
+	private IEquipamentoDAO equipamentoDAO;
 
 	private EquipamentoEntity currentBean;
 

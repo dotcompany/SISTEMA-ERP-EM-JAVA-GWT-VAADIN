@@ -11,7 +11,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.EfdTabela437Entity;
-import dc.servicos.dao.geral.tabela.EfdTabela437DAO;
+import dc.servicos.dao.geral.tabela.IEfdTabela437DAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.EfdTabela437FormView;
@@ -31,7 +31,7 @@ public class EfdTabela437FormController extends
 	EfdTabela437FormView subView;
 
 	@Autowired
-	EfdTabela437DAO efdTabela437DAO;
+	private IEfdTabela437DAO efdTabela437DAO;
 
 	private EfdTabela437Entity currentBean;
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.TipoItemSpedEntity;
-import dc.servicos.dao.geral.tabela.TipoItemSpedDAO;
+import dc.servicos.dao.geral.tabela.ITipoItemSpedDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.TipoItemSpedFormView;
 
@@ -29,7 +29,7 @@ public class TipoItemSpedFormController extends
 	TipoItemSpedFormView subView;
 
 	@Autowired
-	TipoItemSpedDAO tipoItemSpedDAO;
+	private ITipoItemSpedDAO tipoItemSpedDAO;
 
 	private TipoItemSpedEntity currentBean;
 

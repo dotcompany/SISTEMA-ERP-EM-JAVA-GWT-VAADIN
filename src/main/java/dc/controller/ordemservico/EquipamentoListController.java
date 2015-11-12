@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.ordemservico.EquipamentoEntity;
-import dc.servicos.dao.ordemservico.EquipamentoDAO;
-import dc.visao.framework.geral.CRUDFormController; 
+import dc.model.dao.ordemservico.IEquipamentoDAO;
+import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
@@ -18,7 +18,7 @@ public class EquipamentoListController extends CRUDListController<EquipamentoEnt
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	EquipamentoDAO dao;
+	private IEquipamentoDAO dao;
 	
 	@Autowired
 	EquipamentoFormController formController;

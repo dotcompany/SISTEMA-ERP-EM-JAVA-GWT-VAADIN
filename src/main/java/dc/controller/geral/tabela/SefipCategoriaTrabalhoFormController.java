@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.SefipCategoriaTrabalhoEntity;
-import dc.servicos.dao.geral.tabela.SefipCategoriaTrabalhoDAO;
+import dc.servicos.dao.geral.tabela.ISefipCategoriaTrabalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.SefipCategoriaTrabalhoFormView;
 
@@ -29,7 +29,7 @@ public class SefipCategoriaTrabalhoFormController extends
 	SefipCategoriaTrabalhoFormView subView;
 
 	@Autowired
-	SefipCategoriaTrabalhoDAO sefipDAO;
+	private ISefipCategoriaTrabalhoDAO sefipDAO;
 
 	private SefipCategoriaTrabalhoEntity currentBean;
 

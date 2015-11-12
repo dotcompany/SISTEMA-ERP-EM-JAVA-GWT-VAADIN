@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.TipoColaboradorEntity;
-import dc.servicos.dao.geral.pessoal.TipoColaboradorDAO;
+import dc.servicos.dao.geral.pessoal.ITipoColaboradorDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class TipoColaboradorListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	TipoColaboradorDAO dao;
+	private ITipoColaboradorDAO dao;
 
 	@Autowired
 	TipoColaboradorFormController tipoColaboradorFormController;

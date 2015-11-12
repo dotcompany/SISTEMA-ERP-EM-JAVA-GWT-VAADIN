@@ -11,7 +11,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.CstIpiEntity;
-import dc.servicos.dao.geral.tabela.CstIpiDAO;
+import dc.servicos.dao.geral.tabela.ICstIpiDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CstIpiFormView;
@@ -30,7 +30,7 @@ public class CstIpiFormController extends CRUDFormController<CstIpiEntity> {
 	CstIpiFormView subView;
 
 	@Autowired
-	CstIpiDAO cstIpiDAO;
+	private ICstIpiDAO cstIpiDAO;
 
 	private CstIpiEntity currentBean;
 

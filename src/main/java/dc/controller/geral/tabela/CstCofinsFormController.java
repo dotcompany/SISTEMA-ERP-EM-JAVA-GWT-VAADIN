@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CstCofinsEntity;
-import dc.servicos.dao.geral.tabela.CstCofinsDAO;
+import dc.servicos.dao.geral.tabela.ICstCofinsDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CstCofinsFormView;
@@ -31,7 +31,7 @@ public class CstCofinsFormController extends CRUDFormController<CstCofinsEntity>
 	CstCofinsFormView subView;
 
 	@Autowired
-	CstCofinsDAO cstCofinsDAO;
+	private ICstCofinsDAO cstCofinsDAO;
 
 	private CstCofinsEntity currentBean;
 

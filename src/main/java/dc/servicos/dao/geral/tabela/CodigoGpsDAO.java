@@ -11,7 +11,7 @@ import dc.entidade.geral.tabela.CodigoGpsEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class CodigoGpsDAO extends AbstractCrudDAO<CodigoGpsEntity> {
+public class CodigoGpsDAO extends AbstractCrudDAO<CodigoGpsEntity> implements ICodigoGpsDAO {
 
 	@Override
 	public Class<CodigoGpsEntity> getEntityClass() {

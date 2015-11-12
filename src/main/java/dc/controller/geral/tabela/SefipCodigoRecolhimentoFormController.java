@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.SefipCodigoRecolhimentoEntity;
-import dc.servicos.dao.geral.tabela.SefipCodigoRecolhimentoDAO;
+import dc.servicos.dao.geral.tabela.ISefipCodigoRecolhimentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.SefipCodigoRecolhimentoFormView;
 
@@ -29,7 +29,7 @@ public class SefipCodigoRecolhimentoFormController extends
 	SefipCodigoRecolhimentoFormView subView;
 
 	@Autowired
-	SefipCodigoRecolhimentoDAO sefipCodigoRecolhimentoDAO;
+	private ISefipCodigoRecolhimentoDAO sefipCodigoRecolhimentoDAO;
 
 	private SefipCodigoRecolhimentoEntity currentBean;
 

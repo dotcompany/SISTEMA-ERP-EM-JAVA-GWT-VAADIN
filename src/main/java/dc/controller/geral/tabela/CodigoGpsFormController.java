@@ -12,7 +12,7 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.tabela.CodigoGpsEntity;
-import dc.servicos.dao.geral.tabela.CodigoGpsDAO;
+import dc.servicos.dao.geral.tabela.ICodigoGpsDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.CodigoGpsFormView;
@@ -31,7 +31,7 @@ public class CodigoGpsFormController extends CRUDFormController<CodigoGpsEntity>
 	private CodigoGpsFormView subView;
 
 	@Autowired
-	private CodigoGpsDAO codigoGpsDAO;
+	private ICodigoGpsDAO codigoGpsDAO;
 
 	private CodigoGpsEntity currentBean;
 

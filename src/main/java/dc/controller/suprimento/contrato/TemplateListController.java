@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.contrato.TemplateEntity;
-import dc.servicos.dao.suprimentos.contrato.TemplateDAO;
+import dc.servicos.dao.suprimentos.contrato.ITemplateDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class TemplateListController extends CRUDListController<TemplateEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	TemplateDAO dao;
+	private ITemplateDAO dao;
 
 	@Autowired
 	TemplateFormController templateFormController;

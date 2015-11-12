@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.ordemservico.StatusOsEntity;
-import dc.servicos.dao.ordemservico.StatusOsDAO;
+import dc.model.dao.ordemservico.IStatusOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -18,7 +18,7 @@ public class StatusOsListController extends CRUDListController<StatusOsEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	StatusOsDAO dao;
+	private IStatusOsDAO dao;
 	
 	@Autowired
 	StatusOsFormController formController;

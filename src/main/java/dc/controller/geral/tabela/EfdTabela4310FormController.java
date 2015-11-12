@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.geral.tabela.EfdTabela4310Entity;
-import dc.servicos.dao.geral.tabela.EfdTabela4310DAO;
+import dc.servicos.dao.geral.tabela.IEfdTabela4310DAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.tabela.EfdTabela4310FormView;
 
@@ -29,7 +29,7 @@ public class EfdTabela4310FormController extends
 	EfdTabela4310FormView subView;
 
 	@Autowired
-	EfdTabela4310DAO efdTabela4310DAO;
+	private IEfdTabela4310DAO efdTabela4310DAO;
 
 	private EfdTabela4310Entity currentBean;
 

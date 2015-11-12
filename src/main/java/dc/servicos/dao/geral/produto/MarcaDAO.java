@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.produto.MarcaEntity;
+import dc.model.dao.geral.produto.IMarcaDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("produtoMarcaDAO")
 @SuppressWarnings("unchecked")
-public class MarcaDAO extends AbstractCrudDAO<MarcaEntity> {
+public class MarcaDAO extends AbstractCrudDAO<MarcaEntity> implements IMarcaDAO {
 
 	@Override
 	public Class<MarcaEntity> getEntityClass() {

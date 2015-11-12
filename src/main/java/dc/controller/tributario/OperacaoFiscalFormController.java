@@ -13,7 +13,7 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.tributario.OperacaoFiscalEntity;
 import dc.servicos.dao.geral.tabela.ICfopDAO;
-import dc.servicos.dao.tributario.OperacaoFiscalDAO;
+import dc.servicos.dao.tributario.IOperacaoFiscalDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.tributario.OperacaoFiscalFormView;
@@ -27,7 +27,7 @@ public class OperacaoFiscalFormController extends CRUDFormController<OperacaoFis
 	OperacaoFiscalFormView subView;
 
 	@Autowired
-	private OperacaoFiscalDAO dao;
+	private IOperacaoFiscalDAO dao;
 
 	private OperacaoFiscalEntity currentBean;
 

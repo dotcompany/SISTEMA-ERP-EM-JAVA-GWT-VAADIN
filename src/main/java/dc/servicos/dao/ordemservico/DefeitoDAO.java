@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.ordemservico.DefeitoEntity;
+import dc.model.dao.ordemservico.IDefeitoDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class DefeitoDAO extends AbstractCrudDAO<DefeitoEntity>{
+public class DefeitoDAO extends AbstractCrudDAO<DefeitoEntity> implements IDefeitoDAO {
 
 	@Override
 	public Class<DefeitoEntity> getEntityClass() {

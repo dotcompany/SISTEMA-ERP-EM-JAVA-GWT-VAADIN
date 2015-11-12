@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.TipoAdmissaoEntity;
-import dc.servicos.dao.geral.pessoal.TipoAdmissaoDAO;
+import dc.servicos.dao.geral.pessoal.ITipoAdmissaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class TipoAdmissaoListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	TipoAdmissaoDAO dao;
+	private ITipoAdmissaoDAO dao;
 
 	@Autowired
 	TipoAdmissaoFormController tipoAdmissaoFormController;

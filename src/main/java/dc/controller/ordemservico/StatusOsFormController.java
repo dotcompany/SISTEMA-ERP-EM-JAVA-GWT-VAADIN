@@ -11,7 +11,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.StatusOsEntity;
-import dc.servicos.dao.ordemservico.StatusOsDAO;
+import dc.model.dao.ordemservico.IStatusOsDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.StatusOsFormView;
@@ -25,7 +25,7 @@ public class StatusOsFormController extends CRUDFormController<StatusOsEntity> {
 	StatusOsFormView subView;
 
 	@Autowired
-	StatusOsDAO statusOsDAO;
+	private IStatusOsDAO statusOsDAO;
 
 	private StatusOsEntity currentBean;
 
