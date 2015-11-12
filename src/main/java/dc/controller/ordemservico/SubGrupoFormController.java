@@ -17,8 +17,6 @@ import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.SubGrupoFormView;
 
-/** @author Paulo Sérgio */
-
 @Controller("ordemservicoSubGrupoFormController")
 @Scope("prototype")
 public class SubGrupoFormController extends

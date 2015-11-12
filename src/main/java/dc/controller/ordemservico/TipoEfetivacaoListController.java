@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.ordemservico.TipoEfetivacaoEntity;
-import dc.servicos.dao.ordemservico.TipoEfetivacaoDAO;
+import dc.model.dao.ordemservico.ITipoEfetivacaoOsDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -18,7 +18,7 @@ public class TipoEfetivacaoListController extends CRUDListController<TipoEfetiva
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	TipoEfetivacaoDAO dao;
+	private ITipoEfetivacaoOsDAO dao;
 	
 	@Autowired
 	TipoEfetivacaoFormController formController;

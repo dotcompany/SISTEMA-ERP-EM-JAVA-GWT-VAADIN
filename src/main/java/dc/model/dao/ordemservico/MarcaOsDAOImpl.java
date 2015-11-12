@@ -10,14 +10,8 @@ import com.sun.istack.logging.Logger;
 import dc.entidade.ordemservico.MarcaOsEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
-/**
- * 
- * @author Paulo Sérgio Ferreira
- * 
- */
 @Repository
-public class MarcaOsDAOImpl extends AbstractCrudDAO<MarcaOsEntity> implements
-		MarcaOsDAO<MarcaOsEntity> {
+public class MarcaOsDAOImpl extends AbstractCrudDAO<MarcaOsEntity>  {
 
 	private static Logger logger = Logger.getLogger(MarcaOsDAOImpl.class);
 

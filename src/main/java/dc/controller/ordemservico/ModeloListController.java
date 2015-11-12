@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import dc.controller.ordemservico.ModeloFormController;
 import dc.entidade.ordemservico.ModeloEntity;
-import dc.servicos.dao.ordemservico.ModeloDAO;
+import dc.servicos.dao.ordemservico.IModeloDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -19,7 +18,7 @@ public class ModeloListController extends CRUDListController<ModeloEntity> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ModeloDAO dao;
+	private IModeloDAO dao;
 	
 	@Autowired
 	ModeloFormController formController;

@@ -28,7 +28,7 @@ public class ParcelaPagarDAO extends AbstractCrudDAO<ParcelaPagar> implements IP
 	}
 	
 	public String[] getDefaultSearchFields() {
-		return new String[] {"lancamentoPagar.fornecedor", "contaCaixa", "numeroParcela", "valor", "dataEmissao", "dataVencimento", "descontoAte", "sofreRetencao",
+		return new String[] { "contaCaixa", "numeroParcela", "valor", "dataEmissao", "dataVencimento", "descontoAte", "sofreRetencao",
 				"valorFaltante", "taxaJuro", "valorJuro", "taxaMulta", "valorMulta", "taxaDesconto", "valorDesconto"};
 	}
 	

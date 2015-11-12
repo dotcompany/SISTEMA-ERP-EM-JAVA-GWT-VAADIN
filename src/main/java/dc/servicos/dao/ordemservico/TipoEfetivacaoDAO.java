@@ -8,11 +8,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.ordemservico.TipoEfetivacaoEntity;
+import dc.model.dao.ordemservico.ITipoEfetivacaoOsDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class TipoEfetivacaoDAO extends AbstractCrudDAO<TipoEfetivacaoEntity>{
+public class TipoEfetivacaoDAO extends AbstractCrudDAO<TipoEfetivacaoEntity> implements ITipoEfetivacaoOsDAO{
 
 	@Override
 	public Class<TipoEfetivacaoEntity> getEntityClass() {

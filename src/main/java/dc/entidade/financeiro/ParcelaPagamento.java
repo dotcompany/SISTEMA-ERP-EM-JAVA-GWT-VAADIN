@@ -27,6 +27,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -129,12 +130,14 @@ public class ParcelaPagamento extends AbstractMultiEmpresaModel<Integer> {
 	//@ManyToOne(optional = false)
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	//@NotNull(message = "Tipo Pagamento é Obrigatório!")
+	@IndexedEmbedded(includePaths={"descricao"})
 	private TipoPagamento tipoPagamento;
 
 	@Caption("Conta Caixa")
 	@JoinColumn(name = "ID_CONTA_CAIXA", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	//@NotNull(message = "Conta Caixa é Obrigatório!")
+	@IndexedEmbedded(includePaths={"nome"})
 	private ContaCaixa contaCaixa;
 
 	public ParcelaPagamento() {

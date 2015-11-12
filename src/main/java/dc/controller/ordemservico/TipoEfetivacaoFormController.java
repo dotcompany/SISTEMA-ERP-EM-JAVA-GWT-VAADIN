@@ -11,12 +11,11 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.ordemservico.TipoEfetivacaoEntity;
-import dc.servicos.dao.ordemservico.TipoEfetivacaoDAO;
+import dc.model.dao.ordemservico.ITipoEfetivacaoOsDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.ordemservico.TipoEfetivacaoFormView;
 
-/** @author Paulo Sérgio */
 
 @Controller
 @Scope("prototype")
@@ -27,7 +26,7 @@ public class TipoEfetivacaoFormController extends CRUDFormController<TipoEfetiva
 	TipoEfetivacaoFormView subView;
 
 	@Autowired
-	TipoEfetivacaoDAO tipoEfetivacaoDAO;
+	private ITipoEfetivacaoOsDAO tipoEfetivacaoDAO;
 
 	private TipoEfetivacaoEntity currentBean;
 

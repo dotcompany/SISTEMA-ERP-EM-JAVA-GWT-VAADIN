@@ -31,6 +31,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
@@ -135,12 +136,14 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne(optional = false)
 	//@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	//@Transient
+	@IndexedEmbedded(includePaths={"descricao"})
 	private StatusParcela statusParcela;
 
 	@JoinColumn(name = "id_lancamento_pagar", referencedColumnName = "id")
 	//@ManyToOne(optional = false)
 	@ManyToOne(optional = false,fetch = FetchType.LAZY)
-	@Caption("Fornecedor")
+	@Caption("Lançamento Pagar")
+	@IndexedEmbedded(depth=3, includePaths={"fornecedor.pessoa.nome"})
 	private LancamentoPagarEntity lancamentoPagar;
 
 	/*
