@@ -7,10 +7,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.outro.SindicatoEntity;
+import dc.model.dao.geral.outro.ISindicatoDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class SindicatoDAO extends AbstractCrudDAO<SindicatoEntity> {
+public class SindicatoDAO extends AbstractCrudDAO<SindicatoEntity> implements ISindicatoDAO {
 
 	@Override
 	public Class<SindicatoEntity> getEntityClass() {

@@ -57,7 +57,7 @@ public class AgenciaBancoListController extends
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

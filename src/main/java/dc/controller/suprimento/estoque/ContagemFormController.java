@@ -22,7 +22,7 @@ import dc.entidade.suprimentos.estoque.ContagemDetalheEntity;
 import dc.model.business.geral.produto.ProdutoBusiness;
 import dc.model.business.suprimento.estoque.ContagemCabecalhoBusiness;
 import dc.model.business.suprimento.estoque.ContagemDetalheBusiness;
-import dc.servicos.dao.geral.produto.ProdutoDAO;
+import dc.model.dao.geral.produto.IProdutoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.estoque.ContagemFormView;
 
@@ -62,7 +62,7 @@ public class ContagemFormController extends
 	 */
 
 	@Autowired
-	private ProdutoDAO produtoDAO;
+	private IProdutoDAO produtoDAO;
 
 	/**
 	 * CONSTRUTOR

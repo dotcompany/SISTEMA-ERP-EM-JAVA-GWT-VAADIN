@@ -19,11 +19,11 @@ import dc.entidade.administrativo.empresa.QuadroSocietarioEntity;
 import dc.entidade.administrativo.empresa.SocioEntity;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.pessoal.TipoRelacionamentoEntity;
-import dc.servicos.dao.administrativo.empresa.DependenteDAO;
+import dc.servicos.dao.administrativo.empresa.IDependenteDAO;
 import dc.servicos.dao.administrativo.empresa.IParticipacaoSocietariaDAO;
 import dc.servicos.dao.administrativo.empresa.IQuadroSocietarioDAO;
 import dc.servicos.dao.administrativo.empresa.ISocioDAO;
-import dc.servicos.dao.geral.UfDAO;
+import dc.servicos.dao.geral.IUfDAO;
 import dc.servicos.dao.geral.pessoal.ITipoRelacionamentoDAO;
 import dc.visao.administrativo.empresa.SocioFormView;
 import dc.visao.administrativo.empresa.SocioFormView.DIRIGENTE;
@@ -53,10 +53,10 @@ public class SocioFormController extends CRUDFormController<SocioEntity> {
 	private IParticipacaoSocietariaDAO participacaoSocietariaDAO;
 
 	@Autowired
-	UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	@Autowired
-	DependenteDAO dependenteDAO;
+	private IDependenteDAO dependenteDAO;
 
 	@Override
 	public String getViewIdentifier() {

@@ -31,14 +31,14 @@ import dc.entidade.framework.SeguimentoEntity;
 import dc.entidade.geral.outro.SindicatoEntity;
 import dc.entidade.geral.pessoal.ContadorEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
+import dc.model.dao.geral.outro.ISindicatoDAO;
 import dc.model.dao.geral.pessoal.IContadorDAO;
-import dc.servicos.dao.administrativo.empresa.EmpresaCnaeDAO;
+import dc.servicos.dao.administrativo.empresa.IEmpresaCnaeDAO;
 import dc.servicos.dao.administrativo.empresa.IEmpresaDAO;
-import dc.servicos.dao.financeiro.SindicatoDAO;
-import dc.servicos.dao.framework.geral.FpasDAO;
+import dc.servicos.dao.administrativo.empresa.IFpasDAO;
 import dc.servicos.dao.framework.geral.IEmpresaSeguimentoDAO;
-import dc.servicos.dao.framework.geral.SeguimentoDAO;
-import dc.servicos.dao.geral.PessoaEnderecoDAO;
+import dc.servicos.dao.framework.geral.ISeguimentoDAO;
+import dc.servicos.dao.geral.IPessoaEnderecoDAO;
 import dc.visao.administrativo.empresa.EmpresaFormView;
 import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
 import dc.visao.framework.geral.CRUDFormController;
@@ -67,19 +67,19 @@ public class EmpresaFormController extends CRUDFormController<EmpresaEntity> {
 	private IContadorDAO contadorDAO;
 
 	@Autowired
-	private SindicatoDAO sindicatoDAO;
+	private ISindicatoDAO sindicatoDAO;
 
 	@Autowired
-	private FpasDAO fpasDAO;
+	private IFpasDAO fpasDAO;
 
 	@Autowired
-	private EmpresaCnaeDAO empresaCnaeDAO;
+	private IEmpresaCnaeDAO empresaCnaeDAO;
 
 	@Autowired
-	private PessoaEnderecoDAO pessoaEnderecoDAO;
+	private IPessoaEnderecoDAO pessoaEnderecoDAO;
 
 	@Autowired
-	private SeguimentoDAO seguimentoDAO;
+	private ISeguimentoDAO seguimentoDAO;
 
 	@Autowired
 	private IEmpresaSeguimentoDAO empresaSeguimentoDAO;

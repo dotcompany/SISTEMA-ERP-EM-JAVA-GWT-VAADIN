@@ -6,9 +6,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.framework.Fpas;
+import dc.servicos.dao.administrativo.empresa.IFpasDAO;
 
 @Repository
-public class FpasDAO extends AbstractCrudDAO<Fpas> {
+public class FpasDAO extends AbstractCrudDAO<Fpas> implements IFpasDAO {
 
 	@Override
 	public Class<Fpas> getEntityClass() {

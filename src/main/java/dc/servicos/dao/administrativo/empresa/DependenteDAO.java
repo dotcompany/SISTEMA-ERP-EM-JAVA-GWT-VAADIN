@@ -10,7 +10,7 @@ import dc.entidade.administrativo.empresa.SocioEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class DependenteDAO extends AbstractCrudDAO<DependenteEntity> {
+public class DependenteDAO extends AbstractCrudDAO<DependenteEntity> implements IDependenteDAO {
 
 
 	@Override

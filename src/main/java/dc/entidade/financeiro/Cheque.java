@@ -26,6 +26,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.financeiro.type.StatusChequeType;
@@ -94,6 +95,7 @@ public class Cheque extends AbstractMultiEmpresaModel<Integer> implements Serial
 	@ManyToOne
 	@JoinColumn(name = "ID_TALONARIO_CHEQUE", nullable = true)
 	@NotNull(message = "Talonário Cheque é obrigatório") 
+    @IndexedEmbedded(includePaths={"talao"})
 	private TalonarioCheque idTalonarioCheque;
 
     public Cheque() {

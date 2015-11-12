@@ -35,6 +35,8 @@ private static final long serialVersionUID = 1L;
 	@Transactional(readOnly = false)
 	public void delete(AgenciaBancoEntity t) throws Exception {
 		
+		dao.delete(t);
+		
 	}
 
 	@Override
@@ -100,7 +102,8 @@ private static final long serialVersionUID = 1L;
 
 	@Override
 	public List<AgenciaBancoEntity> fullTextSearch(String valor) throws Exception {
-		return null;
+		
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

@@ -30,6 +30,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.financeiro.type.StatusChequeType;
@@ -94,6 +95,7 @@ public class TalonarioCheque extends AbstractMultiEmpresaModel<Integer> implemen
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTA_CAIXA", nullable = true)
 	@NotNull(message = "Conta Caixa é obrigatório") 
+	@IndexedEmbedded(depth=2, includePaths={"nome"})
 	private ContaCaixa contaCaixa;
 	
 	@OneToMany(mappedBy = "idTalonarioCheque", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

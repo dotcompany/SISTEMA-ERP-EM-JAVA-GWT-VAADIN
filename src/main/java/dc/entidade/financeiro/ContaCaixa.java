@@ -31,6 +31,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.control.enums.ContaCaixaTipoEnum;
@@ -116,6 +117,7 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@JoinColumn(name = "ID_AGENCIA_BANCO", nullable = true)
 	@NotNull(message = "Agência Banco é Obrigatório!")
 	@Caption("Agência Banco")
+	@IndexedEmbedded(includePaths={"nome"})
 	private AgenciaBancoEntity agenciaBanco;
 
 	/**
@@ -133,6 +135,14 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	@OneToMany(mappedBy = "contaCaixa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<OperadoraCartaoEntity> operadoraCartaoList = new ArrayList<OperadoraCartaoEntity>();
+	
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="contaCaixa",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<ConfiguracaoBoleto> configuraBoletoList = new ArrayList<ConfiguracaoBoleto>();
+	
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="contaCaixa",orphanRemoval = true,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<ParcelaPagar> parcelaPagarList = new ArrayList<ParcelaPagar>();
 	
 	/**
 	 * TRANSIENT
@@ -245,6 +255,22 @@ public class ContaCaixa extends AbstractMultiEmpresaModel<Integer> {
 	public void setOperadoraCartaoList(
 			List<OperadoraCartaoEntity> operadoraCartaoList) {
 		this.operadoraCartaoList = operadoraCartaoList;
+	}
+	
+	public List<ConfiguracaoBoleto> getConfiguraBoletoList() {
+		return configuraBoletoList;
+	}
+
+	public void setConfiguraBoletoList(List<ConfiguracaoBoleto> configuraBoletoList) {
+		this.configuraBoletoList = configuraBoletoList;
+	}
+	
+	public List<ParcelaPagar> getParcelaPagarList() {
+		return parcelaPagarList;
+	}
+
+	public void setParcelaPagarList(List<ParcelaPagar> parcelaPagarList) {
+		this.parcelaPagarList = parcelaPagarList;
 	}
 
 	/**

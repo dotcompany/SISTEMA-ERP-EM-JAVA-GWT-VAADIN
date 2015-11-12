@@ -29,7 +29,7 @@
 	}
 
 .v-vaadin-version:after {
-	content: "7.5.8";
+	content: "7.5.9";
 }
 
 .v-generated-body {
@@ -2357,6 +2357,7 @@ body .dotcompany.v-app .v-app-loading {
 
 .dotcompany .v-formlayout-errorcell, .dotcompany .v-formlayout-captioncell {
 	width: 1px;
+	min-width: 1px;
 }
 
 .dotcompany .v-formlayout-captioncell .v-caption {

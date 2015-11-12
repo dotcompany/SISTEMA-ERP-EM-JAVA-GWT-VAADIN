@@ -17,7 +17,7 @@ import dc.entidade.framework.PapelMenu;
 import dc.entidade.framework.SeguimentoEntity;
 import dc.model.business.sistema.SeguimentoBusiness;
 import dc.servicos.dao.framework.geral.IFmMenuDAO;
-import dc.servicos.dao.framework.geral.SeguimentoDAO;
+import dc.servicos.dao.framework.geral.ISeguimentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.sistema.SeguimentoFormView;
 import dc.visao.spring.SecuritySessionProvider;
@@ -52,7 +52,7 @@ public class SeguimentoFormController extends
 	 */
 
 	@Autowired
-	private SeguimentoDAO seguimentoDAO;
+	private ISeguimentoDAO seguimentoDAO;
 
 	@Autowired
 	private IFmMenuDAO menuDAO;

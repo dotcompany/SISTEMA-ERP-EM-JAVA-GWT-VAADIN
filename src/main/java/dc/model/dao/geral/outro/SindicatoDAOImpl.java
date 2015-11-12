@@ -1,6 +1,7 @@
 package dc.model.dao.geral.outro;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -111,6 +112,23 @@ public class SindicatoDAOImpl extends AbstractCrudDAO<SindicatoEntity> implement
 				query.setParameter("q", value);
 
 				List<SindicatoEntity> auxLista = query.list();
+
+				return auxLista;
+			} catch (Exception e) {
+				e.printStackTrace();
+
+				throw e;
+			}
+		}
+
+		@Override
+		public List<SindicatoEntity> getSindicatoList() {
+			try {
+				List<SindicatoEntity> auxLista = new ArrayList<SindicatoEntity>();
+
+				String sql = "SELECT new Sindicato(ent.id, ent.nome) FROM Sindicato ent";
+
+				auxLista = getSession().createQuery(sql).list();
 
 				return auxLista;
 			} catch (Exception e) {

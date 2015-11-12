@@ -31,6 +31,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -168,12 +169,14 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	@ManyToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name = "id_banco", referencedColumnName = "id")
 	@NotNull(message = "Banco é Obrigatório!")
+	@IndexedEmbedded(includePaths={"nome"})
 	private BancoEntity banco;
 
 	@Caption("UF")
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_uf")
 	@NotNull(message = "UF é Obrigatório!")
+	@IndexedEmbedded(includePaths={"nome"})
 	private UfEntity uf;
 
 	/**

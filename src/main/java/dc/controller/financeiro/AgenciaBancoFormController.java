@@ -173,12 +173,18 @@ public class AgenciaBancoFormController extends CRUDFormController<AgenciaBancoE
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 		
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (Serializable id : ids) {
+			AgenciaBancoEntity agencia = (AgenciaBancoEntity) id;
 
-			mensagemErro(e.getMessage());
+			try {
+				business.delete(agencia);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
 		}
+		
+		mensagemRemovidoOK();
 
 	}
 
