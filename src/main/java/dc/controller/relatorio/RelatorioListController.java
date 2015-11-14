@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import dc.entidade.relatorio.Relatorio;
-import dc.servicos.dao.relatorio.RelatorioDAO;
+import dc.servicos.dao.relatorio.IRelatorioDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,7 +21,7 @@ public class RelatorioListController extends CRUDListController<Relatorio> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private RelatorioDAO dao;
+	private IRelatorioDAO dao;
 
 	@Autowired
 	private RelatorioFormController relatorioFormController;

@@ -18,11 +18,11 @@ import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.PedidoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
-import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.dao.suprimentos.compra.CotacaoDAO;
-import dc.servicos.dao.suprimentos.compra.PedidoCompraDAO;
-import dc.servicos.dao.suprimentos.compra.RequisicaoDetalheDAO;
-import dc.servicos.dao.suprimentos.compra.TipoPedidoDAO;
+import dc.servicos.dao.geral.IFornecedorDAO;
+import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
+import dc.servicos.dao.suprimentos.compra.IPedidoCompraDAO;
+import dc.servicos.dao.suprimentos.compra.IRequisicaoDetalheDAO;
+import dc.servicos.dao.suprimentos.compra.ITipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.compra.MapaComparativoFormView;
 
@@ -39,19 +39,19 @@ public class MapaComparativoFormController extends
 	private MapaComparativoFormView subView;
 
 	@Autowired
-	private CotacaoDAO cotacaoDao;
+	private ICotacaoDAO cotacaoDao;
 
 	@Autowired
-	private PedidoCompraDAO pedidoCompraDAO;
+	private IPedidoCompraDAO pedidoCompraDAO;
 
 	@Autowired
-	private FornecedorDAO fornecedorDao;
+	private IFornecedorDAO fornecedorDao;
 
 	@Autowired
-	private RequisicaoDetalheDAO requisicaoDetalheDao;
+	private IRequisicaoDetalheDAO requisicaoDetalheDao;
 
 	@Autowired
-	private TipoPedidoDAO tipoPedidoDAO;
+	private ITipoPedidoDAO tipoPedidoDAO;
 
 	private CotacaoEntity currentBean;
 

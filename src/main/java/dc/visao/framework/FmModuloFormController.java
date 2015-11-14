@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.ui.Component;
 
 import dc.entidade.framework.FmModulo;
-import dc.servicos.dao.framework.geral.FmModuloDAO;
+import dc.servicos.dao.framework.geral.IFmModuloDAO;
 import dc.visao.framework.geral.CRUDFormController;
 
 @Controller
@@ -20,7 +20,7 @@ public class FmModuloFormController extends CRUDFormController<FmModulo> {
 	FmModuloFormView subView;
 
 	@Autowired
-	FmModuloDAO fmDAO;
+	private IFmModuloDAO fmDAO;
 
 	private FmModulo currentBean;
 

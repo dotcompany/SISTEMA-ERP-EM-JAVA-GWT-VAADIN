@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.compra.PedidoEntity;
-import dc.servicos.dao.suprimentos.compra.PedidoCompraDAO;
+import dc.servicos.dao.suprimentos.compra.IPedidoCompraDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -26,7 +26,7 @@ public class PedidoCompraListController extends
 	private PedidoCompraFormController pedidoCompraFormController;
 
 	@Autowired
-	private PedidoCompraDAO dao;
+	private IPedidoCompraDAO dao;
 
 	/**
 	 * CONSTRUTOR

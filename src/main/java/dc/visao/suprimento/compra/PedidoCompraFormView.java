@@ -198,7 +198,7 @@ public class PedidoCompraFormView extends CustomComponent {
 		fields.addComponent(txtLocalCobranca, 3, 1, 5, 1);
 
 		// txtValorSubTotal
-		txtValorSubTotal = ComponentUtil.buildCurrencyField("Valor SubTotal");
+		txtValorSubTotal = ComponentUtil.buildCurrencysField("Valor SubTotal");
 		fields.addComponent(txtValorSubTotal, 0, 2);
 
 		// txtTaxaDesconto
@@ -206,11 +206,11 @@ public class PedidoCompraFormView extends CustomComponent {
 		fields.addComponent(txtTaxaDesconto, 1, 2);
 
 		// txtValorDesconto
-		txtValorDesconto = ComponentUtil.buildCurrencyField("Valor Desconto");
+		txtValorDesconto = ComponentUtil.buildCurrencysField("Valor Desconto");
 		fields.addComponent(txtValorDesconto, 2, 2);
 
 		// txtTotalPedido
-		txtTotalPedido = ComponentUtil.buildCurrencyField("Total PedidoCompra");
+		txtTotalPedido = ComponentUtil.buildCurrencysField("Total Pedido Compra");
 		fields.addComponent(txtTotalPedido, 3, 2);
 
 		// optTipoFrete
@@ -285,7 +285,7 @@ public class PedidoCompraFormView extends CustomComponent {
 							return textField;
 						} else if ("valorUnitario".equals(propertyId)) {
 							TextField textField = ComponentUtil
-									.buildCurrencyField(null);
+									.buildCurrencysField(null);
 							textField.addBlurListener(getBlurListener(
 									container, itemId, propertyId));
 							return textField;
@@ -296,7 +296,7 @@ public class PedidoCompraFormView extends CustomComponent {
 							return textField;
 						} else if ("valorDesconto".equals(propertyId)) {
 							TextField textField = ComponentUtil
-									.buildCurrencyField(null);
+									.buildCurrencysField(null);
 							textField.addBlurListener(getBlurListener(
 									container, itemId, propertyId));
 							return textField;

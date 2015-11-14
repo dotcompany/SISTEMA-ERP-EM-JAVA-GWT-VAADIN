@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.framework.FmModulo;
-import dc.servicos.dao.framework.geral.FmModuloDAO;
+import dc.servicos.dao.framework.geral.IFmModuloDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -16,7 +16,7 @@ import dc.visao.framework.geral.CRUDListController;
 public class FmModuloListController extends CRUDListController<FmModulo> {
 
 	@Autowired
-	FmModuloDAO dao;
+	private IFmModuloDAO dao;
 
 	@Autowired
 	FmModuloFormController formController;

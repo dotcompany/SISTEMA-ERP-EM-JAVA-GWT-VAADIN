@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.entidade.framework.FmMenu;
-import dc.servicos.dao.framework.geral.FmMenuDAO;
+import dc.servicos.dao.framework.geral.IFmMenuDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -19,7 +19,7 @@ public class FmMenuListController extends CRUDListController<FmMenu> implements 
 	private static final long serialVersionUID = -3824341653741522079L;
 
 	@Autowired
-	FmMenuDAO dao;
+	private IFmMenuDAO dao;
 
 	@Autowired
 	FmMenuFormController formController;

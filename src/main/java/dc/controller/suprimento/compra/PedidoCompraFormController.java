@@ -16,10 +16,10 @@ import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.PedidoEntity;
 import dc.entidade.suprimentos.compra.TipoPedidoEntity;
-import dc.servicos.dao.geral.FornecedorDAO;
-import dc.servicos.dao.geral.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.compra.PedidoCompraDAO;
-import dc.servicos.dao.suprimentos.compra.TipoPedidoDAO;
+import dc.model.dao.geral.produto.IProdutoDAO;
+import dc.servicos.dao.geral.IFornecedorDAO;
+import dc.servicos.dao.suprimentos.compra.IPedidoCompraDAO;
+import dc.servicos.dao.suprimentos.compra.ITipoPedidoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.compra.PedidoCompraFormView;
 
@@ -36,16 +36,16 @@ public class PedidoCompraFormController extends
 	private PedidoCompraFormView subView;
 
 	@Autowired
-	private PedidoCompraDAO pedidoCompraDAO;
+	private IPedidoCompraDAO pedidoCompraDAO;
 
 	@Autowired
-	private ProdutoDAO produtoDAO;
+	private IProdutoDAO produtoDAO;
 
 	@Autowired
-	private FornecedorDAO fornecedorDAO;
+	private IFornecedorDAO fornecedorDAO;
 
 	@Autowired
-	private TipoPedidoDAO tipoPedidoDAO;
+	private ITipoPedidoDAO tipoPedidoDAO;
 
 	private PedidoEntity currentBean;
 

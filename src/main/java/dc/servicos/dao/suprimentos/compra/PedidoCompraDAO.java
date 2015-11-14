@@ -8,7 +8,7 @@ import dc.entidade.suprimentos.compra.PedidoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("suprimentosCompraPedidoCompraDAO")
-public class PedidoCompraDAO extends AbstractCrudDAO<PedidoEntity> {
+public class PedidoCompraDAO extends AbstractCrudDAO<PedidoEntity> implements IPedidoCompraDAO{
 
 	@Override
 	public Class<PedidoEntity> getEntityClass() {

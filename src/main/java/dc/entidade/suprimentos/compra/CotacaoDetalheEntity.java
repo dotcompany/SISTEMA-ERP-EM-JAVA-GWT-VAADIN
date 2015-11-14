@@ -13,8 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -46,8 +46,7 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ccompra_cotacao_detalhe_id_seq")
-	@SequenceGenerator(name = "ccompra_cotacao_detalhe_id_seq", sequenceName = "ccompra_cotacao_detalhe_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -123,6 +122,9 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@OneToMany(mappedBy = "cotacaoDetalhe")
 	@Fetch(FetchMode.SUBSELECT)
 	private List<CotacaoPedidoDetalheEntity> cotacaoPedidoDetalheList;
+	
+	@Transient
+    private RequisicaoDetalheEntity compraRequisicaoDetalhe;
 
 	/**
 	 * TRANSIENT
@@ -233,6 +235,15 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	public void setCotacaoPedidoDetalheList(
 			List<CotacaoPedidoDetalheEntity> cotacaoPedidoDetalheList) {
 		this.cotacaoPedidoDetalheList = cotacaoPedidoDetalheList;
+	}
+	
+	public RequisicaoDetalheEntity getCompraRequisicaoDetalhe() {
+		return compraRequisicaoDetalhe;
+	}
+
+	public void setCompraRequisicaoDetalhe(
+			RequisicaoDetalheEntity compraRequisicaoDetalhe) {
+		this.compraRequisicaoDetalhe = compraRequisicaoDetalhe;
 	}
 
 	/**

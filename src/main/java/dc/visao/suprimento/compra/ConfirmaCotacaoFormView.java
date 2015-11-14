@@ -258,16 +258,16 @@ public class ConfirmaCotacaoFormView extends CustomComponent {
 				.buildTextField("Condição de pagamento");
 		fields.addComponent(tfCondicaoPagamento, 2, 2, 3, 2);
 
-		tfSubtotal = ComponentUtil.buildCurrencyField("Subtotal");
+		tfSubtotal = ComponentUtil.buildCurrencysField("Subtotal");
 		fields.addComponent(tfSubtotal, 4, 2, 5, 2);
 
-		tfTaxaDesconto = ComponentUtil.buildNumberField("Taxa de desconto");
+		tfTaxaDesconto = ComponentUtil.buildPercentageField("Taxa de desconto");
 		fields.addComponent(tfTaxaDesconto, 0, 3, 1, 3);
 
-		tfValorDesconto = ComponentUtil.buildCurrencyField("Valor de desconto");
+		tfValorDesconto = ComponentUtil.buildCurrencysField("Valor de desconto");
 		fields.addComponent(tfValorDesconto, 2, 3, 3, 3);
 
-		tfTotal = ComponentUtil.buildCurrencyField("Total");
+		tfTotal = ComponentUtil.buildCurrencysField("Total");
 		fields.addComponent(tfTotal, 4, 3, 5, 3);
 
 		sbCotacaoDetalhe = new SubFormComponent<CotacaoDetalheEntity, Integer>(

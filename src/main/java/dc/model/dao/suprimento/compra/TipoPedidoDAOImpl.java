@@ -9,10 +9,10 @@ import com.sun.istack.logging.Logger;
 
 import dc.entidade.suprimentos.compra.TipoPedidoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+import dc.servicos.dao.suprimentos.compra.ITipoPedidoDAO;
 
 @Repository
-public class TipoPedidoDAOImpl extends AbstractCrudDAO<TipoPedidoEntity>
-		implements TipoPedidoDAO<TipoPedidoEntity> {
+public class TipoPedidoDAOImpl extends AbstractCrudDAO<TipoPedidoEntity> implements ITipoPedidoDAO {
 
 	private static Logger logger = Logger.getLogger(TipoPedidoDAOImpl.class);
 
