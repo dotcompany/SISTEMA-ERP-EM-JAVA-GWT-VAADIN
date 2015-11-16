@@ -66,6 +66,7 @@ public class VendaFormController extends CRUDFormController<Venda> {
 
 	@Autowired
 	private INotaFiscalTipoDAO notaFiscalTipoDAO;
+	
 
 	@Autowired
 	private IProdutoDAO produtoDAO;

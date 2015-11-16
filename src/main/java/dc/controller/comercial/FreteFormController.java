@@ -14,9 +14,9 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.geral.pessoal.TransportadoraListController;
 import dc.entidade.comercial.Frete;
+import dc.model.dao.geral.pessoal.ITransportadoraDAO;
 import dc.servicos.dao.comercial.IFreteDAO;
-import dc.servicos.dao.comercial.VendaDAO;
-import dc.servicos.dao.geral.pessoal.TransportadoraDAO;
+import dc.servicos.dao.comercial.IVendaDAO;
 import dc.visao.comercial.FreteFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -35,10 +35,10 @@ public class FreteFormController extends CRUDFormController<Frete> {
 	private IFreteDAO dao;
 
 	@Autowired
-	private TransportadoraDAO transportadoraDAO;
+	private ITransportadoraDAO transportadoraDAO;
 
 	@Autowired
-	private VendaDAO vendaDAO;
+	private IVendaDAO vendaDAO;
 
 	@Override
 	public String getViewIdentifier() {

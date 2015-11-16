@@ -15,10 +15,10 @@ import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoEntity;
 import dc.entidade.suprimentos.compra.TipoRequisicaoEntity;
-import dc.servicos.dao.geral.pessoal.ColaboradorDAO;
-import dc.servicos.dao.geral.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.compra.RequisicaoDAO;
-import dc.servicos.dao.suprimentos.compra.TipoRequisicaoDAO;
+import dc.model.dao.geral.pessoal.IColaboradorDAO;
+import dc.model.dao.geral.produto.IProdutoDAO;
+import dc.servicos.dao.suprimentos.compra.IRequisicaoDAO;
+import dc.servicos.dao.suprimentos.compra.ITipoRequisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.compra.RequisicaoCompraFormView;
 
@@ -35,16 +35,16 @@ public class RequisicaoCompraFormController extends
 	private RequisicaoCompraFormView subView;
 
 	@Autowired
-	private RequisicaoDAO requisicaoDAO;
+	private IRequisicaoDAO requisicaoDAO;
 
 	@Autowired
-	private TipoRequisicaoDAO tipoRequisicaoDAO;
+	private ITipoRequisicaoDAO tipoRequisicaoDAO;
 
 	@Autowired
-	private ColaboradorDAO colaboradorDAO;
+	private IColaboradorDAO colaboradorDAO;
 
 	@Autowired
-	private ProdutoDAO produtoDAO;
+	private IProdutoDAO produtoDAO;
 
 	private RequisicaoEntity currentBean;
 

@@ -21,17 +21,8 @@ public class CondicaoPagamentoDAO extends AbstractCrudDAO<CondicaoPagamento> imp
 	}
 
 	@Transactional
-	public List<CondicaoPagamento> listarTodos() {
-		List<CondicaoPagamento> lista = null;
-
-		try {
-			String sql = "FROM CondicaoPagamento";
-			lista = super.getSession().createQuery(sql).list();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return lista;
+	public List<CondicaoPagamento> listaTodos() {
+		return getSession().createQuery("from CondicaoPagamento").list();
 	}
-
+	
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.comercial.CondicaoPagamento;
 import dc.entidade.comercial.ParcelaCondicaoPagamento;
 import dc.servicos.dao.comercial.ICondicaoPagamentoDAO;
@@ -39,7 +40,7 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 
 	@Override
 	public String getViewIdentifier() {
-		return "tipoNotaForm";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
@@ -162,14 +163,6 @@ public class CondicaoPagamentoFormController extends CRUDFormController<Condicao
 	@Override
 	protected boolean isFullSized() {
 		return true;
-	}
-
-	public String formataValor(String valor) {
-		String format = "";
-		format = valor.replace("R$", "").substring(0, valor.indexOf(",")).
-
-		replaceAll(",", "").trim();
-		return format;
 	}
 
 	public ParcelaCondicaoPagamento adicionarParcela() {

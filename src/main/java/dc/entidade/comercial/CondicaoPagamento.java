@@ -1,5 +1,6 @@
 package dc.entidade.comercial;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +14,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -31,14 +34,17 @@ import dc.entidade.framework.ComboCode;
 
 @Entity
 @Table(name = "venda_condicoes_pagamento")
-@SuppressWarnings("serial")
 @Indexed
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer> {
+@XmlRootElement
+public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer> implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venda_condicoes_pagamento_id_seq1")
+	@SequenceGenerator(name = "venda_condicoes_pagamento_id_seq1", sequenceName = "venda_condicoes_pagamento_id_seq1", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")
@@ -48,40 +54,44 @@ public class CondicaoPagamento extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Nome")
 	@Column(name="nome")
 	@NotNull(message = "Nome é Obrigatório!")
-	String nome;
+	private String nome;
 
 	@Field
 	@Column(name="descricao")
 	@Caption("Descrição")
-	String descricao;
+	private String descricao;
 	
 	@Field
+	@Caption("Faturamento Mínimo")
 	@Column(name="faturamento_minimo")
-	BigDecimal faturamentoMinimo;
+	private BigDecimal faturamentoMinimo;
 	
 	@Field
+	@Caption("Faturamento Máximo")
 	@Column(name="faturamento_maximo")
-	BigDecimal faturamentoMaximo;
+	private BigDecimal faturamentoMaximo;
 	
 	@Field
+	@Caption("Índice Correção")
 	@Column(name="indice_correcao")
-	BigDecimal indiceCorrecao;
+	private BigDecimal indiceCorrecao;
 	
 	@Field
 	@Column(name="dias_tolerancia")
-	Integer diasTolerancia;
+	private Integer diasTolerancia;
 	
 	@Field
 	@Column(name="valor_tolerancia")
-	BigDecimal valorTolerancia;
+	private BigDecimal valorTolerancia;
 	
 	@Field
+	@Caption("Prazo Médio")
 	@Column(name="prazo_medio")
-	Integer prazoMedio;
+	private Integer prazoMedio;
 	
-	@OneToMany(mappedBy="condicaoPagamento",cascade=CascadeType.ALL,fetch= FetchType.LAZY)
+	@OneToMany(mappedBy = "condicaoPagamento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
-	List<ParcelaCondicaoPagamento> parcelas = new ArrayList<ParcelaCondicaoPagamento>();
+	private List<ParcelaCondicaoPagamento> parcelas = new ArrayList<ParcelaCondicaoPagamento>();
 
 	public Integer getId() {
 		return id;

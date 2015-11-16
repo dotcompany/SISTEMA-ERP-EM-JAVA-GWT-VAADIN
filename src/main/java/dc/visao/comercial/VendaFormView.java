@@ -10,13 +10,11 @@ import com.vaadin.data.Container;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TableFieldFactory;
@@ -336,30 +334,15 @@ public class VendaFormView extends CustomComponent {
 							Component uiContext) {
 
 						if ("produto".equals(propertyId)) {
+							
 							ComboBox comboBox = ComponentUtil.buildComboBox(null);
 							BeanItemContainer<ProdutoEntity> produtoContainer = new BeanItemContainer<>(ProdutoEntity.class,
 									controller.buscarProdutos());
-							
 							produtoContainer.addNestedContainerProperty("nome");
 							comboBox.setContainerDataSource(produtoContainer);
-							comboBox.setItemCaptionMode(ItemCaptionMode.PROPERTY);
-							comboBox.setImmediate(true);
-							comboBox.setSizeFull();
-							comboBox.setStyleName("manyToOneCombo");
 							comboBox.setItemCaptionPropertyId("nome");
-							comboBox.addValueChangeListener(new Property.ValueChangeListener() {
-								@Override
-								public void valueChange(
-										ValueChangeEvent event) {
-									// Will display 'null selected' when
-									// nullPerson is selected.
-									Notification.show(event
-											.getProperty().getValue()
-											+ " selected");
-								}
-							});
-
 							return comboBox;
+							
 						}
 
 						if ("quantidade".equals(propertyId)) {

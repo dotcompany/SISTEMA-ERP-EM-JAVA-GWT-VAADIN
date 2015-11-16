@@ -1,7 +1,10 @@
 package dc.entidade.comercial;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,35 +13,54 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.entidade.framework.ComboCode;
 
 
 @Entity
 @Table(name = "venda_condicoes_parcelas")
-@SuppressWarnings("serial")
 @Indexed
+@XmlRootElement
 @Analyzer(impl=BrazilianAnalyzer.class)
-public class ParcelaCondicaoPagamento extends AbstractMultiEmpresaModel<Integer> {
+public class ParcelaCondicaoPagamento extends AbstractMultiEmpresaModel<Integer> implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cnd")
-	@SequenceGenerator(name = "cnd", sequenceName = "venda_condicoes_parcelas_id_seq", allocationSize = 1)
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venda_condicoes_parcelas_id_seq")
+	@SequenceGenerator(name = "venda_condicoes_parcelas_id_seq", sequenceName = "venda_condicoes_parcelas_id_seq", allocationSize = 1, initialValue = 0)
+	@Basic(optional = false)
+	@ComboCode
+	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 	
-	Integer parcela;
+	@Field
+	@Caption("Parcela")
+	@Column(name="parcela")
+	private Integer parcela;
 	
-	Integer dias;
+	@Field
+	@Caption("Dias ")
+	@Column(name="dias")
+	private Integer dias;
 	
-	BigDecimal taxa;
+	@Field
+	@Caption("Taxa")
+	@Column(name="taxa")
+	private BigDecimal taxa;
 	
 	@ManyToOne
 	@JoinColumn(name="id_venda_condicoes_pagamento")
-	CondicaoPagamento condicaoPagamento;
+	private CondicaoPagamento condicaoPagamento;
 
 	public Integer getId() {
 		return id;

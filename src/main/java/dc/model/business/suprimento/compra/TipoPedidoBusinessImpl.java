@@ -12,7 +12,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.suprimentos.compra.TipoPedidoEntity;
-import dc.model.dao.suprimento.compra.TipoPedidoDAO;
+import dc.servicos.dao.suprimentos.compra.ITipoPedidoDAO;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class TipoPedidoBusinessImpl implements Serializable,
 			.getLogger(TipoPedidoBusinessImpl.class);
 
 	@Autowired
-	private TipoPedidoDAO<TipoPedidoEntity> dao;
+	private ITipoPedidoDAO dao;
 
 	/**
 	 * **********************************************

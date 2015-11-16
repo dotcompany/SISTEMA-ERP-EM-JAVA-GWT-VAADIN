@@ -22,8 +22,8 @@ import dc.entidade.geral.produto.ProdutoEntity;
 import dc.model.dao.geral.pessoal.IClienteDAO;
 import dc.model.dao.geral.pessoal.ITransportadoraDAO;
 import dc.model.dao.geral.produto.IProdutoDAO;
-import dc.servicos.dao.comercial.FreteDAO;
 import dc.servicos.dao.comercial.ICondicaoPagamentoDAO;
+import dc.servicos.dao.comercial.IFreteDAO;
 import dc.servicos.dao.comercial.IItemOrcamentoDAO;
 import dc.servicos.dao.comercial.IOrcamentoDAO;
 import dc.servicos.dao.folhapagamento.IVendedorDAO;
@@ -67,7 +67,7 @@ public class OrcamentoFormController extends CRUDFormController<Orcamento> {
 	private IProdutoDAO produtoDAO;
 
 	@Autowired
-	FreteDAO freteDAO;
+	private IFreteDAO freteDAO;
 
 	@Override
 	public String getViewIdentifier() {

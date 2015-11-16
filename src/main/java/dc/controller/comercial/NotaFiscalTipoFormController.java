@@ -11,7 +11,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.entidade.comercial.NotaFiscalTipo;
-import dc.model.business.comercial.NotaFiscalTipoBusiness;
+import dc.model.dao.geral.pessoal.INotaFiscalTipoDAO;
 import dc.visao.comercial.NotaFiscalTipoFormView;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -29,15 +29,15 @@ public class NotaFiscalTipoFormController extends CRUDFormController<NotaFiscalT
 
 	NotaFiscalTipoFormView subView;
 
-	//@Autowired
-	//NotaFiscalTipoDAO dao;
-	
 	@Autowired
-	private NotaFiscalTipoBusiness<NotaFiscalTipo> business;
+	private INotaFiscalTipoDAO dao;
 	
-	public NotaFiscalTipoBusiness<NotaFiscalTipo> getBusiness() {
-		 return business;
-	}
+	//@Autowired
+	//private NotaFiscalTipoBusiness<NotaFiscalTipo> business;
+	
+	//public NotaFiscalTipoBusiness<NotaFiscalTipo> getBusiness() {
+	//	 return business;
+	//}
 
 	@Override
 	public String getViewIdentifier() {
@@ -89,7 +89,7 @@ protected void criarNovoBean() {
 		
 		
 		try {
-			currentBean = business.find(id);
+			currentBean = dao.find(id);
 			fieldGroup.setItemDataSource(this.currentBean);
 			
 		}catch(Exception e) {
@@ -103,7 +103,7 @@ protected void criarNovoBean() {
 
 		try {
 
-			this.business.saveOrUpdate(currentBean);
+			this.dao.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(currentBean);
 
 		} catch (Exception e) {
@@ -126,7 +126,7 @@ protected void criarNovoBean() {
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.business.deleteAll(ids);
+			this.dao.deleteAll(ids);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

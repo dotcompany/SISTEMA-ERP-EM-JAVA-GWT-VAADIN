@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import dc.control.util.ClassUtils;
 import dc.entidade.comercial.CondicaoPagamento;
 import dc.servicos.dao.comercial.ICondicaoPagamentoDAO;
 import dc.visao.framework.geral.CRUDFormController;
@@ -48,25 +49,24 @@ public class CondicaoPagamentoListController extends CRUDListController<Condicao
 
 	@Override
 	public String getViewIdentifier() {
-		return "Condições Pagamento";
+		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected List<CondicaoPagamento> pesquisa(String valor) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override
 	protected List<CondicaoPagamento> pesquisaDefault() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return (List<CondicaoPagamento>) dao.getAll(getEntityClass());
 	}
 
 	@Override
 	protected boolean deletaEmCascata() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }
