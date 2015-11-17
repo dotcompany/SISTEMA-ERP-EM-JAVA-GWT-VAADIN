@@ -4,20 +4,20 @@ import java.io.Serializable;
 
 import org.springframework.stereotype.Repository;
 
-import dc.entidade.suprimentos.compra.CotacaoEntity;
+import dc.entidade.suprimentos.compra.CotacaoCompraEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("suprimentosCompraCotacaoDAO")
-public class CotacaoDAO extends AbstractCrudDAO<CotacaoEntity> implements ICotacaoDAO {
+public class CotacaoDAO extends AbstractCrudDAO<CotacaoCompraEntity> implements ICotacaoDAO {
 
 	@Override
-	public Class<CotacaoEntity> getEntityClass() {
-		return CotacaoEntity.class;
+	public Class<CotacaoCompraEntity> getEntityClass() {
+		return CotacaoCompraEntity.class;
 	}
 
 	@Override
-	public CotacaoEntity find(Serializable id) {
-		CotacaoEntity cotacao = super.find(id);
+	public CotacaoCompraEntity find(Serializable id) {
+		CotacaoCompraEntity cotacao = super.find(id);
 		// workaround para lazy initialization exception
 		cotacao.getCompraFornecedorCotacaos().size();
 		cotacao.getCompraReqCotacaoDetalhes().size();

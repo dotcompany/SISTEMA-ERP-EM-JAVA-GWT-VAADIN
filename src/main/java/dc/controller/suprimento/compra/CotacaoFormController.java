@@ -12,10 +12,10 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.FornecedorEntity;
-import dc.entidade.suprimentos.compra.CotacaoEntity;
+import dc.entidade.suprimentos.compra.CotacaoCompraEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
-import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
+import dc.entidade.suprimentos.compra.RequisicaoCompraDetalheEntity;
 import dc.servicos.dao.geral.IFornecedorDAO;
 import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
 import dc.servicos.dao.suprimentos.compra.IRequisicaoDetalheDAO;
@@ -25,7 +25,7 @@ import dc.visao.suprimento.compra.CotacaoFormView;
 
 @Controller
 @Scope("prototype")
-public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
+public class CotacaoFormController extends CRUDFormController<CotacaoCompraEntity> {
 
 	/**
 	 * 
@@ -43,7 +43,7 @@ public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
 	@Autowired
 	private IRequisicaoDetalheDAO requisicaoDetalheDao;
 
-	private CotacaoEntity currentBean;
+	private CotacaoCompraEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -85,10 +85,12 @@ public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
 	protected void initSubView() {
 		try {
 			subView = new CotacaoFormView(this);
-			this.fieldGroup = new DCFieldGroup<>(CotacaoEntity.class);
+			this.fieldGroup = new DCFieldGroup<>(CotacaoCompraEntity.class);
 		
      	    fieldGroup.bind(this.subView.getCalDataCotacao(), "dataCotacao");
      	   fieldGroup.bind(this.subView.getTxtDescricao(), "descricao");
+     	   
+     	   subView.getCmbSituacao().setValue("A");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -98,7 +100,7 @@ public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
 	@Override
 	protected void criarNovoBean() {
 		try {
-			currentBean = new CotacaoEntity();
+			currentBean = new CotacaoCompraEntity();
 			fieldGroup.setItemDataSource(this.currentBean);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -133,7 +135,7 @@ public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
 		for (Serializable id : ids) {
-			CotacaoEntity cotacao = (CotacaoEntity) id;
+			CotacaoCompraEntity cotacao = (CotacaoCompraEntity) id;
 
 			try {
 				cotacaoDao.delete(cotacao);
@@ -146,8 +148,8 @@ public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
 		mensagemRemovidoOK();
 	}
 
-	public List<RequisicaoDetalheEntity> buscarRequisicaoProdutos() {
-		return requisicaoDetalheDao.getAll(RequisicaoDetalheEntity.class);
+	public List<RequisicaoCompraDetalheEntity> buscarRequisicaoProdutos() {
+		return requisicaoDetalheDao.getAll(RequisicaoCompraDetalheEntity.class);
 	}
 
 	public ReqCotacaoDetalheEntity novoRequisicaoCotacaoDetalhe() {
@@ -169,6 +171,10 @@ public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
 
 	public List<FornecedorEntity> buscarFornecedores() {
 		return fornecedorDao.getAll(FornecedorEntity.class);
+	}
+	
+	public List<CotacaoCompraEntity> buscarCotacao() {
+		return cotacaoDao.getAll(CotacaoCompraEntity.class);
 	}
 
 	public FornecedorCotacaoEntity novoFornecedorCotacao() {
@@ -197,7 +203,7 @@ public class CotacaoFormController extends CRUDFormController<CotacaoEntity> {
 	}
 
 	@Override
-	public CotacaoEntity getModelBean() {
+	public CotacaoCompraEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

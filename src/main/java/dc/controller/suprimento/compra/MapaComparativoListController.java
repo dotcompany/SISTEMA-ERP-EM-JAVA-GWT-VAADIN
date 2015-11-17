@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.suprimentos.compra.CotacaoEntity;
+import dc.entidade.suprimentos.compra.CotacaoCompraEntity;
 import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
@@ -15,7 +15,7 @@ import dc.visao.framework.geral.CRUDListController;
 @Component
 @Scope("prototype")
 public class MapaComparativoListController extends
-		CRUDListController<CotacaoEntity> {
+		CRUDListController<CotacaoCompraEntity> {
 
 	/**
 	 * 
@@ -37,7 +37,7 @@ public class MapaComparativoListController extends
 	}
 
 	@Override
-	protected CRUDFormController<CotacaoEntity> getFormController() {
+	protected CRUDFormController<CotacaoCompraEntity> getFormController() {
 		return mapaComparativoFormController;
 	}
 
@@ -47,8 +47,8 @@ public class MapaComparativoListController extends
 	}
 
 	@Override
-	public Class<? super CotacaoEntity> getEntityClass() {
-		return CotacaoEntity.class;
+	public Class<? super CotacaoCompraEntity> getEntityClass() {
+		return CotacaoCompraEntity.class;
 	}
 
 	@Override
@@ -68,9 +68,9 @@ public class MapaComparativoListController extends
 	}
 
 	@Override
-	protected List<CotacaoEntity> pesquisa(String valor) {
+	protected List<CotacaoCompraEntity> pesquisa(String valor) {
 		try {
-			List<CotacaoEntity> auxLista = (List<CotacaoEntity>) this.dao
+			List<CotacaoCompraEntity> auxLista = (List<CotacaoCompraEntity>) this.dao
 					.fullTextSearch(valor);
 
 			return auxLista;
@@ -82,9 +82,9 @@ public class MapaComparativoListController extends
 	}
 
 	@Override
-	protected List<CotacaoEntity> pesquisaDefault() {
+	protected List<CotacaoCompraEntity> pesquisaDefault() {
 		try {
-			List<CotacaoEntity> auxLista = (List<CotacaoEntity>) this.dao
+			List<CotacaoCompraEntity> auxLista = (List<CotacaoCompraEntity>) this.dao
 					.getAll(getEntityClass());
 
 			return auxLista;

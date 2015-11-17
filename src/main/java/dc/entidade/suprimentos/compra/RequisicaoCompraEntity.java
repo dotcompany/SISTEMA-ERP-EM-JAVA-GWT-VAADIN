@@ -19,9 +19,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -45,7 +45,7 @@ import dc.entidade.geral.pessoal.ColaboradorEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class RequisicaoEntity extends AbstractMultiEmpresaModel<Integer> {
+public class RequisicaoCompraEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -64,6 +64,7 @@ public class RequisicaoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_requisicao")
 	@Caption("Data de Requisição")
+	@NotNull(message = "Data Rrequisição é Obrigatório!")
 	private Date dataRequisicao;
 
 	@Lob
@@ -78,18 +79,20 @@ public class RequisicaoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_colaborador")
 	@Caption("Requisitante")
+	@NotNull(message = "Colaborador é Obrigatório!")
 	private ColaboradorEntity colaborador;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_compra_tipo_requisicao")
 	@Caption("Tipo Requisição")
+	@NotNull(message = "Tipo Requisição é Obrigatório!")
 	private TipoRequisicaoEntity tipoRequisicao;
 
 	@OneToMany(mappedBy = "requisicao", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
-	private List<RequisicaoDetalheEntity> requisicaoDetalhes = new ArrayList<>();
+	private List<RequisicaoCompraDetalheEntity> requisicaoDetalhes = new ArrayList<>();
 
-	public RequisicaoEntity() {
+	public RequisicaoCompraEntity() {
 	}
 
 	public Integer getId() {
@@ -132,20 +135,20 @@ public class RequisicaoEntity extends AbstractMultiEmpresaModel<Integer> {
 		this.tipoRequisicao = tipoRequisicao;
 	}
 
-	public List<RequisicaoDetalheEntity> getRequisicaoDetalhes() {
+	public List<RequisicaoCompraDetalheEntity> getRequisicaoDetalhes() {
 		return this.requisicaoDetalhes;
 	}
 
-	public RequisicaoDetalheEntity addRequisicaoDetalhe(
-			RequisicaoDetalheEntity compraRequisicaoDetalhe) {
+	public RequisicaoCompraDetalheEntity addRequisicaoDetalhe(
+			RequisicaoCompraDetalheEntity compraRequisicaoDetalhe) {
 		getRequisicaoDetalhes().add(compraRequisicaoDetalhe);
 		compraRequisicaoDetalhe.setRequisicao(this);
 
 		return compraRequisicaoDetalhe;
 	}
 
-	public RequisicaoDetalheEntity removeRequisicaoDetalhe(
-			RequisicaoDetalheEntity compraRequisicaoDetalhe) {
+	public RequisicaoCompraDetalheEntity removeRequisicaoDetalhe(
+			RequisicaoCompraDetalheEntity compraRequisicaoDetalhe) {
 		getRequisicaoDetalhes().remove(compraRequisicaoDetalhe);
 		compraRequisicaoDetalhe.setRequisicao(null);
 
@@ -158,7 +161,9 @@ public class RequisicaoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return getColaborador().getPessoa().getNome();
 	}
+	
+	
 
 }

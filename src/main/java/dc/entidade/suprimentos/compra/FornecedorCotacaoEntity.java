@@ -101,11 +101,12 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 	
 	@JoinColumn(name = "ID_COMPRA_COTACAO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private CotacaoEntity cotacao;
+	//@NotNull(message = "Compra Cotação é Obrigatório!")
+    private CotacaoCompraEntity cotacao;
 	
     @JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    @NotNull(message = "Fornecedor é Obrigatório!")
+    //@NotNull(message = "Fornecedor é Obrigatório!")
     private FornecedorEntity fornecedor;
 
 	/**
@@ -202,11 +203,11 @@ public class FornecedorCotacaoEntity extends AbstractMultiEmpresaModel<Integer> 
 		this.fornecedor = fornecedor;
 	}
 
-	public CotacaoEntity getCotacao() {
+	public CotacaoCompraEntity getCotacao() {
 		return cotacao;
 	}
 
-	public void setCotacao(CotacaoEntity cotacao) {
+	public void setCotacao(CotacaoCompraEntity cotacao) {
 		this.cotacao = cotacao;
 	}
 

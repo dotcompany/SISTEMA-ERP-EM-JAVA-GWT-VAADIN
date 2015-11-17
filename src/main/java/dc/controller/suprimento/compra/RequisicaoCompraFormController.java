@@ -7,25 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.pessoal.ColaboradorEntity;
+import dc.controller.geral.pessoal.ColaboradorListController;
 import dc.entidade.geral.produto.ProdutoEntity;
-import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
-import dc.entidade.suprimentos.compra.RequisicaoEntity;
-import dc.entidade.suprimentos.compra.TipoRequisicaoEntity;
+import dc.entidade.suprimentos.compra.RequisicaoCompraDetalheEntity;
+import dc.entidade.suprimentos.compra.RequisicaoCompraEntity;
 import dc.model.dao.geral.pessoal.IColaboradorDAO;
 import dc.model.dao.geral.produto.IProdutoDAO;
 import dc.servicos.dao.suprimentos.compra.IRequisicaoDAO;
 import dc.servicos.dao.suprimentos.compra.ITipoRequisicaoDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.compra.RequisicaoCompraFormView;
 
 @Controller
 @Scope("prototype")
-public class RequisicaoCompraFormController extends
-		CRUDFormController<RequisicaoEntity> {
+public class RequisicaoCompraFormController extends CRUDFormController<RequisicaoCompraEntity> {
 
 	/**
 	 * 
@@ -46,7 +46,7 @@ public class RequisicaoCompraFormController extends
 	@Autowired
 	private IProdutoDAO produtoDAO;
 
-	private RequisicaoEntity currentBean;
+	private RequisicaoCompraEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -61,13 +61,6 @@ public class RequisicaoCompraFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setTipoRequisicao((TipoRequisicaoEntity) subView
-					.getCmbTipoRequisicao().getValue());
-			currentBean.setColaborador((ColaboradorEntity) subView
-					.getLkpRequisitante().getValue());
-			currentBean.setDataRequisicao(subView.getCalDataRequisicao()
-					.getValue());
-			currentBean.setObservacao(subView.getTxtObservacao().getValue());
 			requisicaoDAO.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -79,56 +72,102 @@ public class RequisicaoCompraFormController extends
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = requisicaoDAO.find((Integer) id);
-		subView.getLblId().setValue(String.valueOf(currentBean.getId()));
-		subView.getCmbTipoRequisicao().select(currentBean.getTipoRequisicao());
-		subView.getLkpRequisitante().select(currentBean.getColaborador());
-		subView.getCalDataRequisicao()
-				.setValue(currentBean.getDataRequisicao());
-		subView.getTxtObservacao().setValue(currentBean.getObservacao());
-
-		subView.fillRequisicaoDetalhesSubForm(currentBean
-				.getRequisicaoDetalhes());
+		
+		try {
+			
+			currentBean = requisicaoDAO.find((Integer) id);
+			fieldGroup.setItemDataSource(this.currentBean);
+			subView.fillRequisicaoDetalhesSubForm(currentBean.getRequisicaoDetalhes());
+		
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new RequisicaoCompraFormView(this);
-		subView.fillCmbTipoRequisicao(tipoRequisicaoDAO
-				.getAll(TipoRequisicaoEntity.class));
-		subView.fillCmbRequisitante(colaboradorDAO.getAll(ColaboradorEntity.class));
+		try {
+			        this.subView = new RequisicaoCompraFormView(this);
+			
+			        // Cria o DCFieldGroup
+			        this.fieldGroup = new DCFieldGroup<>(RequisicaoCompraEntity.class);
+			
+			        // Mapeia os campos
+			        fieldGroup.bind(this.subView.getCmbColaborador(),"colaborador");
+			        fieldGroup.bind(this.subView.getCalDataRequisicao(),"dataRequisicao");
+			        fieldGroup.bind(this.subView.getCmbTipoRequisicao(), "tipoRequisicao");
+			        
+			        this.subView.getCmbColaborador().configuraCombo("pessoa.nome", 
+			        		ColaboradorListController.class, this.colaboradorDAO, this.getMainController());
+			        this.subView.getCmbTipoRequisicao().configuraCombo("nome",
+			        		TipoRequisicaoListController.class, this.tipoRequisicaoDAO, this.getMainController());
+			        
+			        
+			
+			    } catch (Exception e) {
+			       e.printStackTrace();
+			    }
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new RequisicaoEntity();
+		
+        try {
+			
+        	currentBean = new RequisicaoCompraEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		requisicaoDAO.deleteAllByIds(ids);
+		try {
+			this.requisicaoDAO.deleteAll(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		return true;
+		
+		try {
+			        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+			        fieldGroup.commit();
+			        return true;
+			    } catch (FieldGroup.CommitException ce) {
+			        return false;
+			    }
 	}
-
-	@Override
-	protected void quandoNovo() {
-		subView.fillRequisicaoDetalhesSubForm(currentBean
-				.getRequisicaoDetalhes());
-	}
-
+	
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		remover(ids);
+		for (Serializable id : ids) {
+			RequisicaoCompraEntity requisicaoCompra = (RequisicaoCompraEntity) id;
+
+			try {
+				requisicaoDAO.delete(requisicaoCompra);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
-	public RequisicaoDetalheEntity novoRequisicaoDetalhe() {
-		RequisicaoDetalheEntity requisicaoDetalhe = new RequisicaoDetalheEntity();
+	public RequisicaoCompraDetalheEntity novoRequisicaoDetalhe() {
+		RequisicaoCompraDetalheEntity requisicaoDetalhe = new RequisicaoCompraDetalheEntity();
 		currentBean.addRequisicaoDetalhe(requisicaoDetalhe);
 
 		return requisicaoDetalhe;
@@ -139,8 +178,8 @@ public class RequisicaoCompraFormController extends
 	}
 
 	public void removerRequisicaoDetalhes(
-			List<RequisicaoDetalheEntity> requisicaoDetalhes) {
-		for (RequisicaoDetalheEntity requisicaoDetalhe : requisicaoDetalhes) {
+			List<RequisicaoCompraDetalheEntity> requisicaoDetalhes) {
+		for (RequisicaoCompraDetalheEntity requisicaoDetalhe : requisicaoDetalhes) {
 			currentBean.removeRequisicaoDetalhe(requisicaoDetalhe);
 		}
 
@@ -158,7 +197,7 @@ public class RequisicaoCompraFormController extends
 	}
 
 	@Override
-	public RequisicaoEntity getModelBean() {
+	public RequisicaoCompraEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

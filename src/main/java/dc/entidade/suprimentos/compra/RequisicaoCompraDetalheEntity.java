@@ -33,7 +33,7 @@ import dc.entidade.geral.produto.ProdutoEntity;
 @XmlRootElement
 @Indexed
 @Analyzer(impl = BrazilianAnalyzer.class)
-public class RequisicaoDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
+public class RequisicaoCompraDetalheEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	/**
 	 * 
@@ -63,14 +63,14 @@ public class RequisicaoDetalheEntity extends AbstractMultiEmpresaModel<Integer> 
     
     @JoinColumn(name = "ID_COMPRA_REQUISICAO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private RequisicaoEntity requisicao;
+    private RequisicaoCompraEntity requisicao;
     
     @JoinColumn(name = "ID_PRODUTO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private ProdutoEntity produto;
 	
 
-	public RequisicaoDetalheEntity() {
+	public RequisicaoCompraDetalheEntity() {
 	}
 
 	public Integer getId() {
@@ -97,11 +97,11 @@ public class RequisicaoDetalheEntity extends AbstractMultiEmpresaModel<Integer> 
 		this.itemCotado = itemCotado;
 	}
 
-	public RequisicaoEntity getRequisicao() {
+	public RequisicaoCompraEntity getRequisicao() {
 		return this.requisicao;
 	}
 
-	public void setRequisicao(RequisicaoEntity compraRequisicao) {
+	public void setRequisicao(RequisicaoCompraEntity compraRequisicao) {
 		this.requisicao = compraRequisicao;
 	}
 

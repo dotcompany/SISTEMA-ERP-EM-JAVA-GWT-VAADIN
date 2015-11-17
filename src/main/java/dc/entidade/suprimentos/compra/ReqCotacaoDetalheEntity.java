@@ -52,11 +52,11 @@ public class ReqCotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer> 
 
 	@ManyToOne
 	@JoinColumn(name = "id_compra_cotacao")
-	private CotacaoEntity cotacao;
+	private CotacaoCompraEntity cotacao;
 
 	@ManyToOne
 	@JoinColumn(name = "id_compra_requisicao_detalhe")
-	private RequisicaoDetalheEntity requisicaoDetalhe;
+	private RequisicaoCompraDetalheEntity requisicaoDetalhe;
 
 	public ReqCotacaoDetalheEntity() {
 	}
@@ -77,20 +77,20 @@ public class ReqCotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer> 
 		this.quantidadeCotada = quantidadeCotada;
 	}
 
-	public CotacaoEntity getCotacao() {
+	public CotacaoCompraEntity getCotacao() {
 		return this.cotacao;
 	}
 
-	public void setCotacao(CotacaoEntity compraCotacao) {
+	public void setCotacao(CotacaoCompraEntity compraCotacao) {
 		this.cotacao = compraCotacao;
 	}
 
-	public RequisicaoDetalheEntity getRequisicaoDetalhe() {
+	public RequisicaoCompraDetalheEntity getRequisicaoDetalhe() {
 		return this.requisicaoDetalhe;
 	}
 
 	public void setRequisicaoDetalhe(
-			RequisicaoDetalheEntity compraRequisicaoDetalhe) {
+			RequisicaoCompraDetalheEntity compraRequisicaoDetalhe) {
 		this.requisicaoDetalhe = compraRequisicaoDetalhe;
 	}
 

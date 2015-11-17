@@ -7,15 +7,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.suprimentos.compra.RequisicaoEntity;
+import dc.entidade.suprimentos.compra.RequisicaoCompraEntity;
 import dc.servicos.dao.suprimentos.compra.IRequisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class RequisicaoCompraListController extends
-		CRUDListController<RequisicaoEntity> {
+public class RequisicaoCompraListController extends CRUDListController<RequisicaoCompraEntity> {
 
 	/**
 	 * 
@@ -37,7 +36,7 @@ public class RequisicaoCompraListController extends
 	}
 
 	@Override
-	protected CRUDFormController<RequisicaoEntity> getFormController() {
+	protected CRUDFormController<RequisicaoCompraEntity> getFormController() {
 		return requisicaoCompraFormController;
 	}
 
@@ -47,8 +46,8 @@ public class RequisicaoCompraListController extends
 	}
 
 	@Override
-	public Class<? super RequisicaoEntity> getEntityClass() {
-		return RequisicaoEntity.class;
+	public Class<? super RequisicaoCompraEntity> getEntityClass() {
+		return RequisicaoCompraEntity.class;
 	}
 
 	@Override
@@ -68,9 +67,9 @@ public class RequisicaoCompraListController extends
 	}
 
 	@Override
-	protected List<RequisicaoEntity> pesquisa(String valor) {
+	protected List<RequisicaoCompraEntity> pesquisa(String valor) {
 		try {
-			List<RequisicaoEntity> auxLista = (List<RequisicaoEntity>) this.dao
+			List<RequisicaoCompraEntity> auxLista = (List<RequisicaoCompraEntity>) this.dao
 					.fullTextSearch(valor);
 
 			return auxLista;
@@ -82,9 +81,9 @@ public class RequisicaoCompraListController extends
 	}
 
 	@Override
-	protected List<RequisicaoEntity> pesquisaDefault() {
+	protected List<RequisicaoCompraEntity> pesquisaDefault() {
 		try {
-			List<RequisicaoEntity> auxLista = (List<RequisicaoEntity>) this.dao
+			List<RequisicaoCompraEntity> auxLista = (List<RequisicaoCompraEntity>) this.dao
 					.getAll(getEntityClass());
 
 			return auxLista;

@@ -124,7 +124,7 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	private List<CotacaoPedidoDetalheEntity> cotacaoPedidoDetalheList;
 	
 	@Transient
-    private RequisicaoDetalheEntity compraRequisicaoDetalhe;
+    private RequisicaoCompraDetalheEntity compraRequisicaoDetalhe;
 
 	/**
 	 * TRANSIENT
@@ -237,12 +237,12 @@ public class CotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 		this.cotacaoPedidoDetalheList = cotacaoPedidoDetalheList;
 	}
 	
-	public RequisicaoDetalheEntity getCompraRequisicaoDetalhe() {
+	public RequisicaoCompraDetalheEntity getCompraRequisicaoDetalhe() {
 		return compraRequisicaoDetalhe;
 	}
 
 	public void setCompraRequisicaoDetalhe(
-			RequisicaoDetalheEntity compraRequisicaoDetalhe) {
+			RequisicaoCompraDetalheEntity compraRequisicaoDetalhe) {
 		this.compraRequisicaoDetalhe = compraRequisicaoDetalhe;
 	}
 

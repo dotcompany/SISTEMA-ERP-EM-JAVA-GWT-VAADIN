@@ -11,13 +11,13 @@ import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.FornecedorEntity;
+import dc.entidade.suprimentos.compra.CotacaoCompraEntity;
 import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
-import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.PedidoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
-import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
+import dc.entidade.suprimentos.compra.RequisicaoCompraDetalheEntity;
 import dc.servicos.dao.geral.IFornecedorDAO;
 import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
 import dc.servicos.dao.suprimentos.compra.IPedidoCompraDAO;
@@ -29,7 +29,7 @@ import dc.visao.suprimento.compra.MapaComparativoFormView;
 @Controller
 @Scope("prototype")
 public class MapaComparativoFormController extends
-		CRUDFormController<CotacaoEntity> {
+		CRUDFormController<CotacaoCompraEntity> {
 
 	/**
 	 * 
@@ -53,7 +53,7 @@ public class MapaComparativoFormController extends
 	@Autowired
 	private ITipoPedidoDAO tipoPedidoDAO;
 
-	private CotacaoEntity currentBean;
+	private CotacaoCompraEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -146,7 +146,7 @@ public class MapaComparativoFormController extends
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CotacaoEntity();
+		currentBean = new CotacaoCompraEntity();
 	}
 
 	@Override
@@ -172,8 +172,8 @@ public class MapaComparativoFormController extends
 		remover(ids);
 	}
 
-	public List<RequisicaoDetalheEntity> buscarRequisicaoProdutos() {
-		return requisicaoDetalheDao.getAll(RequisicaoDetalheEntity.class);
+	public List<RequisicaoCompraDetalheEntity> buscarRequisicaoProdutos() {
+		return requisicaoDetalheDao.getAll(RequisicaoCompraDetalheEntity.class);
 	}
 
 	public ReqCotacaoDetalheEntity novoRequisicaoCotacaoDetalhe() {
@@ -228,7 +228,7 @@ public class MapaComparativoFormController extends
 	}
 
 	@Override
-	public CotacaoEntity getModelBean() {
+	public CotacaoCompraEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}

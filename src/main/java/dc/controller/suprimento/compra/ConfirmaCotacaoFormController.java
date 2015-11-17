@@ -12,11 +12,11 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.controller.geral.pessoal.FornecedorListController;
 import dc.entidade.geral.pessoal.FornecedorEntity;
+import dc.entidade.suprimentos.compra.CotacaoCompraEntity;
 import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
-import dc.entidade.suprimentos.compra.CotacaoEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
-import dc.entidade.suprimentos.compra.RequisicaoDetalheEntity;
+import dc.entidade.suprimentos.compra.RequisicaoCompraDetalheEntity;
 import dc.servicos.dao.geral.IFornecedorDAO;
 import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
 import dc.servicos.dao.suprimentos.compra.IRequisicaoDetalheDAO;
@@ -27,7 +27,7 @@ import dc.visao.suprimento.compra.ConfirmaCotacaoFormView;
 @Controller
 @Scope("prototype")
 public class ConfirmaCotacaoFormController extends
-		CRUDFormController<CotacaoEntity> {
+		CRUDFormController<CotacaoCompraEntity> {
 
 	/**
 	 * 
@@ -45,7 +45,7 @@ public class ConfirmaCotacaoFormController extends
 	@Autowired
 	private IRequisicaoDetalheDAO requisicaoDetalheDao;
 
-	private CotacaoEntity currentBean;
+	private CotacaoCompraEntity currentBean;
 
 	@Override
 	protected String getNome() {
@@ -95,7 +95,7 @@ public class ConfirmaCotacaoFormController extends
 				.getCompraReqCotacaoDetalhes();
 
 		for (ReqCotacaoDetalheEntity requisicaoCotacaoDetalhe : compraReqCotacaoDetalhes) {
-			RequisicaoDetalheEntity requisicaoDetalhe = requisicaoCotacaoDetalhe
+			RequisicaoCompraDetalheEntity requisicaoDetalhe = requisicaoCotacaoDetalhe
 					.getRequisicaoDetalhe();
 
 			COTACOES: for (FornecedorCotacaoEntity fornecedorCotacao : fornecedorCotacaos) {
@@ -162,8 +162,8 @@ public class ConfirmaCotacaoFormController extends
 		remover(ids);
 	}
 
-	public List<RequisicaoDetalheEntity> buscarRequisicaoProdutos() {
-		return requisicaoDetalheDao.getAll(RequisicaoDetalheEntity.class);
+	public List<RequisicaoCompraDetalheEntity> buscarRequisicaoProdutos() {
+		return requisicaoDetalheDao.getAll(RequisicaoCompraDetalheEntity.class);
 	}
 
 	public List<FornecedorEntity> buscarFornecedores() {
@@ -196,7 +196,7 @@ public class ConfirmaCotacaoFormController extends
 	}
 
 	@Override
-	public CotacaoEntity getModelBean() {
+	public CotacaoCompraEntity getModelBean() {
 		// TODO Auto-generated method stub
 		return currentBean;
 	}
