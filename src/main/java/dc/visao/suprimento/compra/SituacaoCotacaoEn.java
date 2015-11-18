@@ -2,9 +2,9 @@ package dc.visao.suprimento.compra;
 
 
 public enum SituacaoCotacaoEn {
-	A("A", "ABERTA"),
+	A("ABERTA", "ABERTA"),
 
-	F("B", "FECHADA");
+	F("FECHADA", "FECHADA");
 
 	private String key;
 

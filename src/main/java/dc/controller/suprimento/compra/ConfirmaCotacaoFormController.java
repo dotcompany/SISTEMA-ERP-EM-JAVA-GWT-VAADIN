@@ -7,20 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.controller.geral.pessoal.FornecedorListController;
-import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.suprimentos.compra.CotacaoCompraEntity;
 import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoCompraDetalheEntity;
-import dc.servicos.dao.geral.IFornecedorDAO;
-import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
+import dc.servicos.dao.suprimentos.compra.CotacaoCompraBusiness;
+import dc.servicos.dao.suprimentos.compra.IFornecedorCotacaoDAO;
 import dc.servicos.dao.suprimentos.compra.IRequisicaoDetalheDAO;
-import dc.visao.framework.component.manytoonecombo.DefaultManyToOneComboModel;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.compra.ConfirmaCotacaoFormView;
 
@@ -37,15 +36,22 @@ public class ConfirmaCotacaoFormController extends
 	private ConfirmaCotacaoFormView subView;
 
 	@Autowired
-	private ICotacaoDAO cotacaoDao;
-
-	@Autowired
-	private IFornecedorDAO fornecedorDao;
+	private IFornecedorCotacaoDAO fornecedorCotacaoDao;
 
 	@Autowired
 	private IRequisicaoDetalheDAO requisicaoDetalheDao;
 
 	private CotacaoCompraEntity currentBean;
+	
+	/**
+	 * BUSINESS
+	 */
+	@Autowired
+	private CotacaoCompraBusiness<CotacaoCompraEntity> business;
+	
+	public CotacaoCompraBusiness<CotacaoCompraEntity> getBusiness() {
+		 return business;
+	}
 
 	@Override
 	protected String getNome() {
@@ -60,19 +66,7 @@ public class ConfirmaCotacaoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.currentBean.setDescricao(this.subView.getTfDescricao()
-					.getValue());
-			this.currentBean.setDataCotacao(this.subView.getPdfDataCotacao()
-					.getValue());
-			// this.subView.getCbFornecedor();
-			// this.subView.getTfPrazoEntrega();
-			// this.subView.getTfCondicaoPagamento();
-			// this.subView.getTfSubtotal();
-			// this.subView.getTfTaxaDesconto();
-			// this.subView.getTfValorDesconto();
-			// this.subView.getTfTotal();
-
-			cotacaoDao.saveOrUpdate(currentBean);
+			business.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -83,91 +77,121 @@ public class ConfirmaCotacaoFormController extends
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = cotacaoDao.find(id);
-		subView.getTfDescricao().setValue(currentBean.getDescricao());
-		subView.getPdfDataCotacao().setValue(currentBean.getDataCotacao());
+		try {
+			currentBean = business.find(id);
+			
+			List<FornecedorCotacaoEntity> fornecedorCotacaos = currentBean
+					.getCompraFornecedorCotacaos();
+			subView.fillCompraFornecedorCotacoesSubForm(fornecedorCotacaos);
 
-		List<FornecedorCotacaoEntity> fornecedorCotacaos = currentBean
-				.getCompraFornecedorCotacaos();
-		subView.fillCompraFornecedorCotacoesSubForm(fornecedorCotacaos);
+			List<ReqCotacaoDetalheEntity> compraReqCotacaoDetalhes = currentBean
+					.getCompraReqCotacaoDetalhes();
 
-		List<ReqCotacaoDetalheEntity> compraReqCotacaoDetalhes = currentBean
-				.getCompraReqCotacaoDetalhes();
+			for (ReqCotacaoDetalheEntity requisicaoCotacaoDetalhe : compraReqCotacaoDetalhes) {
+				RequisicaoCompraDetalheEntity requisicaoDetalhe = requisicaoCotacaoDetalhe
+						.getRequisicaoDetalhe();
 
-		for (ReqCotacaoDetalheEntity requisicaoCotacaoDetalhe : compraReqCotacaoDetalhes) {
-			RequisicaoCompraDetalheEntity requisicaoDetalhe = requisicaoCotacaoDetalhe
-					.getRequisicaoDetalhe();
+				COTACOES: for (FornecedorCotacaoEntity fornecedorCotacao : fornecedorCotacaos) {
+					List<CotacaoDetalheEntity> cotacaoDetalhes = fornecedorCotacao
+							.getCotacaoDetalheList();
 
-			COTACOES: for (FornecedorCotacaoEntity fornecedorCotacao : fornecedorCotacaos) {
-				List<CotacaoDetalheEntity> cotacaoDetalhes = fornecedorCotacao
-						.getCotacaoDetalheList();
-
-				for (CotacaoDetalheEntity cotacaoDetalhe : cotacaoDetalhes) {
-					if (cotacaoDetalhe.getProduto().equals(
-							requisicaoDetalhe.getProduto())
-							&& cotacaoDetalhe.getQuantidade().equals(
-									requisicaoDetalhe.getQuantidade())) {
-						continue COTACOES;
+					for (CotacaoDetalheEntity cotacaoDetalhe : cotacaoDetalhes) {
+						if (cotacaoDetalhe.getProduto().equals(
+								requisicaoDetalhe.getProduto())
+								&& cotacaoDetalhe.getQuantidade().equals(
+										requisicaoDetalhe.getQuantidade())) {
+							continue COTACOES;
+						}
 					}
-				}
 
-				CotacaoDetalheEntity cotacaoDetalhe = new CotacaoDetalheEntity();
-				cotacaoDetalhe.setProduto(requisicaoDetalhe.getProduto());
-				cotacaoDetalhe.setQuantidade(requisicaoDetalhe.getQuantidade());
-				// fornecedorCotacao.addCotacaoDetalhe(cotacaoDetalhe);
+					CotacaoDetalheEntity cotacaoDetalhe = new CotacaoDetalheEntity();
+					cotacaoDetalhe.setProduto(requisicaoDetalhe.getProduto());
+					cotacaoDetalhe.setQuantidade(requisicaoDetalhe.getQuantidade());
+					// fornecedorCotacao.addCotacaoDetalhe(cotacaoDetalhe);
+				}
+				
 			}
+			
+			fieldGroup.setItemDataSource(this.currentBean);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new ConfirmaCotacaoFormView();
+		try {
+			subView = new ConfirmaCotacaoFormView(this);
+			this.fieldGroup = new DCFieldGroup<>(CotacaoCompraEntity.class);
+		
+     	    fieldGroup.bind(this.subView.getPdfDataCotacao(), "dataCotacao");
+     	    fieldGroup.bind(this.subView.getTfDescricao(), "descricao");
+     	    
+     	   this.subView.getCbFornecedor().configuraCombo(
+					"fornecedor.pessoa.nome", FornecedorCotacaoListController.class, this.fornecedorCotacaoDao, this.getMainController());
+     	   
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 
-		DefaultManyToOneComboModel<FornecedorEntity> fornecedorModel = new DefaultManyToOneComboModel<FornecedorEntity>(
-				FornecedorListController.class, this.fornecedorDao,
-				super.getMainController()) {
-
-			@Override
-			public String getCaptionProperty() {
-				return "pessoa";
-			}
-
-		};
-
-		// subView.getCmbFornecedor().setModel(fornecedorModel);
 	}
 
 	@Override
 	protected void criarNovoBean() {
-
+		try {
+			currentBean = new CotacaoCompraEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch(Exception e) {
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
+		try {
+			this.business.deleteAll(ids);
 
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		return true;
-	}
+		try {
+			fieldGroup.commit();
+			return true;
+		} catch (FieldGroup.CommitException ce) {
 
-	@Override
-	protected void quandoNovo() {
-
+			return false;
+		}
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		remover(ids);
+		for (Serializable id : ids) {
+			CotacaoCompraEntity cotacao = (CotacaoCompraEntity) id;
+
+			try {
+				business.delete(cotacao);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	public List<RequisicaoCompraDetalheEntity> buscarRequisicaoProdutos() {
 		return requisicaoDetalheDao.getAll(RequisicaoCompraDetalheEntity.class);
-	}
-
-	public List<FornecedorEntity> buscarFornecedores() {
-		return fornecedorDao.getAll(FornecedorEntity.class);
 	}
 
 	public FornecedorCotacaoEntity novoFornecedorCotacao() {

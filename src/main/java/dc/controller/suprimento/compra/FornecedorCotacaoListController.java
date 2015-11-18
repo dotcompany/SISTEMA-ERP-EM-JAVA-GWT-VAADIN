@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.suprimentos.compra.CotacaoCompraEntity;
-import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
+import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
 @Component
 @Scope("prototype")
-public class CotacaoListController extends CRUDListController<CotacaoCompraEntity> {
+public class FornecedorCotacaoListController extends
+		CRUDListController<FornecedorCotacaoEntity> {
 
 	/**
 	 * 
@@ -22,29 +22,29 @@ public class CotacaoListController extends CRUDListController<CotacaoCompraEntit
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private CotacaoFormController cotacaoFormController;
+	private FornecedorCotacaoFormController fornecedorCotacaoFormController;
 
 	/**
 	 * CONSTRUTOR
 	 */
 
-	public CotacaoListController() {
+	public FornecedorCotacaoListController() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	protected CRUDFormController<CotacaoCompraEntity> getFormController() {
-		return cotacaoFormController;
+	protected CRUDFormController<FornecedorCotacaoEntity> getFormController() {
+		return fornecedorCotacaoFormController;
 	}
 
 	@Override
 	public String[] getColunas() {
-		return new String[] {  "dataCotacao", "descricao", "situacao"};
+		return new String[] { "fornecedor" };
 	}
 
 	@Override
-	public Class<? super CotacaoCompraEntity> getEntityClass() {
-		return CotacaoCompraEntity.class;
+	public Class<? super FornecedorCotacaoEntity> getEntityClass() {
+		return FornecedorCotacaoEntity.class;
 	}
 
 	@Override
@@ -60,13 +60,14 @@ public class CotacaoListController extends CRUDListController<CotacaoCompraEntit
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return true;
+		return false;
 	}
 
 	@Override
-	protected List<CotacaoCompraEntity> pesquisa(String valor) {
-		try {
-			List<CotacaoCompraEntity> auxLista = (List<CotacaoCompraEntity>) this.cotacaoFormController.getBusiness()
+	protected List<FornecedorCotacaoEntity> pesquisa(String valor) {
+		return null;
+		/*try {
+			List<FornecedorCotacaoEntity> auxLista = (List<FornecedorCotacaoEntity>) this.fornecedorCotacaoFormController.getBusiness()
 					.fullTextSearch(valor);
 
 			return auxLista;
@@ -74,13 +75,14 @@ public class CotacaoListController extends CRUDListController<CotacaoCompraEntit
 			e.printStackTrace();
 
 			return null;
-		}
+		}*/
 	}
 
 	@Override
-	protected List<CotacaoCompraEntity> pesquisaDefault() {
-		try {
-			List<CotacaoCompraEntity> auxLista = (List<CotacaoCompraEntity>) this.cotacaoFormController.getBusiness()
+	protected List<FornecedorCotacaoEntity> pesquisaDefault() {
+		return null;
+		/*try {
+			List<FornecedorCotacaoEntity> auxLista = (List<FornecedorCotacaoEntity>) this.fornecedorCotacaoFormController.getBusiness()
 					.getAll(getEntityClass());
 
 			return auxLista;
@@ -88,7 +90,7 @@ public class CotacaoListController extends CRUDListController<CotacaoCompraEntit
 			e.printStackTrace();
 
 			return null;
-		}
+		}*/
 	}
 
 }

@@ -17,8 +17,8 @@ import dc.entidade.suprimentos.compra.RequisicaoCompraDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoCompraEntity;
 import dc.model.dao.geral.pessoal.IColaboradorDAO;
 import dc.model.dao.geral.produto.IProdutoDAO;
-import dc.servicos.dao.suprimentos.compra.IRequisicaoDAO;
 import dc.servicos.dao.suprimentos.compra.ITipoRequisicaoDAO;
+import dc.servicos.dao.suprimentos.compra.RequisicaoCompraBusiness;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.compra.RequisicaoCompraFormView;
@@ -34,8 +34,8 @@ public class RequisicaoCompraFormController extends CRUDFormController<Requisica
 
 	private RequisicaoCompraFormView subView;
 
-	@Autowired
-	private IRequisicaoDAO requisicaoDAO;
+	//@Autowired
+	//private IRequisicaoDAO requisicaoDAO;
 
 	@Autowired
 	private ITipoRequisicaoDAO tipoRequisicaoDAO;
@@ -47,6 +47,16 @@ public class RequisicaoCompraFormController extends CRUDFormController<Requisica
 	private IProdutoDAO produtoDAO;
 
 	private RequisicaoCompraEntity currentBean;
+	
+	/**
+	 * BUSINESS
+	 */
+	@Autowired
+	private RequisicaoCompraBusiness<RequisicaoCompraEntity> business;
+	
+	public RequisicaoCompraBusiness<RequisicaoCompraEntity> getBusiness() {
+		 return business;
+	}
 
 	@Override
 	protected String getNome() {
@@ -61,7 +71,7 @@ public class RequisicaoCompraFormController extends CRUDFormController<Requisica
 	@Override
 	protected void actionSalvar() {
 		try {
-			requisicaoDAO.saveOrUpdate(currentBean);
+			business.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -75,7 +85,7 @@ public class RequisicaoCompraFormController extends CRUDFormController<Requisica
 		
 		try {
 			
-			currentBean = requisicaoDAO.find((Integer) id);
+			currentBean = business.find((Integer) id);
 			fieldGroup.setItemDataSource(this.currentBean);
 			subView.fillRequisicaoDetalhesSubForm(currentBean.getRequisicaoDetalhes());
 		
@@ -128,7 +138,7 @@ public class RequisicaoCompraFormController extends CRUDFormController<Requisica
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.requisicaoDAO.deleteAll(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -156,7 +166,7 @@ public class RequisicaoCompraFormController extends CRUDFormController<Requisica
 			RequisicaoCompraEntity requisicaoCompra = (RequisicaoCompraEntity) id;
 
 			try {
-				requisicaoDAO.delete(requisicaoCompra);
+				business.delete(requisicaoCompra);
 			} catch (Exception e) {
 				e.printStackTrace();
 				mensagemErro(e.getMessage());

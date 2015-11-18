@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.compra.RequisicaoCompraEntity;
-import dc.servicos.dao.suprimentos.compra.IRequisicaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -20,9 +19,6 @@ public class RequisicaoCompraListController extends CRUDListController<Requisica
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@Autowired
-	private IRequisicaoDAO dao;
 
 	@Autowired
 	private RequisicaoCompraFormController requisicaoCompraFormController;
@@ -69,7 +65,7 @@ public class RequisicaoCompraListController extends CRUDListController<Requisica
 	@Override
 	protected List<RequisicaoCompraEntity> pesquisa(String valor) {
 		try {
-			List<RequisicaoCompraEntity> auxLista = (List<RequisicaoCompraEntity>) this.dao
+			List<RequisicaoCompraEntity> auxLista = (List<RequisicaoCompraEntity>) this.requisicaoCompraFormController.getBusiness()
 					.fullTextSearch(valor);
 
 			return auxLista;
@@ -83,7 +79,7 @@ public class RequisicaoCompraListController extends CRUDListController<Requisica
 	@Override
 	protected List<RequisicaoCompraEntity> pesquisaDefault() {
 		try {
-			List<RequisicaoCompraEntity> auxLista = (List<RequisicaoCompraEntity>) this.dao
+			List<RequisicaoCompraEntity> auxLista = (List<RequisicaoCompraEntity>) this.requisicaoCompraFormController.getBusiness()
 					.getAll(getEntityClass());
 
 			return auxLista;

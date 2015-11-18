@@ -1,8 +1,10 @@
 package dc.servicos.dao.suprimentos.compra;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.suprimentos.compra.CotacaoCompraEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
@@ -28,5 +30,10 @@ public class CotacaoDAO extends AbstractCrudDAO<CotacaoCompraEntity> implements 
 	public String[] getDefaultSearchFields() {
 		return new String[] { "dataCotacao", "descricao", "situacao" };
 	}
-
+	
+	@Transactional
+	public List<CotacaoCompraEntity> listaTodos() {
+		return getSession().createQuery("from CompraCotacao").list();
+	}
+	
 }

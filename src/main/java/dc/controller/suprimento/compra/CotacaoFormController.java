@@ -13,11 +13,12 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.suprimentos.compra.CotacaoCompraEntity;
+import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoCompraDetalheEntity;
 import dc.servicos.dao.geral.IFornecedorDAO;
-import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
+import dc.servicos.dao.suprimentos.compra.CotacaoCompraBusiness;
 import dc.servicos.dao.suprimentos.compra.IRequisicaoDetalheDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
@@ -34,8 +35,8 @@ public class CotacaoFormController extends CRUDFormController<CotacaoCompraEntit
 
 	private CotacaoFormView subView;
 
-	@Autowired
-	private ICotacaoDAO cotacaoDao;
+	//@Autowired
+	//private ICotacaoDAO cotacaoDao;
 
 	@Autowired
 	private IFornecedorDAO fornecedorDao;
@@ -44,6 +45,20 @@ public class CotacaoFormController extends CRUDFormController<CotacaoCompraEntit
 	private IRequisicaoDetalheDAO requisicaoDetalheDao;
 
 	private CotacaoCompraEntity currentBean;
+	
+	private RequisicaoCompraDetalheEntity  compraRequisicaoDetalhe;
+	
+	private CotacaoDetalheEntity compraCotacaoDetalhe;
+	
+	/**
+	 * BUSINESS
+	 */
+	@Autowired
+	private CotacaoCompraBusiness<CotacaoCompraEntity> business;
+	
+	public CotacaoCompraBusiness<CotacaoCompraEntity> getBusiness() {
+		 return business;
+	}
 
 	@Override
 	protected String getNome() {
@@ -58,8 +73,8 @@ public class CotacaoFormController extends CRUDFormController<CotacaoCompraEntit
 	@Override
 	protected void actionSalvar() {
 		try {
-			cotacaoDao.saveOrUpdate(currentBean);
-
+			business.saveOrUpdate(currentBean);
+			
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro(e.getMessage());
@@ -71,7 +86,7 @@ public class CotacaoFormController extends CRUDFormController<CotacaoCompraEntit
 	protected void carregar(Serializable id) {
 		
 		try {
-			this.currentBean = this.cotacaoDao.find(id);
+			this.currentBean = this.business.find(id);
 			
 			subView.fillCompraFornecedorCotacoesSubForm(currentBean.getCompraFornecedorCotacaos());
 			subView.fillReqCotacaoDetalhesSubForm(currentBean.getCompraReqCotacaoDetalhes());
@@ -88,14 +103,38 @@ public class CotacaoFormController extends CRUDFormController<CotacaoCompraEntit
 			this.fieldGroup = new DCFieldGroup<>(CotacaoCompraEntity.class);
 		
      	    fieldGroup.bind(this.subView.getCalDataCotacao(), "dataCotacao");
-     	   fieldGroup.bind(this.subView.getTxtDescricao(), "descricao");
+     	    fieldGroup.bind(this.subView.getTxtDescricao(), "descricao");
      	   
-     	   subView.getCmbSituacao().setValue("A");
+     	   //subView.getCmbSituacao().setValue("A");
+     	   salvarItem();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public void salvarItem() {
+		try {
+			if ((compraRequisicaoDetalhe.getQuantidade().subtract(compraRequisicaoDetalhe.getQuantidadeCotada())).compareTo(compraCotacaoDetalhe.getQuantidade()) == -1) {
+				mensagemErro("A quantidade informada excede a quantidade disponível para cotação!");
+			} else {
+				compraCotacaoDetalhe.setProduto(compraRequisicaoDetalhe.getProduto());
+
+				compraRequisicaoDetalhe.setQuantidadeCotada(compraRequisicaoDetalhe.getQuantidadeCotada().add(compraCotacaoDetalhe.getQuantidade()));
+				if (compraRequisicaoDetalhe.getQuantidade().compareTo(compraRequisicaoDetalhe.getQuantidadeCotada()) == 0) {
+					compraRequisicaoDetalhe.setItemCotado("S");
+				}
+
+				compraCotacaoDetalhe.setCompraRequisicaoDetalhe(compraRequisicaoDetalhe);
+				
+				mensagemErro("Item incluído com sucesso!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			//mensagemErro("Ocorreu um erro na inclusão do item");
+		}
+	}
+
 
 	@Override
 	protected void criarNovoBean() {
@@ -111,7 +150,7 @@ public class CotacaoFormController extends CRUDFormController<CotacaoCompraEntit
 	@Override
 	protected void remover(List<Serializable> ids) {
 		try {
-			this.cotacaoDao.deleteAll(ids);
+			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
 		} catch (Exception e) {
@@ -138,7 +177,7 @@ public class CotacaoFormController extends CRUDFormController<CotacaoCompraEntit
 			CotacaoCompraEntity cotacao = (CotacaoCompraEntity) id;
 
 			try {
-				cotacaoDao.delete(cotacao);
+				business.delete(cotacao);
 			} catch (Exception e) {
 				e.printStackTrace();
 				mensagemErro(e.getMessage());
@@ -173,8 +212,8 @@ public class CotacaoFormController extends CRUDFormController<CotacaoCompraEntit
 		return fornecedorDao.getAll(FornecedorEntity.class);
 	}
 	
-	public List<CotacaoCompraEntity> buscarCotacao() {
-		return cotacaoDao.getAll(CotacaoCompraEntity.class);
+	public List<CotacaoCompraEntity> buscarCotacao() throws Exception {
+		return business.getAll(CotacaoCompraEntity.class);
 	}
 
 	public FornecedorCotacaoEntity novoFornecedorCotacao() {

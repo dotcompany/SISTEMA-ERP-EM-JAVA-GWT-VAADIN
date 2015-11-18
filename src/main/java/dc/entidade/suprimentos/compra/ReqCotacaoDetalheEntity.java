@@ -40,8 +40,7 @@ public class ReqCotacaoDetalheEntity extends AbstractMultiEmpresaModel<Integer> 
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_req_cotacao_detalhe_id_seq")
-	@SequenceGenerator(name = "compra_req_cotacao_detalhe_id_seq", sequenceName = "compra_req_cotacao_detalhe_id_seq", allocationSize = 1, initialValue = 0)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@ComboCode
 	@Analyzer(definition = "dc_combo_analyzer")

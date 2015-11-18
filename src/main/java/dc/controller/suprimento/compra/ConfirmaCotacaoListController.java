@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.compra.CotacaoCompraEntity;
-import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -21,9 +20,6 @@ public class ConfirmaCotacaoListController extends
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@Autowired
-	private ICotacaoDAO dao;
 
 	@Autowired
 	private ConfirmaCotacaoFormController confirmaCotacaoFormController;
@@ -70,7 +66,7 @@ public class ConfirmaCotacaoListController extends
 	@Override
 	protected List<CotacaoCompraEntity> pesquisa(String valor) {
 		try {
-			List<CotacaoCompraEntity> auxLista = (List<CotacaoCompraEntity>) this.dao
+			List<CotacaoCompraEntity> auxLista = (List<CotacaoCompraEntity>) this.confirmaCotacaoFormController.getBusiness()
 					.fullTextSearch(valor);
 
 			return auxLista;
@@ -84,7 +80,7 @@ public class ConfirmaCotacaoListController extends
 	@Override
 	protected List<CotacaoCompraEntity> pesquisaDefault() {
 		try {
-			List<CotacaoCompraEntity> auxLista = (List<CotacaoCompraEntity>) this.dao
+			List<CotacaoCompraEntity> auxLista = (List<CotacaoCompraEntity>) this.confirmaCotacaoFormController.getBusiness()
 					.getAll(getEntityClass());
 
 			return auxLista;
