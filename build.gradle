@@ -179,8 +179,8 @@ dependencies {
     compile 'commons-lang:commons-lang:2.6'
     compile 'commons-dbcp:commons-dbcp:1.4'
 
-    compile 'org.springframework:spring-beans:4.2.1.RELEASE'
-    compile ('org.springframework:spring-context:4.2.1.RELEASE') {
+    compile 'org.springframework:spring-beans:4.2.3.RELEASE'
+    compile ('org.springframework:spring-context:4.2.3.RELEASE') {
         exclude module: 'commons-logging'
     }
 
@@ -193,8 +193,7 @@ dependencies {
     compile 'org.springframework:spring-webmvc:4.2.1.RELEASE'
     compile 'org.springframework:spring-context-support:4.2.1.RELEASE'
     compile 'org.springframework.data:spring-data-jpa:1.7.2.RELEASE'
-
- 
+    
     compile 'org.freemarker:freemarker:2.3.23'
 
     compile 'org.springframework.security:spring-security-core:4.0.2.RELEASE'
