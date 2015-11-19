@@ -25,9 +25,6 @@ public class MapaComparativoListController extends
 	@Autowired
 	private MapaComparativoFormController mapaComparativoFormController;
 
-	@Autowired
-	private ICotacaoDAO dao;
-
 	/**
 	 * CONSTRUTOR
 	 */
@@ -64,13 +61,13 @@ public class MapaComparativoListController extends
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override
 	protected List<CotacaoCompraEntity> pesquisa(String valor) {
 		try {
-			List<CotacaoCompraEntity> auxLista = (List<CotacaoCompraEntity>) this.dao
+			List<CotacaoCompraEntity> auxLista = (List<CotacaoCompraEntity>) this.mapaComparativoFormController.getBusiness()
 					.fullTextSearch(valor);
 
 			return auxLista;
@@ -84,7 +81,7 @@ public class MapaComparativoListController extends
 	@Override
 	protected List<CotacaoCompraEntity> pesquisaDefault() {
 		try {
-			List<CotacaoCompraEntity> auxLista = (List<CotacaoCompraEntity>) this.dao
+			List<CotacaoCompraEntity> auxLista = (List<CotacaoCompraEntity>) this.mapaComparativoFormController.getBusiness()
 					.getAll(getEntityClass());
 
 			return auxLista;

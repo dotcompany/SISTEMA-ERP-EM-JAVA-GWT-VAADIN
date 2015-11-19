@@ -1,13 +1,13 @@
 package dc.controller.suprimento.compra;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
@@ -15,11 +15,12 @@ import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.PedidoEntity;
-import dc.entidade.suprimentos.compra.TipoPedidoEntity;
 import dc.model.dao.geral.produto.IProdutoDAO;
 import dc.servicos.dao.geral.IFornecedorDAO;
-import dc.servicos.dao.suprimentos.compra.IPedidoCompraDAO;
+import dc.servicos.dao.suprimentos.compra.IPedidoDetalheDAO;
 import dc.servicos.dao.suprimentos.compra.ITipoPedidoDAO;
+import dc.servicos.dao.suprimentos.compra.PedidoCompraBusiness;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.compra.PedidoCompraFormView;
 
@@ -36,9 +37,6 @@ public class PedidoCompraFormController extends
 	private PedidoCompraFormView subView;
 
 	@Autowired
-	private IPedidoCompraDAO pedidoCompraDAO;
-
-	@Autowired
 	private IProdutoDAO produtoDAO;
 
 	@Autowired
@@ -46,8 +44,21 @@ public class PedidoCompraFormController extends
 
 	@Autowired
 	private ITipoPedidoDAO tipoPedidoDAO;
+	
+	@Autowired
+	private IPedidoDetalheDAO pedidoDetalheDAO;
 
 	private PedidoEntity currentBean;
+	
+	/**
+	 * BUSINESS
+	 */
+	@Autowired
+	private PedidoCompraBusiness<PedidoEntity> business;
+	
+	public PedidoCompraBusiness<PedidoEntity> getBusiness() {
+		 return business;
+	}
 
 	@Override
 	protected String getNome() {
@@ -62,33 +73,8 @@ public class PedidoCompraFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			currentBean.setTipoPedido((TipoPedidoEntity) subView
-					.getCmbTipoPedido().getValue());
-			currentBean.setFornecedor((FornecedorEntity) subView
-					.getCmbFornecedor().getValue());
-			currentBean.setDataPedido(subView.getCalDataPedido().getValue());
-			currentBean.setDataPrevistaEntrega(subView.getCalDataEntrega()
-					.getValue());
-			currentBean.setDataPrevisaoPagamento(subView.getCalDataPagamento()
-					.getValue());
-			currentBean.setContato(subView.getTxtContato().getValue());
-			currentBean
-					.setLocalEntrega(subView.getTxtLocalEntrega().getValue());
-			currentBean.setLocalCobranca(subView.getTxtLocalCobranca()
-					.getValue());
-			currentBean.setValorSubtotal((BigDecimal) subView
-					.getTxtValorSubTotal().getConvertedValue());
-			currentBean.setTaxaDesconto((BigDecimal) subView
-					.getTxtTaxaDesconto().getConvertedValue());
-			currentBean.setValorDesconto((BigDecimal) subView
-					.getTxtValorDesconto().getConvertedValue());
-			currentBean.setValorTotalPedido((BigDecimal) subView
-					.getTxtTotalPedido().getConvertedValue());
-			currentBean.setTipoFrete((String) subView.getOptTipoFrete()
-					.getValue());
-			currentBean.setFormaPagamento((String) subView.getOptFormaPagto()
-					.getValue());
-			pedidoCompraDAO.saveOrUpdate(currentBean);
+			subView.preencheBean(currentBean);
+			business.saveOrUpdate(currentBean);
 
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
@@ -99,64 +85,99 @@ public class PedidoCompraFormController extends
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = pedidoCompraDAO.find(id);
-		subView.getLblId().setValue(String.valueOf(currentBean.getId()));
-		subView.getCmbTipoPedido().setValue(currentBean.getTipoPedido());
-		subView.getCmbFornecedor().setValue(currentBean.getFornecedor());
-		subView.getCalDataPedido().setValue(currentBean.getDataPedido());
-		subView.getCalDataEntrega().setValue(
-				currentBean.getDataPrevistaEntrega());
-		subView.getCalDataPagamento().setValue(
-				currentBean.getDataPrevisaoPagamento());
-		subView.getTxtContato().setValue(currentBean.getContato());
-		subView.getTxtLocalEntrega().setValue(currentBean.getLocalEntrega());
-		subView.getTxtLocalCobranca().setValue(currentBean.getLocalCobranca());
-		subView.getTxtValorSubTotal().setConvertedValue(
-				currentBean.getValorSubtotal());
-		subView.getTxtTaxaDesconto().setConvertedValue(
-				currentBean.getTaxaDesconto());
-		subView.getTxtValorDesconto().setConvertedValue(
-				currentBean.getValorDesconto());
-		subView.getTxtTotalPedido().setConvertedValue(
-				currentBean.getValorTotalPedido());
-		subView.getOptTipoFrete().setValue(currentBean.getTipoFrete());
-		subView.getOptFormaPagto().setValue(currentBean.getFormaPagamento());
-
-		subView.fillPedidoDetalhesSubForm(currentBean.getPedidoDetalhe());
+		
+        try {
+			
+			currentBean = business.find((Integer) id);
+			subView.preencheForm(currentBean);
+			//List<PedidoDetalheEntity> pedido = pedidoDetalheDAO.findByPedido(currentBean);
+			subView.preencheSubForm(currentBean.getPedidoDetalhe());
+			subView.fillPedidoDetalhesSubForm(currentBean.getPedidoDetalhe());
+			
+			fieldGroup.setItemDataSource(this.currentBean);
+		
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new PedidoCompraFormView(this);
-		subView.fillCmbFornecedor(fornecedorDAO.getAll(FornecedorEntity.class));
-		subView.fillCmbTipoPedido(tipoPedidoDAO.getAll(TipoPedidoEntity.class));
+		
+		 try {
+		        this.subView = new PedidoCompraFormView(this);
+		
+		        // Cria o DCFieldGroup
+		        this.fieldGroup = new DCFieldGroup<>(PedidoEntity.class);
+		
+		        // Mapeia os campos
+		        fieldGroup.bind(this.subView.getCalDataPedido(),"dataPedido");
+		        fieldGroup.bind(this.subView.getCmbTipoPedido(), "tipoPedido");
+		        fieldGroup.bind(this.subView.getCmbFornecedor(), "fornecedor");
+		        
+		        subView.fillCmbFornecedor(fornecedorDAO.getAll(FornecedorEntity.class));
+		        
+		        this.subView.getCmbTipoPedido().configuraCombo("nome",
+		        		TipoPedidoListController.class, this.tipoPedidoDAO, this.getMainController());
+		        
+		        
+		
+		    } catch (Exception e) {
+		       e.printStackTrace();
+		    }
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new PedidoEntity();
+        try {
+			
+        	currentBean = new PedidoEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		pedidoCompraDAO.deleteAllByIds(ids);
+		try {
+			this.business.deleteAll(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		return true;
-	}
-
-	@Override
-	protected void quandoNovo() {
-		subView.fillPedidoDetalhesSubForm(currentBean.getPedidoDetalhe());
+		try {
+	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
+	        fieldGroup.commit();
+	        return true;
+	    } catch (FieldGroup.CommitException ce) {
+	        return false;
+	    }
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		remover(ids);
+		for (Serializable id : ids) {
+			PedidoEntity pedido = (PedidoEntity) id;
+
+			try {
+				business.delete(pedido);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
 	}
 
 	public List<ProdutoEntity> buscarProdutos() {

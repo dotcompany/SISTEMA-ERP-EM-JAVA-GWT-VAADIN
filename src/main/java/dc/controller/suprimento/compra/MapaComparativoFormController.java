@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.suprimentos.compra.CotacaoCompraEntity;
 import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
@@ -18,11 +18,12 @@ import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.PedidoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoCompraDetalheEntity;
-import dc.servicos.dao.geral.IFornecedorDAO;
-import dc.servicos.dao.suprimentos.compra.ICotacaoDAO;
+import dc.servicos.dao.suprimentos.compra.CotacaoCompraBusiness;
+import dc.servicos.dao.suprimentos.compra.IFornecedorCotacaoDAO;
 import dc.servicos.dao.suprimentos.compra.IPedidoCompraDAO;
 import dc.servicos.dao.suprimentos.compra.IRequisicaoDetalheDAO;
 import dc.servicos.dao.suprimentos.compra.ITipoPedidoDAO;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.compra.MapaComparativoFormView;
 
@@ -39,13 +40,10 @@ public class MapaComparativoFormController extends
 	private MapaComparativoFormView subView;
 
 	@Autowired
-	private ICotacaoDAO cotacaoDao;
-
-	@Autowired
 	private IPedidoCompraDAO pedidoCompraDAO;
 
 	@Autowired
-	private IFornecedorDAO fornecedorDao;
+	private IFornecedorCotacaoDAO fornecedorCotacaoDao;
 
 	@Autowired
 	private IRequisicaoDetalheDAO requisicaoDetalheDao;
@@ -54,6 +52,13 @@ public class MapaComparativoFormController extends
 	private ITipoPedidoDAO tipoPedidoDAO;
 
 	private CotacaoCompraEntity currentBean;
+	
+	@Autowired
+	private CotacaoCompraBusiness<CotacaoCompraEntity> business;
+	
+	public CotacaoCompraBusiness<CotacaoCompraEntity> getBusiness() {
+		 return business;
+	}
 
 	@Override
 	protected String getNome() {
@@ -62,10 +67,10 @@ public class MapaComparativoFormController extends
 
 	@Override
 	protected void actionSalvar() {
+		
 		try {
-			currentBean.setDescricao(subView.getTxtDescricao().getValue());
-			currentBean.setDataCotacao(subView.getCalDataCotacao().getValue());
-
+			business.saveOrUpdate(currentBean);
+			
 			List<FornecedorCotacaoEntity> fornecedores = currentBean
 					.getCompraFornecedorCotacaos();
 
@@ -120,8 +125,6 @@ public class MapaComparativoFormController extends
 				pedidoCompraDAO.save(pedidoCompra);
 			}
 
-			cotacaoDao.saveOrUpdate(currentBean);
-
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			mensagemErro(e.getMessage());
@@ -131,45 +134,83 @@ public class MapaComparativoFormController extends
 
 	@Override
 	protected void carregar(Serializable id) {
-		currentBean = cotacaoDao.find(id);
-		subView.getTxtDescricao().setValue(currentBean.getDescricao());
-		subView.getCalDataCotacao().setValue(currentBean.getDataCotacao());
+		try {
+			currentBean = business.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		subView.fillCompraFornecedorCotacoesSubForm(currentBean
-				.getCompraFornecedorCotacaos());
 	}
 
 	@Override
 	protected void initSubView() {
-		subView = new MapaComparativoFormView();
+		try {
+			subView = new MapaComparativoFormView(this);
+			this.fieldGroup = new DCFieldGroup<>(CotacaoCompraEntity.class);
+		
+     	    fieldGroup.bind(this.subView.getCalDataCotacao(), "dataCotacao");
+     	    fieldGroup.bind(this.subView.getTxtDescricao(), "descricao");
+     	    
+     	   this.subView.getCmbFornecedor().configuraCombo(
+					"fornecedor.pessoa.nome", FornecedorCotacaoListController.class, this.fornecedorCotacaoDao, this.getMainController());
+     	   
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void criarNovoBean() {
-		currentBean = new CotacaoCompraEntity();
+		try {
+			currentBean = new CotacaoCompraEntity();
+			fieldGroup.setItemDataSource(this.currentBean);
+		}catch(Exception e) {
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
-		cotacaoDao.deleteAllByIds(ids);
+		try {
+			this.business.deleteAll(ids);
 
-		mensagemRemovidoOK();
+			mensagemRemovidoOK();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			mensagemErro(e.getMessage());
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		return true;
-	}
+		try {
+			fieldGroup.commit();
+			return true;
+		} catch (FieldGroup.CommitException ce) {
 
-	@Override
-	protected void quandoNovo() {
-		subView.fillCompraFornecedorCotacoesSubForm(currentBean
-				.getCompraFornecedorCotacaos());
+			return false;
+		}
 	}
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		remover(ids);
+		for (Serializable id : ids) {
+			CotacaoCompraEntity cotacao = (CotacaoCompraEntity) id;
+
+			try {
+				business.delete(cotacao);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
+		}
+		
+		mensagemRemovidoOK();
 	}
 
 	public List<RequisicaoCompraDetalheEntity> buscarRequisicaoProdutos() {
@@ -193,8 +234,8 @@ public class MapaComparativoFormController extends
 		mensagemRemovidoOK();
 	}
 
-	public List<FornecedorEntity> buscarFornecedores() {
-		return fornecedorDao.getAll(FornecedorEntity.class);
+	public List<FornecedorCotacaoEntity> buscarFornecedores() {
+		return fornecedorCotacaoDao.getAll(FornecedorCotacaoEntity.class);
 	}
 
 	public FornecedorCotacaoEntity novoFornecedorCotacao() {

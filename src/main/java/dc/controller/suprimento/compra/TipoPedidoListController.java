@@ -60,7 +60,7 @@ public class TipoPedidoListController extends
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

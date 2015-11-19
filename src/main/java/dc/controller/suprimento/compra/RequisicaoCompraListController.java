@@ -59,7 +59,7 @@ public class RequisicaoCompraListController extends CRUDListController<Requisica
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override

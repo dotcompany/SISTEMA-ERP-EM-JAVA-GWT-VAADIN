@@ -25,9 +25,6 @@ public class PedidoCompraListController extends
 	@Autowired
 	private PedidoCompraFormController pedidoCompraFormController;
 
-	@Autowired
-	private IPedidoCompraDAO dao;
-
 	/**
 	 * CONSTRUTOR
 	 */
@@ -64,13 +61,13 @@ public class PedidoCompraListController extends
 
 	@Override
 	protected boolean deletaEmCascata() {
-		return false;
+		return true;
 	}
 
 	@Override
 	protected List<PedidoEntity> pesquisa(String valor) {
 		try {
-			List<PedidoEntity> auxLista = (List<PedidoEntity>) this.dao
+			List<PedidoEntity> auxLista = (List<PedidoEntity>) this.pedidoCompraFormController.getBusiness()
 					.fullTextSearch(valor);
 
 			return auxLista;
@@ -84,7 +81,7 @@ public class PedidoCompraListController extends
 	@Override
 	protected List<PedidoEntity> pesquisaDefault() {
 		try {
-			List<PedidoEntity> auxLista = (List<PedidoEntity>) this.dao
+			List<PedidoEntity> auxLista = (List<PedidoEntity>) this.pedidoCompraFormController.getBusiness()
 					.getAll(getEntityClass());
 
 			return auxLista;

@@ -9,6 +9,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,8 +20,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
@@ -49,7 +53,7 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_pedido_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "compra_pedido_id_seq")
 	@SequenceGenerator(name = "compra_pedido_id_seq", sequenceName = "compra_pedido_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode
@@ -83,6 +87,7 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "data_pedido")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Data de Pedido é Obrigatório!")
 	private Date dataPedido;
 
 	@Temporal(TemporalType.DATE)
@@ -241,19 +246,22 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Caption("Tipo do pedido")
 	@ManyToOne
 	@JoinColumn(name = "id_compra_tipo_pedido")
+	@NotNull(message = "Tipo de Pedido é Obrigatório!")
 	private TipoPedidoEntity tipoPedido;
 
 	@Caption("Fornecedor")
 	@ManyToOne
 	@JoinColumn(name = "id_fornecedor")
+	@NotNull(message = "Fornecedor é Obrigatório!")
 	private FornecedorEntity fornecedor;
 
 	/**
 	 * REFERENCIA - LIST
 	 */
 
-	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
-	@Fetch(FetchMode.JOIN)
+	
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<PedidoDetalheEntity> pedidoDetalhe = new ArrayList<>();
 
 	/**
@@ -529,5 +537,32 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof PedidoEntity)) {
+            return false;
+        }
+
+        PedidoEntity that = (PedidoEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

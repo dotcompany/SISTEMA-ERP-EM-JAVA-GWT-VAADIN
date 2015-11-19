@@ -87,10 +87,14 @@ public class CotacaoFormController extends CRUDFormController<CotacaoCompraEntit
 		
 		try {
 			this.currentBean = this.business.find(id);
+			fieldGroup.setItemDataSource(this.currentBean);
 			
 			subView.fillCompraFornecedorCotacoesSubForm(currentBean.getCompraFornecedorCotacaos());
 			subView.fillReqCotacaoDetalhesSubForm(currentBean.getCompraReqCotacaoDetalhes());
-			fieldGroup.setItemDataSource(this.currentBean);
+			
+			//List<ReqCotacaoDetalheEntity> pedido = requisicaoDetalheDao.findByRequisicao(currentBean);
+			//subView.fillReqCotacaoDetalhesSubForm(pedido);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
