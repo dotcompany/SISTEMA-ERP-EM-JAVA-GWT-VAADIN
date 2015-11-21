@@ -10,7 +10,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
@@ -35,7 +34,7 @@ public class TipoRequisicaoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_tipo_requisicao_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "compra_tipo_requisicao_id_seq")
 	@SequenceGenerator(name = "compra_tipo_requisicao_id_seq", sequenceName = "compra_tipo_requisicao_id_seq", allocationSize = 1, initialValue = 0)
 	@Basic(optional = false)
 	@ComboCode

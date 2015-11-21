@@ -11,6 +11,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
+import dc.entidade.geral.pessoal.FornecedorEntity;
 import dc.entidade.suprimentos.compra.CotacaoCompraEntity;
 import dc.entidade.suprimentos.compra.CotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.FornecedorCotacaoEntity;
@@ -18,8 +19,8 @@ import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.PedidoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoCompraDetalheEntity;
+import dc.servicos.dao.geral.IFornecedorDAO;
 import dc.servicos.dao.suprimentos.compra.CotacaoCompraBusiness;
-import dc.servicos.dao.suprimentos.compra.IFornecedorCotacaoDAO;
 import dc.servicos.dao.suprimentos.compra.IPedidoCompraDAO;
 import dc.servicos.dao.suprimentos.compra.IRequisicaoDetalheDAO;
 import dc.servicos.dao.suprimentos.compra.ITipoPedidoDAO;
@@ -43,7 +44,7 @@ public class MapaComparativoFormController extends
 	private IPedidoCompraDAO pedidoCompraDAO;
 
 	@Autowired
-	private IFornecedorCotacaoDAO fornecedorCotacaoDao;
+	private IFornecedorDAO fornecedorCotacaoDao;
 
 	@Autowired
 	private IRequisicaoDetalheDAO requisicaoDetalheDao;
@@ -153,8 +154,8 @@ public class MapaComparativoFormController extends
      	    fieldGroup.bind(this.subView.getCalDataCotacao(), "dataCotacao");
      	    fieldGroup.bind(this.subView.getTxtDescricao(), "descricao");
      	    
-     	   this.subView.getCmbFornecedor().configuraCombo(
-					"fornecedor.pessoa.nome", FornecedorCotacaoListController.class, this.fornecedorCotacaoDao, this.getMainController());
+     	  /* this.subView.getCmbFornecedor().configuraCombo(
+					"pessoa.nome", FornecedorListController.class, this.fornecedorCotacaoDao, this.getMainController());*/
      	   
 			
 		}catch(Exception e) {
@@ -234,8 +235,8 @@ public class MapaComparativoFormController extends
 		mensagemRemovidoOK();
 	}
 
-	public List<FornecedorCotacaoEntity> buscarFornecedores() {
-		return fornecedorCotacaoDao.getAll(FornecedorCotacaoEntity.class);
+	public List<FornecedorEntity> buscarFornecedores() {
+		return fornecedorCotacaoDao.getAll(FornecedorEntity.class);
 	}
 
 	public FornecedorCotacaoEntity novoFornecedorCotacao() {

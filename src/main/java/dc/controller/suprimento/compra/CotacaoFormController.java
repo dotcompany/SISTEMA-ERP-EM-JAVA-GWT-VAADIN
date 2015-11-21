@@ -95,6 +95,9 @@ public class CotacaoFormController extends CRUDFormController<CotacaoCompraEntit
 			//List<ReqCotacaoDetalheEntity> pedido = requisicaoDetalheDao.findByRequisicao(currentBean);
 			//subView.fillReqCotacaoDetalhesSubForm(pedido);
 			
+			//List<FornecedorCotacaoEntity> fornecedor = fornecedorDao.findyByFor(currentBean);
+			//subView.fillCompraFornecedorCotacoesSubForm(fornecedor);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

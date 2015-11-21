@@ -9,5 +9,7 @@ import dc.model.dao.AbstractDAO;
 
 public interface IFornecedorDAO extends AbstractDAO<FornecedorEntity> {
 
+	List<FornecedorCotacaoEntity> findyByFor(CotacaoCompraEntity currentBean);
+
 
 }
