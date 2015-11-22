@@ -102,10 +102,6 @@ public class TipoPedidoFormView extends CustomComponent {
 		glGeral.setRows(6);
 		glGeral.setColumns(1);
 
-		// tfCodigo
-		tfCodigo = ComponentUtil.buildTextField("Código");
-		glGeral.addComponent(tfCodigo, 0, 0);
-
 		// tfNome
 		tfNome = ComponentUtil.buildTextField("Nome");
 		glGeral.addComponent(tfNome, 0, 1);

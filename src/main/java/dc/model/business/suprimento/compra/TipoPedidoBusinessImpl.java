@@ -47,7 +47,8 @@ public class TipoPedidoBusinessImpl implements Serializable,
 	@Transactional(readOnly = false)
 	@Override
 	public void delete(TipoPedidoEntity t) throws Exception {
-		// TODO Auto-generated method stub
+		
+		dao.delete(t);
 
 	}
 

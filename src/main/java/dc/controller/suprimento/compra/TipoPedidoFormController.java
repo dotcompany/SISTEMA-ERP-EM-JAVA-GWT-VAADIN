@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
-import dc.control.util.classes.TipoPedidoUtils;
-import dc.control.validator.DotErpException;
 import dc.entidade.suprimentos.compra.TipoPedidoEntity;
 import dc.model.business.suprimento.compra.TipoPedidoBusiness;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.compra.TipoPedidoFormView;
 
@@ -88,6 +88,9 @@ public class TipoPedidoFormController extends
 	protected void initSubView() {
 		try {
 			this.subView = new TipoPedidoFormView(this);
+			this.fieldGroup = new DCFieldGroup<>(TipoPedidoEntity.class);
+		
+     	    fieldGroup.bind(this.subView.getTfNome(), "nome");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -96,11 +99,9 @@ public class TipoPedidoFormController extends
 	@Override
 	protected boolean validaSalvar() {
 		try {
-			TipoPedidoUtils.validateRequiredFields(this.subView);
-
+			fieldGroup.commit();
 			return true;
-		} catch (DotErpException dee) {
-			adicionarErroDeValidacao(dee.getComponent(), dee.getMessage());
+		} catch (FieldGroup.CommitException ce) {
 
 			return false;
 		}
@@ -109,17 +110,12 @@ public class TipoPedidoFormController extends
 	@Override
 	protected void actionSalvar() {
 		try {
-			this.entity.setCodigo(this.subView.getTfCodigo().getValue());
-			this.entity.setNome(this.subView.getTfNome().getValue());
-			this.entity.setDescricao(this.subView.getTaDescricao().getValue());
-
-			this.business.saveOrUpdate(this.entity);
-
+			business.saveOrUpdate(entity);
+			
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {
-			e.printStackTrace();
-
 			mensagemErro(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -127,10 +123,9 @@ public class TipoPedidoFormController extends
 	protected void carregar(Serializable id) {
 		try {
 			this.entity = this.business.find(id);
-
-			this.subView.getTfCodigo().setValue(this.entity.getCodigo());
-			this.subView.getTfNome().setValue(this.entity.getNome());
-			this.subView.getTaDescricao().setValue(this.entity.getDescricao());
+			fieldGroup.setItemDataSource(this.entity);
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -139,21 +134,10 @@ public class TipoPedidoFormController extends
 	@Override
 	protected void criarNovoBean() {
 		try {
-			this.entity = new TipoPedidoEntity();
-		} catch (Exception e) {
+			entity = new TipoPedidoEntity();
+			fieldGroup.setItemDataSource(this.entity);
+		}catch(Exception e) {
 			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.entity = new TipoPedidoEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
 			mensagemErro(e.getMessage());
 		}
 	}
@@ -173,13 +157,18 @@ public class TipoPedidoFormController extends
 
 	@Override
 	protected void removerEmCascata(List<Serializable> ids) {
-		try {
+		for (Serializable id : ids) {
+			TipoPedidoEntity pedido = (TipoPedidoEntity) id;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
+			try {
+				business.delete(pedido);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
 		}
+		
+		mensagemRemovidoOK();
 	}
 
 }

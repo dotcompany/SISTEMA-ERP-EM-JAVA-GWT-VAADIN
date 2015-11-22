@@ -1,17 +1,25 @@
 package dc.entidade.suprimentos.compra;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -61,7 +69,12 @@ public class TipoPedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome = "";
+	
+	@OneToMany(mappedBy = "tipoPedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<PedidoEntity> pedido = new ArrayList<>();
 
 	/**
 	 * REFERENCIA - FK
@@ -119,6 +132,14 @@ public class TipoPedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	public void setNome(String nome) {
 		this.nome = (nome == null ? "".trim() : nome.toUpperCase().trim());
+	}
+
+	public List<PedidoEntity> getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(List<PedidoEntity> pedido) {
+		this.pedido = pedido;
 	}
 
 	/**

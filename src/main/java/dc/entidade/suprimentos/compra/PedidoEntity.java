@@ -245,7 +245,7 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
 
 	@Caption("Tipo do pedido")
 	@ManyToOne
-	@JoinColumn(name = "id_compra_tipo_pedido")
+	@JoinColumn(name = "id_compra_tipo_pedido", referencedColumnName = "ID")
 	@NotNull(message = "Tipo de Pedido é Obrigatório!")
 	private TipoPedidoEntity tipoPedido;
 

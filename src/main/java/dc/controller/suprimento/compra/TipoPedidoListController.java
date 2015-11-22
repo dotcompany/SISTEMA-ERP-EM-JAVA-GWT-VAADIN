@@ -39,7 +39,7 @@ public class TipoPedidoListController extends
 
 	@Override
 	public String[] getColunas() {
-		return new String[] { "codigo", "nome", "descricao" };
+		return new String[] { "nome", "descricao" };
 	}
 
 	@Override
