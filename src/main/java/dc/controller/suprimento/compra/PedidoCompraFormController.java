@@ -89,12 +89,13 @@ public class PedidoCompraFormController extends
         try {
 			
 			currentBean = business.find((Integer) id);
+			fieldGroup.setItemDataSource(this.currentBean);
 			subView.preencheForm(currentBean);
 			//List<PedidoDetalheEntity> pedido = pedidoDetalheDAO.findByPedido(currentBean);
 			subView.preencheSubForm(currentBean.getPedidoDetalhe());
 			subView.fillPedidoDetalhesSubForm(currentBean.getPedidoDetalhe());
 			
-			fieldGroup.setItemDataSource(this.currentBean);
+			
 		
 		} catch (Exception e) {
 			
@@ -186,16 +187,18 @@ public class PedidoCompraFormController extends
 
 	public PedidoDetalheEntity novoPedidoDetalhe() {
 		PedidoDetalheEntity pedidoDetalhe = new PedidoDetalheEntity();
-		// currentBean.addPedidoDetalhe(pedidoDetalhe);
+		currentBean.addPedidoDetalhe(pedidoDetalhe);
 
 		return pedidoDetalhe;
 	}
 
 	public void removerPedidoDetalhe(List<PedidoDetalheEntity> pedidoDetalhe) {
 		for (PedidoDetalheEntity ent : pedidoDetalhe) {
-			// currentBean.removePedidoDetalhe(ent);
+			currentBean.removePedidoDetalhe(ent);
 		}
+		mensagemRemovidoOK();
 	}
+	
 
 	@Override
 	public String getViewIdentifier() {

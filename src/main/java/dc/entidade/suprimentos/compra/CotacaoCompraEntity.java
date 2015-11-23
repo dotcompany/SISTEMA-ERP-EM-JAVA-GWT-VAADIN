@@ -172,4 +172,34 @@ public class CotacaoCompraEntity extends AbstractMultiEmpresaModel<Integer> impl
 		return ToStringBuilder.reflectionToString(this);
 	}
 
+	public FornecedorCotacaoEntity addFornecedorCotacao(FornecedorCotacaoEntity fornecedorCotacao) {
+		getCompraFornecedorCotacaos().add(fornecedorCotacao);
+		fornecedorCotacao.setCotacao(this);
+
+		return fornecedorCotacao;
+		
+	}
+	
+	public FornecedorCotacaoEntity removeFornecedorCotacao(FornecedorCotacaoEntity fornecedorCotacao) {
+		getCompraFornecedorCotacaos().remove(fornecedorCotacao);
+		fornecedorCotacao.setCotacao(null);
+
+		return fornecedorCotacao;
+	}
+
+	public ReqCotacaoDetalheEntity addReqCotacaoDetalhe(ReqCotacaoDetalheEntity cotacaoDetalhe) {
+		getCompraReqCotacaoDetalhes().add(cotacaoDetalhe);
+		cotacaoDetalhe.setCotacao(this);
+
+		return cotacaoDetalhe;
+		
+	}
+	
+	public ReqCotacaoDetalheEntity removeReqCotacaoDetalhe(ReqCotacaoDetalheEntity cotacaoDetalhe) {
+		getCompraReqCotacaoDetalhes().remove(cotacaoDetalhe);
+		cotacaoDetalhe.setCotacao(null);
+
+		return cotacaoDetalhe;
+	}
+
 }

@@ -111,7 +111,7 @@ public class TipoPedidoBusinessImpl implements Serializable,
 	@Override
 	public List<TipoPedidoEntity> fullTextSearch(String valor) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.fullTextSearch(valor);
 	}
 
 	@Override

@@ -217,23 +217,23 @@ public class MapaComparativoFormController extends
 	public List<RequisicaoCompraDetalheEntity> buscarRequisicaoProdutos() {
 		return requisicaoDetalheDao.getAll(RequisicaoCompraDetalheEntity.class);
 	}
-
+	
 	public ReqCotacaoDetalheEntity novoRequisicaoCotacaoDetalhe() {
 		ReqCotacaoDetalheEntity cotacaoDetalhe = new ReqCotacaoDetalheEntity();
-		currentBean.getCompraReqCotacaoDetalhes().add(cotacaoDetalhe);
+		currentBean.addReqCotacaoDetalhe(cotacaoDetalhe);
 
 		return cotacaoDetalhe;
 	}
 
-	public void removerRequisicaoCotacaoDetalhes(
-			List<ReqCotacaoDetalheEntity> values) {
+	public void removerRequisicaoCotacaoDetalhes(List<ReqCotacaoDetalheEntity> values) {
 		for (ReqCotacaoDetalheEntity requisicaoCotacaoDetalhe : values) {
-			currentBean.getCompraReqCotacaoDetalhes().remove(
-					requisicaoCotacaoDetalhe);
+			//currentBean.getCompraFornecedorCotacaos().remove(fornecedorCotacao);
+			currentBean.removeReqCotacaoDetalhe(requisicaoCotacaoDetalhe);
 		}
 
 		mensagemRemovidoOK();
 	}
+
 
 	public List<FornecedorEntity> buscarFornecedores() {
 		return fornecedorCotacaoDao.getAll(FornecedorEntity.class);
@@ -241,18 +241,21 @@ public class MapaComparativoFormController extends
 
 	public FornecedorCotacaoEntity novoFornecedorCotacao() {
 		FornecedorCotacaoEntity fornecedorCotacao = new FornecedorCotacaoEntity();
-		currentBean.getCompraFornecedorCotacaos().add(fornecedorCotacao);
+		//currentBean.getCompraFornecedorCotacaos().add(fornecedorCotacao);
+		currentBean.addFornecedorCotacao(fornecedorCotacao);
 
 		return fornecedorCotacao;
 	}
 
 	public void removerFornecedorCotacaos(List<FornecedorCotacaoEntity> values) {
 		for (FornecedorCotacaoEntity fornecedorCotacao : values) {
-			currentBean.getCompraFornecedorCotacaos().remove(fornecedorCotacao);
+			//currentBean.getCompraFornecedorCotacaos().remove(fornecedorCotacao);
+			currentBean.removeFornecedorCotacao(fornecedorCotacao);
 		}
 
 		mensagemRemovidoOK();
 	}
+	
 
 	@Override
 	public String getViewIdentifier() {

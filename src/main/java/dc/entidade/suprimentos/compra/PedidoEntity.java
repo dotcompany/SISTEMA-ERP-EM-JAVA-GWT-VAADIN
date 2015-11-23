@@ -565,4 +565,19 @@ public class PedidoEntity extends AbstractMultiEmpresaModel<Integer> {
         }
     }
 
+	public PedidoDetalheEntity addPedidoDetalhe(PedidoDetalheEntity pedidoDetalhe2) {
+		getPedidoDetalhe().add(pedidoDetalhe2);
+		pedidoDetalhe2.setPedido(this);
+
+		return pedidoDetalhe2;
+		
+	}
+	
+	public PedidoDetalheEntity removePedidoDetalhe(PedidoDetalheEntity pedidoDetalhe2) {
+		getPedidoDetalhe().remove(pedidoDetalhe2);
+		pedidoDetalhe2.setPedido(null);
+
+		return pedidoDetalhe2;
+	}
+
 }
