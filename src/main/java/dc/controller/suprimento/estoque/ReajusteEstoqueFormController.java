@@ -18,8 +18,8 @@ import dc.entidade.geral.produto.ProdutoEntity;
 import dc.entidade.suprimentos.estoque.ReajusteCabecalhoEntity;
 import dc.entidade.suprimentos.estoque.ReajusteDetalheEntity;
 import dc.model.business.geral.produto.ProdutoBusiness;
-import dc.servicos.dao.geral.produto.ProdutoDAO;
-import dc.servicos.dao.suprimentos.estoque.ReajusteCabecalhoDAO;
+import dc.model.dao.geral.produto.IProdutoDAO;
+import dc.servicos.dao.suprimentos.estoque.IReajusteCabecalhoDAO;
 import dc.servicos.util.Validator;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
@@ -37,10 +37,10 @@ public class ReajusteEstoqueFormController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ReajusteCabecalhoDAO dao;
+	private IReajusteCabecalhoDAO dao;
 
 	@Autowired
-	ProdutoDAO produtoDAO;
+	private IProdutoDAO produtoDAO;
 
 	private ReajusteCabecalhoEntity currentBean;
 

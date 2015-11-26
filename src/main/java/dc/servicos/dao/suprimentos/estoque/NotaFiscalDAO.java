@@ -10,7 +10,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @Transactional
-public class NotaFiscalDAO extends AbstractCrudDAO<NotaFiscal> {
+public class NotaFiscalDAO extends AbstractCrudDAO<NotaFiscal> implements INotaFiscalDAO {
 
 	@Override
 	public Class<NotaFiscal> getEntityClass() {

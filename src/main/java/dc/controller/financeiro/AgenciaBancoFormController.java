@@ -123,7 +123,7 @@ public class AgenciaBancoFormController extends CRUDFormController<AgenciaBancoE
 	protected void actionSalvar() {
 		try {
 			this.business.saveOrUpdate(this.currentBean);
-
+     
 			notifiyFrameworkSaveOK(this.currentBean);
 		} catch (Exception e) {
 			e.printStackTrace();

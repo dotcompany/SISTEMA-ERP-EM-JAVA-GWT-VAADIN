@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.estoque.RequisicaoInternaCabecalhoEntity;
-import dc.servicos.dao.suprimentos.estoque.RequisicaoInternaCabecalhoDAO;
+import dc.servicos.dao.suprimentos.estoque.IRequisicaoInternaCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class RequisicaoInternaListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	RequisicaoInternaCabecalhoDAO dao;
+	private IRequisicaoInternaCabecalhoDAO dao;
 
 	@Autowired
 	RequisicaoInternaFormController formController;

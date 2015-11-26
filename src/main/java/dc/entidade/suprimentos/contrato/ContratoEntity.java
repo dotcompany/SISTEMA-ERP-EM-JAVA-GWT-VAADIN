@@ -28,6 +28,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
@@ -144,16 +145,19 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Tipo Contrato")
 	@JoinColumn(name = "ID_TIPO_CONTRATO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
+	@IndexedEmbedded(includePaths={"nome"})
 	private TipoContratoEntity tipoContrato;
 
 	@Caption(value = "Solicitação de Serviço")
 	@JoinColumn(name = "ID_SOLICITACAO_SERVICO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
+	@IndexedEmbedded(depth=2, includePaths={"contratoTipoServico.nome"})
 	private SolicitacaoServicoEntity contratoSolicitacaoServico;
 
 	@Caption(value = "Modelo Documento")
 	@JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID")
 	@ManyToOne(optional = true)
+	@IndexedEmbedded(includePaths={"nome"})
 	private Documento documento;
 
 	/**
@@ -162,9 +166,9 @@ public class ContratoEntity extends AbstractMultiEmpresaModel<Integer> {
 	 * 
 	 */
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID")
-	//// Não se pode utilizar LAZY, pois está dando problema na sessão do Hibernate, tem que ser EAGER //////////
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@Caption(value = "Pessoa")
+	@IndexedEmbedded(depth=2, includePaths={"nome"})
 	private PessoaEntity pessoa;
 
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

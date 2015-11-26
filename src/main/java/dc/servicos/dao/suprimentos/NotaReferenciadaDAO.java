@@ -11,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.suprimentos.NotaReferenciada;
 import dc.entidade.suprimentos.estoque.NotaFiscal;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+import dc.servicos.dao.suprimentos.estoque.INotaReferenciadaDAO;
 
 @Component
-public class NotaReferenciadaDAO extends AbstractCrudDAO<NotaReferenciada> {
+public class NotaReferenciadaDAO extends AbstractCrudDAO<NotaReferenciada> implements INotaReferenciadaDAO {
 
 	@Override
 	public Class<NotaReferenciada> getEntityClass() {

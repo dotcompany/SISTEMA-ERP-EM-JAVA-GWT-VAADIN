@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.estoque.ReajusteCabecalhoEntity;
-import dc.servicos.dao.suprimentos.estoque.ReajusteCabecalhoDAO;
+import dc.servicos.dao.suprimentos.estoque.IReajusteCabecalhoDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -23,7 +23,7 @@ public class ReajusteEstoqueListController extends
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	ReajusteCabecalhoDAO dao;
+	private IReajusteCabecalhoDAO dao;
 
 	@Autowired
 	ReajusteEstoqueFormController formController;

@@ -7,7 +7,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository("suprimentosEstoqueReajusteCabecalhoDAO")
 public class ReajusteCabecalhoDAO extends
-		AbstractCrudDAO<ReajusteCabecalhoEntity> {
+		AbstractCrudDAO<ReajusteCabecalhoEntity> implements IReajusteCabecalhoDAO {
 
 	@Override
 	public Class<ReajusteCabecalhoEntity> getEntityClass() {

@@ -30,6 +30,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
@@ -99,6 +100,7 @@ public class SolicitacaoServicoEntity extends
 	@Caption("Contrato Tipo serviço")
 	@JoinColumn(name = "ID_CONTRATO_TIPO_SERVICO", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
+	@IndexedEmbedded(includePaths={"nome"})
 	@NotNull(message = "Tipo Serviço é Obrigatório!")
 	private TipoServicoEntity contratoTipoServico;
 
@@ -106,22 +108,26 @@ public class SolicitacaoServicoEntity extends
 	@ManyToOne(optional = false)
 	@Caption("Colaborador")
 	@NotNull(message = "Colaborador é Obrigatório!")
+	@IndexedEmbedded(depth=3, includePaths={"pessoa.nome"})
 	private ColaboradorEntity colaborador;
 
 	@JoinColumn(name = "ID_SETOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
 	@Caption("Setor")
 	@NotNull(message = "Setor é Obrigatório!")
+	@IndexedEmbedded(includePaths={"nome"})
 	private SetorEntity setor;
 
 	@Caption("Cliente")
 	@JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID")
 	@ManyToOne
+	@IndexedEmbedded(depth=3, includePaths={"pessoa.nome"})
 	private ClienteEntity cliente;
 
 	@Caption("Fornecedor")
 	@JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")
 	@ManyToOne
+	@IndexedEmbedded(depth=3, includePaths={"pessoa.nome"})
 	private FornecedorEntity fornecedor;
 	
 	@OneToMany(mappedBy = "contratoSolicitacaoServico", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.suprimentos.estoque.NotaFiscal;
-import dc.servicos.dao.suprimentos.estoque.NotaFiscalDAO;
+import dc.servicos.dao.suprimentos.estoque.INotaFiscalDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class NotaFiscalListController extends CRUDListController<NotaFiscal> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	NotaFiscalDAO dao;
+	private INotaFiscalDAO dao;
 
 	@Autowired
 	NotaFiscalFormController formController;

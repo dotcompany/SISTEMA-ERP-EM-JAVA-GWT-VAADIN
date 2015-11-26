@@ -11,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.suprimentos.NfeDuplicata;
 import dc.entidade.suprimentos.estoque.NotaFiscal;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+import dc.servicos.dao.suprimentos.estoque.IDuplicataDAO;
 
 @Component
-public class DuplicataDAO extends AbstractCrudDAO<NfeDuplicata> {
+public class DuplicataDAO extends AbstractCrudDAO<NfeDuplicata> implements IDuplicataDAO {
 
 	@Override
 	public Class<NfeDuplicata> getEntityClass() {

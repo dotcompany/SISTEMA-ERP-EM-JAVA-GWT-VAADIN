@@ -31,16 +31,16 @@ import dc.entidade.suprimentos.NfeLocalRetirada;
 import dc.entidade.suprimentos.NotaFiscalEmitente;
 import dc.entidade.suprimentos.NotaReferenciada;
 import dc.entidade.suprimentos.estoque.NotaFiscal;
-import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.suprimentos.CupomVinculadoDAO;
-import dc.servicos.dao.suprimentos.DuplicataDAO;
-import dc.servicos.dao.suprimentos.NFEmitenteDAO;
-import dc.servicos.dao.suprimentos.NFeFaturaDAO;
-import dc.servicos.dao.suprimentos.NFeLocalEntregaDAO;
-import dc.servicos.dao.suprimentos.NFeLocalRetiradaDAO;
-import dc.servicos.dao.suprimentos.NFeTransporteDAO;
-import dc.servicos.dao.suprimentos.NotaReferenciadaDAO;
-import dc.servicos.dao.suprimentos.estoque.NotaFiscalDAO;
+import dc.servicos.dao.geral.IUfDAO;
+import dc.servicos.dao.suprimentos.estoque.ICupomVinculadoDAO;
+import dc.servicos.dao.suprimentos.estoque.IDuplicataDAO;
+import dc.servicos.dao.suprimentos.estoque.INFEmitenteDAO;
+import dc.servicos.dao.suprimentos.estoque.INFeFaturaDAO;
+import dc.servicos.dao.suprimentos.estoque.INFeLocalEntregaDAO;
+import dc.servicos.dao.suprimentos.estoque.INFeLocalRetiradaDAO;
+import dc.servicos.dao.suprimentos.estoque.INFeTransporteDAO;
+import dc.servicos.dao.suprimentos.estoque.INotaFiscalDAO;
+import dc.servicos.dao.suprimentos.estoque.INotaReferenciadaDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.estoque.NotaFiscalFormView;
 import dc.visao.suprimento.estoque.NotaFiscalFormView.CRT;
@@ -60,34 +60,34 @@ public class NotaFiscalFormController extends CRUDFormController<NotaFiscal> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	NotaFiscalDAO dao;
+	private INotaFiscalDAO dao;
 	
 	@Autowired
-	UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	@Autowired
-	NFEmitenteDAO emitenteDAO;
+	private INFEmitenteDAO emitenteDAO;
 
 	@Autowired
-	CupomVinculadoDAO cupomDAO;
+	private ICupomVinculadoDAO cupomDAO;
 
 	@Autowired
-	NotaReferenciadaDAO notaReferenciadaDAO;
+	private INotaReferenciadaDAO notaReferenciadaDAO;
 
 	@Autowired
-	NFeLocalEntregaDAO localEntregaDAO;
+	private INFeLocalEntregaDAO localEntregaDAO;
 
 	@Autowired
-	NFeLocalRetiradaDAO localRetiradaDAO;
+	private INFeLocalRetiradaDAO localRetiradaDAO;
 
 	@Autowired
-	NFeTransporteDAO transporteDAO;
+	private INFeTransporteDAO transporteDAO;
 
 	@Autowired
-	NFeFaturaDAO faturaDAO;
+	private INFeFaturaDAO faturaDAO;
 
 	@Autowired
-	DuplicataDAO duplicataDAO;
+	private IDuplicataDAO duplicataDAO;
 
 	private NotaFiscal currentBean;
 

@@ -19,8 +19,8 @@ import dc.entidade.suprimentos.compra.PedidoDetalheEntity;
 import dc.entidade.suprimentos.compra.PedidoEntity;
 import dc.entidade.suprimentos.compra.ReqCotacaoDetalheEntity;
 import dc.entidade.suprimentos.compra.RequisicaoCompraDetalheEntity;
-import dc.servicos.dao.geral.IFornecedorDAO;
 import dc.servicos.dao.suprimentos.compra.CotacaoCompraBusiness;
+import dc.servicos.dao.suprimentos.compra.IFornecedorCotacaoDAO;
 import dc.servicos.dao.suprimentos.compra.IPedidoCompraDAO;
 import dc.servicos.dao.suprimentos.compra.IRequisicaoDetalheDAO;
 import dc.servicos.dao.suprimentos.compra.ITipoPedidoDAO;
@@ -44,7 +44,7 @@ public class MapaComparativoFormController extends
 	private IPedidoCompraDAO pedidoCompraDAO;
 
 	@Autowired
-	private IFornecedorDAO fornecedorCotacaoDao;
+	private IFornecedorCotacaoDAO fornecedorCotacaoDao;
 
 	@Autowired
 	private IRequisicaoDetalheDAO requisicaoDetalheDao;
@@ -123,7 +123,7 @@ public class MapaComparativoFormController extends
 					}
 				}
 
-				pedidoCompraDAO.save(pedidoCompra);
+				pedidoCompraDAO.saveOrUpdate(pedidoCompra);
 			}
 
 			notifiyFrameworkSaveOK(this.currentBean);
@@ -156,6 +156,8 @@ public class MapaComparativoFormController extends
      	    
      	  /* this.subView.getCmbFornecedor().configuraCombo(
 					"pessoa.nome", FornecedorListController.class, this.fornecedorCotacaoDao, this.getMainController());*/
+     	   this.subView.getCmbFornecedor().configuraCombo(
+					"fornecedor.pessoa.nome", FornecedorCotacaoListController.class, this.fornecedorCotacaoDao, this.getMainController());
      	   
 			
 		}catch(Exception e) {

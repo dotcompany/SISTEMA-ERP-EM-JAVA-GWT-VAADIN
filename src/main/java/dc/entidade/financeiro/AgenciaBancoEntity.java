@@ -166,7 +166,7 @@ public class AgenciaBancoEntity extends AbstractMultiEmpresaModel<Integer>
 	 */
 
 	@Caption("Banco")
-	@ManyToOne(fetch = FetchType.LAZY) 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY) 
 	@JoinColumn(name = "id_banco", referencedColumnName = "id")
 	@NotNull(message = "Banco é Obrigatório!")
 	@IndexedEmbedded(includePaths={"nome"})

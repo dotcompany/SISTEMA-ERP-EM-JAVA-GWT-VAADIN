@@ -8,9 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.suprimentos.NfeLocalRetirada;
 import dc.entidade.suprimentos.estoque.NotaFiscal;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+import dc.servicos.dao.suprimentos.estoque.INFeLocalRetiradaDAO;
 
 @Component
-public class NFeLocalRetiradaDAO extends AbstractCrudDAO<NfeLocalRetirada> {
+public class NFeLocalRetiradaDAO extends AbstractCrudDAO<NfeLocalRetirada> implements INFeLocalRetiradaDAO {
 
 	@Override
 	public Class<NfeLocalRetirada> getEntityClass() {

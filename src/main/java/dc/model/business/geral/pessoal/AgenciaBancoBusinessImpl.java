@@ -10,9 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container.Filter;
 
+import dc.control.util.ObjectUtils;
 import dc.entidade.financeiro.AgenciaBancoEntity;
+import dc.entidade.financeiro.BancoEntity;
 import dc.entidade.framework.FmMenu;
 import dc.model.dao.geral.pessoal.IAgenciaBancoDAO;
+import dc.servicos.dao.financeiro.IBancoDAO;
 
 @Service
 @Transactional(readOnly = true)
@@ -25,6 +28,9 @@ private static final long serialVersionUID = 1L;
 	
 	@Autowired
 	private IAgenciaBancoDAO dao;
+	
+	@Autowired
+	private IBancoDAO bancoDAO;
 
 	@Override
 	public Class<AgenciaBancoEntity> getEntityClass() {
@@ -142,6 +148,11 @@ private static final long serialVersionUID = 1L;
 			System.out.println(":: [" + getClass().getSimpleName() + "] saveOrUpdate");
 
 			AgenciaBancoEntity ent = (AgenciaBancoEntity) o;
+			
+			if (ObjectUtils.isNotBlank(ent.getBanco())) {
+			BancoEntity banco = this.bancoDAO.find(ent.getBanco().getId());
+			ent.setBanco(banco);
+		    }
 
 			this.dao.saveOrUpdate(ent);
 		} catch (Exception e) {

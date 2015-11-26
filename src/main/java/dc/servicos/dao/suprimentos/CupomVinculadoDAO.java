@@ -11,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import dc.entidade.suprimentos.CupomFiscalReferenciadoEntity;
 import dc.entidade.suprimentos.estoque.NotaFiscal;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
+import dc.servicos.dao.suprimentos.estoque.ICupomVinculadoDAO;
 
 @Component
-public class CupomVinculadoDAO extends AbstractCrudDAO<CupomFiscalReferenciadoEntity> {
+public class CupomVinculadoDAO extends AbstractCrudDAO<CupomFiscalReferenciadoEntity> implements ICupomVinculadoDAO {
 
 	@Override
 	public Class<CupomFiscalReferenciadoEntity> getEntityClass() {
