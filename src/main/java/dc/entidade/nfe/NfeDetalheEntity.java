@@ -350,8 +350,6 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 	@JoinColumn(name = "id_produto")
 	private ProdutoEntity produto;
 	
-	private LoteProdutoEntity loteProduto;
-
 	/**
 	 * REFERENCIA - LIST
 	 */
@@ -805,14 +803,6 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setNdeArmamento(NfeDetEspecificoArmamentoEntity ndeArmamento) {
 		this.ndeArmamento = ndeArmamento;
-	}
-	
-	public LoteProdutoEntity getLoteProduto() {
-		return loteProduto;
-	}
-
-	public void setLoteProduto(LoteProdutoEntity loteProduto) {
-		this.loteProduto = loteProduto;
 	}
 	
 	public String getOrigemMercadoria() {

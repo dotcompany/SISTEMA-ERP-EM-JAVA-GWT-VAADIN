@@ -1,19 +1,15 @@
 package dc.entidade.suprimentos.estoque;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,8 +19,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -95,10 +89,10 @@ public class LoteProdutoEntity extends AbstractMultiEmpresaModel<Integer> implem
 	    @Column(name = "OBSERVACAO")
 	    private String observacao;
 	    
-	   // @OneToMany(mappedBy = "loteProduto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	    @OneToMany(mappedBy="loteProduto", fetch = FetchType.LAZY)
+	    /*@OneToMany(mappedBy = "loteProduto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	   // @OneToMany(mappedBy="loteProduto", fetch = FetchType.LAZY)
 		@Fetch(FetchMode.SUBSELECT)
-		private List<NfeDetalheEntity> NfeDetalhe = new ArrayList<>();
+		private List<NfeDetalheEntity> NfeDetalhe = new ArrayList<>();*/
 
 	    public Integer getId() {
 	        return id;
@@ -205,14 +199,14 @@ public class LoteProdutoEntity extends AbstractMultiEmpresaModel<Integer> implem
 	    }
 	    
 	    public void removeNfe(NfeDetalheEntity value) {
-			this.NfeDetalhe.remove(value);
-			value.setLoteProduto(null);
+			//this.NfeDetalhe.remove(value);
+			//value.setLoteProduto(null);
 		}
 
 		public NfeDetalheEntity addNfe() {
 			NfeDetalheEntity nfe = new NfeDetalheEntity();
-			nfe.setLoteProduto(this);
-			this.NfeDetalhe.add(nfe);
+			//nfe.setLoteProduto(this);
+			//this.NfeDetalhe.add(nfe);
 
 			return nfe;
 		}
