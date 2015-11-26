@@ -14,7 +14,7 @@ import dc.control.util.ClassUtils;
 import dc.entidade.nfe.NfeDetalheEntity;
 import dc.entidade.suprimentos.estoque.LoteProdutoEntity;
 import dc.model.business.suprimento.estoque.LoteProdutoBusiness;
-import dc.servicos.dao.nfe.NfeDetalheDAO;
+import dc.servicos.dao.nfe.INfeDetalheDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.estoque.LoteProdutoFormView;
@@ -43,7 +43,7 @@ public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEnt
 	//private LoteProdutoDAO loteProdutoDAO;
 	
 	@Autowired
-	private NfeDetalheDAO nfeDetalheDAO;
+	private INfeDetalheDAO nfeDetalheDAO;
 	
 	public LoteProdutoBusiness<LoteProdutoEntity> getBusiness() {
 		return business;

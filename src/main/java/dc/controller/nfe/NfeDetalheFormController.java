@@ -83,21 +83,6 @@ public class NfeDetalheFormController extends CRUDFormController<NfeDetalheImpos
 		}
 	}
 
-	/*
-	 * Callback para quando novo foi acionado. Colocar Programação customizada
-	 * para essa ação aqui. Ou então deixar em branco, para comportamento padrão
-	 */
-	@Override
-	protected void quandoNovo() {
-		try {
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
 	@Override
 	protected void initSubView() {
 

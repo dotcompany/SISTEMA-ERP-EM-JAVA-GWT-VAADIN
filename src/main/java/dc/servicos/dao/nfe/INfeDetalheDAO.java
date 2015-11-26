@@ -16,4 +16,6 @@ public interface INfeDetalheDAO extends AbstractDAO<NfeDetalheEntity> {
 
 	public abstract List<NfeDetalheEntity> findByNfeDetalhe(LoteProdutoEntity loteProduto);
 
+	public abstract List<NfeDetalheEntity> listarTodos();
+
 }

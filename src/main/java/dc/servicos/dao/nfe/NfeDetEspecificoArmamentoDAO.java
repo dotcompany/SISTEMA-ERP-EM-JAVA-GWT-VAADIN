@@ -18,8 +18,7 @@ import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class NfeDetEspecificoArmamentoDAO extends
-		AbstractCrudDAO<NfeDetEspecificoArmamentoEntity> implements INfeDetEspecificoArmamentoDAO {
+public class NfeDetEspecificoArmamentoDAO extends AbstractCrudDAO<NfeDetEspecificoArmamentoEntity> implements INfeDetEspecificoArmamentoDAO {
 
 	@Override
 	public Class<NfeDetEspecificoArmamentoEntity> getEntityClass() {

@@ -29,11 +29,11 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> implements 
 	 * DAOS
 	 */
 
-	@Autowired
-	private NfeDetEspecificoMedicamentoDAO ndeMedicamentoDAO;
+	//@Autowired
+	//private NfeDetEspecificoMedicamentoDAO ndeMedicamentoDAO;
 
-	@Autowired
-	private NfeDetEspecificoArmamentoDAO ndeArmamentoDAO;
+	//@Autowired
+	//private NfeDetEspecificoArmamentoDAO ndeArmamentoDAO;
 
 	/**
 	 * 
@@ -116,7 +116,7 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> implements 
 
 			// MEDICAMENTO / ARMAMENTO
 
-			for (NfeDetalheEntity ent1 : auxLista) {
+			/*for (NfeDetalheEntity ent1 : auxLista) {
 				List<NfeDetEspecificoMedicamentoEntity> auxLista1 = this.ndeMedicamentoDAO
 						.getLista(ent1);
 				List<NfeDetEspecificoArmamentoEntity> auxLista2 = this.ndeArmamentoDAO
@@ -124,7 +124,7 @@ public class NfeDetalheDAO extends AbstractCrudDAO<NfeDetalheEntity> implements 
 
 				ent1.setNdeMedicamentoList(auxLista1);
 				ent1.setNdeArmamentoList(auxLista2);
-			}
+			}*/
 
 			return auxLista;
 		} catch (Exception e) {
