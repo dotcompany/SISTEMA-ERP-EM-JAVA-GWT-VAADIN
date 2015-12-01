@@ -11,7 +11,7 @@ import com.vaadin.data.Container.Filter;
 
 import dc.entidade.framework.FmMenu;
 import dc.entidade.suprimentos.estoque.LoteProdutoEntity;
-import dc.model.dao.suprimento.estoque.LoteProdutoDAOs;
+import dc.model.dao.suprimento.estoque.ILoteProdutoDAO;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,7 +20,7 @@ public class LoteProdutoBusinessImpl implements Serializable, LoteProdutoBusines
 			private static final long serialVersionUID = 1L;
 
 			@Autowired
-			private LoteProdutoDAOs<LoteProdutoEntity> dao;
+			private ILoteProdutoDAO dao;
 
 			/**
 			 * **********************************************
@@ -34,6 +34,8 @@ public class LoteProdutoBusinessImpl implements Serializable, LoteProdutoBusines
 			@Transactional(readOnly = false)
 			@Override
 			public void delete(LoteProdutoEntity t) throws Exception {
+				
+				dao.delete(t);
 			}
 
 			@Transactional(readOnly = false)

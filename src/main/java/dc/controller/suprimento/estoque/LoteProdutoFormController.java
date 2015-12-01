@@ -19,31 +19,30 @@ import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.suprimento.estoque.LoteProdutoFormView;
 
+/** @author Wesley Jr /* */
+
 @Controller
 @Scope("prototype")
 public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEntity> {
-//public class LoteProdutoFormController extends BlankFormController {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	LoteProdutoEntity entity;
-	LoteProdutoFormView subView;
-	
-	/**
-	 * BUSINESS
-	 */
 
+	private LoteProdutoFormView subView;
+
+	private LoteProdutoEntity currentBean;
+	
 	@Autowired
 	private LoteProdutoBusiness<LoteProdutoEntity> business;
 	
-//	//@Autowired
-	//private LoteProdutoDAO loteProdutoDAO;
-	
 	@Autowired
 	private INfeDetalheDAO nfeDetalheDAO;
+
+	
+	public LoteProdutoFormController() {
+	}
 	
 	public LoteProdutoBusiness<LoteProdutoEntity> getBusiness() {
 		return business;
@@ -51,101 +50,101 @@ public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEnt
 
 	@Override
 	public String getViewIdentifier() {
+		
 		return ClassUtils.getUrl(this);
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		try {
-	        // Commit tenta transferir os dados do View para a entidade , levando em conta os critérios de validação.
-	        fieldGroup.commit();
-	        return true;
-	    } catch (FieldGroup.CommitException ce) {
-	        return false;
-	    }
+        try {
+			
+            fieldGroup.commit();
+            return true;
+
+		}catch (FieldGroup.CommitException ce) {
+			return false;
+		}
 	}
 
 	@Override
 	protected void criarNovoBean() {
 		try {
-	        this.entity = new LoteProdutoEntity();
-
-	        // Atribui a entidade nova como origem de dados dos campos do formulario no FieldGroup
-	        fieldGroup.setItemDataSource(this.entity);
-
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        mensagemErro(e.getMessage());
-	    }
-		
-	}
-
-	@Override
-	protected void initSubView() {
-       try {
+			currentBean = new LoteProdutoEntity();
 			
-			subView = new LoteProdutoFormView(this);
+			fieldGroup.setItemDataSource(this.currentBean);
 			
-			this.fieldGroup = new DCFieldGroup<>(LoteProdutoEntity.class);
-			
-			// Mapeia os campos
-			fieldGroup.bind(this.subView.getTxtNome(),"nome");
-			fieldGroup.bind(this.subView.getPdDataCadastro(),"dataCadastro");
-
 		}catch (Exception e) {
-		   e.printStackTrace();
+			e.printStackTrace();
 		}
 		
 	}
 
 	@Override
+	protected void initSubView() {
+		
+	       try {
+				
+				subView = new LoteProdutoFormView(this);
+				
+				this.fieldGroup = new DCFieldGroup<>(LoteProdutoEntity.class);
+				
+				// Mapeia os campos
+				fieldGroup.bind(this.subView.getTxtNome(),"nome");
+				fieldGroup.bind(this.subView.getPdDataCadastro(),"dataCadastro");
+
+			}catch (Exception e) {
+			   e.printStackTrace();
+			}
+
+		
+	}
+
+	@Override
 	protected void carregar(Serializable id) {
+		
 		try {
-			this.entity = this.business.find(id);
-			
-			// Atribui a entidade carregada como origem de dados dos campos do formulario no FieldGroup
-			fieldGroup.setItemDataSource(this.entity);
-			
-			List<NfeDetalheEntity> itens = nfeDetalheDAO.findByNfeDetalhe(entity);
+			this.currentBean = this.business.find(id);
+
+			// Atribui a entidade carregada como origem de dados dos campos do formulario
+            // no FieldGroup
+			List<NfeDetalheEntity> itens = nfeDetalheDAO.findByNfeDetalhe(currentBean);
 			subView.preencheSubForm(itens);
 			
+            fieldGroup.setItemDataSource(this.currentBean);
+
 		} catch (Exception e) {
-		       e.printStackTrace();
+			e.printStackTrace();
 		}
 		
 	}
 
 	@Override
 	protected void actionSalvar() {
+		
 		try {
-			
-			business.saveOrUpdate(entity);
-			notifiyFrameworkSaveOK(this.entity);
-				
-		}catch (Exception e) {
-		        e.printStackTrace();
-		        mensagemErro(e.getMessage());
+			this.business.saveOrUpdate(this.currentBean);
+			notifiyFrameworkSaveOK(this.currentBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+			mensagemErro(e.getMessage());
 		}
 		
 	}
 
 	@Override
 	protected Component getSubView() {
-		// TODO Auto-generated method stub
 		return subView;
 	}
 
 	@Override
 	protected String getNome() {
-		// TODO Auto-generated method stub
-		return "Lote Produto ";
-		//return super.getNome();
+		return "Lote Produto";
 	}
 
 	@Override
 	protected void remover(List<Serializable> ids) {
+		
 		try {
-			//this.business.deleteAll(ids);
 			this.business.deleteAll(ids);
 
 			mensagemRemovidoOK();
@@ -159,40 +158,47 @@ public class LoteProdutoFormController extends CRUDFormController<LoteProdutoEnt
 
 	@Override
 	protected void removerEmCascata(List<Serializable> objetos) {
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
+		
+		for (Serializable id : objetos) {
+			LoteProdutoEntity loteProduto = (LoteProdutoEntity) id;
 
-			mensagemErro(e.getMessage());
+			try {
+				business.delete(loteProduto);
+			} catch (Exception e) {
+				e.printStackTrace();
+				mensagemErro(e.getMessage());
+			}
 		}
+		
+		mensagemRemovidoOK();
 		
 	}
 
 	@Override
 	public LoteProdutoEntity getModelBean() {
-		return entity;
+		return currentBean;
 	}
-
-	public NfeDetalheEntity novoNfe() {
-		NfeDetalheEntity nfe = entity.addNfe();
+	
+    public NfeDetalheEntity novoNfe() {
+		
+	    NfeDetalheEntity nfe = new NfeDetalheEntity();
+	    currentBean.addParcelaPagar(nfe);
 		return nfe;
 	}
 
-	public void removerNfe(
-			List<NfeDetalheEntity> values) {
+	public void removerNfe(List<NfeDetalheEntity> values) {
 		for (NfeDetalheEntity value : values) {
-			entity.removeNfe(value);
+			currentBean.removeNfe(value);
 		}
+		
+		mensagemRemovidoOK();
 
 	}
-	
+
 	@Override
 	public boolean isFullSized() {
 		return true;
 	}
 
-	public List<NfeDetalheEntity> getNfeDetalhe() {
-		return nfeDetalheDAO.listarTodos();
-	}
-	
+
 }

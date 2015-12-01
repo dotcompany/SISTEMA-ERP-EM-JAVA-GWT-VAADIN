@@ -4,6 +4,7 @@ import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.visao.ordemservico.MarcaFormView;
 
+
 public class MarcaOsUtils {
 
 	public static void validateRequiredFields(MarcaFormView subView)

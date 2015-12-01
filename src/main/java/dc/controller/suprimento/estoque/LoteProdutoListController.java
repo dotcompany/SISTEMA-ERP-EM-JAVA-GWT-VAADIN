@@ -1,6 +1,5 @@
 package dc.controller.suprimento.estoque;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +62,12 @@ public class LoteProdutoListController extends
 	protected boolean deletaEmCascata() {
 		return true;
 	}
+	
+	@Override
+	protected void actionRemoverSelecionados() {
+		super.actionRemoverSelecionados();
+
+	}
 
 	@Override
 	protected List<LoteProdutoEntity> pesquisa(String valor) {
@@ -74,7 +79,7 @@ public class LoteProdutoListController extends
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<LoteProdutoEntity>();
+			return null;
 		}
 	}
 
@@ -88,7 +93,7 @@ public class LoteProdutoListController extends
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			return new ArrayList<LoteProdutoEntity>();
+			return null;
 		}
 		
 		

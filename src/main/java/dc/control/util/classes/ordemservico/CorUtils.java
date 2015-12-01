@@ -4,6 +4,7 @@ import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.visao.ordemservico.CorFormView;
 
+
 public class CorUtils {
 
 	public static void validateRequiredFields(CorFormView subView)

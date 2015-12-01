@@ -396,6 +396,8 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	@Transient
 	private NfeDetEspecificoArmamentoEntity ndeArmamento;
+	
+	private LoteProdutoEntity loteProduto;
 
 	/**
 	 * CONSTRUTOR
@@ -971,6 +973,14 @@ public class NfeDetalheEntity extends AbstractMultiEmpresaModel<Integer>
 
 	public void setValorIssqn(BigDecimal valorIssqn) {
 		this.valorIssqn = valorIssqn;
+	}
+	
+	public LoteProdutoEntity getLoteProduto() {
+		return loteProduto;
+	}
+
+	public void setLoteProduto(LoteProdutoEntity loteProduto) {
+		this.loteProduto = loteProduto;
 	}
 
 	/**

@@ -254,6 +254,7 @@ public class PapelFormView extends CustomComponent {
 
 		});
 	}
+	
 
 	public void populaPapelMenu(List<PapelMenu> pms) {
 		CustomTableFieldFactory f = (CustomTableFieldFactory) treeTablePapeisMenu
@@ -466,4 +467,12 @@ public class PapelFormView extends CustomComponent {
 		return modulo;
 	}
 
+	public TextArea getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(TextArea descricao) {
+		this.descricao = descricao;
+	}
+	
 }

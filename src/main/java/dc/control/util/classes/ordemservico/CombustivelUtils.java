@@ -4,6 +4,7 @@ import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.visao.ordemservico.CombustivelFormView;
 
+
 public class CombustivelUtils {
 
 	public static void validateRequiredFields(CombustivelFormView subView)

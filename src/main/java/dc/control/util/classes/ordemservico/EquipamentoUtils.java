@@ -4,6 +4,7 @@ import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.visao.ordemservico.EquipamentoFormView;
 
+
 public class EquipamentoUtils {
 
 	public static void validateRequiredFields(EquipamentoFormView subView)

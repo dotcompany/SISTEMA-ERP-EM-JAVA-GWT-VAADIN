@@ -13,5 +13,6 @@ public interface IPapelDAO extends AbstractDAO<PapelEntity>{
 	public abstract dc.entidade.framework.PapelMenu getPapelMenuByPapelAndMenuControllerClass(Integer idPapel, String controllerClass);
 
 	public abstract List<PapelMenu> getPapelMenusOrdered(PapelEntity p);
+	
 
 }

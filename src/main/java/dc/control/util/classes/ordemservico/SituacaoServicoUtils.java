@@ -4,6 +4,7 @@ import dc.control.util.StringUtils;
 import dc.control.validator.DotErpException;
 import dc.visao.ordemservico.SituacaoServicoFormView;
 
+
 public class SituacaoServicoUtils {
 
 	public static void validateRequiredFields(SituacaoServicoFormView subView)

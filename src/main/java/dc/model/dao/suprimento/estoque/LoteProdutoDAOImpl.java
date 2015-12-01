@@ -11,7 +11,7 @@ import dc.entidade.suprimentos.estoque.LoteProdutoEntity;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
-public class LoteProdutoDAOImpl extends AbstractCrudDAO<LoteProdutoEntity> implements LoteProdutoDAOs<LoteProdutoEntity>  {
+public class LoteProdutoDAOImpl extends AbstractCrudDAO<LoteProdutoEntity> implements ILoteProdutoDAO  {
 	
 	
 		private static Logger logger = Logger.getLogger(LoteProdutoDAOImpl.class);

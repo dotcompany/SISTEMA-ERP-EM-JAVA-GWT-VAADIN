@@ -3,6 +3,7 @@ package dc.control.util.classes;
 import dc.control.validator.DotErpException;
 import dc.visao.suprimento.compra.TipoPedidoFormView;
 
+
 public class TipoPedidoUtils {
 
 	public static void validateRequiredFields(TipoPedidoFormView subView)

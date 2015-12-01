@@ -15,9 +15,11 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -61,6 +63,7 @@ public class PapelEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "NOME")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Nome é Obrigatório!")
 	private String nome = "";
 
 	@Lob
@@ -70,6 +73,7 @@ public class PapelEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Column(name = "DESCRICAO")
 	@ComboValue
 	@Analyzer(definition = "dc_combo_analyzer")
+	@NotNull(message = "Descrição é Obrigatório!")
 	private String descricao = "";
 
 	/**
@@ -159,7 +163,34 @@ public class PapelEntity extends AbstractMultiEmpresaModel<Integer> implements
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return nome;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof PapelEntity)) {
+            return false;
+        }
+
+        PapelEntity that = (PapelEntity) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(getId(), that.getId());
+        return eb.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            return super.hashCode();
+        } else {
+            return new HashCodeBuilder()
+                    .append(id)
+                    .toHashCode();
+        }
+    }
 
 }

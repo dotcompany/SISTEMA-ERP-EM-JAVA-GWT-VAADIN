@@ -7,18 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Component;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.administrativo.seguranca.PapelEntity;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.framework.FmModulo;
-import dc.entidade.framework.PapelMenu;
 import dc.model.business.administrativo.seguranca.PapelBusiness;
 import dc.servicos.dao.framework.geral.IFmMenuDAO;
 import dc.servicos.dao.sistema.IPapelDAO;
 import dc.visao.administrativo.seguranca.PapelFormView;
+import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.spring.SecuritySessionProvider;
 
@@ -96,20 +96,31 @@ public class PapelFormController extends CRUDFormController<PapelEntity> {
 
 	@Override
 	protected void initSubView() {
-		criarNovoBean();
-		subView = new PapelFormView(this);
-		subView.populaModulos(papelDAO.getAll(FmModulo.class));
+		
+		try {
+			this.subView = new PapelFormView(this);
+			
+			this.fieldGroup = new DCFieldGroup<>(PapelEntity.class);
+            fieldGroup.bind(this.subView.getTxtNome(),"nome");
+            fieldGroup.bind(this.subView.getDescricao(),"descricao");
+            
+            subView.populaModulos(papelDAO.getAll(FmModulo.class));
+
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected boolean validaSalvar() {
-		boolean retornoValidacao = true;
+		//boolean retornoValidacao = true;
 
 		try {
-			subView.getBinder().commit();
+			//subView.getBinder().commit();
+			 fieldGroup.commit();
+	            
 
-			PapelEntity papel = subView.getBinder().getItemDataSource()
-					.getBean();
+			/*PapelEntity papel = subView.getBinder().getItemDataSource().getBean();
 
 			List<PapelMenu> fs = subView.getPapelMenus();
 
@@ -130,14 +141,15 @@ public class PapelFormController extends CRUDFormController<PapelEntity> {
 				retornoValidacao = false;
 			}
 
-			this.entity = papel;
-		} catch (CommitException e) {
-			e.printStackTrace();
+			this.entity = papel;*/
+			
+			return true;
+		} catch (FieldGroup.CommitException ce) {
 
-			retornoValidacao = false;
+			return false;
 		}
 
-		return retornoValidacao;
+		//return retornoValidacao;
 	}
 
 	@Override
@@ -161,10 +173,16 @@ public class PapelFormController extends CRUDFormController<PapelEntity> {
 		try {
 			this.entity = this.business.find(id);
 
-			this.subView.getBinder().setItemDataSource(this.entity);
+			//this.subView.getBinder().setItemDataSource(this.entity);
+			
+			//List<PapelMenu> itens = papelDAO.getPapelMenusOrdered(entity);
+			//subView.populaPapelMenu(itens);
+			
+			this.subView.populaPapelMenu(this.papelDAO.getPapelMenusOrdered(this.entity));
+			//subView.populaPapelMenu(entity.getPapelMenuList());
+			
+			fieldGroup.setItemDataSource(this.entity);
 
-			this.subView.populaPapelMenu(this.papelDAO
-					.getPapelMenusOrdered(this.entity));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -174,18 +192,7 @@ public class PapelFormController extends CRUDFormController<PapelEntity> {
 	protected void criarNovoBean() {
 		try {
 			this.entity = new PapelEntity();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			mensagemErro(e.getMessage());
-		}
-	}
-
-	@Override
-	protected void quandoNovo() {
-		try {
-			this.subView.getBinder().discard();
-			this.subView.getBinder().setItemDataSource(getCurrentBean());
+			fieldGroup.setItemDataSource(this.entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 
