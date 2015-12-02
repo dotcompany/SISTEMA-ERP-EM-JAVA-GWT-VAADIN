@@ -10,12 +10,10 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Field;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TreeTable;
 
-import dc.framework.CharBoolConverter;
+import dc.framework.SimNaoConverter;
 
 public class CustomTableFieldFactory implements TableFieldFactory {
 
@@ -79,7 +77,7 @@ public class CustomTableFieldFactory implements TableFieldFactory {
 					}
 				});	
 			
-			c.setConverter(new CharBoolConverter());
+			c.setConverter(new SimNaoConverter());
 			return c;
 		}else{
 			return null;	

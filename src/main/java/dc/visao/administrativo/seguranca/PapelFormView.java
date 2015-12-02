@@ -192,16 +192,16 @@ public class PapelFormView extends CustomComponent {
 		treeTablePapeisMenu.addContainerProperty(NAME_PROPERTY, String.class,
 				"");
 		treeTablePapeisMenu.addContainerProperty(
-				CustomTableFieldFactory.INSERE_PROPERTY, Character.class, null);
+				CustomTableFieldFactory.INSERE_PROPERTY, SimNaoEn.class, null);
 		treeTablePapeisMenu.addContainerProperty(
-				CustomTableFieldFactory.ALTERA_PROPERTY, Character.class, null);
+				CustomTableFieldFactory.ALTERA_PROPERTY, SimNaoEn.class, null);
 		treeTablePapeisMenu.addContainerProperty(
-				CustomTableFieldFactory.CONSULTA_PROPERTY, Character.class,
+				CustomTableFieldFactory.CONSULTA_PROPERTY, SimNaoEn.class,
 				null);
 		treeTablePapeisMenu.addContainerProperty(
-				CustomTableFieldFactory.EXCLUI_PROPERTY, Character.class, null);
+				CustomTableFieldFactory.EXCLUI_PROPERTY, SimNaoEn.class, null);
 		treeTablePapeisMenu.addContainerProperty(
-				CustomTableFieldFactory.HABILITA_PROPERTY, Character.class,
+				CustomTableFieldFactory.HABILITA_PROPERTY, SimNaoEn.class,
 				null);
 		treeTablePapeisMenu.addContainerProperty(
 				CustomTableFieldFactory.OBJ_PROPERTY, PapelMenu.class, null);
