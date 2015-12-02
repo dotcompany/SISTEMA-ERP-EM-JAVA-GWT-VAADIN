@@ -431,8 +431,7 @@ public class PapelFormView extends CustomComponent {
 
 	private void addMenuChild(FmMenu m, PapelMenu p) {
 		if (!treeTablePapeisMenu.containsId(m.getId())) {
-			Object itemId = treeTablePapeisMenu.addItem(
-					new Object[] { p.getMenu().getCaption(),
+			Object itemId = treeTablePapeisMenu.addItem(new Object[] { p.getMenu().getCaption(),
 							p.getPodeInserir(), p.getPodeAlterar(),
 							p.getPodeConsultar(), p.getPodeExcluir(),
 							p.getHabilitado(), p }, m.getId());
@@ -443,8 +442,7 @@ public class PapelFormView extends CustomComponent {
 
 	private void addModuloChild(Object moduloId, FmMenu m, PapelMenu p) {
 		if (!treeTablePapeisMenu.containsId(m.getId())) {
-			Object itemId = treeTablePapeisMenu.addItem(
-					new Object[] { p.getMenu().getCaption(),
+			Object itemId = treeTablePapeisMenu.addItem(new Object[] { p.getMenu().getCaption(),
 							p.getPodeInserir(), p.getPodeAlterar(),
 							p.getPodeConsultar(), p.getPodeExcluir(),
 							p.getHabilitado(), p }, m.getId());
