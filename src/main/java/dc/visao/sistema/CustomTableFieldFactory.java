@@ -13,6 +13,7 @@ import com.vaadin.ui.Field;
 import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TreeTable;
 
+import dc.control.enums.SimNaoEn;
 import dc.framework.SimNaoConverter;
 
 public class CustomTableFieldFactory implements TableFieldFactory {
@@ -61,9 +62,9 @@ public class CustomTableFieldFactory implements TableFieldFactory {
 			                			for(Object o : c){
 				                			Item i = t.getItem(o);
 				                			if(marked){
-				                				i.getItemProperty(propertyId).setValue('S');	
+				                				i.getItemProperty(propertyId).setValue(SimNaoEn.S);	
 				                			}else{
-				                				i.getItemProperty(propertyId).setValue('N');
+				                				i.getItemProperty(propertyId).setValue(SimNaoEn.N);
 				                			}
 				                		}	
 			                		}
