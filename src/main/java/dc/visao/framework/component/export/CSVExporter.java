@@ -3,7 +3,7 @@ package dc.visao.framework.component.export;
 import com.vaadin.data.Container;
 import com.vaadin.ui.Table;
 
-public class CSVExporter extends Exporter {
+public abstract class CSVExporter extends Exporter {
     public CSVExporter() {
         super();
     }
@@ -12,7 +12,7 @@ public class CSVExporter extends Exporter {
         super(table);
     }
 
-    public CSVExporter(Container container, Object[] visibleColumns) {
+   public CSVExporter(Container container, Object[] visibleColumns) {
         super(container, visibleColumns);
     }
 
@@ -37,5 +37,17 @@ public class CSVExporter extends Exporter {
     		return downloadFileName + ".csv";
     	}
     }
+
+	/*@Override
+	public InputStream getStream() {
+		try {
+			FileInputStream fis = new FileInputStream(fileBuilder.getFile());
+			return fis;
+			//return new FileInputStream(fileBuilder.getFile());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}*/
 
 }

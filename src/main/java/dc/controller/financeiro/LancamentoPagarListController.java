@@ -30,8 +30,13 @@ public class LancamentoPagarListController extends CRUDListController<Lancamento
 	@Override
 	public String[] getColunas() {
 		
-		return new String[] { "fornecedor", "documentoOrigem","dataLancamento","pagamentoCompartilhado","valorTotal","valorAPagar" ,
+		String atributos[] = new String[] { "fornecedor", "documentoOrigem","dataLancamento","pagamentoCompartilhado","valorTotal","valorAPagar" ,
 				"quantidadeParcela","numeroDocumento","primeiroVencimento" };
+		
+						
+		return atributos;
+		
+		
 	}
 
 	@Override

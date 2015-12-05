@@ -174,6 +174,16 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Field
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorFaltante;
+	
+	@Transient
+	@Temporal(TemporalType.DATE)
+	@Field
+	@Caption("Data de Pagamento")
+	private Date dataPagamento;
+	
+	@Transient
+	@Caption("Data de Pagamento")
+	private ParcelaPagamento parcelaPagamentos;
 
 	public ParcelaPagar() {
 	}
@@ -371,5 +381,22 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 
 		return valorFaltante;
 	}
+	
+	public Date getDataPagamento() {
+		for (ParcelaPagamento p : parcelapagamentos) {
+			if (p.getDataPagamento() != null) {
+				dataPagamento = p.getDataPagamento();
+			}
+		}
+		return dataPagamento;
+	}
 
+	public ParcelaPagamento getParcelaPagamentos() {
+		return parcelaPagamentos;
+	}
+
+	public void setParcelaPagamentos(ParcelaPagamento parcelaPagamentos) {
+		this.parcelaPagamentos = parcelaPagamentos;
+	}
+	
 }

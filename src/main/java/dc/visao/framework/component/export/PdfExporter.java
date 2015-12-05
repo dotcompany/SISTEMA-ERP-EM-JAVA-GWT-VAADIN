@@ -11,7 +11,7 @@ public class PdfExporter extends Exporter {
         super(table);
     }
 
-    public PdfExporter(Container container, Object[] visibleColumns) {
+   public PdfExporter(Container container, Object[] visibleColumns) {
         super(container, visibleColumns);
     }
 
@@ -39,5 +39,5 @@ public class PdfExporter extends Exporter {
     public void setWithBorder(boolean withBorder) {
         ((PdfFileBuilder) fileBuilder).setWithBorder(withBorder);
     }
-    
+
 }

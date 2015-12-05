@@ -118,7 +118,7 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 
 	@JoinColumn(name = "ID_FORNECEDOR", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	@Caption(value = "Fornecedor")
+	@Caption("Fornecedor")
 	@NotNull(message = "Fornecedor é Obrigatório")
 	@IndexedEmbedded(depth=3, includePaths={"pessoa.nome"})
 	private FornecedorEntity fornecedor;

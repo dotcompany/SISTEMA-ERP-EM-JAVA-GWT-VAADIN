@@ -35,4 +35,15 @@ public class ExcelExporter extends Exporter {
     		return downloadFileName + ".xls";
     	}
     }
+
+	/*@Override
+	public InputStream getStream() {
+		try {
+			//FileInputStream fis = new FileInputStream(fileBuilder.getFile());
+			return new FileInputStream(fileBuilder.getFile());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}*/
 }
