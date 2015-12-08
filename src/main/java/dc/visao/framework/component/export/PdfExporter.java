@@ -3,6 +3,9 @@ import com.vaadin.data.Container;
 import com.vaadin.ui.Table;
 
 public class PdfExporter extends Exporter {
+	
+	private TableHolder tableHolder;
+	
     public PdfExporter() {
         super();
     }
@@ -39,5 +42,11 @@ public class PdfExporter extends Exporter {
     public void setWithBorder(boolean withBorder) {
         ((PdfFileBuilder) fileBuilder).setWithBorder(withBorder);
     }
+
+	@Override
+	public void convertTable() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

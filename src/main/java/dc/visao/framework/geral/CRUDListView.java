@@ -9,13 +9,14 @@ import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import dc.framework.SearchTextFieldExtension;
 import dc.visao.framework.component.SearchTextField;
 import dc.visao.framework.component.export.ExcelExporter;
 import dc.visao.framework.component.export.PdfExporter;
@@ -211,7 +212,8 @@ public class CRUDListView extends CustomComponent implements View {
 
 		/** cria as opcoes para exportar pra PDF, EXCEL. */
 
-		excelExporter = new ExcelExporter();
+		
+		excelExporter = new ExcelExporter(); 
 		excelExporter.setCaption("   Exportar Excel");
 		excelExporter.setIcon(new ThemeResource("img/iconExcel.png"));
 		excelExporter.setDownloadFileName(controller.getTitulo() + ".xls");
@@ -219,10 +221,22 @@ public class CRUDListView extends CustomComponent implements View {
 		excelExporter.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
 				excelExporter.setTableToBeExported(controller.getTable());
+				excelExporter.export();
 			}
 		});
 
 		popupButtonContent.addComponent(excelExporter);
+		/*excelExporter.addListener(new ClickListener() {
+		 private static final long serialVersionUID = -73954695086117200L;
+         private ExcelExporter excelExport;
+
+         public void buttonClick(final ClickEvent event) {
+             excelExport = new ExcelExporter(table);
+             excelExport.excludeCollapsedColumns();
+             excelExport.setReportTitle("Demo Report");
+             excelExport.export();
+         }
+		});*/
 
 		pdfExporter = new PdfExporter();
 		pdfExporter.setCaption("   Exportar PDF");
