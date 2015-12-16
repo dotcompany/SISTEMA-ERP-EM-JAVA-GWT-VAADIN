@@ -143,8 +143,6 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Temporal(TemporalType.DATE)
 	@Column(name = "PRIMEIRO_VENCIMENTO")
 	@NotNull(message = "Primeiro Vencimento é Obrigatório")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Date primeiroVencimento;
 
 	@Field

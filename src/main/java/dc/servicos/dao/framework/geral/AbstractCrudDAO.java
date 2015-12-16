@@ -616,7 +616,7 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T>{
 			query = luceneQuery;
 
 		} else {
-			query = NumericRangeQuery.newIntRange(property.toString(), Integer.parseInt(start), Integer.parseInt(end), true, true);
+			query = NumericRangeQuery.newLongRange(property.toString(), Long.parseLong(start),  Long.parseLong(end), true, true);
 		}
 
 		return query;

@@ -13,189 +13,188 @@ import com.vaadin.data.Container;
 import com.vaadin.data.Property;
 
 public abstract class FileBuilder implements Serializable {
-    protected File file;
-    public Container container;
-    private Object[] visibleColumns;
-    private Map<Object, String> columnHeaderMap;
-    private String header;
-    private Locale locale = Locale.getDefault();;
-    private String dateFormatString = "MM/dd/yyyy hh:mm";
-    private  int coluna2 = 1;
-    public FileBuilder() {
+	protected File file;
+	public Container container;
+	private Object[] visibleColumns;
+	private Map<Object, String> columnHeaderMap;
+	private String header;
+	private Locale locale = Locale.getDefault();;
+	private String dateFormatString = "MM/dd/yyyy hh:mm";
+	private int coluna2 = 1;
 
-    }
+	public FileBuilder() {
 
-    public FileBuilder(Container container) {
-    	setContainer(container);
-    }
+	}
 
-    public void setContainer(Container container) {
-        this.container = container;
-        columnHeaderMap = new HashMap<Object, String>();
-        for (Object propertyId : container.getContainerPropertyIds()) {
-            columnHeaderMap
-                    .put(propertyId, propertyId.toString().toUpperCase());
-        }
-        if (visibleColumns == null) {
-            visibleColumns = container.getContainerPropertyIds().toArray();
-        }
-    }
+	public FileBuilder(Container container) {
+		setContainer(container);
+	}
 
-    public void setVisibleColumns(Object[] visibleColumns) {
-        this.visibleColumns = visibleColumns;
-    }
+	public void setContainer(Container container) {
+		this.container = container;
+		columnHeaderMap = new HashMap<Object, String>();
+		for (Object propertyId : container.getContainerPropertyIds()) {
+			columnHeaderMap.put(propertyId, propertyId.toString().toUpperCase());
+		}
+		if (visibleColumns == null) {
+			visibleColumns = container.getContainerPropertyIds().toArray();
+		}
+	}
 
-    public File getFile() {
-        try {
-            initTempFile();
-            resetContent();
-            buildFileContent();
-            writeToFile();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return file;
-    }
+	public void setVisibleColumns(Object[] visibleColumns) {
+		this.visibleColumns = visibleColumns;
+	}
 
-    private void initTempFile() throws IOException {
-        if (file != null) {
-            file.delete();
-        }
-        file = createTempFile();
-    }
+	public File getFile() {
+		try {
+			initTempFile();
+			resetContent();
+			buildFileContent();
+			writeToFile();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return file;
+	}
 
-    protected void buildFileContent() {
-        buildHeader();
-        buildColumnHeaders();
-        buildRows();
-        buildFooter();
-    }
+	private void initTempFile() throws IOException {
+		if (file != null) {
+			file.delete();
+		}
+		file = createTempFile();
+	}
 
-    protected void resetContent() {
+	protected void buildFileContent() {
+		buildHeader();
+		buildColumnHeaders();
+		buildRows();
+		buildFooter();
+	}
 
-    }
+	protected void resetContent() {
 
-    protected void buildColumnHeaders() {
-        if (visibleColumns.length == 0) {
-            return;
-        }
-        onHeader();
-        int coluna = 1;
-        for (Object propertyId : visibleColumns) {
-            if(coluna > 1){
-	        	String header = columnHeaderMap.get(propertyId);
-	            onNewCell();
-	            buildColumnHeaderCell(header);
-            }
-            coluna++;
-        }
-    }
+	}
 
-    protected void onHeader() {
-        onNewRow();
-    }
+	protected void buildColumnHeaders() {
+		if (visibleColumns.length == 0) {
+			return;
+		}
+		onHeader();
+		int coluna = 1;
+		for (Object propertyId : visibleColumns) {
+			if (coluna > 1) {
+				String header = columnHeaderMap.get(propertyId);
+				onNewCell();
+				buildColumnHeaderCell(header);
+			}
+			coluna++;
+		}
+	}
 
-    protected void buildColumnHeaderCell(String header) {
+	protected void onHeader() {
+		onNewRow();
+	}
 
-    }
+	protected void buildColumnHeaderCell(String header) {
 
-    protected void buildHeader() {
-        // TODO Auto-generated method stub
+	}
 
-    }
+	protected void buildHeader() {
+		// TODO Auto-generated method stub
 
-    private void buildRows() {
-        if (container == null || container.getItemIds().isEmpty()) {
-            return;
-        }
-        
-        for (Object itemId : container.getItemIds()) {
-        	 if(coluna2 > 1){
-               onNewRow();
-               buildRow(itemId);
-        	 }
-        	 coluna2++;
-        }
-    }
+	}
 
-    private void buildRow(Object itemId) {
-        if (visibleColumns.length == 0) {
-            return;
-        }
-        //int coluna = 1;
-        
-        if(getFileExtension().equalsIgnoreCase(".xls")){
-        	coluna2 = 1;
-        }
-        
-        for (Object propertyId : visibleColumns) {
-        	 if(coluna2 > 1){
-        	
-		            Property<?> property = container.getContainerProperty(itemId,
-		                    propertyId);
-		            onNewCell();
-		            buildCell(property == null ? null : property.getValue());
-        	 }
-        	 coluna2++;
-        }
-    }
+	private void buildRows() {
+		if (container == null || container.getItemIds().isEmpty()) {
+			return;
+		}
 
-    protected void onNewRow() {
+		for (Object itemId : container.getItemIds()) {
+			if (coluna2 > 1) {
+				onNewRow();
+				buildRow(itemId);
+			}
+			coluna2++;
+		}
+	}
 
-    }
+	private void buildRow(Object itemId) {
+		if (visibleColumns.length == 0) {
+			return;
+		}
+		// int coluna = 1;
 
-    protected void onNewCell() {
+		if (getFileExtension().equalsIgnoreCase(".xls")) {
+			coluna2 = 1;
+		}
 
-    }
+		for (Object propertyId : visibleColumns) {
+			if (coluna2 > 1) {
 
-    protected abstract void buildCell(Object value);
+				Property<?> property = container.getContainerProperty(itemId, propertyId);
+				onNewCell();
+				buildCell(property == null ? null : property.getValue());
+			}
+			coluna2++;
+		}
+	}
 
-    protected void buildFooter() {
-        // TODO Auto-generated method stub
+	protected void onNewRow() {
 
-    }
+	}
 
-    protected abstract String getFileExtension();
+	protected void onNewCell() {
 
-    protected String getFileName() {
-        return "tmp";
-    }
+	}
 
-    protected File createTempFile() throws IOException {
-        return File.createTempFile(getFileName(), getFileExtension());
-    }
+	protected abstract void buildCell(Object value);
 
-    protected abstract void writeToFile();
+	protected void buildFooter() {
+		// TODO Auto-generated method stub
 
-    public void setColumnHeader(Object propertyId, String header) {
-        columnHeaderMap.put(propertyId, header);
-    }
+	}
 
-    public String getHeader() {
-        return header;
-    }
+	protected abstract String getFileExtension();
 
-    public void setHeader(String header) {
-        this.header = header;
-    }
+	protected String getFileName() {
+		return "tmp";
+	}
 
-    protected int getNumberofColumns() {
-        return visibleColumns.length;
-    }
+	protected File createTempFile() throws IOException {
+		return File.createTempFile(getFileName(), getFileExtension());
+	}
+
+	protected abstract void writeToFile();
+
+	public void setColumnHeader(Object propertyId, String header) {
+		columnHeaderMap.put(propertyId, header);
+	}
+
+	public String getHeader() {
+		return header;
+	}
+
+	public void setHeader(String header) {
+		this.header = header;
+	}
+
+	protected int getNumberofColumns() {
+		return visibleColumns.length;
+	}
 
 	public void setLocale(Locale locale) {
 		this.locale = locale;
 	}
-	
+
 	public void setDateFormat(String dateFormat) {
 		this.dateFormatString = dateFormat;
 	}
-	
-	protected String getDateFormatString(){
+
+	protected String getDateFormatString() {
 		return dateFormatString;
 	}
-	
-	protected String formatDate(Date date){
+
+	protected String formatDate(Date date) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString, locale);
 		return dateFormat.format(date);
 	}
