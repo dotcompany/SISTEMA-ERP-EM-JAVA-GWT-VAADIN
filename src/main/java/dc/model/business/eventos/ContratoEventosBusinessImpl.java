@@ -23,7 +23,7 @@ public class ContratoEventosBusinessImpl implements ContratoEventosBusiness<Cont
 		private static Logger logger = Logger.getLogger(ContratoEventosBusinessImpl.class);
 		
 		@Autowired
-		private IContratoEventosDAO<ContratoEventosEntity> dao;
+		private IContratoEventosDAO dao;
 
 		@Override
 		public Class<ContratoEventosEntity> getEntityClass() {

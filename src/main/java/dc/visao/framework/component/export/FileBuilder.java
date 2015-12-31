@@ -20,7 +20,7 @@ public abstract class FileBuilder implements Serializable {
 	private String header;
 	private Locale locale = Locale.getDefault();;
 	private String dateFormatString = "MM/dd/yyyy hh:mm";
-	private int coluna2 = 1;
+	private int numberofColumns = 0;
 
 	public FileBuilder() {
 
@@ -80,14 +80,12 @@ public abstract class FileBuilder implements Serializable {
 			return;
 		}
 		onHeader();
-		int coluna = 1;
 		for (Object propertyId : visibleColumns) {
-			if (coluna > 1) {
+			if (!"".equals(propertyId)) {
 				String header = columnHeaderMap.get(propertyId);
 				onNewCell();
 				buildColumnHeaderCell(header);
 			}
-			coluna++;
 		}
 	}
 
@@ -110,11 +108,8 @@ public abstract class FileBuilder implements Serializable {
 		}
 
 		for (Object itemId : container.getItemIds()) {
-			if (coluna2 > 1) {
-				onNewRow();
-				buildRow(itemId);
-			}
-			coluna2++;
+			onNewRow();
+			buildRow(itemId);
 		}
 	}
 
@@ -125,17 +120,15 @@ public abstract class FileBuilder implements Serializable {
 		// int coluna = 1;
 
 		if (getFileExtension().equalsIgnoreCase(".xls")) {
-			coluna2 = 1;
+			//coluna2 = 1;
 		}
 
 		for (Object propertyId : visibleColumns) {
-			if (coluna2 > 1) {
-
+			if (!"".equals(propertyId)) {
 				Property<?> property = container.getContainerProperty(itemId, propertyId);
 				onNewCell();
 				buildCell(property == null ? null : property.getValue());
 			}
-			coluna2++;
 		}
 	}
 
@@ -179,7 +172,15 @@ public abstract class FileBuilder implements Serializable {
 	}
 
 	protected int getNumberofColumns() {
-		return visibleColumns.length;
+		if(numberofColumns == 0){
+			for (int i = 0; i < visibleColumns.length; i++) {
+				if(!"".equals(visibleColumns[i])){
+					numberofColumns++;
+				}
+			}
+		}
+		
+		return numberofColumns;
 	}
 
 	public void setLocale(Locale locale) {

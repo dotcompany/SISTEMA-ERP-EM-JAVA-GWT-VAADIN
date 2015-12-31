@@ -17,7 +17,9 @@ import com.vaadin.ui.CustomTable;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 
-public abstract class Exporter extends Button implements StreamSource, Serializable {
+import dc.visao.framework.component.export.OnDemandFileDownloader.OnDemandStreamResource;
+
+public abstract class Exporter extends Button implements OnDemandStreamResource, Serializable {
 
 	private static final long serialVersionUID = 1L;
 

@@ -107,6 +107,11 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
 	public static BigDecimal createBigDecimal(Object obj) {
 		return (BigDecimal) obj;
 	}
+	
+	public static BigDecimal createBigDecimal(Number obj) {
+		return new BigDecimal(obj.doubleValue());
+	}
+
 
 	public static int toInt(Object obj) {
 		return (int) obj;

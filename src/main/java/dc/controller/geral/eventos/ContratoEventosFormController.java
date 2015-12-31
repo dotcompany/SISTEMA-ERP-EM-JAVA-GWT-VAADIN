@@ -89,11 +89,18 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 			fieldGroup.bind(this.subView.getTxtUnidade(),"unidade");
 			fieldGroup.bind(this.subView.getTxtAnoFormatura(),"anoFormatura");
 			fieldGroup.bind(this.subView.getTxtQuantidadeFormandos(),"quantidadeFormandos");
+			fieldGroup.bind(this.subView.getPdfDataContrato(),"dataContrato");
+			fieldGroup.bind(this.subView.getPdfDataPrimeiroEvento(),"dataPrimeiroEvento");
+	
 			
 			this.subView.getMocNomeCerimonial().configuraCombo(
 					"nome", CerimonialEventosListController.class, this.cerimonialEventosDAO, this.getMainController());
 
+			fieldGroup.bind(this.subView.getMocNomeCerimonial(), "nomeCerimonial");
 			comboTipoSemestre();
+			
+			fieldGroup.bind(this.subView.getCbTipoSemestre(), "tipoSemestre");
+
 
 		} catch (Exception e) {
 			e.printStackTrace();

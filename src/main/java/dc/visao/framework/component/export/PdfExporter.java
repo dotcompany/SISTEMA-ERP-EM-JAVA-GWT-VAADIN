@@ -4,6 +4,10 @@ import com.vaadin.ui.Table;
 
 public class PdfExporter extends Exporter {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private TableHolder tableHolder;
 	
     public PdfExporter() {
@@ -47,6 +51,11 @@ public class PdfExporter extends Exporter {
 	public void convertTable() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String getFilename() {
+		return getDownloadFileName();
 	}
 
 }

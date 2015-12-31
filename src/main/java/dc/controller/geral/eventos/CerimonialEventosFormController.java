@@ -14,8 +14,8 @@ import com.vaadin.ui.Component;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.diverso.UfEntity;
 import dc.entidade.geral.eventos.CerimonialEventosEntity;
-import dc.servicos.dao.geral.UfDAO;
-import dc.servicos.dao.geral.eventos.CerimonialEventosDAO;
+import dc.servicos.dao.geral.IUfDAO;
+import dc.servicos.dao.geral.eventos.ICerimonialEventosDAO;
 import dc.visao.framework.DCFieldGroup;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.geral.eventos.CerimonialEventosFormView;
@@ -51,10 +51,10 @@ public class CerimonialEventosFormController extends
 	 */
 
 	@Autowired
-	private CerimonialEventosDAO cerimonialEventosDAO;
+	private ICerimonialEventosDAO cerimonialEventosDAO;
 
 	@Autowired
-	private UfDAO ufDAO;
+	private IUfDAO ufDAO;
 
 	/**
 	 * CONSTRUTOR
@@ -104,14 +104,18 @@ public class CerimonialEventosFormController extends
 			// Mapeia os campos
 
 			fieldGroup.bind(this.subView.getTxtNome(), "nome");
-			//fieldGroup.bind(this.subView.getTxtCnpj(), "cnpj");
+			fieldGroup.bind(this.subView.getTxtCnpj(), "cnpj");
 			fieldGroup.bind(this.subView.getTfEndereco(), "endereco");
 			fieldGroup.bind(this.subView.getTfBairro(), "bairro");
 			fieldGroup.bind(this.subView.getTxtComplemento(), "complemento");
 			fieldGroup.bind(this.subView.getTfEmail(), "email");
+			fieldGroup.bind(this.subView.getTfCep(), "cep");
+			fieldGroup.bind(this.subView.getTfCidade(), "cidade");
+
 			
 			fieldGroup.bind(this.subView.getTfTelefone(),"telefone");
 			fieldGroup.bind(this.subView.getTfCelular(),"celular");
+			fieldGroup.bind(this.subView.getTxtContato(),"contato");
 
 			// this.subView.getMocUf().configuraCombo(
 			// "nome", UfListController.class, this.ufDAO,
@@ -210,7 +214,12 @@ public class CerimonialEventosFormController extends
 					UfEntity.class, auxLista);
 
 			this.subView.getMocUf().setContainerDataSource(bic);
-			this.subView.getMocUf().setItemCaptionPropertyId("nome");
+			this.subView.getMocUf().setItemCaptionPropertyId("sigla");
+			
+			fieldGroup.bind(this.subView.getTxtContato(), "contato");
+			fieldGroup.bind(this.subView.getMocUf(), "siglaUf");
+			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 

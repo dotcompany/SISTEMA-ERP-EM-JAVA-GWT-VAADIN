@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.eventos.ContratoEventosEntity;
-import dc.servicos.dao.geral.eventos.ContratoEventosDAO;
+import dc.model.dao.eventos.IContratoEventosDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -22,7 +22,7 @@ public class ContratoEventosListController extends CRUDListController<ContratoEv
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	private ContratoEventosDAO dao;
+	private IContratoEventosDAO dao;
 
 	@Autowired
 	private ContratoEventosFormController contratoEventosFormController;
@@ -82,6 +82,7 @@ public class ContratoEventosListController extends CRUDListController<ContratoEv
 	protected List<ContratoEventosEntity> pesquisaDefault() {
 		try {
 			
+			@SuppressWarnings("unchecked")
 			List<ContratoEventosEntity> auxLista = (List<ContratoEventosEntity>) this.dao.getAll(getEntityClass());
 
 			return auxLista;

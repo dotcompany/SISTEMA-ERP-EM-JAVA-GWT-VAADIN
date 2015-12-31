@@ -27,6 +27,7 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import dc.anotacoes.Caption;
 import dc.control.enums.TipoSemestre;
@@ -108,6 +109,7 @@ public class ContratoEventosEntity extends AbstractMultiEmpresaModel<Integer> im
 	@JoinColumn(name = "id_nome_cerimonial", referencedColumnName = "id")
 	//@ManyToOne(optional = false)
 	@ManyToOne(optional = false,fetch = FetchType.LAZY)
+	@IndexedEmbedded(includePaths={"nome"})
 	private CerimonialEventosEntity nomeCerimonial;
 	
 	@Enumerated(EnumType.STRING)
@@ -191,13 +193,13 @@ public class ContratoEventosEntity extends AbstractMultiEmpresaModel<Integer> im
 		this.tipoSemestre = tipoSemestre;
 	}
 
-	/*public CerimonialEventosEntity getNomeCerimonial() {
+	public CerimonialEventosEntity getNomeCerimonial() {
 		return nomeCerimonial;
 	}
 
 	public void setNomeCerimonial(CerimonialEventosEntity nomeCerimonial) {
 		this.nomeCerimonial = nomeCerimonial;
-	}*/
+	}
 	
 	@Override
 	public String toString() {

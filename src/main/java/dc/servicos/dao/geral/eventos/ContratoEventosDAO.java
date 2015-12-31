@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dc.entidade.geral.eventos.ContratoEventosEntity;
+import dc.model.dao.eventos.IContratoEventosDAO;
 import dc.servicos.dao.framework.geral.AbstractCrudDAO;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class ContratoEventosDAO extends AbstractCrudDAO<ContratoEventosEntity> {
+public class ContratoEventosDAO extends AbstractCrudDAO<ContratoEventosEntity> implements IContratoEventosDAO{
 
 	@Override
 	public Class<ContratoEventosEntity> getEntityClass() {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import dc.control.util.ClassUtils;
 import dc.entidade.geral.eventos.CerimonialEventosEntity;
 import dc.servicos.dao.geral.eventos.CerimonialEventosDAO;
+import dc.servicos.dao.geral.eventos.ICerimonialEventosDAO;
 import dc.visao.framework.geral.CRUDFormController;
 import dc.visao.framework.geral.CRUDListController;
 
@@ -25,7 +26,7 @@ public class CerimonialEventosListController extends CRUDListController<Cerimoni
 	private CerimonialEventosFormController cerimonialEventosFormController;
 	
 	@Autowired
-	private CerimonialEventosDAO dao;
+	private ICerimonialEventosDAO dao;
 
 	/**
 	 * CONSTRUTOR

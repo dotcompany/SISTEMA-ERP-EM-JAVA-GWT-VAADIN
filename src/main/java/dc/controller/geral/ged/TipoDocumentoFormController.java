@@ -1,7 +1,6 @@
 package dc.controller.geral.ged;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,16 +72,15 @@ public class TipoDocumentoFormController extends
 		currentBean = tipoDocumentoDAO.find(id);
 		subView.getTxtNome().setValue(currentBean.getNome());
 		subView.getTxtTamanho().setValue(
-				currentBean.getTamanhoMaximo().toString());
+				currentBean.getTamanhoMaximo());
 
 	}
 
 	@Override
 	protected void actionSalvar() {
 		String nome = subView.getTxtNome().getValue();
-		String tamanhoMaximo = subView.getTxtTamanho().getValue();
 		currentBean.setNome(nome);
-		currentBean.setTamanhoMaximo(new BigDecimal(tamanhoMaximo));
+		currentBean.setTamanhoMaximo(subView.getTxtTamanho().getBigDecimalValue());
 		try {
 			tipoDocumentoDAO.saveOrUpdate(currentBean);
 			notifiyFrameworkSaveOK(this.currentBean);

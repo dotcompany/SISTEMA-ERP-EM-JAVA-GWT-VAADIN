@@ -217,37 +217,15 @@ public class CRUDListView extends CustomComponent implements View {
 		excelExporter.setCaption("   Exportar Excel");
 		excelExporter.setIcon(new ThemeResource("img/iconExcel.png"));
 		excelExporter.setDownloadFileName(controller.getTitulo() + ".xls");
-		//excelExporter.setTableToBeExported(controller.getTable());
-/*
-		excelExporter.addClickListener(new Button.ClickListener() {
-			public void buttonClick(ClickEvent event) {
-				excelExporter.export();
-			}
-		});
-*/
-		popupButtonContent.addComponent(excelExporter);
-		/*excelExporter.addListener(new ClickListener() {
-		 private static final long serialVersionUID = -73954695086117200L;
-         private ExcelExporter excelExport;
 
-         public void buttonClick(final ClickEvent event) {
-             excelExport = new ExcelExporter(table);
-             excelExport.excludeCollapsedColumns();
-             excelExport.setReportTitle("Demo Report");
-             excelExport.export();
-         }
-		});*/
+		popupButtonContent.addComponent(excelExporter);
+
 
 		pdfExporter = new PdfExporter();
 		pdfExporter.setCaption("   Exportar PDF");
 		pdfExporter.setIcon(new ThemeResource("img/iconPDF.gif"));
 		pdfExporter.setDownloadFileName(controller.getTitulo() + ".pdf");
-		//pdfExporter.setTableToBeExported(controller.getTable());
-		/*pdfExporter.addClickListener(new Button.ClickListener() {
-			public void buttonClick(ClickEvent event) {
 
-			}
-		})*/;
 
 		popupButtonContent.addComponent(pdfExporter);
 

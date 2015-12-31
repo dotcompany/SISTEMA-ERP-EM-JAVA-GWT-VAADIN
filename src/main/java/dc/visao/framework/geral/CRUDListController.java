@@ -341,8 +341,7 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 		String valor = view.getTxtPesquisa().getValue();
 
 		table = new SearchableCustomListTable();
-		view.getPdfExporter().setContainerToBeExported(table);
-		view.getExcelExporter().setContainerToBeExported(table);
+
 		if (menu.isConsultaFilterTable()) {
 			table.setFilterDecorator(new DCFilterDecorator());
 			table.setFilterGenerator(new DCFilterGenerator(this.getEntityClass()));
@@ -502,6 +501,8 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 		view.getVltTabela().removeAllComponents();
 		view.getVltTabela().addComponent(table);
 		table.setStyleName("sortTable");
+		view.getPdfExporter().setTableToBeExported(table);
+		view.getExcelExporter().setTableToBeExported(table);
 		
 	}
 
