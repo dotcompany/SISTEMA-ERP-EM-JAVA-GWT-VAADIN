@@ -36,7 +36,7 @@ repositories {
 vaadin {
     //7.5.0
     //7.3.10
-    version '7.5.10'
+    version '7.6.0'
     widgetset 'dc.framework.DCWidgetSet'
     widgetsetGenerator 'dc.framework.OptimizedConnectorBundleLoaderFactory'
     plugin {
@@ -82,8 +82,8 @@ dependencies {
 
     //compile ('org.slf4j:log4j-over-slf4j:1.7.10')
     compile ('org.slf4j:log4j-over-slf4j:1.7.12')
-    compile('com.vaadin:vaadin-server:7.5.10')
-    compile('com.vaadin:vaadin-client:7.5.10')
+    compile('com.vaadin:vaadin-server:7.6.0')
+    compile('com.vaadin:vaadin-client:7.6.0')
     
     //Biblioteca para ImportOfx
     compile ('net.sf.ofx4j:ofx4j:1.6')
@@ -136,8 +136,8 @@ dependencies {
     compile 'com.reveregroup.gwt:gwt-image-loader:1.1.4'
     compile 'org.vaadin.addons:imagescaler:2.0.0'
     compile 'org.vaadin.addons:popupbutton:2.6.0' 
-    compile 'org.vaadin.addons:filteringtable:0.9.13.v7'
-    compile 'com.vaadin:vaadin-push:7.5.10'
+    compile 'org.vaadin.addons:filteringtable:0.9.14.v7'
+    compile 'com.vaadin:vaadin-push:7.6.0'
     compile ('it.zero11.vaadin:asyncfiltercombobox:0.2.0'){
         exclude group:'com.vaadin'
     }
@@ -179,19 +179,19 @@ dependencies {
     compile 'commons-lang:commons-lang:2.6'
     compile 'commons-dbcp:commons-dbcp:1.4'
 
-    compile 'org.springframework:spring-beans:4.2.3.RELEASE'
-    compile ('org.springframework:spring-context:4.2.3.RELEASE') {
+    compile 'org.springframework:spring-beans:4.2.4.RELEASE'
+    compile ('org.springframework:spring-context:4.2.4.RELEASE') {
         exclude module: 'commons-logging'
     }
 
-    compile 'org.springframework:spring-core:4.2.3.RELEASE'
-    compile 'org.springframework:spring-expression:4.2.3.RELEASE'
-    compile 'org.springframework:spring-orm:4.2.3.RELEASE'
-    compile 'org.springframework:spring-jdbc:4.2.3.RELEASE'
-    compile 'org.springframework:spring-tx:4.2.3.RELEASE'
-    compile 'org.springframework:spring-web:4.2.3.RELEASE'
-    compile 'org.springframework:spring-webmvc:4.2.3.RELEASE'
-    compile 'org.springframework:spring-context-support:4.2.3.RELEASE'
+    compile 'org.springframework:spring-core:4.2.4.RELEASE'
+    compile 'org.springframework:spring-expression:4.2.4.RELEASE'
+    compile 'org.springframework:spring-orm:4.2.4.RELEASE'
+    compile 'org.springframework:spring-jdbc:4.2.4.RELEASE'
+    compile 'org.springframework:spring-tx:4.2.4.RELEASE'
+    compile 'org.springframework:spring-web:4.2.4.RELEASE'
+    compile 'org.springframework:spring-webmvc:4.2.4.RELEASE'
+    compile 'org.springframework:spring-context-support:4.2.4.RELEASE'
     compile 'org.springframework.data:spring-data-jpa:1.7.2.RELEASE'
     
     compile 'org.freemarker:freemarker:2.3.23'

@@ -30,10 +30,15 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.NumericField;
+import org.hibernate.search.annotations.Resolution;
+import org.hibernate.search.annotations.Store;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
@@ -76,28 +81,25 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	private SimNaoEn pagamentoCompartilhado;
 
 	@Field
+	@DateBridge(resolution = Resolution.DAY)
 	@Caption("Valor Total")
 	@Column(name = "VALOR_TOTAL", precision = 18, scale = 6)
 	//@NotNull(message = "Valor Total é Obrigatório")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorTotal;
 
-	@Field
+	@Field()
+	@DateBridge(resolution = Resolution.DAY)
 	@Column(name = "VALOR_A_PAGAR", precision = 18, scale = 6)
 	@Caption("Valor à Pagar")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorAPagar;
 
-	@Field
+	@Field(analyze=Analyze.NO)
+    @DateBridge(resolution=Resolution.MINUTE)
 	@Caption("Data Lançamento")
 	@Column(name = "DATA_LANCAMENTO")
 	@Temporal(TemporalType.DATE)
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataLancamento;
 
 	/*@Lob
@@ -124,11 +126,11 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	private FornecedorEntity fornecedor;
 
 	@Field
+	@NumericField
 	@Caption("Quantidade Parcela")
 	@Column(name = "QUANTIDADE_PARCELA")
 	@NotNull(message = "Quantidade de Parcelas é Obrigatório")
 	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer quantidadeParcela;
 
 	@Field
@@ -138,7 +140,8 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String numeroDocumento;
 
-	@Field
+    @DateBridge(resolution=Resolution.SECOND)
+	@Field(analyze=Analyze.YES, store=Store.YES, name="data")
 	@Caption("Primeiro Vencimento")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "PRIMEIRO_VENCIMENTO")

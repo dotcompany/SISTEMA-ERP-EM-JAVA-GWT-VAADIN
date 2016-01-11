@@ -127,6 +127,7 @@ public class ContratoEventosFormController extends CRUDFormController<ContratoEv
 		try {
 
 			this.business.saveOrUpdate(this.entity);
+			System.out.println(this.entity.getDataPrimeiroEvento().getTime());
 
 			notifiyFrameworkSaveOK(this.entity);
 		} catch (Exception e) {

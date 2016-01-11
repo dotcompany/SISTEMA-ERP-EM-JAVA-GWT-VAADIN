@@ -5,6 +5,7 @@ import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.hibernate.CacheMode;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.search.annotations.Indexed;
 import org.springframework.stereotype.Repository;
@@ -56,24 +57,16 @@ public class SearchIndexerDAO extends AbstractCrudDAO<Serializable> implements I
 		}
 		logger.info("call to index loading finished");
 		
-		try {
-			doIndex(classes.toArray(new Class[classes.size()]));
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		logger.info("call to index loading finished");
-		
 	}
 	private void doIndex(Class[] classes) throws InterruptedException {
 		logger.info("indexing: " + classes);
 		logger.info("indexing how many classes: " + classes.length);
 		for (int i = 0; i < classes.length; i++) {
-			logger.info("indexing:" + classes[i]);
-			getFullTextSession().createIndexer(classes[i]).batchSizeToLoadObjects(33).threadsForSubsequentFetching(20).threadsToLoadObjects(5)
-			// .cacheMode(CacheMode.NORMAL) // defaults to CacheMode.IGNORE
-					.startAndWait();
+			logger.info("indexing:" + classes[i]);	
 		}
+		getFullTextSession().createIndexer(classes).batchSizeToLoadObjects(33).threadsForSubsequentFetching(20).threadsToLoadObjects(5)
+		.cacheMode(CacheMode.NORMAL) // defaults to CacheMode.IGNORE
+				.startAndWait();
 	}
 
 	/* (non-Javadoc)
