@@ -29,7 +29,7 @@
 	}
 
 .v-vaadin-version:after {
-	content: "7.5.10";
+	content: "7.6.0";
 }
 
 .v-generated-body {
@@ -54,6 +54,23 @@
 
 .FontAwesome {
 	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	display: inline-block;
+}
+
+@font-face {
+	font-family: ThemeIcons;
+	src: url(../base/fonts/themeicons-webfont.eot);
+	src: url(../base/fonts/themeicons-webfont.eot?#iefix) format("embedded-opentype"), url(../base/fonts/themeicons-webfont.woff) format("woff"), url(../base/fonts/themeicons-webfont.ttf) format("truetype"), url(../base/fonts/themeicons-webfont.svg) format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+.ThemeIcons {
+	font-family: ThemeIcons;
 	font-style: normal;
 	font-weight: normal;
 	-webkit-font-smoothing: antialiased;
@@ -1583,6 +1600,37 @@ body .dotcompany.v-app .v-app-loading {
 	height: 0;
 }
 
+.dotcompany .v-reconnect-dialog {
+	color: white;
+	top: 12px;
+	right: 12px;
+	max-width: 100%;
+	border-radius: 0;
+	-webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
+	padding: 10px;
+	background-color: #444;
+	text-align: center;
+}
+
+.dotcompany .v-reconnect-dialog .text {
+	display: inline-block;
+	padding-left: 10px;
+}
+
+.dotcompany .v-reconnect-dialog .spinner {
+	background-image: url(../base/common/img/reconnect-spinner.gif);
+	width: 31px;
+	height: 31px;
+	display: none;
+	vertical-align: middle;
+}
+
+.dotcompany .v-reconnect-dialog.active .spinner {
+	display: inline-block;
+}
+
 .dotcompany .v-vertical.v-margin-top, .dotcompany .v-horizontal.v-margin-top {
 	padding-top: 12px;
 }
@@ -2592,6 +2640,10 @@ body .dotcompany.v-app .v-app-loading {
 	z-index: 5;
 }
 
+.dotcompany .v-grid-sidebar.v-contextmenu.v-grid-sidebar-popup {
+	right: auto;
+}
+
 .dotcompany .v-grid-sidebar.v-contextmenu .v-grid-sidebar-button {
 	background: transparent;
 	border: none;
@@ -2614,7 +2666,7 @@ body .dotcompany.v-app .v-app-loading {
 .dotcompany .v-grid-sidebar.v-contextmenu .v-grid-sidebar-button:after {
 	content: "\f0c9";
 	display: block;
-	font-family: FontAwesome, sans-serif;
+	font-family: ThemeIcons, sans-serif;
 	font-size: 16px;
 }
 
@@ -2652,7 +2704,7 @@ body .dotcompany.v-app .v-app-loading {
 
 .dotcompany .v-grid-cell {
 	background-color: #fff;
-	padding: 0 5px;
+	padding: 0 10px;
 	line-height: 24px;
 	text-overflow: ellipsis;
 }
@@ -2722,19 +2774,37 @@ body .dotcompany.v-app .v-app-loading {
 }
 
 .dotcompany .v-grid-header .sort-asc, .dotcompany .v-grid-header .sort-desc {
-	padding-right: 24px;
+	padding-right: 29px;
 }
 
 .dotcompany .v-grid-header .sort-asc:after, .dotcompany .v-grid-header .sort-desc:after {
-	font-family: FontAwesome, sans-serif;
+	font-family: ThemeIcons, sans-serif;
 	content: "\f0de" " " attr(sort-order);
 	position: absolute;
-	right: 5px;
+	right: 10px;
 	font-size: 14px;
 }
 
 .dotcompany .v-grid-header .sort-desc:after {
 	content: "\f0dd" " " attr(sort-order);
+}
+
+.dotcompany .v-grid-column-resize-handle {
+	position: absolute;
+	width: 20px;
+	top: 0px;
+	bottom: 0px;
+	cursor: col-resize;
+	z-index: 10;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.dotcompany .sort-asc  > .v-grid-column-resize-handle, .dotcompany .sort-desc  > .v-grid-column-resize-handle {
+	right: -10px;
 }
 
 .dotcompany .v-grid-footer td {
@@ -2749,6 +2819,18 @@ body .dotcompany.v-app .v-app-loading {
 
 .dotcompany .v-grid-footer td:first-child {
 	border-left: none;
+}
+
+.dotcompany .v-grid-header .v-grid-cell, .dotcompany .v-grid-footer .v-grid-cell {
+	overflow: visible;
+}
+
+.dotcompany .v-grid-column-header-content, .dotcompany .v-grid-column-footer-content {
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: 24px;
+	vertical-align: baseline;
 }
 
 .dotcompany .v-grid-header-deco {
@@ -2812,6 +2894,10 @@ body .dotcompany.v-app .v-app-loading {
 	box-shadow: 0 0 9px rgba(0, 0, 0, 0.2);
 }
 
+.dotcompany .v-grid-editor.unbuffered .v-grid-editor-footer {
+	width: 100%;
+}
+
 .dotcompany .v-grid-editor-cells {
 	position: relative;
 	white-space: nowrap;
@@ -2839,6 +2925,22 @@ body .dotcompany.v-app .v-app-loading {
 	display: inline-block;
 }
 
+.dotcompany .v-grid-editor-cells  > div .v-filterselect {
+	padding-left: 0;
+}
+
+.dotcompany .v-grid-editor-cells  > div input[type="text"], .dotcompany .v-grid-editor-cells  > div input[type="text"].v-filterselect-input, .dotcompany .v-grid-editor-cells  > div input[type="password"] {
+	padding-left: 10px;
+}
+
+.dotcompany .v-grid-editor-cells  > div input[type="text"]:not(.v-filterselect-input), .dotcompany .v-grid-editor-cells  > div input[type="password"] {
+	padding-right: 5px;
+}
+
+.dotcompany .v-grid-editor-cells  > div input[type="checkbox"] {
+	margin-left: 10px;
+}
+
 .dotcompany .v-grid-editor-cells  > div .v-textfield, .dotcompany .v-grid-editor-cells  > div .v-datefield, .dotcompany .v-grid-editor-cells  > div .v-filterselect {
 	min-width: 100%;
 	max-width: 100%;
@@ -2857,6 +2959,10 @@ body .dotcompany.v-app .v-app-loading {
 .dotcompany .v-grid-editor-cells  > div .v-select, .dotcompany .v-grid-editor-cells  > div .v-select-select {
 	min-width: 100%;
 	max-width: 100%;
+}
+
+.dotcompany .v-grid-editor-cells  > div.not-editable.v-grid-cell {
+	float: none;
 }
 
 .dotcompany .v-grid-editor-cells .error::before {
