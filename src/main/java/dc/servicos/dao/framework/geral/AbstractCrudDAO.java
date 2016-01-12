@@ -623,7 +623,7 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T> {
 			if (endValue instanceof Integer) {
 				endInt = (Integer) endValue;
 			}
-			query = NumericRangeQuery.newIntRange(property.toString(), startInt, endInt, false, false);
+			query = NumericRangeQuery.newIntRange(property.toString(), startInt, endInt, equals, equals);
 		} else if (startValue instanceof Date || endValue instanceof Date) {
 
 			String start = "-99999999999999999";
@@ -652,7 +652,7 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T> {
 				endLong = (Long) endValue;
 			}
 
-			query = NumericRangeQuery.newLongRange(property.toString(), startLong, endLong, false, false);
+			query = NumericRangeQuery.newLongRange(property.toString(), startLong, endLong, equals, equals);
 		}
 
 		return query;

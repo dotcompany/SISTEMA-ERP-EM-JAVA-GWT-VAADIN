@@ -30,10 +30,14 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
+import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Store;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
@@ -41,6 +45,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.geral.pessoal.ClienteEntity;
+import dc.visao.spring.DCDateBridge;
 
 @Entity
 @Table(name = "lancamento_receber")
@@ -77,7 +82,8 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> implem
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorAReceber;
 
-	@Field
+	@Field(index = Index.YES, analyze=Analyze.NO, store = Store.YES)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_LANCAMENTO")
 	@Caption(value = "Data Lançamento")
@@ -88,7 +94,8 @@ public class LancamentoReceber extends AbstractMultiEmpresaModel<Integer> implem
 	@Caption(value = "Número Documento")
 	private String numeroDocumento;
 
-	@Field
+	@Field(index = Index.YES, analyze=Analyze.NO, store = Store.YES)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Temporal(TemporalType.DATE)
 	@Column(name = "PRIMEIRO_VENCIMENTO")
 	@Caption(value = "Primeiro Vencimento")

@@ -34,6 +34,8 @@ import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
+import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.NumericField;
@@ -47,6 +49,7 @@ import dc.control.enums.SimNaoEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.FornecedorEntity;
+import dc.visao.spring.DCDateBridge;
 
 /** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
  *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
@@ -96,7 +99,7 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	private BigDecimal valorAPagar;
 
 	@Field(analyze=Analyze.NO)
-    @DateBridge(resolution=Resolution.MINUTE)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Caption("Data Lançamento")
 	@Column(name = "DATA_LANCAMENTO")
 	@Temporal(TemporalType.DATE)
@@ -140,8 +143,8 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Analyzer(definition = "dc_combo_analyzer")
 	private String numeroDocumento;
 
-    @DateBridge(resolution=Resolution.SECOND)
-	@Field(analyze=Analyze.YES, store=Store.YES, name="data")
+	@Field(index = Index.YES, analyze=Analyze.NO, store = Store.YES)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Caption("Primeiro Vencimento")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "PRIMEIRO_VENCIMENTO")
