@@ -28,12 +28,15 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.visao.spring.DCDateBridge;
 
 @Entity
 @Table(name = "orcamento_fluxo_caixa")
@@ -61,7 +64,8 @@ public class FluxoCaixaEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	    @Column(name = "DESCRICAO")
 	    private String descricao;
 	    
-	    @Field
+	    @Field(analyze=Analyze.NO)
+		@FieldBridge(impl = DCDateBridge.class )
 	    @Caption("Data Inicial")
 	    @Column(name = "DATA_INICIAL")
 	    @Temporal(TemporalType.DATE)
@@ -72,7 +76,8 @@ public class FluxoCaixaEntity extends AbstractMultiEmpresaModel<Integer> impleme
 	    @Column(name = "NUMERO_PERIODOS")
 	    private Integer numeroPeriodos;
 	    
-	    @Field
+	    @Field(analyze=Analyze.NO)
+		@FieldBridge(impl = DCDateBridge.class )
 	    @Caption("Data Base")
 	    @Column(name = "DATA_BASE")
 	    @Temporal(TemporalType.DATE)

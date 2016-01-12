@@ -21,14 +21,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.visao.spring.DCDateBridge;
 
 /**
 *
@@ -67,21 +70,19 @@ public class ExtratoContaBancoEntity extends AbstractMultiEmpresaModel<Integer> 
     @Column(name = "ANO")
     private String ano;
     
-	@Field
 	@Caption("Data Movimento")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
     @Column(name = "DATA_MOVIMENTO")
     @Temporal(TemporalType.DATE)
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
     private Date dataMovimento;
     
-	@Field
 	@Caption("Data Balancete")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
     @Column(name = "DATA_BALANCETE")
     @Temporal(TemporalType.DATE)
-     private Date dataBalancete;
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
+    private Date dataBalancete;
     
 	@Field
 	@Caption("Histórico")

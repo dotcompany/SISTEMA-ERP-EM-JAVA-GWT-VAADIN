@@ -28,8 +28,10 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
@@ -38,6 +40,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.visao.spring.DCDateBridge;
 
 @Entity
 @Table(name = "parcela_receber")
@@ -61,19 +64,22 @@ public class ParcelaReceber extends AbstractMultiEmpresaModel<Integer> {
 	@Caption(value = "Número Parcelas")
 	private Integer numeroParcela;
 
-	@Field
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_EMISSAO")
 	@Caption(value = "Data Emissão")
 	private Date dataEmissao;
-
-	@Field
+	
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_VENCIMENTO")
 	@Caption(value = "Data Vencimento")
 	private Date dataVencimento;
 
-	@Field
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DESCONTO_ATE")
 	@Caption(value = "Desconto até")

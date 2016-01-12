@@ -28,8 +28,10 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.format.annotation.NumberFormat;
@@ -39,6 +41,7 @@ import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.visao.spring.DCDateBridge;
 
 /** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
  *         os campos que vamos ter no nosso Banco de Dados Nessa classe temos o
@@ -69,22 +72,22 @@ public class ParcelaPagar extends AbstractMultiEmpresaModel<Integer> {
 	@Column(name = "DATA_EMISSAO")
 	@Temporal(TemporalType.DATE)
 	@Caption("Data Emissão")
-	@Field
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
-	//@NotNull(message = "Data Pagamento é Obrigatório!")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date dataEmissao;
 
 	@Caption("Data Vencimento")
 	@Column(name = "DATA_VENCIMENTO")
 	@Temporal(TemporalType.DATE)
-	@Field
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )	
 	private Date dataVencimento;
 
 	@Caption("Desconto Até")
 	@Column(name = "DESCONTO_ATE")
 	@Temporal(TemporalType.DATE)
-	@Field
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date descontoAte;
 
 	@Caption("Sofre Retencao")

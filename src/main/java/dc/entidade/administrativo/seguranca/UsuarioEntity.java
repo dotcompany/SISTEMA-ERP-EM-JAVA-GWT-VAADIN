@@ -26,8 +26,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -39,6 +41,7 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
 import dc.entidade.sistema.ContaEmpresa;
+import dc.visao.spring.DCDateBridge;
 
 @Entity
 @Table(name = "usuario")
@@ -82,11 +85,10 @@ public class UsuarioEntity extends AbstractMultiEmpresaModel<Integer> implements
 	private String senha = "";
 
 	@Temporal(TemporalType.DATE)
-	@Field
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Caption("Data de cadastro")
 	@Column(name = "DATA_CADASTRO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
 	@Field

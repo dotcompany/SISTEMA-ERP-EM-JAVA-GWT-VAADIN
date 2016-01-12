@@ -21,12 +21,15 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.visao.spring.DCDateBridge;
 
 /**
 *
@@ -70,10 +73,14 @@ public class LancamentoCentroResultado extends AbstractMultiEmpresaModel<Integer
     
     @Column(name = "DATA_LANCAMENTO")
     @Temporal(TemporalType.DATE)
+    @Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
     private Date dataLancamento;
     
     @Column(name = "DATA_INCLUSAO")
     @Temporal(TemporalType.DATE)
+    @Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
     private Date dataInclusao;
     
     @Column(name="ORIGEM_DE_RATEIO")

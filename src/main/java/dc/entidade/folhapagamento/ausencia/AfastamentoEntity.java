@@ -17,13 +17,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.geral.pessoal.ColaboradorEntity;
+import dc.visao.spring.DCDateBridge;
 
 /**
  * 
@@ -50,13 +53,15 @@ public class AfastamentoEntity extends AbstractMultiEmpresaModel<Integer>
 	@Basic(optional = false)
 	private Integer id;
 
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Column(name = "data_inicio")
-	@Field
 	@Caption("Data início")
 	private Date dataInicio;
 
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Column(name = "data_fim")
-	@Field
 	@Caption("Data Fim")
 	private Date dataFim;
 

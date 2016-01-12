@@ -20,8 +20,10 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
@@ -29,6 +31,7 @@ import dc.entidade.contabilidade.planoconta.PlanoContaEntity;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.visao.spring.DCDateBridge;
 
 @Entity
 @Table(name = "CONTABIL_CONTA")
@@ -74,11 +77,10 @@ public class ContabilContaEntity extends AbstractMultiEmpresaModel<Integer>
 	private String descricao;
 
 	@Temporal(TemporalType.DATE)
-	@Field
 	@Caption(value = "Data Inclusão")
 	@Column(name = "DATA_INCLUSAO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date dataInclusao;
 
 	@Field

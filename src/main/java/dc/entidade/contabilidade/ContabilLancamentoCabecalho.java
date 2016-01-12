@@ -28,9 +28,11 @@ public class ContabilLancamentoCabecalho implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    
     @Temporal(TemporalType.DATE)
     @Column(name = "DATA_LANCAMENTO")
     private Date dataLancamento;
+    
     @Temporal(TemporalType.DATE)
     @Column(name = "DATA_INCLUSAO")
     private Date dataInclusao;

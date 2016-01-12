@@ -30,8 +30,10 @@ import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
@@ -45,6 +47,7 @@ import dc.entidade.framework.EmpresaSeguimento;
 import dc.entidade.geral.diverso.PaisEntity;
 import dc.entidade.geral.pessoal.PessoaEnderecoEntity;
 import dc.entidade.sistema.ContaEmpresa;
+import dc.visao.spring.DCDateBridge;
 
 @Entity
 @Table(name = "empresa")
@@ -126,27 +129,24 @@ public class EmpresaEntity extends AbstractModel<Integer> implements
 	private String inscricaoJuntaComercial;
 
 	@Temporal(TemporalType.DATE)
-	@Field
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Caption()
 	@Column(name = "DATA_INSC_JUNTA_COMERCIAL")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataInscJuntaComercial;
 
 	@Temporal(TemporalType.DATE)
-	@Field
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Caption()
 	@Column(name = "DATA_CADASTRO")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataCadastro;
 
 	@Temporal(TemporalType.DATE)
-	@Field
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Caption()
 	@Column(name = "DATA_INICIO_ATIVIDADES")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataInicioAtividades;
 
 	@Field

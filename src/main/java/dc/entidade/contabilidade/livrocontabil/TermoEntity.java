@@ -18,14 +18,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.visao.spring.DCDateBridge;
 
 /**
  * 
@@ -97,39 +100,34 @@ public class TermoEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption(value = "Número do registro")
 	private String numeroRegistro = "";
 
-	@Field
 	@Column(name = "data_despacho")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Data do despacho")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date dataDespacho;
 
-	@Field
 	@Column(name = "data_abertura")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Data da abertura")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date dataAbertura;
 
-	@Field
 	@Column(name = "data_encerramento")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Data do encerramento")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date dataEncerramento;
 
-	@Field
 	@Column(name = "escrituracao_inicio")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Escrituração início")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date escrituracaoInicio;
 
-	@Field
 	@Column(name = "escrituracao_fim")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Escrituração término")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date escrituracaoFim;
 
 	@Field

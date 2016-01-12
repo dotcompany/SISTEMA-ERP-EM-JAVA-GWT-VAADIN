@@ -19,14 +19,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.visao.spring.DCDateBridge;
 
 /**
  * 
@@ -70,18 +73,16 @@ public class LoteEntity extends AbstractMultiEmpresaModel<Integer> implements
 	@Caption(value = "Liberado")
 	private String liberado = "";
 
-	@Field
 	@Column(name = "data_inclusao")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Data da inclusão")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date dataInclusao;
 
-	@Field
 	@Column(name = "data_liberacao")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
 	@Caption(value = "Data da liberacao")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date dataLiberacao;
 
 	@Field

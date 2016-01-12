@@ -85,7 +85,7 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 
 	@Field
 	@DateBridge(resolution = Resolution.DAY)
-	@Caption("Valor Total")
+	@Caption(value = "Valor Total", sum = true)
 	@Column(name = "VALOR_TOTAL", precision = 18, scale = 6)
 	//@NotNull(message = "Valor Total é Obrigatório")
 	@NumberFormat(style=Style.CURRENCY)
@@ -94,7 +94,7 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Field()
 	@DateBridge(resolution = Resolution.DAY)
 	@Column(name = "VALOR_A_PAGAR", precision = 18, scale = 6)
-	@Caption("Valor à Pagar")
+	@Caption(value = "Valor à Pagar", sum = true)
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorAPagar;
 

@@ -23,8 +23,10 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
@@ -33,6 +35,7 @@ import dc.entidade.financeiro.type.StatusChequeType;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.visao.spring.DCDateBridge;
 
 /**
 *
@@ -83,7 +86,8 @@ public class Cheque extends AbstractMultiEmpresaModel<Integer> implements Serial
 	@NotNull(message = "Status Cheque é Obrigatório!")
 	private StatusChequeType statusCheque;
     
-    @Field
+    @Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
     @Caption("Data Status")
     @Column(name = "DATA_STATUS")
     @Temporal(TemporalType.DATE)

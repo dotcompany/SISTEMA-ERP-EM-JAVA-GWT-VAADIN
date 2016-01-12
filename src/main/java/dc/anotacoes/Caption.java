@@ -15,4 +15,5 @@ import java.lang.annotation.Target;
 public @interface Caption {
 
 	String value() default "NULO";
+	boolean sum() default false;
 }

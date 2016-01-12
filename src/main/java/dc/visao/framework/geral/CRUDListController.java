@@ -669,7 +669,6 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 					if(table.getColumnGenerator(id_coluna) == null){
 						table.addGeneratedColumn(id_coluna, new ValueColumnGenerator("R$ %.2f"));
 					}
-					//table.setColumnFooter(id_coluna,  "teste");
 				}			              
 		    }
 		}

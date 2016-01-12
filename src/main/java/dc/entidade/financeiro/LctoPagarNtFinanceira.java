@@ -19,12 +19,16 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
 import dc.entidade.contabilidade.ContabilLancamentoDetalhe;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
+import dc.visao.spring.DCDateBridge;
 
 @Entity
 @Table(name = "LCTO_PAGAR_NT_FINANCEIRA")
@@ -43,6 +47,8 @@ public class LctoPagarNtFinanceira extends AbstractMultiEmpresaModel<Integer> im
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_INCLUSAO")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date dataInclusao;
 	
 	@Column(name = "VALOR")

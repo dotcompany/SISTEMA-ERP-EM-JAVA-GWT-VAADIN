@@ -21,8 +21,10 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Type;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
@@ -30,6 +32,7 @@ import dc.entidade.administrativo.empresa.EmpresaEntity;
 import dc.entidade.framework.AbstractModel;
 import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
+import dc.visao.spring.DCDateBridge;
 /**
  * 
  * 
@@ -155,20 +158,21 @@ public class ParametroCliente extends AbstractModel<Integer> implements Serializ
 	@Column(name = "QUANTIDADE_PARCELA")
 	private Integer quantidadeParcela;*/
 	
-	@Field
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Caption("Data Entrada")
 	@Column(name = "DATA_ENTRADA")
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Date dataEntrada;
 	
-	@Field
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	@Caption("Vencimento Promoção")
 	@Column(name = "VENCIMENTO_PROMOCAO")
-	@Analyzer(definition = "dc_combo_analyzer")
 	private Date vencimentoPromocao;
 	
 	@Column(name = "DIA_VENCIMENTO")
-	@Analyzer(definition = "dc_combo_analyzer")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date diaVencimento;
 	
 	@Field

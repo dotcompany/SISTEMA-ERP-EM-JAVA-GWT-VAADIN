@@ -1,12 +1,16 @@
 package dc.visao.framework.component;
 
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import org.tepi.filtertable.FilterTable;
+import org.vaadin.addons.lazyquerycontainer.CompositeItem;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -14,10 +18,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container;
+import com.vaadin.data.Item;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 
+import dc.anotacoes.AnotacoesUtil;
+import dc.anotacoes.Caption;
 import dc.visao.spring.SecuritySessionProvider;
 
 public class SearchableCustomListTable extends FilterTable {
@@ -118,7 +126,8 @@ public class SearchableCustomListTable extends FilterTable {
 			int w = getColumnWidth(propertyId);
 			logger.info("property: " + propertyId);
 			logger.info("width" + w);
-			if (!propertyId.equals("DEBUG_PROPERTY_ID_QUERY_COUT") && !propertyId.equals("DEBUG_PROPERTY_ID_BATCH_INDEX")
+			if (!propertyId.equals("DEBUG_PROPERTY_ID_QUERY_COUT")
+					&& !propertyId.equals("DEBUG_PROPERTY_ID_BATCH_INDEX")
 					&& !propertyId.equals("DEBUG_PROPERTY_ID_BATCH_QUERY_TIME")) {
 				colInfo.addProperty(propertyId, String.valueOf(w));
 			}
@@ -160,9 +169,83 @@ public class SearchableCustomListTable extends FilterTable {
 
 			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, null);
 			setColumnFooter(column, null);
+			setColumnFooter(column, size() + " registro(s) encontrado(s)");
+			Map<String, BigDecimal> somatorio = new HashMap<String, BigDecimal>();
+			List<Field> summableField = new ArrayList<Field>();
+			try {
+
+				setSummableFields(summableField);
+
+				for (Object itemId : this.getItemIds()) {
+					CompositeItem item = (CompositeItem) this.getItem(itemId);
+					item.getItemKeys();
+					BeanItem item2 = (BeanItem) item.getItem("bean");
+					Object beanItem = item2.getBean();
+
+					for (Field field : summableField) {
+						Object value = field.get(beanItem);
+
+						BigDecimal toSum = null;
+
+						if (value instanceof Long) {
+							toSum = new BigDecimal((Long) value);
+						} else if (value instanceof Integer) {
+							toSum = new BigDecimal((Integer) value);
+						} else if (value instanceof Double) {
+							toSum = new BigDecimal((Double) value);
+						} else if (value instanceof BigDecimal) {
+							toSum = (BigDecimal) value;
+						} else {
+							toSum = BigDecimal.ZERO;
+						}
+
+						BigDecimal sum = somatorio.get(field.getName());
+						if (sum == null) {
+							sum = BigDecimal.ZERO;
+						}
+
+						sum = sum.add(toSum);
+
+						somatorio.put(field.getName(), sum);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
-			setColumnFooter(column, size() + " registro(s) encontrado(s)");
+			Object[] collumns = getVisibleColumns();
+			for (Object object : collumns) {
+				if (object instanceof String) {
+					BigDecimal bigDecimal = somatorio.get(object);
+					if (bigDecimal != null) {
+						setColumnFooter(object, somatorio.get(object).toString());
+					}
+				}
+			}
+
+		}
+	}
+
+	private void setSummableFields(List<Field> summableField) {
+		if (this.getItemIds().size() > 0) {
+
+			CompositeItem item = (CompositeItem) this.getItem(this.getItemIds().iterator().next());
+			item.getItemKeys();
+			BeanItem item2 = (BeanItem) item.getItem("bean");
+			Object beanItem = item2.getBean();
+
+			Class<? extends Object> entityClass = beanItem.getClass();
+			Field[] declaredFields = entityClass.getDeclaredFields();
+			Caption captionAnn = null;
+			for (Field field : declaredFields) {
+				captionAnn = AnotacoesUtil.getAnotacao(Caption.class, entityClass, field.getName());
+
+				if (captionAnn != null && captionAnn.sum()) {
+					field.setAccessible(true);
+					summableField.add(field);
+				}
+			}
 
 		}
 	}
@@ -187,7 +270,8 @@ public class SearchableCustomListTable extends FilterTable {
 				});
 			}
 		}
-	}	
+	}
+
 	@Override
 	public void resetFilters() {
 		if (filterReset) {

@@ -30,8 +30,10 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 
 import dc.anotacoes.Caption;
@@ -41,6 +43,7 @@ import dc.entidade.framework.ComboCode;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.ClienteEntity;
 import dc.entidade.geral.pessoal.TransportadoraEntity;
+import dc.visao.spring.DCDateBridge;
 
 @Entity
 @Table(name = "venda_orcamento_cabecalho")
@@ -64,28 +67,25 @@ public class Orcamento extends AbstractMultiEmpresaModel<Integer> implements
 	@Analyzer(definition = "dc_combo_analyzer")
 	private Integer id;
 
-	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_cadastro")
 	@Caption(value = "Data de cadastro")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date dataCadastro;
 
-	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_entrega")
 	@Caption(value = "Data de entrega")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date dataEntrega;
 
-	@Field
 	@Temporal(TemporalType.DATE)
 	@Column(name = "validade")
 	@Caption(value = "Data de validade")
-	@ComboValue
-	@Analyzer(definition = "dc_combo_analyzer")
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = DCDateBridge.class )
 	private Date dataValidade;
 
 	@Field
