@@ -522,9 +522,10 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T> {
 																		// LESS,
 																		// GREATER_OR_EQUAL,
 																		// LESS_OR_EQUAL
-							// query = createEqualQuery(castedFilter.getValue(),
-							// property);
-							query = createGreaterLessQuery(castedFilter.getValue(), castedFilter.getValue(), property, true);
+							query = createEqualQuery(castedFilter.getValue(), property);
+							// query =
+							// createGreaterLessQuery(castedFilter.getValue(),
+							// castedFilter.getValue(), property, true);
 						} else if (operation.equals(Compare.Operation.GREATER_OR_EQUAL)) {
 							query = createGreaterLessQuery(castedFilter.getValue(), null, property);
 						} else if (operation.equals(Compare.Operation.LESS_OR_EQUAL)) {
@@ -581,12 +582,13 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T> {
 
 		return query;
 	}
-	
+
 	private org.apache.lucene.search.Query createGreaterLessQuery(Object startValue, Object endValue, Object property) {
 		return createGreaterLessQuery(startValue, endValue, property, false);
 	}
 
-	private org.apache.lucene.search.Query createGreaterLessQuery(Object startValue, Object endValue, Object property, boolean equals) {
+	private org.apache.lucene.search.Query createGreaterLessQuery(Object startValue, Object endValue, Object property,
+			boolean equals) {
 		org.apache.lucene.search.Query query = null;
 
 		if (startValue instanceof Boolean || endValue instanceof Boolean) {

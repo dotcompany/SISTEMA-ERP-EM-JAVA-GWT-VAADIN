@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -27,6 +30,7 @@ import org.vaadin.dialogs.DefaultConfirmDialogFactory;
 
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Property;
+import com.vaadin.data.util.converter.StringToDateConverter;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button.ClickEvent;
@@ -83,6 +87,8 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 	private static final int PAGE_SIZE = 100;
 	public static final int WINDOW_LIST = 1;
 	public static final int WINDOW_FORM = 2;
+
+	protected static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 	CRUDListView view;
 	private SearchableCustomListTable table;
 
@@ -557,7 +563,16 @@ public abstract class CRUDListController<E extends AbstractModel> extends
 						.equals(Date.class)) {
 					container.addContainerProperty(id_coluna, Date.class, null,
 							true, true);
+					
+					/*table.setConverter(id_coluna, new StringToDateConverter(){
+						@Override
+						protected DateFormat getFormat(Locale locale) {
+							return DATE_FORMAT;
+						}
+					});*/
+
 				}
+				
 
 				else if (getEntityClass().getDeclaredField(id_coluna).getType()
 						.equals(Double.class)) {

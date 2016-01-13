@@ -1,7 +1,9 @@
 package dc.visao.framework.component;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +11,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 import org.tepi.filtertable.FilterTable;
 import org.vaadin.addons.lazyquerycontainer.CompositeItem;
 
@@ -18,7 +22,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.sun.istack.logging.Logger;
 import com.vaadin.data.Container;
-import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.CheckBox;
@@ -45,6 +48,8 @@ public class SearchableCustomListTable extends FilterTable {
 
 	private static final String COLLUMN_INFO = "col_info";
 	private static final String COLLAPSED = "collapsed";
+	private static final DecimalFormat CURRENCY_DECIMAL_FORMAT =  new DecimalFormat("'R$' 0.00");
+	private static final DecimalFormat DEFAULT_DECIMAL_FORMAT = new DecimalFormat("0.00");
 
 	public void setEntityName(String name) {
 		this.entityName = name;
@@ -214,17 +219,36 @@ public class SearchableCustomListTable extends FilterTable {
 			}
 
 			setColumnFooter(SearchableCustomListTable.CUSTOM_SELECT_ID, "Total: ");
-			Object[] collumns = getVisibleColumns();
-			for (Object object : collumns) {
-				if (object instanceof String) {
-					BigDecimal bigDecimal = somatorio.get(object);
-					if (bigDecimal != null) {
-						setColumnFooter(object, somatorio.get(object).toString());
-					}
+			for (Field field : summableField) {
+				BigDecimal sum = somatorio.get(field.getName());
+				if (sum != null) {
+					setColumnFooter(field.getName(), getDecimalFormat(field).format(sum.doubleValue()));
 				}
 			}
 
 		}
+	}
+
+	private DecimalFormat getDecimalFormat(Field field) {
+		try {
+			NumberFormat anotacao = field.getAnnotation(NumberFormat.class);
+			if (anotacao != null) {
+				for (Method method : anotacao.annotationType().getDeclaredMethods()) {
+					Object value;
+
+					value = method.invoke(anotacao, (Object[]) null);
+
+					if ("style".equals(method.getName()) && value.equals(Style.CURRENCY)) {
+						return CURRENCY_DECIMAL_FORMAT;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return DEFAULT_DECIMAL_FORMAT;
+
 	}
 
 	private void setSummableFields(List<Field> summableField) {
@@ -239,6 +263,18 @@ public class SearchableCustomListTable extends FilterTable {
 			Field[] declaredFields = entityClass.getDeclaredFields();
 			Caption captionAnn = null;
 			for (Field field : declaredFields) {
+				Object[] collumns = getVisibleColumns();
+				boolean fieldVisable = false;
+				for (Object collumn : collumns) {
+					if (collumn.toString().equals(field.getName())) {
+						fieldVisable = true;
+						break;
+					}
+				}
+				if (!fieldVisable) {
+					continue;
+				}
+
 				captionAnn = AnotacoesUtil.getAnotacao(Caption.class, entityClass, field.getName());
 
 				if (captionAnn != null && captionAnn.sum()) {
