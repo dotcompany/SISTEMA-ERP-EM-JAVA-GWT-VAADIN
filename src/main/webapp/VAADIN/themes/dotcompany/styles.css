@@ -29,7 +29,7 @@
 	}
 
 .v-vaadin-version:after {
-	content: "7.6.0";
+	content: "7.6.1";
 }
 
 .v-generated-body {
@@ -2792,6 +2792,7 @@ body .dotcompany.v-app .v-app-loading {
 .dotcompany .v-grid-column-resize-handle {
 	position: absolute;
 	width: 20px;
+	right: -10px;
 	top: 0px;
 	bottom: 0px;
 	cursor: col-resize;
@@ -2801,10 +2802,6 @@ body .dotcompany.v-app .v-app-loading {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-}
-
-.dotcompany .sort-asc  > .v-grid-column-resize-handle, .dotcompany .sort-desc  > .v-grid-column-resize-handle {
-	right: -10px;
 }
 
 .dotcompany .v-grid-footer td {
