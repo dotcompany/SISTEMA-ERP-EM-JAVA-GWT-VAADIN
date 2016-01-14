@@ -5,6 +5,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -23,7 +24,6 @@ import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.NumericRangeQuery;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
-import org.apache.lucene.search.TermRangeQuery;
 import org.apache.lucene.util.Version;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
@@ -64,6 +64,7 @@ import dc.entidade.framework.ComboValue;
 import dc.entidade.framework.FmMenu;
 import dc.entidade.geral.ged.Documento;
 import dc.model.dao.AbstractDAO;
+import dc.visao.spring.BigDecimalNumericFieldBridge;
 import dc.visao.spring.SecuritySessionProvider;
 
 /**
@@ -522,10 +523,9 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T> {
 																		// LESS,
 																		// GREATER_OR_EQUAL,
 																		// LESS_OR_EQUAL
-							query = createEqualQuery(castedFilter.getValue(), property);
-							// query =
-							// createGreaterLessQuery(castedFilter.getValue(),
-							// castedFilter.getValue(), property, true);
+							//query = createEqualQuery(castedFilter.getValue(), property);
+							 query = createGreaterLessQuery(castedFilter.getValue(),
+							 castedFilter.getValue(), property, true);
 						} else if (operation.equals(Compare.Operation.GREATER_OR_EQUAL)) {
 							query = createGreaterLessQuery(castedFilter.getValue(), null, property);
 						} else if (operation.equals(Compare.Operation.LESS_OR_EQUAL)) {
@@ -603,7 +603,7 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T> {
 
 			SearchFactory searchFactory = fullTextSession.getSearchFactory();
 			org.apache.lucene.search.Query luceneQuery = null;
-			QueryParser parser = new QueryParser(Version.LUCENE_4_3, property.toString(),
+			QueryParser parser = new QueryParser(Version.LATEST, property.toString(),
 					searchFactory.getAnalyzer(Documento.class));
 			try {
 				luceneQuery = parser.parse("+" + property.toString() + ":" + startValue.toString());
@@ -640,6 +640,37 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T> {
 			}
 			query = NumericRangeQuery.newLongRange(property.toString(), Long.parseLong(start), Long.parseLong(end),
 					true, true);
+		} else if (startValue instanceof Double || endValue instanceof Double) {
+
+			Long startLong = Long.MIN_VALUE;
+			Long endLong = Long.MAX_VALUE;
+
+			if (startValue instanceof Double) {
+				startLong = new BigDecimal((Double) startValue).multiply(BigDecimalNumericFieldBridge.storeFactor)
+						.longValue();
+			}
+
+			if (endValue instanceof Double) {
+				endLong = new BigDecimal((Double) endValue).multiply(BigDecimalNumericFieldBridge.storeFactor)
+						.longValue();
+			}
+			query = NumericRangeQuery.newLongRange(property.toString(), startLong, endLong, equals, equals);
+
+			/*
+			 * Double startLong = new Double("-9999999999999"); Double endLong =
+			 * new Double("9999999999999");
+			 * 
+			 * if (startValue instanceof Double) { startLong = (Double)
+			 * startValue; }
+			 * 
+			 * if (endValue instanceof Double) { endLong = (Double) endValue; }
+			 * 
+			 * //query = TermRangeQuery.newStringRange(property.toString(),
+			 * startLong.toString(), endLong.toString(), equals, equals);
+			 * //valorTotal:{333.0 TO 1.7976931348623157E308} query =
+			 * NumericRangeQuery.newDoubleRange(property.toString(), startLong,
+			 * endLong, equals, equals);
+			 */
 		}
 
 		else {
@@ -668,7 +699,13 @@ public abstract class AbstractCrudDAO<T> implements AbstractDAO<T> {
 
 		if (value instanceof Boolean) {
 			matching = qb.keyword().onField(property.toString()).ignoreAnalyzer().matching(value);
-		} else {
+		}else if (value instanceof Double) {
+			Long longValue = new BigDecimal((Double) value).multiply(BigDecimalNumericFieldBridge.storeFactor)
+					.longValue();
+			
+			matching = qb.keyword().onField(property.toString()).matching(longValue);
+		}		
+		else {
 			matching = qb.keyword().onField(property.toString()).matching(value);
 		}
 

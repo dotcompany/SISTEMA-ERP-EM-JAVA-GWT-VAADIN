@@ -3,6 +3,7 @@ package dc.visao.framework.component.export;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -19,7 +20,11 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import com.vaadin.data.Container;
 
 public class ExcelFileBuilder extends FileBuilder {
-    private static final String DATE_CELL_STYLE = "m/d/yy h:mm";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static final String DATE_CELL_STYLE = "m/d/yy h:mm";
     private Workbook workbook;
     private Sheet sheet;
     private int rowNr;
@@ -84,6 +89,9 @@ public class ExcelFileBuilder extends FileBuilder {
             cell.setCellType(Cell.CELL_TYPE_STRING);
         } else if (value instanceof Double) {
             cell.setCellValue((Double) value);
+            cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+        }else if (value instanceof BigDecimal) {
+            cell.setCellValue(((BigDecimal) value).doubleValue());
             cell.setCellType(Cell.CELL_TYPE_NUMERIC);
         } else {
             cell.setCellValue(value.toString());

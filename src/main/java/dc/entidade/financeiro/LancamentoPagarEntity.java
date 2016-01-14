@@ -32,15 +32,14 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.NumericField;
-import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.bridge.builtin.BigDecimalBridge;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
@@ -49,6 +48,7 @@ import dc.control.enums.SimNaoEn;
 import dc.entidade.framework.AbstractMultiEmpresaModel;
 import dc.entidade.framework.ComboValue;
 import dc.entidade.geral.pessoal.FornecedorEntity;
+import dc.visao.spring.BigDecimalNumericFieldBridge;
 import dc.visao.spring.DCDateBridge;
 
 /** @author Wesley Jr /* Classe que possui o TO, ou seja, o mapeamento com todos
@@ -83,18 +83,19 @@ public class LancamentoPagarEntity extends AbstractMultiEmpresaModel<Integer> im
 	@Analyzer(definition = "dc_combo_analyzer")
 	private SimNaoEn pagamentoCompartilhado;
 
-	@Field
-	@DateBridge(resolution = Resolution.DAY)
+	@Field(analyze=Analyze.NO)
+	@FieldBridge(impl = BigDecimalNumericFieldBridge.class )
 	@Caption(value = "Valor Total", sum = true)
 	@Column(name = "VALOR_TOTAL", precision = 18, scale = 6)
-	//@NotNull(message = "Valor Total é Obrigatório")
+    @NumericField
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorTotal;
 
-	@Field()
-	@DateBridge(resolution = Resolution.DAY)
+	@Field(analyze=Analyze.NO)
 	@Column(name = "VALOR_A_PAGAR", precision = 18, scale = 6)
 	@Caption(value = "Valor à Pagar", sum = true)
+	@FieldBridge(impl = BigDecimalNumericFieldBridge.class )
+    @NumericField
 	@NumberFormat(style=Style.CURRENCY)
 	private BigDecimal valorAPagar;
 
