@@ -36,7 +36,7 @@ repositories {
 vaadin {
     //7.5.0
     //7.3.10
-    version '7.6.1'
+    version '7.6.2'
     widgetset 'dc.framework.DCWidgetSet'
     widgetsetGenerator 'dc.framework.OptimizedConnectorBundleLoaderFactory'
     plugin {
@@ -82,8 +82,8 @@ dependencies {
 
     //compile ('org.slf4j:log4j-over-slf4j:1.7.10')
     compile ('org.slf4j:log4j-over-slf4j:1.7.12')
-    compile('com.vaadin:vaadin-server:7.6.1')
-    compile('com.vaadin:vaadin-client:7.6.1')
+    compile('com.vaadin:vaadin-server:7.6.2')
+    compile('com.vaadin:vaadin-client:7.6.2')
     
     //Biblioteca para ImportOfx
     compile ('net.sf.ofx4j:ofx4j:1.6')
@@ -115,7 +115,7 @@ dependencies {
     }
 
 
-    compile('org.vaadin.addons.lazyquerycontainer:vaadin-lazyquerycontainer:7.4.0.1'){
+    compile('org.vaadin.addons.lazyquerycontainer:vaadin-lazyquerycontainer:7.6.1.3'){
         exclude module: 'vaadin' //by artifact name
         exclude module: 'vaadin-server' //by artifact name
         exclude module: 'vaadin-client' //by artifact name
@@ -137,14 +137,14 @@ dependencies {
     compile 'org.vaadin.addons:imagescaler:2.0.0'
     compile 'org.vaadin.addons:popupbutton:2.6.0' 
     compile 'org.vaadin.addons:filteringtable:0.9.15.v7'
-    compile 'com.vaadin:vaadin-push:7.6.1'
+    compile 'com.vaadin:vaadin-push:7.6.2'
     compile ('it.zero11.vaadin:asyncfiltercombobox:0.2.0'){
         exclude group:'com.vaadin'
     }
 
-    compile 'com.google.code.gson:gson:2.2'
+    compile 'com.google.code.gson:gson:2.5'
     compile 'org.vaadin.addons:imageviewer:0.5.1.v7'
-    compile 'org.vaadin.addon:easyuploads:7.4.2'
+    compile 'org.vaadin.addon:easyuploads:7.4.3'
 
     // ElCache
     compile 'net.sf.ehcache:ehcache:2.10.0'
