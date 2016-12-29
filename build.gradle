@@ -142,9 +142,9 @@ dependencies {
         exclude group:'com.vaadin'
     }
 
-    compile 'com.google.code.gson:gson:2.2'
+    compile 'com.google.code.gson:gson:2.8.0'
     compile 'org.vaadin.addons:imageviewer:0.5.1.v7'
-    compile 'org.vaadin.addon:easyuploads:7.4.2'
+    compile 'org.vaadin.addon:easyuploads:7.4.10'
 
     // ElCache
     compile 'net.sf.ehcache:ehcache:2.10.0'
