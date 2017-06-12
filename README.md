@@ -225,3 +225,13 @@ a classe `ManyToOneComboField`, que se comporta adequadamente como um `Field` no
 As classes `ProdutoFormController` e `ProdutoEntity`, atualmente, implementam parcialmente o novo método de mapeamente,
 para os atributos `nome`, `unidadeProduto`, `subGrupo` e `ippt`. Os atributos `unidadeProduto` e `subGrupo` são
 relacionamentos many-to-one e demonstram a funcionalidade com o `ManyToOneComboField`.
+
+
+
+============= CONFIGURAÇÃO DO BANCO FICA DENTRO DO ARQUIVO config.properties
+https://github.com/dotcompany/SISTEMA-ERP-EM-JAVA-GWT-VAADIN/blob/master/src/main/webapp/WEB-INF/spring/config.properties
+
+database.jdbc_url=jdbc:postgresql://198.50.171.114:5432/DOTERP
+#database.jdbc_url=jdbc:postgresql://localhost:5432/dotprod
+database.user=postgres
+database.password=postgres
