@@ -9,14 +9,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.octo.captcha.module.servlet.image.SimpleImageCaptchaServlet;
+/* import com.octo.captcha.module.servlet.image.SimpleImageCaptchaServlet; */
 
 public class CustomFilterLoginCaptcha extends
 		UsernamePasswordAuthenticationFilter {
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request,
-			HttpServletResponse response) throws AuthenticationException {
+			HttpServletResponse response) throws AuthenticationException  {/*
 
 		AuthenticationException exception = (AuthenticationException) request
 				.getSession().getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
@@ -29,7 +29,7 @@ public class CustomFilterLoginCaptcha extends
 				throw new InsufficientAuthenticationException(
 						"Captcha informado inválido");
 			}
-		}
-		return super.attemptAuthentication(request, response);
-	}
+		}*/
+		return null;
+	} 
 }
