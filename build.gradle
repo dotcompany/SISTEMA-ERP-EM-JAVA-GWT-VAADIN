@@ -1,11 +1,11 @@
 plugins {
-    id "fi.jasoft.plugin.vaadin" version "1.1.11"
+    id "fi.jasoft.plugin.vaadin" version "0.9.8"
 }
 
 apply plugin: 'eclipse'
 apply plugin: 'jetty'
-//apply plugin: 'idea'
-//apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+apply plugin: 'eclipse-wtp'
 
 
 version = '0.1-SNAPSHOT'
@@ -36,7 +36,7 @@ repositories {
 vaadin {
     //7.5.0
     //7.3.10
-    version '7.6.8'
+    version '7.6.3'
     widgetset 'dc.framework.DCWidgetSet'
     widgetsetGenerator 'dc.framework.OptimizedConnectorBundleLoaderFactory'
     plugin {
@@ -82,8 +82,8 @@ dependencies {
 
     //compile ('org.slf4j:log4j-over-slf4j:1.7.10')
     compile ('org.slf4j:log4j-over-slf4j:1.7.12')
-    compile('com.vaadin:vaadin-server:7.6.8')
-    compile('com.vaadin:vaadin-client:7.6.8')
+    compile('com.vaadin:vaadin-server:7.6.3')
+    compile('com.vaadin:vaadin-client:7.6.3')
     
     //Biblioteca para ImportOfx
     compile ('net.sf.ofx4j:ofx4j:1.6')
@@ -137,14 +137,14 @@ dependencies {
     compile 'org.vaadin.addons:imagescaler:2.0.0'
     compile 'org.vaadin.addons:popupbutton:2.6.0' 
     compile 'org.vaadin.addons:filteringtable:0.9.15.v7'
-    compile 'com.vaadin:vaadin-push:7.6.8'
+    compile 'com.vaadin:vaadin-push:7.6.3'
     compile ('it.zero11.vaadin:asyncfiltercombobox:0.2.0'){
         exclude group:'com.vaadin'
     }
 
-    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.google.code.gson:gson:2.5'
     compile 'org.vaadin.addons:imageviewer:0.5.1.v7'
-    compile 'org.vaadin.addon:easyuploads:7.4.10'
+    compile 'org.vaadin.addon:easyuploads:7.4.3'
 
     // ElCache
     compile 'net.sf.ehcache:ehcache:2.10.0'
@@ -201,11 +201,10 @@ dependencies {
     compile 'org.springframework.security:spring-security-config:4.0.2.RELEASE'
 
 
-   
     // CAPTCHA
    // compile 'com.octo.captcha:jcaptcha-api:1.0'
-    //compile 'com.octo.captcha:jcaptcha:2.0-alpha-1'
-   // compile ('com.octo.captcha:jcaptcha-integration-simple-servlet:2.0-alpha-1'){
+   // compile 'com.octo.captcha:jcaptcha:2.0-alpha-1'
+  //  compile ('com.octo.captcha:jcaptcha-integration-simple-servlet:2.0-alpha-1'){
    //     exclude module: 'servlet-api'
    // }
 
