@@ -202,11 +202,11 @@ dependencies {
 
 
     // CAPTCHA
-    compile 'com.octo.captcha:jcaptcha-api:1.0'
-    compile 'com.octo.captcha:jcaptcha:2.0-alpha-1'
-    compile ('com.octo.captcha:jcaptcha-integration-simple-servlet:2.0-alpha-1'){
-        exclude module: 'servlet-api'
-    }
+    //compile 'com.octo.captcha:jcaptcha-api:1.0'
+    //compile 'com.octo.captcha:jcaptcha:2.0-alpha-1'
+    //compile ('com.octo.captcha:jcaptcha-integration-simple-servlet:2.0-alpha-1'){
+     //   exclude module: 'servlet-api'
+   // }
 
     compile 'org.slf4j:jcl-over-slf4j:1.7.12'
     compile 'org.slf4j:slf4j-api:1.7.12'
