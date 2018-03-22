@@ -11,3 +11,5 @@
   if (!project.plugins.findPlugin(fi.jasoft.plugin.GradleVaadinPlugin)) {
   	 project.apply(plugin: fi.jasoft.plugin.GradleVaadinPlugin) 
   }
+  
+  TESTE
